@@ -22,9 +22,9 @@ import { createHash, randomUUID } from "node:crypto";
 const MODULE_PATH = fileURLToPath(import.meta.url);
 const ASSET_DIR = fileURLToPath(new URL("../assets/", import.meta.url));
 const EDITABLE_EXTENSIONS = new Set([".md", ".txt", ".json", ".yaml", ".yml", ".toml"]);
-const LONG_PROJECT_DIRECTORY_MARKERS = new Set(["正文", "大纲", "设定", "追踪"]);
-const SHORT_PROJECT_BODY_FILE = "正文.md";
-const SHORT_PROJECT_COMPANION_FILES = new Set(["小节大纲.md", "设定.md"]);
+const LONG_PROJECT_DIRECTORY_MARKERS = new Set(["prose", "outline", "setting", "tracking"]);
+const SHORT_PROJECT_BODY_FILE = "prose.md";
+const SHORT_PROJECT_COMPANION_FILES = new Set(["section-outline.md", "setting.md"]);
 const IGNORED_DIRECTORIES = new Set([
   ".git",
   ".omc",
@@ -109,7 +109,7 @@ function recordScanError(scanErrors, root, absolutePath, error) {
   scanErrors.push({
     path: errorPath,
     code: typeof error?.code === "string" ? error.code : "READ_ERROR",
-    message: `目录无法读取，请检查访问权限或挂载状态：${errorPath}`,
+    message: `Cannot read directory, check permissions or mount state: ${errorPath}`,
   });
 }
 
@@ -128,7 +128,7 @@ async function existingRealRoot(root) {
   const absolute = resolve(root);
   const info = await stat(absolute).catch(() => null);
   if (!info?.isDirectory()) {
-    throw new DashboardError(400, "invalid_workspace", `工作区不存在或不是目录：${absolute}`);
+    throw new DashboardError(400, "invalid_workspace", `Workspace does not exist or is not a directory: ${absolute}`);
   }
   return realpath(absolute);
 }
@@ -136,41 +136,41 @@ async function existingRealRoot(root) {
 export async function resolveWorkspacePath(root, requestedPath, options = {}) {
   const { editableOnly = false } = options;
   if (typeof requestedPath !== "string" || requestedPath.length === 0) {
-    throw new DashboardError(400, "invalid_path", "文件路径不能为空");
+    throw new DashboardError(400, "invalid_path", "File path must not be empty");
   }
   if (
     requestedPath.includes("\0") ||
     isAbsolute(requestedPath) ||
     /^[A-Za-z]:[\\/]/.test(requestedPath)
   ) {
-    throw new DashboardError(403, "path_outside_workspace", "只允许访问工作区内的相对路径");
+    throw new DashboardError(403, "path_outside_workspace", "Only relative paths inside the workspace are allowed");
   }
 
   const realRoot = await existingRealRoot(root);
   const candidate = resolve(realRoot, requestedPath);
   if (!isPathInside(candidate, realRoot)) {
-    throw new DashboardError(403, "path_outside_workspace", "路径超出工作区");
+    throw new DashboardError(403, "path_outside_workspace", "Path is outside the workspace");
   }
 
   const info = await lstat(candidate).catch((error) => {
     if (error?.code === "ENOENT") {
-      throw new DashboardError(404, "file_not_found", "文件不存在");
+      throw new DashboardError(404, "file_not_found", "File does not exist");
     }
     throw error;
   });
   if (info.isSymbolicLink()) {
-    throw new DashboardError(403, "symlink_not_editable", "Dashboard 不读写符号链接文件");
+    throw new DashboardError(403, "symlink_not_editable", "Dashboard does not read or write symlinked files");
   }
   if (!info.isFile()) {
-    throw new DashboardError(400, "not_a_file", "目标不是普通文件");
+    throw new DashboardError(400, "not_a_file", "Target is not a regular file");
   }
 
   const resolvedFile = await realpath(candidate);
   if (!isPathInside(resolvedFile, realRoot)) {
-    throw new DashboardError(403, "path_outside_workspace", "符号链接指向工作区外部");
+    throw new DashboardError(403, "path_outside_workspace", "Symlink points outside the workspace");
   }
   if (editableOnly && !isEditableFile(candidate)) {
-    throw new DashboardError(415, "unsupported_file_type", "该文件类型不支持在线编辑");
+    throw new DashboardError(415, "unsupported_file_type", "This file type does not support in-browser editing");
   }
 
   return { absolutePath: candidate, realRoot, info };
@@ -186,49 +186,49 @@ function directoryNode(absolutePath, relativePath) {
   };
 }
 
-function assertRelativeWorkspacePath(requestedPath, label = "路径") {
+function assertRelativeWorkspacePath(requestedPath, label = "path") {
   if (typeof requestedPath !== "string" || requestedPath.length === 0) {
-    throw new DashboardError(400, "invalid_path", `${label}不能为空`);
+    throw new DashboardError(400, "invalid_path", `${label} must not be empty`);
   }
   if (
     requestedPath.includes("\0") ||
     isAbsolute(requestedPath) ||
     /^[A-Za-z]:[\\/]/.test(requestedPath)
   ) {
-    throw new DashboardError(403, "path_outside_workspace", "只允许访问工作区内的相对路径");
+    throw new DashboardError(403, "path_outside_workspace", "Only relative paths inside the workspace are allowed");
   }
 }
 
 export async function resolveWorkspaceDirectory(root, requestedPath) {
-  assertRelativeWorkspacePath(requestedPath, "目录路径");
+  assertRelativeWorkspacePath(requestedPath, "directory path");
   const realRoot = await existingRealRoot(root);
   const candidate = resolve(realRoot, requestedPath);
   if (!isPathInside(candidate, realRoot)) {
-    throw new DashboardError(403, "path_outside_workspace", "路径超出工作区");
+    throw new DashboardError(403, "path_outside_workspace", "Path is outside the workspace");
   }
   if (
     requestedPath !== "." &&
     requestedPath.split(/[\\/]+/).some((segment) => shouldIgnoreDirectory(segment))
   ) {
-    throw new DashboardError(403, "directory_hidden", "该目录不会显示在 Dashboard 中");
+    throw new DashboardError(403, "directory_hidden", "This directory is not shown in the Dashboard");
   }
 
   const info = await lstat(candidate).catch((error) => {
     if (error?.code === "ENOENT") {
-      throw new DashboardError(404, "directory_not_found", "目录不存在");
+      throw new DashboardError(404, "directory_not_found", "Directory does not exist");
     }
     throw error;
   });
   if (info.isSymbolicLink()) {
-    throw new DashboardError(403, "symlink_not_readable", "Dashboard 不读取符号链接目录");
+    throw new DashboardError(403, "symlink_not_readable", "Dashboard does not read symlinked directories");
   }
   if (!info.isDirectory()) {
-    throw new DashboardError(400, "not_a_directory", "目标不是目录");
+    throw new DashboardError(400, "not_a_directory", "Target is not a directory");
   }
 
   const resolvedDirectory = await realpath(candidate);
   if (!isPathInside(resolvedDirectory, realRoot)) {
-    throw new DashboardError(403, "path_outside_workspace", "符号链接指向工作区外部");
+    throw new DashboardError(403, "path_outside_workspace", "Symlink points outside the workspace");
   }
   return { absolutePath: candidate, realRoot };
 }
@@ -236,11 +236,11 @@ export async function resolveWorkspaceDirectory(root, requestedPath) {
 function parseDirectoryCursor(value) {
   if (value === null || value === "") return 0;
   if (!/^\d+$/.test(value)) {
-    throw new DashboardError(400, "invalid_cursor", "目录游标无效");
+    throw new DashboardError(400, "invalid_cursor", "Invalid directory cursor");
   }
   const cursor = Number(value);
   if (!Number.isSafeInteger(cursor)) {
-    throw new DashboardError(400, "invalid_cursor", "目录游标无效");
+    throw new DashboardError(400, "invalid_cursor", "Invalid directory cursor");
   }
   return cursor;
 }
@@ -267,7 +267,7 @@ export async function listWorkspaceDirectory(root, requestedPath, cursorValue = 
     throw new DashboardError(
       403,
       "directory_unreadable",
-      `目录无法读取，请检查访问权限或挂载状态：${toPosixPath(requestedPath)}`,
+      `Cannot read directory, check permissions or mount state: ${toPosixPath(requestedPath)}`,
     );
   });
   const visibleEntries = visibleDirectoryEntries(entries);
@@ -302,33 +302,36 @@ export async function listWorkspaceDirectory(root, requestedPath, cursorValue = 
 
 async function listLibraryRoots(root, scanErrors) {
   const roots = [];
-  const standardRoot = resolve(root, "拆文库");
+  const standardRoot = resolve(root, "teardown-lib");
   const standardInfo = await lstat(standardRoot).catch(() => null);
   if (standardInfo?.isDirectory() && !standardInfo.isSymbolicLink()) {
-    // 单个拆文库读不动时保留其他项目，但把残缺扫描显式带回前端；空数组只能表达“确实为空”，
-    // 不能再同时承担权限错误/外挂盘掉线，否则作者会把不可见文稿误当成不存在。
+    // A single unreadable teardown-lib keeps the other projects, but the partial
+    // scan is explicitly surfaced to the frontend: an empty array can only mean
+    // "truly empty", not permission errors or a detached drive — otherwise the
+    // author mistakes invisible manuscripts for absent ones.
     const entries = await readdir(standardRoot, { withFileTypes: true }).catch((error) => {
       recordScanError(scanErrors, root, standardRoot, error);
       return [];
     });
     for (const entry of entries) {
       if (entry.isDirectory() && !entry.isSymbolicLink()) {
-        roots.push({ absolutePath: resolve(standardRoot, entry.name), relativePath: `拆文库${sep}${entry.name}` });
+        roots.push({ absolutePath: resolve(standardRoot, entry.name), relativePath: `teardown-lib${sep}${entry.name}` });
       }
     }
   }
 
-  // 工作区根目录读不动就没有任何可展示的树，直接给出可执行的报错，而不是静默返回空树。
+  // An unreadable workspace root leaves nothing to display; surface an actionable
+  // error instead of silently returning an empty tree.
   const rootEntries = await readdir(root, { withFileTypes: true }).catch(() => {
     throw new DashboardError(
       403,
       "workspace_unreadable",
-      `工作区目录无法读取，请检查访问权限：${root}`,
+      `Cannot read the workspace directory, check permissions: ${root}`,
     );
   });
   for (const entry of rootEntries) {
     if (
-      entry.name.startsWith("拆文库-") &&
+      entry.name.startsWith("teardown-lib-") &&
       entry.isDirectory() &&
       !entry.isSymbolicLink()
     ) {
@@ -446,10 +449,10 @@ export async function scanWorkspace(root) {
 export async function searchWorkspace(root, queryValue, scopeValue) {
   const query = typeof queryValue === "string" ? queryValue.trim() : "";
   if (!query || query.length > 100) {
-    throw new DashboardError(400, "invalid_query", "搜索词长度必须在 1–100 个字符之间");
+    throw new DashboardError(400, "invalid_query", "Search term must be 1–100 characters");
   }
   if (!["libraries", "projects"].includes(scopeValue)) {
-    throw new DashboardError(400, "invalid_scope", "搜索范围必须是拆文库或写作项目");
+    throw new DashboardError(400, "invalid_scope", "Search scope must be teardown-lib or writing projects");
   }
 
   const realRoot = await existingRealRoot(root);
@@ -557,7 +560,7 @@ async function readJsonBody(request) {
   for await (const chunk of request) {
     size += chunk.length;
     if (size > MAX_REQUEST_BYTES) {
-      throw new DashboardError(413, "request_too_large", "保存内容超过 2 MiB 限制");
+      throw new DashboardError(413, "request_too_large", "Save content exceeds the 2 MiB limit");
     }
     chunks.push(chunk);
   }
@@ -565,7 +568,7 @@ async function readJsonBody(request) {
   try {
     return JSON.parse(Buffer.concat(chunks).toString("utf8"));
   } catch {
-    throw new DashboardError(400, "invalid_json", "请求正文不是有效 JSON");
+    throw new DashboardError(400, "invalid_json", "Request body is not valid JSON");
   }
 }
 
@@ -592,7 +595,7 @@ async function readWorkspaceFile(root, requestedPath) {
     editableOnly: true,
   });
   if (info.size > MAX_FILE_BYTES) {
-    throw new DashboardError(413, "file_too_large", "文件超过 2 MiB，无法在 Dashboard 中打开");
+    throw new DashboardError(413, "file_too_large", "File exceeds 2 MiB and cannot be opened in the Dashboard");
   }
   const content = await readFile(absolutePath, "utf8");
   return {
@@ -608,8 +611,9 @@ async function readWorkspaceFile(root, requestedPath) {
 async function replaceFileAtomically(target, content, mode) {
   const temporary = resolve(dirname(target), `.${basename(target)}.story-dashboard-${randomUUID()}.tmp`);
   await writeFile(temporary, content, { encoding: "utf8", mode });
-  // open(2) 的 mode 会被进程 umask 削掉，光靠 writeFile 保不住原文件权限，
-  // 所以改名前显式补一次；个别文件系统不支持权限位，失败就按原样落盘。
+  // open(2)'s mode is trimmed by the process umask; writeFile alone cannot
+  // preserve the original file permissions, so restore them explicitly before the
+  // rename; filesystems without permission bits fail silently and land as-is.
   await chmod(temporary, mode & 0o7777).catch(() => {});
   try {
     await rename(temporary, target);
@@ -625,16 +629,16 @@ async function replaceFileAtomically(target, content, mode) {
 
 async function saveWorkspaceFile(root, payload) {
   if (!payload || typeof payload !== "object") {
-    throw new DashboardError(400, "invalid_payload", "缺少保存参数");
+    throw new DashboardError(400, "invalid_payload", "Missing save parameters");
   }
   if (typeof payload.content !== "string") {
-    throw new DashboardError(400, "invalid_content", "文件内容必须是文本");
+    throw new DashboardError(400, "invalid_content", "File content must be text");
   }
   if (Buffer.byteLength(payload.content) > MAX_FILE_BYTES) {
-    throw new DashboardError(413, "file_too_large", "文件超过 2 MiB，无法保存");
+    throw new DashboardError(413, "file_too_large", "File exceeds 2 MiB and cannot be saved");
   }
   if (!/^[a-f0-9]{64}$/.test(payload.expectedVersion || "")) {
-    throw new DashboardError(400, "missing_file_version", "保存请求缺少文件版本，请重新载入后再试");
+    throw new DashboardError(400, "missing_file_version", "Save request is missing the file version; reload and try again");
   }
 
   const initial = await resolveWorkspacePath(root, payload.path, {
@@ -646,7 +650,7 @@ async function saveWorkspaceFile(root, payload) {
       current = await resolveWorkspacePath(root, payload.path, { editableOnly: true });
     } catch (error) {
       if (error instanceof DashboardError && error.code === "file_not_found") {
-        throw new DashboardError(409, "file_changed", "文件已被其他程序删除。请刷新目录后再保存。");
+        throw new DashboardError(409, "file_changed", "File was deleted by another program. Refresh the directory before saving.");
       }
       throw error;
     }
@@ -655,7 +659,7 @@ async function saveWorkspaceFile(root, payload) {
       throw new DashboardError(
         409,
         "file_changed",
-        "文件已被其他程序修改。请重新载入后再保存，避免覆盖新内容。",
+        "File was modified by another program. Reload before saving to avoid overwriting new content.",
       );
     }
 
@@ -673,10 +677,10 @@ async function saveWorkspaceFile(root, payload) {
 
 async function deleteWorkspaceFile(root, payload) {
   if (!payload || typeof payload !== "object") {
-    throw new DashboardError(400, "invalid_payload", "缺少删除参数");
+    throw new DashboardError(400, "invalid_payload", "Missing delete parameters");
   }
   if (!/^[a-f0-9]{64}$/.test(payload.expectedVersion || "")) {
-    throw new DashboardError(400, "missing_file_version", "删除请求缺少文件版本，请重新载入后再试");
+    throw new DashboardError(400, "missing_file_version", "Delete request is missing the file version; reload and try again");
   }
 
   const initial = await resolveWorkspacePath(root, payload.path, {
@@ -688,7 +692,7 @@ async function deleteWorkspaceFile(root, payload) {
       current = await resolveWorkspacePath(root, payload.path, { editableOnly: true });
     } catch (error) {
       if (error instanceof DashboardError && error.code === "file_not_found") {
-        throw new DashboardError(409, "file_changed", "文件已被其他程序删除。请刷新目录后再操作。");
+        throw new DashboardError(409, "file_changed", "File was deleted by another program. Refresh the directory before trying again.");
       }
       throw error;
     }
@@ -697,7 +701,7 @@ async function deleteWorkspaceFile(root, payload) {
       throw new DashboardError(
         409,
         "file_changed",
-        "文件已被其他程序修改。请重新载入后再删除，避免误删新版本。",
+        "File was modified by another program. Reload before deleting to avoid removing a newer version.",
       );
     }
 
@@ -712,7 +716,7 @@ async function deleteWorkspaceFile(root, payload) {
 async function serveStaticFile(requestPath, response) {
   const assetName = requestPath === "/" ? "index.html" : requestPath.slice(1);
   if (!["index.html", "styles.css", "app.js"].includes(assetName)) {
-    sendJson(response, 404, { error: { code: "not_found", message: "页面不存在" } });
+    sendJson(response, 404, { error: { code: "not_found", message: "Page not found" } });
     return;
   }
   const assetPath = resolve(ASSET_DIR, assetName);
@@ -742,12 +746,12 @@ function assertLocalRequest(request, allowNetwork) {
   if (allowNetwork) return;
   const hostname = normalizedHostname(request.headers.host);
   if (!LOOPBACK_HOSTS.has(hostname)) {
-    throw new DashboardError(403, "invalid_host", "Dashboard 只接受本机回环地址请求");
+    throw new DashboardError(403, "invalid_host", "Dashboard only accepts requests from loopback addresses");
   }
   if (["PUT", "DELETE"].includes(request.method) && request.headers.origin) {
     const originHostname = normalizedOriginHostname(request.headers.origin);
     if (!LOOPBACK_HOSTS.has(originHostname)) {
-      throw new DashboardError(403, "invalid_origin", "拒绝来自非本机页面的写入请求");
+      throw new DashboardError(403, "invalid_origin", "Rejected write request from a non-local page");
     }
   }
 }
@@ -807,7 +811,7 @@ export function createDashboardServer({ root, allowNetwork = false }) {
         return;
       }
       sendJson(response, 405, {
-        error: { code: "method_not_allowed", message: "请求方法不支持" },
+        error: { code: "method_not_allowed", message: "Request method not supported" },
       });
     } catch (error) {
       const known = error instanceof DashboardError;
@@ -817,7 +821,7 @@ export function createDashboardServer({ root, allowNetwork = false }) {
       sendJson(response, known ? error.status : 500, {
         error: {
           code: known ? error.code : "internal_error",
-          message: known ? error.message : "Dashboard 处理请求时发生错误",
+          message: known ? error.message : "Dashboard error while processing the request",
         },
       });
     }
@@ -848,21 +852,21 @@ function parseCliArguments(argv) {
     } else if (value === "--help" || value === "-h") {
       options.help = true;
     } else {
-      throw new DashboardError(400, "unknown_argument", `未知参数：${value}`);
+      throw new DashboardError(400, "unknown_argument", `Unknown argument: ${value}`);
     }
   }
 
   if (!options.root) {
-    throw new DashboardError(400, "missing_root", "--root 需要目录参数");
+    throw new DashboardError(400, "missing_root", "--root requires a directory argument");
   }
   if (!Number.isInteger(options.port) || options.port < 0 || options.port > 65535) {
-    throw new DashboardError(400, "invalid_port", "端口必须是 0–65535 的整数");
+    throw new DashboardError(400, "invalid_port", "Port must be an integer 0–65535");
   }
   if (!LOOPBACK_HOSTS.has(options.host) && !options.allowNetwork) {
     throw new DashboardError(
       400,
       "network_binding_requires_opt_in",
-      "非本机地址需要显式增加 --allow-network；通常不应把写作文件暴露到局域网",
+      "Non-loopback addresses require an explicit --allow-network; writing files should not be exposed to the LAN",
     );
   }
   return options;
@@ -928,11 +932,11 @@ Usage:
   node dashboard-server.mjs [--root <dir>] [--host 127.0.0.1] [--port 43110] [--open]
 
 Options:
-  --root <dir>       写作工作区，默认当前目录
-  --host <host>      监听地址，默认 127.0.0.1
-  --port <port>      首选端口，默认 43110；0 表示随机端口
-  --open             启动后用系统默认浏览器打开
-  --allow-network    显式允许绑定非回环地址（不推荐）
+  --root <dir>       writing workspace, defaults to the current directory
+  --host <host>      listen address, default 127.0.0.1
+  --port <port>      preferred port, default 43110; 0 means a random port
+  --open             open the system default browser after starting
+  --allow-network    explicitly allow binding a non-loopback address (not recommended)
 `);
 }
 
@@ -949,9 +953,9 @@ async function main() {
   const displayHost = options.host === "::1" ? "[::1]" : options.host;
   const url = `http://${displayHost}:${port}`;
 
-  console.log("Story Dashboard 已启动");
-  console.log(`工作区：${workspace}`);
-  console.log(`本机地址：${url}`);
+  console.log("Story Dashboard started");
+  console.log(`Workspace: ${workspace}`);
+  console.log(`Local address: ${url}`);
   if (options.open) {
     openBrowser(url);
   }
@@ -967,7 +971,7 @@ const isMain = pathsReferToSameFile(process.argv[1], MODULE_PATH);
 if (isMain) {
   main().catch((error) => {
     const message = error instanceof DashboardError ? error.message : error?.stack || String(error);
-    console.error(`Story Dashboard 启动失败：${message}`);
+    console.error(`Story Dashboard failed to start: ${message}`);
     process.exitCode = 1;
   });
 }

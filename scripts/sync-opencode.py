@@ -15,18 +15,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# agent 正文里表达 shell 步骤的唯一写法：「执行 `<命令>`」（模板全仓库仅此一种）。
-# 只读 agent 若出现这种指令，生成直接失败：OpenCode shell.ts 只检查 command 的直接父节点，
-# 即使“完整命令字面量”白名单也会被 `( command ) > 正文.md` 的 subshell 外层重定向绕过。
-BODY_COMMAND_RE = re.compile(r"执行 `([^`]+)`")
+# The only way an agent body expresses a shell step: "Run `<command>`" (the sole
+# form used across the template repo). A read-only agent with such an instruction
+# fails generation outright: OpenCode's shell.ts only checks the command's direct
+# parent, so even a full-command-literal allowlist can be bypassed by the outer
+# redirection of `( command ) > prose.md` in a subshell.
+BODY_COMMAND_RE = re.compile(r"(?:执行|[Rr]un)\s*`([^`]+)`")
 
 
 def body_bash_commands(body: str) -> list[str]:
-    """从 agent 正文抽出它明确要求执行的命令（按出现顺序去重）。
+    """Extract the commands an agent body explicitly requires running (deduped by
+    appearance order).
 
-    刻意不用「agent 名字硬编码集合」——那正是早前审计在 generate-codex-agents.py 里点名的
-    反模式：名单与正文各自漂移，新加了指令的 agent 拿不到权限、删了指令的 agent 白留着权限。
-    这里以正文为唯一事实来源；只读 agent 抽到任何命令都会在转换阶段中断。
+    Deliberately no hardcoded "agent name set" — that is exactly the anti-pattern
+    called out by an earlier audit in generate-codex-agents.py: the list and the
+    bodies drift apart, agents that gained an instruction lose their permission and
+    agents that lost one keep it. The body is the single source of truth; a
+    read-only agent with any extracted command fails the conversion stage.
     """
     commands: list[str] = []
     for match in BODY_COMMAND_RE.finditer(body):
@@ -38,10 +43,11 @@ def body_bash_commands(body: str) -> list[str]:
 
 def parse_frontmatter(content: str) -> tuple[dict, str]:
     """Extract YAML-like frontmatter and body from markdown content."""
-    # 结束分隔符必须是独占一行的 `---`（锚定 "\n---\n"），不能用 content.split("---", 2)：
-    # 后者会被 frontmatter 值里的三连字符（描述里的 `---`、注释里的 `---`）当成结束标记，
-    # 把剩余键连同 permission/steps 一起截断进正文，且静默 exit 0。
-    # 与同源生成器 generate-codex-agents.py 的解析口径保持一致。
+    # The closing separator must be a `---` on its own line (anchored "\n---\n");
+    # content.split("---", 2) would treat a triple-hyphen inside a frontmatter value
+    # (a description's `---`, a comment's `---`) as the terminator, truncating the
+    # remaining keys with permission/steps into the body while silently exit 0.
+    # Same parsing stance as the sibling generator generate-codex-agents.py.
     if not content.startswith("---\n"):
         return {}, content
     end = content.find("\n---\n", len("---"))
@@ -122,17 +128,19 @@ def convert_claude_to_opencode(fm: dict, body: str) -> dict:
         perm["edit"] = "allow"
 
     # bash 同样走 "disallowedTools 优先"。OpenCode 未声明 bash 权限时默认为 ask；只读 agent
-    # 必须写成标量 deny，让上游 disabled() 直接摘掉 bash 工具。不要加“只读命令”白名单：
-    # shell.ts 只鉴权 command 的直接父节点，`( allowlisted-command ) > 正文.md` 会把外层重定向
-    # 藏在 subshell 外，字面量白名单也守不住文件系统边界。
+    # Must be scalar deny so upstream disabled() removes the bash tool entirely.
+    # No "read-only command" allowlist: shell.ts only authorizes the command's
+    # direct parent, and `( allowlisted-command ) > prose.md` hides the outer
+    # redirection in a subshell — a literal allowlist can't hold the filesystem
+    # boundary either.
     mentioned_bash = body_bash_commands(body)
     restricted_bash = "Bash" in disallowed
     if restricted_bash:
         if mentioned_bash:
             raise ValueError(
-                f"{name or '<unnamed>'}: 只读 agent 禁止 Bash，但正文要求执行 "
-                + "、".join(f"`{command}`" for command in mentioned_bash)
-                + "；改写正文以使用宿主已提供的工作区和 Read/Glob/Grep，不得开放 shell 例外。"
+                f"{name or '<unnamed>'}: read-only agent forbids Bash but the body requires running "
+                + ", ".join(f"`{command}`" for command in mentioned_bash)
+                + "; rewrite the body to use the host-provided workspace and Read/Glob/Grep — no shell exceptions."
             )
         perm["bash"] = "deny"
     elif "Bash" in tools:
