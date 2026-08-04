@@ -1,5 +1,5 @@
 ---
-description: 网文写作环境部署。一键部署 hooks、rules、agents、项目指令等基础设施。
+description: Web-novel writing environment deployment. One-click deployment of hooks, rules, agents, project instructions, and other infrastructure.
 ---
 
-请使用 story-setup skill，帮助我部署网文写作工具集的基础设施。
+Use the story-setup skill to help me deploy the web-novel writing toolkit infrastructure.

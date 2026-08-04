@@ -1,8 +1,8 @@
 ---
-description: 长篇网文拆文，分析黄金三章、人设、爽点和长线节奏。
+description: Long-form web-novel teardown: analyzes opening hook chapters, characters, payoff moments, and long-range pacing.
 skills: story-long-analyze
 ---
 
-调用 `$story-long-analyze` 拆解用户指定的长篇小说。
+Invoke `$story-long-analyze` to tear down the long-form novel the user specifies.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

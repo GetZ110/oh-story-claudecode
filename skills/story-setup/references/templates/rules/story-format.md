@@ -1,78 +1,78 @@
 ---
 paths:
-  - "**/正文/**"
+  - "**/prose/**"
 ---
 
 # Story Format Rules
 
-正文文件的格式规范。当用户直接编辑正文文件时自动加载。
+Format rules for prose files. Loaded automatically when the user edits prose files directly.
 
-## 绝对禁止
+## Absolutely Forbidden
 
-1. **禁止机械分段或通篇大段**：段落按戏剧单元/镜头/一件事结束自然断开；不要按固定字数强拆，也不要把多个动作、线索、视线切换塞进一段。完整推理、氛围压迫、情绪变化链可保留稍长段。
-2. **禁止段落间空行**：正文相邻段落之间只允许一个换行符 `\n`；不得出现空行或连续换行 `\n\n`。
-3. **禁止「他说」「她道」**：对话用动作代替对话标签。
-4. **禁止大段描写堆砌**：描写必须穿插动作或对话，不连续超过 3 段纯描写。
-5. **禁止跳出视角**：已确定视角（第一人称/限知第三人称）后，不切换到其他角色内心。
-6. **禁止主语过密**：同一动作链内不要连续句/段无必要重复同一主角名；段首或主语重置时点名，段中用代词/动作承接/合理省略，关键转折再点名。
+1. **No mechanical paragraphing or one giant block**: paragraphs break naturally on dramatic unit / shot / one thing ending; do not force-split by a fixed word count, and do not cram multiple actions, threads, or viewpoint shifts into one paragraph. Complete reasoning, oppressive atmosphere, and emotion-change chains may keep longer paragraphs.
+2. **No blank lines between paragraphs**: adjacent paragraphs in prose allow exactly one newline `\n`; no blank lines or consecutive newlines `\n\n`.
+3. **No "he said" / "she said" tags**: dialogue is introduced with action instead of dialogue tags.
+4. **No long description piles**: description must interleave with action or dialogue; no more than 3 consecutive pure-description paragraphs.
+5. **No viewpoint jumps**: once a viewpoint is fixed (first person / limited third person), do not switch into other characters' inner thoughts.
+6. **No subject over-density**: within the same action chain, do not needlessly repeat the same protagonist name across consecutive sentences/paragraphs; name the subject at the start of a paragraph or when the subject resets, use pronouns/action continuity/legitimate ellipsis mid-paragraph, and re-name at key turns.
 
-## 格式规范
+## Format Rules
 
-- 对话独立成行，用冒号或动作引出
-- 段落以戏剧单元、镜头、情绪或动作为单位划分
-- 章节标题用 `## 第X章 章名` 格式，标题后保留一个 Markdown 空行
-- 正文相邻段落之间只允许一个换行符 `\n`，不得出现空行或 `\n\n`
-- 章节之间不使用 `---`、水平分隔线或额外空白行
+- Dialogue stands on its own line, introduced by a colon or an action
+- Paragraphs are units of dramatic structure, shots, emotions, or actions
+- Chapter headings use `## Chapter X: Title` format; keep one blank line after the heading (Markdown rendering requires it)
+- Adjacent paragraphs in prose allow exactly one newline `\n`; no blank lines or `\n\n`
+- No `---`, horizontal rules, or extra blank lines between chapters
 
 ## Examples
 
-### Correct — 按戏剧单元自然断段
+### Correct — natural paragraphing by dramatic unit
 ```
-沈栀抬手，灵力从指尖涌出。
-面前的结界出现一道裂缝，碎纹像蛛网般蔓延开。
-她咬紧牙关加大输出，整条手臂开始发颤。
+Shen Zhi raises a hand; spirit power pours from her fingertips.
+A crack appears in the barrier before her, fracture lines spreading like a web.
+She clenches her jaw and pushes more power through, her whole arm beginning to tremble.
 ```
-每段只承载一个动作/信息变化，段落按戏剧单元自然推进，段与段之间只有一个 `\n`。
+Each paragraph carries one action/information change; paragraphs advance naturally by dramatic unit, with only one `\n` between them.
 
-### Wrong — 多个拍点挤成一段
+### Wrong — multiple beats crammed into one paragraph
 ```
-沈栀抬手灵力从指尖涌出面前的结界出现一道裂缝碎纹像蛛网般蔓延开她咬紧牙关加大输出整条手臂开始发颤最后结界轰然碎裂碎片向四周飞溅。
+Shen Zhi raises a hand spirit power pours from her fingertips a crack appears in the barrier before her fracture lines spread like a web she clenches her jaw and pushes more power through her whole arm begins to tremble and finally the barrier shatters with fragments flying in all directions.
 ```
-同一段混入多个动作、线索和结果，读者无法在关键变化处停顿。
+Mixing multiple actions, threads, and results in one paragraph leaves the reader no place to pause at key changes.
 
-### Correct — 对话用动作引出（无「他说」）
+### Correct — dialogue introduced by action (no "he said")
 ```
-沈栀将茶杯往桌上一顿。
-"你到底想说什么？"
-陆衍没接话，只是看着窗外。
+Shen Zhi sets the teacup down on the table with a clink.
+"What exactly are you trying to say?"
+Lu Yan doesn't answer; he just looks out the window.
 ```
-对话通过动作和上下文引出，不使用「他说」「她道」等标签。
+Dialogue is introduced through action and context, with no "he said" / "she said" tags.
 
-### Wrong — 使用对话标签
+### Wrong — using dialogue tags
 ```
-沈栀将茶杯往桌上一顿。
-她说道："你到底想说什么？"
-陆衍没接话，他轻轻叹道只是看着窗外。
+Shen Zhi sets the teacup down on the table with a clink.
+She said: "What exactly are you trying to say?"
+Lu Yan doesn't answer; he sighs lightly and says, just looking out the window.
 ```
-「说道」「叹道」属于禁止的对话标签，应用动作替代。
+"Said" / "sighs and says" are forbidden dialogue tags — replace them with action.
 
-### Correct — 章节标题后无多余空行
+### Correct — no extra blank line after the chapter heading
 ```
-## 第二章 暗流
+## Chapter 2: Undercurrents
 
-陆衍推开门时，屋内已经坐了三个人。
-沈栀坐在最里面的角落，手里捏着一张纸条。
+When Lu Yan pushes open the door, three people are already seated inside.
+Shen Zhi sits in the farthest corner, a scrap of paper pinched between her fingers.
 ```
-章节标题 `##` 与正文之间仅一个空行（Markdown 渲染需要），正文段落间无空行。
+Exactly one blank line between the `##` heading and the body (required for Markdown rendering); no blank lines between body paragraphs.
 
-### Wrong — 段落间多余空行
+### Wrong — extra blank lines between paragraphs
 ```
-## 第二章 暗流
-
-
-陆衍推开门时，屋内已经坐了三个人。
+## Chapter 2: Undercurrents
 
 
-沈栀坐在最里面的角落，手里捏着一张纸条。
+When Lu Yan pushes open the door, three people are already seated inside.
+
+
+Shen Zhi sits in the farthest corner, a scrap of paper pinched between her fingers.
 ```
-段落之间出现多余空行（连续换行 `\n\n`），破坏紧凑节奏。
+Extra blank lines between paragraphs (consecutive `\n\n`) break the tight pacing.

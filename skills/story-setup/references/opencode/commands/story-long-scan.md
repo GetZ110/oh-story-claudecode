@@ -1,5 +1,5 @@
 ---
-description: 长篇网文扫榜。分析起点、番茄、晋江等平台排行数据，提炼市场趋势。
+description: Long-form web-novel market scan. Analyzes ranking data from Royal Road, Webnovel, Wattpad, and other platforms to distill market trends.
 ---
 
-请使用 story-long-scan skill，帮助我扫描和分析长篇网文榜单数据。
+Use the story-long-scan skill to help me scan and analyze long-form web-novel ranking data.

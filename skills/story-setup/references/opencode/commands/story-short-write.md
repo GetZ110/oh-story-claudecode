@@ -1,5 +1,5 @@
 ---
-description: 短篇网文写作。辅助短篇小说创作，从构思到成稿。
+description: Short-form web-novel writing. Assists short-story creation, from concept to finished draft.
 ---
 
-请使用 story-short-write skill，帮助我进行短篇网文写作。
+Use the story-short-write skill to help me write a short-form web novel.

@@ -1,238 +1,238 @@
 ---
 name: story-setup
-version: 1.2.7
-description: "网文写作工具集基础设施部署。为 Claude Code / OpenCode / Codex / ZCode / OpenClaw / Reasonix 提供内置适配；Web AI / 通用 Agent 可走 skills + AGENTS.md 文件模式。触发方式：/story-setup、$story-setup、「准备写书」「帮我搭一下环境」「配置写作项目」。"
+version: 1.3.0
+description: "Web-novel writing toolkit infrastructure deployment. Provides built-in adapters for Claude Code / OpenCode / Codex / ZCode / OpenClaw / Reasonix; Web AI / generic agents can use the skills + AGENTS.md file mode. Triggers: /story-setup, $story-setup, 'get ready to write a book', 'help me set up the environment', 'configure a writing project'."
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
-# story-setup：网文写作工具集基础设施部署
+# story-setup: Web-Novel Writing Toolkit Infrastructure Deployment
 
-你是写作基础设施部署器。将网文写作工具集部署到用户项目目录：已适配的 CLI 走专用 hooks/agents/config；NarraFork、Web AI、自定义 Agent 等环境走通用文件模式。
+You are the writing-infrastructure deployer. Deploy the web-novel writing toolkit into the user's project directory: adapted CLIs get dedicated hooks/agents/config; NarraFork, Web AI, custom agents, and similar environments get the generic file mode.
 
-**执行铁律：不覆盖用户已有配置，合并而非替换。**
+**Hard rule: never overwrite the user's existing configuration — merge, never replace.**
 
 ---
 
-## Phase 1：检测项目状态
+## Phase 1: Detect the Project State
 
-1. 检查当前目录是否已部署过（存在 `.story-deployed`）
-   - `agents_version` 缺失、非整数或小于 `22` → 标记为待更新，继续执行当前部署
-   - `agents_version: 22` → 使用 AskUserQuestion 确认是否重新部署
-   - `agents_version` 大于 `22` → 当前 story-setup 比项目部署旧；停止以避免降级覆盖，提示先更新 oh-story-claudecode，不写任何部署文件
-2. 检查是否有书名目录（包含 `追踪/` 子目录的目录，或用户自定义结构）
-   - 有 → 识别为长篇项目，显示当前项目信息
-   - 无 → 识别为新项目或短篇项目
-3. 检查 `.claude/settings.local.json` 是否存在
-   - 存在 → 读取现有配置，后续合并
-   - 不存在 → 后续创建新文件
-4. 检查 `.active-book` 文件是否存在
-   - 存在 → 显示当前活跃书目
-   - 不存在 → 跳过
-5. 检查 `opencode.json` 或 `.opencode/` 是否存在
-   - 存在 → 识别为 opencode 项目，`target_cli = opencode`
-   - 不存在 → 跳过
-6. 检查 `.codex/`、`.codex/config.toml`、`.codex/agents/`、`.codex/hooks.json`、`AGENTS.md` 中的 Codex 段
-   - 存在 → 识别为 Codex 项目，`target_cli = codex`
-   - 不存在 → 跳过
-7. 检查 `.zcode/`、`.zcode/config.json`、`zcode.json`、`.zcode/skills/`、`.zcode/commands/`、`AGENTS.md` 中的 ZCode 段
-   - 存在 → 识别为 ZCode 项目，`target_cli = zcode`
-   - 不存在 → 跳过
-8. 检查 `openclaw.json`、`.openclaw/`、`.agents/skills/`、`AGENTS.md` 中的 OpenClaw 段，或 `skills/*/SKILL.md` 中的 `metadata.openclaw`
-   - 存在 → 识别为 OpenClaw 项目，`target_cli = openclaw`
-   - 不存在 → 跳过
-9. 检查 `.reasonix/`、`reasonix-plugin.json`、`REASONIX.md` 中的 Reasonix 标记（Reasonix 与 Codex/OpenClaw 共用 `.agents/skills`，故不以 `.agents/skills` 单独判定 Reasonix，只认 Reasonix 专属标记）
-   - 存在 → 识别为 Reasonix 项目，`target_cli = reasonix`
-   - 不存在 → 跳过
-10. 如 `.claude/` 或 `CLAUDE.md`、OpenCode、Codex、ZCode、OpenClaw、Reasonix 标记同时存在 → 使用 AskUserQuestion 让用户选择目标环境（选项：Claude Code / OpenCode / Codex / ZCode / OpenClaw / Reasonix / 通用 Web AI 或其他 Agent / 任意组合）
-11. 如六类内置 CLI 标记都不存在（全新项目或 Web AI 项目）→ 使用 AskUserQuestion 让用户选择目标环境
-   - 用户选择 opencode → `target_cli = opencode`，部署时创建 `opencode.json` 和 `.opencode/`
-   - 用户选择 claude-code → 按现有逻辑处理
-   - 用户选择 codex → `target_cli = codex`，部署时创建 `.codex/`
-   - 用户选择 zcode → `target_cli = zcode`，部署时创建 `.zcode/`、合并根 `AGENTS.md`，不创建项目 custom agents
-   - 用户选择 openclaw → `target_cli = openclaw`，部署时复制 OpenClaw 兼容 skills 到项目 `skills/`
-   - 用户选择 reasonix → `target_cli = reasonix`，部署时复制 skills 到项目 `skills/`、写入 Reasonix 版 `AGENTS.md`，不创建项目 custom agents/hooks
-   - 用户选择通用 Web AI / 其他 Agent → `target_cli = generic`，部署通用 `AGENTS.md` 与项目本地 `skills/`；不写平台专属 hooks/agents
-   - 用户选择多端 → `target_cli = claude-code,opencode,codex,zcode,openclaw,reasonix,generic` 的子集（仅包含用户选择的端）
+1. Check whether the current directory has already been deployed (`.story-deployed` exists)
+   - `agents_version` missing, non-integer, or less than `23` → mark as pending update and continue with the current deployment
+   - `agents_version: 23` → use AskUserQuestion to confirm whether to redeploy
+   - `agents_version` greater than `23` → the current story-setup is older than the project's deployment; stop to avoid downgrade-overwriting, prompt updating oh-story-claudecode first, and write no deployment files
+2. Check whether a book-title directory exists (a directory containing a `tracking/` subdirectory, or a user-customized structure)
+   - Yes → identify as a long-form project and show the current project info
+   - No → identify as a new project or a short-form project
+3. Check whether `.claude/settings.local.json` exists
+   - Exists → read the existing config and merge into it later
+   - Absent → create a new file later
+4. Check whether the `.active-book` file exists
+   - Exists → show the current active book
+   - Absent → skip
+5. Check whether `opencode.json` or `.opencode/` exists
+   - Exists → identify as an opencode project, `target_cli = opencode`
+   - Absent → skip
+6. Check `.codex/`, `.codex/config.toml`, `.codex/agents/`, `.codex/hooks.json`, and the Codex section in `AGENTS.md`
+   - Exists → identify as a Codex project, `target_cli = codex`
+   - Absent → skip
+7. Check `.zcode/`, `.zcode/config.json`, `zcode.json`, `.zcode/skills/`, `.zcode/commands/`, and the ZCode section in `AGENTS.md`
+   - Exists → identify as a ZCode project, `target_cli = zcode`
+   - Absent → skip
+8. Check `openclaw.json`, `.openclaw/`, `.agents/skills/`, the OpenClaw section in `AGENTS.md`, or `metadata.openclaw` in `skills/*/SKILL.md`
+   - Exists → identify as an OpenClaw project, `target_cli = openclaw`
+   - Absent → skip
+9. Check `.reasonix/`, `reasonix-plugin.json`, and `REASONIX.md` for Reasonix markers (Reasonix shares `.agents/skills` with Codex/OpenClaw, so `.agents/skills` alone never identifies Reasonix — only Reasonix-specific markers count)
+   - Exists → identify as a Reasonix project, `target_cli = reasonix`
+   - Absent → skip
+10. If `.claude/` or `CLAUDE.md` markers coexist with OpenCode, Codex, ZCode, OpenClaw, and Reasonix markers → use AskUserQuestion to let the user choose the target environment (options: Claude Code / OpenCode / Codex / ZCode / OpenClaw / Reasonix / generic Web AI or other agent / any combination)
+11. If none of the six built-in CLI markers exist (brand-new project or Web AI project) → use AskUserQuestion to let the user choose the target environment
+    - The user picks opencode → `target_cli = opencode`; create `opencode.json` and `.opencode/` at deployment
+    - The user picks claude-code → handle per the existing logic
+    - The user picks codex → `target_cli = codex`; create `.codex/` at deployment
+    - The user picks zcode → `target_cli = zcode`; create `.zcode/`, merge the root `AGENTS.md`, and do not create project custom agents
+    - The user picks openclaw → `target_cli = openclaw`; copy the OpenClaw-compatible skills into the project `skills/`
+    - The user picks reasonix → `target_cli = reasonix`; copy skills into the project `skills/`, write the Reasonix `AGENTS.md`, and do not create project custom agents/hooks
+    - The user picks generic Web AI / other agent → `target_cli = generic`; deploy the generic `AGENTS.md` and project-local `skills/`; write no platform-specific hooks/agents
+    - The user picks multiple CLIs → `target_cli` is the subset of `claude-code,opencode,codex,zcode,openclaw,reasonix,generic` containing only the chosen CLIs
 
-## Phase 2：部署基础设施
+## Phase 2: Deploy the Infrastructure
 
-使用 AskUserQuestion 确认部署位置后，依次执行。
+After the deployment target is confirmed with AskUserQuestion, run the following steps in order.
 
-### Step 1：部署清单（机械可检查）
+### Step 1: Deployment manifest (mechanically checkable)
 
 | Source path | Target path | Owner class | Merge mode | Validation check |
 |-------------|-------------|-------------|------------|------------------|
 | `skills/story-setup/references/templates/CLAUDE.md.tmpl` | `CLAUDE.md` | user+managed | marker/section merge | contains story skill routing sections |
-| `skills/story-setup/references/templates/hooks/` | `.claude/hooks/` | story-setup managed | recursive replace | `session-*.sh`, `detect-story-gaps.sh`, `validate-story-commit.sh`, `guard-outline-before-prose.sh`, `check-prose-after-write.sh`, `story_hook_core.js`, `story_hook_cli.js`, `lib/common.sh`, `lib/sentinel.sh` exist；`story_hook_core.js` 与 OpenCode/ZCode 副本字节一致 |
+| `skills/story-setup/references/templates/hooks/` | `.claude/hooks/` | story-setup managed | recursive replace | `session-*.sh`, `detect-story-gaps.sh`, `validate-story-commit.sh`, `guard-outline-before-prose.sh`, `check-prose-after-write.sh`, `story_hook_core.js`, `story_hook_cli.js`, `lib/common.sh`, `lib/sentinel.sh` all exist; `story_hook_core.js` byte-identical to the OpenCode/ZCode copies |
 | `skills/story-setup/references/templates/rules/*.md` | `.claude/rules/*.md` | story-setup managed | replace | every rule contains `paths` frontmatter |
 | `skills/story-setup/references/templates/agents/*.md` | `.claude/agents/*.md` | story-setup managed | replace | 7 agent files exist |
 | `skills/story-setup/references/agent-references/*.md` | `.claude/skills/story-setup/references/agent-references/*.md` | story-setup managed | replace | every `story-setup/references/agent-references/*.md` reference resolves |
 | `skills/story-setup/references/templates/settings-hooks.json` | `.claude/settings.local.json` | user+managed | merge by hook command | hook JSON valid and registered commands deduped |
-| `skills/story-setup/references/templates/上下文.md.tmpl` | `{书名}/追踪/上下文.md` | user state | create only if absent | never overwrite existing writing context |
+| `skills/story-setup/references/templates/context.md.tmpl` | `{BookTitle}/tracking/context.md` | user state | create only if absent | never overwrite existing writing context |
 | generated sentinel | `.story-deployed` | story-setup managed | replace | contains `agents_version`, `setup_skill_version`, `target_cli`, `resolver_strategy`, `references_dir` |
-| `skills/story-setup/references/opencode/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains story skill routing sections | target_cli 含 opencode |
-| `skills/story-setup/references/opencode/agents/` | `.opencode/agents/` | story-setup managed | replace | 7 agent files exist（replace 前按「配置 OpenCode Agent 模型」中的「保留已有模型配置」缓存现有 `model:`，避免覆盖用户已配模型） | target_cli 含 opencode |
-| `skills/story-setup/references/opencode/plugin.ts` | `.opencode/plugins/story-hooks.ts` | story-setup managed | replace | TypeScript plugin file exists | target_cli 含 opencode |
-| `skills/story-setup/references/opencode/story_hook_core.js` | `.opencode/plugins/lib/story_hook_core.js` | story-setup managed | replace | Node syntax valid；与 ZCode 副本字节一致；被 story-hooks.ts import | target_cli 含 opencode |
-| `skills/story-setup/references/opencode/commands/` | `.opencode/commands/` | story-setup managed | replace | 13 command files exist | target_cli 含 opencode |
-| `skills/story-setup/references/opencode/opencode.json.patch` | merge into `opencode.json` | user+managed | merge by plugin/permission key | plugin entry registered | target_cli 含 opencode |
-| `skills/story-setup/references/agent-references/` | `skills/story-setup/references/agent-references/` | story-setup managed | replace | every reference resolves | target_cli 含 opencode |
-| `skills/story-setup/references/opencode/pre-commit.sh` | `.git/hooks/pre-commit` | user+managed | append or create | file exists and is executable；含 marker 块则替换块内容，不含则检测 exit 0 位置智能插入 | target_cli 含 opencode |
-| `skills/story-setup/references/codex/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains Codex story skill routing sections | target_cli 含 codex |
-| `skills/story-setup/references/codex/agents/` | `.codex/agents/` | story-setup managed | replace | 7 TOML agent files parse and contain `name`/`description`/`developer_instructions` | target_cli 含 codex |
-| `skills/story-setup/references/codex/hooks/hooks.json` | `.codex/hooks.json` | user+managed | replace managed registrations by stable hook identity | hook JSON valid; all stale direct/launcher registrations removed, current 6 registrations present exactly once | target_cli 含 codex |
-| `skills/story-setup/references/codex/hooks/{story_codex_hook.py,run-story-hook.sh,run-story-hook.cmd}` | `.codex/hooks/` 同名文件 | story-setup managed | replace | Python/shell/cmd launcher 文件齐全 | target_cli 含 codex |
-| `skills/story-setup/scripts/merge-codex-hooks.py` | 部署时执行，不复制到项目 | story-setup helper | execute | 替换已知管理注册、保留用户 hooks 与未知顶层字段，结果幂等 | target_cli 含 codex |
-| `skills/story-setup/references/agent-references/` | `.codex/skills/story-setup/references/agent-references/` | story-setup managed | replace | every reference resolves | target_cli 含 codex |
-| `skills/story-setup/references/zcode/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains ZCode `$story-*` routing and solo fallback | target_cli 含 zcode |
-| repository `skills/{browser-cdp,story*}/` | `.zcode/skills/{browser-cdp,story*}/` | story-setup managed for known skill names | replace known skill dirs only | 13 `SKILL.md` files exist and satisfy ZCode frontmatter limits | target_cli 含 zcode |
-| `skills/story-setup/references/zcode/commands/` | `.zcode/commands/` | story-setup managed for known command names | replace known command files only | 13 commands have valid names/frontmatter | target_cli 含 zcode |
-| `skills/story-setup/references/zcode/hooks/story_zcode_hook.js` | `.zcode/hooks/story_zcode_hook.js` | story-setup managed | replace | Node syntax valid; hook contract tests pass | target_cli 含 zcode |
-| `skills/story-setup/references/zcode/hooks/story_hook_core.js` | `.zcode/hooks/story_hook_core.js` | story-setup managed | replace | Node syntax valid; hook contract tests pass | target_cli 含 zcode |
-| `skills/story-setup/references/zcode/config.json.patch` | merge into `.zcode/config.json` | user+managed | merge by event+matcher+process args | JSON valid; 按「ZCode 部署算法」第 4 步 hooks 互斥分支校验——未装 oh-story 插件时 `hooks.enabled=true`、only supported events；已装插件时校验 `.zcode/config.json` 不含（或已移除）这批 oh-story hooks 注册 | target_cli 含 zcode |
-| `skills/story-setup/references/openclaw/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains OpenClaw story skill routing sections | target_cli 含 openclaw |
-| `skills/story-setup/references/generic/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains generic story skill routing sections | target_cli 含 generic |
-| `skills/story-setup/references/reasonix/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains Reasonix story skill routing sections and solo/direct fallback | target_cli 含 reasonix |
-| repository `skills/{browser-cdp,story*}/` | `skills/{browser-cdp,story*}/` | story-setup managed for known skill names | replace known skill dirs only | 13 `SKILL.md` files exist; OpenClaw-compatible frontmatter | target_cli 含 openclaw 或 generic 或 reasonix |
-| `skills/story-setup/references/agent-references/` | `skills/story-setup/references/agent-references/` | story-setup managed | replace via full skill copy | every reference resolves | target_cli 含 openclaw 或 generic 或 reasonix |
+| `skills/story-setup/references/opencode/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains story skill routing sections | target_cli includes opencode |
+| `skills/story-setup/references/opencode/agents/` | `.opencode/agents/` | story-setup managed | replace | 7 agent files exist (before the replace, cache existing `model:` per "Preserve existing model config" in "Configure OpenCode agent models" so user-configured models are not overwritten) | target_cli includes opencode |
+| `skills/story-setup/references/opencode/plugin.ts` | `.opencode/plugins/story-hooks.ts` | story-setup managed | replace | TypeScript plugin file exists | target_cli includes opencode |
+| `skills/story-setup/references/opencode/story_hook_core.js` | `.opencode/plugins/lib/story_hook_core.js` | story-setup managed | replace | Node syntax valid; byte-identical to the ZCode copy; imported by story-hooks.ts | target_cli includes opencode |
+| `skills/story-setup/references/opencode/commands/` | `.opencode/commands/` | story-setup managed | replace | 13 command files exist | target_cli includes opencode |
+| `skills/story-setup/references/opencode/opencode.json.patch` | merge into `opencode.json` | user+managed | merge by plugin/permission key | plugin entry registered | target_cli includes opencode |
+| `skills/story-setup/references/agent-references/` | `skills/story-setup/references/agent-references/` | story-setup managed | replace | every reference resolves | target_cli includes opencode |
+| `skills/story-setup/references/opencode/pre-commit.sh` | `.git/hooks/pre-commit` | user+managed | append or create | file exists and is executable; if it contains the marker block, replace just that block, otherwise detect an `exit 0` position and insert smartly | target_cli includes opencode |
+| `skills/story-setup/references/codex/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains Codex story skill routing sections | target_cli includes codex |
+| `skills/story-setup/references/codex/agents/` | `.codex/agents/` | story-setup managed | replace | 7 TOML agent files parse and contain `name`/`description`/`developer_instructions` | target_cli includes codex |
+| `skills/story-setup/references/codex/hooks/hooks.json` | `.codex/hooks.json` | user+managed | replace managed registrations by stable hook identity | hook JSON valid; all stale direct/launcher registrations removed, current 6 registrations present exactly once | target_cli includes codex |
+| `skills/story-setup/references/codex/hooks/{story_codex_hook.py,run-story-hook.sh,run-story-hook.cmd}` | `.codex/hooks/` same-named files | story-setup managed | replace | Python/shell/cmd launcher files all present | target_cli includes codex |
+| `skills/story-setup/scripts/merge-codex-hooks.py` | executed at deployment time, not copied to the project | story-setup helper | execute | replaces known managed registrations, keeps user hooks and unknown top-level fields, idempotent result | target_cli includes codex |
+| `skills/story-setup/references/agent-references/` | `.codex/skills/story-setup/references/agent-references/` | story-setup managed | replace | every reference resolves | target_cli includes codex |
+| `skills/story-setup/references/zcode/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains ZCode `$story-*` routing and solo fallback | target_cli includes zcode |
+| repository `skills/{browser-cdp,story*}/` | `.zcode/skills/{browser-cdp,story*}/` | story-setup managed for known skill names | replace known skill dirs only | 13 `SKILL.md` files exist and satisfy ZCode frontmatter limits | target_cli includes zcode |
+| `skills/story-setup/references/zcode/commands/` | `.zcode/commands/` | story-setup managed for known command names | replace known command files only | 13 commands have valid names/frontmatter | target_cli includes zcode |
+| `skills/story-setup/references/zcode/hooks/story_zcode_hook.js` | `.zcode/hooks/story_zcode_hook.js` | story-setup managed | replace | Node syntax valid; hook contract tests pass | target_cli includes zcode |
+| `skills/story-setup/references/zcode/hooks/story_hook_core.js` | `.zcode/hooks/story_hook_core.js` | story-setup managed | replace | Node syntax valid; hook contract tests pass | target_cli includes zcode |
+| `skills/story-setup/references/zcode/config.json.patch` | merge into `.zcode/config.json` | user+managed | merge by event+matcher+process args | JSON valid; per the hooks mutual-exclusion branch of step 4 of the "ZCode deployment algorithm" — when the oh-story plugin is not installed, `hooks.enabled=true` and only supported events are registered; when the plugin is installed, verify `.zcode/config.json` does not contain (or has removed) this batch of oh-story hook registrations | target_cli includes zcode |
+| `skills/story-setup/references/openclaw/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains OpenClaw story skill routing sections | target_cli includes openclaw |
+| `skills/story-setup/references/generic/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains generic story skill routing sections | target_cli includes generic |
+| `skills/story-setup/references/reasonix/AGENTS.md.tmpl` | `AGENTS.md` | user+managed | marker/section merge | contains Reasonix story skill routing sections and solo/direct fallback | target_cli includes reasonix |
+| repository `skills/{browser-cdp,story*}/` | `skills/{browser-cdp,story*}/` | story-setup managed for known skill names | replace known skill dirs only | 13 `SKILL.md` files exist; OpenClaw-compatible frontmatter | target_cli includes openclaw or generic or reasonix |
+| `skills/story-setup/references/agent-references/` | `skills/story-setup/references/agent-references/` | story-setup managed | replace via full skill copy | every reference resolves | target_cli includes openclaw or generic or reasonix |
 
-### opencode.json 合并算法
+### opencode.json merge algorithm
 
-部署 `opencode.json.patch` 时按以下规则合并：
+When deploying `opencode.json.patch`, merge per the following rules:
 
-1. 读取现有 `opencode.json`（如存在），解析 JSON
-2. 合并 `plugin` 数组：将 `./.opencode/plugins/story-hooks.ts` 加入数组，去重
-3. 保留用户已有的其他配置字段（`permission`、`model`、`provider` 等），不覆盖
-4. 写入合并后的 `opencode.json`
+1. Read the existing `opencode.json` (if present) and parse the JSON
+2. Merge the `plugin` array: add `./.opencode/plugins/story-hooks.ts` to the array, deduplicated
+3. Keep the user's other existing config fields (`permission`, `model`, `provider`, etc.) without overwriting
+4. Write the merged `opencode.json`
 
-### Step 2：部署 CLAUDE.md
+### Step 2: Deploy CLAUDE.md
 
-- 读取 `skills/story-setup/references/templates/CLAUDE.md.tmpl`
-- 替换占位符（见下方「模板占位符」段）
-- 写入项目根目录 `CLAUDE.md`（如已存在，按「CLAUDE.md 合并策略」处理）
+- Read `skills/story-setup/references/templates/CLAUDE.md.tmpl`
+- Replace the placeholders (see "Template placeholders" below)
+- Write `CLAUDE.md` in the project root (if it already exists, follow the "CLAUDE.md merge strategy")
 
-### Step 3：部署 Hooks
+### Step 3: Deploy Hooks
 
-- **递归复制完整目录树**：将 `skills/story-setup/references/templates/hooks/` 复制到用户项目 `.claude/hooks/`
-- 必须保留子目录 `lib/`，其中：
-  - `lib/common.sh` 提供 `project_root`、`discover_active_book`、`discover_all_books`
-  - `lib/sentinel.sh` 提供 `.story-deployed` 字段读取
-- 只需对 `.claude/hooks/*.sh` 设置执行权限（`chmod +x`）；`lib/*.sh` 由 hook `source`，不要求可执行位
+- **Recursively copy the full directory tree**: copy `skills/story-setup/references/templates/hooks/` to the user's project `.claude/hooks/`
+- Must keep the `lib/` subdirectory, where:
+  - `lib/common.sh` provides `project_root`, `discover_active_book`, `discover_all_books`
+  - `lib/sentinel.sh` reads the `.story-deployed` fields
+- Only `.claude/hooks/*.sh` needs the executable bit (`chmod +x`); `lib/*.sh` is `source`d by hooks and does not require the executable bit
 
-### Step 4：部署 Rules
+### Step 4: Deploy Rules
 
-- 读取 `skills/story-setup/references/templates/rules/` 下所有 `.md` 文件
-- 复制到用户项目的 `.claude/rules/` 目录
+- Read every `.md` file under `skills/story-setup/references/templates/rules/`
+- Copy them into the user's project `.claude/rules/` directory
 
-### Step 5：部署 Agents
+### Step 5: Deploy Agents
 
-- 读取 `skills/story-setup/references/templates/agents/` 下所有 `.md` 文件
-- 复制到用户项目的 `.claude/agents/` 目录
-- Agent 文件属于 story-setup 管理文件，可安全覆盖；版本升级时按 `UPGRADING.md` 的版本检测结果重新部署
-- **部署后必须新开会话**：agent 只在会话启动时注册；原因与必须输出的报告文案见「验证安装」中的「输出安装报告」。
+- Read every `.md` file under `skills/story-setup/references/templates/agents/`
+- Copy them into the user's project `.claude/agents/` directory
+- Agent files are story-setup-managed files and can be safely overwritten; on version upgrades, redeploy per the version-detection results in `UPGRADING.md`
+- **You must start a new session after deployment**: agents register only at session start; the reason and the mandatory report wording are under "Output the installation report" in "Verify the installation"
 
-#### Agent 兼容性处理
+#### Agent compatibility handling
 
-- Agent frontmatter 以 Claude Code 为主；OpenCode 由 `scripts/sync-opencode.py` 生成 `.opencode/agents/*.md`；Codex 由 `scripts/generate-codex-agents.py` 生成 `.codex/agents/*.toml`。
-- **ZCode 3.3.4 不部署项目 agents**：其自定义子智能体只支持用户级 `~/.zcode/agents/`，plugin manifest 中的 `agents` 当前不执行。不要创建 `.zcode/agents/` 或修改用户 home；相关 Skill 必须直接 solo/direct 并报告 fallback。
-- **OpenClaw Phase 1 不部署 agents**：OpenClaw 只部署 skills，agent 协作相关 skill 必须按既有 fallback 规则降级 solo/direct，不要把 Claude/OpenCode agent frontmatter 直接复制成 OpenClaw agent。
-- 部署到项目后，agent 内引用的参考资料必须走 `story-setup/references/agent-references/*.md` 这一本 skill 内复制路径；不要跨 skill 引用其他 skill 的 references。各 adapter 只使用当前规范前缀：Claude Code 为 `.claude/skills/`，OpenCode / OpenClaw / Reasonix / generic 为 `skills/`，Codex 为 `.codex/skills/`，ZCode 为 `.zcode/skills/`；不在运行时遍历历史备选路径。
+- Agent frontmatter is authored primarily for Claude Code; OpenCode is generated by `scripts/sync-opencode.py` into `.opencode/agents/*.md`; Codex by `scripts/generate-codex-agents.py` into `.codex/agents/*.toml`.
+- **ZCode 3.3.4 does not deploy project agents**: its custom subagents only support user-level `~/.zcode/agents/`, and the `agents` field in plugin manifests is not executed at present. Do not create `.zcode/agents/` or modify the user's home; skills that need agents must go solo/direct and report the fallback.
+- **OpenClaw Phase 1 does not deploy agents**: OpenClaw only deploys skills; agent-dependent skills must degrade to solo/direct per the existing fallback rules, and Claude/OpenCode agent frontmatter must not be copied verbatim as OpenClaw agents.
+- After deployment, reference material used inside agents must come from the in-skill copy path `story-setup/references/agent-references/*.md`; do not cross-reference other skills' references. Each adapter uses only its current canonical prefix: Claude Code `.claude/skills/`, OpenCode / OpenClaw / Reasonix / generic `skills/`, Codex `.codex/skills/`, ZCode `.zcode/skills/`; do not traverse legacy fallback paths at runtime.
 
-#### 部署 Agent References
+#### Deploy agent references
 
-- 将 `skills/story-setup/references/agent-references/` 下所有 `.md` 复制到项目内 `.claude/skills/story-setup/references/agent-references/`
-- 校验：凡 agent 或 reference 中出现 `story-setup/references/agent-references/<file>.md`，源包与目标包都必须存在 `<file>.md`
+- Copy every `.md` under `skills/story-setup/references/agent-references/` into the project's `.claude/skills/story-setup/references/agent-references/`
+- Verify: whenever `story-setup/references/agent-references/<file>.md` appears in an agent or reference, `<file>.md` must exist in both the source package and the target package
 
-#### 部署 Codex Agents（target_cli 含 codex 时）
+#### Deploy Codex agents (when target_cli includes codex)
 
-- 读取 `skills/story-setup/references/codex/agents/` 下所有 `.toml` 文件，复制到用户项目 `.codex/agents/`
-- Agent 文件属于 story-setup 管理文件，可安全覆盖；生成源由 `scripts/generate-codex-agents.py` 从 Claude agent 模板确定性生成
-- 校验每个 TOML 都能解析，且包含 Codex 必需字段：`name`、`description`、`developer_instructions`
-- 只读职责 agent（`chapter-extractor`、`consistency-checker`、`story-explorer`）必须保留 `sandbox_mode = "read-only"`
-- **部署后必须 trust + 新开 Codex 会话**（报告文案与 fallback 规则见「验证 Codex 部署」）；若运行时返回 `unknown agent_type`，调用方必须降级 solo/direct 并报告 fallback。
-- 将 `skills/story-setup/references/agent-references/` 同步复制到 `.codex/skills/story-setup/references/agent-references/`，作为 Codex agent 的项目内参考资料主路径
+- Read every `.toml` file under `skills/story-setup/references/codex/agents/` and copy it into the user's project `.codex/agents/`
+- Agent files are story-setup-managed files and can be safely overwritten; the source is deterministically generated from the Claude agent templates by `scripts/generate-codex-agents.py`
+- Verify every TOML parses and contains the Codex-required fields: `name`, `description`, `developer_instructions`
+- Read-only-duty agents (`chapter-extractor`, `consistency-checker`, `story-explorer`) must keep `sandbox_mode = "read-only"`
+- **After deployment, the `.codex/` layer must be trusted and a new Codex session started** (report wording and fallback rules: see "Verify the Codex deployment"); if the runtime returns `unknown agent_type`, the caller must fall back to solo/direct and report the fallback.
+- Also copy `skills/story-setup/references/agent-references/` into `.codex/skills/story-setup/references/agent-references/` as the primary in-project reference path for Codex agents
 
-#### 配置 OpenCode Agent 模型
+#### Configure OpenCode agent models
 
-> 仅当 `target_cli` 含 `opencode` 时执行。OpenCode 子代理不指定模型时继承主模型，导致低成本 Agent 也消耗主模型额度。此步骤自动检测用户模型并写入 `model:` 字段。
+> Only runs when `target_cli` includes `opencode`. OpenCode subagents that do not specify a model inherit the main model, so low-cost agents would burn main-model quota. This step auto-detects the user's models and writes them into the `model:` field.
 
-##### Step 1：保留已有模型配置（必须在 `.opencode/agents/` 的 replace 之前执行）
+##### Step 1: Preserve existing model config (must run before the `.opencode/agents/` replace)
 
-OpenCode agents 部署是 `replace`，会覆盖上次写入的 `model:`。所以在执行该 replace **之前**先扫描现有 `.opencode/agents/*.md`，缓存每个 agent 的 `model:`（agent 名 → 模型 ID）。后续检测失败/超时、或用户跳过某一级时，用缓存值回填，避免把用户上次配好的低成本模型抹成主模型。若 replace 已先发生、缓存为空，则按全新部署处理，并在安装报告中提示"未能保留上次模型配置"。
+OpenCode agent deployment is a `replace` that would overwrite the `model:` written last time. So **before** that replace runs, scan the existing `.opencode/agents/*.md` and cache each agent's `model:` (agent name → model ID). When a later detection fails/times out or the user skips a tier, backfill from the cache so the user's previously configured low-cost models are not wiped to the main model. If the replace already happened and the cache is empty, treat it as a fresh deployment and note in the installation report that "the previous model configuration could not be preserved".
 
-##### Step 2：获取模型列表
+##### Step 2: Fetch the model list
 
-优先执行 `opencode models --verbose`，它输出含 cost（input/output/cache 单价）、context、capabilities 的 metadata；不可用或解析失败时回退到 `opencode models` 纯文本（每行 `provider/model`）。两者都用 60000ms（60 秒）超时，因为首次运行需加载 models.dev 缓存。
+Prefer `opencode models --verbose`, whose output includes metadata with cost (input/output/cache unit prices), context, and capabilities; if unavailable or unparseable, fall back to plain-text `opencode models` (one `provider/model` per line). Both run with a 60000 ms (60 s) timeout, because the first run loads the models.dev cache.
 
-- 成功 → 进入「模型分级」
-- 超时 → 重试一次（缓存可能未预热）；仍然超时则按「保留已有模型配置」缓存回填已有 `model:`、跳过自动配置，在安装报告中输出手动配置指南
-- 失败（命令不存在、输出为空等）→ 同上：回填「保留已有模型配置」缓存、跳过自动配置、输出手动配置指南
+- Success → proceed to "Model tiering"
+- Timeout → retry once (the cache may not be warmed); if it still times out, backfill existing `model:` values from the "Preserve existing model config" cache, skip automatic configuration, and output the manual configuration guide in the installation report
+- Failure (command missing, empty output, etc.) → same as above: backfill from the "Preserve existing model config" cache, skip automatic configuration, and output the manual configuration guide
 
-##### Step 3：模型分级
+##### Step 3: Model tiering
 
-**优先按成本分级（有 `--verbose` 时）**：按每模型实际 cost 从低到高分档——低端取最便宜/免费档、中端取中价档、高端取最贵或上下文/能力最强档。免费模型按真实 cost=0 归低端，**不按名字里的营销词**（如 `nemotron-3-ultra-free` 名含 `ultra` 但 cost=0，应归低端）。无 cost 数据的模型也据此进入候选，不被丢弃。
+**Tier by cost first (with `--verbose`)**: bucket models by their actual cost from low to high — the budget tier takes the cheapest/free bucket, the mid tier the mid-price bucket, the high tier the priciest or the strongest-context/capability bucket. Free models land in the budget tier by their real cost of 0, **not by marketing words in the name** (e.g., `nemotron-3-ultra-free` contains `ultra` but costs 0, so it belongs in the budget tier). Models without cost data still enter the candidates and are not dropped.
 
-**回退按关键词分级（无 `--verbose` 或无 cost 时）**：按模型 ID 中最后一个 `/` 之后的模型名按 `-`、`.`、`_` 分割为段，逐段精确匹配关键词（不区分大小写）。例如 `minimax-m3` 拆为 `[minimax, m3]`，不匹配 `mini` 也不匹配 `max`；`claude-haiku-4.5` 拆为 `[claude, haiku, 4, 5]`，匹配 `haiku`。关键词分级是启发式，安装报告中标注 `分级依据：关键词（heuristic）`。
+**Fallback keyword tiering (without `--verbose` or cost data)**: split the model name after the last `/` into segments by `-`, `.`, and `_`, and match keywords exactly per segment (case-insensitive). For example, `minimax-m3` splits to `[minimax, m3]` and matches neither `mini` nor `max`; `claude-haiku-4.5` splits to `[claude, haiku, 4, 5]` and matches `haiku`. Keyword tiering is heuristic; the installation report marks it `Tiering basis: keywords (heuristic)`.
 
-| 等级 | 匹配关键词 | 对应 Agent |
-|------|-----------|-----------|
-| 低端 | `haiku`, `flash`, `mini`, `nano`, `lite` | chapter-extractor, consistency-checker, story-explorer |
-| 中端 | `sonnet`, `plus` | story-researcher, narrative-writer, character-designer |
-| 高端 | `opus`, `pro`, `ultra`, `max` | story-architect |
+| Tier | Matching keywords | Agents |
+|------|-------------------|--------|
+| Budget | `haiku`, `flash`, `mini`, `nano`, `lite` | chapter-extractor, consistency-checker, story-explorer |
+| Mid | `sonnet`, `plus` | story-researcher, narrative-writer, character-designer |
+| High | `opus`, `pro`, `ultra`, `max` | story-architect |
 
-- 一个模型可能匹配多个等级的关键词，取最高等级
-- 关键词回退下未匹配任何关键词的模型仍列入候选附加建议（按成本分级则一律纳入），并在安装报告列出，提示"可通过自定义输入使用"
-- 同一等级内，如果包含多个模型供应商，优先列出知名供应商（anthropic、openai、google、deepseek）的模型
+- A model may match keywords in multiple tiers; take the highest tier
+- In keyword fallback, models that match no keyword are still listed as additional candidate suggestions (under cost tiering everything is included) and appear in the installation report with the note "available via custom input"
+- Within a tier, when multiple providers are present, list models from well-known providers (anthropic, openai, google, deepseek) first
 
-##### Step 4：逐级交互选择
+##### Step 4: Interactive per-tier selection
 
-按 低端 → 中端 → 高端 顺序，每级用 AskUserQuestion 让用户选择。
+In budget → mid → high order, let the user choose each tier with AskUserQuestion.
 
-**低端选项结构：**
-
-```
-问题："为低成本 Agent（chapter-extractor, consistency-checker, story-explorer）选择模型："
-选项：
-  - provider/model-id
-  - provider/model-id
-  - 自定义输入（手动输入完整模型 ID，ID 拼写错误要到运行时才会暴露）
-  - 跳过，使用主模型（成本可能较高）
-```
-
-**中端选项结构：**
+**Budget-tier option structure:**
 
 ```
-问题："为写作质量关键 Agent（narrative-writer, character-designer, story-researcher）选择模型："
-选项：
+Question: "Choose models for the low-cost agents (chapter-extractor, consistency-checker, story-explorer):"
+Options:
   - provider/model-id
   - provider/model-id
-  - 自定义输入（请勿使用低端模型，会影响正文质量；ID 拼写错误要到运行时才会暴露）
-  - 跳过，使用主模型（主模型质量通常足够）
+  - Custom input (type the full model ID by hand; typos only surface at runtime)
+  - Skip, use the main model (may be more expensive)
 ```
 
-**高端选项结构：**
+**Mid-tier option structure:**
 
 ```
-问题："为总指挥 Agent（story-architect）选择模型："
-选项：
+Question: "Choose models for the writing-quality-critical agents (narrative-writer, character-designer, story-researcher):"
+Options:
   - provider/model-id
   - provider/model-id
-  - 自定义输入（手动输入完整模型 ID，ID 拼写错误要到运行时才会暴露）
-  - 跳过，使用主模型（成本可能较高）
+  - Custom input (do not use budget-tier models; they will hurt prose quality; typos only surface at runtime)
+  - Skip, use the main model (the main model's quality is usually sufficient)
 ```
 
-规则：
-- 候选最多显示 5 个，超过则截断并提示"更多模型请使用自定义输入"。**每一级无论候选数是否为 0 都用 AskUserQuestion 弹出**，选项至少含：候选模型（如有）、`自定义输入`、`保留现有模型`（「保留已有模型配置」缓存到该 agent 的 model，无则不显示此项）、`跳过，用主模型`。候选为 0 时仍弹窗，并在问题说明里给出对应警告 + 列出未分级/未入档模型供参考——不再静默跳过交互（否则用户够不到自定义输入）。
-- `自定义输入`：用户输入 `provider/model-id` 完整 ID；写入前校验为单行、无控制字符、匹配 `^[A-Za-z0-9._-]+/[A-Za-z0-9._:+-]+$`，不符则提示重输或改选跳过。
-- `保留现有模型`：写回「保留已有模型配置」缓存的该 agent model（重新部署时保住用户上次配置），不算"跳过"。
-- `跳过，用主模型`：显式清除——不写该 agent 的 `model:`，agent 继承主模型。想保留上次配置请选 `保留现有模型`。
-- 各级候选为 0 时在问题说明里给出提示：
-  - 低端："未检测到低成本模型，这 3 个 agent 将使用主模型，成本可能较高"
-  - 中端："未检测到匹配的中端模型。narrative-writer、character-designer、story-researcher 将使用主模型。如主模型质量足够此配置合理；如需降本，请用自定义输入指定不低于主模型质量的中端模型，或从下方未分级模型里选。"
-  - 高端："未检测到高端模型，story-architect 将使用主模型"
+**High-tier option structure:**
 
-##### Step 5：写入 model 字段
+```
+Question: "Choose a model for the lead agent (story-architect):"
+Options:
+  - provider/model-id
+  - provider/model-id
+  - Custom input (type the full model ID by hand; typos only surface at runtime)
+  - Skip, use the main model (may be more expensive)
+```
 
-对应用户选择的 agent 文件（`.opencode/agents/*.md`，由部署清单中 OpenCode agents 部署步骤在此步骤之前已部署），在 frontmatter 末尾、closing `---` 之前，以**零缩进的顶层字段**插入 `model:`（不要插进 `permission:` 等多行 map 的缩进块内部）。值含 YAML 特殊字符时加引号，确保不破坏 frontmatter：
+Rules:
+- Show at most 5 candidates; if there are more, truncate and note "use custom input for more models". **Regardless of whether a tier has zero candidates, always pop up AskUserQuestion**, with options at least including: candidate models (if any), `custom input`, `keep existing model` (the model cached for this agent by "Preserve existing model config"; hide this option when there is none), and `skip, use main model`. Even with zero candidates, still show the dialog, give the corresponding warning in the question text, and list unclassified/unregistered models for reference — never silently skip the interaction (otherwise the user cannot reach custom input).
+- `Custom input`: the user enters the full `provider/model-id`; before writing, validate it is a single line, free of control characters, and matches `^[A-Za-z0-9._-]+/[A-Za-z0-9._:+-]+$`; if it fails, prompt them to re-enter or switch to skip instead.
+- `Keep existing model`: writes back the model cached for this agent by "Preserve existing model config" (keeping the user's last configuration on redeploy); this does not count as "skip".
+- `Skip, use main model`: explicitly clears — no `model:` is written for this agent and it inherits the main model. Choose `keep existing model` if you want to keep the last configuration.
+- When a tier has zero candidates, include the corresponding warning in the question text:
+  - Budget: "No low-cost models detected; these 3 agents will use the main model, which may be more expensive"
+  - Mid: "No matching mid-tier model detected. narrative-writer, character-designer, and story-researcher will use the main model. This is reasonable if the main model's quality suffices; to cut cost, use custom input to specify a mid-tier model of at least main-model quality, or pick from the unclassified models below."
+  - High: "No high-tier model detected; story-architect will use the main model"
+
+##### Step 5: Write the model field
+
+For each agent file corresponding to the user's choices (`.opencode/agents/*.md`, already deployed by the OpenCode agents step of the deployment manifest before this step), insert `model:` as a **top-level field with zero indentation** at the end of the frontmatter, before the closing `---` (do not insert it inside the indented block of a multi-line map such as `permission:`). Quote the value when it contains YAML special characters, so the frontmatter stays valid:
 
 ```yaml
 ---
@@ -246,254 +246,254 @@ model: provider/model-id
 ---
 ```
 
-- 如果 agent 文件已有 `model:` 字段（重新部署场景），替换该顶层 `model:` 的值，不新增重复键
-- `保留现有模型`：写回「保留已有模型配置」缓存的该 agent model
-- `跳过，用主模型`：不写入 `model:` 字段
-- 检测失败/超时、没走到本步骤的等级：用「保留已有模型配置」缓存回填 `model:`，避免 replace 抹掉用户上次配置
+- If the agent file already has a `model:` field (redeploy scenario), replace the value of that top-level `model:`; do not add a duplicate key
+- `Keep existing model`: write back the model cached for this agent by "Preserve existing model config"
+- `Skip, use main model`: do not write a `model:` field
+- On detection failure/timeout or tiers that did not reach this step: backfill `model:` from the "Preserve existing model config" cache, so the replace never wipes the user's last configuration
 
-### Step 6：部署 Session State 模板
+### Step 6: Deploy the Session State Template
 
-- 读取 `skills/story-setup/references/templates/上下文.md.tmpl`
-- 仅当已识别为长篇书目且 `{书名}/追踪/` 已存在时，创建缺失的 `{书名}/追踪/上下文.md`
-- 如果目标文件已存在，不覆盖；短篇项目不得因此创建 `追踪/` 目录
+- Read `skills/story-setup/references/templates/context.md.tmpl`
+- Only when a long-form book is identified and `{BookTitle}/tracking/` already exists, create the missing `{BookTitle}/tracking/context.md`
+- If the target file already exists, do not overwrite it; short-form projects must not cause a `tracking/` directory to be created
 
-### Step 7：合并 Hooks 注册到 settings.local.json
+### Step 7: Merge Hook Registrations into settings.local.json
 
-- 读取 `skills/story-setup/references/templates/settings-hooks.json`
-- 读取用户项目的 `.claude/settings.local.json`（如存在）
-- 合并 hooks 配置（按「settings-hooks.json 合并算法」处理）
-- 写入 `.claude/settings.local.json`
+- Read `skills/story-setup/references/templates/settings-hooks.json`
+- Read the user's project `.claude/settings.local.json` (if present)
+- Merge the hook config (per the "settings-hooks.json merge algorithm")
+- Write `.claude/settings.local.json`
 
-### Codex hooks.json 合并算法（target_cli 含 codex 时）
+### Codex hooks.json merge algorithm (when target_cli includes codex)
 
-Codex 项目 hooks 部署到 `.codex/hooks.json`；运行脚本部署到 `.codex/hooks/story_codex_hook.py`、`run-story-hook.sh`、`run-story-hook.cmd`。JSON 只负责定位项目根与传递 event，解释器探测由平台 launcher 统一处理。
+Codex project hooks deploy to `.codex/hooks.json`; the runner scripts deploy to `.codex/hooks/story_codex_hook.py`, `run-story-hook.sh`, `run-story-hook.cmd`. The JSON only locates the project root and passes the event; interpreter detection is handled uniformly by the platform launchers.
 
-1. 定位当前 story-setup skill 目录，读取 `references/codex/hooks/hooks.json` 作为唯一当前模板，读取项目 `.codex/hooks.json`（不存在时视为空对象）。
-2. 按现有跨平台规则探测可用 Python：`for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done`；无可用解释器时停止，不手写或简化 JSON 合并。
-3. 调用 `"$PYBIN" "{story-setup skill目录}/scripts/merge-codex-hooks.py" --existing "{项目}/.codex/hooks.json" --template "{story-setup skill目录}/references/codex/hooks/hooks.json" --output "{项目}/.codex/hooks.json"`。该 helper 会识别旧直调 `story_codex_hook.py`、当前 `run-story-hook.sh` 和 `run-story-hook.cmd` 三类管理身份，先移除所有已知管理注册，再追加当前模板。
-4. 保留用户已有的非 story-setup hooks、matcher 块与未知顶层字段。重复执行必须幂等；禁止再按原始 `command` 字符串追加去重，否则 v17 直调命令会与 v18 launcher 双重注册。
-5. 写入后解析 JSON 验证：旧直调 `story_codex_hook.py` 命令数为 0，当前模板 6 个注册各存在且仅存在一次，用户 hook 与未知顶层字段仍在。然后提示用户：项目 `.codex/` 层需要被 Codex trust，非 managed command hooks 还需要在 `/hooks` 中 review/trust 后才会运行；Windows 下走 `commandWindows`，launcher 从当前目录向上定位项目 `.codex/hooks/`，与 POSIX 路径的嵌套目录行为一致。
+1. Locate the current story-setup skill directory, read `references/codex/hooks/hooks.json` as the single current template, and read the project's `.codex/hooks.json` (treated as an empty object when absent).
+2. Probe for a usable Python per the existing cross-platform rule: `for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done`; if no interpreter is available, stop — do not hand-write or simplify the JSON merge.
+3. Invoke `"$PYBIN" "{story-setup skill dir}/scripts/merge-codex-hooks.py" --existing "{project}/.codex/hooks.json" --template "{story-setup skill dir}/references/codex/hooks/hooks.json" --output "{project}/.codex/hooks.json"`. The helper recognizes three managed identities — the legacy direct `story_codex_hook.py` call, the current `run-story-hook.sh`, and `run-story-hook.cmd` — removes all known managed registrations first, then appends the current template.
+4. Keep the user's existing non-story-setup hooks, matcher blocks, and unknown top-level fields. Re-running must be idempotent; deduplication by the raw `command` string is forbidden — otherwise the v17 direct call would double-register with the v18 launcher.
+5. After writing, parse the JSON to verify: 0 legacy direct `story_codex_hook.py` commands, each of the template's 6 registrations present exactly once, and the user's hooks and unknown top-level fields still present. Then tell the user: the project `.codex/` layer must be trusted by Codex, and non-managed command hooks additionally need review/trust in `/hooks` before they run; on Windows the `commandWindows` path is used, and the launcher locates the project `.codex/hooks/` upward from the current directory, matching the nested-directory behavior of the POSIX path.
 
-### ZCode 部署算法（target_cli 含 zcode 时）
+### ZCode deployment algorithm (when target_cli includes zcode)
 
-ZCode 首版部署 Skills、Commands、AGENTS.md 和支持事件内的 Hooks；不部署 `.zcode/agents` 或 `.zcode/rules`。
+The first ZCode release deploys Skills, Commands, AGENTS.md, and Hooks on supported events; `.zcode/agents` and `.zcode/rules` are not deployed.
 
-1. 复制仓库当前 `skills/` 下 13 个包含 `SKILL.md` 的目录到 `.zcode/skills/{skill-name}/`；仅替换这些已知目录，保留用户其他 Skills。
-2. 复制 `references/zcode/commands/*.md` 到 `.zcode/commands/`；仅替换 13 个同名命令，保留用户其他 Commands。
-3. 复制 `references/zcode/hooks/story_zcode_hook.js` 和 `references/zcode/hooks/story_hook_core.js` 到 `.zcode/hooks/`。
-4. 读取 `references/zcode/config.json.patch` 和现有 `.zcode/config.json`（如只有根 `zcode.json`，仍创建 `.zcode/config.json` 承载 oh-story 项目 Hooks，不改写根文件）：
-   - 保留用户所有未知字段、MCP、plugins、skills/commands disable overrides；
-   - **hooks 互斥（避免双触发）**：若本项目经已安装的 oh-story 插件运行（marketplace 安装，仓库根 `.zcode-plugin/plugin.json` 的 `hooks.json` 已全局注册 SessionStart/PreToolUse/PostToolUse），则**跳过**下面把 `config.json.patch` 的 `hooks` 块合并进 `.zcode/config.json`——插件 manifest 已注册这批 hooks，再合并会让同一事件跑两遍（PreToolUse 拦两次、PostToolUse 注入两次）。只有未装插件（直接克隆 / 手动导入 references）时才合并 hooks。不确定时以「ZCode 是否已通过本插件注册这套 hooks」为准；skills/commands/hook 文件/AGENTS 与 config 的非 hook 字段两条路径都照常部署。
-   - 合并 hooks（仅未装插件时）：设置 `hooks.enabled: true`；用户已有更大的 `timeoutMs` 时保留，否则取模板值；对 `hooks.events` 的 SessionStart、PreToolUse、PostToolUse 按 `event + matcher + process command + args` 去重追加；不复制 ZCode 不支持的 PreCompact、PostCompact、SessionEnd、SubagentStop、Notification。
-5. 将 `references/zcode/AGENTS.md.tmpl` 按「AGENTS.md 合并策略」写入根 `AGENTS.md`。
-6. `.story-deployed` 的 `target_cli` 写入 `zcode` 或多端组合，`references_dir` 写 `.zcode/skills/story-setup/references/agent-references`。
-7. 安装报告明确说明：ZCode 3.3.4 的项目/plugin custom agents 不执行，所有专业角色走 solo/direct；系统需要可用的 `node` 命令运行项目 Hook。
+1. Copy the 13 directories under the repository's current `skills/` that contain `SKILL.md` into `.zcode/skills/{skill-name}/`; replace only these known directories and keep the user's other Skills.
+2. Copy `references/zcode/commands/*.md` into `.zcode/commands/`; replace only the 13 same-named commands and keep the user's other Commands.
+3. Copy `references/zcode/hooks/story_zcode_hook.js` and `references/zcode/hooks/story_hook_core.js` into `.zcode/hooks/`.
+4. Read `references/zcode/config.json.patch` and the existing `.zcode/config.json` (if only a root `zcode.json` exists, still create `.zcode/config.json` to carry the oh-story project hooks; do not rewrite the root file):
+   - Preserve all user unknown fields, MCP, plugins, and skills/commands disable overrides;
+   - **Hooks mutual exclusion (avoid double firing)**: if this project runs through an installed oh-story plugin (marketplace install; the `hooks.json` in the repo-root `.zcode-plugin/plugin.json` already registers SessionStart/PreToolUse/PostToolUse globally), then **skip** merging the `hooks` block of `config.json.patch` into `.zcode/config.json` — the plugin manifest already registered this batch, and merging again would run every event twice (PreToolUse intercepts twice, PostToolUse injects twice). Merge hooks only when the plugin is not installed (direct clone / manually imported references). When unsure, decide by "has ZCode already registered this hook set through the plugin"; the skills/commands/hook files/AGENTS and the non-hook config fields deploy normally on both paths.
+   - Merge hooks (only when the plugin is not installed): set `hooks.enabled: true`; keep the user's larger `timeoutMs` when present, otherwise take the template value; for SessionStart, PreToolUse, and PostToolUse in `hooks.events`, append deduplicated by `event + matcher + process command + args`; do not copy PreCompact, PostCompact, SessionEnd, SubagentStop, or Notification, which ZCode does not support.
+5. Write `references/zcode/AGENTS.md.tmpl` into the root `AGENTS.md` per the "AGENTS.md merge strategy".
+6. Write `zcode` or the multi-CLI combination into `.story-deployed`'s `target_cli`, and `.zcode/skills/story-setup/references/agent-references` into `references_dir`.
+7. The installation report must state clearly: ZCode 3.3.4 does not run project/plugin custom agents, so all specialist roles go solo/direct; the system needs a working `node` command to run the project hook.
 
-Plugin 安装不经过本算法：仓库根 `.zcode-plugin/plugin.json` 直接暴露同一组 Skills/Commands/Hooks。Plugin Skills 优先级低于 workspace `.zcode/skills`；两者同时存在时项目快照优先，升级项目快照需重新运行 `$story-setup`。**Hooks 只能注册一份**：插件 manifest 与 workspace `.zcode/config.json` 注册的是同一批事件，装了插件就不要再把 `config.json.patch` 的 hooks 合并进 `.zcode/config.json`（见上算法第 4 步的 hooks 互斥），否则 PreToolUse/PostToolUse 会双触发；插件在场时以插件 manifest 为 hooks 唯一注册源。
+Plugin installs bypass this algorithm: the repo-root `.zcode-plugin/plugin.json` exposes the same Skills/Commands/Hooks directly. Plugin skills rank below workspace `.zcode/skills`; when both exist the project snapshot wins, and refreshing the project snapshot requires re-running `$story-setup`. **Hooks may be registered only once**: the plugin manifest and the workspace `.zcode/config.json` register the same events, so once the plugin is installed, do not merge `config.json.patch`'s hooks into `.zcode/config.json` (see the hooks mutual exclusion in step 4 of the algorithm above) or PreToolUse/PostToolUse will double-fire; when the plugin is present, the plugin manifest is the sole registration source for hooks.
 
-### OpenClaw skills-only 部署算法（target_cli 含 openclaw 时）
+### OpenClaw skills-only deployment algorithm (when target_cli includes openclaw)
 
-OpenClaw Phase 1 只部署 skills，不部署 OpenClaw agents/hooks/plugin。
+OpenClaw Phase 1 deploys skills only — no OpenClaw agents/hooks/plugin.
 
-1. 读取仓库当前 `skills/` 下所有包含 `SKILL.md` 的 story skill 目录（13 个：`browser-cdp` 与 `story*`）。
-2. 写入目标项目 `skills/{skill-name}/`，仅替换这些 story-setup 管理的已知 skill 目录；保留用户在 `skills/` 下的其他目录。
-3. 每个 `SKILL.md` 必须满足 OpenClaw frontmatter 约束：`name` / `description` 是单行键值，`metadata` 是单行 JSON 对象且含 `metadata.openclaw`。
-4. 复制 `skills/story-setup/references/openclaw/AGENTS.md.tmpl` 到项目 `AGENTS.md`，按「AGENTS.md 合并策略」合并。
-5. `.story-deployed` 的 `target_cli` 写入 `openclaw` 或多端组合；`references_dir` 对 OpenClaw 写 `skills/story-setup/references/agent-references`。
-6. 安装报告提示项见 Phase 3 第 10 步。
+1. Read every story skill directory under the repository's current `skills/` that contains `SKILL.md` (13 total: `browser-cdp` plus the `story*` skills).
+2. Write them into the target project's `skills/{skill-name}/`, replacing only these story-setup-managed known skill directories; keep the user's other directories under `skills/`.
+3. Every `SKILL.md` must satisfy the OpenClaw frontmatter constraints: `name` / `description` are single-line key-values, and `metadata` is a single-line JSON object containing `metadata.openclaw`.
+4. Copy `skills/story-setup/references/openclaw/AGENTS.md.tmpl` to the project's `AGENTS.md`, merged per the "AGENTS.md merge strategy".
+5. Write `openclaw` or the multi-CLI combination into `.story-deployed`'s `target_cli`; for OpenClaw, write `skills/story-setup/references/agent-references` into `references_dir`.
+6. Installation-report notices: see Phase 3, step 10.
 
-### Reasonix skills-only 部署算法（target_cli 含 reasonix 时）
+### Reasonix skills-only deployment algorithm (when target_cli includes reasonix)
 
-Reasonix（DeepSeek-Reasonix CLI）当前只部署 skills 与 `AGENTS.md`，不部署 Reasonix hooks/custom agents（hook I/O 契约与子代理行为缺少可校验的真实 CLI，留待后续阶段）。
+Reasonix (DeepSeek-Reasonix CLI) currently deploys only skills and `AGENTS.md`, not Reasonix hooks/custom agents (without a verifiable real CLI for hook I/O contracts and subagent behavior, those are deferred to a later phase).
 
-1. 读取仓库当前 `skills/` 下所有包含 `SKILL.md` 的 story skill 目录（13 个：`browser-cdp` 与 `story*`）到目标项目 `skills/{skill-name}/`；仅替换这些 story-setup 管理的已知 skill 目录，保留用户其他目录。
-2. 在项目根创建 `.agents/skills → ../skills` 相对 symlink（与 Codex 共用的 skill root），使 Reasonix 原生扫描 `.agents/skills` 时发现这些 skill；若已是指向 `skills/` 的 symlink 则保留，若被占用为普通目录则不覆盖并在安装报告提示。Windows 未启用 symlink 时跳过本步，改走根 `reasonix-plugin.json` 的 `reasonix plugin install`。
-3. 复制 `skills/story-setup/references/reasonix/AGENTS.md.tmpl` 到项目 `AGENTS.md`，按「AGENTS.md 合并策略」合并。
-4. 复制 `skills/story-setup/references/agent-references/` 到 `skills/story-setup/references/agent-references/`，保证 narrative-writer / story-architect 等角色说明里的参考路径可解析。
-5. `.story-deployed` 的 `target_cli` 写入 `reasonix` 或多端组合；`references_dir` 对 Reasonix 写 `skills/story-setup/references/agent-references`。
-6. 安装报告提示项见 Phase 3 第 12 步。
+1. Read every story skill directory under the repository's current `skills/` that contains `SKILL.md` (13 total: `browser-cdp` plus the `story*` skills) into the target project's `skills/{skill-name}/`; replace only these story-setup-managed known skill directories and keep the user's other directories.
+2. Create a relative `.agents/skills → ../skills` symlink at the project root (the skill root shared with Codex), so Reasonix's native scan of `.agents/skills` finds these skills; keep it if it already points at `skills/`, and if the path is occupied by a regular directory, do not overwrite it and note this in the installation report. On Windows without symlinks enabled, skip this step and use `reasonix plugin install` from the root `reasonix-plugin.json` instead.
+3. Copy `skills/story-setup/references/reasonix/AGENTS.md.tmpl` to the project's `AGENTS.md`, merged per the "AGENTS.md merge strategy".
+4. Copy `skills/story-setup/references/agent-references/` to `skills/story-setup/references/agent-references/`, so the reference paths in role instructions such as narrative-writer / story-architect resolve.
+5. Write `reasonix` or the multi-CLI combination into `.story-deployed`'s `target_cli`; for Reasonix, write `skills/story-setup/references/agent-references` into `references_dir`.
+6. Installation-report notices: see Phase 3, step 12.
 
-### 通用 Web AI / 其他 Agent 部署算法（target_cli 含 generic 时）
+### Generic Web AI / other agent deployment algorithm (when target_cli includes generic)
 
-通用路径面向 NarraFork、Web AI、自定义 Agent 等可读取项目文件的环境，只部署通用文件，不声明平台原生 hooks/agents 能力。
+The generic path targets environments that can read project files, such as NarraFork, Web AI, and custom agents; it deploys only generic files and claims no platform-native hooks/agents capability.
 
-1. 复制仓库当前 `skills/` 下所有包含 `SKILL.md` 的 story skill 目录（13 个：`browser-cdp` 与 `story*`）到目标项目 `skills/{skill-name}/`；仅替换这些 story-setup 管理的已知 skill 目录，保留用户其他目录。
-2. 复制 `skills/story-setup/references/generic/AGENTS.md.tmpl` 到项目 `AGENTS.md`，按「AGENTS.md 合并策略」合并。
-3. 复制 `skills/story-setup/references/agent-references/` 到 `skills/story-setup/references/agent-references/`，保证 narrative-writer / story-architect 等角色说明里的参考路径可解析。
-4. `.story-deployed` 的 `target_cli` 写入 `generic` 或多端组合；`references_dir` 对 generic 写 `skills/story-setup/references/agent-references`。
-5. 安装报告提示项见 Phase 3 第 11 步。
+1. Copy every story skill directory under the repository's current `skills/` that contains `SKILL.md` (13 total: `browser-cdp` plus the `story*` skills) into the target project's `skills/{skill-name}/`; replace only these story-setup-managed known skill directories and keep the user's other directories.
+2. Copy `skills/story-setup/references/generic/AGENTS.md.tmpl` to the project's `AGENTS.md`, merged per the "AGENTS.md merge strategy".
+3. Copy `skills/story-setup/references/agent-references/` to `skills/story-setup/references/agent-references/`, so the reference paths in role instructions such as narrative-writer / story-architect resolve.
+4. Write `generic` or the multi-CLI combination into `.story-deployed`'s `target_cli`; for generic, write `skills/story-setup/references/agent-references` into `references_dir`.
+5. Installation-report notices: see Phase 3, step 11.
 
-### Step 8：创建部署标记
+### Step 8: Create the Deployment Sentinel
 
-- 创建 `.story-deployed` 文件（sentinel file）
-- 写入以下字段（YAML `key: value` 格式，hook 用 `references/templates/hooks/lib/sentinel.sh` 读取）：
+- Create the `.story-deployed` file (sentinel file)
+- Write the following fields (YAML `key: value` format; read by hooks via `references/templates/hooks/lib/sentinel.sh`):
   ```
   deployed_at: <date -u +"%Y-%m-%dT%H:%M:%SZ">
-  agents_version: 22
-  setup_skill_version: 1.2.7
-  target_cli: claude-code（或 opencode、codex、zcode、openclaw、reasonix、generic，或其任意组合）
+  agents_version: 23
+  setup_skill_version: 1.3.0
+  target_cli: claude-code (or opencode, codex, zcode, openclaw, reasonix, generic, or any combination of them)
   resolver_strategy: project-local-skill-reference
-  references_dir: .claude/skills/story-setup/references/agent-references（Codex 写 .codex/skills/...；ZCode 写 .zcode/skills/...；OpenClaw / Reasonix / generic 写 skills/...；多端用逗号分隔）
+  references_dir: .claude/skills/story-setup/references/agent-references (Codex writes .codex/skills/...; ZCode writes .zcode/skills/...; OpenClaw / Reasonix / generic write skills/...; multi-CLI uses comma separation)
   ```
-- 此文件供 session-start.sh 和写作 skill 检测部署状态，避免重复提示
-- target_cli 含 claude-code 时，同时创建一次性标记文件 `.claude/.agents-pending-restart`（空文件即可）。session-start.sh 在下一个会话启动时据此确认 agents 已随新会话注册，并自动删除该标记——用来向用户确认「重启已生效」。ZCode 不创建该标记，因为它不部署项目 agents。
-- 如果 `.story-deployed` 已存在但 `agents_version` 缺失、非整数或小于 `22`，按本次流程更新 hooks/agents/rules/reference bundle（具体变更见 `UPGRADING.md`）；大于 `22` 时已在 Phase 1 停止，不得降级覆盖
+- This file lets session-start.sh and the writing skills detect the deployment state and avoid repeated prompts
+- When `target_cli` includes claude-code, also create the one-time marker file `.claude/.agents-pending-restart` (an empty file suffices). At the next session start, session-start.sh uses it to confirm the agents were registered with the new session and removes the marker automatically — this is how the user is confirmed that "the restart took effect". ZCode does not create this marker because it does not deploy project agents.
+- If `.story-deployed` already exists but `agents_version` is missing, non-integer, or less than `23`, update the hooks/agents/rules/reference bundle per this flow (see `UPGRADING.md` for the concrete changes); if greater than `23`, Phase 1 already stopped and downgrade-overwriting is forbidden
 
-## Phase 3：验证安装
+## Phase 3: Verify the Installation
 
-1. 验证 hooks 注册：
-   - 检查 `.claude/settings.local.json` 中的 hooks 字段是否正确
-   - 检查 `.claude/hooks/` 下的脚本是否存在且有执行权限
-   - 检查 `.claude/hooks/lib/common.sh` 与 `.claude/hooks/lib/sentinel.sh` 是否存在
-2. 验证 rules 路径：
-   - 检查 `.claude/rules/` 下的规则文件是否存在且包含 `paths` frontmatter
-3. 验证 agents：
-   - 检查 `.claude/agents/` 下的 7 个 agent 定义文件是否存在
-4. 验证 agent reference bundle：
-   - 检查 `.claude/skills/story-setup/references/agent-references/` 下 reference 文件完整
-   - 检查所有 `story-setup/references/agent-references/<file>.md` 都能解析到 deployed bundle
-5. 验证部署标记：
-   - 检查 `.story-deployed` 是否存在且包含时间戳、`agents_version: 22`、`setup_skill_version: 1.2.7`、`target_cli`、`resolver_strategy`、`references_dir`
-6. 输出安装报告：
-   - 列出所有已部署的文件
-   - 列出需要注意的事项（如已有配置已合并）
-    - **⚠️ 重启提示（必须醒目输出）**：本次部署写入了 `.claude/agents/`，但这些 custom agent 只在「会话启动」时才会被 Claude Code 注册成 `subagent_type`。**请新开一个 Claude Code 会话再开始写作**，否则当前会话里 story-review / story-long-write 等想 spawn `story-architect`、`narrative-writer` 等时会拿到「subagent_type 不可用」并降级 solo（单视角，失去多 agent 协作）。判断是否生效：新会话里跑 `/story-review`，报告头若是 `Effective Mode: full/lean` 即注册成功；若是 `Fallback: ... -> solo` 说明还在旧会话或未注册。
-    - 重启后即可使用 `/story-long-write` 或 `/story-short-write`
-    - 如果执行了「配置 OpenCode Agent 模型」，输出 Agent 模型配置摘要：
-      ```
-      Agent 模型配置：
-        story-architect          → <高端模型>（provider/model-id）
-        narrative-writer         → <中端模型>（provider/model-id）
-        character-designer       → <中端模型>（provider/model-id）
-        story-researcher         → <中端模型>（provider/model-id）
-        chapter-extractor        → <低端模型>（provider/model-id）
-        consistency-checker      → <低端模型>（provider/model-id）
-        story-explorer           → <低端模型>（provider/model-id）
-      ```
-    - 如果自动检测失败（`opencode models` 不可用），输出手动配置指南：
-      ```
-      无法自动检测模型列表。以下 Agent 未配置模型，将使用主模型，成本可能较高：
-        - chapter-extractor（建议使用低成本模型）
-        - consistency-checker（建议使用低成本模型）
-        - story-explorer（建议使用低成本模型）
+1. Verify hook registration:
+   - Check the hooks fields in `.claude/settings.local.json` are correct
+   - Check the scripts under `.claude/hooks/` exist and have the executable bit
+   - Check `.claude/hooks/lib/common.sh` and `.claude/hooks/lib/sentinel.sh` exist
+2. Verify the rules path:
+   - Check the rule files under `.claude/rules/` exist and contain `paths` frontmatter
+3. Verify agents:
+   - Check the 7 agent definition files under `.claude/agents/` exist
+4. Verify the agent reference bundle:
+   - Check the reference files under `.claude/skills/story-setup/references/agent-references/` are complete
+   - Check every `story-setup/references/agent-references/<file>.md` resolves into the deployed bundle
+5. Verify the deployment sentinel:
+   - Check `.story-deployed` exists and contains the timestamp, `agents_version: 23`, `setup_skill_version: 1.3.0`, `target_cli`, `resolver_strategy`, and `references_dir`
+6. Output the installation report:
+   - List every deployed file
+   - List points requiring attention (e.g., existing config that was merged)
+   - **Restart notice (must be prominent)**: this deployment wrote `.claude/agents/`, but these custom agents are only registered by Claude Code as `subagent_type` at **session start**. **Start a new Claude Code session before writing**; otherwise, when story-review / story-long-write in the current session try to spawn `story-architect`, `narrative-writer`, etc., they get "subagent_type unavailable" and fall back to solo (single perspective, losing multi-agent collaboration). How to confirm it took effect: run `/story-review` in the new session — a report header of `Effective Mode: full/lean` means registration succeeded; `Fallback: ... -> solo` means you are still in an old session or the agents were not registered.
+   - After the restart, `/story-long-write` or `/story-short-write` are available
+   - If "Configure OpenCode agent models" ran, output the agent model configuration summary:
+     ```
+     Agent model configuration:
+       story-architect          → <high-tier model> (provider/model-id)
+       narrative-writer         → <mid-tier model> (provider/model-id)
+       character-designer       → <mid-tier model> (provider/model-id)
+       story-researcher         → <mid-tier model> (provider/model-id)
+       chapter-extractor        → <budget-tier model> (provider/model-id)
+       consistency-checker      → <budget-tier model> (provider/model-id)
+       story-explorer           → <budget-tier model> (provider/model-id)
+     ```
+   - If auto-detection failed (`opencode models` unavailable), output the manual configuration guide:
+     ```
+     Could not auto-detect the model list. These agents have no model configured and will use the main model, which may be more expensive:
+       - chapter-extractor (a low-cost model is recommended)
+       - consistency-checker (a low-cost model is recommended)
+       - story-explorer (a low-cost model is recommended)
 
-      手动配置方法：编辑 .opencode/agents/{agent名}.md，在 frontmatter 中添加：
-        model: provider/model-id
+     To configure manually, edit .opencode/agents/{agent-name}.md and add to the frontmatter:
+       model: provider/model-id
 
-      可用模型列表与成本可通过 opencode models --verbose 查看（输出含每模型 cost/context）。
-      模型库与定价见 OpenCode 官方模型源 https://models.dev/。
-      ```
-7. 验证 opencode 部署（仅当 target_cli 含 opencode 时）：
-    - 检查 `.opencode/agents/` 下的 7 个 agent 定义文件是否存在，且 frontmatter 包含 `mode: subagent` 和 `permission` 字段
-    - 检查 `.opencode/plugins/story-hooks.ts` 是否存在
-    - 检查 `.opencode/plugins/lib/story_hook_core.js` 存在且 `node --check` 通过（story-hooks.ts import 之，与 `.zcode` 副本字节一致的共享写正文守卫核；置于 `lib/` 子目录以避开 OpenCode 单层 `.opencode/plugins/*.js` 插件自动发现）
-     - 检查 `.opencode/commands/` 下的 13 个 command 文件是否存在
-    - 检查 `skills/story-setup/references/agent-references/` 下 reference 文件完整且数量与源目录一致
-    - 检查 `opencode.json` 的 `plugin` 数组是否包含 story-hooks 条目
-    - 检查 `.git/hooks/pre-commit` 是否存在且有执行权限（Windows 上跳过执行权限检查）
-    - 检查 `.opencode/agents/` 下 agent 文件 frontmatter 可被 YAML 解析、`model:`（如有配置）是合法顶层标量，而非仅 grep 到 `model:` 子串
-8. 验证 Codex 部署（仅当 target_cli 含 codex 时）：
-    - 检查 `AGENTS.md` 含 Codex story skill routing sections
-    - 检查 `.codex/agents/` 下 7 个 `.toml` agent 定义文件存在并可解析
-    - 检查 `.codex/hooks.json` 存在且 JSON 有效，Unix `command` 仅通过 `run-story-hook.sh` 启动，Windows `commandWindows` 仅通过 `run-story-hook.cmd` 启动；不存在直调 `story_codex_hook.py` 的注册
-   - 检查 `.codex/hooks/story_codex_hook.py`、`run-story-hook.sh`、`run-story-hook.cmd` 存在，Python 语法有效，POSIX/Windows launcher 能从嵌套 cwd 定位项目根
-    - 检查 `.codex/skills/story-setup/references/agent-references/` 下 reference 文件完整且数量与源目录一致
-    - 安装报告必须提示：Codex 需要 trust 项目 `.codex/` 配置层，并在 `/hooks` review/trust 非 managed hooks；部署后新开 Codex 会话让 custom agents 生效；若当前运行时仍返回 `unknown agent_type`，按各 skill 的 fallback 规则降级 solo/direct
-9. 验证 ZCode 部署（仅当 target_cli 含 zcode 时）：
-    - 检查根 `AGENTS.md` 含 ZCode `$story-*` 路由、大纲守卫和 solo/direct fallback
-    - 检查 `.zcode/skills/` 下 13 个 Skills 与 `.zcode/commands/` 下 13 个 Commands，验证 frontmatter 和命名
-    - 检查 `.zcode/hooks/story_zcode_hook.js`、`.zcode/hooks/story_hook_core.js` 存在且 `node --check` 通过
-    - 检查 `.zcode/config.json` JSON 有效，并按「ZCode 部署算法」第 4 步的 hooks 互斥分支校验：未装 oh-story 插件时，`hooks.enabled=true`、仅注册 ZCode 支持事件、所有 `process` args 指向项目 Hook；已装 oh-story 插件（`.zcode-plugin/plugin.json` 已全局注册这批 hooks）时，改为校验 `.zcode/config.json` 不含（或已移除）这批 oh-story hooks 注册——**不得**为了让校验通过而把 `config.json.patch` 的 hooks 块合并回去，否则同一事件双触发
-    - 检查 `.zcode/skills/story-setup/references/agent-references/` 完整且所有 reference 路径可解析
-    - 用 fixture 调用 SessionStart、PreToolUse deny/allow、PostToolUse，确认无发现时 stdout 为空、有输出时符合 ZCode 严格 JSON
-    - 安装报告必须提示：ZCode 3.3.4 不执行项目/plugin custom agents，full/lean 多 Agent 请求会稳定降级 solo/direct；Hook 依赖 PATH 中的 `node`；部署后新开 ZCode session 刷新 Skills/Commands/AGENTS.md
-10. 验证 OpenClaw 部署（仅当 target_cli 含 openclaw 时）：
-    - 检查 `AGENTS.md` 含 OpenClaw story skill routing sections
-    - 检查 `skills/` 下 13 个 story skill 目录存在，且每个 `SKILL.md` 包含单行 `name`、单行 `description`、单行 JSON `metadata.openclaw`
-    - 检查 `skills/story-setup/references/agent-references/` 下 reference 文件完整且数量与源目录一致
-    - 安装报告必须提示：OpenClaw Phase 1 是 skills-only；未部署 OpenClaw agents/hooks，运行时硬拦截不可用，写正文前大纲守卫、commit 提醒、session/compact 自动注入只作为 skill 内软约束；OpenClaw 在 session 启动时 snapshot eligible skills，部署后如命令/skills 未出现，需新开 OpenClaw session 或等待 skills watcher 刷新
-11. 验证通用 Web AI / 其他 Agent 部署（仅当 target_cli 含 generic 时）：
-    - 检查 `AGENTS.md` 含通用 story skill routing sections
-    - 检查 `skills/` 下 13 个 story skill 目录存在，且每个 `SKILL.md` 可读
-    - 检查 `skills/story-setup/references/agent-references/` 下 reference 文件完整且数量与源目录一致
-    - 安装报告必须提示：generic 不部署平台专属 hooks/custom agents；大纲守卫、commit 提醒、session/compact 注入等硬拦截与多 agent 协作都按 skill 内软约束或 solo/direct fallback 执行
-12. 验证 Reasonix 部署（仅当 target_cli 含 reasonix 时）：
-    - 检查 `AGENTS.md` 含 Reasonix story skill routing sections 与 solo/direct fallback 说明
-    - 检查 `skills/` 下 13 个 story skill 目录存在，且每个 `SKILL.md` 可读
-    - 检查项目 `.agents/skills` 为指向 `skills/` 的 symlink（POSIX；使 Reasonix 原生扫描发现 skill）；Windows 未建 symlink 时改为确认根 `reasonix-plugin.json` 可用于 `reasonix plugin install`
-    - 检查 `skills/story-setup/references/agent-references/` 下 reference 文件完整且数量与源目录一致
-    - 安装报告必须提示：Reasonix 当前是 skills-only；未部署 Reasonix hooks/custom agents，写正文前大纲守卫、commit 提醒、session/compact 自动注入只作为 skill 内软约束，涉及专业 Agent 的 Skill 走 solo/direct fallback；可用 `reasonix doctor capabilities` 校验 skill 发现，部署后如未显示新 skills，新开 Reasonix session 或走根 `reasonix-plugin.json` 原生 plugin 安装
-
----
-
-## 模板占位符
-
-| 占位符 | 替换规则 | 示例 |
-|--------|----------|------|
-| `{项目名}` | 用户项目名称或目录名 | 《剑来》、《暗卫》 |
-| `{书名}` | 书名目录名（与目录一致） | 与 `{项目名}` 相同，或用户自定义 |
-| `{目标平台}` | 目标发布平台 | 起点、番茄、晋江、知乎盐言 |
-| `{作者名}` | 用户笔名或昵称 | 未指定时用「作者」 |
-
-替换时去掉花括号。如果用户未指定项目名，用当前目录名。未指定的占位符保留原样不替换。
-
-## CLAUDE.md 合并策略
-
-用户已有 CLAUDE.md 时，按 marker/section 合并：
-1. 优先识别 story-setup 管理块标记（如果旧项目已有标记，只替换标记内内容）
-2. 无标记时，读取用户现有 CLAUDE.md，按 `##` 标题切分为 section map
-3. 读取模板 CLAUDE.md.tmpl，同样切分
-4. 模板中的标准 section（Skill 路由表、文件结构、协作规则、Compact 后恢复上下文）**覆盖**用户同名 section
-5. 用户独有的 section（自定义内容）**保留**不动
-6. 未知冲突用 AskUserQuestion 让用户选择保留哪个版本
-
-## AGENTS.md 合并策略（OpenCode / Codex / ZCode / OpenClaw / Reasonix / generic）
-
-用户已有 AGENTS.md 时，按 marker/section 合并：
-1. 优先识别 story-setup 管理块标记（如果旧项目已有标记，只替换标记内内容）
-2. 无标记时，读取用户现有 AGENTS.md，按 `##` 标题切分为 section map
-3. OpenCode 使用 `skills/story-setup/references/opencode/AGENTS.md.tmpl`；Codex 使用 `skills/story-setup/references/codex/AGENTS.md.tmpl`；ZCode 使用 `skills/story-setup/references/zcode/AGENTS.md.tmpl`；OpenClaw 使用 `skills/story-setup/references/openclaw/AGENTS.md.tmpl`；Reasonix 使用 `skills/story-setup/references/reasonix/AGENTS.md.tmpl`；通用 Web AI / 其他 Agent 使用 `skills/story-setup/references/generic/AGENTS.md.tmpl`
-4. 模板中的标准 section（Skill 路由表、文件结构、协作规则、Compact 后恢复上下文）覆盖同名 section；用户独有 section 保留
-5. 多端同时部署时，Codex/OpenCode/ZCode/OpenClaw/Reasonix/generic 共同可用的通用段落只保留一份；工具特有说明以小节区分，避免互相覆盖
-
-## settings-hooks.json 合并算法
-
-hooks 注册合并按 command 字段去重：
-1. 读取用户现有 `.claude/settings.local.json`（如存在），提取 hooks 部分
-2. 读取 `settings-hooks.json` 模板，提取要注册的 hooks
-3. 对每个 hook event（SessionStart、PreToolUse 等）：
-   - 用户已有的 hook command → 保留，不重复添加
-   - 模板中的新 hook command → append 到对应 event 的 hooks 数组
-   - 用户独有的其他配置（permissions、env 等）→ 完整保留
-4. 写入合并后的完整 settings.local.json
-
-## 重新部署
-
-- `.story-deployed` 不存在 → 全新安装，Phase 2 全部执行
-- `.story-deployed` 存在且 `agents_version: 22` → 提示已部署，AskUserQuestion 确认是否重新部署
-- `.story-deployed` 存在但 `agents_version` 缺失、非整数或小于 `22` → 提示需要更新，重新执行 Phase 2 覆盖 agents/hooks/rules/reference bundle，CLAUDE.md / AGENTS.md / settings.local.json / .codex/hooks.json / .zcode/config.json 走合并策略
-- `.story-deployed` 存在且 `agents_version` 大于 `22` → 当前 skill 版本过旧，停止并提示先更新 oh-story-claudecode；不覆盖项目中的更新部署
+     List available models and costs with `opencode models --verbose` (output includes per-model cost/context).
+     Model catalog and pricing: OpenCode's official model source https://models.dev/.
+     ```
+7. Verify the opencode deployment (only when target_cli includes opencode):
+   - Check the 7 agent definition files under `.opencode/agents/` exist and their frontmatter contains `mode: subagent` and a `permission` field
+   - Check `.opencode/plugins/story-hooks.ts` exists
+   - Check `.opencode/plugins/lib/story_hook_core.js` exists and passes `node --check` (imported by story-hooks.ts; the shared prose-guard core, byte-identical to the `.zcode` copy; kept in the `lib/` subdirectory so it escapes OpenCode's single-level `.opencode/plugins/*.js` auto-discovery)
+   - Check the 13 command files under `.opencode/commands/` exist
+   - Check the reference files under `skills/story-setup/references/agent-references/` are complete and match the source directory count
+   - Check the `plugin` array of `opencode.json` contains the story-hooks entry
+   - Check `.git/hooks/pre-commit` exists and has the executable bit (skip the executable-bit check on Windows)
+   - Verify the agent file frontmatter under `.opencode/agents/` parses as YAML and `model:` (when configured) is a valid top-level scalar, not merely a grep hit on a `model:` substring
+8. Verify the Codex deployment (only when target_cli includes codex):
+   - Check `AGENTS.md` contains the Codex story skill routing sections
+   - Check the 7 `.toml` agent definition files under `.codex/agents/` exist and parse
+   - Check `.codex/hooks.json` exists and is valid JSON; on Unix `command` runs only via `run-story-hook.sh`, on Windows `commandWindows` only via `run-story-hook.cmd`; no direct `story_codex_hook.py` registration remains
+   - Check `.codex/hooks/story_codex_hook.py`, `run-story-hook.sh`, and `run-story-hook.cmd` exist, the Python syntax is valid, and the POSIX/Windows launchers can locate the project root from a nested cwd
+   - Check the reference files under `.codex/skills/story-setup/references/agent-references/` are complete and match the source directory count
+   - The installation report must note: Codex needs the project `.codex/` config layer trusted, and non-managed hooks reviewed/trusted in `/hooks`; start a new Codex session after deployment for custom agents to take effect; if the runtime still returns `unknown agent_type`, fall back to solo/direct per each skill's fallback rules
+9. Verify the ZCode deployment (only when target_cli includes zcode):
+   - Check the root `AGENTS.md` contains ZCode `$story-*` routing, the outline guard, and solo/direct fallback
+   - Verify the 13 Skills under `.zcode/skills/` and 13 Commands under `.zcode/commands/`, checking frontmatter and naming
+   - Check `.zcode/hooks/story_zcode_hook.js` and `.zcode/hooks/story_hook_core.js` exist and pass `node --check`
+   - Check `.zcode/config.json` is valid JSON and verify per the hooks mutual-exclusion branch of step 4 of the "ZCode deployment algorithm": when the oh-story plugin is not installed, `hooks.enabled=true`, only ZCode-supported events are registered, and all `process` args point at the project hook; when the oh-story plugin is installed (`.zcode-plugin/plugin.json` registered this batch globally), instead verify `.zcode/config.json` does not contain (or has removed) this batch of oh-story hook registrations — **never** re-merge `config.json.patch`'s hooks block just to pass the check, or the same events would double-fire
+   - Check `.zcode/skills/story-setup/references/agent-references/` is complete and every reference path resolves
+   - Call SessionStart, PreToolUse deny/allow, and PostToolUse with fixtures, confirming stdout is empty when nothing is found and conforms to ZCode's strict JSON when there is output
+   - The installation report must note: ZCode 3.3.4 does not run project/plugin custom agents, so full/lean multi-agent requests reliably degrade to solo/direct; the Hook relies on `node` in PATH; start a new ZCode session after deployment to refresh Skills/Commands/AGENTS.md
+10. Verify the OpenClaw deployment (only when target_cli includes openclaw):
+    - Check `AGENTS.md` contains the OpenClaw story skill routing sections
+    - Check the 13 story skill directories under `skills/` exist and every `SKILL.md` has a single-line `name`, a single-line `description`, and a single-line JSON `metadata.openclaw`
+    - Check the reference files under `skills/story-setup/references/agent-references/` are complete and match the source directory count
+    - The installation report must note: OpenClaw Phase 1 is skills-only; no OpenClaw agents/hooks are deployed, runtime hard interception is unavailable, and the pre-prose outline guard, commit reminders, and session/compact auto-injection act only as soft constraints inside the skills; OpenClaw snapshots eligible skills at session start, so if commands/skills do not appear after deployment, start a new OpenClaw session or wait for the skills watcher to refresh
+11. Verify the generic Web AI / other agent deployment (only when target_cli includes generic):
+    - Check `AGENTS.md` contains the generic story skill routing sections
+    - Check the 13 story skill directories under `skills/` exist and every `SKILL.md` is readable
+    - Check the reference files under `skills/story-setup/references/agent-references/` are complete and match the source directory count
+    - The installation report must note: generic deploys no platform-specific hooks/custom agents; hard interception such as the outline guard, commit reminders, and session/compact injection, as well as multi-agent collaboration, run as soft constraints inside the skills or as solo/direct fallbacks
+12. Verify the Reasonix deployment (only when target_cli includes reasonix):
+    - Check `AGENTS.md` contains the Reasonix story skill routing sections and solo/direct fallback notes
+    - Check the 13 story skill directories under `skills/` exist and every `SKILL.md` is readable
+    - Check the project's `.agents/skills` is a symlink to `skills/` (POSIX; lets Reasonix's native scan find the skills); on Windows without a symlink, instead confirm the root `reasonix-plugin.json` supports `reasonix plugin install`
+    - Check the reference files under `skills/story-setup/references/agent-references/` are complete and match the source directory count
+    - The installation report must note: Reasonix is currently skills-only; no Reasonix hooks/custom agents are deployed, so the pre-prose outline guard, commit reminders, and session/compact auto-injection act only as soft constraints inside the skills, and skills that call specialist agents run solo/direct fallback; use `reasonix doctor capabilities` to verify skill discovery, and if new skills do not show up after deployment, start a new Reasonix session or use the native plugin install from the root `reasonix-plugin.json`
 
 ---
 
-## 参考资料
+## Template placeholders
 
-| 文件 | 用途 |
-|------|------|
-| references/templates/hooks/ | 8 个 hook 脚本模板 + `story_hook_core.js`（正文网/字数/大纲守卫/连续性/commit 侦测的共享实现，与 OpenCode/ZCode 同一份）+ `story_hook_cli.js`（bash hook 调核的 node 桥）+ `lib/common.sh`/`lib/sentinel.sh`（正文兜底 `check-prose-after-write.sh` 限 PostToolUse Write/Edit；`cat>`/`tee` 等 Bash 写正文由 Codex Stop 回合末 git 扫描兜，Claude/OpenCode 的 Bash 仅 pre-guard） |
-| references/zcode/ | ZCode AGENTS、13 Commands、workspace config patch 与严格 JSON Hook runner |
+| Placeholder | Replacement rule | Example |
+|-------------|------------------|---------|
+| `{ProjectName}` | the user's project name or directory name | The Way of Kings, The Shadow Guard |
+| `{BookTitle}` | the book-title directory name (must match the directory) | same as `{ProjectName}`, or user-customized |
+| `{TargetPlatform}` | the target publishing platform | Royal Road, Webnovel, Wattpad, Inkitt |
+| `{AuthorName}` | the user's pen name or nickname | "the author" when not specified |
+
+When replacing, strip the curly braces. If the user did not specify a project name, use the current directory name. Placeholders not specified are left untouched.
+
+## CLAUDE.md merge strategy
+
+When the user already has a CLAUDE.md, merge by marker/section:
+1. First recognize the story-setup managed-block markers (if an older project already has markers, replace only the content inside the markers)
+2. Without markers, read the user's existing CLAUDE.md and split it into a section map by `##` headings
+3. Read the template CLAUDE.md.tmpl and split it the same way
+4. The template's standard sections (skill routing table, file structure, collaboration rules, restoring context after compact) **overwrite** same-named user sections
+5. User-only sections (custom content) are **kept** untouched
+6. For unknown conflicts, use AskUserQuestion to let the user choose which version to keep
+
+## AGENTS.md merge strategy (OpenCode / Codex / ZCode / OpenClaw / Reasonix / generic)
+
+When the user already has an AGENTS.md, merge by marker/section:
+1. First recognize the story-setup managed-block markers (if an older project already has markers, replace only the content inside the markers)
+2. Without markers, read the user's existing AGENTS.md and split it into a section map by `##` headings
+3. OpenCode uses `skills/story-setup/references/opencode/AGENTS.md.tmpl`; Codex uses `skills/story-setup/references/codex/AGENTS.md.tmpl`; ZCode uses `skills/story-setup/references/zcode/AGENTS.md.tmpl`; OpenClaw uses `skills/story-setup/references/openclaw/AGENTS.md.tmpl`; Reasonix uses `skills/story-setup/references/reasonix/AGENTS.md.tmpl`; generic Web AI / other agents use `skills/story-setup/references/generic/AGENTS.md.tmpl`
+4. The template's standard sections (skill routing table, file structure, collaboration rules, restoring context after compact) overwrite same-named sections; user-only sections are kept
+5. When multiple CLIs deploy together, keep only one copy of the generic paragraphs shared by Codex/OpenCode/ZCode/OpenClaw/Reasonix/generic; tool-specific notes are separated into subsections so they cannot overwrite each other
+
+## settings-hooks.json merge algorithm
+
+Hook registration merges deduplicated by the command field:
+1. Read the user's existing `.claude/settings.local.json` (if present) and extract the hooks portion
+2. Read the `settings-hooks.json` template and extract the hooks to register
+3. For each hook event (SessionStart, PreToolUse, etc.):
+   - Existing user hook commands → keep, do not add duplicates
+   - New hook commands from the template → append to the corresponding event's hooks array
+   - Other user-only config (permissions, env, etc.) → keep in full
+4. Write the merged full settings.local.json
+
+## Redeployment
+
+- `.story-deployed` absent → fresh install; run all of Phase 2
+- `.story-deployed` exists with `agents_version: 23` → note that it is already deployed and use AskUserQuestion to confirm whether to redeploy
+- `.story-deployed` exists but `agents_version` is missing, non-integer, or less than `23` → note that an update is needed, re-run Phase 2 to overwrite the agents/hooks/rules/reference bundle, and merge CLAUDE.md / AGENTS.md / settings.local.json / .codex/hooks.json / .zcode/config.json per the merge strategies
+- `.story-deployed` exists with `agents_version` greater than `23` → the current skill version is older; stop, prompt updating oh-story-claudecode first, and do not overwrite the project's newer deployment
 
 ---
 
-## 流程衔接
+## References
 
-**流水线：** 部署
-**位置：** 初始化（最前置）
+| File | Purpose |
+|------|---------|
+| references/templates/hooks/ | 8 hook script templates + `story_hook_core.js` (shared implementation of the prose guardrail net / word count / outline guard / continuity / commit detection — the same copy as OpenCode/ZCode) + `story_hook_cli.js` (the node bridge that lets bash hooks call the core) + `lib/common.sh`/`lib/sentinel.sh` (the prose fallback `check-prose-after-write.sh` is limited to PostToolUse Write/Edit; Bash prose writes via `cat>`/`tee` are covered by the Codex Stop end-of-turn git scan, while Claude/OpenCode Bash is only pre-guarded) |
+| references/zcode/ | ZCode AGENTS, 13 Commands, workspace config patch, and the strict-JSON hook runner |
 
-| 时机 | 跳转到 | 命令 |
-|---|---|---|
-| 部署完成，开始写作 | story-long-write / story-short-write | `/story-long-write` 或 `/story-short-write` |
-| 导入已有小说做拆解 | story-import | `/story-import` |
-| 需要浏览器登录态（扫榜/拆文取原文） | browser-cdp | `/browser-cdp`；generic 需平台允许本地脚本/浏览器控制 |
+---
 
-各端调用语法：Claude `/名`、Codex/ZCode `$名`、OpenClaw `/skill 名`、Reasonix / generic 直接点名 skill。
+## Workflow Handoff
+
+**Pipeline:** Deployment
+**Position:** Initialization (frontmost)
+
+| When | Jump to | Command |
+|------|---------|---------|
+| Deployment complete, start writing | story-long-write / story-short-write | `/story-long-write` or `/story-short-write` |
+| Import an existing novel for teardown | story-import | `/story-import` |
+| Needs browser login state (market scan / teardown source text) | browser-cdp | `/browser-cdp`; generic requires the platform to allow local scripts/browser control |
+
+Per-CLI invocation syntax: Claude `/name`, Codex/ZCode `$name`, OpenClaw `/skill name`, Reasonix / generic name the skill directly.

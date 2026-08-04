@@ -1,5 +1,5 @@
 ---
-description: 多视角对抗式审查。使用多个 Agent 对作品进行多维度审稿。
+description: Multi-perspective adversarial review. Uses multiple agents to review the work across several dimensions.
 ---
 
-请使用 story-review skill，帮助我对作品进行多视角审查和评分。
+Use the story-review skill to help me review and score the work from multiple perspectives.

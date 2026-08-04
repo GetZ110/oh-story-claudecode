@@ -1,5 +1,5 @@
 ---
-description: 浏览器操控。通过 CDP 协议控制 Chrome，复用已有登录态，执行浏览器自动化操作。
+description: Browser automation. Controls Chrome via the CDP protocol, reusing the existing login state to run browser automation.
 ---
 
-请使用 browser-cdp skill，帮助我通过浏览器 CDP 协议执行自动化操作，如抓取数据或控制浏览器。
+Use the browser-cdp skill to help me run automation through the browser CDP protocol, such as scraping data or controlling the browser.

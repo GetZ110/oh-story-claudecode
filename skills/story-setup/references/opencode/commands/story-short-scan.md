@@ -1,5 +1,5 @@
 ---
-description: 短篇网文扫榜。分析知乎盐言、番茄短篇等平台热门数据。
+description: Short-form web-novel market scan. Analyzes trending data from Inkitt, Webnovel short reads, and other platforms.
 ---
 
-请使用 story-short-scan skill，帮助我扫描和分析短篇网文榜单数据。
+Use the story-short-scan skill to help me scan and analyze short-form web-novel ranking data.

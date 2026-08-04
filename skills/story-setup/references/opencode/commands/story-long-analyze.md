@@ -1,5 +1,5 @@
 ---
-description: 长篇网文拆文。深度拆解爆款长篇小说的黄金三章、人设、爽点、节奏。
+description: Long-form web-novel teardown. Deep-dives into a hit long-form novel's opening hook chapters, characters, payoff moments, and pacing.
 ---
 
-请使用 story-long-analyze skill，帮助我拆解长篇小说。
+Use the story-long-analyze skill to help me tear down a long-form novel.

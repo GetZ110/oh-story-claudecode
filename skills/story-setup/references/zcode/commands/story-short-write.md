@@ -1,8 +1,8 @@
 ---
-description: 短篇网文写作，从情绪目标、反转和小节大纲到正文。
+description: Short-form web-novel writing, from the emotional goal, reversals, and section outline to the finished prose.
 skills: story-short-write
 ---
 
-调用 `$story-short-write` 执行短篇写作任务。
+Invoke `$story-short-write` to carry out the short-form writing task.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

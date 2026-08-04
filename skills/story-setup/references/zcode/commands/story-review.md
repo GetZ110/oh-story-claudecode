@@ -1,8 +1,8 @@
 ---
-description: 多视角小说审查；ZCode 项目 agents 不可用时自动降级 solo。
+description: Multi-perspective novel review; automatically falls back to solo when ZCode project agents are unavailable.
 skills: story-review
 ---
 
-调用 `$story-review` 审查用户指定的小说文件或章节。
+Invoke `$story-review` to review the novel file or chapters the user specifies.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

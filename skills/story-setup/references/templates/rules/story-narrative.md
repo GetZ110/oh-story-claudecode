@@ -1,66 +1,66 @@
 ---
 paths:
-  - "**/拆文库/**"
-  - "**/对标/**"
-  - "**/设定/**"
+  - "**/teardown-lib/**"
+  - "**/benchmark/**"
+  - "**/setting/**"
 ---
 
 # Story Narrative Rules
 
-拆文、对标分析和设定文件中的叙事规则。
+Narrative rules for teardown, benchmark analysis, and setting files.
 
 ## Rules
 
-1. **设定交叉检查**：新增或修改设定时，必须与已有设定交叉检查矛盾。检查方法：grep 已有设定文件中的关键词，确认不冲突。
+1. **Cross-check settings**: when adding or modifying a setting, cross-check it against existing settings for contradictions. Method: grep keywords in existing setting files to confirm there is no conflict.
 
-2. **语言风格一致**：角色对话必须匹配角色设定中的语言风格档案（语气、用词习惯、感叹号使用频率等）。
+2. **Consistent speech style**: character dialogue must match the speech-style profile in the character's setting (tone, word habits, exclamation frequency, etc.).
 
-3. **世界观规则明确**：力量体系、社会规则等"可能"和"不可能"的事必须明确记录在设定文件中，且在正文中一致遵守。
+3. **Explicit worldview rules**: what is "possible" and "impossible" under the power system and social rules must be clearly recorded in the setting files and consistently honored in the prose.
 
-4. **悬念必须有文档记录的"真实答案"**：设置的每个悬念/谜团，在追踪/或设定/文件中必须有明确的真实答案记录，不能含糊。
+4. **Every suspense needs a documented "real answer"**: every suspense/mystery you set must have a clear, unambiguous real-answer record in a tracking/ or setting/ file — no vagueness.
 
-5. **角色动机和关系内部自洽**：角色的行为必须符合其设定的动机，角色关系的变化必须有合理的触发事件。
+5. **Self-consistent motives and relationships**: a character's behavior must fit the motives in their setting, and relationship changes must have reasonable triggering events.
 
-6. **禁止 AI 腔**（红线级约束）：
-   - 禁止章末总结/升华/哲理收尾（"他终于明白了……""这一夜注定无人入眠"）
-   - 禁止"他感到/觉得"直述情绪，用身体反应替代（"手心全是汗" > "他很紧张"）
-   - 禁止连续 2 段以上纯心理活动，必须穿插动作/对话
-   - 禁止万能/堆叠比喻（"像潮水般""如闪电般"）；单个有功能的生活化/角色化比喻可留
-   - 禁止所有角色说话方式一样，每个角色必须符合语言风格档案 7 维（口癖/节奏/信息偏好/立场/身份措辞/性格语气/进度态度）
+6. **No AI flavor** (red-line constraint):
+   - No chapter-end summaries / uplift / philosophical closings ("he finally understood……", "no one would sleep tonight")
+   - No "he felt/thought" direct emotion statements — use physical reactions instead ("his palms were sweating" > "he was nervous")
+   - No more than 2 consecutive pure-psychology paragraphs; interleave action/dialogue
+   - No universal/stacked metaphors ("like a tide", "like lightning"); a single functional, grounded, character-voiced metaphor may stay
+   - No uniform dialogue for all characters — every character must fit the 7-dimension speech-style profile (verbal tics / rhythm / information preference / stance / identity diction / personality tone / relationship-stage attitude)
 
-7. **对话三功能检验**：每段对话删掉后检查——情节还能推进吗？期待感还在吗？情绪还到位吗？三项全否 = 水字数，删。
+7. **The three-function dialogue test**: after deleting any dialogue passage, check — can the plot still advance? Is the anticipation still there? Is the emotion still delivered? All three failing = padding; delete it.
 
 ## Examples
 
-### Correct — 设定交叉检查
+### Correct — settings cross-checked
 ```
-新增设定：灵力等级分为九层，最高为第九层"破境"。
-执行动作：
-1. grep 设定/ 目录中所有文件，确认没有其他灵力体系描述
-2. grep 追踪/伏笔.md 中"灵力"关键词，确认无矛盾伏笔
-3. 更新追踪/上下文.md：[2024-05-05] 新增灵力九层体系
+New setting: spirit-power ranks are divided into nine layers, the ninth and highest being "Rank Break".
+Actions taken:
+1. grep all files under setting/ to confirm no other spirit-power system description exists
+2. grep "spirit power" in tracking/foreshadowing.md to confirm no contradicting foreshadowing
+3. Update tracking/context.md: [2024-05-05] Added the nine-layer spirit-power system
 ```
-新增设定前主动搜索已有设定和伏笔，避免矛盾。
+Searching existing settings and foreshadowing before adding a new setting avoids contradictions.
 
-### Wrong — 设定未经交叉检查
+### Wrong — setting added without cross-check
 ```
-直接在设定/世界规则.md 中添加"灵力等级分为十层"。
-结果：已有设定文件中记载"灵力最高为九层"，两处矛盾。
-且追踪/伏笔.md 中有一条伏笔依赖"九层"设定。
+Adding "spirit-power ranks are divided into ten layers" straight into setting/world-rules.md.
+Result: an existing setting file records "spirit power caps at nine layers" — the two contradict.
+And a foreshadowing in tracking/foreshadowing.md depends on the "nine layers" setting.
 ```
-未检查已有设定就添加新内容，导致世界观矛盾。
+Adding new content without checking existing settings creates worldview contradictions.
 
-### Correct — 悬念有文档记录的真实答案
+### Correct — suspense with a documented real answer
 ```
-正文第15章写到：密室中的古镜映出一个陌生人的脸。
-追踪/伏笔.md 记录：伏笔#12（第15章古镜陌生人）→ 真实答案：是沈栀前世记忆的残留投影，回收章节：第38章。
+Chapter 15 prose: the ancient mirror in the secret chamber reflects the face of a stranger.
+tracking/foreshadowing.md records: Foreshadowing#12 (chapter 15 ancient-mirror stranger) → real answer: a residual projection of Shen Zhi's past-life memories; recovery chapter: 38.
 ```
-每个悬念在追踪文件中有明确的真实答案和计划回收时间。
+Every suspense has a clear real answer and a planned recovery time in the tracking files.
 
-### Wrong — 悬念无文档记录
+### Wrong — suspense without documentation
 ```
-正文第15章写到：密室中的古镜映出一个陌生人的脸。
-追踪/伏笔.md 中无任何记录。
-写作到第40章时，后续正文遗忘这个悬念，或给出与既有追踪记录矛盾的解释。
+Chapter 15 prose: the ancient mirror in the secret chamber reflects the face of a stranger.
+Nothing recorded in tracking/foreshadowing.md.
+By chapter 40 the later prose forgets this suspense — or gives an explanation that contradicts the existing tracking records.
 ```
-悬念没有文档记录，容易遗忘或自相矛盾。
+Undocumented suspense is easily forgotten or made self-contradictory.

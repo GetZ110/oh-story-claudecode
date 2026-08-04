@@ -1,53 +1,53 @@
-# {项目名} — 网文写作工具集（ZCode）
+# {ProjectName} — Web-Novel Writing Toolkit (ZCode)
 
-本项目已通过 oh-story 接入 ZCode。优先用 `$skill-name` 调用 Skill，也可从 `/` 面板选择同名 Skill 或 Command。
+This project is wired into ZCode through oh-story. Prefer invoking a Skill with `$skill-name`; you can also pick the same-named Skill or Command from the `/` panel.
 
-## Skill 路由表
+## Skill Routing Table
 
-| 命令/意图 | Skill | 说明 |
+| Command / intent | Skill | Description |
 |---|---|---|
-| `$story-long-write`、写长篇 | story-long-write | 长篇网文写作（逐章推进） |
-| `$story-short-write`、写短篇 | story-short-write | 短篇网文写作（情绪驱动） |
-| `$story-long-analyze`、长篇拆文 | story-long-analyze | 长篇小说深度拆解 |
-| `$story-short-analyze`、短篇拆文 | story-short-analyze | 短篇小说拆文分析 |
-| `$story-long-scan`、长篇扫榜 | story-long-scan | 长篇小说榜单与市场趋势 |
-| `$story-short-scan`、短篇扫榜 | story-short-scan | 短篇小说榜单与情绪风口 |
-| `$story-deslop`、去 AI 味 | story-deslop | 去除 AI 写作痕迹 |
-| `$story-cover`、封面 | story-cover | 生成封面图 |
-| `$story-review`、审查 | story-review | 多视角审查；项目 custom agents 不可用时降级 solo |
-| `$story-import`、导入 | story-import | 逆向导入已有小说到项目结构 |
-| `$story`、网文 | story | 模糊意图自动分发 |
-| `$story-setup`、准备写书 | story-setup | 部署 ZCode Skills、Commands、Hooks 与 AGENTS.md |
-| `$browser-cdp` | browser-cdp | 浏览器 CDP 工具 |
+| `$story-long-write`, write long-form | story-long-write | Long-form web-novel writing (chapter by chapter) |
+| `$story-short-write`, write short-form | story-short-write | Short-form web-novel writing (emotion-driven) |
+| `$story-long-analyze`, long-form teardown | story-long-analyze | Deep teardown of a long-form novel |
+| `$story-short-analyze`, short-form teardown | story-short-analyze | Teardown analysis of a short-form novel |
+| `$story-long-scan`, long-form market scan | story-long-scan | Long-form novel rankings and market trends |
+| `$story-short-scan`, short-form market scan | story-short-scan | Short-form novel rankings and emotional windows |
+| `$story-deslop`, de-AI-flavor | story-deslop | Removes AI writing traces |
+| `$story-cover`, cover | story-cover | Generates cover images |
+| `$story-review`, review | story-review | Multi-perspective review; falls back to solo when project custom agents are unavailable |
+| `$story-import`, import | story-import | Reverse-imports an existing novel into the project structure |
+| `$story`, web novels | story | Auto-routes ambiguous intent |
+| `$story-setup`, prepare to write a book | story-setup | Deploys ZCode Skills, Commands, Hooks, and AGENTS.md |
+| `$browser-cdp` | browser-cdp | Browser CDP tool |
 
-## 文件结构
+## File Structure
 
-- `.zcode/skills/` — 项目本地 Skills，优先于同名 plugin Skills
-- `.zcode/commands/` — 项目本地 Commands
-- `.zcode/hooks/` — oh-story ZCode Hook runner
-- `拆文库/` — 拆文分析结果
-- `{书名}/正文/` — 长篇章节正文
-- `{书名}/正文.md` — 短篇正文
-- `{书名}/设定/` — 角色、世界和题材设定
-- `{书名}/大纲/` — 卷纲与逐章细纲
-- `{书名}/追踪/` — 上下文、伏笔、时间线和角色状态
-- `{书名}/对标/` — 当前项目引用的对标分析
+- `.zcode/skills/` — project-local Skills, taking priority over same-named plugin Skills
+- `.zcode/commands/` — project-local Commands
+- `.zcode/hooks/` — oh-story ZCode hook runner
+- `teardown-lib/` — teardown analysis output
+- `{BookTitle}/prose/` — long-form chapter prose
+- `{BookTitle}/prose.md` — short-form prose
+- `{BookTitle}/setting/` — character, world, and genre settings
+- `{BookTitle}/outline/` — volume outlines and per-chapter outlines
+- `{BookTitle}/tracking/` — context, foreshadowing, timeline, and character state
+- `{BookTitle}/benchmark/` — benchmark analysis referenced by the current project
 
-## ZCode 项目约定
+## ZCode Project Conventions
 
-- 写正文前必须先有对应大纲：长篇需要 `大纲/细纲_第N章*.md`，短篇需要 `小节大纲.md`。PreToolUse Hook 会做机械守卫，Skill 流程本身也必须遵守。
-- 正文写入后，PostToolUse Hook 会检查落盘、截断、占位符、工程词泄漏、复读、字数欠账和标题重复；有发现时先处理再继续。
-- ZCode 3.3.4 不执行项目/plugin 自定义 Agent。遇到 `story-architect`、`narrative-writer`、`consistency-checker` 等角色调用时，由当前 Agent 按同一规则直接完成，并在结果中报告 `Fallback: project custom agents unavailable -> solo`。
-- 不读取 `.zcode/rules` 或嵌套 `AGENTS.md`；关键规则以本文件和对应 Skill 为准。
-- Compact 后优先读取 `{书名}/追踪/上下文.md` 恢复当前写作进度。
+- A matching outline must exist before prose is written: long-form needs `outline/outline_chapter_N*.md`, short-form needs `section-outline.md`. The PreToolUse Hook enforces this mechanically, but the Skill flow itself must also honor it.
+- After prose is written, the PostToolUse Hook checks for written-to-disk, truncation, placeholders, engineering-word leakage, repetition, word-count shortfall, and duplicate titles; address any findings before continuing.
+- ZCode 3.3.4 does not run project/plugin custom agents. When a skill calls for roles such as `story-architect`, `narrative-writer`, or `consistency-checker`, the current agent completes the work directly under the same rules and reports `Fallback: project custom agents unavailable -> solo` in its results.
+- `.zcode/rules` and nested `AGENTS.md` files are not read; key rules come from this file and the corresponding Skill.
+- After a compact, first read `{BookTitle}/tracking/context.md` to restore current writing progress.
 
-## Compact 后恢复上下文
+## Restoring Context After Compact
 
-恢复写作前确认：
+Before resuming writing, confirm:
 
-1. 当前书目与已完成章节；
-2. 最近的角色/设定变更；
-3. 未回收伏笔；
-4. 当前章节的情绪和节奏目标。
+1. The current book and the chapters already completed;
+2. Recent character/setting changes;
+3. Unresolved foreshadowing;
+4. The current chapter's emotion and rhythm targets.
 
-如果存在 `{书名}/追踪/上下文.md`，先读取该文件再继续写作。
+If `{BookTitle}/tracking/context.md` exists, read it before continuing to write.

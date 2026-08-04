@@ -1,44 +1,44 @@
 ---
 paths:
-  - "**/设定/**"
-  - "**/大纲/**"
-  - "**/追踪/**"
+  - "**/setting/**"
+  - "**/outline/**"
+  - "**/tracking/**"
 ---
 
 # Story Consistency Rules
 
-修改设定、大纲、追踪文件时必须遵守的一致性规则。
+Consistency rules that apply when modifying setting, outline, or tracking files.
 
 ## Rules
 
-1. **设定变更必须检查追踪/**：修改任何角色设定或世界规则时，必须检查追踪/目录下的伏笔.md 和时间线文件，确保变更不会导致已有伏笔矛盾。
+1. **Setting changes must check tracking/**: whenever you modify any character setting or world rule, check the foreshadowing.md and timeline files under tracking/, so existing foreshadowing does not contradict the change.
 
-2. **新增角色必须创建独立文件**：每个主要角色应有独立的设定文件，并更新关系.md（如果存在）。
+2. **New characters must get their own file**: every major character should have an independent setting file, and relationships.md must be updated (if it exists).
 
-3. **时间线变更必须同步更新**：如果修改涉及时间顺序（事件发生的时间点），必须同步更新时间线.md。
+3. **Timeline changes must be synced**: if the modification touches chronological order (when events happen), update timeline.md accordingly.
 
-4. **设定变更必须记录到上下文.md**：任何重要的设定决策必须记录到追踪/上下文.md 的最近决策部分。
+4. **Setting changes must be recorded in context.md**: any important setting decision must be recorded in the recent-decisions part of tracking/context.md.
 
-5. **一致性检查必须用 grep**：不靠记忆，用搜索验证。常用检查命令：
-   - 角色属性：`grep -rn "角色名" 设定/ 正文/ | grep "属性关键词"`
-   - 时间线：`grep -rn "第.*天\|.*日后\|过了.*时" 正文/`
-   - 力量体系：`grep -rn "体系关键词" 设定/ 正文/`
-   - 伏笔状态：`grep -rn "伏笔#" 追踪/`
+5. **Consistency checks must use grep**: don't rely on memory — verify with searches. Common check commands:
+   - Character attributes: `grep -rn "character name" setting/ prose/ | grep "attribute keyword"`
+   - Timeline: `grep -rn "day [0-9]*\|[0-9]* days later\|after .* hours" prose/`
+   - Power system: `grep -rn "system keyword" setting/ prose/`
+   - Foreshadowing status: `grep -rn "Foreshadowing#" tracking/`
 
-6. **水字数检测信号**（出现即警告）：全章对话无新信息、同一情绪连续 3 段+、场景描写超 500 字不推进、角色回忆旧事无新视角、连续 2 章无冲突。
+6. **Padding signals** (warning when present): a whole chapter of dialogue with no new information, the same emotion for 3+ consecutive sections, scene description over 500 words without advancing, a character reminiscing with no new angle, or 2 consecutive chapters without conflict.
 
 ## Examples
 
 ### Correct
 ```
-修改沈栀的灵力等级为"第六层"后：
-1. 检查追踪/伏笔.md 中是否有依赖灵力等级的伏笔
-2. 更新追踪/上下文.md: [2024-05-05] 修改沈栀灵力等级为第六层
-3. 如有时间线文件，检查第45章对应的时间点是否合理
+After changing Shen Zhi's spirit-power rank to "sixth layer":
+1. Check whether any foreshadowing in tracking/foreshadowing.md depends on the rank
+2. Update tracking/context.md: [2024-05-05] Changed Shen Zhi's spirit-power rank to sixth layer
+3. If a timeline file exists, check whether the chapter-45 time node still makes sense
 ```
 
 ### Wrong
 ```
-直接修改设定/角色/沈栀.md 中的灵力等级，不检查任何关联文件。
-结果：第20章中"沈栀灵力只有第三层"的伏笔变得矛盾。
+Editing the spirit-power rank in setting/characters/shen-zhi.md directly, without checking any related files.
+Result: the chapter-20 foreshadowing "Shen Zhi's spirit power is only at the third layer" now contradicts.
 ```
