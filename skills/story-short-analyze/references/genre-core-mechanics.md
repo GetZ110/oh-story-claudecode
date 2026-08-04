@@ -1,425 +1,421 @@
-# 核心梗解析与微创新设计
+# Core-Hook Analysis and Micro-Innovation Design
 
-> **用途**：核心梗三层递进设计（主题→题材→情绪），微创新五法、冲突网络、金手指匹配、事业线/爱情线设计。构思和验证大纲时对照使用。
-> **语气**：指令式——每个原则都是"必须做到"的硬规则，违反就有明确后果。
-> **配合**：题材结构骨架见 genre-writing-formulas.md，读者画像见 genre-readers.md。
+> **Use**: the three-layer progressive design of the core hook (theme→genre→emotion), the five micro-innovation methods, conflict networks, cheat matching, and career/romance line design. Consult when developing and validating outlines.
+> **Tone**: imperative — every principle is a hard rule that "must be done"; violating one has a clear consequence.
+> **Pairing**: genre structural skeletons in genre-writing-formulas.md; reader profiles in genre-readers.md.
 
-## 用作拆文标尺时
+## When used as a teardown yardstick
 
-本文件原本是写作侧 playbook，写法是「怎么写」。`story-short-analyze` 在拆文时把它当
-**对照标尺**用 —— 拆文动作是把源文与本文件描述的标准模式做对比，找出该篇用了哪一种、
-做得有多到位，**不是**按本文件去写新作品。
+This file was originally a writing-side playbook — written as "how to write". `story-short-analyze` uses it as a **comparison yardstick** during teardown: the teardown action is comparing the source against the standard patterns described here, finding which one the piece uses and how well it executes — it is **not** a guide for writing new works.
 
-读者视角的判断：本文件描述的是 番茄小说短篇 / 故事会 / 追妻 / 世情 / 重生 / 虐渣
-等通俗短篇圈的工业标准模板，是拆文报告里「可复用结构 / 反转设计 / 题材公式」等段的
-对照来源。
+Reader-perspective note: this file describes the industrial-standard templates of the English popular short-fiction scene; it is the comparison source for the "reusable structures / reversal design / genre formulas" sections of the teardown report.
 
 ---
 
-## 决策路由：按设计阶段选工具
+## Decision routing: pick the tool by design stage
 
-> 构思大纲时按阶段推进，每个阶段用对应的工具核对。
+> When developing an outline, advance stage by stage; check each stage with the matching tool.
 
-| 设计阶段 | 要做的事 | 对应章节 |
-|---------|---------|---------|
-| 定核心梗 | 确定主题、题材核心、核心情绪三层 | 核心梗三层递进设计 |
-| 检验核心梗 | 确认没有偏离、没有挂羊头卖狗肉 | 每章循环检查 + 检验清单 |
-| 微创新 | 在模板边界内做差异化，不超过3个点 | 微创新与差异化设计 |
-| 建冲突网络 | 铺设纵+横+交叉三层矛盾 | 冲突网络设计 |
-| 选金手指 | 金手指与世界观压迫度匹配 | 金手指与世界观匹配 |
-| 做事业线/爱情线 | 铺骨架和藤蔓，控制比例 | 事业线/爱情线设计 |
-| 防崩盘 | 检查卖点偏移、题材匹配度 | 卖点偏移检验 |
-
----
-
-## 核心梗三层递进设计（主题→题材→情绪）
-
-三代指**迭代层次**，一本小说通常由2-4条核心梗融合。
-
-### 一代：主题/中心思想
-
-| 维度 | 说明 |
-|------|------|
-| 定义 | 小说的主题和中心思想 |
-| 作用 | 赋予目标和立意，防止偏离核心 |
-| 关键 | 没有主题=立意不明确=文字干巴巴没情绪 |
-
-主题在不同阶段可有不同表现，不一定只有一个。
-
-### 二代：题材核心
-
-| 维度 | 说明 |
-|------|------|
-| 定义 | 该题材独有的核心吸引力 |
-| 作用 | 筛选读者、划定边界、产生氛围感 |
-| 提取法 | 看同题材火书的核心卖点和核心情绪 |
-
-**核心原则：偏离题材核心=抛弃吸引读者的最大依仗，在读直线下降。**
-
-偏离案例：
-
-| 作品 | 题材 | 偏离 | 后果 |
-|------|------|------|------|
-| 《一级一个金词条》 | 都市高武 | 对比对象从地球人跳到异世界神 | 在读直线下降 |
-| 《普攻永久加生命》 | 网游文 | 走出新手村后仍和NPC打 | 热度持续下滑 |
-
-### 三代：核心情绪
-
-| 维度 | 说明 |
-|------|------|
-| 定义 | 一种核心情绪体验(扮猪吃虎/弥补遗憾/莫欺少年穷等) |
-| 作用 | 筛选读者、提升戏剧性 |
-
-核心情绪不等于爽点表现形式。装逼打脸只是形式，核心梗是完整的情绪链条(期待→满足)。
-
-### 剧情构建顺序
-
-**核心卖点 → 情绪套路 → 具体剧情**
-
-先确定核心情绪(读者要看什么)，再设计情绪套路(怎么让读者感受到)，最后设计具体剧情(用什么事件)。
-
-### 核心梗定义
-
-核心梗=金手指最核心的使用方式+读者最想看的爽点模式。金手指是工具，核心梗是最有趣的使用方式。核心梗可平替：女帝→朱元璋→嬴政，背景任意置换。
-
-### 每章循环检查
-
-每章必备三选一：①拥有核心梗相关的期待点 ②拥有核心梗相关的爽点 ③介于期待点和爽点之间。
-
-**断期待的判断**：某章既无期待点也无爽点，前一爽点已结束，本身没拉起新期待→读者觉得书失去了"灵魂"开始弃书。
-
-**两种运转模式**：
-- 不断循环型：每个一级结构运行一次，变奏场景/对象/条件
-- 只运行一次型：围绕一个核心情绪分阶段推进
-
-### 检验清单
-
-- 读者翻开最想看什么？(核心梗)
-- 每个剧情单元是否在展示核心梗？
-- 核心梗爽点模式能否循环？
-- 有无挂羊头卖狗肉？
-- 全文每章是否满足三要素中至少一个？
-
-### 常见误区
-
-| 误区 | 表现 |
-|------|------|
-| 核心梗太多 | 什么都想写=没有核心梗 |
-| 立意不明确 | 没有情绪目标，文字干巴巴 |
-| 纯装逼打脸无主题 | 剧情没有意义 |
-| 核心梗用完不升级 | 生硬重复，审美疲劳 |
-| 挂羊头卖狗肉 | 书名暗示与实际内容不符 |
-
-### 偏离核心梗的典型案例
-
-| 作品 | 偏离方式 | 后果 | 改善方向 |
-|------|----------|------|----------|
-| 《完美世界》 | 后期核心情绪崩塌 | 月票直线下降 | 独断万古可以但要有实质收获 |
-| 《十方武圣》 | 杀光所有人换地图 | 核心情绪崩坏，留存风险显著升高 | 换地图不要清空旧角色资产 |
-| 《诡舍》 | 所有角色成工具人 | 高开低走 | 身边人遭遇危机后最终克服 |
-| 《一人镇守孤城》 | 始终沉浸悲壮无变化 | 读者麻木 | 穿插其他情绪 |
-
-**关键原则**：悲情不需通过身边人死绝体现，多创造挫折即可。刀人是手段不是目的。主角目标必须让读者觉得有意义。
-
-### 悲剧命运改写法
-
-1. 选取悲剧原型
-2. 选取切入点(主角介入时间节点)
-3. 选取装逼方式
-4. 敲定贯穿表现力的道具
-5. 选取参与配角(不超5人)
-6. 重塑事件，构想改写命运画面
-7. 处置悲剧变喜剧反转+主角收获+下一故事引子
-
-核心：把行侠仗义具体化，打怪装逼高尚化，改写命运命题小白化——融为一体。
+| Design stage | What to do | Matching section |
+|--------------|------------|------------------|
+| Set the core hook | fix the theme, genre core, and core emotion layers | three-layer progressive core-hook design |
+| Validate the core hook | confirm no drift, no false advertising | per-chapter loop check + validation checklist |
+| Micro-innovation | differentiate inside the template boundary, ≤3 points | micro-innovation and differentiation design |
+| Build the conflict network | lay three layers: vertical + horizontal + cross | conflict-network design |
+| Pick the cheat | match the cheat to the worldview's oppression | cheat and worldview matching |
+| Build career/romance lines | lay the skeleton and the vines, control the ratio | career/romance line design |
+| Prevent collapse | check selling-point drift, genre fit | selling-point drift check |
 
 ---
 
-## 微创新与差异化设计
+## Three-layer progressive core-hook design (theme→genre→emotion)
 
-创新范围限制在：**人物、人物关系、情节。最多3个微创新点。** 不能超出模板内容边界。
+The three layers are iterative levels; a novel usually fuses 2-4 core hooks.
 
-### 灵感源头
+### Layer 1: theme / central idea
 
-| 阶段 | 来源 | 方法 |
-|------|------|------|
-| 前期 | 标签系统 | 热门标签交叉组合 |
-| 中期 | 热搜/评论区/弹幕 | 高频话题提炼 |
-| 后期 | 电影/游戏 | 视觉化叙事、交互式体验 |
+| Dimension | Notes |
+|-----------|-------|
+| Definition | the novel's theme and central idea |
+| Function | gives the goal and the intent; prevents drifting off the core |
+| Key | no theme = no intent = dry text with no emotion |
 
-### 标签系统
+The theme can show differently across phases; it doesn't have to be one.
 
-每个标签评估四维度：
+### Layer 2: genre core
 
-| 维度 | 说明 | 权重 |
-|------|------|------|
-| 兼容度 | 能和多少其他标签组合 | 高 |
-| 影响度 | 对故事整体影响深度 | 中 |
-| 新鲜度 | 多久没被大量使用 | 高 |
-| 喜爱度 | 读者偏好 | 中 |
+| Dimension | Notes |
+|-----------|-------|
+| Definition | the genre's unique core attraction |
+| Function | filters readers, draws the boundary, produces atmosphere |
+| Extraction method | study the hit books of the same genre for core selling points and core emotions |
 
-选标签策略：**高兼容+中等影响+高新鲜度=最佳切入点**
+**Core principle: drifting from the genre core = abandoning your biggest reader magnet; reading count drops instantly.**
 
-### 70/20/10元素法则
+Drift cases:
 
-- 70%来自过去经历和记忆(共同代际记忆/流行文化)
-- 20%来自当前生活状态(工作/爱好/感情)
-- 10%来自时事热点话题和趋势
+| Work | Genre | Drift | Consequence |
+|------|-------|-------|-------------|
+| A cultivation novel | urban high-martial-arts | the comparison target jumps from earthlings to gods | reading count drops instantly |
+| An online-game novel | game fiction | after leaving the starter village, still fights NPCs | heat keeps sliding |
 
-### 五种微创新手法
+### Layer 3: core emotion
 
-| 手法 | 核心 | 示例 |
-|------|------|------|
-| 精炼法 | 把已有套路做到极致 | 打脸一巴掌→三巴掌层层递进 |
-| 升级法 | 框架不变元素升级 | "公司"→"跨国集团"，"校花"→"国民校花+学霸+隐藏身份" |
-| 加料法 | 已有框架加新元素 | 重生+规则怪谈，种田+末日 |
-| 反套路法 | 反过来写 | 废材逆袭→天才跌落重新站起 |
-| 组合法 | 两个不相干套路组合 | 种田+修仙，系统+悬疑 |
+| Dimension | Notes |
+|-----------|-------|
+| Definition | a core emotional experience (hidden-strength reveal / regret repair / don't bully the young, etc.) |
+| Function | filters readers, raises drama |
 
-### 微创新检查清单
+Core emotion ≠ payoff presentation form. Status-flex and comeuppance are just the form; the core hook is the complete emotional chain (anticipation → satisfaction).
 
-- [ ] 创新点是否在3个以内？
-- [ ] 是否在模板内容边界内？
-- [ ] 是否影响读者核心期待？
-- [ ] 是否有足够素材支撑？
-- [ ] 是否增加了创作难度？
+### Plot-construction order
 
-### 冲突网络设计
+**Core selling point → emotional trope → concrete plot**
 
-好的长篇至少3层矛盾同时运作。
+Fix the core emotion first (what the reader wants to see), then design the emotional trope (how the reader feels it), then design the concrete plot (which events).
 
-**矛盾类型**
-- 纵向(上下级)：控制与服从/压制与反抗/师徒/君臣
-- 横向(平级)：理念冲突/资源争夺/同行/情敌/竞争对手
-- 交叉：A和B矛盾，B和C矛盾，A和C因此也产生矛盾
+### Core-hook definition
 
-**编织顺序**：定地图→定阵营→定角色→对齐阵营填充纵+横矛盾→推理交叉矛盾
+Core hook = the most interesting use of the cheat + the payoff pattern the reader most wants to see. The cheat is the tool; the core hook is the most interesting use. Core hooks are substitutable: the empress → the founding emperor → any tyrant; the background swaps freely.
 
-### 换瓶不换酒三条路径
+### Per-chapter loop check
 
-| 路径 | 做法 |
-|------|------|
-| 换世界观 | 相同节奏和金手指换到不同题材 |
-| 换职业/元素 | 世界观固定，不同职业或问题解法 |
-| 加新机制 | 已有框架加入读者熟悉但网文中新鲜的元素 |
+Every chapter must have at least one of three: ① a core-hook-related anticipation point ② a core-hook-related payoff ③ something between anticipation and payoff.
 
-### 界限感扩容技术
+**Expectation-break judgment**: a chapter with neither anticipation nor payoff, the previous payoff over, nothing new pulling anticipation → the reader feels the book lost its "soul" and starts dropping.
 
-融合多种题材元素时用"更大的圆"圈在一起：
-1. 找统一解释(覆盖所有元素的框架)
-2. 利用界限服务主角(不同题材边界差=信息差和优势)
-3. 原创替代搬运(经典角色为原型创作，非直接拿)
+**Two operating modes**:
+- Continuous loop: each primary structure runs once, varying scene/object/conditions
+- Run-once: advancing in phases around one core emotion
 
-### 信息操控意识
+### Validation checklist
 
-时刻思考：①读者看书前已知什么？②看设定后已知什么？③看完剧情后已知什么？操控读者已知的东西是解决剧情设计困境的核心方法。
+- What does the reader most want to see when they open the book? (the core hook)
+- Is every story unit displaying the core hook?
+- Can the core hook's payoff pattern loop?
+- Any false advertising?
+- Does every chapter in the book meet at least one of the three elements?
 
-### 金手指与世界观匹配
+### Common mistakes
 
-| 世界观类型 | 压迫特征 | 适配金手指 |
-|------------|----------|------------|
-| 极道流(原教旨) | 阶级固化+环境恶劣 | 无条件强行升级(加点流) |
-| 极道流(改良) | 压迫感降低 | 熟练度变种(花哨但底层肝) |
-| 常规升级流 | 换地图升级 | 碎片化/解锁型 |
-| 轻松日常流 | 低压迫 | 人际关系/种田型 |
+| Mistake | Manifestation |
+|---------|---------------|
+| Too many core hooks | wanting to write everything = having no core hook |
+| Unclear intent | no emotional goal, dry text |
+| Pure flex with no theme | the plot means nothing |
+| Core hook used up without upgrading | stiff repetition, aesthetic fatigue |
+| False advertising | the title implies something the content doesn't deliver |
 
-**功能单一金手指风险**：解决矛盾模式单一，只适用于强压迫世界观，其他题材硬用必须找补。
+### Typical core-hook drift cases
 
-### 认知差异核心梗
+| Work | Drift mode | Consequence | Improvement direction |
+|------|------------|-------------|----------------------|
+| A post-apocalyptic novel | late-stage core emotion collapses | votes slide | invincibility is fine, but there must be real gains |
+| A martial novel | kills everyone and switches maps | core emotion breaks; retention risk jumps | don't zero out the old cast when switching maps |
+| A horror-house novel | every character becomes a tool | starts high, fades fast | people close to the protagonist get into danger, then overcome it |
+| A lone-holdout novel | perpetual tragic grandeur, no variation | readers go numb | interleave other emotions |
 
-主角视角"理所当然"vs旁人视角"不可思议"形成张力。配合无敌流效果最佳。
+**Key principle**: pathos doesn't need everyone around the protagonist dead — create setbacks. Killing is a means, not an end. The protagonist's goal must feel meaningful to the reader.
 
-| 场景 | 主角视角 | 旁人视角 |
-|------|----------|----------|
-| 无敌流 | 死了复活没啥 | 这人比诡异还诡异 |
-| 幕后流 | 随手布置 | 幕后boss深不可测 |
-| 迪化流 | 想帮茶农卖茶 | 他在下大棋 |
+### Rewriting a tragic fate
 
-### 基调/氛围感贯穿原则
+1. Pick the tragic archetype
+2. Pick the entry point (the moment the protagonist intervenes)
+3. Pick the flex mode
+4. Lock the prop that carries the expression
+5. Pick the participating supporting cast (no more than 5)
+6. Reshape the events; envision the fate-rewriting picture
+7. Resolve: tragedy → comedy reversal + protagonist gains + the next story's seed
 
-全文基调必须贯穿如一，变了=换了一本书。人设性格变化不等于基调变化。金手指发展不能破坏基调。
-
-### 故事构思四法
-
-| 方法 | 核心 |
-|------|------|
-| 发散法 | 以逻辑起点为基础发散出大量爽点 |
-| 联系法 | 将两个跨度大的素材关联想象，跨度越大戏剧性越强 |
-| 去常态法 | 取人事物特征反常化(恰恰相反/极端化) |
-| 点推法 | 在散碎故事间建立逻辑联系串联完整故事 |
-
-**组合流程**：灵感→联系法/去常态法处理→发散法基于处理后灵感发散→点推法串联
-
-### 爽点阈值递升原则
-
-后一个剧情的情绪满足必须高过前一个。
-
-**递升维度**：影响力范围扩大 | 人物层级升高 | 收获价值增大 | 认知颠覆加深
-
-**递升失效信号**：读者对相似规模爽点不再反应 | 主角升级无差异化展示 | 人际网没随等级变化
-
-### 男女频核心梗差异
-
-| 维度 | 女频 | 男频 |
-|------|------|------|
-| 核心任务 | 精细化一个卖点 | 深挖可复用运转逻辑 |
-| 字数支撑 | 短中篇，一个梗写透 | 长篇大长篇，逻辑反复运转 |
-| 创新重点 | 同一卖点新表达 | 底层情绪机制新组合 |
-| 拆解方法 | 拆一本书的精彩点 | 拆一本书的运转机制 |
-
-### 模拟文结构
-
-**单元**：模拟制造情绪缺口→模拟后得奖励(形成信息差→拉期待)→现实满足
-
-**卷纲**：模拟得知大危机→[模拟+得奖励+现实推进]循环→核心危机未解决→达成最终满足
-
-### 同人深层情绪写法
-
-装逼震惊之下加更深层情绪：亲情/救赎/遗憾弥补。原著人物震惊不止"太强了"还有激动/后悔/释然。重新认识熟人有代价，震惊熟人效果远高于震惊陌生人。
+Core: make heroism concrete, make monster-bashing noble, make fate-rewriting simple — fused into one.
 
 ---
 
-## 事业线/爱情线设计
+## Micro-innovation and differentiation design
 
-### 执行规则
+Innovation is confined to: **characters, character relationships, plot. At most 3 micro-innovation points.** You can't exceed the template's content boundary.
 
-- 事业线是长篇骨架，爱情线是藤蔓。天花板取决于事业线质量
-- 主线要落成一件事；升级只是达成目标的行为，不能顶替主线本身
-- 《斗破》主线="被退婚→上云岚宗复仇"，《全职》主线="被辞退后重回巅峰"
+### Inspiration sources
 
-### 事业线要点
+| Phase | Source | Method |
+|-------|--------|--------|
+| Early | tag systems | cross-combine hot tags |
+| Middle | trending topics / comment sections / danmaku | distill high-frequency topics |
+| Late | films / games | visual narration, interactive experiences |
 
-- 事业线本质="主角从弱变强的过程"
-- 每阶段有明确目标和对手，完成后难度升级
-- 没有事业线时抽取有共鸣的人生主线(高中/大学最有效)
+### Tag system
 
-### 爱情线四阶段
+Evaluate each tag on four dimensions:
 
-| 阶段 | 内容 | 爽点 |
-|------|------|------|
-| 萍水相逢 | 展示外貌/性格/他人评价/习惯 | 新鲜感 |
-| 怦然心动 | 产生好感注意对方存在 | 期待感 |
-| 暧昧升温 | 互动增多关系微妙变化 | 最强拉扯感 |
-| 确认关系 | 突破窗户纸 | 满足感 |
+| Dimension | Notes | Weight |
+|-----------|-------|--------|
+| Compatibility | how many other tags it combines with | high |
+| Impact | depth of effect on the overall story | medium |
+| Freshness | how long since overuse | high |
+| Appeal | reader preference | medium |
 
-### 爱情线推进技巧
+Tag-selection strategy: **high compatibility + medium impact + high freshness = the best entry point**
 
-- **关系拉扯**：推进和拉开交替，不能只拉近。扯开可用心有芥蒂/暂时冷静/误会，避免直接分手
-- **英雄救美**：男主事业线行为无意间救女主→女主倒追(非白给)
-- **误会**：制造隔阂延缓推进，也是装逼打脸工具
-- **窗户纸事件**：好感度质变→关系阶段变化，事业线为主的放在一级结构小高潮
+### The 70/20/10 element rule
 
-### 狗粮文循环
+- 70% from past experience and memory (shared generational memory / pop culture)
+- 20% from current life (work / hobbies / relationships)
+- 10% from current events and trends
 
-不能模仿升级文突破模式(牵手/接吻/上床是一次性的)。正确循环：稳定人设组合+变化情境=无限可用套路(复用短视频固定流程模式)。感情升温通过共同困境/互相理解/意外发现，非身体接触升级。
+### The five micro-innovation methods
 
-### 事业线与爱情线平衡
+| Method | Core | Example |
+|--------|------|---------|
+| Refinement | push an existing trope to its limit | one slap → three escalating slaps |
+| Escalation | keep the frame, upgrade the elements | "company" → "multinational", "school beauty" → "national sweetheart + valedictorian + hidden identity" |
+| Addition | add new elements to an existing frame | second chance + rule horror; slice-of-life + apocalypse |
+| Anti-trope | write it backwards | trash-talent rise → genius falls and stands again |
+| Combination | combine two unrelated tropes | slice-of-life + cultivation; system + mystery |
 
-- 互相促进：事业为爱情提供场景和冲突，爱情为事业增加牵挂
-- 九一开原则：事业线为主的文爱情线最多占一成，且必须为事业线服务
-- 核心观感必须一致，观感偏移=核心梗偏移
+### Micro-innovation checklist
 
-### 男频感情线特殊规则
+- [ ] ≤3 innovation points?
+- [ ] Inside the template's content boundary?
+- [ ] Does it affect the reader's core expectation?
+- [ ] Enough material to support it?
+- [ ] Does it raise the writing difficulty?
 
-- 不写拉扯式恋爱，不能写男主追女人为女人付出
-- 正确逻辑：男主追求事业→无意间英雄救美→女主倒追
-- 女主倒追vs白给：区别在于是否有说服力的铺垫
-- 读者目的：收获现实中缺失的异性情绪价值补偿
+### Conflict-network design
 
-### 后宫与炒股
+A good long-form runs at least 3 layers of contradiction simultaneously.
 
-结构共性：中间写法一致(逐个暧昧不确认关系，结局确认)。后宫规则：不能和一个确认后再攻略下一个(显渣男)。修罗场三处理：一笔带过/关联回事业线(最推荐)/被害人设梗。炒股结尾可选择开放性结局。
+**Contradiction types**
+- Vertical (superior/subordinate): control and obedience / suppression and resistance / mentor-student / monarch-subject
+- Horizontal (peers): ideological conflict / resource competition / peers / rivals / competitors
+- Cross: A conflicts with B, B conflicts with C, so A and C also conflict
 
-### CP行为分级体系
+**Weaving order**: fix the map → fix the factions → fix the characters → align factions and fill vertical+horizontal contradictions → infer the cross contradictions
 
-好感度越高CP行为越亲密/深入，不能跨阶段。
+### Three paths of new-bottle-same-wine
 
-| 级别 | 行为 | 表现 |
-|------|------|------|
-| 1 | 主动亲密 | 肢体亲密接触及以上 |
-| 2 | 主权行为 | 争风吃醋、宣示主权 |
-| 3 | 信赖行为 | 无条件分享秘密、绝对信任 |
-| 4 | 安抚行为 | 敏锐察觉负面情绪并主动安抚 |
-| 5 | 特殊待遇 | 对待方式与其他人完全不同 |
-| 6 | 优先特权 | 做决定时对方是最重要因素 |
-| 7 | 默契行为 | 不约而同、无需交流自然配合 |
+| Path | How |
+|------|-----|
+| Swap the worldview | same rhythm and cheat into a different genre |
+| Swap the profession/element | fixed worldview, different professions or problem solutions |
+| Add a new mechanic | add elements familiar to readers but fresh in web fiction |
 
-### 爱情线底层逻辑
+### Boundary-expansion technique
 
-**友情vs爱情**：恋爱双方必须在持续低烈度"斗争"底色上实现鸡毛蒜皮互相妥协达成共识，爱情"存异"区间比友情小很多。
+When fusing multiple genre elements, circle them with "a bigger circle":
+1. Find the unifying explanation (a frame covering all elements)
+2. Use the boundaries for the protagonist (genre-boundary differences = information gaps and advantages)
+3. Original over borrowed (classic characters as prototypes, not direct copies)
 
-**四检查原则**：
-1. 人物决策时"男/女人"成分是否超过"人"的成分？超过时有无足够外部条件？
-2. 突出性别特质描写是否匹配基础性格/成长经历/身份地位？
-3. 避免完全靠外部因素推动，加入更多内生动力的碰撞
-4. 不会写就按挚友写再修正(挚友改写法)
+### Info-manipulation awareness
+
+Always think: ① what did the reader know before opening the book? ② what do they know after the setup? ③ what do they know after the plot? Manipulating what the reader knows is the core method of solving plot-design dilemmas.
+
+### Cheat and worldview matching
+
+| Worldview type | Oppression traits | Fitting cheat |
+|----------------|-------------------|---------------|
+| Extreme-dao flow (purist) | rigid class system + harsh environment | unconditional forced upgrades (point-adding flow) |
+| Extreme-dao flow (reformed) | lower oppression | proficiency variants (fancy on the surface, grinding underneath) |
+| Regular escalation flow | map-switch upgrades | fragmented/unlock types |
+| Relaxed daily flow | low oppression | relationship/slice-of-life types |
+
+**Single-function cheat risk**: one way to solve contradictions, only fits high-oppression worldviews; forcing it into other genres requires patches.
+
+### Cognitive-difference core hook
+
+The protagonist's "obviously" vs others' "impossible" creates tension. Works best with the invincible flow.
+
+| Scenario | Protagonist's view | Others' view |
+|----------|--------------------|--------------|
+| Invincible flow | dying and reviving is nothing | this person is more unnatural than the unnatural |
+| Behind-the-scenes flow | a casual arrangement | the shadow boss is unfathomable |
+| Misinterpretation flow | trying to help the tea farmers sell tea | he's playing a grand game |
+
+### Tone/atmosphere consistency principle
+
+The whole book's tone must stay consistent; changing it = a different book. Character personality changes ≠ tone changes. Cheat development must not break the tone.
+
+### Four story-conception methods
+
+| Method | Core |
+|--------|------|
+| Divergence | diverge a huge set of payoffs from a logical starting point |
+| Connection | link two far-apart materials; the wider the span, the stronger the drama |
+| De-normalization | reverse/extreme-ify a person/thing's traits |
+| Point-linking | build logical links between scattered story fragments to make a whole story |
+
+**Combined flow**: inspiration → connection/de-normalization processing → divergence from the processed inspiration → point-linking
+
+### Payoff-threshold escalation principle
+
+The next plot's emotional satisfaction must exceed the previous one.
+
+**Escalation dimensions**: influence scope widens | character tier rises | gain value grows | cognitive overturn deepens
+
+**Escalation-failure signals**: readers stop reacting to similar-scale payoffs | protagonist upgrades with no differentiated display | the relationship web doesn't change with the tier
+
+### Male-line vs female-line core-hook differences
+
+| Dimension | Female line | Male line |
+|-----------|-------------|-----------|
+| Core task | refine one selling point | deepen a reusable operating logic |
+| Word-count support | short-to-medium; one hook written through | long-form; the logic loops repeatedly |
+| Innovation focus | new expression of the same selling point | new combination of underlying emotional mechanics |
+| Teardown method | tear down one book's brilliant points | tear down one book's operating machinery |
+
+### Simulation-fiction structure
+
+**Unit**: simulation creates an emotional gap → post-simulation rewards (forming an information gap → pulling anticipation) → real-life satisfaction
+
+**Volume**: simulation reveals a big crisis → [simulation + rewards + real-life progress] loop → core crisis unresolved → final satisfaction achieved
+
+### Deep-emotion writing for fan-fiction-adjacent work
+
+Under the flex-and-shock layer, add deeper emotion: family / redemption / regret repair. The original characters' shock isn't just "too strong" — add excitement / regret / relief. Being re-recognized by someone familiar costs something; shocking the familiar far outdoes shocking strangers.
 
 ---
 
-## 卖点偏移检验
+## Career/romance line design
 
-### 防崩盘三检查
+### Execution rules
 
-1. 能否用一句话说清题材核心卖点的目标情绪
-2. 卖点是否能拆出至少5个不重复的剧情展开方向
-3. 卖点展开所需的核心能力是否可由已有写作方法论覆盖
+- The career line is the long-form skeleton; the romance line is the vine. The ceiling depends on the career line's quality
+- The main line must land on one concrete thing; escalation is just the means to the goal, never a substitute for the main line itself
+- Example main lines: "humiliated at the engagement → climbing the sect to take revenge"; "fired → returning to the top"
 
-### 题材选择与知识领域匹配
+### Career-line points
 
-| 步骤 | 操作 |
-|------|------|
-| 1 | 评估自身专业知识储备和了解深度 |
-| 2 | 评估能否构建符合的价值观和世界观 |
-| 3 | 检验对该题材社会运行规律的了解 |
-| 4 | 确认文字能否让读者代入 |
+- The career line is essentially "the protagonist's path from weak to strong"
+- Every phase has a clear goal and opponent; completion raises the difficulty
+- Without a career line, extract a resonant life main line (high school/college works best)
 
-### 金手指设计进化方向
+### The romance line's four stages
 
-| 阶段 | 特征 |
-|------|------|
-| 1.0 | 纯极道加点(深蓝系统) |
-| 2.0 | 加点+探索+装备合成 |
-| 2.5 | 熟练度变种+多机制融合 |
-| 3.0 | 核心机制+副功能引出剧情 |
+| Stage | Content | Payoff |
+|-------|---------|--------|
+| Chance meeting | show appearance/personality/others' assessments/habits | freshness |
+| Heart-flutter | goodwill forms, noticing each other's existence | anticipation |
+| Ambiguity rising | more interaction, subtle shifts | the strongest pull |
+| Commitment | breaking the barrier | satisfaction |
 
-### 赛道选择
+### Romance-line advancement techniques
 
-不要直接冲大众赛道。选自带流量但竞争少的赛道做区别化。扩宽时新作与老作要有重叠要素保留老读者。案例路径：动画宝可梦→都市宝可梦→都市原创御兽→仙侠御兽→纯仙侠，每步有重叠。
+- **Push-pull**: advancing and pulling back alternate; you can't only pull closer. Pull-backs can use grudges / temporary cooling / misunderstandings — avoid direct breakups
+- **Heroic rescue**: the hero's career-line action accidentally saves the heroine → she pursues (not handed to him)
+- **Misunderstanding**: creates distance and slows progress; also a comeuppance tool
+- **Barrier-break events**: affection qualitatively shifts → relationship stage changes; in career-heavy fiction, put them at primary-structure mini-climaxes
 
-### 脑洞金手指创新：错位系统
+### Dog-food (couple-daily) loops
 
-- 时间错位：都无敌了逆袭系统才来
-- 环境错位：正常世界觉醒末世系统
-- 人员错位：本应寄生皇帝的寄生在了皇后身上
-- 错位→落差→戏剧性
+Can't imitate the escalation fiction's breakthrough pattern (hand-holding/kiss/sex are one-time). The correct loop: stable character pairing + varying situations = endlessly usable tropes (like short-video fixed formats). Emotional escalation through shared dilemmas / mutual understanding / accidental discoveries — not physical-contact upgrades.
 
-### 脑洞分类
+### Career/romance balance
 
-1. 金手指类脑洞(聊天群/系统/戒指老爷爷)
-2. 剧情类脑洞(反转/设定)
-3. 设定类脑洞(世界观/修行体系)
-4. 角色类脑洞(身份/人设)
+- Mutual promotion: career provides scenes and conflicts for romance; romance adds stakes to career
+- The 90/10 rule: in career-heavy fiction the romance line gets at most a tenth, and it must serve the career line
+- The core feel must be consistent; feel drift = core-hook drift
 
-创造阶段：金手指→金手指+角色→+设定→四类全创→相辅相成。不要跨阶段。
+### Male-line romance special rules
 
-### 核心卖点开发流程
+- No push-pull courtship; no hero chasing and sacrificing for a woman
+- Correct logic: the hero pursues his career → accidentally saves her → she pursues him
+- Her pursuing vs being handed over: the difference is persuasive setup
+- Reader purpose: emotional compensation for what real life lacks
 
-得到点子→思考开发潜力→放入合适题材→提炼核心卖点→通过设定加工为情绪缺口/读者期待→梳理故事雏形→动笔验证
+### Harem and speculation
+
+Shared structure: the middle writes the same way (ambiguous with each, no commitment, commitment at the end). Harem rules: no committing to one then conquering the next (reads as a jerk). Three ways to close the love-triangle drama: one-line pass / link back to the career line (recommended) / victim-of-the-persona joke. Speculation endings may stay open.
+
+### CP behavior tier system
+
+Higher affection = more intimate/deeper CP behavior; no skipping tiers.
+
+| Tier | Behavior | Manifestation |
+|------|-----------|---------------|
+| 1 | active intimacy | physical contact and above |
+| 2 | possessiveness | jealousy, claiming |
+| 3 | trust | unconditional secret-sharing, absolute trust |
+| 4 | soothing | keenly noticing negative emotion and soothing it |
+| 5 | special treatment | treating them completely differently from everyone else |
+| 6 | priority privilege | they are the most important factor in decisions |
+| 7 | tacit rapport | unspoken agreement, effortless coordination |
+
+### Romance-line underlying logic
+
+**Friendship vs love**: lovers must reach small-scale mutual compromise through continuous low-intensity "struggle"; love's "agree-to-disagree" zone is much smaller than friendship's.
+
+**Four-check principle**:
+1. In decisions, does "man/woman" outweigh "person"? If so, are the external conditions sufficient?
+2. Do the highlighted gendered descriptions match the base personality / history / status?
+3. Avoid pure external driving; add more internal-motivation collision
+4. If you can't write it, write them as close friends first and revise (the close-friends rewrite method)
 
 ---
 
-## 质量检查清单
+## Selling-point drift check
 
-> 大纲完成后逐项核对。全部通过才算合格。
+### The three collapse-prevention checks
 
-- [ ] **核心梗明确**：能用一句话说出"读者翻开最想看什么"，不是泛泛而谈
-- [ ] **三层递进齐全**：主题(立意)→题材核心(吸引力)→核心情绪(体验链条)三层都有定义
-- [ ] **每章不离梗**：每章至少有期待点或爽点之一，无"断期待"空白章
-- [ ] **偏离预警**：对比"偏离案例"表格，确认没有同类偏离
-- [ ] **微创新不超3个**：创新点在人物/关系/情节范围内，数量不超过3
-- [ ] **冲突三层铺满**：纵向+横向+交叉矛盾至少各有1条在运作
-- [ ] **金手指匹配世界观**：金手指类型与世界观压迫特征对应，功能单一金手指有补丁
-- [ ] **爽点阈值递升**：后一个爽点在影响力/层级/收获/认知至少一个维度上超过前一个
-- [ ] **事业线/爱情线比例**：事业线为主的文爱情线不超过一成，且爱情线为事业线服务
-- [ ] **基调贯穿**：全文基调一致，金手指发展没有破坏基调
-- [ ] **卖点不偏移**：书名、简介、开头前3章传递的卖点与实际内容一致，没有挂羊头卖狗肉
+1. Can you state the genre core selling point's target emotion in one sentence?
+2. Can the selling point split into at least 5 non-repeating plot expansion directions?
+3. Can the core capability the selling point needs be covered by the existing writing methodology?
+
+### Genre selection and knowledge-field matching
+
+| Step | Action |
+|------|--------|
+| 1 | assess your professional knowledge and depth |
+| 2 | assess whether you can build matching values and worldview |
+| 3 | test your understanding of the genre's social operating rules |
+| 4 | confirm the prose can make readers project |
+
+### Cheat-design evolution
+
+| Stage | Traits |
+|-------|--------|
+| 1.0 | pure point-adding |
+| 2.0 | point-adding + exploration + equipment synthesis |
+| 2.5 | proficiency variants + multi-mechanic fusion |
+| 3.0 | core mechanic + side functions pulling plot |
+
+### Track selection
+
+Don't charge the mass track directly. Pick a track with built-in traffic but less competition, and differentiate. When widening, new works must overlap with old ones to keep old readers. Example path: animated-monster city → urban monster taming → original monster taming → xianxia monster taming → pure xianxia; every step overlaps.
+
+### Misplaced-system innovation
+
+- Time misplacement: the comeback system arrives only after you're already invincible
+- Environment misplacement: a doomsday system awakens in a normal world
+- Host misplacement: the parasite meant for the emperor latches onto the empress instead
+- Misplacement → gap → drama
+
+### Idea categories
+
+1. Cheat ideas (chat groups / systems / ring grandfather)
+2. Plot ideas (reversals / premises)
+3. Setting ideas (worldviews / cultivation systems)
+4. Character ideas (identities / personas)
+
+Creation phases: cheat → cheat + character → + setting → all four → mutual reinforcement. Don't skip phases.
+
+### Core-selling-point development flow
+
+Get the idea → think through its development potential → place it in a fitting genre → refine the core selling point → process the setting into an emotional gap / reader expectation → sketch the story → write to validate
+
+---
+
+## Quality-check checklist
+
+> Check item by item after the outline is done. All pass = qualified.
+
+- [ ] **Core hook clear**: can say in one sentence "what the reader most wants to see when opening the book" — not vague
+- [ ] **Three layers complete**: theme (intent) → genre core (attraction) → core emotion (experience chain), all three defined
+- [ ] **Every chapter stays on the hook**: each chapter has at least an anticipation point or a payoff; no expectation-break blank chapters
+- [ ] **Drift warning**: compared against the "drift cases" table; no same-type drift
+- [ ] **Micro-innovation ≤3**: innovation points confined to characters/relationships/plot, count ≤3
+- [ ] **Three conflict layers laid**: vertical + horizontal + cross, at least one each running
+- [ ] **Cheat matches the worldview**: cheat type corresponds to the worldview's oppression traits; single-function cheats have patches
+- [ ] **Payoff-threshold escalation**: each payoff exceeds the previous one on at least one of impact/tier/gain/cognition
+- [ ] **Career/romance ratio**: in career-heavy fiction the romance line is at most a tenth and serves the career line
+- [ ] **Tone consistent**: the whole book's tone is uniform; cheat development didn't break it
+- [ ] **Selling point not drifting**: the title, blurb, and first-3-chapter promises match the actual content; no false advertising

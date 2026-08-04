@@ -1,8 +1,11 @@
 #!/bin/bash
-# test-story-continuity.sh — detect-story-gaps.sh 的跨批连续性兜底回归测试
-# 保证：① 追踪 staleness（正文更新到第N章但 上下文.md 更早）→ 提示续写会断线；
-#       ② 章节标题去重（两章撞名）→ 提示改名；③ 干净项目（上下文新于正文、标题唯一）静默。
-# 与 codex story_codex_hook.py 的 continuity_findings 同触发条件（codex 侧由 test-codex-hooks.sh 覆盖）。
+# test-story-continuity.sh — cross-batch continuity backstop regression for
+# detect-story-gaps.sh. Guarantees: ① tracking staleness (prose advanced to
+# chapter N but tracking/context.md is older) → warns that continuing would lose
+# continuity; ② duplicate chapter titles (two chapters with the same name) →
+# suggests renaming; ③ a clean project (context newer than prose, unique titles)
+# stays silent. Same trigger conditions as codex story_codex_hook.py's
+# continuity_findings (the codex side is covered by test-codex-hooks.sh).
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -11,53 +14,58 @@ HOOK="$REPO_ROOT/skills/story-setup/references/templates/hooks/detect-story-gaps
 [ -f "$HOOK" ] || { echo "FAIL: hook not found: $HOOK" >&2; exit 1; }
 bash -n "$HOOK" || { echo "FAIL: hook has syntax errors" >&2; exit 1; }
 
-# 无 python 解释器则跳过（连续性扫描是内嵌 python；CI 三平台都装了 python）。
-PYBIN=""
-for c in python3 python py; do "$c" -c "" >/dev/null 2>&1 && { PYBIN="$c"; break; }; done
-[ -z "$PYBIN" ] && { echo "test-story-continuity: no python interpreter, skipped."; exit 0; }
+# The continuity scan goes through the node shared core (story_hook_cli.js);
+# skip if no node interpreter (the hook itself degrades silently then, and the
+# clean-project assertions below would otherwise false-green).
+if ! node -e "" >/dev/null 2>&1; then
+  echo "test-story-continuity: no node interpreter, skipped."
+  exit 0
+fi
 
 fails=0
 run() { CLAUDE_PROJECT_DIR="$1" bash "$HOOK"; }
 
-# 真书结构（设定 3 个，避开「正文多但设定少」缺口告警，专测连续性）。
+# Real book structure (3 setting files, avoiding the "lots of prose, little
+# setting" gap warning so only continuity is exercised).
 make_book() {
   local root="$1"
-  mkdir -p "$root/某书/正文" "$root/某书/大纲" "$root/某书/追踪" "$root/某书/设定"
-  printf 'a\n' > "$root/某书/设定/角色.md"
-  printf 'b\n' > "$root/某书/设定/世界.md"
-  printf 'c\n' > "$root/某书/设定/力量.md"
-  printf '卷纲\n' > "$root/某书/大纲/卷纲.md"
+  mkdir -p "$root/the-book/prose" "$root/the-book/outline" "$root/the-book/tracking" "$root/the-book/setting"
+  printf 'a\n' > "$root/the-book/setting/characters.md"
+  printf 'b\n' > "$root/the-book/setting/world.md"
+  printf 'c\n' > "$root/the-book/setting/power.md"
+  printf 'outline\n' > "$root/the-book/outline/volume_outline_1.md"
 }
 
-# ① 追踪 staleness + ② 标题去重
+# ① tracking staleness + ② duplicate titles
 T1="$(mktemp -d)"; make_book "$T1"
-printf '旧上下文\n' > "$T1/某书/追踪/上下文.md"
+printf 'old context\n' > "$T1/the-book/tracking/context.md"
 sleep 1
-printf '# 第1章 决战\n正文。\n' > "$T1/某书/正文/第001章_决战.md"
-printf '# 第2章 决战\n正文。\n' > "$T1/某书/正文/第002章_决战.md"
+printf '# Chapter 1 Final Battle\nprose.\n' > "$T1/the-book/prose/chapter_001_final_battle.md"
+printf '# Chapter 2 Final Battle\nprose.\n' > "$T1/the-book/prose/chapter_002_final_battle.md"
 out="$(run "$T1")"
-printf '%s' "$out" | grep -q '续写会断线' || { echo "FAIL: 追踪 staleness 未触发"; echo "$out" >&2; fails=$((fails+1)); }
-printf '%s' "$out" | grep -q '标题重复' || { echo "FAIL: 标题去重 未触发"; echo "$out" >&2; fails=$((fails+1)); }
+printf '%s' "$out" | grep -q 'prose is ahead of tracking' || { echo "FAIL: tracking staleness not triggered"; echo "$out" >&2; fails=$((fails+1)); }
+printf '%s' "$out" | grep -q '2 chapters share the title' || { echo "FAIL: duplicate-title warning not triggered"; echo "$out" >&2; fails=$((fails+1)); }
 rm -rf "$T1"
 
-# ③ 干净项目：上下文新于正文、标题唯一 → 静默
+# ③ clean project: context newer than prose, unique titles -> silent
 T2="$(mktemp -d)"; make_book "$T2"
-printf '# 第1章 开端\n正文。\n' > "$T2/某书/正文/第001章_开端.md"
-printf '# 第2章 转折\n正文。\n' > "$T2/某书/正文/第002章_转折.md"
+printf '# Chapter 1 Beginning\nprose.\n' > "$T2/the-book/prose/chapter_001_beginning.md"
+printf '# Chapter 2 Turning Point\nprose.\n' > "$T2/the-book/prose/chapter_002_turning_point.md"
 sleep 1
-printf '新上下文，已更新到第2章\n' > "$T2/某书/追踪/上下文.md"
+printf 'new context, caught up to chapter 2\n' > "$T2/the-book/tracking/context.md"
 out="$(run "$T2")"
-[ -z "$out" ] || { echo "FAIL: 干净项目应静默，却输出："; echo "$out" >&2; fails=$((fails+1)); }
+[ -z "$out" ] || { echo "FAIL: clean project should be silent, but got:"; echo "$out" >&2; fails=$((fails+1)); }
 rm -rf "$T2"
 
-# ④ 短篇项目（无 追踪/）：不做 staleness（无 上下文.md），也不误报
+# ④ short-form project (no tracking/): no staleness check (no context.md), no
+# false positive
 T3="$(mktemp -d)"
-mkdir -p "$T3/短篇/正文" "$T3/短篇/设定"
-printf 'a\n' > "$T3/短篇/设定/角色.md"; printf 'b\n' > "$T3/短篇/设定/世界.md"; printf 'c\n' > "$T3/短篇/设定/力量.md"
-printf '# 第1章 起\n正文。\n' > "$T3/短篇/正文/第001章_起.md"
-mkdir -p "$T3/短篇/大纲"; printf '大纲\n' > "$T3/短篇/大纲/卷纲.md"
+mkdir -p "$T3/short-book/prose" "$T3/short-book/setting" "$T3/short-book/outline"
+printf 'a\n' > "$T3/short-book/setting/characters.md"; printf 'b\n' > "$T3/short-book/setting/world.md"; printf 'c\n' > "$T3/short-book/setting/power.md"
+printf '# Chapter 1 Start\nprose.\n' > "$T3/short-book/prose/chapter_001_start.md"
+printf 'outline\n' > "$T3/short-book/outline/volume_outline_1.md"
 out="$(run "$T3")"
-printf '%s' "$out" | grep -q '续写会断线' && { echo "FAIL: 短篇无追踪不应报 staleness"; echo "$out" >&2; fails=$((fails+1)); } || true
+printf '%s' "$out" | grep -q 'prose is ahead of tracking' && { echo "FAIL: short-form project without tracking must not report staleness"; echo "$out" >&2; fails=$((fails+1)); } || true
 rm -rf "$T3"
 
 if [ "$fails" -ne 0 ]; then

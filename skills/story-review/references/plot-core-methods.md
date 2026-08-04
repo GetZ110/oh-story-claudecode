@@ -1,522 +1,520 @@
-# 剧情核心方法 — 操作手册
+# Core Plot Methods — Operations Manual
 
-> 小纲设计、高潮构建、卡文对策、循环设计、连续性追踪等剧情创作的核心方法。
-> 遇到问题先查路由表，找到对应方法再操作。
+> Core plot-creation methods: mini-outline design, climax construction, stuck-writing countermeasures, loop design, continuity tracking, and more.
+> When you hit a problem, check the routing table first, find the method, then operate.
 
 ---
 
-## 决策路由表
+## Decision routing table
 
-| 你在做什么 | 用什么方法 | 跳转到 |
+| What you're doing | Method | Jump to |
 |-----------|-----------|--------|
-| 建小纲/细纲 | 小纲四步法 | [小纲四步法](#小纲四步法) |
-| 设计高潮 | 高潮构建公式 + 逆推法 | [高潮逆推法与AB粗纲](#高潮逆推法与ab粗纲) → [高潮构建公式](#高潮构建公式) |
-| 卡文了 | 卡文对策 + 循环设计 | [卡文对策与剧情循环设计](#卡文对策与剧情循环设计) |
-| 管理连续性 | 连续性追踪 + 节奏管理 | [连续性追踪与节奏管理](#连续性追踪与节奏管理) |
-| 设计过渡衔接 | 剧情过渡 + 场景转换技巧 | [剧情过渡与衔接](#剧情过渡与衔接) → [场景转换技巧](#场景转换技巧) |
-| 开书/设计噱头 | 噱头分类与开篇流程 | [噱头分类与开篇流程](#噱头分类与开篇流程) |
-| 拉长剧情 | 设门槛 | [设门槛——拉长剧情的核心技巧](#设门槛拉长剧情的核心技巧) |
-| 管理期待感 | 大剧情拉期待法 | [大剧情拉期待法](#大剧情拉期待法) |
-| 写日常文 | 日常文大纲框架法 | [日常文大纲框架法](#日常文大纲框架法) |
-| 判定是否自嗨 | 自嗨判定法 | [自嗨判定法](#自嗨判定法) |
+| Build mini-outlines / chapter outlines | the four-step mini-outline method | [four-step mini-outline](#four-step-mini-outline) |
+| Design a climax | climax construction formula + back-derivation | [climax back-derivation & AB rough outlines](#climax-back-derivation--ab-rough-outlines) → [climax construction formula](#climax-construction-formula) |
+| Stuck writing | stuck countermeasures + loop design | [stuck countermeasures & plot-loop design](#stuck-countermeasures--plot-loop-design) |
+| Manage continuity | continuity tracking + rhythm management | [continuity tracking & rhythm management](#continuity-tracking--rhythm-management) |
+| Design transitions | plot transitions + scene-switch techniques | [plot transitions & handoffs](#plot-transitions--handoffs) → [scene-switch techniques](#scene-switch-techniques) |
+| Open a book / design hooks | hook classification & opening flow | [hook classification & opening flow](#hook-classification--opening-flow) |
+| Stretch the plot | gate-setting | [gate-setting — the core stretch technique](#gate-setting--the-core-stretch-technique) |
+| Manage anticipation | big-plot anticipation-raising | [big-plot anticipation-raising](#big-plot-anticipation-raising) |
+| Write daily fiction | daily-fiction outline framework | [daily-fiction outline framework](#daily-fiction-outline-framework) |
+| Judge self-indulgence | self-indulgence test | [self-indulgence test](#self-indulgence-test) |
 
 ---
 
-## 小纲四步法
+## Four-step mini-outline
 
-细纲与正文比例控制在 **1:2.5 ~ 1:3**。
+Chapter outline to prose ratio controlled at **1:2.5 ~ 1:3**.
 
-按以下四步操作：
+Four steps:
 
-1. **分段判断** — 把大纲按剧情节点分段
-2. **标注目的和效果** — 每段标注，不展开情节
-3. **标注详写/略写** — 明确哪些段展开、哪些段带过
-4. **快速定位** — 让后续写作能快速定位本段要交付的目的和效果
+1. **Segment judgment** — split the outline into plot segments
+2. **Label purpose and effect** — label each segment; no plot expansion
+3. **Label expand/skim** — make explicit which segments expand and which skim
+4. **Quick location** — later writing can quickly locate the purpose and effect each segment delivers
 
-记住：细纲只关注目的和效果，不展开情节。
+Remember: the chapter outline only cares about purpose and effect, not plot expansion.
 
 ---
 
-## 高潮逆推法与AB粗纲
+## Climax back-derivation & AB rough outlines
 
-### 核心思路
+### Core approach
 
-从高潮反推前面需要铺垫的人物和情节，再用AB交替法填充。
+Back-derive the characters and plots the climax needs, then fill with the A-B alternation method.
 
-### AB粗纲法
+### The AB rough-outline method
 
-| 标记 | 含义 | 操作 |
+| Mark | Meaning | Operation |
 |------|------|------|
-| A | 压情绪/铺垫/伏笔 | 铺设困难、对手强势、悬念埋线 |
-| B | 抬情绪/擦边/小收获 | 小反转、小进步、读者爽一下 |
+| A | press emotion / setup / foreshadowing | lay difficulties, strong opponents, suspense threads |
+| B | raise emotion / edge / small gains | small reversals, small progress, a reader treat |
 
-操作流程：确定高潮 → 反推所需铺垫 → ABABAB排列 → 写作时只关注当前AB段。
+Flow: fix the climax → back-derive needed setups → arrange ABABAB → when writing, only watch the current AB segment.
 
-适用场景：节奏快、有明确高潮节点的剧情。
-
----
-
-## 高潮构建公式
-
-### 五步公式
-
-按顺序执行：**蓄能 → 假胜 → 崩解 → 交叉死磕 → 悬置收尾**
-
-1. **蓄能**：牺牲+焦灼打底，让观众从"看客"变"参与者"
-2. **假胜**：先给希望再击碎（情绪落差 = 反转冲击力）
-3. **崩解**：所有伏笔一次引爆 + 推入单人绝境（帮手全失）
-4. **交叉死磕**：对抗线+绝境线来回切换（每切一次紧张感+1）
-5. **悬置收尾**：余劲不散，胜负不立刻揭晓
-
-关键操作：假胜是常用高潮技法。适合强反转、强压迫或大高潮；低压力章节、纯奖励章、日常/关系回收章可不用。没有假胜时，需用别的方式提供情绪落差或明确兑现。
+Use: fast-rhythm plots with clear climax nodes.
 
 ---
 
-## 噱头分类与开篇流程
+## Climax construction formula
 
-### 三种噱头类型
+### The five-step formula
 
-| 噱头类型 | 特点 | 写法要点 |
+In order: **charge → false win → collapse → cross-grind → suspended close**
+
+1. **Charge**: sacrifice + anxious grinding as the base; turn the audience from "onlookers" to "participants"
+2. **False win**: give hope first, then shatter (the emotion gap = reversal impact)
+3. **Collapse**: all foreshadowing detonates at once + push into solitary desperation (all help lost)
+4. **Cross-grind**: alternate the confrontation line and the desperation line (each switch = tension +1)
+5. **Suspended close**: the residual force doesn't disperse; victory not immediately announced
+
+Key operation: the false win is a common climax technique. It suits strong reversals, strong oppression, or big climaxes; low-pressure chapters, pure-reward chapters, and daily/relationship-payoff chapters may skip it. Without a false win, provide the emotion gap or explicit delivery some other way.
+
+---
+
+## Hook classification & opening flow
+
+### Three hook types
+
+| Hook type | Traits | Writing points |
 |----------|------|----------|
-| 事件噱头 | 集中在开篇，约5章 | 一上来就进入事件，不铺垫穿越/金手指 |
-| 金手指噱头 | 分布全文，前期多后期少 | 先写主角和困境，再引出金手指 |
-| 人设噱头 | 人设直接影响剧情构建 | 只有当人设本身能持续制造戏剧性时使用 |
+| Event hook | concentrated at the opening, ~5 chapters | enter the event immediately; no transmigration/cheat setup |
+| Cheat hook | spread through the book, more early, fewer late | write the protagonist and trap first, then the cheat |
+| Persona hook | persona directly affects plot construction | only when the persona itself keeps producing drama |
 
-规则：事件写法和金手指写法不能混用。
+Rule: event writing and cheat writing cannot mix.
 
-### 两种标准开篇流程
+### Two standard opening flows
 
-**事件开篇**：事件切入（5章）→ 嫁接主线 → 拆分目标 → 阶段性爽点循环
+**Event opening**: event entry (5 chapters) → graft the main line → split the goal → stage payoff loops
 
-**主线开篇**：描写主角现状 → 营造代入感 → 描写社会环境 → 设立主角目标 → 拆分目标（设门槛）→ 绑定金手指 → 获得第一次提升 → 情绪拉扯2-3次 → 完成 → 引出下一个目标
+**Main-line opening**: describe the protagonist's present → build immersion → describe the social environment → set the protagonist's goal → split the goal (set gates) → bind the cheat → first upgrade → emotion pull 2-3 times → complete → lead to the next goal
 
-### 噱头吸量策略
+### Hook traffic strategies
 
-| 策略 | 做法 |
+| Strategy | Approach |
 |------|------|
-| 噱头延伸型 | 以开头噱头为核心，后续找类似噱头继续构建 |
-| 噱头引流+常规型 | 开头噱头只负责吸量，后续走常规题材内容 |
+| Hook-extension | the opening hook as the core; keep building similar hooks |
+| Hook-traffic + regular | the opening hook only draws traffic; later runs regular genre content |
 
-开头噱头的功能是建立点击和追读承诺。目的达到后必须嫁接主线。
+The opening hook's function is establishing click and follow-through promises. Once achieved, it must graft into the main line.
 
-开书前评估：噱头能不能延伸出后续更多字数？不能延伸就用"噱头引流+常规"策略。
+Before opening the book, evaluate: can the hook extend into more words later? If not, use "hook-traffic + regular."
 
 ---
 
-## 主线的正确定义
+## The correct definition of the main line
 
-**主线不等于升级**。主线是一件事，升级是主角达成目标的行动。
+**The main line is not progression.** The main line is one thing; progression is the protagonist's action toward the goal.
 
-| 概念 | 定义 | 示例 |
+| Concept | Definition | Example |
 |------|------|------|
-| 目标（主线） | 主角要完成的一件事 | 斗破苍穹：上云岚宗复仇 |
-| 行动 | 主角为达成目标做的事 | 努力修炼、不断提升实力 |
+| Goal (main line) | one thing the protagonist must complete | a classic: climb Cloud Lantern Sect to avenge the dumped engagement |
+| Action | what the protagonist does toward the goal | hard training, constantly raising power |
 
-检查主线是否符合以下特征：
-- 主线是一件事，不是一个元素
-- 主线完成后，要么通过铺垫开启第二条主线，要么完结
-- 锚点错误会导致后续所有剧情偏差
+Check whether the main line fits:
+- The main line is one thing, not an element
+- After the main line completes, either a second main line opens through setup, or the book ends
+- Wrong anchors skew every later plot
 
 ---
 
-## 卡文对策与剧情循环设计
+## Stuck countermeasures & plot-loop design
 
-### 核心公式
+### The core formula
 
-题材 + 金手指 + 主角身份 = 循环模式。三要素必须统一。
+genre + cheat + protagonist identity = loop mode. The three must unify.
 
-### 6种经典循环模式
+### The 6 classic loop modes
 
-| 模式 | 循环机制 | 循环燃料 |
+| Mode | Loop mechanism | Loop fuel |
 |------|---------|---------|
-| 案件串循环 | 案件→解谜→部分真相→更大谜团→新案件 | 信息差+推理 |
-| 扮猪吃虎循环 | 默默发育→挑衅→碾压→震惊→继续发育 | 读者-角色信息差 |
-| 资源积累循环 | 资源→技能→实力→新地图→新资源 | 螺旋上升 |
-| 戏剧性反转循环 | 亏钱→反转赚更多→拿更多钱去亏→又赚 | 不依赖数值膨胀 |
-| 组织枢纽循环 | 各自冒险→信息汇聚→衍生新剧情 | 信息交换+多线 |
-| 公路片循环 | 走一段路→遇一个人→又走→又遇 | 人物塑造力 |
+| Case-string loop | case → puzzle → partial truth → bigger mystery → new case | info gaps + deduction |
+| Play-pig-eat-tiger loop | quietly grow → provoke → crush → shock → keep growing | reader-character info gap |
+| Resource-accumulation loop | resource → skill → power → new map → new resource | spiral upward |
+| Dramatic-reversal loop | lose money → reversal earns more → gamble more → earns again | no number inflation |
+| Organization-hub loop | each goes adventuring → info converges → new plots spawn | info exchange + multi-line |
+| Road-movie loop | walk a stretch → meet someone → walk → meet | character-building power |
 
-### 地图四势力框架
+### The four-faction map framework
 
-新手村（开局首张地图）必须包含四种势力形成资源闭环——这是全量框架；后续换地图可简化（见下「换地图的地图详略设计」），但变现/资源闭环渠道别丢：
+The starting map must include four factions forming a resource closed loop — this is the full framework; later map changes may simplify (see "map detail design on map changes" below), but don't drop the monetization/resource closed-loop channels:
 
-1. **学校/武馆** — 学技能、提升实力
-2. **商贩/药行** — 卖出收获、获取资源
-3. **山贼/敌人** — 展现学习成果的靶子
-4. **官府/管理机构** — 更高的上升通道
+1. **School/gym** — learn skills, raise power
+2. **Merchant/medic shop** — sell gains, acquire resources
+3. **Bandits/enemies** — targets to show learning results
+4. **Authority/management** — higher advancement channels
 
-### 地位-环境同步原则
+### Status-environment sync principle
 
-地位升高必须环境危险度升高。两者不同步 = 读者觉得无聊。
+Status rising must come with environment danger rising. Out of sync = readers bored.
 
-### 换地图三策略
+### Three map-change strategies
 
-1. **新旧地图联动**（新势力是旧势力的上级）
-2. **带人走**（把重要人物带到新地图）
-3. **提前铺垫吸引力**（让读者主动盼着去）
+1. **Old-new map linkage** (the new faction is the old faction's superior)
+2. **Bring people along** (carry important characters to the new map)
+3. **Pre-sell the attraction** (make readers actively want to go)
 
-### 特殊类型处理
+### Special-type handling
 
-- **天才流**：大幅增加等级数量，防止数值几十章就崩
-- **无敌流**：循环核心转为信息差（来一个秒一个，每次刷新认知）
+- **Genius fiction**: dramatically increase level counts, preventing numbers collapsing in dozens of chapters
+- **Invincible fiction**: the loop core switches to info gaps (each one one-shotted, cognition refreshed each time)
 
 ---
 
-## 日常文大纲框架法
+## Daily-fiction outline framework
 
-### 创作路径
+### Creation path
 
-按以下步骤操作：
+1. Find interesting settings/relationships/backgrounds from reading
+2. Around the inspiration, fix the career line + romance line
+3. Cut in at the fastest-rhythm, fullest-emotion node
+4. Split info gaps + relationships + emotion per stage
+5. Arrange events in time order
+6. Sketch chapter outlines before writing
 
-1. 从阅读中发现有趣的设定/关系/背景
-2. 围绕灵感确定事业线+感情线
-3. 选择节奏最快、情绪最足的节点切入
-4. 对每个阶段拆分信息差+人际关系+情绪
-5. 按时间顺序排列事件
-6. 写作前勾勒章纲
+### Outline derivation
 
-### 大纲推演法
+With "achieving a landlord-tenant relationship" as example:
 
-以"实现房东租客关系"为例：
+1. Goal: the leads become landlord and tenant
+2. Split: the protagonist's home must have a spare room, near the high school
+3. Derive: having a spare room = decent family finances → better if mortgage-bought, with pressure
+4. Reversal reason: parents' investment failed last life → this life the protagonist reverses it → buys a school-district apartment
 
-1. 目标：实现男女主房东租客关系
-2. 拆分：主角家中要有空房，距离高中近
-3. 推演：有空房=家庭条件好 → 最好是贷款买，有压力
-4. 逆转理由：父母上世投资失败 → 这世主角逆转 → 买学区房
-
-### 大纲节点格式
+### Outline node format
 
 ```
-事件名称：
-信息差：1. 主角知道什么/配角不知道什么 2. 读者视角 vs 角色视角
-人际关系与情绪：1. 主角情绪 2. 女主/配角反应 3. 负面情绪提供者
+Event name:
+Info gaps: 1. what the protagonist knows / what supporting characters don't 2. reader POV vs character POV
+Relationships & emotion: 1. protagonist emotion 2. heroine/supporting reactions 3. negative-emotion provider
 ```
 
-### 关键原则
+### Key principles
 
-- 大纲服务正文生成，不是枷锁
-- 日常文不要有太多猛增好感的大事件，用小事件串联缓慢增长
-- 事业线要和女主自身及家庭串联，达到日常和事业互相糅合
-
----
-
-## 大剧情拉期待法
-
-### 自上而下的创作逻辑
-
-按顺序执行：
-
-1. **明确核心和目的** — 先确定这段大剧情的爽点
-2. **确定篇幅目标**
-3. **设计分阶段剧情** — 围绕爽点设计若干小剧情，每个是下一个的铺垫
-4. **技巧杂糅填充**
-
-### 案例演示：参加好歌曲演唱青花瓷
-
-**核心爽点**：主角登台演唱青花瓷，引起震撼
-
-分阶段设计：
-1. 收邀请+公园哼唱《送别》→ 震惊评委（前置暗示）
-2. 彩排现场挑衅 → 制造压力
-3. 节目前夜给邓紫棋写《泡沫》→ 叠加实力展示
-4. 现场PK → 设备故障（加压）→ 演唱青花瓷 → 震惊
-5. 评委扣分 → 分数持平（反转压制）
-6. 歌手演唱主角作品 → 曝光主角是创作者（二级震惊）
-7. 设备故障说明 → 得分逆袭（反转翻倍）
-8. 评委要求唱《送别》→ 持续拉期待
-
-要点：先有大爽点，再分阶段去抵达；从局部看节奏快，从整体看推进慢（只讲了一件事）。
+- The outline serves prose generation; it's not a shackle
+- Daily fiction shouldn't have many big affinity-jumping events; use small events for slow growth
+- The career line must connect with the heroine herself and her family — daily and career interwoven
 
 ---
 
-## 连续性追踪与节奏管理
+## Big-plot anticipation-raising
 
-### 热度状态
+### Top-down creation logic
 
-| 状态 | 定义 |
+In order:
+
+1. **Fix the core and purpose** — first fix this big plot's payoff
+2. **Fix the length target**
+3. **Design staged plots** — several small plots around the payoff, each the next's setup
+4. **Technique mixing to fill**
+
+### Case demo: performing the anthem at a singing contest
+
+**Core payoff**: the protagonist takes the stage and performs, causing a sensation
+
+Staged design:
+1. Receive the invitation + hums a classic in the park → judges stunned (advance hint)
+2. Provocation at rehearsal → create pressure
+3. The night before the show, writes a hit song for a star → stacking ability display
+4. On-site PK → equipment failure (pressurize) → performs the anthem → stunned
+5. Judges deduct points → scores tie (reversal suppression)
+6. A singer performs the protagonist's song → exposes the protagonist as the writer (second-level shock)
+7. Equipment-failure explanation → score turnaround (reversal doubled)
+8. Judges demand the park song → anticipation keeps pulling
+
+Key points: big payoff first, then staged approaches; locally the rhythm is fast, globally the advancement is slow (only one thing happened).
+
+---
+
+## Continuity tracking & rhythm management
+
+### Heat states
+
+| State | Definition |
 |------|------|
-| hot | 当前驱动冲突的核心元素 |
-| warm | 近期活跃的元素 |
-| cold | 超过安全线未触及，有被遗忘风险 |
-| archived | 已完结/有意关闭的元素 |
+| hot | currently driving the conflict's core element |
+| warm | recently active element |
+| cold | untouched past the safety line, at risk of being forgotten |
+| archived | completed / deliberately closed element |
 
-### 有效触碰判定
+### Valid-touch determination
 
-以下算有效触碰：直接推进该线索、施加压力、改变关系状态、产生实际后果、交代合理的休眠原因。
+These count as valid touches: directly advancing the thread, applying pressure, changing relationship states, producing actual consequences, or giving a reasonable dormancy reason.
 
-不算有效触碰：纯粹提个名字、空头回调、随机提及。
+Not valid: bare name-drops, hollow callbacks, random mentions.
 
-### 回顾阈值
+### Recall thresholds
 
-| 元素类型 | 触及间隔 |
+| Element type | Touch interval |
 |----------|----------|
-| 核心角色 | 3-5 章 |
-| 主要支线 | 4-6 章 |
-| 活跃伏笔 | 2 次错过机会 |
-| 不稳定关系 | 2 次出场 |
+| Core characters | 3-5 chapters |
+| Major sub-lines | 4-6 chapters |
+| Active foreshadowing | 2 missed opportunities |
+| Unstable relationships | 2 appearances |
 
-### 每章必做自检
+### Per-chapter mandatory self-check
 
-1. 当前 hot 的元素是什么？
-2. 有没有 cold 了但该 warm 的？
-3. 哪些可以合理保持休眠？
-4. 哪条线索的回归能加深压力？
+1. What is currently hot?
+2. Anything cold that should be warm?
+3. What may reasonably stay dormant?
+4. Which thread's return would deepen pressure?
 
-### 失败信号（出现就要修正）
+### Failure signals (fix on sight)
 
-- 读者问"那个谁去哪了？"
-- 重要的线索到结尾才突然冒出来
-- cold 的铺垫突然变成 hot 的回报（没有预热）
+- Readers ask "where did that person go?"
+- Important threads suddenly pop up at the ending
+- Cold setups suddenly become hot payoffs (no warm-up)
 
-### 核心冲突的节奏保护规则
+### Core-conflict rhythm protection rules
 
-1. 非大结局章节通常不解决全书核心冲突；若阶段核心冲突收束，要同步开启下一期待
-2. 章末约200字宜保留悬念、决定、发现、余韵或阶段目标；低压章节不强求硬悬念
-3. 局部胜利可伴随新的代价、风险或下一任务；纯奖励/低压回收章可只提供明确收益和后续期待
+1. Non-finale chapters usually don't solve the book-level core conflict; if a stage core conflict closes, simultaneously open the next anticipation
+2. The chapter end's last ~200 words should keep suspense, a decision, a discovery, afterglow, or a stage goal; low-pressure chapters don't need hard suspense
+3. Partial victories may come with new costs, risks, or the next task; pure-reward/low-pressure-payoff chapters may provide only clear gains and later anticipation
 
-### 事件后的冷却章节数
+### Post-event cooldown chapter counts
 
-| 事件类型 | 冷却（章） |
+| Event type | Cooldown (chapters) |
 |----------|-----------|
-| conflict_thrill（大冲突/打斗） | 2 |
-| bond_deepening（关系深化） | 1 |
-| faction_building（建立势力） | 2 |
-| world_painting（世界观展开） | 3 |
-| tension_escalation（压力升级） | 2 |
+| conflict_thrill (big conflict/fight) | 2 |
+| bond_deepening (relationship deepening) | 1 |
+| faction_building (building factions) | 2 |
+| world_painting (worldview expansion) | 3 |
+| tension_escalation (pressure escalation) | 2 |
 
-规则：冷却期内该类型不能作为主beat；conflict_thrill最多连续2章；每5章必须包含bond_deepening或world_painting。
+Rules: during the cooldown the type cannot be the main beat; conflict_thrill max 2 consecutive chapters; every 5 chapters must include bond_deepening or world_painting.
 
-### 过渡章节管理
+### Transition-chapter management
 
-- 单元故事结束前先把下一个目标拉出来
-- 过渡章节必须维持至少一条活跃的期待线
+- Before a unit story ends, pull the next goal out first
+- Transition chapters must keep at least one active anticipation line
 
-### 换地图期待感延续
+### Map-change anticipation continuation
 
-| 延续方式 | 做法 |
+| Continuation | Approach |
 |----------|------|
-| 复仇线 | 未完成的目标跨地图持续 |
-| 旧日关系线 | 老角色在新地图出现 |
-| 信息差 | 某方以为某事，实际不是 |
-| 提前铺垫 | 换地图前让新地图角色/传说与主角接触 |
+| Revenge line | unfinished goals persist across maps |
+| Old-relationship line | old characters appear in the new map |
+| Info gap | one side believes X; it isn't |
+| Pre-setup | before the map change, let the new map's characters/legends touch the protagonist |
 
-### 金手指的四阶段演进（基础→发展→成熟→升华）
+### The cheat's four-stage evolution (basic → development → mature → sublimation)
 
-| 阶段 | 操作要点 |
+| Stage | Operation points |
 |------|---------|
-| 基础 | 明确核心作用，建立读者认知 |
-| 发展 | 增加新的使用方式，核心作用不变 |
-| 成熟 | 与世界观深度结合，可与其他系统联动 |
-| 升华 | 作用对象从个人扩到世界/天道层级，需足够伏笔支撑（签到系统：签到得物→万物可签→对人/地脉签到→签到本身成世界规则、人人信仰） |
+| Basic | clarify the core function, establish reader cognition |
+| Development | add new uses; the core function unchanged |
+| Mature | deeply integrate with the worldview; link with other systems |
+| Sublimation | the target expands from the individual to the world/heaven tier; needs enough foreshadowing (sign-in: signing gets items → everything signable → sign on people/earth veins → signing itself becomes a world rule everyone believes) |
 
-规则：金手指重心可转移但必须有足够伏笔；可部分淡化不能完全抛弃；呈现力度应随阶段递增。
+Rules: the cheat's center may shift but needs enough foreshadowing; may partially fade but never be fully abandoned; display intensity should escalate by stage.
 
-### 矛盾网设计
+### Conflict-web design
 
-- 同一时刻保持2-3条矛盾线同时运行
-- 矛盾线之间要有关联（因果、利益冲突、信息差）
-- 每次解决一个矛盾，必须激活或加深另一个矛盾
+- Keep 2-3 conflict lines running at the same time
+- Conflict lines must relate (causation, interest conflicts, info gaps)
+- Each solved conflict must activate or deepen another
 
-| 层级 | 范围 | 说明 |
+| Tier | Range | Explanation |
 |------|------|------|
-| 章级 | 2-3章 | 小冲突，服务于当前单元 |
-| 卷级 | 一卷 | 本卷核心矛盾，卷末解决 |
-| 书级 | 全书 | 终极矛盾，大结局解决 |
+| Chapter tier | 2-3 chapters | small conflicts serving the current unit |
+| Volume tier | one volume | the volume's core conflict, solved at the volume end |
+| Book tier | the whole book | the ultimate conflict, solved at the finale |
 
-### "两长一短"期待法则
+### The "two long one short" anticipation law
 
-- 1个短期期待：当前单元的明确目标（只能有一个）
-- 1-2个长期期待：远期目标预告/悬念/组织/人物
+- 1 short-term anticipation: the current unit's clear goal (only one)
+- 1-2 long-term anticipations: far-goal teasers/suspense/organizations/characters
 
-### 持续拉期待的方法
+### Continuous anticipation-raising
 
-1. 在"基底期待"上添加细节，注入新的具体化需求缺口
-2. 设置多个核心梗交替运行（装逼线A + 解密线B + 感情线C）
-3. 设计世界观层面的"秘密"和"阴谋"
+1. Add details onto the "base anticipation," injecting new concrete need gaps
+2. Run multiple core hooks alternating (flex line A + reveal line B + romance line C)
+3. Design worldview-level "secrets" and "conspiracies"
 
-### 升级差异化管理
+### Upgrade differentiation management
 
-| 维度 | 说明 |
+| Dimension | Explanation |
 |------|------|
-| 能力差异化 | 每个等级有质变性的新能力（炼气只能御剑→筑基能御物攻击） |
-| 待遇差异化 | 不同等级获得不同的社会待遇（练气当杂役→筑基分独立洞府） |
-| 人际关系网差异化 | 不同等级面对不同层次的人际关系（练气只接触师兄弟→筑基有长老正眼相待） |
+| Ability differentiation | every level has a qualitatively new ability (qi-training only flies a sword → foundation can attack with objects) |
+| Treatment differentiation | different levels get different social treatment (qi-training runs errands → foundation gets an independent cave) |
+| Relationship-web differentiation | different levels face different relationship tiers (qi-training only meets fellow disciples → foundation gets elders' respect) |
 
-如果升级前后在三个维度上没有明显差异，读者就不会有升级快感。
+If three dimensions show no clear difference before/after upgrading, readers get no upgrade payoff.
 
-### 单元故事嵌套
+### Unit-story nesting
 
-- 在第一个单元故事高潮前，插入第二个故事的期待线
-- 完成当前目标前，提前给出下一个目标的线索伏笔
-- 完成当前目标后，迅速给出反转或变故，营造新期待
+- Before the first unit story's climax, insert the second story's anticipation line
+- Before completing the current goal, give the next goal's thread-clue in advance
+- After completing the current goal, quickly give a reversal or upheaval, creating new anticipation
 
-### 长线节奏设计
+### Long-line rhythm design
 
-- 一卷 = 一个完整的中套娃，有自己的起承转合
-- 每卷开头是代入期（5-10章），中间是发展期，结尾是高潮+收束
-- 信息密度：高密度（情绪强烈、推进快）与低密度（铺垫积蓄）交替，不能一直高或一直低
-- 每个低密度章节至少埋一个让读者想知道后续的点
+- One volume = one complete mid-nesting doll, with its own opening-development-climax-close
+- Volume opens with an immersion period (5-10 chapters), middle a development period, ending climax + close
+- Info density: high density (strong emotion, fast advancement) alternates with low density (setup accumulation); never all-high or all-low
+- Every low-density chapter plants at least one point making readers want to know more
 
-### 期待感管理
+### Anticipation management
 
-三层期待同时运行：
-- 短期期待（下一章会发生什么）
-- 中期期待（这个剧情单元会怎么收）
-- 长期期待（主角最终能不能达成目标）
-
----
-
-## 剧情过渡与衔接
-
-### 从一个剧情点到下一个
-
-核心问题：主角实力提升了，但下一步干什么不清楚。解决方案：每次提升后立即引入新的挑战或目标。
-
-### 剧情嵌套（套娃结构）
-
-- 大套娃：整本书的主线
-- 中套娃：每个卷/阶段的阶段性目标
-- 小套娃：每个剧情单元的即时目标
-- 三层套娃同时运行，读者始终有事可看
-
-### 场景过渡
-
-- 过渡场景该跳过就跳过，不拖泥带水
-- 过渡不是填充，没有信息量就删掉
-
-### 情绪衔接
-
-- 上一场景的情绪要自然过渡到下一场景
-- 不能前一个场景还在热血，下一个场景突然平淡
-
-### 信息差衔接
-
-- 前一个场景埋下的信息差在后一个场景回收
-- 读者带着疑问进入下一场景，衔接自然有效
+Three anticipation layers running at once:
+- Short-term anticipation (what happens next chapter)
+- Mid-term anticipation (how this story unit closes)
+- Long-term anticipation (whether the protagonist finally reaches the goal)
 
 ---
 
-## 设门槛——拉长剧情的核心技巧
+## Plot transitions & handoffs
 
-### 门槛的本质
+### From one plot point to the next
 
-门槛不宜只放一个敌人挡路；它应形成系统性的条件设置：主角要达成目标，必须满足一系列条件。
+Core problem: the protagonist's power rose, but the next step is unclear. Fix: immediately introduce a new challenge or goal after every upgrade.
 
-### 设门槛的具体方法
+### Plot nesting (matryoshka)
 
-| 门槛类型 | 示例 |
+- Big doll: the whole book's main line
+- Mid doll: each volume/stage's stage goal
+- Small doll: each story unit's immediate goal
+- Three layers running at once; the reader always has something to watch
+
+### Scene transitions
+
+- Transition scenes should be skipped when skippable; no dragging
+- Transitions are not filler; no information = delete
+
+### Emotion handoffs
+
+- The previous scene's emotion flows naturally into the next
+- No hot-blooded scene suddenly going flat
+
+### Info-gap handoffs
+
+- The info gap planted in the previous scene is collected in the next
+- The reader enters the next scene with questions; the handoff is natural and effective
+
+---
+
+## Gate-setting — the core stretch technique
+
+### The nature of gates
+
+Gates shouldn't be one enemy blocking the road; they form a systematic condition set: the protagonist must satisfy a series of conditions to reach the goal.
+
+### Concrete gate-setting methods
+
+| Gate type | Example |
 |----------|------|
-| 资源型 | 系统升级需要1000灵石，主角身上没有 |
-| 成就型 | 考顶级院校需要气血值达标+独自灭杀XX级怪物+比赛前五名 |
-| 多条件型 | 把一个大目标拆分成多个阶段小目标 |
-| 动态门槛 | 主角资源超标时提高门槛 |
-| 收集型 | 突破境界需要多件宝物 |
+| Resource type | the system upgrade needs 1000 spirit stones; the protagonist has none |
+| Achievement type | entering the top academy needs vitality score + solo-killing a XX-level monster + top-five tournament rank |
+| Multi-condition | split one big goal into several stage mini-goals |
+| Dynamic gates | when the protagonist's resources overflow, raise the gate |
+| Collection type | breaking through a realm needs multiple treasures |
 
-### 规则
+### Rules
 
-- 门槛必须围绕核心卖点设计，脱离金手指和脑洞的门槛是无效剧情
-- 门槛要分批提出，不要一次全甩给读者
-- 每跨越一个门槛就立刻设立下一个
+- Gates must be designed around the core selling point; gates detached from the cheat and the wild idea are invalid plot
+- Gates are proposed in batches, not dumped at once
+- Each crossed gate immediately sets the next
 
-### 循环从设定中诞生
+### Loops born from setting
 
-- 核心卖点通过"设定"体现，设定确定后自然产生反馈机制
-- 设定多一条，循环元素就多一层，可写的内容就越多
-- 写着写着把设定写丢了 = 把卖点写丢了
-
----
-
-## 场景转换技巧
-
-- 过渡场景没有信息量就直接跳过
-- 前一个场景留下悬念，后一个场景回应悬念
-- 前一个场景热血收尾，下一个场景开头要有余韵
-- 切换视角时在悬念点切出，不要在平淡处切出
-- 每条线在切换前都要留下一个"钩子"
-- 多条线的读者关注度不同，主线占比要最大
-
-### 换地图的深层设计
-
-- 新地图 = 新环境 + 新角色 + 新规则 + 新目标 + 新冲突
-- 换地图前：旧地图的核心冲突至少阶段性解决
-- 换地图后：前5章必须快速建立新的代入感和期待感
-
-避免以下操作：旧角色一刀切全部抛弃、新设定一次性全部倒出、新地图与旧地图毫无关联。保留至少一条贯穿主线。
-
-每换一次地图，循环要升级：更大的规模、更高的门槛、更强的对手。
-
-### 换地图的地图详略设计
-
-- 换地图（非新手村）按三种势力简化铺：训练场（武馆/学校）、地头蛇（豪绅/地方势力）、破坏者（山贼/麻匪）——这是「地图四势力框架」的精简版，仍要保留变现/资源闭环渠道（商贩/药行），别只剩打斗
-- 日常路线扩展关系网：上学/归还装备/逛集市作为新故事弧线的桥梁
+- The core selling point is embodied by "setting"; once the setting is fixed, feedback mechanisms naturally emerge
+- One more setting line = one more loop element = more writable content
+- Writing the setting away = writing the selling point away
 
 ---
 
-## 悬念与伏笔技巧
+## Scene-switch techniques
 
-- 小剧情伏笔：先确定结局再倒推线索，从终点往回铺确保逻辑闭合
-- 整本书伏笔：大纲阶段确定关键情节，书中不断埋设细节呼应，长线伏笔要记录避免遗忘
-- 谜语人vs伏笔：谜语人是故意不说明（容易惹烦）；伏笔是巧妙融入剧情、自然不刻意。判定：信息延迟超过 3 章且中间无任何推进=谜语人（删或提前给）；主角随口说怕水、后期落水危机才回收=伏笔
-- 烧脑剧情：视角只跟主角走，不写反派视角，避免破坏悬念张力
+- Transition scenes without information get skipped directly
+- The previous scene leaves a suspense; the next scene answers it
+- A hot-blooded previous scene end → the next scene opens with afterglow
+- POV switches happen at suspense points, not at flat points
+- Every line leaves a "hook" before switching
+- Reader attention differs per line; the main line takes the largest share
 
----
+### Deep map-change design
 
-## 信息团概念
+- New map = new environment + new characters + new rules + new goals + new conflicts
+- Before the map change: the old map's core conflict at least stage-resolved
+- After the map change: the first 5 chapters must quickly establish new immersion and anticipation
 
-- 信息团 = 一段剧情要表达的核心信息单元
-- 每个信息团必须能一句话概括"这段在讲什么"
-- 信息团之间要有逻辑递进关系
-- 节奏快 = 信息团密集；节奏慢 = 信息团稀疏；水章节 = 信息团为零或与主线无关
-- 例：一章里「主角识破骗局」是 1 个信息团，「顺带交代反派背景」是第 2 个——两个无关就是水章，砍掉第二个或让它服务第一个
+Avoid: one-stroke abandonment of all old characters, one-time dumping of all new setting, and zero connection between the new map and the old. Keep at least one running main line.
 
----
+Every map change upgrades the loop: bigger scale, higher gates, stronger opponents.
 
-## 自嗨判定法
+### Map detail design on map changes
 
-### 三个自检问题（必须全部回答清楚）
-
-1. 我这书写给谁看？（至少包括目标读者的年龄段、职业、性别、常用平台、人生处境、普遍渴望）
-2. 我的目标读者群体在看网文时希望看到什么内容？
-3. 我的这本书有哪些内容是目标读者群体想看的？
-
-判定标准：三问有一问答不好 = 自嗨。立刻停下修正。
-
-### 纠正方法
-
-- 分析同类书的读者评论，提取高频正面关键词
-- 对比同类书中高互动与低互动段落的差异特征
-- 用同类书的目标读者画像反向校验本书的情节选择
+- Map changes (not the starting map) simplify to three factions: training ground (gym/school), local boss (local power), destroyer (bandits) — this is the slim version of the "four-faction map framework"; still keep the monetization/resource closed-loop channels (merchant/medic shop), don't leave only fighting
+- Daily routes expand networks: going to school / returning equipment / visiting the market as bridges for new story arcs
 
 ---
 
-## 质量检查清单
+## Suspense & foreshadowing techniques
 
-每次完成一段剧情设计或一卷大纲后，逐项检查：
+- Small-plot foreshadowing: fix the ending first, then back-derive clues; plant from the end backward to ensure logical closure
+- Whole-book foreshadowing: fix key plots at the outline stage; keep planting details throughout the book; long-line foreshadowing must be recorded to avoid forgetting
+- Riddle-mongering vs foreshadowing: riddle-mongering deliberately withholds (annoying); foreshadowing fuses naturally into the plot. Judgment: information delayed 3+ chapters with no advancement = riddle-mongering (delete or give early); the protagonist casually saying he fears water, collected at a later drowning crisis = foreshadowing
+- Brain-burning plots: POV follows only the protagonist; no antagonist POV, preserving suspense tension
 
-### 基础完整性
-- [ ] 主线是否明确为"一件事"（避免写成元素罗列或升级条）
-- [ ] 循环模式是否与题材+金手指+主角身份统一
-- [ ] 三层套娃（大/中/小）是否同时运行
+---
 
-### 节奏与期待
-- [ ] 三层期待（短/中/长）是否同时在线
-- [ ] 章末约200字是否保留悬念、决定、发现、余韵或阶段目标
-- [ ] 信息密度是否有高低交替（不能一直高或一直低）
-- [ ] 冷却期规则是否遵守
+## The information-package concept
 
-### 连续性
-- [ ] hot/warm/cold 状态是否正常（无该 warm 却 cold 的元素）
-- [ ] 核心角色 3-5 章、主要支线 4-6 章内是否有有效触碰
-- [ ] 换地图/换阶段后是否保留至少一条贯穿主线
+- Information package = a unit of core information a plot stretch expresses
+- Every information package must be summarizable in one sentence ("what this stretch is about")
+- Information packages need logical progression between them
+- Fast rhythm = dense packages; slow rhythm = sparse packages; filler chapters = zero packages or main-line-irrelevant ones
+- Example: in one chapter, "the protagonist sees through the scam" is package 1; "incidentally giving the antagonist's background" is package 2 — if unrelated, it's a filler chapter; cut the second or make it serve the first
 
-### 高潮与过渡
-- [ ] 高潮是否需要假胜（先给希望再击碎）；若不用，是否有其他情绪落差/兑现方式
-- [ ] 胜利是否需要代价/风险/下一任务；若是纯奖励章，收益是否足够明确
-- [ ] 过渡场景是否删掉了无信息量的部分
-- [ ] 场景切换是否在悬念点切出
+---
 
-### 避坑检查
-- [ ] 门槛是否围绕核心卖点设计（非无效剧情）
-- [ ] 金手指是否按四阶段演进（未跳跃、未抛弃）
-- [ ] 自嗨三问是否全部能回答清楚
-- [ ] 信息团是否每段都能一句话概括"在讲什么"
+## Self-indulgence test
+
+### Three self-check questions (all must be answerable)
+
+1. Who is this book for? (at least: target readers' age, occupation, gender, common platforms, life situation, universal desires)
+2. What does the target reader group want to see when reading web fiction?
+3. Which parts of this book are what the target reader group wants to see?
+
+Judgment: one of the three unanswerable = self-indulgence. Stop and fix immediately.
+
+### Correction methods
+
+- Analyze same-type books' reader comments; extract high-frequency positive keywords
+- Compare high-interaction vs low-interaction passage differences in same-type books
+- Reverse-validate this book's plot choices against same-type books' target-reader profiles
+
+---
+
+## Quality checklist
+
+After each plot design or volume outline, verify:
+
+### Basic completeness
+- [ ] Main line explicit as "one thing" (not element listing or an upgrade bar)
+- [ ] Loop mode unified with genre + cheat + protagonist identity
+- [ ] Three-layer nesting (big/mid/small) running at once
+
+### Rhythm & anticipation
+- [ ] Three anticipation layers (short/mid/long) online at once
+- [ ] Chapter end's last ~200 words keep suspense, a decision, a discovery, afterglow, or a stage goal
+- [ ] Info density alternates high/low (never all-high or all-low)
+- [ ] Cooldown rules followed
+
+### Continuity
+- [ ] hot/warm/cold states normal (no element cold that should be warm)
+- [ ] Core characters touched within 3-5 chapters; major sub-lines within 4-6
+- [ ] After map/stage changes, at least one running main line kept
+
+### Climax & transitions
+- [ ] Climax uses the false win when needed (hope first, then shatter); if not, is there another emotion gap/delivery?
+- [ ] Victories need costs/risks/next tasks; pure-reward chapters have clear gains?
+- [ ] Transition scenes without information deleted?
+- [ ] Scene switches cut at suspense points?
+
+### Pitfall checks
+- [ ] Gates designed around the core selling point (not invalid plot)?
+- [ ] Cheat evolves in four stages (no jumps, no abandonment)?
+- [ ] All three self-indulgence questions answerable?
+- [ ] Every information package summarizable in one sentence?

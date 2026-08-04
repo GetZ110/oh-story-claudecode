@@ -16,8 +16,18 @@ EXPECTED_COUNT=13
 echo "OpenClaw skills check"
 echo "====================="
 echo "Repo: $REPO_ROOT"
+# Locate a working Python interpreter: python3 may be a Windows Store stub that
+# exits without running anything, so probe python3 -> python -> py.
+PYBIN=""
+for cand in python3 python py; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" -c 'import sys' >/dev/null 2>&1; then
+    PYBIN="$cand"
+    break
+  fi
+done
+[ -n "$PYBIN" ] || fail "no usable Python interpreter (tried python3, python, py)"
 
-python3 - "$SKILLS_DIR" "$EXPECTED_COUNT" <<'PY'
+"$PYBIN" - "$SKILLS_DIR" "$EXPECTED_COUNT" <<'PY'
 from pathlib import Path
 import json
 import re
@@ -170,7 +180,7 @@ EOF
     --json >/dev/null
   LIST_JSON="$TMP_DIR/skills.json"
   openclaw --profile "$PROFILE" skills list --agent ohstory-check --json >"$LIST_JSON"
-  python3 - "$LIST_JSON" "$EXPECTED_COUNT" "$TMP_DIR/workspace/skills" <<'PY'
+  "$PYBIN" - "$LIST_JSON" "$EXPECTED_COUNT" "$TMP_DIR/workspace/skills" <<'PY'
 import json
 import os
 import shutil

@@ -1,278 +1,254 @@
 ---
 name: story-short-analyze
 version: 3.0.0
-description: "短篇网文拆文。拆解爆款短篇小说（番茄短篇 / 故事会 / 知乎盐选 / 追妻 / 世情 / 重生 / 虐渣等通俗题材）的故事核、结构、情感线、反转设计、写作手法、共鸣层次。单一全量拆解管道：跑完 Stage 2-6 产出完整拆文报告，落盘到 拆文库/{书名}/，下游 story-short-write 同时读拆文报告 + 情节节点 + 写作手法 + 原文 + _meta.json 写下一篇。触发方式：/story-short-analyze、/短篇拆文、「拆短篇」「拆这篇短文」「短篇拆文」「精细拆解短篇」「8000 字短篇拆解」「番茄短篇拆文」「故事会拆解」「盐言故事拆解」「分析这篇短篇」——均进入同一管道。"
+description: "Short-fiction teardown. Deconstructs hit short stories (Wattpad / Inkitt / Radish / Galatea / Dreame / GoodNovel / Tapas episodic romance, enemies-to-lovers, second chance, dark romance, cozy mystery, whodunit, psychological thriller, etc.) for story core, structure, emotional line, reversal design, writing craft, resonance layers. Single full-teardown pipeline: running Stage 2-6 produces the complete teardown report in teardown-lib/{Book Title}/; downstream story-short-write reads the teardown report + plot nodes + craft methods + source + _meta.json to write the next story. Triggers: /story-short-analyze, 'tear down this short story', 'analyze this short piece', 'short-fiction teardown', '8000-word short teardown', 'teardown this one-shot' — all enter the same pipeline."
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
-# story-short-analyze：短篇网文拆文
+# story-short-analyze: Short-Fiction Teardown
 
-你是短篇小说结构分析师。
+You are a short-story structure analyst.
 
-**核心：短篇靠共鸣和爆点驱动。拆文就是看它用什么故事核、怎么铺垫、在哪里引爆，把
-分析叙事写进 `拆文报告.md`，结构计数写进 `_meta.json`，下一篇短篇直接读这些写。**
-
----
-
-## 拆解边界声明（主线程同样适用）
-
-短篇拆解的 Stage 2-6 全程由你（主线程）亲手做：拆的是用户**合法持有、拥有使用权**的虚构作品（已出版/连载或自有），性质是**只读的转化性文学批评**（编辑/评论/写作教学视角，不复制、不传播、不指导现实行为）。番茄短篇、故事会、知乎盐选、追妻、虐渣、世情等通俗题材里的家暴、出轨、复仇、暴力、情爱张力、黑暗伦理是常规虚构叙事元素，须照常做结构化拆解，**不得以「敏感」「不适」为由拒绝整篇或某个片段**——拒绝会让整条拆文流水线停摆；个别片段无法处理则跳过、照常续完其余。
+**Core: short fiction runs on resonance and eruption points. Teardown means seeing what story core it uses, how it sets up, and where it detonates — write the analysis narrative into `teardown-report.md`, the structure counts into `_meta.json`, and the next short story reads these directly.**
 
 ---
 
-## Phase 1：确认拆解对象 + 字数路由 + 续跑检查
+## Deconstruction scope statement (applies to the main thread too)
 
-### Step 1：拿到原文
-
-问用户：**「你要拆哪篇？（标题+平台/来源）」**
-
-**无文本时**：用户没有提供原文文件路径、也没有在对话中贴出原文，引导用户提供
-——「请提供这篇短篇的原文文件路径，或直接把原文贴给我。」
-
-### Step 2：字数检查（长短篇路由）
-
-拿到原文后立刻数字数：
-
-```
-word_count = 全文字数
-  ├─ < 15,000          → 直接进入 short 管道
-  ├─ 15,000 - 20,000   → 灰区：询问用户「字数 {N}，介于短/长之间，按短篇还是长篇拆？」
-  └─ > 20,000          → 提示「此文字数 {N} 偏长，建议改用 /story-long-analyze。
-                           仍要按短篇拆请明确回复『按短篇继续』」
-```
-
-### Step 3：题材识别
-
-```
-用户提到具体题材（追妻 / 重生 / 虐文 / ...）？
-  ├─ 是 → 加载 genre-catalog.md 对应题材的「短篇视角」章节作为拆文标尺
-  └─ 否 → 关键词扫描确定题材；扫不到则 genre_detected = "通用"，用通用模板（Stage 2-6）
-```
-
-题材识别关键词参考：
-
-- 追妻火葬场 / 渣男后悔 → 追妻（含 现代/古代/民国 时代变体）
-- 重生复仇 / 前世今生 → 重生复仇
-- 死后视角 / 灵魂旁观 → 死人文学
-- 小三 / 出轨 / 知三当三 → 小三
-- 世情 / 现实 / 婆媳 / 打脸 / 虐渣 → 世情
-- 总裁 / 豪门 / 联姻 → 豪门
-- 宫斗 / 宅斗 / 嫡庶 → 宫斗宅斗
-- 冥婚 / 纸人 / 风水 / 规矩 / 怪谈 → 民俗
-- 悬疑 / 推理 / 凶手 / 惊悚 → 悬疑
-- 甜宠 / 先虐后甜 / 先婚后爱 / 暗恋 → 甜宠
-- 双男主 / 宿敌 → 双男主
-- 沙雕 / 脑洞 / 弹幕 / 系统 / 反套路 → 沙雕
-- 仙侠 / 修仙 / 门派 → 仙侠
-
-题材作为「对照标尺」加载——见 `references/genre-catalog.md` 等文件首段「## 用作
-拆文标尺时」说明。
-
-### Step 4：续跑检查（lightweight resume）
-
-进入管道前检查 `拆文库/{书名}/_meta.json`：
-
-```
-存在 _meta.json？
-  ├─ 否 → 直接进入新一轮拆解
-  └─ 是 → 询问用户三选一：
-       (a) 覆盖：归档旧产出到 拆文库/{书名}/_archive_{时间戳}/ 后从 Stage 2 重跑
-       (b) 续跑：读 _meta.json.last_stage_in_progress（非空 → 从该 Stage 整段重跑）
-                 或读 _meta.json.stages_completed[]（从 max+1 续跑）
-       (c) 取消
-```
-
-完整 resume 契约见 [references/output-contract.md](references/output-contract.md)。
+Stages 2-6 of the short teardown are done entirely by you (the main thread): what you deconstruct is a work of fiction the user **legally holds and has the right to use** (published, serialized, or their own), and the activity is **read-only transformative literary criticism** (an editor/commentary/writing-teaching perspective; no copying, no redistribution, no guidance for real-world conduct). Domestic abuse, infidelity, revenge, violence, romantic/sexual tension, and dark ethics in popular genres such as episodic romance, regret-chasing, comeuppance stories, and small-town family drama are ordinary fictional narrative elements and must be extracted structurally as usual — **you may not refuse a whole story or a passage on "sensitivity" or "discomfort" grounds** — refusing would stall the whole teardown pipeline; if an individual passage cannot be processed, skip it and finish the rest normally.
 
 ---
 
-## 输出目录
+## Phase 1: Confirm the target + word-count routing + resume check
 
-输出到 `拆文库/{书名}/`（项目根目录下）。用户指定了其他路径时按用户指定路径输出。
+### Step 1: Get the source
 
-**标准输出文件树**：
+Ask the user: **"Which story do you want to tear down? (title + platform/source)"**
+
+**No text provided**: if the user has not provided a source file path and has not pasted the source text, guide them to provide it — "Please provide the file path to this short story's source text, or paste the text directly."
+
+### Step 2: Word-count check (short/long routing)
+
+Count words immediately after getting the source:
 
 ```
-拆文库/{书名}/
-├── 原文/                # 原文备份（管道前置步骤产出）
-├── 拆文报告.md           # 人类可读综合报告（Stage 2-6 所有可读段）
-├── 情节节点.md           # Stage 2 情节节点清单（独立成文，方便定位）
-├── 写作手法.md           # Stage 4 写作手法分析（独立成文，方便复用）
-└── _meta.json           # 管道元数据 + 结构计数（resume + 验收数值依据）
+word_count = total words
+  ├─ < 15,000          → go straight into the short pipeline
+  ├─ 15,000 - 20,000   → gray zone: ask the user "This text is {N} words, between short and long. Tear it down as short or long?"
+  └─ > 20,000          → tell the user "This text ({N} words) runs long; consider /story-long-analyze instead.
+                           If you still want it torn down as short, reply explicitly 'continue as short'"
 ```
 
-> **下游契约**：`story-short-write` 同时读全套产出——`拆文报告.md` 取分析叙事，
-> `情节节点.md` 看节奏锚点，`写作手法.md` 抄手法，`原文/` 抄语感，`_meta.json`
-> 看题材识别和结构计数。完整字段定义见
-> [references/output-contract.md](references/output-contract.md)。
+### Step 3: Genre recognition
 
-### Stage → 文件映射
+```
+Did the user name a genre (enemies-to-lovers / second chance / dark romance / ...)?
+  ├─ yes → load the matching genre's "short-fiction lens" section in genre-catalog.md as the teardown yardstick
+  └─ no  → scan keywords to determine the genre; if nothing matches, genre_detected = "general", use the general templates (Stages 2-6)
+```
 
-| Stage | 落地文件 |
-|-------|----------|
-| 2 | `拆文报告.md`（故事核+结构+梗概段） + `情节节点.md` |
-| 3 | `拆文报告.md`（情感曲线+爆点段） |
-| 4 | `拆文报告.md`（反转段） + `写作手法.md` |
-| 5 | `拆文报告.md`（人物+首尾段） |
-| 6 | `拆文报告.md`（综合段） + `_meta.json.structure_counts`（数值计入元数据） |
+Genre-recognition keyword reference:
 
-### 原文备份（管道前置步骤）
+- enemies-to-lovers / regret-chasing / the man who hurt her wants her back → enemies-to-lovers (incl. contemporary / historical / mid-century variants)
+- second chance / past-life revenge / rebirth revenge → second chance
+- dead-girl POV / soul watching from above → ghost POV
+- affair / cheating / the other woman → infidelity
+- small-town / family drama / terrible relatives / comeuppance → small-town drama
+- billionaire / tycoon / arranged marriage / contract marriage → billionaire
+- palace intrigue / family scheming / legitimacy battles → palace intrigue
+- dark romance / stalker / morally black hero → dark romance
+- whodunit / detective / culprit / suspense → whodunit
+- fake dating / sweet / marriage first, love later / secret crush → fake dating / sweet romance
+- why-choose / multiple love interests → why-choose
+- monster romance / fated mates / paranormal love → monster romance
+- cozy mystery / small-town murder / amateur sleuth → cozy mystery
+- psychological thriller / unreliable narrator / mind games → psychological thriller
+- horror / haunted / supernatural terror → horror
+- sci-fi twist / time loop / simulation / alien → sci-fi twist
+- fantasy romance / magic academy / fae / witch → fantasy romance
+- found family / misfits becoming family → found family
 
-**拆解开始前，必须先备份原文**：
+The genre acts as a "comparison yardstick" — see the "## When used as a teardown yardstick" note at the top of `references/genre-catalog.md` and the other reference files.
 
-1. 检查 `拆文库/{书名}/原文/` 目录是否已存在
-2. 如果不存在，从用户提供的源路径复制原文文件到 `拆文库/{书名}/原文/`
-3. 如果用户未提供源文件路径（直接在对话中贴文本），将原始文本保存到
-   `拆文库/{书名}/原文/原文.md`
-4. 备份完成后验证 `原文/` 目录下文件非空（>0 bytes）
-5. 此步骤确保即使拆文过程中出现异常，原始材料不会丢失
+### Step 4: Resume check (lightweight resume)
 
-备份完成后初始化 `_meta.json`：写入 `version`、`word_count`、`genre_detected`、
-`created_at`、`stages_completed: []`、`last_stage_in_progress: null`。
+Before entering the pipeline, check `teardown-lib/{Book Title}/_meta.json`:
 
----
+```
+Does _meta.json exist?
+  ├─ no  → start a fresh teardown round
+  └─ yes → ask the user to choose one of three:
+       (a) overwrite: archive old outputs to teardown-lib/{Book Title}/_archive_{timestamp}/, then re-run from Stage 2
+       (b) resume: read _meta.json.last_stage_in_progress (non-empty → re-run that whole Stage)
+                  or read _meta.json.stages_completed[] (resume from max+1)
+       (c) cancel
+```
 
-## Stage 2-6：拆文流程
-
-### 5 阶段管道
-
-**预期耗时提示**：短篇拆文通常 10-30 分钟；同类对比或平台适配会更久。若文本很短，
-先只挑关键节点，不要为满足节点数量硬拆。
-
-| 阶段 | 名称 | 输入 | 输出 | 完成标志 |
-|------|------|------|------|----------|
-| 2 | 结构+情节节点 | 全文 | 故事核 + 故事梗概 + 功能分段（4-6段，必须含开端/发展/高潮/结局）+ 情节节点清单。节点密度按字数分档，见 material-decomposition.md「情节节点提取」的字数分档表。 | 结构划分 ≥4 段 + 故事核已提取 |
-| 3 | 情感线+爆点 | 故事核+结构划分+情节节点数据 | 情感曲线（≥5节点）+ 爆点分析（6维度）+ 期待感分析。 | 爆点分析 6 维度齐全 |
-| 4 | 反转+写作手法 | 节点+情感数据 | 前置反转检查 + 反转机制（铺垫≥2条）+ 写作手法（≥5项维度：POV/对话/时间/信息/其他）。 | 写作手法 ≥5 项 |
-| 5 | 人物+开头结尾 | 情节节点+全文 | 所有人物（分类+功能标签+功能评估）+ 开头分析（前50/100字）+ 结尾分析（收束检查）。 | 人物功能评估完成 |
-| 6 | 综合评估 + `_meta.json` 写计数 | 全部数据 | 五维评分 + 爆点性 + 话题性 + 共鸣分析（≥3层）+ 可复用结构（≥3条）+ 节奏速报 + **算出并写入 `_meta.json.structure_counts`**。 | 五维评分完成 + 爆点性/话题性已分析 + 共鸣≥3层 + 可复用≥3条 + 节奏速报已包含 + `_meta.json.structure_counts` 各字段达「structure_counts 数值校验」阈值 |
-
-> 管道执行顺序：2 → 3 → 4 → 5 → 6（严格串行，每阶段依赖前一阶段数据）。可选模块
-> （同类对比、平台适配、详细节奏）可在 Stage 6 后执行。
-
-**Stage 写盘协议**（crash safety）：每个 Stage 开始前先把 `_meta.json.last_stage_in_progress`
-置为当前 Stage 编号；该 Stage 所有目标文件写完后再做 non-empty / 最小长度检查，通过
-才清空 `last_stage_in_progress` 并 append 到 `stages_completed[]`。半成品文件不被
-信任，resume 时该 Stage 整段重跑。完整协议见
-[references/output-contract.md](references/output-contract.md) 「写入顺序 (crash safety)」段。
-
-**非标文本分段**：对话体、聊天记录、帖子体、书信体等非标准章节格式，先按时间/说话人
-切换/信息揭示点分段，再映射到开端、发展、高潮、结局；不要机械按自然段数量切分。
-
-**投稿层拆解**（拆 Stage 5 开头 / Stage 6 可复用时顺带记录进 拆文报告.md，非阻断；story-short-write 定平台基调时可作初判参考）：
-- **平台基调**：判定源文更贴哪一路——知乎盐选（第一人称剥洋葱、细思极恐、章末颠覆认知细节）/ 小程序（开局即地狱、当众打脸、章末卡脖子断点）/ 番茄短篇（顺滑无毒点、金手指直白、大满贯收尾）。
-- **导语写法**：源文开头前 150-220 字（多数就是正文第一段）怎么钩人——四维骨架（起因+核心冲突+人设底色+情绪反转）、黄金三角（具体物件+信息差+留白钩子）各落在哪句。
-- **付费点/最强断点**：源文把最强悬念断点（读者最想往下翻的地方）卡在第几节章末；付费点前后每章剧情点密度是否递增。
-
-详细模板见 [output-templates.md](references/output-templates.md)，方法论见
-[material-decomposition.md](references/material-decomposition.md)，输出契约见
-[output-contract.md](references/output-contract.md)。
+The full resume contract is in [references/output-contract.md](references/output-contract.md).
 
 ---
 
-## 验收（Stage 6 之后、写 stages_completed[6] 之前）
+## Output directory
 
-Stage 6 内容写完后，**不**立刻 append `6` 到 `stages_completed[]`。先跑三道检查：
+Output goes to `teardown-lib/{Book Title}/` (under the project root). If the user specifies another path, output there instead.
 
-### Step 1：拆文报告 AI 腔自检
+**Standard output file tree**:
 
-扫描 `拆文报告.md` 全文 against [references/banned-words.md](references/banned-words.md)
-词表 + [references/anti-ai-writing.md](references/anti-ai-writing.md) 句式规则。
-扫描时跳过源文引用——以 `>` 开头的引用行、以及表格中「关键台词 / 原文引用」列的引号直引不计入，只扫分析师本人写的措辞。
+```
+teardown-lib/{Book Title}/
+├── source/                # source backup (pipeline pre-step output)
+├── teardown-report.md     # human-readable combined report (all readable sections of Stage 2-6)
+├── plot-nodes.md          # Stage 2 plot-node list (standalone file for easy locating)
+├── craft-methods.md       # Stage 4 writing-craft analysis (standalone file for easy reuse)
+└── _meta.json             # pipeline metadata + structure counts (resume + acceptance numbers)
+```
 
-- **命中** → 不写 `stages_completed[6]`，列出命中位置，提示用户人工修订**拆文报告
-  本身**的 AI 腔（不是源文——源文里有 AI 腔正常报告即可，但报告本身不能写成 AI 腔）。
-- **未命中** → 继续「structure_counts 数值校验」。
+> **Downstream contract**: `story-short-write` reads the full set of outputs at once — `teardown-report.md` for the analysis narrative, `plot-nodes.md` for rhythm anchors, `craft-methods.md` for techniques, `source/` for voice, `_meta.json` for genre recognition and structure counts. Full field definitions in [references/output-contract.md](references/output-contract.md).
 
-> 守门员定位：本节检查「我们写的拆文报告」；不要评价「源文是否 AI 写的」。
+### Stage → file mapping
 
-### Step 2：`_meta.json.structure_counts` 数值校验
+| Stage | Landing file |
+|-------|--------------|
+| 2 | `teardown-report.md` (story core + structure + summary sections) + `plot-nodes.md` |
+| 3 | `teardown-report.md` (emotion curve + eruption-point sections) |
+| 4 | `teardown-report.md` (reversal section) + `craft-methods.md` |
+| 5 | `teardown-report.md` (characters + opening/ending sections) |
+| 6 | `teardown-report.md` (combined section) + `_meta.json.structure_counts` (numbers into metadata) |
 
-按 [references/output-contract.md](references/output-contract.md) 「structure_counts 数值校验」表
-逐项检查 `_meta.json` 里 Stage 6 写入的结构计数。阈值与 carve-out 以 output-contract.md 为准（单一权威，不在此重复内联表以免漂移）——特别注意两条合法产出态：`reversal_type` 枚举**含「无反转」**（甜宠/喜剧/报应型）；`reversal_type=无反转` 时 **`setup_clues` 跳过该行、不计入阻断**。
+### Source backup (pipeline pre-step)
 
-任一项不达标 → 阻断；列出未达标字段，提示用户回到对应 Stage 补足。
+**Before the teardown starts, you must back up the source**:
 
-### Step 3：`output-templates.md` [BLOCK] 项扫描
+1. Check whether `teardown-lib/{Book Title}/source/` already exists
+2. If not, copy the source files from the user-provided source path into `teardown-lib/{Book Title}/source/`
+3. If the user did not provide a source file path (text pasted directly into the conversation), save the raw text to `teardown-lib/{Book Title}/source/source.md`
+4. After the backup, verify the files under `source/` are non-empty (>0 bytes)
+5. This step guarantees the original material is never lost even if something goes wrong mid-teardown
 
-扫描 `output-templates.md` 中所有 `[BLOCK]` 标注项，确认对应产出段已完成。任一缺失
-→ 阻断。`[WARN]` 项不阻断，但写入 `拆文报告.md` 末尾的「待补」清单供用户决定。
-
-### Step 4：通过
-
-「拆文报告 AI 腔自检」「structure_counts 数值校验」和「BLOCK 项扫描」全通过 → 清空 `_meta.json.last_stage_in_progress`，append `6` 到
-`stages_completed[]`，提示用户「拆解完成，可调用 `/story-short-write` 写下一篇」。
-
----
-
-## 质量检查概要
-
-各阶段完成后需通过质量检查。逐项 checklist 见
-[output-templates.md 质量检查必填字段](references/output-templates.md)。
-
-质量标准的阈值、数值与计算方式的唯一权威定义见
-[material-decomposition.md 质量标准](references/material-decomposition.md)。
-
-强阻断 / 警告区分：见 `output-templates.md` 每条 checklist 末尾的 `[BLOCK]` /
-`[WARN]` 标注。`[BLOCK]` 不通过 → 「BLOCK 项扫描」阻断。
+After the backup, initialize `_meta.json`: write `version`, `word_count`, `genre_detected`, `created_at`, `stages_completed: []`, `last_stage_in_progress: null`.
 
 ---
 
-## 流程衔接
+## Stage 2-6: the teardown flow
 
-**流水线：** 短篇
-**位置：** 拆文（第 2/3 步）
+### The 5-stage pipeline
 
-| 时机 | 跳转到 | 命令 |
+**Expected-time heads-up**: a short teardown usually takes 10-30 minutes; same-type comparison or platform adaptation takes longer. If the text is very short, only pick the key nodes — don't force-split to hit a node count.
+
+| Stage | Name | Input | Output | Completion marker |
+|-------|------|-------|--------|-------------------|
+| 2 | Structure + plot nodes | full text | story core + story summary + functional segments (4-6, must include opening/development/climax/ending) + plot-node list. Node density tiers by word count, see the word-count tier table in material-decomposition.md "plot-node extraction". | structure split ≥4 segments + story core extracted |
+| 3 | Emotional line + eruption points | story core + structure split + plot-node data | emotion curve (≥5 nodes) + eruption-point analysis (6 dimensions) + anticipation analysis | eruption analysis 6 dimensions complete |
+| 4 | Reversal + writing craft | nodes + emotion data | pre-reversal check + reversal mechanics (setup clues ≥2) + writing craft (≥5 dimensions: POV/dialogue/time/info/other) | craft ≥5 items |
+| 5 | Characters + opening/ending | plot nodes + full text | all characters (classification + function labels + function assessment) + opening analysis (first 50/100 words) + ending analysis (closure check) | character function assessment complete |
+| 6 | Combined assessment + `_meta.json` counts | all data | five-dimension score + eruption potential + topicality + resonance analysis (≥3 layers) + reusable structures (≥3) + rhythm briefing + **compute and write `_meta.json.structure_counts`** | five-dimension score done + eruption potential/topicality analyzed + resonance ≥3 layers + reusable ≥3 + rhythm briefing included + `_meta.json.structure_counts` fields meet the "structure_counts numeric validation" thresholds |
+
+> Pipeline order: 2 → 3 → 4 → 5 → 6 (strictly serial; each stage depends on the previous stage's data). Optional modules (same-type comparison, platform adaptation, detailed rhythm) run after Stage 6.
+
+**Stage write protocol (crash safety)**: before each Stage starts, set `_meta.json.last_stage_in_progress` to the current stage number; after all of that stage's target files are written, run non-empty / minimum-length checks; only when they pass, clear `last_stage_in_progress` and append to `stages_completed[]`. Half-written files are not trusted — on resume the whole stage re-runs. Full protocol in the "Write order (crash safety)" section of [references/output-contract.md](references/output-contract.md).
+
+**Non-standard text segmentation**: dialogue-script, chat-log, post, and epistolary formats without standard section breaks — segment first by time / speaker switches / info-reveal points, then map onto opening, development, climax, ending; don't mechanically split by paragraph count.
+
+**Submission-layer teardown** (record into teardown-report.md as you go while tearing down the Stage 5 opening / Stage 6 reuse; non-blocking; story-short-write can use it as a first-pass judgment when setting platform tone):
+- **Platform tone**: judge which tradition the source text fits — Radish/Dreame/GoodNovel/Galatea (paid episodic: hell-on-earth in the first lines, public comeuppance, chapter-end neck-snapping breaks) / Wattpad (first-person peeling-onion, slow-burn, comment-driven) / Inkitt (free-read, twist-first, strong opening-hook culture).
+- **Opening-hook writing**: how the source's first 150-220 words (usually the first paragraph of the body) hook — the four-dimension skeleton (cause + core conflict + character substrate + emotional reversal) and the golden triangle (concrete object + information gap + white-space hook), which sentence each lands on.
+- **Paywall point / strongest break**: which episode end the source puts its strongest suspense break (the place readers most want to flip to) at; whether plot-point density increases around the paywall.
+
+Detailed templates in [output-templates.md](references/output-templates.md), methodology in [material-decomposition.md](references/material-decomposition.md), output contract in [output-contract.md](references/output-contract.md).
+
+---
+
+## Acceptance (after Stage 6, before writing stages_completed[6])
+
+After the Stage 6 content is written, **do not** immediately append `6` to `stages_completed[]`. Run three checks first:
+
+### Step 1: teardown-report AI-flavor self-check
+
+Scan the full text of `teardown-report.md` against the banned-word list in [references/banned-words.md](references/banned-words.md) + the sentence-pattern rules in [references/anti-ai-writing.md](references/anti-ai-writing.md). During the scan, skip source quotes — quote lines starting with `>`, and direct quotes in the "key lines / source quotes" table column, are not counted; only scan the wording the analyst wrote.
+
+- **Hit** → don't write `stages_completed[6]`; list the hit locations and ask the user to manually fix the AI flavor of **the teardown report itself** (not the source — if the source has AI flavor, just report it normally; the report itself must not be written in AI flavor).
+- **No hit** → continue to "structure_counts numeric validation".
+
+> Gatekeeper positioning: this section checks "the teardown report we wrote"; don't judge "whether the source was AI-written".
+
+### Step 2: `_meta.json.structure_counts` numeric validation
+
+Check each structure count written by Stage 6 in `_meta.json` against the "structure_counts numeric validation" table in [references/output-contract.md](references/output-contract.md). Thresholds and carve-outs are defined there (single authority; not inlined here to avoid drift) — pay special attention to two legal output states: the `reversal_type` enum **includes "none"** (for sweet/comedy/karmic-justice stories); when `reversal_type=none`, **`setup_clues` skips that row and doesn't count as blocking**.
+
+Any item below threshold → block; list the failing fields and tell the user to go back to the corresponding stage and complete them.
+
+### Step 3: `output-templates.md` [BLOCK] item scan
+
+Scan all `[BLOCK]`-marked items in `output-templates.md` and confirm the corresponding output sections exist. Any missing → block. `[WARN]` items don't block, but get written into the "to-do" list at the end of `teardown-report.md` for the user to decide.
+
+### Step 4: Pass
+
+When "teardown-report AI-flavor self-check", "structure_counts numeric validation", and "BLOCK item scan" all pass → clear `_meta.json.last_stage_in_progress`, append `6` to `stages_completed[]`, and tell the user "teardown complete — run `/story-short-write` to write the next story".
+
+---
+
+## Quality check summary
+
+Each stage must pass quality checks after completion. Item-by-item checklist: the "quality-check required fields" section of [output-templates.md](references/output-templates.md).
+
+Thresholds, numbers, and calculation methods are defined only in the quality standards of [material-decomposition.md](references/material-decomposition.md).
+
+Hard-block vs warning: see the `[BLOCK]` / `[WARN]` labels at the end of each checklist item in `output-templates.md`. A `[BLOCK]` failure → the "BLOCK item scan" blocks.
+
+---
+
+## Flow handoffs
+
+**Pipeline:** short-form
+**Position:** teardown (steps 2/3)
+
+| When | Jump to | Command |
 |---|---|---|
-| 准备开写 | story-short-write（同时读 拆文报告.md + 情节节点.md + 写作手法.md + 原文/ + _meta.json） | `/story-short-write` |
-| 需要市场数据 | story-short-scan | `/story-short-scan` |
-| 字数 > 20k 更适合长篇 | story-long-scan → story-long-analyze | `/story-long-scan` |
+| Ready to write | story-short-write (reads teardown-report.md + plot-nodes.md + craft-methods.md + source/ + _meta.json together) | `/story-short-write` |
+| Need market data | story-short-scan | `/story-short-scan` |
+| Word count > 20k, better as long-form | story-long-scan → story-long-analyze | `/story-long-scan` |
 
 ---
 
-## 参考资料
+## References
 
-### 核心方法论（拆文时必须加载）
+### Core methodology (must load during teardown)
 
-| 文件 | 何时加载 |
+| File | When to load |
 |------|----------|
-| [references/output-contract.md](references/output-contract.md) | 全程：Stage→文件映射 / `_meta.json` schema（含 structure_counts）/ 下游消费规范 / 验收接入点 |
-| [references/output-templates.md](references/output-templates.md) | 拆文时：输出模板 + 结构库 + 质量检查（含 [BLOCK]/[WARN] 标注） |
-| [references/material-decomposition.md](references/material-decomposition.md) | 拆文方法论：情节节点提取 + 写作手法 + 情感线 + 节奏分析 + 共鸣分析 + 人物规则 + **质量标准唯一权威** |
-| [references/quality-checklist.md](references/quality-checklist.md) | 评估**源文**质量时：短篇拆书的质量自检清单（评估对象的好坏，不是评估拆文报告本身） |
-| [references/anti-ai-writing.md](references/anti-ai-writing.md) | 「拆文报告 AI 腔自检」：扫描**拆文报告本身**的 AI 腔（不是源文滤镜） |
-| [references/banned-words.md](references/banned-words.md) | 「拆文报告 AI 腔自检」：拆文报告禁用词速查 |
+| [references/output-contract.md](references/output-contract.md) | Throughout: Stage→file mapping / `_meta.json` schema (incl. structure_counts) / downstream consumption rules / acceptance entry points |
+| [references/output-templates.md](references/output-templates.md) | During teardown: output templates + structure library + quality checks (with [BLOCK]/[WARN] labels) |
+| [references/material-decomposition.md](references/material-decomposition.md) | Teardown methodology: plot-node extraction + writing craft + emotional line + rhythm analysis + resonance analysis + character rules + **sole authority for quality standards** |
+| [references/quality-checklist.md](references/quality-checklist.md) | When assessing **the source text's** quality: short-fiction teardown self-check list (assesses the object's quality, not the teardown report itself) |
+| [references/anti-ai-writing.md](references/anti-ai-writing.md) | "Teardown-report AI-flavor self-check": scans **the teardown report itself** for AI flavor (not a source filter) |
+| [references/banned-words.md](references/banned-words.md) | "Teardown-report AI-flavor self-check": banned-word quick reference for the teardown report |
 
-### 按需加载（拆解对应题材 / 维度时作为对照标尺）
+### Load on demand (as comparison yardsticks for the corresponding genre/dimension)
 
-| 文件 | 何时加载 |
+| File | When to load |
 |------|----------|
-| [references/deconstruction-examples.md](references/deconstruction-examples.md) | 校准拆文方法时：3 个完整案例作为参照 |
-| [references/zhihu-style.md](references/zhihu-style.md) | 拆解知乎盐言故事时作为平台特性对照 |
-| [references/genre-catalog.md](references/genre-catalog.md) | 拆解特定题材时：加载对应题材的「短篇视角」章节作为标准模式 |
-| [references/hooks-chapter.md](references/hooks-chapter.md) | 拆解章节钩子设计时作为钩子类型对照 |
-| [references/hooks-suspense.md](references/hooks-suspense.md) | 拆解悬念设计时作为悬念分类对照 |
-| [references/hooks-paragraph.md](references/hooks-paragraph.md) | 拆解段落钩子时作为 11 种段落级钩子对照 |
-| [references/character-basics.md](references/character-basics.md) | 拆解人物基础设定时作为人设要素对照 |
-| [references/character-design-methods.md](references/character-design-methods.md) | 拆解人物内在矛盾时作为三层标签反差对照（contradiction_axis 来源） |
-| [references/character-relations.md](references/character-relations.md) | 拆解人物关系网时作为关系类型对照 |
-| [references/genre-core-mechanics.md](references/genre-core-mechanics.md) | 拆解题材核心梗与循环机制时作为机制对照 |
-| [references/genre-readers.md](references/genre-readers.md) | 拆解读者心理与期待管理时作为读者画像对照 |
+| [references/deconstruction-examples.md](references/deconstruction-examples.md) | Calibrating the teardown method: 3 complete cases as references |
+| [references/platform-style.md](references/platform-style.md) | When tearing down platform-episodic fiction: platform-characteristic comparison |
+| [references/genre-catalog.md](references/genre-catalog.md) | When tearing down a specific genre: load that genre's "short-fiction lens" section as the standard pattern |
+| [references/hooks-chapter.md](references/hooks-chapter.md) | When tearing down chapter-hook design: hook-type comparison |
+| [references/hooks-suspense.md](references/hooks-suspense.md) | When tearing down suspense design: suspense-classification comparison |
+| [references/hooks-paragraph.md](references/hooks-paragraph.md) | When tearing down paragraph hooks: the 11 paragraph-level hooks comparison |
+| [references/character-basics.md](references/character-basics.md) | When tearing down basic character setup: character-element comparison |
+| [references/character-design-methods.md](references/character-design-methods.md) | When tearing down characters' inner contradictions: the three-layer-label contrast comparison (contradiction_axis source) |
+| [references/character-relations.md](references/character-relations.md) | When tearing down the character-relationship web: relationship-type comparison |
+| [references/genre-core-mechanics.md](references/genre-core-mechanics.md) | When tearing down genre core hooks and loop mechanics: mechanics comparison |
+| [references/genre-readers.md](references/genre-readers.md) | When tearing down reader psychology and expectation management: reader-profile comparison |
 
-### 补充资料（拆 Stage 6「可复用结构」时按需对照）
+### Supplementary (loaded on demand for Stage 6 "reusable structures")
 
-> **题材写作公式**：`references/genre-writing-formulas.md`（21 大题材公式作为
-> 「这篇是否合标」的对照标尺）
-> **通用写作技法**：`references/genre-writing-techniques.md`（情绪操控 / 感情线 /
-> 震惊场景 / 喜剧机制——拆 reusable_structures.fail_mode 时引用「感情线四阶段推进法」表「禁忌」列）
-> **市场数据**：`references/real-market-data.md`（跨平台写作差异对照表）
+> **Genre writing formulas**: `references/genre-writing-formulas.md` (formulas for the major genres as a "does this piece meet the standard" comparison yardstick)
+> **General writing craft**: `references/genre-writing-techniques.md` (emotion manipulation / romance lines / shock scenes / comedy mechanics — when tearing down reusable_structures.fail_mode, cite the "forbidden" column of the "four-stage romance progression" table)
+> **Market data**: `references/real-market-data.md` (cross-platform writing-difference comparison table)
 
-所有 references 在 `story-short-analyze` 中都是**对照标尺**——用源文与文件描述的
-标准模式做对比，找出该篇用了哪种、做得多到位，**不是**按文件指引写新作品。
+All references in `story-short-analyze` are **comparison yardsticks** — compare the source against the standard patterns the file describes to find which one the piece uses and how well it executes; they are **not** instructions for writing new works.
 
 ---
 
-## 语言
+## Language
 
-- 跟随用户的语言回复，用户用什么语言就用什么语言回复
-- 中文回复遵循《中文文案排版指北》
+> - Follow the user's language.
+> - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

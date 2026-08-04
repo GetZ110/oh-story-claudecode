@@ -1,444 +1,281 @@
-# 题材写作公式
+# Genre Writing Formulas
 
-> **用途**：21个题材的结构骨架、情绪节拍、必选场景、关键规则。按题材分类，可直接套用。
-> **语气**：指令式——每个公式都是可直接套用的结构骨架。
-> **配合**：优先使用当前 skill 内的通用技法 reference；story-setup 部署后使用项目本地 agent reference bundle 中的写作技法、结构格式、题材风格模块副本。
-> **适用范围**：本文件的节奏参数（500-800 字/节、短句白描等）只适用于短篇和爽文小节；长篇正文的叙述句仍以逗号长句为主（句长标准），不要把短篇小节的句法带进长篇。
-
----
-
-## 决策路由：按题材选公式
-
-> 写之前先定位题材，找到对应公式，按公式结构推进。
-
-| 题材/类型 | 对应公式 | 篇幅 |
-|-----------|---------|------|
-| 现代复仇/打脸 | 公式一 | 6章短篇 |
-| 古代宅斗/身份反转 | 公式二 | 8节 |
-| 虐恋复仇/灵魂视角 | 公式三 | 7节 |
-| 都市系统/逆袭长篇 | 公式四 | 前3章 |
-| 玄幻仙侠/重生逆袭 | 公式六 | 19章 |
-| 年代重生/双重复仇 | 公式七 | 19章 |
-| 宫闱宅斗/女帝逆袭 | 公式八 | 19章 |
-| 现代悬疑/超自然视角 | 公式九 | 18章 |
-| 架空历史/性别反转(追妻火葬场) | 公式十 | 19章 |
-| 重生复仇/离婚逆袭 | 公式十二 | 10章 |
-| 总裁豪门/白月光虐恋 | 公式十三 | 8-11章 |
-| 女频复仇 vs 男频复仇 | 公式十四 | 通用对比 |
-| 宫闱宅斗/隐忍腹黑型 | 公式十五 | 8章 |
-| 追夫火葬场/不原谅型 | 公式十六 | 8章 |
-| 年代重生/医术复仇型 | 公式十七 | 8章 |
-| 灵魂视角家庭虐文 | 公式十八 | 5章 |
-| 细节线索驱动型复仇 | 公式十九 | 8-13章 |
-| 反套路嫁祸型重生 | 公式二十 | 7章 |
-| 公开审判式打脸 | 公式二十一 | 通用场景 |
+> **Purpose**: structural skeletons, emotion beats, must-have scenes, and key rules for the English short-form reversal formulas. Pick the formula that fits your reversal, then follow it beat for beat.
+> **Tone**: imperative — every formula is a directly applicable structural skeleton.
+> **Scope**: the pacing parameters here (300-800 words/section, short-sentence plain description) apply only to short stories and episode serialization; long-form prose keeps its own sentence norms — don't drag short-form syntax into long-form chapters.
+> **Word budgets**: full short story 4000-12000 words; serialized episodes 1500-3000 words each (Radish / Galatea / Inkitt / Wattpad); per-section floor 400 words (300 for high-info-density formulas, marked below).
 
 ---
 
-## 公式一：现代复仇/打脸短篇（6章）
+## Decision route: pick the formula by reversal
 
-| 章 | 节点 | 要点 |
-|----|------|------|
-| 1 | 当众背叛 | 主角当场冷静反击，暂胜 |
-| 2 | 冷静处理 | 冻结/收回权力，交代背景 |
-| 3 | 对方反扑 | 反派找上门，用证据打脸 |
-| 4 | 揭示真相 | 监控/证据暴露反派真面目 |
-| 5 | 对方求饶 | 展示更多证据，彻底碾压 |
-| 6 | 最终加冕 | 新格局+隐藏真相揭露 |
+> Before writing, locate your reversal and take its formula; then structure by it.
 
-**情绪**：愤怒→爽→紧张→更爽→极爽→余韵+震撼
-**必选场景**：当众羞辱开场、冷静到可怕的反击、标志性动作、逐层揭露证据、反派自曝、隐藏伏笔回收
-**规则**：主角永不失态；用动作替代情绪；对方越歇斯底里主角越平静；先让反派得意再翻转
-
----
-
-## 公式二：古代宅斗/身份反转（8节）
-
-| 节 | 节点 | 要点 |
-|----|------|------|
-| 1 | 被弃回归 | 亲生父母当众羞辱，主角冷观 |
-| 2 | 后院交锋 | 被妹妹陷害被打，暗线启动 |
-| 3 | 身份初露 | 关键人物关注，展示信物 |
-| 4 | 被软禁 | 妹妹告密，陷入绝境 |
-| 5 | 身份揭露 | 圣旨到，全场震惊 |
-| 6 | 反击推进 | 查账，权贵站队 |
-| 7 | 对方反扑 | 谣言+联合打压 |
-| 8 | 最终碾压 | 面圣/真相大白，对方覆灭 |
-
-**情绪**：压抑×3→释放→释放→短暂再压→终极释放
-**必选场景**：回归羞辱、被冤枉被打、信物展示、身份揭露名场面、妹妹恶毒递进、父母偏心加码
-**规则**：分步揭露身份；压抑3节释放1节；父母用"偏心"写不用"坏"写；妹妹恶从阴阳怪气→陷害→要杀
+| Core reversal | Formula | Length |
+|---------------|---------|--------|
+| The Big Misunderstanding | Formula 1 | 8-11 sections |
+| The Faked Death | Formula 2 | 8-10 sections |
+| The Identity Reveal | Formula 3 | 8-11 sections |
+| The Wedding Interrupted | Formula 4 | 8-10 sections |
+| The Last-Chapter Confession | Formula 5 | 7-10 sections |
+| The Hidden Child / Kept Secret | Formula 6 | 8-10 sections |
+| The Heist Turned Trust | Formula 7 | 9-12 sections |
+| The Outsider with a Secret | Formula 8 | 8-11 sections |
+| The Public Reckoning | Formula 9 | 7-10 sections |
+| The Time-Loop / Do-Over | Formula 10 | 8-11 sections |
 
 ---
 
-## 公式三：虐恋复仇/灵魂视角（7节）
+## Formula 1: The Big Misunderstanding (8-11 sections)
 
-| 节 | 节点 | 要点 |
-|----|------|------|
-| 1 | 死亡回溯 | 3年前被渣男害死，灵魂视角开启 |
-| 2 | 虐待现场 | 渣男威胁家人，保镖打人 |
-| 3 | 小三虚伪 | 小三装可怜，撕碎死亡证明 |
-| 4 | 开棺/真相 | 孩子"那是妈妈"，血书，定时文件发布 |
-| 5 | 舆论反转 | 热搜+股价暴跌+小三被甩 |
-| 6 | 崩溃现场 | 掐小三，家族问责 |
-| 7 | 收尾 | 哥哥布局，渣男最后一句话 |
+The couple (or family / friends) are torn apart by a truth that was never said aloud. The misunderstanding is real, specific, and structurally earned — someone heard half a sentence, saw half a scene, or was fed a lie with a plausible face.
 
-**情绪**：窒息→暴怒→冰冷→心碎→爽→快意→苍凉
-**必选场景**："保小不保大"；对比场景（家人被打vs渣男给小三买东西）；孩子一句话击穿防线；定时发布证据；开棺；渣男崩溃
-**规则**：灵魂飘在半空视角；"想阻止却无能为力"；现在+3年前回忆交替；渣男合理化自己的恶；小三每句话都是毒
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The happy thing + the half-truth | Establish the bond (one concrete ritual); plant the misunderstanding's seed in a scene the reader can revisit |
+| 3-4 | The rupture | The half-truth lands; the accused can't or won't explain (the reason for the silence is the seed of the fix) |
+| 5-6 | The cold aftermath | The bond's ritual continues, broken; each section shows one cost of the silence |
+| 7 | The witness | Someone who knows the full truth surfaces (the friend, the third party, the letter) |
+| 8 | The truth scene | The full truth told, in the place the rupture happened; the misunderstanding re-reads |
+| 9-10 | The repair | The accused's silence explained (the reason was love/protection/fear, not guilt); the ritual repaired |
+| 11 | The callback | The opening ritual returns, whole |
 
----
-
-## 公式四：都市系统/逆袭长篇（前3章）
-
-| 章 | 节点 | 要点 |
-|----|------|------|
-| 1 | 离婚+系统激活 | 仙人跳反转→离婚→系统激活 |
-| 2 | 系统面板+新手奖励 | "报废边缘"吐槽→新手礼包→离婚 |
-| 3 | 离婚后+新装备 | 机车出场→前妻后悔伏笔→父子关系 |
-
-**必选场景**：中年危机够惨；系统面板讽刺数据；新手礼包立刻见效；前妻后悔伏笔；隐藏装备；子女关系
-**规则**：系统评价+主角吐槽是核心笑点；每章结尾必有系统奖励；反差是爽点来源；生活化细节建真实感
+**Emotion**: warmth → fracture → ache → relief → repair → warmth
+**Must-have scenes**: the ritual (bond), the half-truth scene (readable twice), the silent accusation (the accused's POV-consistent reason), the witness reveal, the truth scene at the original location, the ritual repaired.
+**Rules**: the misunderstanding must be genuinely re-readable — the reader must be able to find the moment the truth bent. The accused's silence must have a real, sympathetic reason. Never resolve with a coincidence — the witness must have been in the story (even in the background) before.
 
 ---
 
-## 公式六：玄幻仙侠/重生逆袭（19章）
+## Formula 2: The Faked Death (8-10 sections)
 
-```
-导语[前世被害全貌]→重生回到关键节点→故意不按前世行事→对手自疑自乱
-→周围人不解→对手越陷越深→关键人物相助→逐步瓦解反派→最终决战→开放式HE
-```
+A character believed dead returns — and the story is the question of who knew, who lied, and why the death was necessary.
 
-**情绪**：憋屈→爽→悬疑→更爽→紧张→温暖
-**必选场景**：前世死亡详细残忍；重生后第一件事"反常"；对手自我怀疑是核心爽点；逐步揭露前世真相；关键助力者有排面；结尾留白暗示感情
-**规则**：不做和前世一样的事=最大金手指；用反常行为制造信息差；仙侠设定服务情感线不堆设定
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The return | The "dead" person appears, alive, to the one person who never stopped grieving |
+| 2 | The disbelief | The return is confirmed with a detail only the real person could know |
+| 3-4 | The why | The faked death's reason unfolds in layers (the threat, the debt, the witness protection, the scheme) |
+| 5 | The counter-side | The person left behind's life is shown — the grief, the new commitments, the anger |
+| 6 | The accusation | "You let me grieve." The left-behind's anger is valid and must not be waved off |
+| 7 | The full truth | The entire reason, including what it cost the returned one |
+| 8-9 | The choice | Stay/go, forgive/leave, the new threat resolves or the old one returns |
+| 10 | The after | One scene of what the truth costs both; the bond's new shape |
 
----
-
-## 公式七：年代重生/双重复仇（19章）
-
-```
-导语[前世被利用]→双重生→女主选完全不同的路→男主(天阉)温柔登场
-→揭发渣男前世罪行→渣男自以为赢→更多证据揭露→渣男崩溃
-→男主真实身份揭露→华丽打脸→男主后悔BE收尾
-```
-
-**情绪**：愤怒→解气→甜→紧张→极爽→余韵
-**必选场景**：前世付出导语交代清；双重生博弈；年代细节（的确良、大团结、赤脚医生）；男主看似缺陷实则完美；渣男崩溃写足；结尾用渣男视角写后悔
-**规则**：年代感靠真实历史细节；"替罪羊"比"被出轨"更有冲击力；双重生=双重信息战；渣男绝望反衬女主洒脱
+**Emotion**: shock → confirmation → suspense → anger → understanding → choice → settlement
+**Must-have scenes**: the return confirmation (the private detail), the left-behind's grief shown in full, the accusation scene, the full-truth reveal, the choice beat.
+**Rules**: the faked death must be a lie with a reason, not a trick on the reader — the returned one's POV (when present) never falsely narrates their own death. The left-behind's anger is the story's conscience; skipping it turns the premise into cruelty. The reason must be re-readable: a reader flipping back finds the seams, not contradictions.
 
 ---
 
-## 公式八：宫闱宅斗/女帝逆袭（19章）
+## Formula 3: The Identity Reveal (8-11 sections)
 
-```
-家族被害→被迫替嫁→表面顺从暗中布局→带走所有资源离开
-→新势力中积蓄力量→发现更大阴谋→联合盟友→反攻京城→旧势力崩溃→称帝+改革+HE
-```
+Someone is not who they seem — the heir, the agent, the exile, the one everyone underestimated. The reveal re-routes all prior friction.
 
-**情绪**：悲愤→隐忍→悬念→爽→极爽→满足
-**必选场景**：家族被害够惨；替嫁展示智慧；"带走家产"是转折点；每步布局有合理动机；反攻名场面；称帝后改革体现格局
-**规则**：主角从不解释计划让读者自己猜；古文对话有古味但不太文言；布局有"回顾时恍然大悟"效果；反派是"利益驱动的冷漠"
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The low identity | The hidden identity established by what the character endures (the treatment they tolerate tells the reader who they are not) |
+| 3-4 | The clues | 3+ planted details that re-read after the reveal (the habit, the skill, the name, the calluses) |
+| 5-6 | The pressure | The situation demands the hidden resource; the character almost uses it, twice, and refuses |
+| 7 | The trigger | The reveal is forced (the threat, the accusation, the name called aloud) |
+| 8 | The reveal | One scene, public or private; the re-read begins immediately (witnesses' reactions) |
+| 9-10 | The re-routing | Prior scenes re-interpreted; the faction that slighted them pays or repositions |
+| 11 | The new world | The identity's consequences (the title, the mission, the enemies) and the character's choice of who to be now |
 
----
-
-## 公式九：现代悬疑/超自然视角（18章）
-
-```
-设定[鬼伪装成人]→被骗入局→发现怨气能升级→顺水推舟
-→揭露犯罪网络→鬼能力升级→对付小喽啰→找幕后黑手
-→揭露前世死因→最终对决→法律+超自然双重惩罚
-```
-
-**情绪**：好奇→紧张→爽→更爽→震撼→痛快
-**必选场景**：设定一句话说清；被骗后"不慌反喜"；鬼视角独特信息差；每次升级解锁前世记忆；反派反应是爽点；双重惩罚比单杀更解气
-**规则**：鬼视角是独特卖点；"鬼不怕恶人，恶人怕鬼"；悬疑线+复仇线交织；每章结尾有反转或新发现
+**Emotion**: indignation → curiosity → tension → surprise → re-evaluation → resolution
+**Must-have scenes**: the endured injustice (identity negative space), 3 planted clues, the almost-use (twice), the forced reveal, the re-reading beat, the faction's reaction.
+**Rules**: the clues must be visible on first read — subtle, never hidden by vagueness; the reveal must be earned by the character's actions (they were already the person the identity describes). Never resolve by the identity alone — the character must still solve the story's actual problem.
 
 ---
 
-## 公式十：架空历史/性别反转（19章）
+## Formula 4: The Wedding Interrupted (8-10 sections)
 
-```
-被家暴/被误解→配偶偏心外人→失望到放弃→决定离开
-→配偶不以为然→离开后变好→配偶后悔→配偶疯狂赎罪→主角不原谅→悲剧/开放式
-```
+The wedding (or the engagement party, the proposal, the ceremony) is the stage — and the interruption is the reversal.
 
-**情绪**：憋屈→更憋屈→释然→轻松→暗爽→意难平
-**必选场景**：开篇被冤枉/被打；"白月光"型情敌够白莲花；主角离开干净利落；配偶后悔递进；主角不原谅是全文态度；结局不HE更有余韵
-**规则**：性别反转是外壳，核心是"不被珍惜的人选择离开"；每次"忍忍就好"都是对读者愤怒加码；配偶后悔越详细读者"不原谅"越坚决；悲剧性来自"来不及了"
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The wedding setup | The couple, the guest list, the one detail wrong (the cold groom, the absent guest, the misprinted program) |
+| 3-4 | The wrongness grows | One wrong detail per section (the phone call, the letter, the witness who won't come) |
+| 5 | The cold feet confession | One of them almost calls it off; the other's reaction reveals the truth's shape |
+| 6 | The interruption | The interruption lands (the secret child, the true love, the fraud, the objection) — public, concrete |
+| 7-8 | The fallout | The guests react in tiers; the wronged one's dignity scene |
+| 9 | The truth | The full story behind the interruption |
+| 10 | The choice | The ceremony's new shape — or the walk-out, clean |
 
----
-
-## 公式十二：重生复仇/离婚逆袭（10章）
-
-```
-前世被害→重生到关键节点→冷静接受离婚→拿走应得财富
-→投资已知成功项目→系统学习提升→前夫后悔→前夫试图挽回→坚决拒绝→华丽蜕变
-```
-
-**情绪**：憋屈→释然→爽→更爽→极爽→满足
-**必选场景**：前世死法和前夫直接相关；重生后第一反应"笑了"；离婚干脆要钱要利不要人；投资展示智慧；前夫后悔递进；最终蜕变有具体体现
-**规则**："知道了结局，现在要改变过程"；冷静是最大武器；每个决定有前世记忆支撑；前夫带有"理所当然地忽视"的缺陷，避免纯坏；投资线和感情线分开
+**Emotion**: anticipation → unease → dread → shock → catharsis → settlement
+**Must-have scenes**: the wedding's wrong detail, the growing wrongness (one per section), the near-call-off, the interruption, the tiered guest reactions, the walk-out or the re-ceremony.
+**Rules**: the interruption must have been seeded (the wrong detail at section 1 is its origin). The wronged one's dignity is the reader's reward — no scene of them begging. If the wedding continues, it must be a new ceremony, not a patch.
 
 ---
 
-## 公式十三：总裁豪门/白月光虐恋（8-11章）
+## Formula 5: The Last-Chapter Confession (7-10 sections)
 
-```
-1-2章 虐(建立矛盾)：伤害层层升级(言语→行为→身体)
-3-4章 觉醒(心死离开)：临界事件(目睹背叛/身体极限)
-5-6章 反转(真相揭露)：监控/证据/白月光自曝
-7-8章 惩罚(追悔被拒)：渣男崩溃/反派落败
-9-10章 治愈(新生活)：女主独立/新恋情
-```
+The love was there the whole time, unsaid — and the confession arrives at the last possible moment, after the relationship was already grieved as lost.
 
-**情绪比例**：虐30%→觉醒15%→爽35%→治愈20%
-**虐三层**：言语伤害→行为伤害→身体伤害
-**必选场景**：开篇信息炸弹；白月光出场每句话羞辱女主；临界事件（监控/母亲去世丈夫带秘书旅行）；死遁/消失30%作品使用；渣男追悔被拒；新恋情暗示50%
-**简介6步**：情境设定→冲突引爆→对话金句→女主转折→悬念钩子→身份预告
-**规则**：100%第一人称；伤害性对话"精准刺痛"非谩骂；觉醒是一瞬间；爽按序释放不能乱序
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The near-miss | The unsaid thing's shadow (the almost-confession, the interrupted moment, the unsent text) |
+| 3-4 | The separation | Circumstances separate them (the move, the job, the engagement of one to another) |
+| 5-6 | The grief | The regret register — the reader sees both sides' unsaid feelings (one POV, or the planted second-POV chapter) |
+| 7 | The trigger | The last possible moment (the departure, the surgery, the letter about to be mailed) |
+| 8 | The confession | Said aloud, in the wrong place at the right time; the confession is a fact, not a speech |
+| 9 | The answer | The response is an action (the suitcase set down, the door closed, the hand taken) |
+| 10 | The after | One scene of the new shape; the callback to the unsent text |
 
----
-
-## 公式十四：女频 vs 男频复仇/打脸
-
-### 女频万能公式
-- **开头(前10%)**：第一人称「我」；3句内建立核心矛盾；重生则150字内完成前世回顾
-- **发展(10-50%)**：反派每500字升级一次；主角表面隐忍；心声制造信息差；每800字一次小打脸
-- **高潮(50-80%)**：终极真相/身份揭露；公开审判式打脸；每500字一次大打脸
-- **收尾(80-100%)**：反派下场；新生活开启；≤200字温情收尾
-
-### 男频万能公式
-- **开头(前10%)**：第一段最大屈辱；不铺垫直接炸裂；关键数据具体
-- **发展(10-40%)**：隐忍篇幅比女频短；靠行动非心声展示能力
-- **反击(40-70%)**：直接碾压不解释；碾压必须当众
-- **高潮(70-90%)**：身份揭露；称呼改变=身份揭露；集体震惊
-- **收尾(90-100%)**：反派覆灭；200-400字温情线
-
-### 核心差异
-
-| 指标 | 女频 | 男频 |
-|------|------|------|
-| 情绪触发密度 | 3.23次/千字 | 2.50次/千字 |
-| 反转密度 | 1.77次/千字 | 1.21次/千字 |
-| 反转类型 | 信息差型（心声/真相） | 力量型（身份/实力） |
-| 反派类型 | 渣男+绿茶+偏心父母 | 兄弟+老板+势利眼 |
-| 复仇方式 | 信息差式（真相揭露） | 力量式（实力碾压） |
+**Emotion**: ache → loss → grief → hope → release → warmth
+**Must-have scenes**: the almost-confession (re-readable), the separation, both sides' grief (via the planted POV or the left-behind's evidence), the last-moment trigger, the confession, the action-answer.
+**Rules**: the confession must be earned — the reader must have seen the feelings on both sides, not just been told at the end. The confession is short and factual ("I never stopped. I was going to let you go and I can't."), never a summary of the whole relationship.
 
 ---
 
-## 公式十五：宫闱宅斗/隐忍腹黑型（8章）
+## Formula 6: The Hidden Child / Kept Secret (8-10 sections)
 
-```
-1 主动入局(明知丈夫爱寡嫂仍嫁入)
-2 以退为进(比情敌更贤惠→情敌嫉妒失控)
-3 借力打力(情敌假晕骗丈夫→丈夫发现被骗→对情敌失望)
-4 静待自毁(情敌社交场合闯祸→主角旁观)
-5 意外之喜(情敌怀孕→孩子交主角扶养)
-6 釜底抽薪(情敌不能再育→主角成为孩子母亲)
-7 设局收网(宫宴支开丈夫→情敌杀婆婆→主角"恰好"撞见)
-8 终极反转(揭示从头到尾都在操纵→独占家产)
-```
+A child, a debt, an illness, or a past — kept secret to protect someone — surfaces and re-routes every relationship.
 
-**情绪**：好奇→爽(情敌自毁)→更爽(主角不动声色)→震撼(结尾反转)
-**必选场景**：开篇反常行为；情敌自毁三连（假晕→失言→杀婆婆）；每次让步都是布局；结尾内心独白揭示真相
-**规则**：主角从不主动出手；每次情敌犯错后主角都是"受害者"或"好人"；结尾用主角内心独白形成认知反转
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The secret's shadow | The kept thing's cost shown (the vanished years, the unexplained absence, the lie maintained) |
+| 3-4 | The near-exposure | The secret almost surfaces twice (the question, the document, the visitor) |
+| 5 | The exposure | The secret lands publicly or privately, in the worst frame |
+| 6-7 | The betrayal reaction | The person protected feels betrayed — their anger is valid and detailed |
+| 8 | The why | The secret's reason revealed (protection, shame, the threat) — the reason must not erase the hurt |
+| 9 | The repair | The relationship's new terms; the kept thing is now shared |
+| 10 | The after | One scene of the new shape; the callback to the secret's shadow |
 
----
-
-## 公式十六：追夫火葬场/不原谅型（8章）
-
-```
-1 发现真相(999次引诱失败→发现暗恋继父)→决定离婚
-2 彻底死心(回忆付出→被拒屈辱)→最后的温柔
-3 妻子失控(看到继父给别的女人号码后暴怒，但不为男主)
-4 被虐(继父绑架男主→妻子和继父开心聊天)→彻底绝望
-5 决然离开(妻子以为欲擒故纵→烧了男主东西)
-6 丑闻曝光(半年后举报信→继父出卖妻子→身败名裂)
-7 重逢(妻子找到男主→发现已有新恋人→眼神陌生)
-8 不原谅(妻子跟踪→天台对峙→坚决不回头)
-```
-
-**情绪**：绝望→平静→新生→痛快→苍凉
-**必选场景**："第N次"制造递进绝望；撞见真相；妻子的"无所谓"；继父出卖妻子；新恋人对比；天台对峙BE
-**规则**：男主越冷静越有力；妻子后悔越详细读者越觉得活该；新恋人证明"有人会珍惜我"；不原谅比强行HE更有力量
+**Emotion**: weight → tension → rupture → anger → understanding → repair → settlement
+**Must-have scenes**: the secret's cost, the near-exposure (twice), the exposure, the valid anger, the why, the repair, the after.
+**Rules**: the "protection" reason never excuses the lie — the story must let the betrayed one be angry and set new terms. The secret's mechanics (the document, the dates, the visitor) must be internally consistent — a reader re-checking finds no holes.
 
 ---
 
-## 公式十七：年代重生/医术复仇型（8章）
+## Formula 7: The Heist Turned Trust (9-12 sections)
 
-```
-1 前世极惨(被500块卖→生育工具→火烧死)→重生
-2 金手指展示(银针→给植物人丈夫治疗)→化解前世危机
-3 以退为进(面对挑衅不怒→用医术赢得贵人信任)
-4 关键转折(丈夫醒来→利用股权要价→获公司股份)
-5 步步为营(丈夫保护→逐渐放下心防→感情线推进)
-6 收网布局(发现公公被毒杀→丈夫坦白下毒→丈夫也在复仇)
-7 复仇高潮(公公葬礼→警察抓大房→大房逃亡)
-8 BE但圆满(丈夫癌症去世→复仇成功→孩子和事业留给主角)
-```
+A crew, a con, a job — and the trust that forms between rivals mid-job is the real plot.
 
-**情绪**：愤怒→爽→紧张→极爽→苍凉
-**必选场景**：前世极惨层层递进；重生后第一个反常（不再害怕）；医术金手指；贵人相助；丈夫反转（植物人其实在装/半清醒）；BE结局
-**规则**：年代感靠细节（500块、冲喜、银针）；医术要有专业性；大房的恶要具体；BE是"得到了一切但失去了最重要的人"
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The job | The team assembled (rivals forced together), the target, the rule (no attachments) |
+| 3-4 | The rehearsal | Each member's skill and flaw shown through the plan |
+| 5-6 | The first close call | A failure that could have been abandoned — and wasn't; the trust's first notch |
+| 7 | The betrayal seed | One member's double-cross is seeded (the suspicious detail, the phone call) |
+| 8 | The double-cross | The betrayal lands mid-job; the team fragments |
+| 9 | The re-assembly | The betrayed re-form on their own terms; the double-crosser's real reason surfaces |
+| 10-11 | The final job | The team wins by trusting each other; the rule (no attachments) is broken deliberately |
+| 12 | The split | The take divided; the attachment kept (the meet-up, the call, the door left open) |
 
----
-
-## 公式十八：灵魂视角家庭虐文（5章）
-
-```
-1 病中被虐(重病被逼做事→身体崩溃→灵魂飘起)
-2 旁观真相(灵魂看到家人冷漠→配角拱火→母亲为"面子"变本加厉)
-3 证据浮出(父亲发现→手机/日记/监控暴露真相→全家崩溃)
-4 审判清算(逐出族谱→配角被惩→反派得报应)
-5 重生暖心(投胎温暖家庭→温馨细节呼应前世缺失)
-```
-
-**情绪**：窒息→心碎→释放→痛快→治愈
-**必选场景**：身体最脆弱时遭最大伤害（脊椎术后逼祭祖/剖腹产逼做饭）；"我的魂魄慢慢飘起"；配角拱火；母亲的"面子"执念；手机/日记作为证据；重生到温暖家庭
-**规则**：灵魂视角能看到但无法阻止；身体细节必须具体（脊椎错位的脆响、护腰被扯下的刺啦）；母亲后悔写够（从"她最会装"到嚎叫崩溃）；重生结尾用对比；最后一句必须温暖
-
-### 开头金句模板
-
-| 模板 | 示例 |
-|------|------|
-| 病中被逼 | "我刚做完脊椎手术，医生再三嘱咐静养三个月。妈妈却攥着我手腕：快点，祭祀要开始了。" |
-| 产后被逼 | "我刚剖腹产七天，刀口泛着疼。老公推开门：今天家里来客，你去做几个菜。" |
-| 过敏被锁 | "我刚做完手术，想拿急救吸入器，就被表妹抢了过去：舅妈你看，她又装病想偷懒！" |
+**Emotion**: tension → competence → warmth → betrayal → re-formation → victory → settled
+**Must-have scenes**: the assembled team, the skill showcase, the first not-abandoned failure, the seeded double-cross, the betrayal, the re-assembly, the trust-victory, the split.
+**Rules**: the double-crosser's reason must be real (the debt, the leverage, the family) — never cartoon greed. The trust must be earned in actions, not speeches. The ending splits the crew but keeps the bond — a full "everyone walks off together" ending is the genre's open option only if the job's stakes allow it.
 
 ---
 
-## 公式十九：细节线索驱动型复仇（8-13章超短章节制）
+## Formula 8: The Outsider with a Secret (8-11 sections)
 
-```
-1 发现异常(微小细节→冷静应对)
-2-3 暗中调查(职业优势系统收集证据→发现更大阴谋)
-4-5 布局反击(法律文件→证据陷阱→第三方施压)
-6-7 公开对峙(公开场合递交文件→对方崩溃→真相浮出)
-8+ 连环反击(对方反扑→逐一破解→主角全新开始)
-```
+An outsider arrives in a closed community (the town, the firm, the family, the court) with a secret purpose — and the community's acceptance of them is the trap or the redemption.
 
-**情绪**：警觉→压抑→冷静→爽→极爽→豁达
-**必选场景**：一个触发细节（钥匙扣/避孕套品牌/发票/香水味）；职业优势展示；证据链系统构建；"笑着点头"时刻；反向利用对方棋子；"人情味很贵"收尾
-**规则**：超短章节制（每章500-1000字）；主角永远冷静；证据逐章释放；双面人写法；背叛层层加码；冷描写大情绪
+| Section | Beat | Point |
+|---------|------|-------|
+| 1-2 | The arrival | The outsider's cover established; the community's rules and texture shown |
+| 3-4 | The adoption | The community accepts them (the ritual, the trust, the first act of kindness) |
+| 5 | The cost of the lie | The secret's weight shown — the moment they almost tell |
+| 6 | The leverage arrives | The purpose's operator appears (the handler, the letter, the deadline) |
+| 7 | The choice | The outsider must choose between the purpose and the community (the low point) |
+| 8 | The reveal | The secret lands; the community's reaction is tiered |
+| 9-10 | The reparation | The outsider repairs what the purpose would have destroyed — with the community's help or against its judgment |
+| 11 | The belonging | The community's verdict; the outsider is either of them now or leaves clean |
 
-### 调查链条模板
-```
-异常物件→搜索确认→实地调查→系统取证(银行/监控/社交)→布局反击→公开审判
-```
-
----
-
-## 公式二十：反套路嫁祸型重生（7章）
-
-```
-1 重生+假意顺从(知道遗产是陷阱→"你既然想要，就都给你吧")
-2 暗中布局(确认继承人身份→准备移民→假意亲近渣男)
-3 小试锋芒(不再忍白月光→展示反常行为→制造悬念)
-4 冲突升级(被陷害→用条件反击)
-5 身份揭露(权威人物→"我沈家家主明明是简希"→对方崩溃)
-6 收网(给对方"既要又要"的选择→看他自掘坟墓)
-7 华丽退场(揭露所有真相→移民离开→头也不回)
-```
-
-**情绪**：了然→爽→更爽→极爽→痛快→豁达
-**必选场景**："给你吧"时刻；白月光三连试探（撒娇→哭闹→威胁）；渣男"既要又要"；身份揭露名场面；冷眼旁观对方自毁；"头也不回"式离开
-**规则**："给你就是最好的惩罚"；前世记忆每章穿插一小段；主角情绪是"苍凉的笑"；最大蔑视是漠视
+**Emotion**: curiosity → warmth → guilt → pressure → crisis → rupture → repair → belonging
+**Must-have scenes**: the arrival + cover, the adoption ritual, the almost-tell, the operator's pressure, the choice, the reveal, the tiered reaction, the belonging.
+**Rules**: the cover must be re-readable (the reader can find where the truth slipped). The community's acceptance must be genuine — a community that only ever suspected them makes the belonging ending hollow. The choice must cost the outsider something real.
 
 ---
 
-## 公式二十一：公开审判式打脸
+## Formula 9: The Public Reckoning (7-10 sections)
 
-### 核心场景设计
-```
-1 设定"竞技场"(股东大会/家族寿宴/公司大堂)——必须公开
-2 反派先"赢"(当众宣布胜利、羞辱主角)
-3 主角标志性冷静(端起水杯/整理西装/笑了笑)
-4 逐层揭露(一张一张甩证据)
-5 反派逐级崩溃(得意→慌张→绝望→崩溃)
-6 标志性驱逐台词
-7 背影离场(全场死寂中头也不回)
-```
+A wrong is brought to account in public — the workplace, the family gathering, the courtroom, the viral stage — and the evidence walk is the structure.
 
-### 标志性动作库
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The wrong | The injustice shown in full (the wronged one's evidence already being collected — the reader sees it) |
+| 2-3 | The small humiliations | The wrong escalates; each humiliation produces one piece of evidence |
+| 4 | The provocation | The wrongdoer overreaches publicly (the final straw) |
+| 5 | The counter-collection | The evidence's assembly shown (the documents, the recordings, the witnesses) |
+| 6 | The public stage | The reckoning's venue (the meeting, the dinner, the hearing, the platform) |
+| 7-8 | The evidence walk | One piece per section, each tied to a specific humiliation; the wrongdoer's tiered collapse |
+| 9 | The verdict | The community's judgment lands; the wrongdoer's consequence is concrete |
+| 10 | The after | The wronged one's new shape; the callback to the wrong's first scene |
 
-| 动作 | 效果 |
-|------|------|
-| 端起水杯，喝了一口 | 冷静到可怕 |
-| 转着车钥匙悠悠往里走 | 胜利者的从容 |
-| 顺手拿起一杯香槟 | 战场上的优雅 |
-| 慢慢蹲下身与她平视 | 居高临下的慈悲 |
-
-### 驱逐台词库
-
-| 台词 | 场景 |
-|------|------|
-| "与狗，不得入内" | 逐出公司 |
-| "从今天起，她连这栋大楼的大门都不能再踏进半步" | 永久驱逐 |
-
-动作库与台词库只示意「冷静反差 + 权力宣告」的方向，禁止照搬原句：高频套句已是可检索的模板指纹，每本书按人设自造。
+**Emotion**: indignation → rising anger → tension → assembly → catharsis → release → settlement
+**Must-have scenes**: the wrong in full, the escalating humiliations (each producing evidence), the overreach, the assembly, the evidence walk, the tiered collapse, the concrete consequence.
+**Rules**: the evidence must all have been shown being collected — no new evidence at the reckoning. The wrongdoer's collapse is tiered (denial → bluster → silence), never instant. The consequence is concrete (the job, the contract, the law, the reputation), never vague. High-info-density: 300+ words/section.
 
 ---
 
-## 短篇题材创作要点速查表
+## Formula 10: The Time-Loop / Do-Over (8-11 sections)
 
-### 世情/爽文
-- 打脸密度：每3-5节一次，反派嚣张度逐级递增
-- 受辱后2-3节内必须反击
-- 主角主动设局或果断反击
-- 反派有自洽作恶逻辑
-- 打脸后不拖泥带水，断绝/收走/报警干脆利落
-- 爽文章节500-800字/节，感官细节揉进动作节拍中（不单独成句），身体反应用动作白描
+A character repeats a period (the day, the year, the relationship, the moment of death) — and the loop's lesson is the story.
 
-### 情感/虐心
-- 前1/3用具体物件/数字/习惯建立关系质感
-- 先温暖→残酷真相击碎
-- 结尾用安静细节不写大段抒情
-- 离开要有明确触发事件
-- 离开后展现新生活质感
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The first pass | The period's first run shown once, in full, with the failure (the death, the break, the missed call) |
+| 2 | The second pass | The loop's rules established (the reset point, what carries over) |
+| 3-5 | The attempts | 2-3 attempts, each testing a different approach; each attempt's failure produces information |
+| 6 | The pattern recognized | The character sees what they keep doing wrong (the flaw, not the event, is the loop's lesson) |
+| 7 | The true attempt | The attempt that addresses the flaw — and the cost of it (the sacrifice the previous attempts avoided) |
+| 8 | The breakthrough | The period resolves differently; the loop's exit condition met |
+| 9-10 | The new period | The after: the same day/year, different choices; the callback to the first pass's failure |
+| 11 | The kept change | The lesson held — one scene proving the change outlasts the loop |
 
-### 古言/复仇
-- 人物关系一笔带清不搞复杂世界观
-- 打脸直接果断不拖泥带水
-- 最大底牌留在最后1/4揭示
-- 身份/实力作为天然底牌
-- 恶人结局与恶行形成对应
-
-### 悬疑/推理
-- 信息差布局（读者知/角色不知，或反过来）
-- 排除法结构逐步排除表面解释
-- 动机揭示：先做了什么→再为什么做
-- 重生/穿越作为信息差工具不展开设定
-- 每次反转揭示部分真相引出更大问题
-
-### 年代/亲情
-- 展示双方苦不简单站队
-- 用时代特有物件/习俗建质感
-- 不急于和解先让双方充分受伤
-- 断亲有反复和挣扎
-- 断裂后用新关系填补
-
-### 钩子密度分级
-
-| 题材 | 密度 | 偏好 |
-|------|------|------|
-| 复仇/爽文 | 极高：每2节 | 打脸、底牌、代价 |
-| 悬疑 | 高：每2-3节 | 信息差、倒计时、反转 |
-| 情感/虐心 | 中高：每3节 | 情感、反差、余韵 |
-| 古言/宫斗 | 中高：每2-3节 | 底牌、打脸、代价 |
-| 年代/亲情 | 中：每3-4节 | 情感、反差、余韵 |
+**Emotion**: shock → confusion → frustration → insight → determination → sacrifice → release → warmth
+**Must-have scenes**: the first pass in full, the rules established, 2-3 differentiated attempts, the flaw recognized, the costed true attempt, the breakthrough, the new period, the kept change.
+**Rules**: each attempt must differ meaningfully (different approach, different information) — repeating the same attempt is padding. The lesson is a flaw (pride, avoidance, control), never the event itself. The exit costs something — a loop escaped for free is a genre violation. High-info-density: 300+ words/section.
 
 ---
 
-## 质量检查清单
+## Quick tables
 
-> 写完每个公式后逐项核对。全部通过才算合格。
+### Word budgets
 
-- [ ] **公式对位**：所用公式与题材标签匹配，没有混用不相关公式
-- [ ] **情绪节拍完整**：情绪曲线与公式要求的节拍一致，没有跳过或乱序
-- [ ] **必选场景齐全**：每个"必选场景"都在文中出现，没有遗漏
-- [ ] **核心规则遵守**：公式"规则"部分的每一条都已落实
-- [ ] **篇幅合规**：章/节数量在公式规定范围内
-- [ ] **女频/男频区分**：如果是复仇打脸类，已按公式十四的核心差异调整写法
-- [ ] **钩子密度达标**：按题材速查表的密度要求，每N节有明确钩子
-- [ ] **开头3秒抓人**：第一段/第一句已建立核心冲突或信息炸弹，没有慢热铺垫
+| Unit | Words |
+|------|-------|
+| Full short story | 4000-12000 |
+| Serialized episode (Radish/Galatea/Inkitt/Wattpad) | 1500-3000 |
+| Section (default) | ≥ 400 |
+| Section (high-info-density formulas 9-10, fast thrillers, premise comedy) | ≥ 300 |
+| Opening beat | 300-500 |
+| Reversal reveal | ≤ 300 (fast, clean) |
+
+### Hook density by formula family
+
+| Family | Density | Preference |
+|--------|---------|------------|
+| Reckoning / identity (public) | Very high: one per 2 sections | Evidence, exposure, cost |
+| Suspense / loop | High: one per 2-3 sections | Information gap, countdown, re-read |
+| Romance / emotional | Medium-high: one per 3 sections | Ache, callback, almost-moment |
+| Community / warm | Medium: one per 3-4 sections | Ritual, witness, belonging |
+
+### Reversal timing rules
+
+| Rule | Value |
+|------|-------|
+| Earliest reveal | Never before 50% (setup insufficient) |
+| Latest reveal | Never after 95% (no room for the re-read) |
+| Optimal window | 70-85% |
+| Double reversal | First 55-65%, second 80-90% |
+| Reveal length | ≤ 300 words, fast and clean |
+| Setup clues | ≥ 3 planted details, all re-readable |
+
+---
+
+## Quality checklist
+
+> Check every formula's output item by item. Pass only when all pass.
+
+- [ ] **Formula alignment**: the formula matches the core reversal; no mixing of unrelated formulas
+- [ ] **Emotion beats complete**: the emotion curve matches the formula's sequence; nothing skipped or reordered
+- [ ] **Must-have scenes all present**: every listed scene appears in the story
+- [ ] **Core rules kept**: every "rules" bullet is honored (re-readability, valid anger, no coincidences, concrete consequences)
+- [ ] **Length compliant**: section/section counts within the formula's range; word floors met
+- [ ] **Reversal timing compliant**: the reveal sits in 70-85% (or the formula's stated window); ≤ 300 words
+- [ ] **Setup clues ≥ 3**: all planted before 50%, all re-readable after the reveal
+- [ ] **Hook density met**: per the family table, an explicit hook every N sections
+- [ ] **Opening 3 seconds**: the first paragraph establishes the core conflict or an information bomb; no slow warm-up

@@ -1,480 +1,480 @@
-# 题材框架速查
+# Genre Framework Quick Reference
 
-> **用途**：拆文和写大纲时对照使用。你是一个熟练的网文结构分析师，按照下方路由表选择对应框架，严格执行结构比例和情绪节拍。
+> **Use**: cross-reference during teardown and outline writing. You are an experienced web-fiction structure analyst; pick the corresponding framework per the routing table below, and strictly execute the structural ratios and emotion beats.
 
 ---
 
-## 题材选择路由
+## Genre selection routing
 
-根据以下条件快速定位对应框架。先判断大类，再看具体变体。
+Quickly locate the corresponding framework per these conditions. Judge the big class first, then the concrete variant.
 
-| 如果故事核心是... | 走这个框架 | 备注 |
+| If the story core is... | Use this framework | Notes |
 |---|---|---|
-| 男人伤害女人，离开后悔但追不回 | **追妻火葬场** | 女主离开后不回头是核心 |
-| 前世惨死，重生利用信息差复仇 | **重生复仇** | 反派需分层嵌套 |
-| 伴侣出轨/算计，觉醒独立 | **小三/婚恋** | 发现过程要有悬念 |
-| 奇葩/恶霸欺压老实人，恶有恶报 | **世情** | 靠细节不靠大事件 |
-| 女主被虐至死，男主死后追悔 | **死人文学** | 核心是"来不及" |
-| 特殊相遇，男主追求宠溺 | **霸总/甜宠** | 甜的密度决定粘性 |
-| 底层崛起，升级打怪（都市+武道） | **都市高武** | 金钱驱动+分层地图 |
-| 废材/落魄天才，修仙世界登顶 | **仙侠/玄幻** | 力量体系必须清晰 |
-| 独特金手指/创意设定为核心卖点 | **脑洞文** | 核心梗决定赛道 |
-| 主角无天赋，靠谨慎算计生存（修仙） | **凡人流** | 利弊权衡是核心模式 |
-| 穿越/重生到历史节点改变命运 | **历史/架空历史** | 信息差=最大金手指 |
-| 娱乐圈才华展示+围观震惊 | **文娱/娱乐圈** | 反应链是核心写法 |
-| 用户明确目标 IP、平台允许且近期样本有效 | **同人流派** | 只抽“已知世界 + 新变量 + 名场面改写”结构，不保留具体 IP 清单 |
-| 玩家被抽入规则副本求生 | **规则怪谈**（见其他题材速查） | 金手指包合理外衣 |
-| 主角长生看沧海桑田 | **长生流**（见其他题材速查） | 凡俗时期最好看 |
-| 其他（西幻/新媒体/搞笑/无限流/悬疑/高武/后悔流） | **其他题材速查** | 各有要点，按需取用 |
+| A man hurts a woman; she leaves; he regrets but can't get her back | **comeback romance** | the heroine never looking back is the core |
+| A miserable past-life death; a second chance uses info gaps for revenge | **second-chance revenge** | antagonists need layered nesting |
+| A partner cheats/schemes; awakening into independence | **infidelity/marriage** | the discovery process needs suspense |
+| Oddball/bully oppresses the honest; karma hits | **slice-of-life karma** | relies on details, not big events |
+| The heroine tormented to death; the hero regrets after her death | **death literature** | the core is "too late" |
+| A special meeting; the hero pursues and dotes | **billionaire/sweet-spoil** | sweetness density decides stickiness |
+| Bottom-rung rise, grind-and-fight (urban + martial) | **urban martial** | money-driven + tiered maps |
+| Useless/fallen genius climbing to the top in a cultivation world | **cultivation/fantasy** | the power system must be clear |
+| A unique cheat/creative premise as the core selling point | **wild-idea fiction** | the core hook decides the track |
+| A protagonist without talent surviving on caution and calculation (cultivation) | **mortal-flow** | cost-benefit weighing is the core mode |
+| Transmigration/second-chance to a historical node changing fate | **historical/alternate history** | info gaps = the biggest cheat |
+| Entertainment-talent display + bystander shock | **entertainment fiction** | the reaction chain is the core writing |
+| User has an explicit target IP, the platform allows it, recent samples work | **fanfiction school** | only extract "known world + new variable + iconic-scene rewrite"; no concrete IP lists kept |
+| Players pulled into rule-based survival dungeons | **rule-horror** (see other-genre quick reference) | the cheat wears a plausible shell |
+| The protagonist lives forever, watching the sea change | **immortality fiction** (see other-genre quick reference) | the mortal era reads best |
+| Other (western fantasy/new-media/comedy/infinite-flow/mystery/high-martial/regret-flow) | **other-genre quick reference** | each has its points; take on demand |
 
-### 定位后查阅关联文件
+### After positioning, consult the related files
 
-| 还需要什么 | 加载 |
+| What else is needed | Load |
 |-----------|------|
-| 核心梗设计与循环机制 | `genre-core-mechanics.md` |
-| 读者心理与期待管理 | `genre-readers.md` |
-| 对应题材写作公式 | `genre-writing-formulas.md` |
+| Core-hook design & loop mechanisms | `genre-core-mechanics.md` |
+| Reader psychology & expectation management | `genre-readers.md` |
+| Matching genre writing formulas | `genre-writing-formulas.md` |
 
 ---
 
-## 追妻火葬场
+## Comeback romance
 
-### 长篇（8节点）
+### Long-form (8 nodes)
 
-**设定**：女主被伤害 → 离开 → 男主后悔追回但女主不回头。场景：豪门/职场/娱乐圈/古代贵族，需权力差。
+**Premise**: the heroine is hurt → leaves → the hero regrets and pursues but she doesn't look back. Scenes: billionaire/workplace/entertainment/historical nobility; needs a power gap.
 
-**人物**
-| 角色 | 弧线 |
+**Characters**
+| Role | Arc |
 |------|------|
-| 女主 | 隐忍付出 → 心死离开 → 独立成功 → 掌控主动权 |
-| 男主 | 高冷傲慢 → 后期卑微追悔，痛点要"活该但又心疼" |
-| 第二男主(选配) | 温柔守候，制造男主危机感+读者情感出口 |
+| Heroine | enduring silent giving → heart-dead leaving → independent success → holding the initiative |
+| Hero | cold and arrogant → abject late regret; the pain point is "deserves it yet heartbreaking" |
+| Second male lead (optional) | gentle guarding; creates the hero's crisis + the reader's emotional outlet |
 
-**8节点**
-| 节点 | 内容 | 占比 | 情绪 |
+**8 nodes**
+| Node | Content | Share | Emotion |
 |------|------|------|------|
-| 1.开篇钩子 | 展示女主痛苦现状 | 5% | 压抑 |
-| 2.虐待加深 | 冷漠/背叛达顶点 | 10% | 悲愤 |
-| 3.女主觉醒 | 决定离开 | 10% | 痛→决绝 |
-| 4.离开与新生 | 独立生活/事业 | 15% | 爽(解脱) |
-| 5.男主追悔 | 意识女主重要性 | 10% | 痛快 |
-| 6.事业/成长 | 新领域取得成绩 | 15% | 爽(逆袭) |
-| 7.反复拉扯 | 多次求复合被拒 | 20% | 爽(打脸) |
-| 8.结局 | 开放/回头/悲剧 | 15% | 释放 |
+| 1. Opening hook | show the heroine's current pain | 5% | suppressed |
+| 2. Abuse deepens | coldness/betrayal peaks | 10% | grieved |
+| 3. Heroine awakens | decides to leave | 10% | pain → resolve |
+| 4. Leaving & rebirth | independent life/career | 15% | payoff (relief) |
+| 5. Hero regrets | realizes the heroine's importance | 10% | vindicated |
+| 6. Career/growth | achievements in a new field | 15% | payoff (turnaround) |
+| 7. Repeated pulling | multiple rejected reconciliations | 20% | payoff (comeuppance) |
+| 8. Ending | open/look-back/tragic | 15% | release |
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-**核心**：先虐后爽，后悔的男人+不回头的女人
+**Core**: anguish first, payoff after; a regretting man + a woman who doesn't look back
 
-| 幕 | 占比 | 内容要点 |
+| Act | Share | Points |
 |----|------|----------|
-| 建压 | 40% | 冷暴力/出轨(具体事件)→最后忍让→平静离开 |
-| 爆点 | 35% | 丈夫后悔→妻子新生活→追妻被拒→信息差释放 |
-| 落定 | 25% | 火葬场→妻子最终选择→一句话定调 |
+| Press | 40% | cold violence/cheating (concrete events) → final endurance → calm departure |
+| Burst | 35% | the husband regrets → the wife's new life → reconciliation refused → info gap releases |
+| Settle | 25% | the comeuppance → the wife's final choice → one line sets the tone |
 
-**技法**：前期虐越狠后期越爽；妻子至少被拒绝两次；丈夫视角悔恨比妻子视角坚强更有冲击；钩子=信息差+打脸
+**Techniques**: the harder the early anguish, the better the late payoff; the wife refuses at least twice; the husband's POV regret hits harder than the wife's POV strength; hooks = info gaps + comeuppance
 
 ---
 
-## 重生复仇
+## Second-chance revenge
 
-### 长篇（8节点）
+### Long-form (8 nodes)
 
-**设定**：前世惨死→重生利用信息差逐一复仇。场景：宅斗/宫斗/商战/校园，需复杂人际网。
+**Premise**: a miserable past-life death → a second chance uses info gaps to take revenge one by one. Scenes: household/imperial/scheming/business/campus; needs a complex relationship web.
 
-**人物**
-| 角色 | 要点 |
+**Characters**
+| Role | Points |
 |------|------|
-| 女主 | 前世天真→重生腹黑，金手指=前世记忆，核心矛盾=是否变成仇人一样的人 |
-| 反派层 | 小(3-10章)→中(20-50章)→大(全书)，层级嵌套 |
-| 盟友/男主 | 前世可能被误解，逐步信任，制造信任危机 |
+| Heroine | naive past life → scheming after the second chance; the cheat = past-life memories; core conflict = whether she becomes like her enemies |
+| Antagonist layers | small (ch 3-10) → mid (ch 20-50) → big (whole book), nested tiers |
+| Ally/male lead | may have been misjudged in the past life; gradual trust; trust crises |
 
-**8节点**
-| 节点 | 内容 | 占比 | 情绪 |
+**8 nodes**
+| Node | Content | Share | Emotion |
 |------|------|------|------|
-| 1.冲突揭露 | 前世惨死真相 | 5% | 震惊/愤怒 |
-| 2.重生认知 | 梳理记忆定目标 | 5% | 期待 |
-| 3.前世今生交织 | 对比被蒙蔽vs清醒 | 15% | 爽(信息差碾压) |
-| 4.逐层复仇+新问题 | 打小反派揭大阴谋 | 25% | 爽→悬念交替 |
-| 5.多重阻碍 | 中反扑+信任危机 | 15% | 紧张 |
-| 6.高潮致命一击 | 终极布局对决 | 15% | 爽(最高潮) |
-| 7.反派下场 | 逐一报应 | 10% | 爽(宣泄) |
-| 8.新生活 | 选择新方向 | 10% | 治愈/释然 |
+| 1. Conflict revealed | the past-life death truth | 5% | shock/anger |
+| 2. Second-chance cognition | sorting memories, fixing goals | 5% | anticipation |
+| 3. Past and present interweave | contrast between being deceived vs awake | 15% | payoff (info-gap crush) |
+| 4. Layer-by-layer revenge + new problems | beating small antagonists reveals a big conspiracy | 25% | payoff ↔ suspense alternating |
+| 5. Multiple obstacles | mid antagonist counterattack + trust crises | 15% | tension |
+| 6. Climax deadly blow | the ultimate scheme showdown | 15% | payoff (peak) |
+| 7. Antagonists' fates | karma one by one | 10% | payoff (catharsis) |
+| 8. New life | choosing a new direction | 10% | healing/release |
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 内容要点 |
+| Act | Share | Points |
 |----|------|----------|
-| 建压 | 35% | 重生节点→前世闪回→第一个不同选择→信息差建优势 |
-| 爆点 | 40% | 逐步拆解仇人→两个打脸名场面→仇人反击落空→前世未知真相 |
-| 落定 | 25% | 终极复仇→弥补遗憾→新生开始 |
+| Press | 35% | second-chance node → past-life flashback → the first different choice → info-gap advantage |
+| Burst | 40% | dismantling enemies step by step → two comeuppance moments → the enemy's counterattack misses → an unknown past-life truth |
+| Settle | 25% | ultimate revenge → mending regrets → a new life begins |
 
-**技法**：不能太顺利要有变数；打脸分层递进；前世闪回有选择不倒完；钩子=信息差+暗牌+打脸
+**Techniques**: not too smooth — variables needed; comeuppance layered; past-life flashbacks selective, not fully dumped; hooks = info gaps + hidden cards + comeuppance
 
 ---
 
-## 小三/婚恋
+## Infidelity/marriage
 
-### 长篇（8节点）
+### Long-form (8 nodes)
 
-**设定**：发现伴侣出轨→觉醒→独立→惩恶扬善。场景：现代都市/家庭，强代入感日常。
+**Premise**: discovering a partner's cheating → awakening → independence → punishing evil. Scenes: modern urban/family; strong immersion daily life.
 
-**人物**：女主(家庭主妇/职场→独立) | 渣男(精神/肉体出轨/转移财产/家暴/PUA，程度递进) | 第三者(选配，催化矛盾) | 支持系统(闺蜜/家人/律师)
+**Characters**: heroine (homemaker/workplace → independent) | scumbag (emotional/physical cheating/asset transfer/abuse/PUA, escalating degrees) | third party (optional, catalyzing) | support system (best friend/family/lawyer)
 
-**8节点**
-| 节点 | 占比 | 情绪 |
+**8 nodes**
+| Node | Share | Emotion |
 |------|------|------|
-| 1.日常压迫/不公 | 10% | 憋屈 |
-| 2.发现出轨/算计 | 15% | 震惊→愤怒 |
-| 3.决定离开 | 10% | 痛→爽 |
-| 4.事业重建 | 20% | 爽(成长) |
-| 5.渣男纠缠 | 10% | 紧张 |
-| 6.反击 | 15% | 爽(打脸) |
-| 7.报应 | 10% | 爽(宣泄) |
-| 8.新生活 | 10% | 治愈 |
+| 1. Daily oppression/injustice | 10% | choked |
+| 2. Cheating/scheming discovered | 15% | shock → anger |
+| 3. Deciding to leave | 10% | pain → payoff |
+| 4. Career rebuild | 20% | payoff (growth) |
+| 5. Scumbag entanglement | 10% | tension |
+| 6. Counterattack | 15% | payoff (comeuppance) |
+| 7. Karma | 10% | payoff (catharsis) |
+| 8. New life | 10% | healing |
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 40% | 暗示裂痕→蛛丝马迹→确认→冷静(不是崩溃) |
-| 爆点 | 35% | 暗中布局→表面周旋(戏剧张力)→摊牌 |
-| 落定 | 25% | 法律/揭露/经济独立→渣男下场→新生 |
+| Press | 40% | hinting cracks → traces → confirmation → calm (not collapse) |
+| Burst | 35% | covert scheming → surface maneuvering (dramatic tension) → showdown |
+| Settle | 25% | legal/reveal/financial independence → the scumbag's fate → rebirth |
 
-**技法**：发现过程要有悬念；妻子要有策略不是傻白甜；钩子=信息差+暗牌+倒计时
+**Techniques**: the discovery process needs suspense; the wife strategizes, not a naive sweetie; hooks = info gaps + hidden cards + countdowns
 
 ---
 
-## 世情
+## Slice-of-life karma
 
-### 长篇（8节点）
+### Long-form (8 nodes)
 
-**设定**：反派超常理恶行→善良者被欺压→反击→恶有恶报。场景：农村/小镇/社区/家族，熟人社会压力环境。
+**Premise**: the antagonist's out-of-bounds evil → the kind oppressed → counterattack → karma. Scenes: villages/towns/communities/families; acquaintance-society pressure environments.
 
-**人物**：主角(老实人有底线) | 反派(奇葩/恶霸/极品亲戚，恶得有创意) | 围观群众(势利眼/墙头草/少数正义)
+**Characters**: protagonist (honest with a bottom line) | antagonist (oddball/bully/entitled relatives, creatively evil) | bystanders (snobbish/fence-sitting/a few righteous)
 
-**8节点**
-| 节点 | 占比 | 情绪 |
+**8 nodes**
+| Node | Share | Emotion |
 |------|------|------|
-| 1.奇葩登场 | 10% | 气愤 |
-| 2.欺压升级 | 15% | 憋屈 |
-| 3.压力顶峰 | 10% | 极度不平 |
-| 4.第一次反击 | 15% | 爽(初爽) |
-| 5.反扑 | 10% | 紧张 |
-| 6.打脸 | 15% | 爽(高潮) |
-| 7.报应 | 15% | 爽(宣泄) |
-| 8.善有善报 | 10% | 治愈 |
+| 1. Oddball appears | 10% | indignant |
+| 2. Oppression escalates | 15% | choked |
+| 3. Pressure peaks | 10% | extreme unfairness |
+| 4. First counterattack | 15% | payoff (first taste) |
+| 5. Counterattack | 10% | tension |
+| 6. Comeuppance | 15% | payoff (climax) |
+| 7. Karma | 15% | payoff (catharsis) |
+| 8. Good begets good | 10% | healing |
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 40% | 困境→暴露事件→周围人态度→忍还是争 |
-| 爆点 | 35% | 冲突升级→背叛/落井下石→反击→反转 |
-| 落定 | 25% | 解决→人心揭示→成长→留白 |
+| Press | 40% | trap → exposure event → surrounding attitudes → endure or fight |
+| Burst | 35% | conflict escalates → betrayal/kicking a man when down → counterattack → reversal |
+| Settle | 25% | resolution → human hearts revealed → growth → blank space |
 
-**技法**：靠细节不靠大事件；人物不能非黑即白；钩子=代价+弱者+反转
+**Techniques**: rely on details, not big events; characters not black-and-white; hooks = costs + the weak + reversals
 
 ---
 
-## 仙侠/玄幻
+## Cultivation/fantasy
 
-### 长篇（8节点）
+### Long-form (8 nodes)
 
-**设定**：主角遭重大打击→从低谷崛起。场景：修仙/玄幻世界，需清晰力量等级体系。
+**Premise**: the protagonist suffers a major blow → rises from the low valley. Scenes: cultivation/fantasy worlds; needs a clear power-level system.
 
-**人物**：主角(废材/落魄天才→登顶，金手指=特殊体质/传承/系统) | 反派层(同辈→长辈→宗门Boss→天道，维度递升) | 导师(阶段性，不能太强也不能太弱)
+**Characters**: protagonist (useless/fallen genius → summit; cheat = special physique/inheritance/system) | antagonist layers (peers → elders → sect boss → heaven-dao, dimension-ascending) | mentor (stage-based; not too strong, not too weak)
 
-**8节点**
-| 节点 | 占比 | 情绪 |
+**8 nodes**
+| Node | Share | Emotion |
 |------|------|------|
-| 1.打击降临 | 5% | 震惊/悲愤 |
-| 2.冲突深化 | 10% | 压抑 |
-| 3.第一次反击 | 15% | 爽(初爽) |
-| 4.最大危机 | 15% | 极度紧张 |
-| 5.突破/成长 | 10% | 爽(逆袭) |
-| 6.致命一击 | 15% | 爽(高潮) |
-| 7.报应/清算 | 15% | 爽(宣泄) |
-| 8.新征程 | 15% | 期待 |
+| 1. Blow lands | 5% | shock/grief |
+| 2. Conflict deepens | 10% | suppressed |
+| 3. First counterattack | 15% | payoff (first taste) |
+| 4. Biggest crisis | 15% | extreme tension |
+| 5. Breakthrough/growth | 10% | payoff (turnaround) |
+| 6. Deadly blow | 15% | payoff (climax) |
+| 7. Karma/settlement | 15% | payoff (catharsis) |
+| 8. New journey | 15% | anticipation |
 
-**关键维度**：力量体系清晰不崩 | 金手指独特有限制随成长 | 战斗有策略非纯数值 | 地图逐层展开 | 升级节奏均匀
+**Key dimensions**: power system clear without collapse | cheat unique with limits, growing with the character | combat strategic, not pure numbers | maps unfold layer by layer | upgrade rhythm even
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 35% | 世界规则+主角位置→困境→核心设定→人物出场 |
-| 爆点 | 40% | 修炼转折→正面交锋→大阴谋→关键反转 |
-| 落定 | 25% | 终极对决(有策略有代价)→矛盾解决→仙侠留白 |
+| Press | 35% | world rules + protagonist position → trap → core premise → characters appear |
+| Burst | 40% | cultivation turn → face-off → big conspiracy → key reversal |
+| Settle | 25% | ultimate showdown (with strategy and cost) → conflict solved → cultivation blank space |
 
-**技法**：世界观压缩到最少用事件带出；等级/功法3-5个概念足矣；冲突落在"情"非"力"；钩子=暗牌+反转+代价
+**Techniques**: worldview compressed to the minimum, carried out by events; 3-5 concepts of levels/techniques suffice; conflicts land on "emotion," not "power"; hooks = hidden cards + reversals + costs
 
 ---
 
-## 死人文学
+## Death literature
 
-### 长篇（8节点）
+### Long-form (8 nodes)
 
-**设定**：女主被虐待至死→男主追悔→真相揭开→报应。场景：豪门/古代贵族/娱乐圈，权力差极大化。
+**Premise**: the heroine tormented to death → the hero regrets → truth revealed → karma. Scenes: billionaire/historical nobility/entertainment; power gap maximized.
 
-**人物**：女主(隐忍善良→死亡，死后影响>生前) | 男主(冷漠→死后空洞→真相→痛不欲生→终生赎罪) | 幕后黑手(选配，增加反转)
+**Characters**: heroine (enduring kindness → death; post-death influence > pre-death) | hero (cold → post-death hollow → truth → agony → lifelong atonement) | behind-the-scenes mastermind (optional, adding reversals)
 
-**8节点**
-| 节点 | 占比 | 情绪 |
+**8 nodes**
+| Node | Share | Emotion |
 |------|------|------|
-| 1.层层虐待 | 20% | 极度压抑 |
-| 2.女主死亡 | 5% | 极度悲痛 |
-| 3.后悔开始 | 10% | 压抑→不安 |
-| 4.真相发现 | 20% | 痛心 |
-| 5.幕后黑手 | 10% | 震惊/愤怒 |
-| 6.报应 | 15% | 爽+痛 |
-| 7.因果终结 | 10% | 释放 |
-| 8.余韵结局 | 10% | 意难平 |
+| 1. Layer-by-layer torment | 20% | extreme suppression |
+| 2. Heroine's death | 5% | extreme grief |
+| 3. Regret begins | 10% | suppressed → uneasy |
+| 4. Truth discovered | 20% | heartbroken |
+| 5. Behind-the-scenes mastermind | 10% | shock/anger |
+| 6. Karma | 15% | payoff + pain |
+| 7. Causality ends | 10% | release |
+| 8. Afterglow ending | 10% | bittersweet |
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 35% | 死亡事实→死者视角→最放不下的事→生者状态 |
-| 爆点 | 40% | 回忆现实交叉→真相→反转→最扎心时刻 |
-| 落定 | 25% | 放手或执念→生者继续或崩塌→安静画面→一句话/意象 |
+| Press | 35% | the death fact → the dead's POV → the thing she can't let go → the living's state |
+| Burst | 40% | memory-reality interleave → truth → reversal → the most piercing moment |
+| Settle | 25% | letting go or clinging → the living continue or collapse → a quiet image → one line/image |
 
-**技法**：核心是"来不及"；死者第一人称最有冲击；情绪克制越克制越扎心；钩子=代价+信息差+弱者
+**Techniques**: the core is "too late"; the dead's first-person POV hits hardest; the more restrained the emotion, the more piercing; hooks = costs + info gaps + the weak
 
 ---
 
-## 都市高武
+## Urban martial
 
-### 长篇（分层地图结构）
+### Long-form (tiered-map structure)
 
-**设定**：底层穷学生/武者→升级打怪挣钱→更高层级。场景：现代都市+武道体系，学校/武馆/武道厅/军部多条线。
+**Premise**: a bottom-rung poor student/martial artist → grind-and-fight for money → higher tiers. Scenes: modern city + martial system; school/gym/martial hall/military multiple lines.
 
-**人物**：主角(钱是核心驱动，学校→武馆→武道厅→军部→星际) | 配角层(同学/导师/感情线/校霸) | 反派层(校霸→地下势力→邪魔→跨国→外星)
+**Characters**: protagonist (money is the core driver; school → gym → martial hall → military → interstellar) | supporting tiers (classmates/mentors/romance/school bullies) | antagonist tiers (school bully → underworld → evil cults → transnational → aliens)
 
-**分层地图事件池**
-| 地图 | 可用事件 |
+**Tiered-map event pool**
+| Map | Usable events |
 |------|----------|
-| 学校 | 天才班、月考、联考、高考、校霸对决、校花剧情、助学金 |
-| 武馆 | 获赏识、传承武学、师兄对决、市/省/国联赛 |
-| 警局/治安 | 劫匪、邪魔、副本、城内Boss |
-| 大学 | 学校事件升级版 |
-| 武道厅/军部 | 武馆事件升级版 |
-| 星际 | 全国事件升级版+世界观扩张 |
+| School | genius class, monthly exams, joint exams, college entrance, school-bully showdowns, campus-queen plots, scholarships |
+| Gym | recognition, inherited martial arts, senior duels, city/province/national leagues |
+| Police/security | robbers, evil cults, dungeons, city bosses |
+| University | school events, upgraded |
+| Martial hall/military | gym events, upgraded |
+| Interstellar | national events, upgraded + worldview expansion |
 
-**关键**：金钱驱动反复挂钩 | 换地图用过渡人物连接 | 10万字前数据偏弱是常态 | 前三章=底层处境→金手指→第一次展示
+**Keys**: money drive hooked repeatedly | map changes connected by transition characters | weak stats under 100k words are normal | first 3 chapters = bottom-rung situation → cheat → first display
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 35% | 经济困境→被压制→金手指触发 |
-| 爆点 | 40% | 实力提升→碾压→更强对手出现但不惧 |
-| 落定 | 25% | 解决对手→阶段性胜利→暗示更大世界 |
+| Press | 35% | financial trap → suppressed → cheat triggers |
+| Burst | 40% | power up → crush → a stronger opponent appears, unafraid |
+| Settle | 25% | opponent solved → stage victory → hint at the bigger world |
 
 ---
 
-## 霸总/甜宠
+## Billionaire/sweet-spoil
 
-### 长篇（五阶段）
+### Long-form (five stages)
 
-**设定**：特殊相遇→男主追求→感情升温→外部阻力→化解。场景：豪门/商界/上流社会。
+**Premise**: special meeting → the hero pursues → feelings warm → external resistance → resolved. Scenes: billionaire/business/high society.
 
-**五阶段**
-| 阶段 | 内容 | 情绪 |
+**Five stages**
+| Stage | Content | Emotion |
 |------|------|------|
-| 1.相遇 | 男主被女主某特质吸引 | 新鲜 |
-| 2.追求 | 用身份/财富制造便利，闺蜜震惊 | 甜/爽 |
-| 3.确认 | 女主心动走到一起 | 满足 |
-| 4.阻力 | 家族/前女友/商业对手 | 紧张 |
-| 5.化解 | 共同克服，感情升华 | 爽/治愈 |
+| 1. Meeting | the hero attracted by some heroine trait | fresh |
+| 2. Pursuit | identity/wealth creating convenience; best friend shocked | sweet/payoff |
+| 3. Confirmation | the heroine's heart stirs; they get together | satisfied |
+| 4. Resistance | family/ex-girlfriend/business rivals | tense |
+| 5. Resolution | overcoming together; feelings elevate | payoff/healing |
 
-**人物**：男主(强势专一宠溺，用权力/财富为女主做事=代入核心) | 女主(不能花瓶，要有让男主"非她不可"的戏剧性) | 阻力方(家族长辈/前女友/商业对手)
+**Characters**: hero (dominant, devoted, doting; using power/wealth for the heroine = the projection core) | heroine (not a vase; dramatic enough that the hero "can't be without her") | resistance (family elders/ex-girlfriend/business rivals)
 
-**关键**：甜的密度决定粘性 | 宠要"别人做不到的方式" | 阻力不能太强(虐就跑偏)不能太弱(没张力) | 女主要独立闪光点
+**Keys**: sweetness density decides stickiness | doting must be "in a way no one else can" | resistance not too strong (anguish drifts) not too weak (no tension) | the heroine needs independent shine points
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 30% | 女主困境→相遇→男主展露兴趣 |
-| 爆点 | 40% | 宠溺(闺蜜震惊标配)→超出预期→危机轻松化解 |
-| 落定 | 30% | 感情确认→极致甜场景→暗示幸福 |
+| Press | 30% | heroine trap → meeting → the hero shows interest |
+| Burst | 40% | doting (best-friend shock standard) → exceeding expectations → crisis solved lightly |
+| Settle | 30% | feelings confirmed → ultimate sweet scene → hinting happiness |
 
 ---
 
-## 同人流派
+## Fanfiction school
 
-### 核心机制
-借用已有IP世界观和角色写新故事。核心卖="如果在这个世界里有主角会怎样"。
+### Core mechanism
+Borrowing an existing IP's worldview and characters for new stories. The selling point = "what if the protagonist existed in this world."
 
-### 使用边界
-不保留具体 IP 题材清单。只有用户明确目标 IP、平台允许且近期样本有效时，才抽取“已知世界 + 新主角变量 + 名场面改写”的结构功能。
+### Use boundary
+No concrete IP genre lists are kept. Only when the user has an explicit target IP, the platform allows it, and recent samples work, extract the structural function of "known world + new protagonist variable + iconic-scene rewrite."
 
-### 写法要点
-- 读者大多"云爱好者"：没看过原著的比看过的多，硬核非必要
-- 爽第一：不为还原原著牺牲爽感
-- 时代设定可简化，适度改编不影响阅读；但人物命名不脱离原著的地域和文化——原著角色用官方本名/译名，新角色顺对应地域的命名风格，别混语系或塞与设定不符的现代化/政治化名字
-- 优势：自带世界观省铺设定 | 风险：原著粉考据挑刺
-- 深层写法：装逼背后加亲情/救赎/遗憾弥补；震惊不止"太强了"还有激动/后悔/释然
+### Writing points
+- Most readers are "cloud fans": more haven't seen the original than have; hardcore fidelity isn't necessary
+- Payoff first: never sacrifice payoff for fidelity to the original
+- Era settings may simplify; moderate adaptation doesn't hurt reading; but character naming stays within the original's region and culture — original characters use official names/translations; new characters follow the region's naming style; no mixing language families or stuffing modern/political names that clash with the setting
+- Advantage: built-in worldview saves setting | Risk: original fans nitpick
+- Deep writing: under the flex shock, add deeper emotion — family/redemption/regret-mending; original characters' shock isn't just "too strong" but excitement/regret/release
 
-### "造反后方知"流派
-主角在自己世界做到巅峰后发现身处某IP世界。书名公式：[达成某成就]，方知是[某IP世界]。
+### The "discovered after rebelling" school
+The protagonist reaches the peak of their own world, then discovers they're inside some IP world. Title formula: [achieving X], only then realizing it's [an IP world].
 
 ---
 
-## 脑洞文
+## Wild-idea fiction
 
-### 核心机制
-以独特金手指/创意设定为核心卖点，题材只是外壳，真正卖点落在"这个点子"。
+### Core mechanism
+A unique cheat/creative premise as the core selling point; the genre is just the shell; the real selling point is "this idea."
 
-### 创作流程
-获得点子→判断潜力(有遐想空间=有潜力)→选适配题材→加工为情绪缺口→设计金手指骨相→构建卖点→主线→框架→单元剧情
+### Creation flow
+Get an idea → judge the potential (room for imagination = potential) → pick a fitting genre → process into an emotion gap → design the cheat's bones → build the selling point → main line → framework → unit plots
 
-### 金手指骨相分类
-| 类型 | 机制 | 示例 |
+### Cheat-bone classification
+| Type | Mechanism | Example |
 |------|------|------|
-| 条件触发型 | 满足X→获得Y | 摸尸得宝、签到得奖 |
-| 多条件阶段型 | 多条件→阶段升级 | 收集碎片、完成成就 |
-| 逆向型 | 失去X→获得更强Y | 越惨越强、负债越有钱 |
+| Condition-triggered | satisfy X → gain Y | looting corpses for treasure, sign-in rewards |
+| Multi-condition staged | multiple conditions → stage upgrades | collecting fragments, completing achievements |
+| Inverse | lose X → gain stronger Y | worse = stronger, more debt = richer |
 
-### 写长方法
-核心卖点确定后多套路交织循环；单元故事围绕一个套路展开，主线串联；一级结构循环(模式重复但对象/场景/规模升级)
+### Writing long
+Once the core selling point is fixed, interweave multiple patterns; unit stories revolve around one pattern; the main line strings them; level-1 structure loops (patterns repeat but objects/scenes/scale upgrade)
 
-### 脑洞四类
-1. 金手指类(聊天群/系统/戒指老爷爷)
-2. 剧情类(反转/设定)
-3. 设定类(世界观/修行体系)
-4. 角色类(身份/人设)
+### The four wild-idea classes
+1. Cheat class (chat groups/systems/ring grandpas)
+2. Plot class (reversals/premises)
+3. Setting class (worldviews/cultivation systems)
+4. Character class (identities/personas)
 
-**忌**：全盘照抄必扑；核心梗决定赛道和受众
+**Taboo**: full copying always crashes; the core hook decides the track and audience
 
 ---
 
-## 凡人流
+## Mortal-flow
 
-### 核心特征
-主角无特殊天赋/背景，靠谨慎、机智、利弊权衡在残酷修仙世界生存。
+### Core traits
+The protagonist has no special talent/background; survives a brutal cultivation world on caution, wit, and cost-benefit weighing.
 
-### vs 传统升级流
-| 维度 | 凡人流 | 传统升级流 |
+### vs traditional progression
+| Dimension | Mortal-flow | Traditional progression |
 |------|--------|-----------|
-| 天赋 | 普通/低劣 | 天才/特殊体质 |
-| 金手指 | 微弱或没有 | 强力系统/传承 |
-| 行为 | 谨慎算计逃跑优先 | 热血正面对抗越级挑战 |
-| 爽点 | 智商和准备碾压 | 实力碾压 |
-| 节奏 | 慢热细腻伏笔多 | 快节奏爽点密 |
+| Talent | ordinary/poor | genius/special physique |
+| Cheat | weak or none | powerful system/inheritance |
+| Behavior | cautious, calculating, escape first | hot-blooded head-on, over-tier challenges |
+| Payoff | intelligence and preparation crush | power crush |
+| Rhythm | slow burn, fine, many foreshadowing threads | fast rhythm, dense payoffs |
 
-### 副本切入公式
-小配角出场→小配角故事→透露副本信息→主角决定进入
+### Dungeon-entry formula
+a small supporting character appears → their story → reveals dungeon info → the protagonist decides to enter
 
-### 关键维度
-主角谨慎必须真实(不能嘴上说谨慎行为疯狂) | 利弊权衡是核心模式 | 配角有独立利益考量 | 伏笔和回收要精巧
+### Key dimensions
+The protagonist's caution must be real (not caution in words, madness in deeds) | cost-benefit weighing is the core mode | supporting characters have independent interest calculations | foreshadowing and collection must be exquisite
 
 ---
 
-## 历史/架空历史
+## Historical/alternate history
 
-### 长篇
+### Long-form
 
-**设定**：穿越/重生到历史节点，利用现代知识/信息差改变命运。
+**Premise**: transmigration/second-chance to a historical node; using modern knowledge/info gaps to change fate.
 
-**子类型**
-| 类型 | 核心卖点 | 写法要点 |
+**Sub-types**
+| Type | Core selling point | Writing points |
 |------|----------|----------|
-| 科举文 | 现代知识碾压古代考试 | 诗词装逼、仕途攀升、权谋 |
-| 军史文 | 现代军事知识改造古代战争 | 练兵、装备改革、以少胜多 |
-| 经营/种田 | 古代搞经济建设 | 技术引进、商业帝国、改善民生 |
-| 国潮/非遗 | 传统文化魅力 | 盘点式装逼、民族自豪感 |
+| Examination fiction | modern knowledge crushing ancient exams | poetry flexing, official-career climbing, scheming |
+| Military-history fiction | modern military knowledge reforming ancient warfare | training, equipment reform, winning against odds |
+| Management/homestead | economic construction in ancient times | technology import, business empire, improving livelihoods |
+| Heritage/craft | traditional culture charm | inventory-style flexing, national pride |
 
-**关键**：大部分读者是"云爱好者"爽感优先于还原度 | 现代认知信息差=最大金手指 | 架空可降低门槛 | 盘点+历史共鸣感强
+**Keys**: most readers are "cloud fans" — payoff beats fidelity | modern-cognition info gaps = the biggest cheat | alternate history lowers the threshold | inventory + historical resonance is strong
 
-### 短篇（压缩三幕）
+### Short-form (compressed three acts)
 
-| 幕 | 占比 | 要点 |
+| Act | Share | Points |
 |----|------|------|
-| 建压 | 30% | 穿越到关键时刻→面临危机 |
-| 爆点 | 45% | 利用现代知识/信息差解决→打脸质疑者 |
-| 落定 | 25% | 历史轨迹改变→获得新地位 |
+| Press | 30% | transmigrating to a key moment → facing a crisis |
+| Burst | 45% | solving with modern knowledge/info gaps → slapping doubters |
+| Settle | 25% | historical trajectory changed → a new status gained |
 
 ---
 
-## 文娱/娱乐圈
+## Entertainment fiction
 
-### 核心机制
-主角在娱乐圈发展，核心爽="才华展示+围观者震惊"。
+### Core mechanism
+The protagonist develops in the entertainment industry; the core payoff = "talent display + bystander shock."
 
-### 子类型
-| 类型 | 特点 | 现状 |
+### Sub-types
+| Type | Traits | Current state |
 |------|------|------|
-| 华娱 | 国内娱乐圈 | 主流，精品最多 |
-| 韩娱 | 韩国娱乐圈 | 小众 |
-| 架空文娱 | 虚构娱乐圈 | 单女主居多，系统直接给奖励 |
+| Domestic entertainment | the home industry | mainstream, most quality |
+| K-entertainment | the Korean industry | niche |
+| Fictional entertainment | a fictional industry | mostly single-heroine; the system gives rewards directly |
 
-### 写作要点
-才艺展示=最核心装逼场景，写观众/评委/对手反应链 | 可结合盘点文模式 | 架空虚构明星避免真人争议自由度更高 | 金手指模糊化处理(先知性后期会冲突，用"梦"等方式自洽)
+### Writing points
+Talent display = the core flex scene; write the audience/judges/opponents' reaction chains | may combine the inventory mode | fictional celebrities avoid real-person controversy with more freedom | fuzz the cheat (foresight conflicts later; self-justify with "dreams")
 
-### 进阶
-配角情景剧：主线之间填充日常，设定在某个空间里几个角色产生化学反应 | 共情反差法：角色可高高在上但不能让读者产生距离感，所有角色必须有一份普通人特质
-
----
-
-## 其他题材速查
-
-### 规则怪谈
-类无限流，玩家被抽入规则副本冒险求生。绑定国运+直播性价比最高。副本构建：背景故事→规则包装→通关线+dead end→节奏(别人死→主角装→揭露→升华)。番茄主流走爽文路线，智斗和金手指负责包合理外衣。
-
-### 长生流
-核心卖=时移世易沧海桑田，主角长生看别人浴血搏杀。凡俗时期最好看。天然缺陷：开始修仙后实力增长→身边同级别出现→"熬时间"失去意义→变成寻常修仙文。延续方向：保持时间碾压感/代际传承/分层世界/凡俗时期充分展开。
-
-### 西幻/骑士文
-西幻=东方玄幻内核换皮。骑士自带晋升属性是天然力量体系骨架。推荐DND式/巫师式/种田领主文，不写日式奇幻。开篇从低位开始(马奴/铁匠学徒)，凿壁偷光式努力。
-
-### 新媒体文
-一切为情绪服务。第一情绪对：不爽→装逼/愤怒→解气。双向结构=强+虐(反差/矛盾)。矛盾必须源于现实逻辑。核心三重点：用梗+节奏+情绪。极致信息差=强烈期待感。
-
-### 搞笑文
-两大原则：搞笑必须符合逻辑(规则之内出人预料)；玩梗要化用内核不是照搬。自己先觉得爽；主角身边人无条件对主角好。
-
-### 无限流
-游戏副本式结构(20-30章一个副本)，每个副本自成一故事；设现实主线保底串联副本。
-
-### 悬疑
-核心靠铺垫+氛围描写营造悬疑感，非靠血腥暴力。信息释放节奏要控好。
-
-### 高武
-爽点相对单一(升级打怪)但套路成熟不易翻车。可高仿成功作品世界观架构降低门槛。
-
-### 后悔流
-避免退婚等老套外衣，需创新包装（后悔对象可从爱情转为事业选择/人生抉择）。
+### Advanced
+Supporting-character sitcom: fill dailies between main lines, setting several characters in one space producing chemistry | empathy-contrast method: characters may be lofty but readers must not feel distance — every character carries one ordinary-person trait
 
 ---
 
-## 通用拆文提醒
+## Other-genre quick reference
 
-| 检查项 | 说明 |
+### Rule-horror
+Infinite-flow-like; players pulled into rule-based survival dungeons. Binding national fate + live streaming has the highest ROI. Dungeon construction: backstory → rule wrapping → clear path + dead ends → rhythm (others die → the protagonist flexes → reveal → elevation). Webnovel mainstream runs the payoff route; mental duels and the cheat wrap the plausible shell.
+
+### Immortality fiction
+Core selling = the world changing while the protagonist lives forever, watching others fight and bleed. The mortal era reads best. Natural flaw: once cultivation starts, power grows → same-tier others appear → "waiting out time" loses meaning → becomes ordinary cultivation fiction. Continuation directions: keep the time-crush feel / generational inheritance / tiered worlds / fully unfold the mortal era.
+
+### Western fantasy/knight fiction
+Western fantasy = eastern fantasy core in a new skin. Knights carry innate promotion traits — a natural power-system skeleton. Prefer D&D-style/wizard/homestead-lord; no Japanese-style fantasy. Open from a low position (horse slave/blacksmith apprentice), grind-the-wall-through-effort style.
+
+### New-media fiction
+Everything serves emotion. First emotion pair: not-satisfied → flex/anger → vindicated. Dual structure = strong + anguish (contrast/contradiction). Conflicts must come from real-world logic. Core three: memes + rhythm + emotion. Extreme info gaps = strong anticipation.
+
+### Comedy fiction
+Two principles: comedy must fit logic (unexpected within the rules); memes adapt the inner logic, not copy outright. You must enjoy it yourself first; people around the protagonist unconditionally treat them well.
+
+### Infinite-flow
+Game-dungeon structure (20-30 chapters per dungeon); each dungeon is its own story; a reality main line stringing dungeons as the floor.
+
+### Mystery
+The core is setup + atmosphere to create suspense, not blood and gore. Control the info-release rhythm.
+
+### High-martial
+Payoffs relatively single (grind-and-fight) but patterns mature and rarely crash. May closely imitate successful works' worldview architecture to lower the threshold.
+
+### Regret-flow
+Avoid clichéd shells like the dumped engagement; needs innovative packaging (regret targets may shift from romance to career choices/life decisions).
+
+---
+
+## Generic teardown reminders
+
+| Check item | Explanation |
 |--------|------|
-| 题材识别 | 属于哪个框架？有无跨框架混搭？ |
-| 节奏比例 | 长篇：实际vs推荐8节点占比差多少？短篇：三幕占比差多少？ |
-| 反转位置 | 在百分之多少出现？ |
-| 钩子密度 | 每2000字至少一个？ |
-| 字数效率 | 有无废段落？哪些可删？ |
-| 情绪落点 | 读完最后一句是什么感觉？ |
+| Genre identification | which framework? any cross-framework mixing? |
+| Rhythm ratios | long-form: actual vs recommended 8-node shares? short-form: three-act shares? |
+| Reversal position | at what percentage does it appear? |
+| Hook density | at least one per 2000 words? |
+| Word efficiency | any waste paragraphs? what's deletable? |
+| Emotion landing | what does the last sentence leave you feeling? |
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-每次使用本手册完成拆文或大纲后，逐项核对：
+After each teardown or outline with this handbook, verify:
 
-| # | 检查项 | 通过标准 |
+| # | Check item | Pass standard |
 |---|--------|----------|
-| 1 | **题材定位正确** | 已通过路由表确认框架，无模棱两可 |
-| 2 | **结构比例达标** | 长篇8节点/5阶段各节点占比偏差不超过5%；短篇三幕占比偏差不超过5% |
-| 3 | **情绪节拍完整** | 压抑→爆发→释放的完整情绪弧线存在，无断层 |
-| 4 | **人物弧线明确** | 主角有清晰的起点和终点变化；反派有独立动机不是工具人 |
-| 5 | **钩子密度足够** | 每2000字至少一个悬念/反转/信息差钩子 |
-| 6 | **金手指自洽** | 金手指规则明确，使用有限制，后期不崩 |
-| 7 | **信息差利用到位** | 有读者知道但角色不知道、或角色知道但对手不知道的信息差设计 |
-| 8 | **技法匹配题材** | 已对照对应题材的"技法"条目，无遗漏 |
-| 9 | **无废段落** | 每段都推进情节或深化人物，无纯填充 |
-| 10 | **结局情绪对位** | 结尾情绪与题材核心匹配（爽文=释放/治愈；虐文=意难平/余韵） |
+| 1 | **Genre positioning correct** | framework confirmed via the routing table, no ambiguity |
+| 2 | **Structure ratios met** | long-form 8-node/five-stage nodes within 5% deviation; short-form three-act within 5% |
+| 3 | **Emotion beats complete** | the full suppressed → burst → release arc exists, no gaps |
+| 4 | **Character arcs clear** | the protagonist has a clear start-to-end change; antagonists have independent motives, not tools |
+| 5 | **Hook density sufficient** | at least one suspense/reversal/info-gap hook per 2000 words |
+| 6 | **Cheat self-consistent** | cheat rules explicit, use limited, no late collapse |
+| 7 | **Info gaps used well** | the reader knows what characters don't, or characters know what opponents don't |
+| 8 | **Techniques match genre** | the genre's "techniques" items all covered |
+| 9 | **No waste paragraphs** | every paragraph advances plot or deepens characters, no pure filler |
+| 10 | **Ending emotion matched** | ending emotion matches the genre core (payoff = release/healing; anguish = bittersweet/afterglow) |

@@ -1,389 +1,389 @@
-# 节奏与升级感 操作手册
+# Rhythm & Progression Feel Handbook
 
-Phase 3-4 节奏把控时加载。包含升级感设计、情绪模块公式、桥段结构化设计、高潮分类、开篇公式、期待感管理。
+Load for rhythm control in Phases 3-4. Contains progression-feel design, emotion-module formulas, structured beat design, climax classification, opening formulas, and anticipation management.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在设计什么 | 用什么方法 |
+| What you're designing | Method |
 |-------------|-----------|
-| 升级感 / 升级节奏 | 升级感三步法 + 循环嵌套 + 对比表 |
-| 情绪节奏 | 情绪模块公式 + 桥段结构化 |
-| 高潮设计 | 高潮分类 + 反推四要素 |
-| 开篇节奏 | 黄金五章 + 开头精简法 + 节奏底线 |
-| 期待感管理 | 拉期待原则 + 真空期急救 |
-| 战斗 / 智斗 | 回合制卡牌 + 三步两线法 |
+| Progression feel / upgrade rhythm | the three-step progression method + loop nesting + comparison tables |
+| Emotion rhythm | emotion-module formulas + structured beats |
+| Climax design | climax classification + four-element back-derivation |
+| Opening rhythm | the golden five chapters + opening tightening + rhythm floors |
+| Anticipation management | anticipation-raising principles + vacuum emergency care |
+| Combat / mental duels | turn-based card + three-step two-line method |
 
 ---
 
-## 升级感三步设计法
+## The three-step progression-feel design
 
-### 第一步：列出起点
+### Step 1: list the start
 
-列出主角当前的身份、阶层、地位、资源。
+List the protagonist's current identity, class, status, resources.
 
-### 第二步：列出终点
+### Step 2: list the end
 
-列出本卷/本阶段结束后的收获和提升。
+List this volume/stage's gains and upgrades after completion.
 
-### 第三步：反向设置情绪缺口
+### Step 3: set the emotion gap in reverse
 
-| 获得什么 | 铺垫什么 |
+| What is gained | What to set up |
 |----------|----------|
-| 关键道具 | 配角强调稀缺性 + 别人求而不得 + 展示效果 |
-| 地位提升 | 羡慕该地位的权力 + 凸显等级待遇差别 |
-| 人物帮助 | 展示该人物价值 + 别人对他的态度 |
+| Key item | side characters emphasize scarcity + others can't get it + show its effect |
+| Status rise | envy of that status's power + highlight tier-treatment differences |
+| Character help | show that character's value + how others treat them |
 
-### 升级循环嵌套
+### Progression loop nesting
 
-挑战A副本 → 获得B道具 → 达成C目的 → 升级 → 挑战D副本。
+challenge dungeon A → gain item B → achieve goal C → upgrade → challenge dungeon D.
 
-核心：**一直在升级，和为升级做准备。升级后能完成以前做不到的事。**
+Core: **always upgrading or preparing to upgrade. After upgrading, things previously impossible become possible.**
 
-### 多角度强化对比
+### Multi-angle comparison reinforcement
 
-| 对比维度 | 升级前 | 升级后 |
+| Comparison dimension | Before upgrade | After upgrade |
 |----------|--------|--------|
-| 数值/战力 | 平A 300伤害 | 平A 650伤害 |
-| 技能数量 | 放完只能躲 | 还有第二个 |
-| 排名/地位 | 没人鸟你 | 有人主动来找你 |
-| 社交态度 | 被嘲笑 | 一片掌声惊叹 |
-| 资源获取 | 苦哈哈攒材料 | 高价值信息主动送上门 |
+| Numbers/power | 300 damage basic attack | 650 damage basic attack |
+| Skill count | empty after one volley | a second one ready |
+| Ranking/status | nobody cares | people come to you |
+| Social attitude | mocked | applause and gasps |
+| Resource access | scraping materials painfully | high-value info delivered to the door |
 
-### 升级文具体技法
+### Progression-fiction techniques
 
-**升级前后铺垫**：
-- 升级前：铺垫未升级时的待遇差距、资源获取难度
-- 升级后：多方面展示变化——战力、待遇、人际关系、资源获取
+**Before/after upgrade setup**:
+- Before: the treatment gap and resource-acquisition difficulty pre-upgrade
+- After: show changes on multiple faces — power, treatment, relationships, resource access
 
-**升级次数控制**：主角升级最好不超过3次，质量提升而非数量堆叠。
+**Upgrade count control**: best ≤3 major upgrades; quality over quantity.
 
-**即时反馈与延迟反馈**：
+**Instant vs delayed feedback**:
 
-| 反馈类型 | 作用 | 示例 |
+| Feedback type | Function | Example |
 |----------|------|------|
-| 即时反馈 | 每次行动给小奖励，维持动力 | 打怪掉落 |
-| 延迟反馈 | 积累到一定程度爆发大奖励 | 经验满升级 |
+| Instant | small rewards per action, sustaining motivation | monster drops |
+| Delayed | accumulation bursts into a big reward | level-up at full exp |
 
-**升级与现实概念关联**：越日常越好理解——呼吸变强、睡觉变强、多子多福生崽变强。
+**Upgrades tied to real-life concepts**: the more everyday the better — breathing makes you stronger, sleeping makes you stronger, more kids make you stronger.
 
-**升级后写长三种方式**：
+**Three ways to extend post-upgrade writing**:
 
-| 方式 | 操作 |
+| Way | Operation |
 |------|------|
-| 扩展地图 | 增加力量体系上限，多层世界设定 |
-| 压等级+复杂化 | 一个晋级目标拆成三个剧情的篇幅 |
-| 转换写作内核 | 从写升级转向写人设——配角线和支线 |
+| Extend the map | raise the power-system ceiling, multi-layer world settings |
+| Press the level + complicate | split one promotion goal into three plot segments' length |
+| Convert the writing core | from upgrading to personas — supporting lines and sub-lines |
 
 ---
 
-## 情绪模块系统
+## The emotion-module system
 
-### 提炼层级
+### Distillation tiers
 
-| 层级 | 名称 | 内容 |
+| Tier | Name | Content |
 |------|------|------|
-| 零级 | 具体故事 | 原文完整情节 |
-| 一级 | 经典故事情节 | 去除描写，保留核心素材 |
-| 二级 | 故事构型 | 去除所有素材，只剩逻辑走向 |
-| 三级 | 戏剧单元 | 戏剧性的抽象——有戏剧性的大致走向 |
-| 四级 | 情绪模块 | 情绪的抽象——读者想看什么 |
+| Zero | concrete story | the original's complete plot |
+| One | classic plot | description removed, core material kept |
+| Two | story shape | all material removed, only the logical direction |
+| Three | dramatic unit | dramatic abstraction — a roughly dramatic direction |
+| Four | emotion module | emotional abstraction — what readers want to see |
 
-### 戏剧单元 vs 情绪模块
+### Dramatic unit vs emotion module
 
-| 维度 | 戏剧单元 | 情绪模块 |
+| Dimension | Dramatic unit | Emotion module |
 |------|---------|--------|
-| 本质 | 构建戏剧性的逻辑结构 | 读者想看什么的情绪需求 |
-| 磨损 | 会磨损（同类结构用多不好看） | **不磨损**（英雄救美从史诗时代至今） |
-| 例子 | 「误会→冲突→反转」这种走向骨架 | 「读者就想看打脸/追悔」这种诉求 |
+| Essence | the logical structure building drama | the emotional need of what readers want to see |
+| Wear | wears (same structures repeated get boring) | **doesn't wear** (hero-saves-beauty works from epic times to today) |
+| Example | "misunderstanding → conflict → reversal" direction skeletons | "readers just want to see comeuppance / regret" needs |
 
-一句话判断：能画成流程图的是戏剧单元，能写成「读者就想看 XX」的是情绪模块。
+One-line judgment: if it can be drawn as a flowchart it's a dramatic unit; if it can be written as "readers just want to see XX," it's an emotion module.
 
-### 使用方式
+### Usage
 
-1. **重构使用**：保持素材不变，修改故事构型。适用于长篇（百万字级别必须掌握）。
-2. **微调使用**：直接用经典情节，深挖人设微调。适用于短篇。
+1. **Reconstruction use**: keep the material, change the story shape. For long-form (million-word level, must master).
+2. **Fine-tuning use**: use the classic plot directly, dig the persona for fine-tuning. For short-form.
 
 ---
 
-## 常用情绪模块公式
+## Common emotion-module formulas
 
-### 英雄救美
-
-```
-关系平平或恶劣 + 危机产生 + 化解危机 + 关系质变
-```
-
-核心：关系质变的爽感。适用于任何角色关系正向质变的节点。事业线为主→重点在金手指展示；感情线为主→重点在关系变化。
-
-### 装逼
+### Hero saves beauty
 
 ```
-被打压嘲讽（可选）+ 展示能力 + 打造落差 + 震惊
+flat or hostile relationship + crisis appears + crisis resolved + relationship transformation
 ```
 
-核心：落差——前后反转落差 + 平行对比衬托。
+Core: the satisfaction of relationship transformation. Applies to any positive relationship transformation node. Career-line main → focus on cheat display; romance-line main → focus on the relationship change.
 
-五种模式：作对比、装逼打脸、自我否定+他人吹捧、他人否定+被打脸、借人之手。
-
-### 以小博大
+### Status flex
 
 ```
-小代价 + 入水之鱼的环境 + 获得大收获
+suppressed/mocked (optional) + ability display + creating the gap + shock
 ```
 
-核心："占了便宜"心理。成本与收获倍数比例越大，爽感越强。过程要有随机性 + 主角主观能动性。
+Core: the gap — before/after reversal gap + parallel comparison contrast.
 
-### 点石成金
+Five modes: comparison, flex-comeuppance, self-denial + others' praise, others' denial + slapped down, via others' hands.
 
-```
-不被看好的某物/某人 + 主角改造 + 产生价值
-```
-
-### 慧眼识真
+### Small-to-big
 
 ```
-主角已知价值 + 众人不看好 + 唯有主角知晓的情报 + 真相揭晓 + 众人震惊
+small cost + a fish-in-water environment + big gains
 ```
 
-### 歪打正着
+Core: the "got a bargain" psychology. The bigger the cost-to-gain multiple, the stronger the payoff. The process needs randomness + protagonist agency.
+
+### Midas touch
 
 ```
-暗示宝物重要性 + 主角在错误方向上努力 + 偶然获得宝物 + 众人震惊
+something/someone unvalued + the protagonist's transformation + value created
 ```
 
-### 少年热血
+### Sharp eyes see the true
 
 ```
-主角团面对强大恶劣环境 + 明知不可为仍然努力 + 打破困境
+the protagonist knows the value + everyone dismisses it + only-the-protagonist intel + truth revealed + everyone shocked
 ```
 
-### 临危受命
+### Lucky accident
 
 ```
-危机超出现场能力 + 配角穷尽办法无法解决 + 主角接手 + 完成任务
+hint at the treasure's importance + the protagonist works in the wrong direction + accidentally obtains the treasure + everyone shocked
 ```
 
-### 情绪模块组合
+### Youthful heat
 
-| 组合 | 效果 |
+```
+the team faces a powerful harsh environment + knowing it can't be done, still striving + breaking the trap
+```
+
+### Called at the critical hour
+
+```
+the crisis exceeds on-site ability + side characters exhaust all methods in vain + the protagonist takes over + mission complete
+```
+
+### Emotion-module combinations
+
+| Combination | Effect |
 |------|------|
-| 以小博大 + 英雄救美 | 双重爽感 |
-| 点石成金 + 装逼 | 先压抑再爆发 |
-| 少年热血 + 神器认主 | 经典套路 |
-| 临危受命 + 装逼 + 英雄救美 | 危机中展现实力 |
+| small-to-big + hero saves beauty | double payoff |
+| Midas touch + flex | suppress first, burst after |
+| youthful heat + divine weapon accepting its master | classic pattern |
+| called at the critical hour + flex + hero saves beauty | showing power in crisis |
 
 ---
 
-## 桥段与节奏的结构化设计
+## Structured beat & rhythm design
 
-### 桥段的标准四章结构
+### The standard four-chapter beat structure
 
-300万字 ≈ 40-50个单元 → 每单元4-5个桥段 → 每桥段约4章。
+3 million words ≈ 40-50 units → 4-5 beats per unit → ~4 chapters per beat.
 
-**四章一桥段标准结构**：
+**Four chapters, one beat — standard structure**:
 
-| 章 | 功能 | 要点 |
+| Chapter | Function | Key points |
 |----|------|------|
-| 第一章上 | 代入：日常+熟悉角色互动 | N+1原则 |
-| 第一章下 | 信息差：展示对手/困境 | 切镜头展示 |
-| 第二章 | 拉扯增强：配角反应 | 结尾必须让主角开始装 |
-| 第三章 | 兑现：爽感写透 | 最好写的一章 |
-| 第四章 | 承上启下 | 收尾或开启下个目标 |
+| Chapter 1 first half | immersion: daily + familiar character interaction | the N+1 principle |
+| Chapter 1 second half | info gap: show the opponent/trap | camera-cut display |
+| Chapter 2 | pull strengthening: side-character reactions | the end must make the protagonist start flexing |
+| Chapter 3 | delivery: payoff written through | the easiest chapter |
+| Chapter 4 | carry up and down | close or open the next goal |
 
-**圈内不圈外原则**：先给内容画圈，整本书只在圈内写核心卖点相关。
+**Inside-the-circle principle**: draw a circle around the content first; the whole book writes only core-selling-point-related content inside the circle.
 
-### 高潮节奏铁律
+### Climax rhythm iron laws
 
-- 大高潮：7-10天完成（日双更/约14章），超10天读者反感
-- 小高潮：3天左右完成
-- 高潮结束后：1-2章日常过渡
+- Big climax: complete in 7-10 days (double daily / ~14 chapters); past 10 days readers resent it
+- Small climax: ~3 days
+- After the climax: 1-2 daily transition chapters
 
-### 阶段衔接三大解法
+### The three stage-handoff fixes
 
-1. **高潮中埋钩子**：上一段高潮扩散中放下段钩子
-2. **尾巴给目标**：一段结束时给主角明确的下阶段目标
-3. **连续小期待**：过渡章持续放小钩子
+1. **Plant hooks inside the climax**: lay the next hook in the previous climax's ripple
+2. **Tail gives a goal**: at a segment's end, give the protagonist a clear next-stage goal
+3. **Continuous small anticipations**: transition chapters keep releasing small hooks
 
 ---
 
-## 高潮分类与反推
+## Climax classification & back-derivation
 
-### 高潮两大类
+### Two climax classes
 
-**1. 现实高潮**（社会热点）：路怒症、出轨、霸凌等。不照搬，要把情绪极限化。一般放在开头或上架节点。
+**1. Real-life climaxes** (social hot spots): road rage, infidelity, bullying, etc. Don't copy — maximize the emotion. Usually placed at the opening or the paywall node.
 
-**2. 作品高潮**（8类）：
+**2. Work climaxes (8 classes)**:
 
-| 类别 | 典型 |
+| Class | Typical |
 |------|------|
-| 情绪共鸣 | 热血、七情、爱恋 |
-| 六感冲击 | 玄幻大场面、恐怖视觉 |
-| 冲突爆发 | 争权夺势、背叛谋利 |
-| 升级收获 | 境界突破、装备获取 |
-| 反差震惊 | 装逼打脸、身份曝光 |
-| 高智解密 | 悬疑推理、计谋揭秘 |
-| 怪诞诡异 | 规则怪谈、克苏鲁 |
+| Emotion resonance | heat, seven emotions, love |
+| Six-sense impact | fantasy grand scenes, horror visuals |
+| Conflict burst | power struggles, betrayal-for-profit |
+| Upgrade gains | realm breakthrough, equipment acquisition |
+| Contrast shock | flex-comeuppance, identity exposure |
+| High-intellect reveal | mystery deduction, scheme reveal |
+| Grotesque strangeness | rule-horror, cosmic horror |
 
-### 高潮反推四要素
+### The four-element climax back-derivation
 
-确定高潮后反推：①角色 ②背景 ③故事线 ④情绪演变（后两个必须结合）。
+After fixing the climax, back-derive: ①characters ②background ③storylines ④emotion evolution (the last two must combine).
 
 ---
 
-## 开篇公式
+## Opening formulas
 
-### 黄金五章公式
+### The golden-five-chapters formula
 
-| 章 | 内容 | 功能 |
+| Chapter | Content | Function |
 |----|------|------|
-| 第1章 | 穿越/背景/人设/金手指/建立欲望 | 建立基础认知 |
-| 第2章 | 明确主线 | 点题 |
-| 第3章 | 展示金手指强大 | 运行金手指 |
-| 第4章 | 拉仇恨/设正反方/信息差/铺垫 | 拉期待 |
-| 第5章 | 装逼成功/触发新事件 | 第一个爽点闭环 |
+| Chapter 1 | transmigration/background/persona/cheat/desire establishment | establish basic cognition |
+| Chapter 2 | clarify the main line | state the theme |
+| Chapter 3 | show the cheat's power | run the cheat |
+| Chapter 4 | hatred-pulling / sides / info gap / setup | raise anticipation |
+| Chapter 5 | flex succeeds / new event triggers | the first payoff loop closes |
 
-### 开头精简法
+### The opening tightening method
 
-1. 整理开头第一个一级结构的矛盾
-2. 把介绍性、抒情性文字逐条向上连——尝试与矛盾直接关联
-3. 隔了好几层逻辑才能连上的 → **无效信息，删除**
-4. 后文没戏份的配角不给名字
+1. Organize the first level-1 structure's conflict
+2. Try connecting intro/lyrical passages upward, one by one — directly to the conflict
+3. Anything needing several logic hops to connect = **invalid information, delete**
+4. Supporting characters with no later scenes get no names
 
-### 开头节奏底线
+### Opening rhythm floors
 
-| 要求 | 标准 |
+| Requirement | Standard |
 |------|------|
-| 爽点/期待点出现 | 1000字内必须看到 |
-| 打斗 | 第一章不能上来就打 |
-| 爱情线对象 | 第一个一级结构内必须出场 |
-| 金手指展示 | 第一个冲突由金手指解决，主角主动选择使用 |
+| Payoff/anticipation point appears | must appear within the first 1000 words |
+| Combat | chapter 1 cannot start with fighting |
+| Romance-line target | must appear inside the first level-1 structure |
+| Cheat display | the first conflict solved by the cheat, the protagonist actively choosing to use it |
 
 ---
 
-## 断期待诊断与修复
+## Anticipation-break diagnosis & repair
 
-### 四种根本原因
+### Four root causes
 
-| 原因 | 读者感受 |
+| Cause | Reader feeling |
 |------|----------|
-| 延迟满足过度 | "到底什么时候才能爽？" |
-| 换地图处理不当 | "之前期待的都没了" |
-| 核心梗重复度太高 | "又是这样，没意思了" |
-| 爽点满足感不足 | "就这？" |
+| Over-delayed gratification | "when the hell does it get satisfying?" |
+| Bad map-change handling | "everything I anticipated is gone" |
+| Core-hook repetition too high | "same old thing, boring" |
+| Payoff satisfaction insufficient | "that's it?" |
 
-### 持续拉期待原则
+### Continuous anticipation-raising principles
 
-**核心公式：拉期待速度 > 断期待速度**
+**Core formula: anticipation-raising speed > anticipation-breaking speed**
 
-1. 当前目标完成前，提前铺设下一目标线索
-2. 满足当前期待后迅速给出新期待
-3. 砍掉不服务核心梗的支线
-4. 保持主角目标始终清晰
-5. 同一核心梗做好差异化
+1. Before the current goal completes, lay the next goal's threads early
+2. After satisfying the current anticipation, quickly give a new one
+3. Cut sub-lines that don't serve the core hook
+4. Keep the protagonist's goal always clear
+5. Differentiate the same core hook
 
-### 期待真空期急救
+### Anticipation-vacuum emergency care
 
-| 手段 | 操作 |
+| Measure | Operation |
 |------|------|
-| 反派视角转接 | 展示反派行动，制造信息差 |
-| 突发意外 | 不按计划发展的事件强行介入 |
-| 配角杠杆 | 用配角的危机重新制造紧迫感 |
-| 超额收获 | 远超预期的额外奖励 |
+| Antagonist-POV switch | show the antagonist's actions, creating info gaps |
+| Sudden accident | an unplanned event forces its way in |
+| Supporting-character lever | use a supporting character's crisis to re-create urgency |
+| Over-gain | an unexpected reward far exceeding expectations |
 
 ---
 
-## 卖点与读者需求匹配
+## Selling point & reader-need matching
 
-### 卖点偏移论
+### The selling-point-drift theory
 
-崩盘根本原因常是"卖点偏移"——爽点背后满足的需求和读者想看的东西偏开了。
+The root cause of collapse is often "selling-point drift" — the need behind the payoff drifting away from what readers want.
 
-**需求清单**：三情（亲情爱情友情）、成为大人物幻想、不劳而获幻想、被尊重/认同/理解、惩恶扬善、公平、优越感、冒险欲、好奇心、成长、收获、暴力欲、安全感、新鲜感、情怀、弥补遗憾。
+**The needs list**: three bonds (family/romance/friendship), becoming-someone fantasy, getting-something-for-nothing fantasy, respected/recognized/understood, punishing evil, fairness, superiority, adventure, curiosity, growth, gains, violence, safety, novelty, nostalgia, mending regrets.
 
-**爆款公式**：抓住一种需求且一直抓着不偏移。
+**The hit formula**: grab one need and hold it without drifting.
 
-### 卖点双层论
+### The two-layer selling point
 
-- **题材卖点**：读者为什么看这类题材？
-- **书的卖点**：读者为什么看"你这本书"？
+- **Genre selling point**: why readers read this genre?
+- **Book selling point**: why readers read "this book"?
 
-自检：爽点偏向了另一个题材的卖点 = 偏题。
+Self-check: the payoff drifting to another genre's selling point = off-topic.
 
 ---
 
-## 战斗系统设计
+## Combat-system design
 
-### 回合制卡牌思路
+### Turn-based card thinking
 
-每回合一般只能用一张"牌"。打出"组合技"时，最多只有一张是读者没见过的。
+One "card" per turn generally. When playing a "combo," at most one card is new to the reader.
 
-### 强弱对决性价比
+### Strong-weak duel ROI
 
-| 对决类型 | 难度 | 效果 | 使用规则 |
+| Duel type | Difficulty | Effect | Use rules |
 |----------|------|------|------|
-| 以强击弱 | 容易 | 好 | 多用 |
-| 以弱胜强 | 难写 | 需铺垫 | 少用 |
-| 强强对决 | 最难 | 最好 | 一个中故事最多一次 |
+| Strong vs weak | easy | good | use often |
+| Weak vs strong | hard to write | needs setup | use sparingly |
+| Strong vs strong | hardest | best | at most once per mid story |
 
-### 战力设定规则
+### Power-setting rules
 
-- 高等级意味着身居高位或影响深远
-- 高等级战斗必须写出"史诗感"
-- 跨越大境界对敌必须有合理解释
-
----
-
-## 智斗构型（三步两线法）
-
-1. 反派制定三步计划（目标→手段→时间线）
-2. 主角有自己既有的计划
-3. 两人的计划互相牵扯
-
-牵扯方式：资源争夺、利益威胁、间接碰撞。
-
-智斗要点：反派也会根据观察调整计划，利用信息差让反派误判。
+- High levels mean high positions or deep influence
+- High-level battles must write "epic feel"
+- Crossing major realms against an enemy needs a reasonable explanation
 
 ---
 
-## 创作辅助方法
+## Mental-duel shape (three-step two-line method)
 
-### 改编法
+1. The antagonist makes a three-step plan (goal → means → timeline)
+2. The protagonist has their own existing plan
+3. The two plans entangle
 
-1. 确定目标矛盾类型，在剧情原型库中检索
-2. 将匹配剧情拆为细纲放左边，自己的情况放右边，逐点改编
-3. 验证改编后是否满足情绪目标、与主线衔接、无逻辑漏洞
+Entanglement modes: resource competition, interest threats, indirect collision.
 
-### 同人衍生型大纲法
-
-阅读内容 → 资料收集 → 信息提取（偏重高逼格和极致情绪）→ 衍生创作（拆分融合）。
-
-### 三重重复循环法
-
-- **看点重复**：抓住读者想看的那个点，死死写。边界：同一看点情绪兑现连续3次以上无差异化时调整
-- **人物重复**：同一行为换场景重复
-- **套路重复**：基础模板不变，场景变化
-
-### 极简大纲法
-
-把升级体系本身当作大纲。每一卷 = 一个关卡：入口条件 → 核心挑战 → Boss战 → 通关奖励。
+Mental-duel points: the antagonist also adjusts the plan from observation; use info gaps to make the antagonist misjudge.
 
 ---
 
-## 质量检查清单
+## Creation aids
 
-完成节奏设计后，逐项检查：
+### Adaptation method
 
-- [ ] **升级感**：起点和终点是否清晰？情绪缺口是否铺垫到位？
-- [ ] **升级循环**：是否"一直在升级或为升级做准备"？升级后是否展示了以前做不到的事？
-- [ ] **对比展示**：升级前后是否有至少3个维度的对比？
-- [ ] **情绪模块**：当前桥段的情绪模块是否明确？公式是否完整走通？
-- [ ] **桥段结构**：每4章一个桥段，是否有代入→信息差→拉扯→兑现→承上的完整链条？
-- [ ] **高潮节奏**：大高潮是否控制在7-10天内？小高潮是否控制在3天左右？高潮后是否有日常过渡？
-- [ ] **阶段衔接**：高潮结束后是否埋了钩子或给了新目标？
-- [ ] **开篇检查**（如适用）：前5章是否满足黄金五章？1000字内是否有爽点/期待点？
-- [ ] **期待感**：拉期待速度是否大于断期待速度？是否存在期待真空期未处理？
-- [ ] **卖点一致性**：爽点满足的需求是否与书的卖点一致？是否偏移到另一个题材的卖点？
-- [ ] **战斗/智斗**（如适用）：对决类型选择是否合理？智斗是否有信息差和计划牵扯？
-- [ ] **重复边界**：同一看点情绪兑现是否超过3次无差异化？是否需要调整？
+1. Fix the target conflict type, search the plot-prototype library
+2. Tear the matched plot into a chapter outline on the left; your own situation on the right; adapt point by point
+3. Validate the adaptation: emotion target met, main-line continuity, no logic holes
+
+### Fanfic-derived outline method
+
+read content → collect material → extract info (weight high-gravitas and extreme emotion) → derivative creation (split and fuse).
+
+### The triple repetition loop
+
+- **Draw repetition**: grab the point readers want to see and write it to death. Boundary: adjust when the same draw's emotion delivery runs 3+ times undifferentiated
+- **Character repetition**: the same behavior repeated across scenes
+- **Pattern repetition**: base template unchanged, scenes change
+
+### The minimal outline method
+
+Treat the upgrade system itself as the outline. Each volume = one level: entry conditions → core challenge → boss battle → clear reward.
+
+---
+
+## Quality checklist
+
+After rhythm design, verify:
+
+- [ ] **Progression feel**: start and end clear? Emotion gap set up fully?
+- [ ] **Progression loop**: "always upgrading or preparing to upgrade"? After upgrading, previously impossible things shown?
+- [ ] **Comparison display**: ≥3 dimensions of before/after comparison?
+- [ ] **Emotion module**: current beat's module clear? Formula fully run?
+- [ ] **Beat structure**: every 4 chapters one beat with the full chain: immersion → info gap → pull → delivery → carry?
+- [ ] **Climax rhythm**: big climax within 7-10 days? Small climax ~3 days? Daily transition after the climax?
+- [ ] **Stage handoff**: hooks planted or new goals given after the climax?
+- [ ] **Opening check** (if applicable): do the first 5 chapters satisfy the golden five? Payoff/anticipation within the first 1000 words?
+- [ ] **Anticipation**: raising speed > breaking speed? Any unhandled anticipation vacuum?
+- [ ] **Selling-point consistency**: does the payoff's need match the book's selling point? Drift to another genre's selling point?
+- [ ] **Combat/mental duels** (if applicable): duel type chosen well? Mental duels have info gaps and plan entanglement?
+- [ ] **Repetition boundary**: same draw's emotion delivery over 3 times undifferentiated? Needs adjustment?

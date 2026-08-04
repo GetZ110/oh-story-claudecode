@@ -1,167 +1,170 @@
-# 短篇正文格式
+# Short-Story Body Format
 
-> 写正文前必读。只管交付排版：章节标记、段落形态、对话、标点、元信息禁令。
-> 写法（情绪外化、钩子密度、反转、收尾）见 `short-craft.md` 与题材包，不在此重复。
-> 这是当前仓库默认交付格式；用户或目标平台另有明确要求时，以用户 / 平台要求覆盖。
-
----
-
-## 章节标记
-
-全文统一一种，不混用。
-
-| 格式 | 平台适用 | 示例 |
-|------|----------|------|
-| `###1.` | 短篇默认 | `###1.` `###2.` `###3.` |
-| `###第N章` | 番茄 / 七猫 / 古言 | `###第一章` `###第二章` |
-| `1.`（纯数字，无 `###`） | 知乎盐言 | `1.` `2.` `3.` |
-
-短篇推荐 `###1.` 或纯数字，简洁。番茄系长一点的章用 `###第N章`。
+> Required reading before writing the body. This file only governs delivery formatting: section markers, paragraph shape, dialogue, punctuation, and the meta-information ban.
+> Writing method (emotion externalization, hook density, reversals, endings) lives in `short-craft.md` and the genre packs; it is not repeated here.
+> This is this repo's default delivery format; when the user or the target platform has explicit requirements, the user/platform requirement wins.
 
 ---
 
-## 段落：两套平台模板
+## Section markers
 
-短篇正文形态按平台分两套。**不设统一的「每段 ≤ 3 句」「800-1500 字 / 节」硬线**，那是长篇迁移过来的产物，会把短篇切成一样长的提纲。先认平台底色，再按 `short-craft.md` 的疏密原则分配字数。
+Pick one style for the whole text; never mix.
 
-### 黑岩：一句一段，留白快读
+| Format | Platforms | Example |
+|--------|-----------|---------|
+| `###1.` | Short-story default | `###1.` `###2.` `###3.` |
+| `###Part N` / `###Chapter N` | Wattpad / Galatea serials, longer episodes | `###Part 1` `###Chapter 2` |
+| `1.` (bare number, no `###`) | Tapas episodes, minimalist shorts | `1.` `2.` `3.` |
 
-- 一句一段为主，多换行制造下坠和停顿感。
-- 节奏密，每节体量小，节尾必留钩。
-- 单句成段是常态，不要为了「凑够字数」把句子焊回长段。
+Short stories default to `###1.` or bare numbers. Episode serializations with longer chapters use `###Part N`.
 
-模板示意：
+---
+
+## Paragraphs: two platform templates
+
+Short-story body shape splits by platform. **No universal hard line like "every paragraph ≤ 3 sentences" or "800-1500 words per section"** — that's a long-form transplant that slices shorts into equal-length outlines. First fix the platform's base color, then allocate words per `short-craft.md`'s dense/sparse principle.
+
+### One-line-per-paragraph, white space for fast reads (Tapas / Wattpad short episodes / Radish one-shots)
+
+- One sentence per paragraph as the base, heavy line breaks for drop and pause.
+- Fast rhythm, small section mass, every section end carries a hook.
+- Single-sentence paragraphs are the norm — don't weld sentences back into long blocks just to "hit a word count."
+
+Template:
 
 ```
 ###1.
 
-我们家有个规矩，每年清明节都要拜"福祸盘"。
+The house came with three rules, taped to the pantry door in my great-aunt's handwriting.
 
-一个盘子，一半装着山珍海味，一半盛着清汤寡水。
+One lamp burns all night. Never answer the third knock. If you hear the rocking chair, the house is already gone.
 
-哥哥抽中了肉，爸妈奖励他一个大红包。
+I kept the rules for six days.
 
-轮到我，我再次抽中了那碗清汤。
+My sister visited on the seventh.
 ```
 
-### 番茄 / 七猫：短段为底色，叙述交织对话
+### Short paragraphs as base, narration interwoven with dialogue (Wattpad serials / Inkitt / Galatea / Dreame / GoodNovel)
 
-- 短段仍是手机阅读的底色，但**允许多句回溯叙述段和对话交织**：一段里可以有内心独白、回忆补刀、动作，再接对话。
-- 古言 / 世情可写更长的叙述段，承载完整的情绪链和场景铺陈。
-- 爽点、打脸、反转处压短（可单句成段）；过场、信息交代一句带过。
+- Short paragraphs remain the mobile-reading base, but **multi-sentence retrospective narration and dialogue interweaving are allowed**: one paragraph may carry interiority, a memory strike, an action, then dialogue.
+- Romance and emotional genres may write longer narration paragraphs carrying complete emotion chains and scene setup.
+- Payoffs, comebacks, and reversals compress short (may be single-sentence paragraphs); transitions and information deliveries pass in one line.
 
-模板示意：
+Template:
 
 ```
-###第一章
+###Part 1
 
-我把热汤端到他面前的时候，他正低头看手机，屏幕亮着白月光的名字。三年了，我以为熬过了最难的日子，原来熬的只是我自己。
+I set the hot soup in front of him while he scrolled his phone, the screen glowing with her name. Three years of this, and I'd told myself the hard years were over. The hard years were me.
 
-"以后这种事不用你做。"他头也没抬，"她不喜欢闻油烟味。"
+"You don't have to do this anymore," he said, without looking up. "She doesn't like the smell of cooking oil."
 
-我端着碗的手顿了一下。
+My hand paused on the bowl's edge.
 ```
 
-### 两套共同的硬约束（所有平台）
+### Shared hard constraints (all platforms)
 
-- 正文相邻段落之间**只允许一个换行符 `\n`**，不得出现空行或连续换行 `\n\n`（紧密排列）。章节标记前后另算。
-- **无缩进**：不用 `　　`（全角空格）或半角空格缩进，平台渲染器自行处理。
-- **禁正文段落 Markdown**：除统一的小节 / 章节标记（如 `###1.`），正文段落里不用加粗 `**`、斜体 `*`、标题 `#`、分隔线 `---` 等。
-- 长短交错，忌通篇同长度。把每段切成同一字数，正是 AI 腔来源。
+- Adjacent body paragraphs are separated by **exactly one newline `\n`**; no blank lines / `\n\n` runs (tightly packed). Section markers count separately.
+- **No indentation**: no full-width or half-width space indents; platform renderers handle it.
+- **No Markdown in body paragraphs**: outside the unified section/chapter markers (like `###1.`), no bold `**`, italics `*`, headings `#`, or divider lines `---` in body text.
+- Long and short alternate; never uniform lengths. Cutting every paragraph to the same word count is a source of AI-flavor.
 
 ---
 
-## 对话
+## Dialogue
 
-### 引号
+### Quotes
 
-| 优先级 | 格式 | 适用 |
-|--------|------|------|
-| 首选 | `"说话内容"`（半角） | 短篇默认、番茄、红果、黑岩 |
-| 平台 / 项目指定 | `「说话内容」` | 知乎盐言、部分古言、用户指定 |
+| Priority | Format | Applies to |
+|----------|--------|------------|
+| First choice | `"speech"` curly double quotes | Short-story default, Wattpad, Tapas, Inkitt, Galatea, Dreame, GoodNovel |
+| Platform/project-specified | Straight `"speech"` | Platforms rendering straight quotes; user preference |
 
-**默认用 `""`**；用户或平台指定盐言风格时用 `「」`，不要把 `「」` 当错误改掉。
+**Default is curly `“ ”`**; use straight quotes only when the platform or user specifies them. Do not "correct" a user's specified quote style.
 
-### 规则
+### Rules
 
-1. 对话**独立成行**，不嵌在叙述段落里。
-2. 用动作代替对话标签：少用「他说」「她道」「他笑了笑说」，改成动作 beat + 对话；普通的「说」按语境可留。
-3. 两人连续对话省略标签，靠内容区分说话人。
+1. Dialogue stands **on its own line**, not embedded inside a narration paragraph.
+2. Replace dialogue tags with action beats: instead of "he said," "she laughed and said," use an action beat + the line; a plain "said" may stay where the context needs it.
+3. In two-person exchanges, drop the tags; the content identifies the speaker.
 
-正确：
-
-```
-她把杯子放下。
-"你走吧。"
-他没有动。
-"我说，你走吧。"
-```
-
-错误：
+Correct:
 
 ```
-她把杯子放下，说道："你走吧。"他没有动，她又说："我说，你走吧。"
+She set the cup down.
+"You should go."
+He didn't move.
+"I said, you should go."
+```
+
+Wrong:
+
+```
+She set the cup down and said, "You should go." He didn't move, so she said again, "I said, you should go."
 ```
 
 ---
 
-## 标点硬约束
+## Punctuation hard constraints
 
-**本仓库正文统一不出现 `……` / `——` / `—` / `--`**（去 AI 脚本与 hook 强制收口，项目级红线）。叙述、对话、心理描写一律适用，无对话例外。
+**This repo's body text never contains `...` runs, `——`, `—`, or `--`** (the de-AI scripts and hooks enforce it; project-level red line). Applies to narration, dialogue, and interiority alike; no dialogue exceptions.
 
-停顿、哽咽、未尽、被打断、留白，一律用以下手段实现：
+Pauses, sobs, unfinished speech, interruptions, and white space are done with:
 
-- 短句、句号、逗号断开。
-- 动作 beat（「她顿了一下」「他攥紧了拳」）。
-- 换行 / 单句成段。
+- Short sentences, periods, commas.
+- Action beats ("She paused." "His grip tightened.").
+- Line breaks / single-sentence paragraphs.
 
-其余标点跟语气走：
+Everything else follows tone:
 
-| 语气 / 功能 | 标点 | 防线 |
+| Tone / function | Punctuation | Guardrail |
 |---|---|---|
-| 压迫 / 冷静 / 克制 | 短句、逗号、句号，必要时冒号压判断落点 | 不人工加感叹号，也不通篇句号化 |
-| 质问 / 反问 | 问号 + 短促追问 | 别每句都以 `？` 结尾 |
-| 爆发 / 打脸 | 真爆点用 1 个感叹号，连续爆发最多 1-2 处 | 禁 `!!!`、禁整段喊叫式感叹 |
-| 信息揭示 / 判断落点 | 冒号、单句成段制造落点 | 别写论文式分号串 |
+| Pressure / calm / restraint | Short sentences, commas, periods; a colon to land a judgment when needed | Don't hand-add exclamation marks; don't period-flatten the whole text either |
+| Challenge / rhetorical question | Question marks + short follow-ups | Don't end every sentence with `?` |
+| Burst / comeuppance | 1 exclamation mark at the true peak; 1-2 max in a row | No `!!!`; no whole-paragraph shouting |
+| Info reveal / judgment landing | Colon, single-sentence paragraph | No essay-style semicolon chains |
 
-题材包范例里若出现 `……`，只为示意手法，落到正文按本条改写。
+If a genre pack's example retains `...` for illustration, re-write it per this rule when it lands in the body.
 
 ---
 
-## 禁正文混入章节元信息
+## No meta-information in the body
 
-章节号、写作工程词只允许出现在标题 / 小节标记 / 文件名 / 追踪记录里。正文叙述、对话、心理描写中**不得出现**：
+Chapter numbers and writing-engineering words may appear only in titles / section markers / file names / tracking records. The body's narration, dialogue, and interiority must not contain:
 
 ```
-第[一二三四五六七八九十百千万两0-9]+章 | 上一章 | 上章 | 前一章 | 本章 | 这一章 | 前文 | 后文 | 伏笔 | 细纲 | 读者
+Chapter N | last chapter | previous chapter | this chapter | earlier | later | foreshadowing | outline | reader | first half | second half | Part N
 ```
 
-要改成角色能感知的事件锚点或相对时间。例：「比第一章那三秒开火更疼」改成「比那三秒开火更疼」。
+Use event anchors or relative time the character can perceive instead. Example: "it hurt worse than the three seconds of gunfire in chapter one" becomes "it hurt worse than those three seconds of gunfire."
 
-例外：角色在故事世界内真实阅读 / 讨论「第 X 章」文本，或角色真实身为作者 / 读者并谈论读者身份时，可保留。
-
----
-
-## 平台覆盖表
-
-| 平台 | 章节标记 | 对话格式 | 段落底色 | 特殊要求 |
-|------|----------|----------|----------|----------|
-| 知乎盐言 | `1.`（纯数字） | `「」` | 短段 + 叙述交织 | 导语需单独标注 |
-| 番茄 | `###第N章` | `""` | 短段为底色，允许叙述交织对话 | 首段需有吸引力 |
-| 红果 | `###1.` | `""` | 短段为底色 | 无 |
-| 黑岩 | `###1.` | `""` | 一句一段，多换行留白 | 节尾必留钩 |
-
-用户未指定平台时，默认短篇通用格式：`###1.` + `""` + 番茄系短段底色。
+Exception: a character genuinely reading or discussing a "chapter" inside the story world, or a character who really is an author/reader talking about reader identity, may keep it.
 
 ---
 
-## 写完每段快速检查
+## Platform override table
 
-- [ ] 段落形态符合目标平台模板（黑岩一句一段 / 番茄系短段交织叙述）？没把它切成同一字数的提纲？
-- [ ] 相邻段落之间只有一个 `\n`，没有空行 / `\n\n`？
-- [ ] 无缩进（没有 `　　` 或空格）？
-- [ ] 标题 / 小节标记之外，正文段落没用 `**` `*` `#` `---` 等 Markdown？
-- [ ] 对话独立成行，引号风格符合平台（盐言 `「」` 合法），对话标签没机械化？
-- [ ] 正文（含对话）里没有 `……` / `——` / `—` / `--`，停顿改用短句 / 动作 / 换行？
-- [ ] 标点跟语气走：没通篇句号化，没乱撒 `？` / `！`？
-- [ ] 正文没混入 `第N章` / `上一章` / `本章` / `前文` / `后文` / `伏笔` / `细纲` / `读者` 这类元信息词（故事内真实阅读 / 真实读者身份语境除外）？
+| Platform | Section marker | Dialogue | Paragraph base | Special |
+|-----------|----------------|----------|----------------|---------|
+| Wattpad | `###Part N` or `###1.` | `" "` curly | Short paragraphs + narration interleave | Blurb must be a storefront; episodes 1500-3000 words |
+| Tapas | `1.` bare numbers | `" "` | One-line paragraphs, fast | Episode ends must hook |
+| Inkitt | `###1.` or `###Chapter N` | `" "` | Short base; multi-POV allowed | Varies by subgenre; check the genre pack |
+| Radish | `###1.` | `" "` | Short base, app-first drama | Episodes 1500-3000 words; chapter-end cut points |
+| Galatea | `###Chapter N` | `" "` | Short base | App-first pacing; strong chapter-end hooks |
+| Dreame / GoodNovel | `###1.` | `" "` | Short base | One-shot + serialized both; high hook density |
+| Kindle short reads / anthologies | `###1.` or `1.` | `" "` | Short base | Whole-story shape; no episode breaks |
+
+When the user doesn't specify a platform, default to the general short-story format: `###1.` + curly quotes + the short-paragraph base.
+
+---
+
+## Quick check after each batch
+
+- [ ] Paragraph shape matches the target platform's template (one-line style / short-paragraph-interweave)? Not sliced into equal-length outline chunks?
+- [ ] Exactly one `\n` between adjacent paragraphs; no blank lines / `\n\n`?
+- [ ] No indentation (no full-width spaces or space indents)?
+- [ ] No Markdown (`**` `*` `#` `---`) in body paragraphs outside titles/section markers?
+- [ ] Dialogue on its own line; quote style matches the platform (curly by default); tags not mechanical?
+- [ ] No `...` / `——` / `—` / `--` in the body (including dialogue); pauses done with short sentences / action beats / line breaks?
+- [ ] Punctuation follows tone: no whole-text period flattening, no random `?` / `!` scattering?
+- [ ] No meta words in the body (`Chapter N` / `last chapter` / `earlier` / `foreshadowing` / `reader` etc.) except in genuine in-world reading contexts?

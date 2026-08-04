@@ -4,23 +4,23 @@
 
 | Command | Skill | Description |
 |------|-------|------|
-| `/story-long-write`, write long-form | story-long-write | Long-form web-novel writing (chapter by chapter) |
-| `/story-short-write`, write short-form | story-short-write | Short-form web-novel writing (emotion-driven) |
-| `/story-long-analyze`, long-form teardown | story-long-analyze | Deep teardown of a long-form novel |
-| `/story-short-analyze`, short-form teardown | story-short-analyze | Teardown analysis of a short-form novel |
-| `/story-long-scan`, long-form scan | story-long-scan | Batch scanning of long-form novels |
-| `/story-short-scan`, short-form scan | story-short-scan | Batch scanning of short-form novels |
-| `/story-deslop`, de-AI-flavor | story-deslop | Removes AI writing traces |
-| `/story-cover`, cover | story-cover | Generates cover images |
-| `/story-review`, review | story-review | Multi-perspective adversarial review |
-| `/story-import`, import | story-import | Reverse-imports an existing novel into the project structure |
-| `/story`, web novels | story | Toolkit router · auto-routes ambiguous intent |
-| `/story-setup`, prepare to write a book | story-setup | Environment deployment · one-click deployment of hooks/rules/agents |
+| `/story-long-write`、`/write-long` | story-long-write | Long-form web-novel writing (chapter by chapter) |
+| `/story-short-write`、`/write-short` | story-short-write | Short-form web-novel writing (emotion-driven) |
+| `/story-long-analyze`、`/teardown-long` | story-long-analyze | Long-form novel deep teardown |
+| `/story-short-analyze`、`/teardown-short` | story-short-analyze | Short-form novel teardown analysis |
+| `/story-long-scan`、`/scan-long` | story-long-scan | Long-form novel batch scanning |
+| `/story-short-scan`、`/scan-short` | story-short-scan | Short-form novel batch scanning |
+| `/story-deslop`、`/deslop` | story-deslop | Remove AI writing traces |
+| `/story-cover`、`/cover` | story-cover | Generate cover art |
+| `/story-review`、`/review` | story-review | Multi-perspective adversarial review |
+| `/story-import`、`/import` | story-import | Import existing novels into the project structure |
+| `/story`、`/webnovel` | story | Toolbox router · auto-dispatch of fuzzy intents |
+| `/story-setup`、`/setup` | story-setup | Environment deployment · one-click deploy of hooks/rules/agents |
 | `/browser-cdp` | browser-cdp | Browser CDP tool |
 
 ## File Structure
 
-- `teardown-lib/` — teardown analysis output directory
+- `teardown-lib/` — teardown analysis output
 - `{BookTitle}/prose/` — long-form novel prose chapters
 - `{BookTitle}/setting/` — character settings, world settings
 - `{BookTitle}/outline/` — volume outlines, chapter outlines
@@ -29,15 +29,15 @@
 
 ## Collaboration Rules
 
-Coordination between agents is defined by the responsibility boundaries in each agent definition file; no separate coordination-rule file is needed.
+Coordination between agents is described by the responsibility-boundary sections of each agent definition file; no separate coordination-rules file is needed.
 
-## Restoring Context After Compact
+## Recovering Context After Compaction
 
-This section takes effect automatically after a compact. AGENTS.md is reloaded after every compact.
+This section takes effect automatically after compaction. AGENTS.md is reloaded after every compaction.
 Key writing context:
 1. Current writing project name and progress
 2. Recently discussed character-setting changes
-3. List of unresolved foreshadowing
-4. The current chapter's emotion/rhythm targets
+3. List of unfinished foreshadowing
+4. Current chapter's emotion/pacing targets
 
-If {BookTitle}/tracking/context.md exists, read it first after a compact to restore context.
+If {BookTitle}/tracking/context.md exists, read it first after compaction to restore context.

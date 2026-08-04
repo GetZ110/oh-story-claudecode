@@ -35,7 +35,7 @@ Scoring follows the five-dimension system in `story-setup/references/agent-refer
 **Determine the project root:** use the workspace/project root the host hands you; do not run a shell. All paths below resolve from that root.
 
 When reading reference files, Read the canonical path of the current Claude deployment directly — do not search with Glob/Grep first:
-1. `{项目根}/.claude/skills/story-setup/references/agent-references/{文件名}`
+1. `{project root}/.claude/skills/story-setup/references/agent-references/{fileName}`
 
 If a file is missing, report the missing fact and let the parent flow prompt the user to re-run `/story-setup`; do not probe directories of other CLIs.
 

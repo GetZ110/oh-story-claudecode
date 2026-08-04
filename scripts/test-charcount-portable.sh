@@ -1,19 +1,23 @@
 #!/bin/bash
-# test-charcount-portable.sh — 验证「跨平台字符统计」命令在三大平台 + Windows
-# Microsoft Store 占位程序场景下都能正确数出中文字符数。
+# test-charcount-portable.sh — verify that the "cross-platform character count"
+# command counts Unicode code points correctly on all three platforms, including
+# the Windows Microsoft Store stub scenario.
 #
-# 背景：技能文档要求模型用下面这条探测命令统计字数。Windows 上 python.org 安装后
-# `python3` 会落到 Microsoft Store 占位程序、以 exit 49 静默失败，必须按
-# python3 -> python -> py 探测出真正可用的解释器。GitHub windows-latest 自带可用的
-# python3，因此 `--stub` 模式人为塞入一个 exit-49 的假 python3 来复现真实故障。
+# Background: skill docs tell the model to count words with the probe command
+# below. On Windows, after a python.org install `python3` lands on the Microsoft
+# Store stub and silently fails with exit 49, so a working interpreter must be
+# probed as python3 -> python -> py. GitHub windows-latest ships a working
+# python3, so `--stub` mode inserts a fake exit-49 python3 to reproduce the real
+# failure.
 #
-# 用法：
-#   bash scripts/test-charcount-portable.sh           # 用真实解释器
-#   bash scripts/test-charcount-portable.sh --stub     # 模拟 Store 占位程序(exit 49)
+# Usage:
+#   bash scripts/test-charcount-portable.sh           # with the real interpreter
+#   bash scripts/test-charcount-portable.sh --stub     # simulate the Store stub (exit 49)
 #
-# 注意：下面 PROBE/COUNT 两行必须与技能文档里的命令逐字一致（story-short-write、
-# story-long-write、narrative-writer、style-profile-generator）。check-python-invocation.sh
-# 守卫文档不回退成裸 python3；本脚本守卫这条命令真的能跑出正确结果。
+# Note: the PROBE/COUNT lines below must stay verbatim with the skill docs
+# (story-short-write, story-long-write, narrative-writer, style-profile-generator).
+# check-python-invocation.sh guards the docs from regressing to a bare python3
+# call; this script guards that the command actually yields the right result.
 set -euo pipefail
 
 STUB=0
@@ -22,15 +26,18 @@ STUB=0
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
-# 中文目录 + 中文文件名，复现 issue #121 的路径场景
-BOOK_DIR="$WORK/小说项目/第一卷"
+# Accented directory + UTF-8 file name, reproducing the issue #121 path scenario.
+BOOK_DIR="$WORK/café-project/volume-one"
 mkdir -p "$BOOK_DIR"
-# 12 个码位：中文字数测试(6) + ABC(3) + 123(3)，无结尾换行
-printf '%s' '中文字数测试ABC123' > "$BOOK_DIR/正文.md"
-EXPECT=12
+# 18 code points: héllo wörld — test (é/ö are one code point each, the em dash
+# one; 19 UTF-8 bytes — the count must be code points, not bytes). No trailing
+# newline.
+printf '%s' 'héllo wörld — test' > "$BOOK_DIR/prose.md"
+EXPECT=18
 
-# 先记住一个真正可用的解释器。stub 必须自给自足，不假设当前机器
-# 同时安装了 python3 和 python/py（某些 macOS 环境只有 python3）。
+# Remember a genuinely working interpreter first. The stub must be
+# self-sufficient and not assume the current machine also installs python3 and
+# python/py (some macOS environments only have python3).
 REAL_PYTHON=""
 for candidate in python3 python py; do
   if "$candidate" -c "" >/dev/null 2>&1; then
@@ -41,7 +48,8 @@ done
 [ -n "$REAL_PYTHON" ] || { echo "FAIL: no working Python interpreter" >&2; exit 1; }
 
 if [ "$STUB" -eq 1 ]; then
-  # 塞一个永远 exit 49 的假 python3 到 PATH 最前面，复现 Windows Store 占位程序
+  # Insert a fake python3 that always exits 49 at the front of PATH to reproduce
+  # the Windows Store stub.
   FAKEBIN="$WORK/fakebin"
   mkdir -p "$FAKEBIN"
   printf '#!/bin/sh\nexit 49\n' > "$FAKEBIN/python3"
@@ -50,28 +58,30 @@ if [ "$STUB" -eq 1 ]; then
   chmod +x "$FAKEBIN/python"
   PATH="$FAKEBIN:$PATH"
   export PATH
-  echo "[stub] python3 现在固定 exit 49（模拟 Microsoft Store 占位程序）"
+  echo "[stub] python3 now always exits 49 (simulating the Microsoft Store stub)"
 fi
 
-# === 与技能文档逐字一致的探测 + 统计命令 ===
-# 用相对路径统计（先 cd 进书目录，再传文件名）——这正是技能里模型的用法：
-# 先 cd 到项目/正文目录再用相对路径。Windows Git Bash 下若把绝对 POSIX 路径
-# （/tmp/...、/c/...）直接喂给原生 Windows python，会被解析成 C:\tmp\... 而找不到文件；
-# 相对路径按子进程真实 cwd 解析，三平台一致。
+# === Probe + count commands, verbatim with the skill docs ===
+# Count with a relative path (cd into the book dir first, then pass the file
+# name) — exactly how the skill's model uses it: cd into the project/prose
+# directory first, then use relative paths. On Windows Git Bash, feeding an
+# absolute POSIX path (/tmp/..., /c/...) to a native Windows python resolves to
+# C:\tmp\... and the file is not found; a relative path resolves against the
+# child process's real cwd, consistently on all three platforms.
 for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done
-GOT="$(cd "$BOOK_DIR" && "$PYBIN" -c "from pathlib import Path; print(len(Path('正文.md').read_text(encoding='utf-8')))")"
-# === 命令结束 ===
+GOT="$(cd "$BOOK_DIR" && "$PYBIN" -c "from pathlib import Path; print(len(Path('prose.md').read_text(encoding='utf-8')))")"
+# === command ends ===
 
 echo "selected interpreter: $PYBIN"
 echo "char count: $GOT (expect $EXPECT)"
 
 fail=0
 if [ "$GOT" != "$EXPECT" ]; then
-  echo "FAIL: 字符数不符（中文路径或解释器问题）"
+  echo "FAIL: character count mismatch (accented path or interpreter issue)"
   fail=1
 fi
 if [ "$STUB" -eq 1 ] && [ "$PYBIN" = "python3" ]; then
-  echo "FAIL: stub 模式下仍选中了坏掉的 python3，回退链没生效"
+  echo "FAIL: stub mode still selected the broken python3; the fallback chain did not work"
   fail=1
 fi
 if [ "$fail" -eq 0 ]; then

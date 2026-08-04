@@ -1,133 +1,133 @@
-# 短篇去 AI 味
+# Short-Story De-AI-Flavoring
 
-> 短篇专属去 AI 味规则。服务番茄 / 七猫 / 黑岩 / 盐选通俗短篇，不是传统文学，更不是长篇。
-> 长篇那套去 AI 规则会误删短篇的卖点，别拿长篇 anti-ai 来删短篇。本文件是短篇的口径。
+> Short-form-specific de-AI rules. Serves commercial English short fiction (Wattpad / Tapas / Inkitt / Radish / Galatea / Dreame / GoodNovel), not literary fiction and not long form.
+> The long-form de-AI rules will delete a short story's selling points. Don't apply long-form anti-AI to shorts. This file is the short-form standard.
 
 ---
 
-## 根本立场：短篇是情绪产品
+## Core stance: the short story is an emotion product
 
-短篇靠直白共鸣留人，不靠克制留白。短篇去 AI 味只做一件事：**删空泛的情绪总结句，留有具体反应支撑的情绪。**
+Short stories keep readers through direct resonance, not restraint and white space. Short-form de-AI-flavoring does one thing: **delete hollow emotion-summary sentences; keep emotions that are supported by concrete reactions.**
 
-长篇会禁、短篇要留的三类（删了就废掉卖点）：
+The three things long form forbids but shorts must keep (deleting them kills the selling points):
 
-| 长篇禁 | 短篇留 | 短篇只删 |
+| Long form bans | Short form keeps | Short form only deletes |
 |---|---|---|
-| 直接写情绪词（心如死灰 / 眼泪不争气） | 留：这是招牌句 | 删：后面没有任何具体反应的情绪总结句（一丝悲伤涌上心头） |
-| 第一人称审判句 / 剧透 / 火葬场预告 | 留：在场叙述是爽感来源 | 删：和角色情绪无关、纯交代的作者讲解 |
-| 审判金句 / 心死式章尾 | 留：读者会截图传播 | 删：空洞哲理升华（人生就是这样 / 她终于明白了） |
+| Direct emotion words (heart like dead weight / tears not behaving) | Keep: they're the signature lines | Delete: emotion summaries with no concrete reaction after them ("a sliver of sadness surfaced") |
+| First-person verdicts / foreshadowing / payoff previews | Keep: present narration is the satisfaction engine | Delete: neutral author explanation with no relation to character emotion |
+| Judgment lines / heart-dead chapter ends | Keep: readers screenshot and share them | Delete: hollow philosophical elevation ("that's just life" / "she finally understood") |
 
-判据都一样：**这句带不带主角此刻的主观情绪？** 带就留，中立客观就删。
-
----
-
-## 一、情绪怎么写：直写可以，但后面要接一个场景里的具体动作
-
-短篇不禁直接写情绪词（心如死灰、心如刀绞、几欲作呕、眼泪不争气都行，真实番茄用得很密）。**正面怎么写、真实原文范例，见 `short-craft.md` 第 2 节。** 这里只管删什么。
-
-删两种：
-
-1. 后面接不上任何具体东西、单独出现的情绪总结句：「一丝悲伤涌上心头」「感到深深的绝望」「仿佛整个世界失去了颜色」。
-2. 通用生理反应单独凑数：「指甲掐进掌心」「心猛地一沉」「鼻头一酸」这类哪篇都能套，单写就空——要么接到这个场景此刻的具体物件 / 动作上（凉掉的排骨汤、摔碎的玉佩），要么删。
-
-一个情绪写一次就往下走，不要写完再补一句解释它多疼。
+The test is the same everywhere: **does this sentence carry the protagonist's present subjective emotion?** Carry → keep. Neutral, objective → delete.
 
 ---
 
-## 二、别写成有套路、太工整、太漂亮的
+## 1. How to write emotion: naming is fine, but land it on a scene-specific action
 
-句子里不写空话之后，还有一层：整篇别写得像套了模板、收得太整齐。这一层最容易在「写得很干净」的稿子上露馅。三点：
+Shorts don't ban emotion words outright (heart like dead weight, sick to the stomach, tears not behaving are all fine — real commercial shorts use them densely). **How to write it positively, with real examples, is in `short-craft.md` section 2.** This file only governs what to delete.
 
-- **题材包的招式是可选项，不是固定流程。** 写多篇时，每篇用不同的招式、不同的开头和结尾；不要把上一篇的写法换个人名再写一遍。
-- **章节结尾不要为了工整去收口。** 不要凑对仗、凑排比、凑一句押韵或抖机灵的总结。结尾留一个具体的悬念或情绪就行，不整齐没关系。
-- **情绪该强就强，可以直白、可以不均匀、可以稍微啰嗦。** 通篇都很克制、每段都收得整整齐齐漂漂亮亮，读起来反而假。该炸的地方就放开写。
+Delete two kinds:
+
+1. Emotion-summary sentences with nothing concrete after them: "a sliver of sadness surfaced," "a deep despair settled over her," "it was as if the world had lost its color."
+2. Generic physiological fillers standing alone: "nails digging into the palm," "heart dropping," "nose stinging" — these fit any story; alone they read hollow. Either connect them to this scene's specific object/action (the cold soup, the broken jade), or delete.
+
+Write an emotion once and move on; don't follow it with a sentence explaining how much it hurt.
 
 ---
 
-## 三、叙述姿态：在场叙述不是 AI 味
+## 2. Don't write it patterned, too tidy, too pretty
 
-短篇叙述者可以跳出当下替读者定性、剧透、预告火葬场。这是爽感来源。长篇 anti-ai 那套「删上帝视角 / 删剧透 / 删替读者下结论」对短篇不适用。
+After removing the empty sentences, there's one more layer: the whole piece must not read like a template with everything squared off. This layer most often shows on "very clean" drafts. Three points:
 
-| 留（带主角主观情绪） | 删（中立、和角色情绪无关的作者讲解） |
+- **The genre packs' moves are options, not a fixed pipeline.** Across multiple stories, use different moves, different openings and endings; don't rewrite the previous story's structure with a name change.
+- **Don't square off chapter ends for tidiness.** No antithesis-chasing, no triple-parallel-chasing, no rhyme or witty summary. Leave one concrete suspense or emotion; uneven is fine.
+- **Emotion may be strong, direct, uneven, even slightly verbose.** A whole piece that's restrained, every paragraph neatly folded, reads fake. Where it should detonate, detonate.
+
+---
+
+## 3. Narrative stance: present narration is not AI-flavor
+
+The short-form narrator may step out of the moment to judge, foreshadow, and preview payoffs. That's the satisfaction engine. The long-form anti-AI rules ("delete god-view / delete foreshadowing / delete conclusions-for-the-reader") don't apply to shorts.
+
+| Keep (carries the protagonist's subjective emotion) | Delete (neutral, unrelated to character emotion) |
 |---|---|
-| 主观审判句：原来我以为的爱只是一场笑话 | 纯交代背景的作者解说 |
-| 复仇者剧透：他们不知道，我已经是西域摄政王 | 客观描述无关人物的行动 |
-| 火葬场预告：我还不知道，他正发疯似的找我 / 可后来他后悔了 | 论文式因果讲解：之所以…是因为… |
+| Subjective verdict: so that's what our love was. A punchline. | Author exposition of background |
+| Revenge preview: they don't know I've already sent the file. | Objective description of an unrelated character's actions |
+| Payoff forward-tell: later, he'd say he was sorry. Later was too late. | Essay-style cause lecture: "the reason was that… because…" |
 
-判据：这句跳出当下，是带主角主观情绪的审判 / 预告，还是中立的作者讲解？前者留，后者删。
+Test: does this sentence, stepping out of the moment, carry a subjective judgment / preview, or is it neutral author explanation? The first stays; the second goes.
 
-**短篇去 AI 边界补充**：
-- 短篇也要处理“作者解释总结 / 意义尾巴”，但只删**中立、无情绪、无卖点**的讲解；带第一人称主观审判、火葬场预告或心死判词的句子，按题材卖点保留或压短。
-- “白话但不注水”同样适用：不要连续堆精致戏剧反应（头皮发紧、眼皮一跳、心口一沉、胃里翻涌）来替代剧情推进；能写普通动作、普通感觉和具体处境，就别把每个反应都写成漂亮短语。
-- 已有手机、聊天记录、公告、账单、病历、证据截图等信息，优先保留为主角看见/保存/读错/转发的场内载体；不要改成叙述者替读者解释规则。
-- 任务卡点只在本来就有“要办的事”时使用，并且必须加重羞辱、证据、反击或误会；不要为了自然感或字数硬加流程。
+**Short-form de-AI boundary notes**:
+- Shorts still handle "author explanation summaries / meaning tails," but only delete **neutral, emotionless, no-selling-point** explanation; sentences carrying first-person subjective verdicts, payoff previews, or heart-dead judgments are kept or compressed per the genre's selling points.
+- "Plain but not padded" applies here too: don't stack refined dramatic reactions (scalp tightening, eyelid twitching, chest sinking, stomach churning) as substitutes for plot progress; when a plain action or plain feeling works, write the plain thing.
+- Existing in-scene carriers (phones, chat logs, posts, notices, bills, medical records, evidence screenshots) stay as carriers the protagonist sees/saves/misreads/forwards; don't rewrite them as narrator explanation of the rules.
+- Task blockers only when there's real business to handle, and they must sharpen humiliation, evidence, counterattack, or misunderstanding; never add procedure to fake naturalness or word count.
 
 ---
 
-## 四、章尾：审判金句 / 火葬场预告是卖点
+## 4. Chapter ends: judgment lines / payoff previews are selling points
 
-短篇收尾不做文学升华，但审判金句、心死余韵、火葬场预告要留——读者会截图传播。
+Short-story endings don't do literary elevation, but judgment lines, heart-dead residue, and payoff previews must stay — readers screenshot and share them.
 
-| 留 | 删 |
+| Keep | Delete |
 |---|---|
-| 审判 / 反讽金句：迟来的深情比草还贱 / 晏家，咱们的账慢慢算 | 空洞哲理升华：人生就是这样 / 她终于明白了 |
-| 火葬场预告：他后悔疯了，可我已经无所谓 | 总结性感悟：这一夜，注定无人入眠 |
-| 漠视收尾：那是他们的故事了，与我再无瓜葛 | 和剧情无关、只为点题的对仗金句 |
-| 心死定格：那一刻，我的心彻底死了 | 升华式空感叹：从此她的人生翻开了崭新一页 |
+| Judgment/irony line: late love is cheaper than grass. / We'll settle our account, one page at a time. | Hollow philosophical elevation: that's just life / she finally understood |
+| Payoff preview: he regretted it like a madman, and I was already gone. | Summary reflection: that night, no one would sleep |
+| Indifference close: that's their story now. It isn't mine. | Detached theme-serving antithesis lines |
+| Heart-dead freeze: that was the moment I stopped. Truly stopped. | Elevated empty sighs: from that day on, her life opened a new page |
 
-区分：句子里有没有指向「这一件具体的事 / 这个人」？有就是审判 / 预告，留；只剩谁都能套的人生道理，删。
-
----
-
-## 五、三连排比：有内容留，凑数砍
-
-短篇堆苦难常用三连（「在暴雨夜、在手术室门口、在我父亲的葬礼上」）。
-
-- 留：每一条都带新信息、堆出苦难分量。
-- 删：三句说的是同一件事，只为凑「三个一组」显完整。
-
-判据：删掉其中一条，信息会不会少？会就留，不会就砍到最狠那条。
+Distinction: does the sentence point at **this specific thing / this specific person**? Yes = judgment/preview, keep. Only a universal life-lesson anyone could wear = delete.
 
 ---
 
-## 六、真·AI 腔黑名单（短篇也照删）
+## 5. Triple-parallel: content stays, filler gets cut
 
-这些和情绪烈度无关，是纯粹的 AI 套话，短篇也删：
+Short-form suffering-piling uses triples ("at the wedding, at the hospital door, at her father's funeral").
 
-| 类别 | 词 / 句 | 处理 |
+- Keep: every item carries new information and piles the suffering's weight.
+- Cut: three items saying the same thing, assembled to look complete in threes.
+
+Test: if you delete one item, is information lost? Lost → keep. Nothing lost → cut to the hardest one.
+
+---
+
+## 6. The real AI-flavor blacklist (shorts delete these too)
+
+These have nothing to do with emotional intensity; they're pure AI formulas. Shorts delete them as well:
+
+| Category | Word / phrase | Treatment |
 |---|---|---|
-| 套话动作 | 映入眼帘 / 只见 / 此时此刻 | 删 |
-| 心理标签 | 心中暗道 / 不由自主 | 删，或用动作展示 |
-| 对话标签腔 | 沉声道 / 淡淡地说 / 嘴角微扬 / 目光如炬 | 换成具体动作或表情 |
-| 论文体 | 不难看出 / 由此可见 / 综上所述 / 事实上 | 删 |
-| 书面连词泛滥 | 于是乎 / 与此同时 / 诚然 / 从而 / 因而 | 口语化或删 |
-| 弱化副词扎堆 | 微微 / 淡淡 / 缓缓 / 轻轻（每千字超过 3 个） | 删到 3 个以内 |
-| 万能比喻 | 像潮水般 / 如闪电般 / 仿佛春风 | 删，或换生活化比喻 |
-| 空泛情绪总结 | 一丝 X 涌上心头 / 感到深深的 X / 一股 X 笼罩全身 | 删，或按第一节补一个具体反应 |
+| Template actions | came into view / he watched as / at this very moment | Delete |
+| Mental tags | she thought to herself / involuntarily | Delete, or show through action |
+| Dialogue tag flavor | he said in a low voice / she said flatly / a slight smile at the corner of his mouth / eyes like torches | Replace with a concrete action or expression |
+| Essay voice | needless to say / as we can see / in conclusion / in fact | Delete |
+| Written-connective flood | furthermore / moreover / consequently / additionally / thus / therefore | Colloquialize or delete |
+| Weak-adverb piles | slightly / faintly / gently / softly (over 3 per 1000 words) | Cut to ≤ 3 |
+| Universal similes | like a tide / like a bolt of lightning / as gentle as spring breeze | Delete, or swap for an everyday simile |
+| Hollow emotion summaries | a sliver of X surfaced / a deep X settled over her / a wave of X enveloped her | Delete, or land one concrete reaction per section 1 |
 
-> 注意：删的是没有具体反应的套话。情绪词本身（心如死灰）不在黑名单里——后面接了具体反应就是卖点，别误删。
-
----
-
-## 七、标点
-
-正文统一**不出现** `……` / `——` / `—` / `--`（去 AI 脚本与 hook 强制）。停顿、哽咽、没说完、留白，一律用短句、句号、逗号、动作、换行。题材包范例里若出现 `……`，只是示意，落到正文按本条改写。
+> Note: what gets deleted is formula language with no concrete reaction. Emotion words themselves (heart like dead weight) are not on the blacklist — with a concrete reaction after them they're selling points; don't delete them by mistake.
 
 ---
 
-## 短篇去 AI 自检清单（写完每节逐项扫）
+## 7. Punctuation
 
-- [ ] **每个情绪词后面都接了具体反应**（身体反应 / 动作物件 / 处境判断），没有就是空话，补一个或删
-- [ ] **没有空泛情绪总结句**（一丝 X 涌上心头 / 感到深深的 X / 仿佛世界失去颜色）
-- [ ] **一个情绪只写一次**，没有写完再补一句解释它多疼
-- [ ] **在场叙述保留**：第一人称审判句 / 剧透 / 火葬场预告在，没误删
-- [ ] **没有中立的作者讲解**（和角色情绪无关、纯交代的句子）
-- [ ] **章尾有钩或有判**：审判金句 / 火葬场预告 / 心死余韵在；没有空洞哲理升华
-- [ ] **章尾没为工整收口**：没凑对仗 / 排比 / 押韵 / 抖机灵的总结
-- [ ] **每篇写法不雷同**：招式、开头、结尾和上一篇不一样
-- [ ] **三连排比有内容**：每条带新信息；凑数的砍掉
-- [ ] **AI 套话清零**：无映入眼帘 / 心中暗道 / 沉声道 / 淡淡地说 / 嘴角微扬 / 不由自主 / 目光如炬
-- [ ] **无论文体 / 书面连词泛滥**：无不难看出 / 由此可见 / 综上所述 / 于是乎 / 与此同时 / 诚然
-- [ ] **弱化副词 ≤ 3/千字**：微微 / 淡淡 / 缓缓 / 轻轻
-- [ ] **正文无禁用标点**：无 `……` / `——` / `—` / `--`
-- [ ] **对话口语化**：无书面腔，不同角色语气可区分
+The body never contains `...` / `——` / `—` / `--` (de-AI scripts and hooks enforce it). Pauses, sobs, unfinished speech, white space: short sentences, periods, commas, action beats, line breaks. If a genre pack's example keeps `...`, it's illustrative; re-write per this rule in the body.
+
+---
+
+## Short-form de-AI self-check (scan every section after writing)
+
+- [ ] **Every emotion word lands on a concrete reaction** (body reaction / action-object / situation judgment); none floats alone — add one or delete
+- [ ] **No hollow emotion summaries** ("a sliver of X surfaced" / "a deep X settled over her" / "as if the world had lost its color")
+- [ ] **Each emotion written once**, no follow-up sentence explaining how much it hurt
+- [ ] **Present narration kept**: first-person verdicts / foreshadowing / payoff previews present, not mistakenly deleted
+- [ ] **No neutral author explanation** (sentences unrelated to character emotion, pure delivery)
+- [ ] **Chapter ends carry a hook or a verdict**: judgment lines / payoff previews / heart-dead residue present; no hollow philosophical elevation
+- [ ] **Chapter ends not squared off**: no antithesis / triple-parallel / rhyme / witty summary chasing
+- [ ] **Each story's moves differ**: moves, openings, endings not identical to the last story
+- [ ] **Triple-parallel has content**: each item carries new information; fillers cut
+- [ ] **AI formulas zeroed**: no came into view / she thought to herself / he said in a low voice / she said flatly / involuntarily / eyes like torches
+- [ ] **No essay voice / written-connective flood**: no needless to say / as we can see / in conclusion / furthermore / moreover / consequently
+- [ ] **Weak adverbs ≤ 3 per 1000 words**: slightly / faintly / gently / softly / slowly
+- [ ] **No banned punctuation in the body**: no `...` / `——` / `—` / `--`
+- [ ] **Dialogue colloquial**: no written register; different characters distinguishable

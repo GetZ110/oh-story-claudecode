@@ -11,6 +11,17 @@ CLI_HOME="$TMP_ROOT/home"
 
 fail() { echo "FAIL: $*" >&2; exit 1; }
 
+# Locate a working Python interpreter: python3 may be a Windows Store stub that
+# exits without running anything, so probe python3 -> python -> py.
+PYBIN=""
+for cand in python3 python py; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" -c 'import sys' >/dev/null 2>&1; then
+    PYBIN="$cand"
+    break
+  fi
+done
+[ -n "$PYBIN" ] || fail "no usable Python interpreter (tried python3, python, py)"
+
 if ! command -v opencode >/dev/null 2>&1; then
   fail "opencode CLI not found on PATH. Install with: npm install -g opencode-ai"
 fi
@@ -35,7 +46,7 @@ cd "$REPO_ROOT"
 
 echo "  Checking repo-local skill discovery"
 run_opencode debug skill >"$TMP_ROOT/repo-skills.json"
-python3 - "$TMP_ROOT/repo-skills.json" "$REPO_ROOT" <<'PY'
+"$PYBIN" - "$TMP_ROOT/repo-skills.json" "$REPO_ROOT" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -99,7 +110,7 @@ echo "  Checking deployed project config/agents/commands/plugin"
   run_opencode debug config >"$TMP_ROOT/project-config.json"
 )
 
-python3 - "$TMP_ROOT/project-config.json" <<'PY'
+"$PYBIN" - "$TMP_ROOT/project-config.json" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -150,7 +161,7 @@ if agent_name not in (None, "story-explorer"):
     raise SystemExit(f"resolved story-explorer returned wrong name/id: {agent_name!r}")
 if agent.get("mode") != "subagent":
     raise SystemExit(f"story-explorer mode should be subagent, got {agent.get('mode')!r}")
-if "小说" not in json.dumps(agent, ensure_ascii=False) and "story" not in json.dumps(agent).lower():
+if "story" not in json.dumps(agent).lower():
     raise SystemExit("story-explorer prompt/description did not load story content")
 
 print(f"    OK {len(expected_commands)} commands, {len(expected_agents)} agents, story-hooks plugin")

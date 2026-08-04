@@ -1,98 +1,98 @@
-# 状态追踪协议
+# State Tracking Protocol
 
-> 本文件定义"本节速记"的提取逻辑和"角色状态快照"的格式。写作 skill 在写前准备的状态筛选步骤中加载此文件。
-
----
-
-## 本节速记
-
-写作每一章/每一节前，从所有已加载的上下文中筛选出只与本节相关的信息。目的是避免全量加载导致 LLM 上下文被无关信息稀释。
-
-### 筛选逻辑
-
-从上下文中提取三类信息：
-
-1. **当前状态**：本章涉及角色的最新能力、关系变化、公众形象
-2. **历史因果**：与本章事件直接相关的伏笔成因、前史事件
-3. **世界约束**：本章涉及的世界观规则（力量体系、社会规则、地理限制）
-
-### 筛选标准
-
-**只保留"如果不知道这个，本章会写错"的信息。**
-
-具体判断方法：
-- 本章细纲中提到了某个角色 → 保留该角色的当前状态
-- 本章有伏笔回收 → 保留伏笔的埋设细节和前文铺垫
-- 本章涉及特定地点/能力/规则 → 保留相关世界观约束
-- 纯背景知识（与本章事件无因果关联） → 丢弃
-
-### 输出格式
-
-筛选后输出一个简洁的"本节速记"：
-
-```
-## 本节速记（第{N}章）
-
-### 角色状态
-{角色A}：{一句话当前状态，含最近变化}
-{角色B}：{一句话当前状态}
-
-### 相关伏笔/前史
-{伏笔1}：{埋设细节，{埋设章节}}，本章需要{回收/推进}
-
-### 世界约束
-{约束1}：{与本章相关的规则/设定}
-```
-
-**示例（都市文娱第 12 章）：**
-```
-## 本节速记（第12章）
-
-### 角色状态
-邵阳：穿越者，前世二线歌星，刚在宋佳伦演唱会一曲惊人，目前"临时女友"薛嘉嘉在身边
-薛嘉嘉：女主，金牌制作人隐藏身份，表面是邵阳临时女友，实际已对他产生好感
-宋丽：前女友，看到邵阳爆红后心态复杂，与新欢郑松关系出现裂痕
-
-### 相关伏笔/前史
-薛嘉嘉隐藏身份：第3章邵阳帮她解围时暗示过，本章需要在公开场合暴露身份的前兆
-五万块彩礼：宋丽以练习生名义拿走的钱，第2章埋设，本章邵阳决定要回
-
-### 世界约束
-蓝星平行世界：无地球文娱作品，邵阳的前世记忆是降维打击
-```
+> This file defines the extraction logic for "section notes" and the "character state snapshot" format. The writing skill loads it during the state-filtering step of pre-write preparation.
 
 ---
 
-## 角色状态快照格式
+## Section Notes
 
-> ⚠️ **本节仅适用于长篇写作。** 短篇通常不需要独立的角色状态追踪文件。
+Before writing each chapter/section, filter only the information relevant to this section from all loaded context. The goal is to keep the LLM context from being diluted by irrelevant information via full loading.
 
-`追踪/角色状态.md` 用于追踪主要角色的状态变化。Phase 3 大纲完成后创建初始状态，Phase 4 每章写完后更新。
+### Filtering logic
 
-### 格式
+Extract three kinds of information from context:
+
+1. **Current state**: the latest abilities, relationship changes, and public image of this chapter's characters
+2. **Historical causation**: foreshadowing origins and prior events directly related to this chapter's events
+3. **World constraints**: worldview rules this chapter touches (power system, social rules, geographic limits)
+
+### Filtering criteria
+
+**Keep only "information you would get wrong this chapter if you didn't know it."**
+
+Concretely:
+- A character appears in this chapter's outline → keep that character's current state
+- This chapter collects foreshadowing → keep the foreshadowing's planting details and prior setup
+- This chapter involves a specific place/ability/rule → keep the relevant worldview constraints
+- Pure background knowledge (no causal link to this chapter's events) → discard
+
+### Output format
+
+After filtering, output a compact "section notes" block:
+
+```
+## Section Notes (Chapter {N})
+
+### Character states
+{CharacterA}: {one-sentence current state, including recent changes}
+{CharacterB}: {one-sentence current state}
+
+### Relevant foreshadowing / prior events
+{Foreshadowing 1}: {planting details, planted in chapter {N}}, this chapter needs to {collect/advance}
+
+### World constraints
+{Constraint 1}: {rule/setting relevant to this chapter}
+```
+
+**Example (urban entertainment novel, chapter 12):**
+```
+## Section Notes (Chapter 12)
+
+### Character states
+Shao Yang: transmigrator, ex-B-list singer in his past life, just stunned everyone with a song at Song Jialun's concert; his "temporary girlfriend" Xue Jiajia is at his side
+Xue Jiajia: the female lead, a top producer in hiding, publicly Shao Yang's temporary girlfriend, privately already warming to him
+Song Li: ex-girlfriend, conflicted after watching Shao Yang blow up, cracks appearing in her relationship with her new fling Zheng Song
+
+### Relevant foreshadowing / prior events
+Xue Jiajia's hidden identity: hinted in chapter 3 when Shao Yang helped her out of a jam; this chapter needs the precursor of her identity surfacing in public
+The fifty-thousand-dollar bride price: money Song Li took under the guise of a trainee fee, planted in chapter 2; this chapter Shao Yang decides to demand it back
+
+### World constraints
+Parallel-Earth Blue Star: no Earth entertainment works; Shao Yang's past-life memory is a one-sided information advantage
+```
+
+---
+
+## Character State Snapshot Format
+
+> ⚠️ **This section applies only to long-form writing.** Short-form usually does not need an independent character-state tracking file.
+
+`tracking/character-state.md` tracks state changes of major characters. Phase 3 creates the initial state after the outline is complete; Phase 4 updates it after each chapter.
+
+### Format
 
 ```markdown
-# 角色状态追踪
+# Character State Tracking
 
-> 用途：本节速记的数据源。写作每章前从此文件中筛选本章相关的角色状态。
-> 更新时机：Phase 3 大纲完成后创建初始状态；Phase 4 每章写完后更新变化。
+> Use: data source for section notes. Before writing each chapter, filter this chapter's relevant character states from this file.
+> Update timing: create the initial state after Phase 3 outline completion; update changes after each Phase 4 chapter.
 
-## {角色名}
-- **当前身份**：{最新身份/职业}
-- **当前能力**：{最新能力水平}
-- **关键关系**：
-  - 与{角色B}：{当前关系状态}（第{N}章变化）
-  - 与{角色C}：{当前关系状态}
-- **公众形象**：{外界如何看待该角色}
-- **待回收伏笔**：{与该角色相关的未回收伏笔}
-- **状态变更记录**：
-  - 第{N}章：{变化描述}
+## {Character name}
+- **Current identity**: {latest identity/occupation}
+- **Current abilities**: {latest ability level}
+- **Key relationships**:
+  - With {CharacterB}: {current relationship state} (changed in chapter {N})
+  - With {CharacterC}: {current relationship state}
+- **Public image**: {how the outside world sees this character}
+- **Pending foreshadowing**: {uncollected foreshadowing related to this character}
+- **State change log**:
+  - Chapter {N}: {change description}
 ```
 
-### 更新规则
+### Update rules
 
-1. 每章写完后，检查本章是否引起了任何角色的状态变化（身份、能力、关系、公众形象）
-2. 如果有变化：更新对应角色的字段，并在"状态变更记录"中追加一行
-3. 如果无变化：跳过
-4. 仅追踪主要角色（出场 ≥3 次或有独立剧情线的角色），不追踪路人角色
-5. 变更记录维护：每个角色保留最近 10 条详细变更记录。超过 10 条时，将最早的记录摘要写入对应字段（如「当前身份：第 1-20 章从学生到歌手」），删除已合并的旧记录行
+1. After each chapter, check whether the chapter changed any character's state (identity, ability, relationship, public image)
+2. If changed: update the corresponding fields and append a line to the "State change log"
+3. If unchanged: skip
+4. Track only major characters (appearing ≥3 times or carrying their own plot line); do not track passersby
+5. Log maintenance: keep the 10 most recent detailed log entries per character. Beyond 10, compress the oldest entries into the corresponding fields (e.g. "Current identity: chapters 1-20 went from student to singer"), deleting the merged old lines

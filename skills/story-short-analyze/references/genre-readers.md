@@ -1,245 +1,241 @@
-# 读者心理与题材适配
+# Reader Psychology and Genre Fit
 
-> **用途**：读者心理需求、题材生命力规律、跨网站适配、平台差异、书名/简介技法、代入感管理。选题和定位时对照使用。
-> **语气**：指令式——每个规律都要转化为选题、定位、书名、文案或开篇的可执行约束。
-> **配合**：题材结构骨架见 genre-writing-formulas.md，核心梗设计见 genre-core-mechanics.md。
+> **Use**: reader psychological needs, genre life-cycle rules, cross-site adaptation, platform differences, title/blurb techniques, immersion management. Consult when selecting topics and positioning.
+> **Tone**: imperative — every pattern must convert into an executable constraint on topic selection, positioning, titles, copy, or openings.
+> **Pairing**: genre structural skeletons in genre-writing-formulas.md; core-hook design in genre-core-mechanics.md.
 
-## 用作拆文标尺时
+## When used as a teardown yardstick
 
-本文件原本是写作侧 playbook，写法是「怎么写」。`story-short-analyze` 在拆文时把它当
-**对照标尺**用 —— 拆文动作是把源文与本文件描述的标准模式做对比，找出该篇用了哪一种、
-做得有多到位，**不是**按本文件去写新作品。
+This file was originally a writing-side playbook — written as "how to write". `story-short-analyze` uses it as a **comparison yardstick** during teardown: the teardown action is comparing the source against the standard patterns described here, finding which one the piece uses and how well it executes — it is **not** a guide for writing new works.
 
-读者视角的判断：本文件描述的是 番茄小说短篇 / 故事会 / 追妻 / 世情 / 重生 / 虐渣
-等通俗短篇圈的工业标准模板，是拆文报告里「可复用结构 / 反转设计 / 题材公式」等段的
-对照来源。
+Reader-perspective note: this file describes the industrial-standard templates of the English popular short-fiction scene; it is the comparison source for the "reusable structures / reversal design / genre formulas" sections of the teardown report.
 
 ---
 
-## 决策路由：按决策类型选章节
+## Decision routing: pick the chapter by decision type
 
-> 做选题和定位决策时，先确认你在做什么决定，然后翻到对应章节。
+> When making topic and positioning decisions, first confirm what decision you're making, then flip to the matching chapter.
 
-| 你要做的决定 | 先看哪个章节 | 核心问题 |
-|-------------|-------------|---------|
-| 选题材/判断题材潜力 | 题材生命力规律 | 这个题材还有没有红利？ |
-| 确认目标读者想要什么 | 读者心理需求与题材匹配 | 读者深层缺什么？我的题材给不给得了？ |
-| 选平台/调整写法 | 跨网站题材适配 | 同一题材在目标平台怎么改写法？ |
-| 判断题材边界/能不能混搭 | 题材边界感 | 当前素材、知识储备和篇幅能否支撑这个题材？ |
-| 取书名 | 书名命名技法 | 书名能不能在3秒内抓住目标读者？ |
-| 写简介/文案 | 简介/文案分类体系 | 简介有没有给出安全感+钩子？ |
-| 检查代入感 | 代入感与塑料感 | 读者能不能把自己投射进主角？ |
-
----
-
-## 读者心理需求与题材匹配
-
-### 从爆款反推读者心理
-
-- 从爆款提炼核心剧情元素→框定读者画像→推测心理需求→双管验证
-- 爆款情绪一以贯之(斗破="莫欺少年穷"从头到尾)；非爆款散乱多头并行
-- 小情绪(升级/复仇/寻宝)应统一到主情绪之下
-- 验证法：提炼出的情绪需求对照目标读者真实生活状态
-- 特别关注"别人觉得剧毒但核心读者痴迷"的元素
-
-### 题材→读者画像→深层需求
-
-| 题材 | 读者画像 | 三层心理需求 |
-|------|----------|-------------|
-| 末日重生 | 对阶级跃升绝望的人 | 颠倒秩序(权力渴望)+不安全感(生存焦虑)+捡漏(最小努力最大回报) |
-| 战神赘婿 | 中年男人，经济压力大 | 无能的痛苦→不被体谅的愤怒→羞耻的自卑→需要借口合理化隐忍→反转暴爽 |
-| 网文通用 | — | 深层需求落在被认可/被理解/被尊重，表面"打脸"只是外壳 |
-
-### 深层需求挖掘法
-
-- 潜入读者集体潜意识→爱什么恨什么渴望什么逃避什么
-- 不同题材读者画像不同→必须先定位读者再设计情绪
-- 写作前先问：目标读者现实生活中最缺什么？最想要什么？
-- 情绪需求深度决定作品天花板——越触及深层需求共鸣越强
-
-### 情绪根源
-
-情绪来自"不公平"和"为什么"。区别对待→读者理所当然觉得不公平→这就是情绪根源。
-都市情绪例：事业小有成就→爸要创业→妈要给弟弟买婚房→不公平感自然产生。
+| The decision you're making | Look at first | Core question |
+|-----------------------------|---------------|---------------|
+| Pick a genre / judge genre potential | genre life-cycle rules | does this genre still have a window? |
+| Confirm what target readers want | reader psychological needs and genre fit | what do readers deeply lack? can my genre deliver it? |
+| Pick a platform / adjust the writing | cross-site genre adaptation | how does the same genre change on the target platform? |
+| Judge genre boundaries / whether to mix | genre boundary sense | can the current material, knowledge, and length support this genre? |
+| Title the book | title techniques | can the title catch the target reader in 3 seconds? |
+| Write the blurb/copy | blurb/copy classification | does the blurb give safety + hook? |
+| Check immersion | immersion and plastic feel | can the reader project into the protagonist? |
 
 ---
 
-## 题材生命力规律
+## Reader psychological needs and genre fit
 
-- 题材生命力按“样本验证”判断，不把历史经验当作当前事实。
-- 先用当前 scan/analyze 或用户指定样本确认目标平台仍有读者反馈。
-- 判断题材所处阶段：新鲜期 / 成熟期 / 审美疲劳期。
-- 新鲜期优先提炼创意方向；成熟期优先稳定交付边界期待；疲劳期必须给出新切入点。
-- 跟风只能复用结构功能位，不能复刻剧情内容。
-- 无法确认阶段时，按成熟期处理：保守满足边界期待，微创新不超过 3 个。
+### Reverse-engineering reader psychology from hits
 
-### 时代变革三阶段
+- Distill core plot elements from hits → bracket the reader profile → infer psychological needs → verify on both ends
+- Hit emotions are consistent from start to finish; non-hits scatter across multiple threads
+- Small emotions (upgrade / revenge / treasure-hunting) should unify under the main emotion
+- Validation method: check the distilled emotional needs against target readers' real life
+- Pay special attention to "elements everyone calls poison but the core readers are obsessed with"
 
-| 时代 | 特征 |
-|------|------|
-| 自由时代 | 无固定风格，灵感来自传统文学/漫画 |
-| 游戏化时代 | 等级+关卡+BOSS+副本+装备，引导消费 |
-| 生活化倾向 | 重故事轻升级，有生活细节，贴近时代，反游戏化；是否适用需以当前平台样本验证 |
+### Genre → reader profile → deep needs
 
----
+| Genre | Reader profile | Three-layer psychological needs |
+|-------|----------------|--------------------------------|
+| Apocalypse second chance | people despairing of class mobility | overturning the order (power craving) + insecurity (survival anxiety) + windfalls (max return, min effort) |
+| Returned prodigy / underestimated genius | people under economic pressure | the pain of inadequacy → the anger of being unheard → the shame of humiliation → the need for a rationalization → the reversal-gratification explosion |
+| Web fiction in general | — | deep needs land on being recognized/understood/respected; surface "comeuppance" is just the shell |
 
-## 跨网站题材适配
+### Deep-need mining
 
-同一个题材在不同网站写法完全不同，由目标读者群体决定。不能用A网站的样本直接套到B网站；必须用目标平台样本校准读者期待、节奏和雷点。
+- Dive into the readers' collective subconscious — what they love, hate, crave, and flee from
+- Different genres have different reader profiles — locate the reader first, then design the emotion
+- Before writing, ask: what does the target reader lack most in real life? What do they want most?
+- Emotional-need depth decides the work's ceiling — the deeper the need touched, the stronger the resonance
 
-### 平台核心差异
+### The root of emotion
 
-| 平台 | 核心驱动力 | 不适配题材 |
-|------|-----------|-----------|
-| 刺猬猫 | 整活与人设，动漫同人/二游基础 | 全民流、高武流基本行不通 |
-| 起点(非轻小说) | 正常剧情推进的节奏与代入感 | 纯整活难以长期维持 |
-| 起点轻小说 | 整活+人设+节奏并重 | 需持续整活能力 |
-| 番茄 | 强情绪、噱头、爽感直给 | 需慢热铺垫的题材 |
-
-### 读者群体差异
-
-| 平台 | 读者特征 |
-|------|----------|
-| 起点 | 筛选成本高，读者更耐心，慢节奏也能接受 |
-| 新媒体(30岁+) | 偏爱接近真实的故事，被打击的生活才是常态 |
-
-**关键**：同一套写法不同平台效果截然不同，必须针对平台调整。
-
-### 刺猬猫要点
-
-同人优先验证目标圈层样本 | 脑洞要加成在次元文化里 | 逻辑以圈层接受度为准 | 少写打斗多写日常 | 对"梗"要求很高，需用最新榜单/评论校准
-
-### 番茄书测改名策略
-
-书名 A/B 方案：金手指相关 / 第一个单元剧情相关 / 主线相关 / 与原书名相近的保守款 / 稍微夸张吸量的款。用目标平台规则和用户要求筛选。
+Emotion comes from "unfair" and "why". Differential treatment → the reader naturally feels it's unfair → that's the root of emotion.
+Urban example: career going fine → dad wants to start a business → mom wants a wedding house for the brother → the unfairness arises naturally.
 
 ---
 
-## 题材边界感
+## Genre life-cycle rules
 
-### 有边界感 vs 无边界感
+- Judge a genre's life by "sample validation", not historical experience
+- First confirm the target platform still has reader feedback via the current scan/analyze run or user-specified samples
+- Judge the genre's stage: fresh / mature / fatigue
+- Fresh stage: prioritize extracting creative directions; mature stage: reliably deliver boundary expectations; fatigue stage: a new entry point is mandatory
+- Trend-chasing may only reuse structural functional slots, never replicate plot content
+- When the stage can't be confirmed, treat as mature: conservatively meet boundary expectations, micro-innovations ≤3
 
-| 类型 | 特点 | 适合人群 |
-|------|------|----------|
-| 有边界感 | 已有成熟受众、写法有迹可循 | 样本验证充分，适合稳定交付 |
-| 无边界感/创新 | 受众不确定、写法需探索 | 风险高，需降低篇幅和创新数量 |
+### The three eras of change
 
-### 玄幻三大核心
-
-- **代入感**：玄幻王朝比赛博朋克代入感强百倍；肉身成圣拳拳到肉比斗法对波好代入
-- **期待感**：期待感不崩贯穿全文，读者流失很慢
-- **认同感**：读者代入主角对主角认同=死忠粉极难流失。"小德可缺大义不能失"
-
-### 都市文暧昧四要素
-
-1. **女人**：没有女人的都市文不是都市文(男频)
-2. **轻松**：读者图轻松愉悦不写苦大仇深
-3. **互动**：角色间互动+读者与主角的"秘密"互动
-4. **私密**：隐藏主角能力，读者和主角之间的小秘密
-
-### 金手指设定原则
-
-必须与主角生活/职业息息相关。医生配医术秘籍=合理；医生配隐身=牵强。金手指跟主线有关，技能能升级，一个技能衍生不同效果，不要频繁开新金手指。
-
-### 历史文红线
-
-- 核心立场："基于民族主义的圣主平等"，前后立场摇摆=严重割裂
-- 历史网文≠历史，以读者为第一要素不是以真实为第一要素
-- 历史人物评判跟随当代权威共识，尤其是教员的评判，不要逾越
-- 爽感阈值管理：前期家族/势力升级过快→后续难以为继
+| Era | Traits |
+|-----|--------|
+| Free era | no fixed style; inspiration from traditional literature/comics |
+| Gamified era | levels + stages + bosses + instances + equipment, guiding consumption |
+| Life-oriented tendency | story over upgrade, life details, close to the times, anti-gamification; applicability must be validated with current platform samples |
 
 ---
 
-## 代入感与塑料感
+## Cross-site genre adaptation
 
-### 代入感
+The same genre writes completely differently on different sites, decided by the target reader base. Don't apply site A's samples to site B directly; calibrate reader expectations, rhythm, and landmines against the target platform's samples.
 
-代入感高度重叠于爽感。代入感低时主角做什么读者都不觉得爽。越代入越爽越爽越想看。
+### Platform core differences
 
-### 塑料感来源
+| Platform | Core driver | Ill-fitting genres |
+|----------|-------------|--------------------|
+| Tapas | spectacle and personas, comics/anime adjacency | national-scale and high-martial-arts flows basically fail |
+| Royal Road | normal plot progression, rhythm and immersion | pure spectacle can't sustain long-form |
+| Webnovel (webnovel.com) | strong emotion, gimmicks, direct gratification | genres needing slow-burn setup |
+| Wattpad | emotional connection, slow-burn, community | instant-gratification-first genres |
 
-仙侠不仙、武侠不侠、画风撕裂(仙侠世界搞科研)。去塑料感：让世界像真实存在的世界不是纸糊的。
+### Reader-base differences
 
-### 同人为什么开头高追读
+| Platform | Reader traits |
+|----------|---------------|
+| Royal Road | high screening cost, patient readers, slow rhythm acceptable |
+| Webnovel | fast-paced, hook-hungry, gratification-direct |
 
-世界观够硬，初始代入感够高。例外：搞笑文/梗文核心偏有趣，爽感居次，需旁观者视角，不需要强代入感。
+**Key**: the same craft performs completely differently across platforms; you must adjust for the platform.
 
-### 有效扫榜
+### Tapas specifics
 
-扫榜规则：1) 运行当前 scan/analyze 流程获取目标平台近期样本 2) 排除自带粉丝基础的头部作品 3) 分析可复用样本的开头结构共性。开头必须在300字内建立核心冲突，一万字定高下。
+Validate fandom-adjacent samples against the target niche first | ideas must be packaged in subculture terms | logic is judged by niche acceptance | less combat, more daily | high "meme" requirements, calibrate with the latest rankings/comments
 
-### 商业化认知
+### Title A/B strategy
 
-私人表达占比规则：非核心情绪的个人表达不超过全篇5%，且不得打断叙事节奏。商业化不是故意恶心读者。商业化原则：所有私人表达必须服务于核心卖点，不得独立于主线剧情存在。
-
----
-
-## 书名命名技法
-
-### 身份法(覆盖约1/3书名)
-
-| 类别 | 公式 | 示例 |
-|------|------|------|
-| 高逼格身份 | [仙帝/魔神/财阀]爹妈+[反差行为/目标] | "武神爹，财阀妈，我当躺赢狗怎么了？" |
-| 戏剧身份对照 | [低位]替[高位]做[超出预期的事] | "让你当书童，你替少爷科举中状元？" |
-| 身份擦边型 | 身份关系制造暧昧暗示 | 有风险但吸量极强 |
-
-### 其他方法
-
-| 方法 | 核心 | 适用平台 |
-|------|------|----------|
-| 掉马甲型 | 隐藏身份逐渐暴露 | 若目标平台近期同质样本过多则慎用 |
-| 逼格起名法 | 意境感强的词汇 | 起点 |
-| 反义词法 | 正反反差制造好奇 | 通用 |
-| 主线+爽点法 | 主线剧情核心+爽点暗示 | 起点 |
-
-### 平台起名差异
-
-| 平台 | 风格 | 关键原则 |
-|------|------|----------|
-| 番茄 | 噱头优先吸量第一 | 书名决定80%流量上限 |
-| 起点 | 轻度反差+金手指+主线+爽点 | 内容必须贴合书名 |
+A/B title options: cheat-related / first story-unit related / main-line related / conservative variant close to the original / slightly exaggerated click-grabber. Filter by target-platform rules and user requirements.
 
 ---
 
-## 简介/文案分类体系
+## Genre boundary sense
 
-### 五种基本类型
+### With vs without boundary sense
 
-| 类型 | 结构 | 效果 | 适用 |
-|------|------|------|------|
-| 四段式成功型 | 情境→冲突→行动→成功 | 安全感，明确会赢 | 最通用 |
-| 三段式行动型 | 情境→冲突→行动(截止) | 留悬念 | 事业线突出的文 |
-| 二段式悬疑型 | 情境→一个反转/悬念 | 制造好奇 | 悬疑/烧脑/冷门 |
-| 四段式失败型 | 情境→冲突→行动→失败 | 虐感和愤怒 | 追妻火葬场 |
-| 三段式成功型 | 情境→转折→成功 | 简洁明快 | 甜文/轻松向 |
+| Type | Traits | Who it suits |
+|------|--------|--------------|
+| With boundary sense | mature audience, traceable craft | sample-validated; suits reliable delivery |
+| Without boundary sense / innovative | uncertain audience, craft to explore | high risk; reduce length and innovation count |
 
-### 组合策略
+### The three cores of fantasy
 
-- 成功型+悬疑型=安全感+好奇心
-- 行动型+成功型=先期待再满足
-- 失败型+悬疑型=虐后留悬念
+- **Immersion**: fantasy dynasties immerse a hundred times better than cyberpunk; flesh-and-blood fights immerse better than beam battles
+- **Anticipation**: anticipation not breaking across the whole book = readers bleed away slowly
+- **Recognition**: readers projecting into the protagonist and identifying with them = die-hard fans who almost never leave. "The side character may lack righteousness, but the hero must not."
 
-### 文案要点
+### The four elements of urban fiction
 
-- 必须体现女主主体性——主体性差会提高吸引力和留存风险
-- 读者需要安全感——至少暗示主角会成功
-- 文案和书名货不对板会劝退
-- 悬疑型不宜叠过多——太"谜语人"理解不了且安全感不足
+1. **Women**: no women, no urban fiction (male line)
+2. **Relaxation**: readers come for easy pleasure, not grim endurance
+3. **Interaction**: character-to-character interaction + reader-protagonist "secret" interaction
+4. **Privacy**: hide the protagonist's ability — a small secret between reader and protagonist
+
+### Cheat-setting principles
+
+The cheat must be tied to the protagonist's life/profession. A doctor with a medical manual = sensible; a doctor with invisibility = strained. The cheat relates to the main line, skills can upgrade, one skill derives different effects — don't keep opening new cheats.
+
+### Historical-fiction red lines
+
+- Core stance must be consistent; vacillating reads as a severe split
+- Historical web fiction ≠ history; the reader comes first, not accuracy
+- Real historical figures are judged by contemporary consensus; don't exceed it
+- Payoff-threshold management: if family/faction upgrades too fast early, the late game can't sustain
 
 ---
 
-## 质量检查清单
+## Immersion and plastic feel
 
-> 选题定位完成后逐项核对。全部通过才算合格。
+### Immersion
 
-- [ ] **读者画像明确**：能用一句话说出目标读者是谁、现实生活中最缺什么
-- [ ] **深层需求对位**：题材提供的核心情绪与读者深层需求匹配，不是自嗨
-- [ ] **题材生命力判断**：已用当前样本确认题材阶段，不把历史热度当作当前事实
-- [ ] **平台适配**：写法已针对目标平台调整，不是用A平台的经验硬套B平台
-- [ ] **边界感确认**：当前素材、知识储备和篇幅能支撑所选题材
-- [ ] **书名3秒抓人**：书名在目标平台的命名规则内，3秒内能传递核心卖点或钩子
-- [ ] **简介有安全感+钩子**：简介类型选择正确，给了安全感同时留了悬念
-- [ ] **代入感无塑料感**：世界观自洽，画风统一，没有"仙侠搞科研"式撕裂
-- [ ] **书名简介内容三位一体**：书名暗示的卖点=简介承诺的内容=正文实际交付的东西
-- [ ] **金手指与生活关联**：金手指设定与主角职业/生活紧密相关，不是硬贴的
+Immersion heavily overlaps gratification. When immersion is low, nothing the protagonist does feels gratifying. More immersion = more gratification = more wanting to read.
+
+### Sources of plastic feel
+
+Fantasy that isn't fantastical, martial arts without chivalry, torn art styles (a cultivation world doing lab science). De-plasticize: make the world feel like a world that exists, not a paper cutout.
+
+### Why fan-fiction-adjacent openings have high follow-through
+
+The worldview is solid, the initial immersion is high. Exception: comedy/meme fiction's core is the funny, gratification secondary — needs a bystander view, not strong immersion.
+
+### Effective scan
+
+Scan rules: 1) run the current scan/analyze flow for recent target-platform samples 2) exclude head works with built-in fan bases 3) analyze the structural commonality of reusable samples' openings. The opening must build the core conflict within 300 words; ten thousand words decide the winner.
+
+### Commercialization awareness
+
+Private-expression share: non-core-emotion personal expression ≤5% of the piece, and it must not break the narrative rhythm. Commercialization isn't deliberately annoying the reader. Principle: all private expression must serve the core selling point; nothing exists independent of the main line.
+
+---
+
+## Title techniques
+
+### Identity method (covers about a third of titles)
+
+| Category | Formula | Example |
+|----------|---------|---------|
+| High-status identity | [god-emperor/tycoon/pop-star] parent + [contrarian behavior/goal] | "My parents are a war god and a CEO. So what if I coast?" |
+| Dramatic identity contrast | [low status] does [beyond-expectation thing] for [high status] | "You hired me as a servant. I passed the imperial exam in your son's place." |
+| Identity-adjacent | identity relations creating ambiguous hints | risky but extremely click-grabbing |
+
+### Other methods
+
+| Method | Core | Fitting platforms |
+|--------|------|-------------------|
+| Identity-reveal | a hidden identity gradually exposed | use with care when the target platform has too many same-type samples |
+| Aura naming | atmosphere-rich vocabulary | Royal Road |
+| Antonym method | positive/negative contrast creating curiosity | general |
+| Main-line + payoff | the main line's core + a payoff hint | Royal Road |
+
+### Platform title differences
+
+| Platform | Style | Key principle |
+|----------|-------|---------------|
+| Webnovel | hook-first, clicks first | the title decides 80% of the traffic ceiling |
+| Royal Road | light contrast + cheat + main line + payoff | the content must match the title |
+
+---
+
+## Blurb/copy classification
+
+### Five basic types
+
+| Type | Structure | Effect | Fits |
+|------|-----------|--------|------|
+| Four-part success | situation → conflict → action → success | safety; the win is clear | most general |
+| Three-part action | situation → conflict → action (ends) | suspense | career-line-heavy fiction |
+| Two-part suspense | situation → one reversal/suspense | curiosity | suspense/mind-bending/niche |
+| Four-part failure | situation → conflict → action → failure | misery and anger | regret-chasing |
+| Three-part success | situation → turn → success | crisp | sweet/light fiction |
+
+### Combination strategy
+
+- Success + suspense = safety + curiosity
+- Action + success = anticipation first, then satisfaction
+- Failure + suspense = misery with a hook left
+
+### Copy points
+
+- Must show the heroine's agency — weak agency raises attrition and retention risk
+- Readers need safety — at least imply the protagonist will win
+- Blurb/title mismatch drives readers away
+- Don't stack too much suspense — too "riddle-like" and unreadable, and safety drops
+
+---
+
+## Quality-check checklist
+
+> Check item by item after topic positioning is done. All pass = qualified.
+
+- [ ] **Reader profile clear**: can say in one sentence who the target reader is and what they lack most in real life
+- [ ] **Deep-need alignment**: the genre's core emotion matches the reader's deep need — not self-indulgence
+- [ ] **Genre life-cycle judged**: stage confirmed with current samples; historical heat isn't current fact
+- [ ] **Platform fit**: the writing adjusted for the target platform, not site A's experience applied to site B
+- [ ] **Boundary sense confirmed**: the current material, knowledge, and length support the chosen genre
+- [ ] **Title catches in 3 seconds**: the title sits inside the target platform's naming rules and conveys the core sell or hook in 3 seconds
+- [ ] **Blurb has safety + hook**: blurb type chosen correctly; gives safety and leaves suspense
+- [ ] **Immersion without plastic feel**: the worldview is self-consistent, the art style unified; no "cultivation world doing lab science" tears
+- [ ] **Title-blurb-content trinity**: what the title implies = what the blurb promises = what the body delivers
+- [ ] **Cheat tied to life**: the cheat relates to the protagonist's profession/life — not glued on

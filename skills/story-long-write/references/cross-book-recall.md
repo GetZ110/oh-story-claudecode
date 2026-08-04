@@ -1,62 +1,62 @@
 ---
 name: cross-book-recall
-description: 多对标跨书召回
+description: Multi-benchmark cross-book recall
 ---
 
-# 跨书召回
+# Cross-Book Recall
 
-## 触发
-项目根 `拆文库/` 或项目 `对标/` ≥2 本启用。主对标书取 `设定/题材定位.md`「主对标书」字段（在「对标登记」或导入生成的「对标书清单」段内，字段名一致），缺失则用字典序第一本（对 `对标/` 目录取字典序；无 `对标/` 则对 `拆文库/`）并在 `gaps.main_benchmark_unspecified: true` / 导入报告中提示用户补。
+## Trigger
+Enabled when the project root `teardown-lib/` or the project `benchmark/` has ≥2 books. The primary benchmark book comes from the `Primary benchmark book` field in `setting/genre-positioning.md` (inside the "Benchmark registry" or import-generated "Benchmark book list" section; field name identical); if missing, use the lexicographically first book (over `benchmark/`; over `teardown-lib/` if no `benchmark/`) and prompt the user to fill it via `gaps.main_benchmark_unspecified: true` / in the import report.
 
-> **数量规则**：主对标书最多 1 本，用于文风和最终正文输入；副对标 / 参考对标**不限制登记数量**。执行时按题材相关性、引用强度和阶段预算逐本召回；超过预算时裁剪条目，不删除书目。
+> **Quantity rules**: at most 1 primary benchmark book, used for style and final prose input; secondary / reference benchmarks have **no registration limit**. During execution, recall per book by genre relevance, citation strength, and stage budget; when over budget, trim items — never delete book registrations.
 
-## 三道防线
-1. 副对标 `文风.md` 不读，避免多本文风互相污染
-2. 角色/剧情/设定模块可从所有副对标召回，但必须按「同题材 > 弱相关 > 参考」排序，并受每本/总量预算约束
-3. narrative-writer 正文 prompt 只吃主对标文风/原文锚点 + 预算筛选后的 `副对标召回摘要`；不读取、不传入副对标 `文风.md` 或副书原文
+## Three defense lines
+1. Secondary benchmarks' `style.md` is never read, avoiding cross-book style pollution
+2. character/plot/setting modules may be recalled from all secondary benchmarks, but must be sorted by "same genre > weakly related > reference" and bounded by per-book/total budgets
+3. The narrative-writer prose prompt only receives the primary benchmark's style/source anchors + budget-filtered `secondary benchmark recall summary`; it never reads or receives secondary benchmarks' `style.md` or secondary source text
 
-## 跨题材判断
-从项目 `设定/题材定位.md`「对标书列表」字段读每本副对标的「题材类型」与「引用强度」（未登记的书按「参考」处理，并输出 `gaps.benchmark_registry_missing: true`）：
-- 同题材 + 引用强度=辅：全阶段可召回，按每本上限取条目
-- 同题材 + 引用强度=参考：只取最相关条目，默认不超过每本上限的一半
-- 弱相关：仅设定/大纲，每本 ≤1 条
-- 不相关：跳过
+## Cross-genre judgment
+Read each secondary benchmark's `Genre` and `Citation strength` from the `Benchmark book list` field in `setting/genre-positioning.md` (unregistered books count as "reference", and output `gaps.benchmark_registry_missing: true`):
+- Same genre + citation strength = secondary: recall at all stages, take items up to the per-book cap
+- Same genre + citation strength = reference: take only the most relevant items, default no more than half the per-book cap
+- Weakly related: setting/outline only, ≤1 item per book
+- Unrelated: skip
 
-排序规则：先按相关性（同题材 > 弱相关），再按引用强度（辅 > 参考），再按用户在 `对标书列表` 中的顺序；若缺少 `对标书列表` 或其中未登记某本书，则剩余副书按目录名/书名 Unicode 字典序稳定排序，并输出 `gaps.benchmark_registry_missing: true` 提示补全清单。副书数量不限；如果总条数超过阶段预算，裁条目不裁书目记录。
+Sorting: first by relevance (same genre > weakly related), then by citation strength (secondary > reference), then by the user's order in the `Benchmark book list`; if the `Benchmark book list` is missing or does not register a book, remaining secondary books sort stably by directory/book-name Unicode order, and output `gaps.benchmark_registry_missing: true` prompting completion of the list. No limit on secondary-book count; if total items exceed the stage budget, trim items, not book registrations.
 
-## 阶段消费
-表中数字为**每本副对标召回上限**；同时设置阶段总预算，防止副书很多时挤爆上下文。`—` 行表示该文体无此阶段，整行忽略。
+## Stage consumption
+Numbers below are **per-secondary-book recall caps**; a stage total budget is also set so many secondary books cannot blow up the context. Rows marked `—` mean that format has no such stage; ignore the whole row.
 
-| 阶段 | 长篇产出 | 短篇产出 | 同题材每本上限 | 弱相关每本上限 | 阶段总预算 |
+| Stage | Long-form output | Short-form output | Same-genre per-book cap | Weakly-related per-book cap | Stage total budget |
 |------|---------|---------|----------------|----------------|------------|
-| 设定 | `拆文报告.md` | `拆文报告.md` + `情节节点.md` | ≤2 | ≤1 | ≤8 |
-| 大纲 | `章节/*_摘要.md` + `剧情/*.md` | `情节节点.md` + `写作手法.md` | ≤3 | ≤1 | ≤10 |
-| 模块 | `角色/` + `剧情/` + `设定/` | — | ≤2 | 0 | ≤8 |
-| 正文 | `文风.md` + 原文 | `写作手法.md` + 原文 | 0 | 0 | 0 |
+| Setting | `teardown-report.md` | `teardown-report.md` + `plot-points.md` | ≤2 | ≤1 | ≤8 |
+| Outline | `chapters/*_summary.md` + `plot/*.md` | `plot-points.md` + `writing-techniques.md` | ≤3 | ≤1 | ≤10 |
+| Modules | `characters/` + `plot/` + `setting/` | — | ≤2 | 0 | ≤8 |
+| Prose | `style.md` + source | `writing-techniques.md` + source | 0 | 0 | 0 |
 
-> **大纲阶段按剧情单元检索**：检索键为剧情单元「类型」（第一键，必填枚举）/「桥段标签、套路框架位置」（第二键）；同题材内同类命中条目优先进入预算。仅限大纲阶段按剧情单元检索时生效，不改其余阶段排序与预算数字。同类零命中时回退主对标来源条并输出非阻塞 `gaps.similar_plot_not_found: true`，流程继续。
+> **Outline-stage retrieval is by story unit**: the retrieval keys are the story unit's `Type` (first key, required enum) / `Beat tag, pattern-framework position` (second key); within same-genre, hits of the same type enter the budget first. This only applies to outline-stage story-unit retrieval; it does not change the sorting and budgets of other stages. When same-type hits are zero, fall back to the primary benchmark's items and output a non-blocking `gaps.similar_plot_not_found: true`, then continue.
 
-## 输出要求
+## Output requirements
 
-跨书召回输出必须包含：
+Cross-book recall output must include:
 
 ```markdown
-## 副对标召回摘要
-| 书名 | 引用强度 | 相关性 | 召回阶段 | 召回条数 | 使用方式 |
+## Secondary Benchmark Recall Summary
+| Book | Citation strength | Relevance | Recall stage | Items recalled | Use |
 |---|---|---|---|---|---|
-| {书名} | 辅/参考 | 同题材/弱相关 | 设定/大纲/模块 | {n} | {用于补充某类结构，不进入文风/原文锚点} |
+| {book} | secondary/reference | same genre/weakly related | setting/outline/modules | {n} | {supplements a certain structure type; does not enter style/source anchors} |
 ```
 
-若副书很多，只输出被本阶段实际召回的条目；未召回的副书不代表被删除，只是本阶段预算未命中。正文阶段可传入本表作为结构/情绪/设定参考，但必须保留“副书不进文风、不进原文锚点”的边界。
+If many secondary books exist, only output the books actually recalled this stage; an unrecalled secondary book is not deleted, it simply missed this stage's budget. The prose stage may pass this table in as structure/emotion/setting reference, but must keep the "secondary books never enter style or source anchors" boundary.
 
-## 拆文字段 → 写作参考
-读 `_meta.json.structure_counts` 时，按此表回查当前 skill 已登记的对应写作 reference。短篇优先走 genre-styles 题材包与 short-craft，长篇优先走长篇同类理论文件；未在当前 skill `参考资料` 表登记的文件不要跨 skill 加载。
+## Teardown fields → writing references
+When reading `_meta.json.structure_counts`, look up the corresponding writing reference registered in the current skill via this table. Short-form prefers the genre-styles pack and short-craft; long-form prefers same-type long-form theory files; do not load files across skills that are not registered in the current skill's `Reference Index`.
 
-| 拆文字段 | 含义 | 写作参考 |
+| Teardown field | Meaning | Writing reference |
 |---------|------|---------|
-| `beats` | 结构段（开端/发展/高潮/结局） | 当前 skill 的题材结构文件；短篇优先 genre-styles 题材包 / `genre-writing-formulas.md` |
-| `hooks` | 钩子数 | `hooks-chapter.md` / `hooks-suspense.md`；短篇开头密度补 short-craft |
-| `setup_clues` | 反转铺垫线索 | `reversal-toolkit.md` |
-| `character_archetypes` | 反差人物 | 当前 skill 的人物/题材风格文件；短篇优先 genre-styles 题材包 / genre-writing-techniques |
-| `reusable_structures` | 可复用手法 | `genre-writing-formulas.md`；短篇可补 short-craft |
-| `reversal_type` | 反转类型（7 枚举） | `reversal-toolkit.md` 对应骨架 |
+| `beats` | structure segments (opening/development/climax/ending) | the current skill's genre structure files; short-form prefers genre-styles pack / `genre-writing-formulas.md` |
+| `hooks` | hook count | `hooks-chapter.md` / `hooks-suspense.md`; short-form opening density supplements short-craft |
+| `setup_clues` | reversal setup clues | `reversal-toolkit.md` |
+| `character_archetypes` | contrast characters | the current skill's character/genre style files; short-form prefers genre-styles pack / genre-writing-techniques |
+| `reusable_structures` | reusable techniques | `genre-writing-formulas.md`; short-form may add short-craft |
+| `reversal_type` | reversal type (7-enum) | corresponding skeleton in `reversal-toolkit.md` |

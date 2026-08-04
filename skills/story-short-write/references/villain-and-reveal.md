@@ -1,158 +1,158 @@
-# 反派系统 + 真相揭露机制
+# Antagonist System + Truth-Reveal Mechanics
 
-> 反派设计模板、真相揭露方式、报应设计。Phase 2 设计反派时加载。
-
----
-
-**本文件职责**（其他内容去哪看）：
-- 各题材的反派套路（世情打脸反派、重生复仇反派等）已在 genre-writing-formulas.md，本文件只提供通用设计模板
-- 本文件的反派人设模板 `{身份}+{动机}+{作恶方式}+{致命弱点}` 侧重「设计蓝图」，genre-writing-formulas.md 的 `{人设}+{动机}+{行为}+{态度}+{受伤害程度}` 侧重「矛盾冲突公式」——前者用于 Phase 2 设计，后者用于 Phase 3 写作
+> Antagonist design templates, truth-reveal methods, comeuppance design. Load in Phase 2 when designing the antagonist.
 
 ---
 
-## 1. 反派设计模板
-
-### 人设模板
-
-填写以下模板，写入设定.md：
-
-```
-反派：
-- 身份：{与主角的关系}
-- 动机：{自洽的作恶逻辑：贪婪/嫉妒/控制欲/报复/自保}
-- 作恶方式：{具体手段：言语打压/经济控制/社交孤立/人身伤害/法律构陷}
-- 致命弱点：{可被主角利用的弱点：贪婪/傲慢/秘密/依赖/恐惧}
-- 报应：{与恶行对应的结局}
-```
-
-### 嚣张度递增阶梯
-
-反派行为必须逐级递增，不跳跃也不重复：
-
-| 级别 | 行为类型 | 示例 |
-|------|----------|------|
-| 小恶（前 1/3） | 言语打压、冷暴力 | 「你嫁进来就算烧高香了」 |
-| 中恶（中段） | 经济/社交伤害 | 偷拿存折、在外败坏名声、挑拨关系 |
-| 大恶（后段） | 人身/法律伤害 | 下药、构陷、逼死、拐卖 |
-
-### 5 种反派类型速查
-
-| 类型 | 特征 | 代表作 | 致命弱点 |
-|------|------|--------|----------|
-| 操控型 | 以爱为名控制一切 | 王氏（皇弟） | 控制欲导致行事留下证据 |
-| 贪婪型 | 无底线索取 | 准儿媳 | 贪心过度暴露真面目 |
-| 伪装型 | 隐藏真实身份/目的 | 诈骗犯（重生弟弟） | 身份经不起调查 |
-| 嚣张型 | 仗势欺人，有恃无恐 | 萧琅（皇弟） | 傲慢导致不看身后 |
-| 软刀型 | 示弱博同情，暗中操控 | 妈妈（姐夫捎路） | 假面被证据击碎 |
+**This file's scope** (where the rest lives):
+- Genre-specific antagonist patterns (family-drama villains, revenge-novel villains, etc.) live in `genre-writing-formulas.md`; this file provides only the general design template.
+- This file's antagonist template `{identity} + {motive} + {method} + {fatal flaw}` is the "design blueprint"; `genre-writing-formulas.md`'s `{character} + {motive} + {behavior} + {attitude} + {harm level}` is the "conflict formula" — the former for Phase 2 design, the latter for Phase 3 writing.
 
 ---
 
-## 2. 真相揭露机制
+## 1. Antagonist design template
 
-### 4 种揭露方式
+### Character template
 
-#### 证物揭露
-
-物理证据一锤定音。
-
-操作：在铺垫段埋入「看似无关紧要的物件/文件」，揭露时翻转其意义。
+Fill in and write to setting.md:
 
 ```
-铺垫：妈妈脖子上总戴着一把金锁，说是姐姐送的
-揭露：打开金锁，里面刻着「金包铜」三个字
-暴击：她从来没打开过这把锁
+Antagonist:
+- Identity: {relationship to the protagonist}
+- Motive: {self-consistent logic of the cruelty: greed / jealousy / control / revenge / self-preservation}
+- Method: {concrete means: verbal pressure / financial control / social isolation / physical harm / legal framing}
+- Fatal flaw: {the weakness the protagonist can exploit: greed / arrogance / a secret / dependence / fear}
+- Comeuppance: {an ending that matches the cruelty}
 ```
 
-#### 证人揭露
+### Arrogance escalation ladder
 
-第三方视角打破谎言。
+Antagonist behavior must escalate level by level — no jumps, no repeats:
 
-操作：安排一个边缘角色（仆人/邻居/同事），在关键时刻说出主角不知道的信息。
+| Level | Behavior type | Example |
+|-------|---------------|---------|
+| Small cruelty (first third) | Verbal pressure, cold treatment | "You should be grateful he married you at all." |
+| Medium cruelty (middle) | Financial/social harm | The stolen passbook, the ruined reputation, the poisoned relationships |
+| Big cruelty (back third) | Physical/legal harm | The framed crime, the forced confinement, the sabotage |
 
-```
-铺垫：周嬷嬷总是欲言又止
-揭露：周嬷嬷临终前交给主角一封信——先皇后的供状
-暴击：王氏知道这封信的存在，所以一直在找周嬷嬷
-```
+### 5 antagonist types quick reference
 
-#### 偷听/撞见
-
-主角获取隐藏信息。
-
-操作：设计一个「主角不该在场的场景」，让主角无意中看到/听到真相。
-
-```
-铺垫：妈妈每次接电话都走到阳台上
-揭露：主角路过阳台，听到妈妈说「那个金锁是假的，她到现在都不知道」
-暴击：电话那头是姐夫
-```
-
-#### 延迟剥洋葱
-
-一层真相引出更深真相。
-
-操作：每层用一个节揭露，每层都比上一层更残酷。
-
-```
-第1层：弟弟的女友不是她说的那个人
-第2层：女友是诈骗犯，有犯罪记录
-第3层：怀孕是假的
-第4层：弟弟已经被骗到电诈园区
-```
-
-### 按题材选择揭露节奏
-
-| 题材 | 推荐方式 | 节奏 |
-|------|----------|------|
-| 世情/爽文 | 证物揭露 或 证人揭露 | 一次大揭露，干净利落 |
-| 情感/虐心 | 偷听/撞见 + 延迟剥洋葱 | 分层揭露，层层更痛 |
-| 古言/复仇 | 证人揭露 + 证物揭露 | 先证人铺垫再证物一锤 |
-| 悬疑/推理 | 延迟剥洋葱 | 全程分层，最后一块拼图 |
-| 年代/亲情 | 偷听/撞见 | 意外发现，情绪冲击最大 |
+| Type | Trait | Fatal flaw |
+|------|-------|------------|
+| The controller | Controls everything in the name of love | Control leaves evidence |
+| The greedy | Bottomless extraction | Overreaching exposes the real face |
+| The disguised | Hides the real identity/purpose | The identity can't survive investigation |
+| The arrogant | Bullies with impunity | Arrogance never checks behind itself |
+| The soft-blade | Plays weak for sympathy, manipulates underneath | The mask shatters under evidence |
 
 ---
 
-## 3. 反派报应设计
+## 2. Truth-reveal mechanics
 
-### 规则
+### The 4 reveal methods
 
-报应必须与恶行形成对应。恶行有多重，报应就有多重。
+#### Evidence reveal
 
-### 对应原则
+A physical piece of evidence lands the verdict.
 
-| 恶行 | 报应 | 对应逻辑 |
-|------|------|----------|
-| 逼死在冷宫 | 自己住进冷宫 | 因果轮回 |
-| 偷拿存折 | 账户被冻结，一分拿不到 | 偷失去的，连自己的也失去 |
-| 以爱为名操控 | 被所有人抛弃 | 假爱真控，最终无人可控 |
-| 诈骗钱财 | 被更狠的人骗进园区 | 骗子被更高级骗子收割 |
+Operation: plant an "insignificant" object/document in the setup beat; flip its meaning at the reveal.
 
-### 4 种报应模式
+```
+Setup: the mother always wore a gold lock on her neck, "a gift from my sister"
+Reveal: the lock opens — inside is engraved "gold over copper"
+Strike: she'd never once opened the lock herself
+```
 
-| 模式 | 适用场景 | 操作 |
-|------|----------|------|
-| 法律制裁 | 现代背景，恶行触犯法律 | 报警/起诉/判决，用简短几句交代 |
-| 社会性死亡 | 虚伪型/操控型反派 | 真相公开，所有人看清真面目 |
-| 因果轮回 | 古言/复仇题材 | 做过的事回到自己身上 |
-| 精神崩溃 | 虐心/意难平题材 | 反派得到一切却发现失去了唯一重要的东西 |
+#### Witness reveal
 
-### 报应强度校准
+A third-party view breaks the lie.
 
-- 报应强度 = 恶行强度 × 1.0-1.2（不过度也不轻描淡写）
-- 不写长段报应描写，2-3 句带过，留白给读者
-- 报应的「爽」来自对应感，不是来自描写长度
+Operation: an edge character (the neighbor, the colleague, the nurse) says what the protagonist doesn't know, at the critical moment.
+
+```
+Setup: the nurse always seemed to be holding something back
+Reveal: the nurse hands over a letter on her last shift — the statement that clears the protagonist
+Strike: the antagonist knew the letter existed and had been looking for the nurse
+```
+
+#### Overheard / caught
+
+The protagonist obtains hidden information.
+
+Operation: design a scene "the protagonist shouldn't be in"; let her see/hear the truth by accident.
+
+```
+Setup: the mother always takes her calls on the balcony
+Reveal: passing the balcony, the protagonist hears "the lock is fake, she still doesn't know"
+Strike: the voice on the other end is the antagonist's accomplice
+```
+
+#### Peeling the onion
+
+Each layer of truth leads to a deeper one.
+
+Operation: one layer per section; each layer crueler than the last.
+
+```
+Layer 1: the boyfriend's "friend" isn't who she claimed
+Layer 2: the friend is a con artist with a record
+Layer 3: the pregnancy was fake
+Layer 4: the boyfriend is already trapped in the scam network
+```
+
+### Reveal rhythm by genre
+
+| Genre | Recommended method | Rhythm |
+|-------|--------------------|--------|
+| Comeuppance / payoff genres | Evidence reveal or witness reveal | One big reveal, clean and fast |
+| Emotional / hurt genres | Overheard/caught + peeling the onion | Layered reveals, each more painful |
+| Revenge / historical | Witness + evidence | Witness setup first, evidence lands the verdict |
+| Mystery / suspense | Peeling the onion | Layered throughout; the last piece completes the puzzle |
+| Community / family | Overheard/caught | The accidental discovery has the biggest emotional impact |
 
 ---
 
-## 4. 反转有效性自检（Phase 2 使用）
+## 3. Comeuppance design
 
-写完 outline 后，用这个自检确认反转真的能反转读者：
+### Rules
 
-| 检查项 | 通过标准 | 不通过 = 需要 |
-|--------|---------|-------------|
-| 读者知道真相的时机 | >60% 合理；50-60% 灰区需审视反转力度；<50% 不算反转（三档口径详见 writing-workflow.md「反转信息差验证」） | 调整线索释放节奏，延后真相揭露 |
-| 是否有误导假线索 | ≥ 1 条读者会信的假线索 | 加入红鲱鱼或选择性叙述误导 |
-| 真相线索隐蔽度 | 回看能找到但正读时会忽略 | 线索藏在日常细节中，不用强调语气 |
-| 角色知道 vs 读者知道 | 反转前读者和角色至少有一方不知道真相 | 制造信息差：读者不知道 / 角色不知道 / 双方都不知道 |
+Comeuppance must mirror the cruelty. As heavy as the cruelty, as heavy the comeuppance.
 
-**失败模式**：「延迟揭露」不算反转。读者在第 2 节就知道真相，后面 10 节只等角色追上来 = 延迟揭露，读者会无聊。真正的反转发生在揭示那一刻，让读者和角色一起震惊。
+### Mirror principle
+
+| Cruelty | Comeuppance | Mirror logic |
+|---------|-------------|--------------|
+| Drove someone to despair in isolation | Ends up isolated himself | What goes around |
+| Stole the passbook | Account frozen; gets nothing, not even his own | The thief loses his own too |
+| Controlled in the name of love | Abandoned by everyone | Fake love, real control; ends with no one left to control |
+| Conned people's money | Gets conned by a sharper operator | The con artist harvested |
+
+### The 4 comeuppance modes
+
+| Mode | Fits | Operation |
+|------|------|-----------|
+| Legal consequence | Modern settings; the cruelty breaks the law | Report/prosecute/verdict; a few short sentences |
+| Social death | Disguised/controller types | The truth goes public; everyone sees the real face |
+| Mirror karma | Revenge/historical genres | What they did comes back on them |
+| Psychological collapse | Hurt/residue genres | They get everything they wanted and find they've lost the one thing that mattered |
+
+### Comeuppance intensity calibration
+
+- Intensity = cruelty × 1.0-1.2 (not overblown, not waved off)
+- No long comeuppance passages: 2-3 sentences and out; the white space is the reader's
+- The "satisfaction" of comeuppance comes from the mirror, not from the description's length
+
+---
+
+## 4. Reversal effectiveness self-check (Phase 2)
+
+After the outline is written, confirm the reversal actually flips the reader:
+
+| Check | Pass standard | Not passing = need |
+|-------|---------------|--------------------|
+| When the reader learns the truth | >60% reasonable; 50-60% grey zone, review the reversal's force; <50% isn't a reversal (three-tier standard in writing-workflow.md "reversal information-gap validation") | Adjust clue-release rhythm; delay the reveal |
+| Misleading fake clues | ≥ 1 fake clue the reader will believe | Add a red herring or selective narration |
+| Clue concealment | Findable on re-read, ignored on first read | Hide clues in daily details; no emphasis wording |
+| Character knowledge vs reader knowledge | Before the reversal, at least one side doesn't know the truth | Build the information gap: reader doesn't know / character doesn't know / neither knows |
+
+**Failure mode**: "delayed reveal" is not a reversal. If the reader knows the truth from section 2 and the next ten sections just wait for the character to catch up, that's a delayed reveal and the reader will be bored. A real reversal happens at the moment of reveal, shocking reader and character together.

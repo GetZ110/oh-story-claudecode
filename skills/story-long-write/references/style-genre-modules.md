@@ -1,510 +1,510 @@
-# 题材风格模块
+# Genre Style Modules
 
-> 各题材的核心原则、关键技法与写作要点。用于确定题材方向后查阅对应模块。
+> Core principles, key techniques, and writing points per genre. Consult the matching module after fixing the genre direction.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在做什么 | 查阅哪个模块 |
+| What you're doing | Which module |
 |-----------|-------------|
-| 写幽默/搞笑/沙雕 | 幽默 / 搞笑文 / 沙雕风 |
-| 写悬疑/推理/恐怖 | 悬疑 / 推理 / 恐怖 |
-| 写言情/救赎 | 言情 / 救赎文冲突设计法 |
-| 写玄幻/修仙/奇幻 | 奇幻/玄幻 + 升级流/爽文 |
-| 写现实/世情/新媒体 | 现实/世情 |
-| 写轻小说/二次元 | 轻小说/二次元风 |
-| 写赛博朋克 | 赛博朋克风 |
-| 写盘点/模拟/直播 | 盘点文/信息差文 / 模拟文 / 直播流 |
-| 选题材/定赛道 | 市场定位与选材策略 -> 吸量与赛道 -> 跟风与创新 |
-| 设计开篇 | 创作思路与开篇设计 -> 低位身份开篇的流畅写法 -> 开头五要诀 |
-| 判断题材边界 | 边界感与氛围感 -> 各网站风格差异 |
-| 按题材分类生成正文提示卡 | `genre-prose-cards.md` 索引 + `genre-prose-cards/{题材}.md` 单卡 |
-| 设计战斗/打斗 | 转到 style-combat-face.md |
+| Write humor/comedy/absurdity | humor / comedy / absurd style |
+| Write mystery/investigation/horror | mystery / investigation / horror |
+| Write romance/redemption | romance / redemption-conflict design |
+| Write fantasy/cultivation | fantasy/cultivation + progression/payoff fiction |
+| Write realistic/slice-of-life/new-media | realistic/slice-of-life |
+| Write light-novel/anime style | light-novel/anime style |
+| Write cyberpunk | cyberpunk style |
+| Write ranking/mock/live-stream fiction | ranking-info-gap fiction / mock fiction / live-stream fiction |
+| Pick a genre / fix the track | market positioning & topic strategy -> traffic & track -> bandwagon & innovation |
+| Design the opening | creation approach & opening design -> low-position opening flow -> the five opening keys |
+| Judge genre boundaries | boundary feel & atmosphere -> per-site style differences |
+| Generate a genre prose card by genre | `genre-prose-cards.md` index + `genre-prose-cards/{genre}.md` single card |
+| Design combat/fights | go to style-combat-face.md |
 
-## 指令语气
+## Directive tone
 
-本文件以"题材操作手册"语气书写。每个题材模块给出该题材的**核心规则和操作要点**，是写对应题材时**必须遵守**的约束。遇到跨题材缝合时：主题材规则 > 辅题材规则 > 通用建议。
+This file is written in "genre operations manual" tone. Each genre module gives the genre's **core rules and operation points** — **must-follow** constraints when writing that genre. On cross-genre fusion: primary-genre rules > secondary-genre rules > generic advice.
 
-## 正文提示卡组合模式
+## Genre prose card combination mode
 
-正文写作采用「通用正文要求 + 题材正文提示卡 + 本书文风」三件套，不再为每个题材复制一整套正文 prompt。
+Prose writing uses the three-piece set: **generic prose requirements + genre prose card + this book's style**; no longer copying a full prose prompt per genre.
 
-- **通用正文要求**由 `story-long-write` Phase 4 负责：严格消费细纲，按情节点预算写，缓慢推进，不提前写后续剧情，完成字数/钩子/禁用词/退化校验。
-- **题材正文提示卡**只管题材层的稳定核心：世界观或生活逻辑、读者期待、核心爽点/情绪、节奏密度、场景颗粒、禁止漂移。项目优先从 `genre-prose-cards.md` 索引匹配，再读取 `genre-prose-cards/{题材}.md` 单卡，本文件只作通用流派补充。
-- **本书文风**来自 `设定/文风.md` 或对标 `文风.md`：只管句长、标点、潜台词、锚点片段和笔调，不覆盖题材核心与章节意图。
-- 三者冲突时：章节细纲与连续性 > 题材正文提示卡 > 本书文风 > 通用技巧建议。
+- **Generic prose requirements** are handled by `story-long-write` Phase 4: strictly consume the chapter outline, write per plot-point budgets, advance slowly, no early later-plot writing, complete word-count/hook/banned-word/degeneration validation.
+- **The genre prose card** governs the genre layer's stable core: worldview or life logic, reader expectations, core payoff/emotion, pacing density, scene granularity, drift bans. The project matches the `genre-prose-cards.md` index first, then reads the single card `genre-prose-cards/{genre}.md`; this file only supplements generic style modules.
+- **This book's style** comes from `setting/style.md` or the benchmark `style.md`: sentence length, punctuation, subtext, anchor excerpts, and tone; it does not override genre core or chapter intent.
+- On conflict between the three: chapter outline & continuity > genre prose card > this book's style > generic technique advice.
 
-### 题材正文提示卡模板
+### Genre prose card template
 
-项目可在 Phase 2 生成 `设定/题材正文提示卡.md`。没有该文件时，Phase 4 写前先用 `设定/题材定位.md` 匹配 `genre-prose-cards.md` 索引并读取 `genre-prose-cards/{题材}.md` 单卡；仍无匹配再从本文件即时抽取一张轻量卡。卡片保持短，给 `narrative-writer` 传摘要，不把参考文件整段复制进 prompt。
+The project may generate `setting/genre-prose-card.md` in Phase 2. Without that file, Phase 4 pre-write first matches the `genre-prose-cards.md` index from `setting/genre-positioning.md` and reads the single card `genre-prose-cards/{genre}.md`; if still no match, extract a lightweight card from this file on the fly. Keep the card short; pass the summary to `narrative-writer`; never copy whole reference files into the prompt.
 
 ```markdown
-## 题材正文提示卡
+## Genre Prose Card
 
-- 主题材 / 平台：{如 番茄男频·都市高武}
-- 题材边界：{这本书读起来必须是什么味，不能串到什么味}
-- 核心逻辑：{世界观/社会关系/生活压力/能力规则如何驱动冲突}
-- 读者期待：{读者进来等什么：打脸、升级、情感债、信息差、悬疑逼近等}
-- 核心爽点 / 情绪：{本题材最稳定的 1-3 个释放方式}
-- 节奏密度：{铺垫、爆发、冷却的比例；低压章允许的功能}
-- 场景颗粒：{该题材需要哪些具体载体：账单/门店/宗门规矩/弹幕/案件线索等}
-- 对话与人物声线：{该题材下台词承担什么功能，哪些角色不能说成同一种腔}
-- 禁止漂移：{不能变成说明文、纯设定、纯科普、纯撒糖、纯战报等}
-- 本章取舍：{仅本章使用的 2-4 条；从上面抽取，不全量执行}
+- Primary genre / platform: {e.g. Webnovel male · urban martial}
+- Genre boundaries: {what this book must taste like, and what it must not drift into}
+- Core logic: {how worldview/social relationships/life pressure/ability rules drive conflict}
+- Reader expectations: {what readers come in waiting for: comeuppance, progression, emotional debt, info gaps, approaching suspense, etc.}
+- Core payoff / emotion: {the 1-3 most stable release modes of this genre}
+- Pacing density: {ratios of setup, burst, cooldown; what low-pressure chapters are allowed to do}
+- Scene granularity: {which concrete carriers this genre needs: bills/stores/sect rules/comment barrages/case clues, etc.}
+- Dialogue & character voice: {what dialogue carries in this genre; which roles must not sound the same}
+- Drift bans: {must not become exposition, pure setting, pure science lecture, pure sugar, pure battle reports, etc.}
+- This-chapter tradeoffs: {2-4 items used only this chapter; drawn from the above, not executed in full}
 ```
 
-### 番茄优先校准
+### Webnovel-first calibration
 
-番茄是长篇正文的重点平台时，卡片强调「入口钩子清楚、情绪兑现快、功能位复用、过渡少」。但不要把伪指标写成硬门禁：
+When Webnovel is the priority platform for long-form prose, the card emphasizes "clear entry hook, fast emotion delivery, function-slot reuse, few transitions." But do not turn pseudo-metrics into hard gates:
 
-- 不强制每行 50-60 字；优质样本的段落长度随场景变化，固定行长会显假。
-- 不强制对话占比 50%-60%；对话只在冲突、关系、信息揭示需要时增加。
-- 不全局替换「地/得/很/像/顿号」；先判断是否真的油、虚、模板化。
-- 不随机倒装；需要打破平滑时，优先换视点入口、物件入口、声音入口或动作结果入口。
-- 不为自然感补“办事流程”；任务卡点必须卡出信息、关系、代价、选择或伏笔变化。
+- No forced 50-60 char lines; quality samples' paragraph lengths vary by scene; fixed line lengths look fake
+- No forced 50%-60% dialogue share; dialogue only increases when conflict, relationships, or info reveals need it
+- No global replacement of function words/particles; first judge whether it is genuinely oily, hollow, or template-y
+- No random inversions; when smoothness must be broken, prefer switching entry points — POV entry, object entry, sound entry, or action-result entry
+- No added "process" for naturalness; task blockers must block into information, relationship, cost, choice, or foreshadowing change
 
-### 生成 / 读取规则
+### Generation / reading rules
 
-1. 先从 `设定/题材定位.md` 读取主题材、目标平台、主对标书、核心梗。
-2. 项目先在 `genre-prose-cards.md` 精确匹配分类，再读取 `genre-prose-cards/{题材}.md` 单卡（如 都市脑洞 / 豪门总裁 / 年代 / 双男主）；低置信卡必须标注低置信并用同题材对标书校准。
-3. 无分类命中时，再在本文件中找到最接近的通用题材模块；跨题材时只取主题材 3-5 条，辅题材 1-2 条。
-4. 把抽取结果写成 `genre_prose_card`，每章只携带与本章情绪/事件相关的条目。
-5. 题材卡不得改剧情顺序、不得替换角色人设、不得覆盖 `剧情/情绪模块.md` / `剧情/节奏.md` 的权威召回。
-
----
-
-## 幽默
-
-### 核心原则
-幽默是压力释放器，不是笑话delivery。最好的幽默来自角色试图维持尊严/权威/冷静，但现实不配合。
-
-### 幽默来源
-- 角色的尴尬（想装酷但翻车）
-- 冷面反差（正经人遇到荒诞事）
-- 关系调侃（熟人之间的损）
-- 黑色幽默（绝境中的一句毒舌）
-- 观察式幽默（对日常场景的精准吐槽）
-
-### 操作规则
-- 幽默来自角色的欲望/偏见/固执/误判，不是脱离剧情的段子
-- 包袱改变地位、暴露关系、制造未来代价
-- 铺垫要短，回报要清晰，余波比包袱本身更重要
-- 回调必须升级（更尴尬/更公开/更严重）
-
-### 混搭规则
-- 幽默+言情：暴露吸引力/固执
-- 幽默+悬疑：来自虚假自信
-- 幽默+文学：服务尊严与社会质感
+1. First read the primary genre, target platform, primary benchmark book, and core hook from `setting/genre-positioning.md`.
+2. The project first exactly matches the category in `genre-prose-cards.md`, then reads the single card `genre-prose-cards/{genre}.md` (e.g. contemporary-romance / mafia-romance / cultivation); low-confidence cards must be flagged low-confidence and calibrated with a same-genre benchmark book.
+3. With no category match, find the closest generic genre module in this file; cross-genre: take 3-5 items from the primary genre, 1-2 from the secondary.
+4. Write the extraction as a `genre_prose_card`, carrying only the items relevant to this chapter's emotion/events.
+5. The genre card must not change plot order, replace character personas, or override the authoritative recall of `plot/emotional-beats.md` / `plot/pacing.md`.
 
 ---
 
-## 悬疑
+## Humor
 
-### 核心原则
-悬疑的关键在于：让读者感到一个问题/危险/代价正在逼近，而答案始终够不着；不要只靠藏信息。
+### Core principles
+Humor is a pressure-release valve, not joke delivery. The best humor comes from characters trying to keep dignity/authority/composure while reality refuses to cooperate.
 
-### 核心规则
-- 每章一个主要未解问题
-- 延迟揭示需要故事内的理由（时机、视角限制、代价、可能的错误）
-- 悬疑靠"问题变得更昂贵"工作，不是"信息变得更稀少"
-- 场景必须清晰（晦涩不是悬疑）
+### Humor sources
+- The character's embarrassment (trying to look cool and failing)
+- Deadpan contrast (a straight-faced person meets the absurd)
+- Relationship ribbing (teasing between close people)
+- Black humor (one acid line in a hopeless spot)
+- Observational humor (precise mockery of daily scenes)
 
-### 章节操作
-1. 定义未知
-2. 定义搞错的代价
-3. 安排读者/角色/对手的信息不对称
-4. 后半段收窄选择或提升赌注
-5. 从已有线索生长钩子，不插入突如其来的惊吓
+### Operation rules
+- Humor comes from the character's desires/prejudices/stubbornness/misjudgments, not joke skits detached from plot
+- The punchline changes status, exposes relationships, or creates future costs
+- Setup short, payoff clear, aftermath more important than the punchline itself
+- Callbacks must escalate (more embarrassing / more public / more serious)
 
-### 混搭规则
-- 悬疑+推理：接下来怎么办 vs 到底发生了什么
-- 悬疑+恐怖：逼近 vs 扭曲
-- 悬疑+言情：关系暴露、错过时机、情感代价作为悬疑源
-
----
-
-## 言情
-
-### 核心原则
-言情靠欲望、恐惧、骄傲、关心、误判和情感债不断摩擦，不靠"终于在一起了"。
-
-### 核心规则
-- 化学反应来自具体的人物差异，不是空洞赞美
-- 最好的张力 = 想靠近 + 害怕失去/暴露/负债
-- 每场重头关系戏改变信任/希望/占有欲/脆弱/边界/误解的深度
-- 延迟可以，但必须带来新的压力/债务/理解/代价
-- 最动人的亲密藏在小事、关心、误判和没说出口的话里
-
-### 章节操作
-1. 定义各自主角想要什么、怕什么
-2. 决定本章拉近、推远，还是拖入更危险的纠缠
-3. 让一个实际行动承载情感含义
-4. 如果是误解，扎根于角色的认知/处境/伤疤，不是低级的"不说开"
-5. 结尾要有新的情感债/风险/期待
+### Mixing rules
+- Humor + romance: expose attraction/stubbornness
+- Humor + mystery: comes from false confidence
+- Humor + literary: serves dignity and social texture
 
 ---
 
-## 推理
+## Mystery
 
-### 核心原则
-推理的核心是"读者觉得自己也能破案"，所以线索必须公平呈现。
+### Core principles
+Mystery's key: make the reader feel a question/danger/cost approaching while the answer stays out of reach; not just hiding information.
 
-### 关键技法
-- 线索要混在自然叙事中（不能专门停下来列线索）
-- 每条真线索旁放1-2条误导线索
-- 揭示顺序比真相本身更重要（先猜对动机，再猜对人）
-- 嫌疑人每人一个关键秘密，只有一个跟案子有关
+### Core rules
+- One main unresolved question per chapter
+- Delayed reveals need in-story reasons (timing, POV limits, costs, possible errors)
+- Suspense works by "the question becoming more expensive," not "the information becoming scarcer"
+- Scenes must be clear (obscurity is not mystery)
 
----
+### Chapter operations
+1. Define the unknown
+2. Define the cost of getting it wrong
+3. Arrange the information asymmetry among reader/characters/opponents
+4. In the second half, narrow choices or raise stakes
+5. Grow hooks from existing clues; no sudden jump-scares
 
-## 恐怖
-
-### 核心原则
-恐怖靠"有限视角"工作——角色不知道的东西，比展示的怪物更可怕。
-
-### 关键技法
-- 恐惧要升级（不能一直同一个强度）
-- 限制信息来源（断电、断信号、独自一人）
-- 用生理反应代替直接描写恐惧
-- 安全感的短暂回归让下一波恐怖更猛
-
----
-
-## 奇幻/玄幻
-
-### 核心原则
-世界观的力量在于规则和代价，不在于"什么都能做"。
-
-### 关键技法
-- 力量体系必须有明确边界和代价
-- 世界观展开跟剧情推进绑定（不搞说明文）
-- 日常细节比宏大设定更让世界"活"（集市上的货币、旅店的价格）
-- 每5章必须有一次世界观层面的新信息
-
-### 金手指设计要点
-- 金手指决定爽点上限：越强能解决的矛盾越大
-- 避免只能靠一次性秘宝——越写越崩
-- 金手指碎片化处理：把复杂能力拆分细分，碎片化融入剧情
-- 没收集完成之间就是远期期待，收集到每一片就意味着能解决至少一个冲突
-- 设定服务剧情，不要被设定反向限制；主角必须是规则中的特殊变量
+### Mixing rules
+- Mystery + investigation: what happens next vs what actually happened
+- Mystery + horror: approaching vs distorting
+- Mystery + romance: relationship exposure, missed timing, emotional costs as suspense sources
 
 ---
 
-## 现实/世情
+## Romance
 
-### 核心原则
-现实题材的力量在于"读者认识这些人"，共鸣来自精准的日常观察。
+### Core principles
+Romance works by desire, fear, pride, care, misjudgment, and emotional debt rubbing against each other — not by "finally together."
 
-### 关键技法
-- 对话必须口语化（不能有书面腔）
-- 场景要具体到店名、品牌、地段（越具体越真实）
-- 矛盾来自真实的社会压力（钱、面子、关系、阶层）
-- 细节用五感（油烟味、麻将声、电动车充电的嗡嗡声）
+### Core rules
+- Chemistry comes from concrete character differences, not empty compliments
+- Best tension = wanting closeness + fearing loss/exposure/debt
+- Every big relationship scene changes the depth of trust/hope/possessiveness/vulnerability/boundaries/misunderstanding
+- Delays are allowed but must bring new pressure/debt/understanding/cost
+- The most moving intimacy hides in small things, care, misjudgments, and unsaid words
 
-### 价值观与商业原则
-- 网文是商业写作，判断文字好坏以目标读者反馈和写作目标为准
-- 表达朴素价值观：杀人偿命、欠债还钱、睚眦必报、有恩必报、善恶有报
-- 高端表达观点 = 讲故事让读者自己得出结论
-- 观点要鲜明，立场要犀利：坏人做了坏事必须受惩罚
-- 不要为了展示"人性复杂"而恶心读者
+### Chapter operations
+1. Define what each side wants and fears
+2. Decide whether this chapter pulls closer, pushes away, or drags into more dangerous entanglement
+3. Let one real action carry the emotional meaning
+4. If a misunderstanding, root it in the character's cognition/situation/scars, not cheap "not talking it out"
+5. End with a new emotional debt/risk/anticipation
 
 ---
 
-## 升级流/爽文
+## Investigation
 
-### 核心原则
-爽文的本质是"读者知道结局的未知过程"。核心期待是变强、变富、被认可。
+### Core principles
+Investigation's core is "the reader feels they could solve it too," so clues must be presented fairly.
 
-### 关键技法
-- 升级-收获-装逼三循环是通用核心循环
-- 升级带来收获（对比），收获带来装逼（震惊），装逼推动新的升级
-- 收获要分层释放，额外的、不确定的收获比固定收获更有惊喜感
-- 爽点核心就四个字：主角牛逼——解决问题的方式决定爽感
-- 风轻云淡一指灭杀 >> 歇斯底里艰难取胜
-- 该爽的时候不爽到位，观感上比毒点还毒
+### Key techniques
+- Clues mixed into natural narration (no stopping to list clues)
+- 1-2 misleading clues beside each real clue
+- Reveal order matters more than the truth itself (guess the motive first, then the person)
+- Every suspect has one key secret; only one relates to the case
 
-### 核心梗提炼
-- 搞清楚核心梗才能确定赛道和受众，盲目模仿跟风全扑
-- 核心梗决定金手指资源获取方式（杀杀杀 vs 经营关系网+种田）
-- 核心梗影响全书基调（轻松日常 vs 严肃热血）
+---
 
-### 人设一致性原则
-- 权力来源决定行为逻辑：
+## Horror
 
-| 权力类型 | 来源 | 行为特征 |
+### Core principles
+Horror works through "limited POV" — what the character doesn't know is scarier than the monster shown.
+
+### Key techniques
+- Fear must escalate (not one intensity forever)
+- Restrict information sources (power cuts, no signal, being alone)
+- Physiological reactions replace direct fear description
+- Brief returns of safety make the next wave hit harder
+
+---
+
+## Fantasy / cultivation
+
+### Core principles
+A worldview's power lies in rules and costs, not "can do anything."
+
+### Key techniques
+- Power systems need clear boundaries and costs
+- Worldview expansion tied to plot advancement (no exposition essays)
+- Daily details make the world "alive" more than grand settings (market currency, inn prices)
+- Every 5 chapters: at least one worldview-level new piece of information
+
+### Cheat design points
+- The cheat decides the payoff ceiling: the stronger, the bigger the solvable conflicts
+- Avoid one-time secret treasures only — collapses as you write
+- Fragment the cheat: split complex abilities, fuse fragments into the plot
+- Before collection completes = long-term anticipation; each fragment collected means at least one conflict solvable
+- Setting serves plot; don't be reverse-constrained by setting; the protagonist must be a special variable inside the rules
+
+---
+
+## Realistic / slice-of-life
+
+### Core principles
+Realistic genres' power is "the reader knows these people"; resonance comes from precise daily observation.
+
+### Key techniques
+- Dialogue must be colloquial (no bookish register)
+- Scenes specific to store names, brands, neighborhoods (the more specific, the more real)
+- Conflict comes from real social pressure (money, face, relationships, class)
+- Details use the five senses (cooking-oil smoke, mahjong clicks, the hum of an e-bike charging)
+
+### Values & commercial principles
+- Web fiction is commercial writing; judge text quality by target-reader feedback and writing goals
+- Plain values: a life for a life, debts repaid, an eye for an eye, kindness repaid, good and evil settled
+- High-end expression = telling stories so readers draw conclusions themselves
+- Clear views, sharp stance: the wicked must be punished for their deeds
+- Don't disgust readers to show "human complexity"
+
+---
+
+## Progression / payoff fiction
+
+### Core principles
+Payoff fiction's essence is "the reader knows the ending's unknown process." Core anticipation: getting stronger, richer, recognized.
+
+### Key techniques
+- The upgrade-gain-flex triple loop is the universal core loop
+- Upgrades bring gains (comparison), gains bring flex (shock), flex drives new upgrades
+- Gains release in layers; extra, uncertain gains surprise more than fixed ones
+- The payoff core is four words: the protagonist is awesome — how the problem is solved decides the payoff
+- Calm one-finger annihilation >> hysterical hard-fought victory
+- When it should be satisfying and isn't, it reads more toxic than a poison point
+
+### Core-hook distillation
+- The core hook decides the track and audience; blind imitation and bandwagoning all crash
+- The core hook decides the cheat's resource-acquisition method (killing vs managing relationships + homesteading)
+- The core hook affects the book's tone (light daily vs serious hype)
+
+### Persona consistency principles
+- The source of power decides behavior logic:
+
+| Power type | Source | Behavior traits |
 |----------|------|----------|
-| 个人实力型 | 仙侠型，实力即王道 | 技能法宝归自己 |
-| 服从型 | 领主型，权力来自下位者服从 | 利益不一致就叫不动人 |
+| Personal strength | cultivation type; strength is the way | skills and treasures belong to self |
+| Deference | lord type; power from subordinates' deference | conflicting interests = can't command |
 
-- 智者人设不能崩：有脑子的角色必须遵守节能原则（最小代价换最大收益）
-- 反派集结军队硬刚时，要考虑军队是否服从、利益是否一致
-- 人设崩塌 = 角色做出与权力结构/性格不符的行为只为推动剧情
+- The smart-persona cannot collapse: smart characters must obey the energy-saving principle (minimum cost for maximum gain)
+- When the antagonist rallies an army for a head-on, consider whether the army obeys and interests align
+- Persona collapse = characters acting against their power structure/personality just to advance the plot
 
-### 战力/量级设计原则
-- 量级上限取决于题材边界和可控性，保证不写崩
-- 单体宇宙级之下基本够用，不需要多元宇宙花活
-- 规则类能力尽量回避，太容易失控
-- 量级需匹配题材的边界感
-
----
-
-## 搞笑文
-
-- 搞笑不等于神经病，逻辑是根基——搞笑情节必须在符合逻辑推理的情况下搞笑（规则之内的办法，但不在预料之内）
-- 无逻辑的神经病主角前期好玩，后期读者对不上脑电波就觉得尬
-- 玩梗法则：硬玩梗不如不玩梗——梗有生命周期，热度过了只剩尴尬
-- 正确做法：提炼梗的内在搞笑逻辑，化用到小说情境中
+### Power/scale design principles
+- The scale ceiling depends on genre boundaries and controllability; guarantee no collapse
+- Below single-universe scale is basically enough; no multiverse tricks needed
+- Rule-type abilities: avoid, too easy to lose control
+- Scale must match the genre's boundary feel
 
 ---
 
-## 轻小说/二次元风
+## Comedy
 
-- 核心定义：以卖戏剧性人设为主的小说，尤其以卖各种美少女人设为核心
-- 人设即卖点：每个角色都有鲜明的"标签化"特质，读者一眼记住
-- 日常感重于剧情推进：角色互动和日常碎片是主要内容
-- 吐槽/内心戏密集：主角作为"吐槽役"，对荒诞事物的反应本身就是爽点
-- 人设差异要极端化：傲娇/病娇/三无/天然呆，标签越鲜明越好
-- 卖人设 > 卖剧情：剧情服务于展示角色魅力
-- 对话量 > 描写量：角色互动靠对话推进，减少大段心理独白
+- Comedy ≠ insanity; logic is the foundation — comedy happens under logical reasoning (a solution inside the rules, but not the expected one)
+- An illogical insane protagonist is fun early, but later readers can't sync brainwaves and it gets awkward
+- Meme rules: forcing a meme is worse than no meme — memes have lifecycles; past their heat, only awkwardness remains
+- Correct approach: distill the meme's inner comedic logic and adapt it into the novel's situation
 
 ---
 
-## 沙雕风
+## Light-novel / anime style
 
-- 沙雕风 = 用荒诞、反常规的叙事制造笑点
-- 角色行为出人意料但逻辑自洽（有脑子的荒诞，避免乱来）
-- 严肃场景被角色的沙雕行为化解，反差制造笑点
-- 宗门日常 > 战斗升级：沙雕宗门风中，升级只是不起眼的元素
-- 群像感强：一群人互相衬托，笑点不靠单人硬撑
-- 沙雕不等于降智：角色的行为要有自己的逻辑，只是这个逻辑很离谱
-- 核心风险：纯沙雕没有情感深度，读者笑完就忘，需要有真情实感的底色
-
----
-
-## 赛博朋克风
-
-- 高科技低生活的质感：霓虹、义体、数据流、阶级固化
-- 信息密度大：大量世界观细节需要自然融入叙事，不能写说明文
-- 冷硬基调：疏离感、压抑感、技术异化感贯穿始终
-- 世界观细节 > 剧情复杂度：赛博朋克读者来看的是世界观氛围
-- 必须在开头几章建立足够的氛围感：雨夜、霓虹、义体改造、虚拟网络
-- 避免写披着赛博皮的玄幻：力量体系要服从科技逻辑
+- Core definition: novels selling dramatic personas, especially pretty girl personas
+- Persona as selling point: every character has a sharp "labeled" trait, remembered at a glance
+- Daily feel over plot advancement: character interaction and daily fragments are the main content
+- Dense banter/interiority: the protagonist as "tsukkomi" — reactions to absurdity are themselves payoffs
+- Persona differences extreme: tsundere/yandere/kuudere/airhead — the sharper the label the better
+- Selling personas > selling plot: plot serves displaying character charm
+- Dialogue volume > description volume: interaction advances via dialogue; cut long interior monologues
 
 ---
 
-## 盘点文/信息差文
+## Absurd style
 
-- 核心机制：通过主角掌握的独有信息向不知情的围观者展示，制造震惊和装逼效果
-- 知识类信息差是核心爽点：读者和主角一起"碾压"不知情的世界
-- 单元结构：一个盘点对象 = 一个装逼单元，循环推进
-- 共鸣优先：盘点方向必须选择读者能产生民族/文化/专业共鸣的内容
-- 每个盘点单元需要：铺垫环境的不了解 -> 主角展示 -> 围观者震惊 -> 信息差抹平
-- 可以与其他题材缝合：盘点+游戏文、盘点+穿越文、盘点+娱乐圈
-- 边界感规则：盘点文的节奏是信息差驱动，不能变成纯科普
-
----
-
-## 模拟文
-
-- 核心结构：通过"模拟"获得奖励和信息差，再在现实中推进主线、满足期待
-- 单元结构：模拟制造情绪缺口 -> 模拟中获得奖励（形成信息差）-> 现实满足期待
-- 卷纲结构：模拟得知大危机/大期待 -> 多次【模拟+得奖励+现实推进】的小单元循环 -> 最终达成/解决核心期待
-- 模拟中的信息差 = 现实装逼的筹码
-- 模拟内容可以展示"如果不干预会怎样"的后果，强化紧迫感
-- 奖励分层：小模拟给小奖励（升级资源），大模拟给关键信息（剧情转折）
-- 模拟不是全知：保留未知变量，不能让主角通过模拟知道一切
+- Absurd style = humor via absurd, anti-conventional narration
+- Character behavior surprising but internally consistent (sane absurdity, no randomness)
+- Serious scenes defused by the character's absurd behavior; contrast makes the joke
+- Sect daily > combat progression: in absurd-sect fiction, progression is a background element
+- Ensemble strong: a group propping each other up; jokes don't ride one character alone
+- Absurd ≠ stupidity: character behavior has its own logic, just a ridiculous logic
+- Core risk: pure absurdity with no emotional depth — readers laugh and forget; a foundation of real feeling is needed
 
 ---
 
-## 直播流
+## Cyberpunk style
 
-- 核心机制：以直播场景为框架，融合搞钱、装逼、对抗、整活多种爽点
+- High-tech low-life texture: neon, cybernetics, data streams, class rigidity
+- High information density: lots of worldview details fused naturally into narration, no exposition essays
+- Cold-hard tone: alienation, oppression, technological estrangement throughout
+- Worldview details > plot complexity: cyberpunk readers come for the atmosphere
+- The opening chapters must establish enough atmosphere: rain nights, neon, cybernetic modification, virtual networks
+- Avoid fantasy wearing a cyberpunk skin: power systems must obey technological logic
 
-| 爽点来源 | 具体表现 |
+---
+
+## Ranking / info-gap fiction
+
+- Core mechanism: the protagonist displays exclusive information to unknowing bystanders, creating shock and flex effects
+- Knowledge info gaps are the core payoff: the reader and protagonist "crush" the unknowing world together
+- Unit structure: one ranked subject = one flex unit, looping forward
+- Resonance first: the ranking direction must pick content the reader resonates with (culture/profession)
+- Each ranking unit needs: setup of the audience's ignorance -> protagonist displays -> bystanders shocked -> info gap closes
+- Can fuse with other genres: ranking + game fiction, ranking + transmigration, ranking + entertainment
+- Boundary rule: ranking fiction is info-gap-driven; must not become pure science lecture
+
+---
+
+## Mock / simulation fiction
+
+- Core structure: gain rewards and info gaps through "simulation," then advance the main line and satisfy anticipation in reality
+- Unit structure: simulation creates an emotional gap -> rewards in the simulation (forming an info gap) -> reality satisfies anticipation
+- Volume structure: simulation reveals a big crisis/big anticipation -> multiple small-unit loops of 【simulate + get reward + advance reality】 -> finally achieve/resolve the core anticipation
+- Info gaps in the simulation = chips for flexing in reality
+- Simulation content can show "what would happen without intervention," reinforcing urgency
+- Reward tiers: small simulations give small rewards (upgrade resources); big simulations give key info (plot turns)
+- Simulation is not omniscient: keep unknown variables; the protagonist cannot know everything through simulation
+
+---
+
+## Live-stream fiction
+
+- Core mechanism: live-streaming as the frame, fusing money-making, flexing, confrontation, and chaos payoffs
+
+| Payoff source | Concrete form |
 |----------|----------|
-| 搞钱 | 直接收打赏/礼物，金钱数字直观增长 |
-| 对抗 | PK、打榜、与同行竞争 |
-| 身份马甲 | 观众中有隐藏大佬，弹幕信息差制造惊喜 |
-| 整活 | 抽象/搞笑的直播内容吸引围观 |
-| 才艺展示 | 主角独特能力的展示窗口 |
+| Money-making | direct tips/gifts; money numbers visibly grow |
+| Confrontation | PKs, leaderboards, competing with peers |
+| Identity masks | hidden big shots in the audience; barrage info gaps make surprises |
+| Chaos content | absurd/funny stream content drawing onlookers |
+| Talent display | a window for the protagonist's unique abilities |
 
-- 目标感明确：每场直播有具体目标（圈够X钱/涨X粉），给读者确定预期
-- 直播间弹幕 = 即时反馈系统：相当于内置的装逼观众，不需要额外设计
-- 可以融合世情：每场直播接待一个客人/处理一件事 = 一个单元世情故事
-- 节奏要求：不能一直直播，需要现实线穿插推进
+- Clear goals: every stream has a concrete target (raise X money / gain X followers), giving readers a defined expectation
+- The live-room barrage = an instant feedback system: built-in flex audience, no extra design needed
+- Can fuse slice-of-life: each stream receives one guest / handles one matter = one slice-of-life unit story
+- Rhythm requirement: cannot stream forever; a reality line interleaves for advancement
 
 ---
 
-## 救赎文冲突设计法
+## Redemption-conflict design
 
-| 冲突类型 | 做法 | 示例 |
+| Conflict type | Approach | Example |
 |----------|------|------|
-| 救赎目标冲突 | 一方想得到的救赎来自另一方的牺牲 | 萧峰与阿朱 |
-| 救赎行为冲突 | 救赎建立在谎言/伤害/零和博弈上 | 顶替他人身份 |
-| 三角关系 | 一方的救赎行为导致第三方需要被救赎 | 连锁效应 |
-| 救赎倒计时 | 必须在某事发生前完成，否则彻底堕入深渊 | 时间压力 |
-| 增大救赎代价 | 一方救赎另一方的付出越来越大 | 情感/资源/身心代价递增 |
-| 救赎资源稀缺 | 双方都需要救赎，但资源只够一个 | 零和博弈 |
-| 立场对立 | 双方有立场分歧，但彼此需要对方的帮助 | 救赎与立场的矛盾 |
-| 性格反差 | 乐观vs悲观、冷血vs有同情心 | 阻碍理解和沟通 |
+| Redemption-goal conflict | one side's redemption comes from the other's sacrifice | a sworn-brother sacrifice |
+| Redemption-action conflict | redemption built on lies/harm/zero-sum | taking over another's identity |
+| Triangle | one side's redemption causes a third party to need redemption | chain effects |
+| Redemption countdown | must complete before something happens or fall into the abyss | time pressure |
+| Rising redemption cost | one side's payment to redeem the other keeps growing | emotional/resource/body-mind costs escalating |
+| Scarce redemption resources | both need redemption but resources only suffice for one | zero-sum |
+| Stance opposition | both have stance differences but need each other's help | redemption vs stance |
+| Personality contrast | optimism vs pessimism, cold-blooded vs compassionate | blocks understanding and communication |
 
 ---
 
-## 边界感与氛围感
+## Boundary feel & atmosphere
 
-### 边界感本质
-边界感 = 题材/流派特有的信息点集合。用这些信息点塑造氛围，让读者产生"这就是那个味"的感觉。
+### The nature of boundary feel
+Boundary feel = the genre/style's specific information-point set. Use these information points to shape atmosphere, giving the reader "this is that flavor" feeling.
 
-### 边界感的三个层次
+### The three layers of boundary feel
 
-| 层次 | 内容 | 失败表现 |
+| Layer | Content | Failure symptom |
 |------|------|----------|
-| 题材边界 | 该题材特有的设定、节奏、情绪基调 | 都市文写出仙侠味、种田文写出争霸味 |
-| 风格边界 | 该流派的语言质感、叙事节奏 | 轻小说写出严肃文学腔、世情文写出玄幻腔 |
-| 受众边界 | 目标读者群体的期待和雷点 | 用男频节奏写女频、用起点标准写番茄 |
+| Genre boundary | the genre's unique setting, rhythm, tone | urban fiction tasting like fantasy, homestead tasting like conquest |
+| Style boundary | the school's language texture, narrative rhythm | light-novel voice in serious literature, fantasy voice in slice-of-life |
+| Audience boundary | the target reader group's expectations and minefields | male-audience rhythm for romance readers, Webnovel standards on Royal Road |
 
-### 基调一致性原则
-- 全文基调必须贯穿如一，基调中途改变 = 核心吸引力崩塌
-- 基调 = 读者对"这本书在讲什么感觉"的共识
-- 检查法：写完每章后问"这章和开篇的基调一致吗？"
+### Tone consistency principle
+- The book's tone must hold throughout; changing tone mid-way = core appeal collapse
+- Tone = readers' consensus on "what this book feels like"
+- Check method: after each chapter ask "is this chapter consistent with the opening's tone?"
 
-### 题材缝合的边界感判断
-- 缝合前先明确两个题材各自的核心梗
-- 缝合后碰撞出的看点是否超脱了核心梗？超脱 = 脱离边界感 = 危险
-- 缝合的正确姿势：保持一个题材为主基调，另一个提供金手指或设定外衣
-- 错误姿势：两套节奏交替，读者不知道自己在看什么
+### Boundary feel when fusing genres
+- Before fusing, define both genres' core hooks
+- Does the fused collision point exceed the core hooks? Exceeding = off-boundary = dangerous
+- Correct fusion: one genre as the main tone, the other provides the cheat or setting shell
+- Wrong fusion: two rhythms alternating; readers don't know what they're reading
 
-### 对标书选择的边界感
-- 对标书必须同网站+同题材+同类型，三者缺一不可
-- 不同网站的读者群体期待不同，写法不能直接搬
+### Benchmark-selection boundary feel
+- The benchmark book must be same site + same genre + same type; all three mandatory
+- Different sites' reader expectations differ; writing methods cannot be transplanted directly
 
 ---
 
-## 各网站风格差异
+## Per-site style differences
 
-| 网站 | 核心竞争力 | 读者偏好 | 策略 |
+| Site | Core competitiveness | Reader preference | Strategy |
 |------|-----------|----------|------|
-| 起点主站 | 升级流/事业线为主 | 偏长线期待、稳定节奏、世界观深度 | 优先选择边界清楚、已有成熟受众的题材 |
-| 番茄小说 | 短平快、强情绪、高密度爽点 | 快节奏、不拖沓、第一章就要有钩子 | 拆解同平台同题材样本的前期结构，复用功能位而非桥段 |
-| 刺猬猫 | 整活 > 节奏，人设 > 剧情 | 动漫同人+二游读者，对"好玩"的需求大于"节奏稳定" | 适配同人、轻小说、脑洞、整活向 |
-| 下沉市场 | 乐子文为核心 | 颠、搞怪、放飞自我 | 放开了写，风格要对味 |
+| Royal Road | progression/career lines main | long-line anticipation, stable rhythm, worldview depth | prefer clearly bounded genres with mature audiences |
+| Webnovel | fast payoff, strong emotion, high payoff density | fast rhythm, no dragging, chapter 1 needs a hook | tear down same-platform same-genre samples' front structures; reuse function slots not scenes |
+| Wattpad | chaos > rhythm, persona > plot | anime-fan + game readers; "fun" matters more than "stable rhythm" | adapt toward fanfiction, light-novel, wild-idea, chaos |
+| Downstream market | chaos fiction core | unhinged, absurd, free-spirited | write freely; the style must match |
 
 ---
 
-## 市场定位与选材策略
+## Market positioning & topic strategy
 
-- 优先选择受众广、样本多、边界清楚的类别；具体热度必须由当前 scan/analyze 或用户样本验证。
-- 热门类别只代表潜在读者池更大，不代表任何具体梗当前有效。
-- 降低竞争压力的做法：保留题材边界，替换切入角度、人物关系或情绪触发方式。
-- 不用"传统文就是如此"解释节奏慢、冲突弱或卖点不清。
-
----
-
-## 题材本质=元素拼接
-
-- 题材的本质：所有题材就是元素的排列组合
-- 元素 = 读者感兴趣的东西 + 在网文里流行过的东西
-- 元素不等于金手指，也不等于频道分类
-- 签到流的元素：【苟+高强度收获+强期待感】
-- 两个元素割裂的题材（仙侠+科技）难度极高，要先自圆其说+制造趣味
-- 赛道选择规则：优先选择竞争分散、近期样本有效的新兴赛道；避免进入强品牌集中且功能位难复用的成熟赛道。
-- 研究中层样本而非只分析顶流——前者结构更可复用。
-- 商业化 = 尊重目标读者，私人表达不能凌驾于核心卖点和阅读体验上。
+- Prefer categories with wide audiences, many samples, and clear boundaries; concrete heat must be validated by the current scan/analyze or user samples.
+- A hot category only means a bigger potential reader pool, not that any concrete hook currently works.
+- To lower competition pressure: keep the genre boundary, replace the entry angle, character relationships, or emotion trigger.
+- Do not use "that's how traditional fiction is" to explain slow rhythm, weak conflict, or unclear selling points.
 
 ---
 
-## 吸量与赛道
+## Genre essence = element assembly
 
-- 吸量 = 一个题材的上限/天花板，有时就是题材不行不是写得不好
-- 赛道 = 题材跑道，不同赛道的读者池和期待不同。
-- 赛道选择的三个维度：吸量（天花板）+ 竞争度（对手数量）+ 素材/能力匹配度。
-- 选择赛道前先看天花板；读者池太小的赛道要降低篇幅和商业预期。
-
----
-
-## 跟风与创新
-
-- 网文写作的核心 = 会不会讲故事，不是文采好/创意标新立异/知识面广
-- 跟风 = 复用已验证功能位，是降低风险的方式之一
-- 同质化本质 = 跟风过程中对目标没有深加工，只是一味仿照
-- 跟风没问题，问题是连行动和语气都相似——退婚流可以各种组合
-- 标新立异的设定不等于创新——主流之所以是主流因为大部分人接受认同
-- 创新的核心：提炼梗的内在搞笑逻辑，化用到新情境中
+- Genre essence: all genres are combinations of elements
+- Elements = things readers find interesting + things that have been popular in web fiction
+- Elements are not the cheat and not channel categories
+- The sign-in genre's elements: 【lying low + high-intensity gains + strong anticipation】
+- Genres with two split elements (xianxia + tech) are extremely hard; first self-justify + create fun
+- Track selection: prefer emerging tracks with scattered competition and valid recent samples; avoid mature tracks with strong brands and hard-to-reuse function slots
+- Study mid-tier samples, not just top hits — the former's structure is more reusable
+- Commercialization = respecting the target reader; private expression cannot override the core selling point and reading experience
 
 ---
 
-## 题材的元素拼接与流派思维
+## Traffic & track
 
-- 把一个流派的要素提炼出来 + 另一个流派的要素提炼出来 -> 合成一本新书
-- 点子只有在“素材、人物、冲突、篇幅”都能支撑时才可用。
-- 反套路 = 推翻旧有模式的写法，让读者产生新鲜感。
-- 常见问题：正文没有把关键信息显性化，读者无法理解卖点。
-- 小说需要被目标读者识别到核心卖点，否则商业价值无法兑现。
-
----
-
-## 市场认知与创作要点
-
-- 开书节奏规则：前期聚焦核心卖点/金手指的快速展开，避免在设定和伏笔上过度投入导致正文节奏缓慢
-- 一旦追求完美 -> 沉迷写设定写剧情挖伏笔 -> 正文节奏缓慢
-- 信息差风险：写前准备想的是后续精彩展开，正文呈现出来却是男主拖沓和女主坑队友
-- 新媒体入口依赖噱头和第一眼吸引力；开篇必须立刻兑现入口承诺
-- 不要东一榔头西一棒子，每段剧情都要紧密推动核心矛盾
+- Traffic = a genre's ceiling; sometimes the genre itself is the problem, not the writing
+- Track = the genre's runway; different tracks have different reader pools and expectations
+- Track selection three dimensions: traffic (ceiling) + competition (opponent count) + material/ability match
+- Look at the ceiling before choosing; small reader pools mean lowering length and commercial expectations
 
 ---
 
-## 创作思路与开篇设计
+## Bandwagon & innovation
 
-- 创作思路三步法：确定主角身份 -> 匹配金手指类型 -> 设定开局环境 -> 设立意象（标签）
-- 意象 = 给人物和剧情贴标签提升深度
-- 开篇不需要写冲突，可以写环境，关键是流畅，把所有信息带出来
-- 不要通过旁白介绍背景，多通过对话把信息掺杂在里面
-- 主角身份 -> 面临的困境 -> 想办法解决 -> 能力不够 -> 金手指来了
-- 不要一次性灌太多信息
-- 关于节奏的误区：书让读者没兴趣，哪怕第一章成神王大帝都没用
-
----
-
-## 低位身份开篇的流畅写法
-
-- 低位开局核心 = 流畅，不需要反转和拉扯
-- 把所有信息带出来同时做到流畅——读者的思绪跟着内容往下顺
-- 不要一次性把所有压力灌给主角，压力一点点给
-- 多通过对话传递信息，少用旁白介绍背景
-- 给出金手指后要有即时变化——让读者看到变化的过程
-- 金手指要在主角积极应对危机但能力不足时才来——这样主角不是废物
-- 什么身份做什么事：马奴不配有道德，步子太大 = 结构破坏
-- 写大剧情时检查：主角目前的等级、身份和资源是否够格？
+- Web-fiction writing core = whether you can tell a story, not literary talent / novel creativity / broad knowledge
+- Bandwagon = reusing proven function slots; one way to reduce risk
+- Homogenization essence = bandwagoning without deep processing of the target, mere imitation
+- Bandwagoning is fine; the problem is copying even the actions and tone — the dumped-fiancé genre has many combinations
+- Novel settings ≠ innovation; the mainstream is mainstream because most people accept it
+- Innovation core: distill the meme's inner comedic logic and adapt it into new situations
 
 ---
 
-## 开头五要诀
+## Element assembly & school thinking
 
-- **简单点**：简明扼要交代五要素（谁/在哪里/有什么/为什么/要做什么），第一章就点明
-- **不能偏**：开头剧情必须符合主线，跑偏 = 零分开头
-- **要快**：切入剧情速度要快，磨磨蹭蹭交代背景 = 啰嗦
-- **要爽**：开头第一个小剧情必须有爽点，五章之内没有震惊 = 失败，不能有毒点/雷点/劝退点
-- **不能平**：文似看山不喜平，没有冲突矛盾平淡如水 = 失败
-
-**常见开头问题**：
-- 上来楔子 -> ABCD世外高人对话 -> 打哑谜 -> 读者满脸懵
-- 云里雾里不知所云 -> 读者看不懂直接走人
-- 罗里吧嗦"铺垫" -> 实际全是废话 -> 节奏太慢
+- Distill one school's elements + another school's elements -> fuse into a new book
+- An idea only works when "material, characters, conflict, length" all support it
+- Anti-pattern = overturning old patterns to give readers freshness
+- Common problem: the prose fails to make key information explicit, so readers can't see the selling point
+- The novel must be recognizable to target readers on its core selling point, or commercial value cannot settle
 
 ---
 
-## 质量检查清单
+## Market cognition & creation points
 
-写完某个题材的章节/卷后，逐项检查：
+- Opening rhythm rule: early focus on fast expansion of the core selling point/cheat; avoid over-investing in setting and foreshadowing that slows the prose
+- Chasing perfection -> addicted to writing setting/plot/foreshadowing -> prose rhythm slows
+- Info-gap risk: pre-write prep imagines a brilliant later expansion, but the prose delivers a dragging protagonist and a sabotaging heroine
+- New-media entries depend on hooks and first-glance appeal; the opening must immediately deliver the entry promise
+- No poking everywhere; every plot segment must tightly drive the core conflict
 
-- [ ] **题材边界感**：这章读起来是目标题材的味道，没有串味
-- [ ] **基调一致**：与开篇基调一致，没有中途变调
-- [ ] **题材核心技法执行**：对应题材模块的"核心规则"全部遵守
-- [ ] **人设符合标签**：角色行为基于标签，没有人设崩塌
-- [ ] **对话口语化**：无书面腔（现实/世情/升级流强制要求）
-- [ ] **五感细节**：场景有具体感官细节，不是抽象概括
-- [ ] **开篇五要诀**（如检查开篇）：简单/不偏/快/爽/不平
-- [ ] **缝合边界感**（如跨题材）：主题材为主基调，辅题材提供外衣
-- [ ] **对标书一致**：对标书同网站+同题材+同类型
-- [ ] **市场匹配**：目标赛道读者池足够，题材与现有素材/能力长板吻合
+---
+
+## Creation approach & opening design
+
+- Three-step creation approach: fix the protagonist's identity -> match the cheat type -> set the opening environment -> establish the image (label)
+- Image = labels on characters and plot to deepen them
+- The opening need not write conflict; environment is fine — the key is flow, carrying all information out
+- Don't deliver background via narration; deliver information via dialogue
+- Protagonist identity -> facing a trap -> finding a way -> ability insufficient -> the cheat arrives
+- Don't flood information at once
+- Rhythm misconception: if the book bores readers, even a god-king protagonist in chapter 1 means nothing
+
+---
+
+## The low-position opening flow
+
+- Low-position opening core = flow; no reversals and pulls needed
+- Carry all information out while staying smooth — the reader's thoughts follow the content
+- Don't dump all pressure on the protagonist at once; give pressure bit by bit
+- Deliver info via dialogue more; less narration background
+- After the cheat arrives, an immediate change must appear — let the reader see the change process
+- The cheat arrives when the protagonist is actively handling the crisis but under-able — so the protagonist isn't a waste
+- What identity does what: a horse-slave has no right to morality; overstepping = structural damage
+- When writing big plots, check: is the protagonist's current level, identity, and resources sufficient?
+
+---
+
+## The five opening keys
+
+- **Simple**: state the five elements concisely (who / where / what / why / what-to-do), chapter 1 makes them clear
+- **On-track**: the opening plot must fit the main line; off-track = zero-point opening
+- **Fast**: enter the plot fast; dawdling background delivery = verbose
+- **Satisfying**: the first small plot must have a payoff; no shock within five chapters = failure; no poison points/minefields/driving-away points
+- **Not flat**: text is like a mountain — flat conflict-free water = failure
+
+**Common opening problems**:
+- Opening prologue of A/B/C/D transcendent figures talking in riddles -> readers baffled
+- Haze with no meaning -> readers leave without understanding
+- Verbose "setup" that is all filler -> rhythm too slow
+
+---
+
+## Quality checklist
+
+After writing a genre's chapter/volume, verify:
+
+- [ ] **Genre boundary feel**: this chapter tastes like the target genre, no flavor bleed
+- [ ] **Tone consistent**: consistent with the opening tone, no mid-way key change
+- [ ] **Genre core techniques executed**: the genre module's "core rules" all followed
+- [ ] **Persona matches labels**: character behavior based on labels, no persona collapse
+- [ ] **Dialogue colloquial**: no bookish register (mandatory for realistic/slice-of-life/progression)
+- [ ] **Five-sense details**: scenes have concrete sensory details, not abstract summaries
+- [ ] **Five opening keys** (when checking an opening): simple / on-track / fast / satisfying / not flat
+- [ ] **Fusion boundary feel** (cross-genre): primary genre as main tone, secondary genre as shell
+- [ ] **Benchmark consistency**: benchmark book same site + same genre + same type
+- [ ] **Market match**: target track's reader pool sufficient; genre matches existing material/ability strengths

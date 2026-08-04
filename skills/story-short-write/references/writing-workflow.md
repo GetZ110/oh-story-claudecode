@@ -1,153 +1,153 @@
-# writing-workflow.md：短篇写作工作流详解
+# writing-workflow.md: Short-Story Writing Workflow Detail
 
-本文件包含 story-short-write 的详细工作流程指引。SKILL.md 中只保留摘要和触发条件。
-
----
-
-## Phase 2 设计任务（框架确定后执行）
-
-### 开始前先加载 references（逐项检查，不能跳过）
-
-- 定题材腔调/招式 → 加载 `genre-styles/{题材}.md` + `short-craft.md` ✅/❌
-- 写反派/揭露方式 → 加载 `villain-and-reveal.md` ✅/❌
-- 写大纲 → 题材包 `genre-styles/{题材}.md` 的节奏骨架 +（冷门题材）`genre-writing-formulas.md` 速查表 ✅/❌
-- 反转信息差验证 → 需加载 `reversal-toolkit.md` ✅/❌
-- 伏笔回查 → 见下方「伏笔回查清单」 ✅/❌
-- 如某项不适用（如无反派），标注原因后可跳过
-
-### 设计步骤
-
-1. **设计信物 / 贯穿物**（可选，1-2 个）：见题材包招式库「信物翻转」（如追妻火葬场的信物意义翻转）
-   - 填写：`- 第1次出现（第X节）：{场景}（{含义}）` 重复三次，含节号定位
-2. **设计反派**（如有）：用 villain-and-reveal.md 反派模板
-   - 填写：`{身份} + {动机} + {作恶方式} + {致命弱点} + {报应}`
-3. **确定揭露方式**：从 villain-and-reveal.md 4 种真相揭露机制中选一种
-4. **编写 小节大纲.md**：每节 1 行，格式如下：
-   `结构段/五段功能 | 主事件 | 子事件×3-5 | 情绪 | 人物/关系变化 | 因果/逻辑链 | 读者新获知什么 | 结尾承接/钩子 | 伏笔/物件 | 动静 | 对话密度 | 目标字数`
-   - `结构段/五段功能` 使用开头/铺垫/升级/反转/结尾（或起因/发展/转折/高潮/结尾），用于轻量对应长篇的内容概括，但不要套长篇完整章节蓝图
-   - `人物/关系变化` 写本节前后变化；没有显性变化写“无显性，但关系压力/误解/距离变化为…”或 `[待补充]`
-   - `因果/逻辑链` 写 `原因 → 行动 → 结果 → 后果/新问题`，避免小节只是情绪堆叠
-   - `结尾承接/钩子` 写本节如何接下一节；最后一节写结尾落点
-   - 子事件必须功能明确（推动剧情/铺垫反转/升级情绪），禁止装饰性子事件
-   - 子事件不足 3 个时用扩展规则（加阻碍 / 配角反应 / 移动中发现 / 简短倒叙 / 动作递进；见 short-craft.md 第 10-11 节）
-   - 子事件用 `->` 连接，每个子事件包含具体情节点描述+功能标签：
-     `具体发生了什么{功能标签}` 如 `发现账单上多了一笔4800{发现}` / `把戒指冲进马桶{冲突}` / `他笑了{递进}`
-     功能标签：`对话` / `冲突` / `伏笔` / `回忆` / `发现` / `递进`
-     情节点描述要具体到"谁做了什么"，不能只写标签如`对话`或`冲突`
-   - 动静标记：`动` 或 `静` 或 `动静`，相邻两节尽量交替；如因题材需要连续同标记，需确保节内有情绪变化（如：两节都是"静"，但第一节"疑惑→心酸"、第二节"心碎→崩溃"，情绪曲线仍在上升）
-   - 对话密度：`高`（3+轮）/ `中`（1-2轮）/ `零`（全节无对话），尽量不连续 2 节标 `零`；翻阅日记、独自发现等场景允许例外，但连续零对话段落的情绪必须通过揉进感官细节和身体反应来推进
-5. **反转信息差验证**（outline 写完后、写作前必须验证）：
-   - 回答：读者在第几节知道真相？用「揭穿节号 ÷ 全文总节数」计算位置百分比
-     - < 50% → 延迟揭露，反转无效（读者已知真相太早，后续缺少震撼）
-     - 50-60% → 灰区，需审视反转力度是否足够（前文误导线索是否充分）
-     - > 60% → 反转位置合理（读者等得够久，冲击力最大化）
-   - 检查：至少有 1 条读者被成功误导的假线索（不是读者猜到后等角色追上来）
-   - 检查：反转前是否铺垫了 ≥3 条指向真相的线索（线索要隐蔽，不是明示）
-   - 验证：找一个人（或自我模拟）只看 outline，能否在反转前猜到真相？猜到 = 失败
-6. **伏笔回查清单**（outline 写完后、写作前检查）：
-   - 列出结尾所有关键元素（物件/信息/角色/关系变化）
-   - 每个结尾元素在前文有 ≥1 次铺垫？没有 = 天降，必须补铺垫
-   - 贯穿道具三次出现完整？（第 1 次出现在铺垫段，第 2 次出现在反转段，第 3 次出现在结尾段）
-   - 铺垫节号与揭穿节号的间距 ≥ 3 节（间距太短铺垫无效）
-
-### 写作前加载（按需，同时 ≤ 3 个）
-
-- 必读：`short-format.md`（正文格式）+ `short-craft.md`（通用底座）
-- 必读：`short-deslop.md`（写作时自检 AI 腔）
-- 按题材加载 1 个：`genre-styles/{题材}.md`（核心 10 题材）或 `genre-writing-formulas.md`（冷门题材速查表）
-- 按需加载：`villain-and-reveal.md` / `emotional-methods.md`
-
-### 工作目录结构
-
-工作目录结构见 [Phase 2：构思核心框架](../SKILL.md#phase-2构思核心框架)。设定.md 内容构成：核心框架 + 人设 + 反转铺垫 + 贯穿道具（含三次出现追踪表）+ 反派设计 + 对标摘要。小节大纲.md 每节 1 行，格式以 [设计任务（框架确定后执行）](../SKILL.md#设计任务框架确定后执行) 第 4 步为准。
-
-### 操作原则
-
-- 正文直接写入文件，不要只输出在对话里
-- 精修时读取文件再改写，修改记录直接体现在设定.md的贯穿道具追踪中
-- 设定.md 维护贯穿道具追踪表：
-  `| 物件 | 第1次出现(节号/含义) | 第2次出现(节号/含义) | 第3次出现(节号/含义) |`
+This file contains story-short-write's detailed workflow guidance. SKILL.md keeps only the summary and trigger conditions.
 
 ---
 
-## Phase 4 精修打磨
+## Phase 2 design tasks (execute after the framework is fixed)
 
-### 精修检查清单
+### Load references before starting (check each item; no skipping)
+
+- Fix genre voice/moves → load `genre-styles/{genre}.md` + `short-craft.md` ✅/❌
+- Write antagonist/reveal method → load `villain-and-reveal.md` ✅/❌
+- Write the outline → the genre pack's `genre-styles/{genre}.md` rhythm skeleton + (unusual directions) `genre-writing-formulas.md` quick tables ✅/❌
+- Reversal information-gap validation → load `reversal-toolkit.md` ✅/❌
+- Foreshadowing recheck → see "foreshadowing recheck list" below ✅/❌
+- If an item doesn't apply (e.g., no antagonist), note the reason and skip it
+
+### Design steps
+
+1. **Design the through-line object** (optional, 1-2): see the genre pack's move library "through-line object meaning flip" (e.g., the estranged-spouse pack's keepsake flip)
+   - Fill in: `- 1st appearance (section X): {scene} ({meaning})` — repeated three times with section locations
+2. **Design the antagonist** (if any): use the villain-and-reveal.md antagonist template
+   - Fill in: `{identity} + {motive} + {method} + {fatal flaw} + {comeuppance}`
+3. **Decide the reveal method**: pick one of villain-and-reveal.md's 4 truth-reveal mechanics
+4. **Write `section-outline.md`**: one line per section, format:
+   `structure-beat/five-part function | main event | sub-events ×3-5 | emotion | character/relationship change | cause-effect/logic chain | new reader info | end carry/hook | foreshadowing/object | action-quiet | dialogue density | target words`
+   - `structure-beat/five-part function` uses opening/setup/escalation/reversal/ending (or cause/development/turn/climax/ending), for light correspondence to the long-form content summary — do not apply the long-form full chapter blueprint
+   - `character/relationship change` writes the before/after change; if no explicit change, write "no explicit change, but relationship pressure/misunderstanding/distance shifts to…" or `[to fill]`
+   - `cause-effect/logic chain` writes `cause → action → result → consequence/new problem`, so sections don't become emotion piles
+   - `end carry/hook` writes how this section connects to the next; the last section writes the ending landing
+   - Sub-events must have explicit functions (advance plot / seed reversal / raise emotion); decorative sub-events forbidden
+   - Fewer than 3 sub-events → use the expansion rules (add obstacles / side-character reactions / discoveries mid-move / short flashbacks / action escalation; see short-craft.md sections 10-11)
+   - Sub-events connect with `->`; each contains a concrete plot-point description + function tag:
+     `what concretely happens {function tag}` e.g. `found the extra charge on the bill{discovery}` / `flushed the ring{conflict}` / `he smiled{escalation}`
+     Function tags: `dialogue` / `conflict` / `foreshadowing` / `memory` / `discovery` / `escalation`
+     Plot-point descriptions must be specific to "who did what" — never just a tag like `dialogue` or `conflict`
+   - Action-quiet marker: `action` or `quiet` or `both`; adjacent sections alternate when possible; if the genre needs consecutive same markers, ensure in-section emotion change (e.g., two "quiet" sections, but section 1 runs "confusion → ache" and section 2 runs "heartbreak → collapse" — the curve still rises)
+   - Dialogue density: `high` (3+ rounds) / `medium` (1-2 rounds) / `zero` (no dialogue all section); avoid 2 consecutive `zero` sections; diary-reading and solo-discovery scenes may exempt, but consecutive zero-dialogue sections must push emotion through woven sensory details and body reactions
+5. **Reversal information-gap validation** (must validate after the outline, before writing):
+   - Answer: at which section does the reader learn the truth? Compute position % = `reveal section number ÷ total section count`
+     - < 50% → delayed reveal; reversal invalid (reader knew too early; no shock later)
+     - 50-60% → grey zone; review whether the reversal's force is enough (are the earlier misdirection clues sufficient?)
+     - > 60% → position reasonable (reader waited long enough; impact maximized)
+   - Check: at least 1 fake clue the reader was successfully misled by (not "reader guessed and waited for the character to catch up")
+   - Check: ≥ 3 clues pointing to the truth planted before the reversal (hidden, not explicit)
+   - Verify: have someone (or self-simulate) read only the outline — can they guess the truth before the reversal? Guessed = fail
+6. **Foreshadowing recheck list** (check after the outline, before writing):
+   - List every key element of the ending (objects/info/characters/relationship changes)
+   - Does each ending element have ≥ 1 earlier setup? No = sky-fallen; must add setup
+   - Through-line object's three appearances complete? (1st in the setup beat, 2nd in the reversal beat, 3rd in the ending beat)
+   - Distance between setup section and reveal section ≥ 3 sections (too short = setup ineffective)
+
+### Loads before writing (as needed, ≤ 3 at once)
+
+- Required: `short-format.md` (body format) + `short-craft.md` (general base)
+- Required: `short-deslop.md` (AI-flavor self-check while writing)
+- One genre pack: `genre-styles/{genre}.md` (core packs) or `genre-writing-formulas.md` (unusual directions)
+- As needed: `villain-and-reveal.md` / `emotional-methods.md`
+
+### Working directory structure
+
+Working directory structure per [Phase 2: Design the core framework](../SKILL.md#phase-2-design-the-core-framework). `setting.md` contents: core framework + characters + reversal setup + through-line object (with the three-appearance tracking table) + antagonist design + benchmark summary. `section-outline.md` one line per section, format per design task step 4 above.
+
+### Operating principles
+
+- Write the body directly to the file; don't just output it in the conversation.
+- When polishing, read the file and rewrite; change records reflect directly in setting.md's through-line tracking.
+- setting.md maintains the through-line tracking table:
+  `| Object | 1st appearance (section/meaning) | 2nd appearance (section/meaning) | 3rd appearance (section/meaning) |`
+
+---
+
+## Phase 4 polish
+
+### Polish checklist
 
 ```
-## 精修清单
+## Polish list
 
-### 开头
-- [ ] 前 3 句话能抓住人？
-- [ ] 没有无意义的背景介绍？
-- [ ] 包含一个开篇钩子？
+### Opening
+- [ ] Do the first 3 sentences grab?
+- [ ] No meaningless background introduction?
+- [ ] Contains an opening hook?
 
-### 情绪
-- [ ] 情绪曲线是否有明确走向？
-- [ ] 反转前的情绪铺垫够不够？
-- [ ] 反转后的冲击够不够？
+### Emotion
+- [ ] Does the emotion curve have a clear direction?
+- [ ] Is the emotion setup before the reversal enough?
+- [ ] Is the impact after the reversal enough?
 
-### 反转
-- [ ] 反转是否出乎意料？
-- [ ] 反转是否合情合理（回看有铺垫）？
-- [ ] 反转时机是否合适？
+### Reversal
+- [ ] Is the reversal unexpected?
+- [ ] Is it reasonable (re-reading shows the setup)?
+- [ ] Is the timing right?
 
-### 节奏
-- [ ] 有没有拖沓的部分？
-- [ ] 每句话是否都有存在价值？
-- [ ] 字数是否在目标范围内？
+### Rhythm
+- [ ] Any dragging parts?
+- [ ] Does every sentence earn its place?
+- [ ] Word count in target range?
 
-### 格式
-- [ ] 段落以短为主、有长短交错与疏密变化（非通篇同长度）？无连续超长大段？
-- [ ] 段间仅单换行？
-- [ ] 对话独立成行、引号风格符合项目/平台约定？
-- [ ] 标点节奏匹配语气/人物声线：没有通篇句号化，也没有随机堆砌问号/感叹号，或用 `……`/`——` 硬造停顿？
-- [ ] 正文（含对话）里的 `……`、`——`、`—`、`--` 已改成动作、短句、逗号或句号？
-- [ ] 无「他说/她道」？
+### Format
+- [ ] Paragraphs short-based with long/short alternation and dense/sparse variation (not uniform)? No consecutive overlength blocks?
+- [ ] Single newline between paragraphs?
+- [ ] Dialogue on its own line; quote style matches the project/platform convention?
+- [ ] Punctuation rhythm matches tone/voice: no whole-text period flattening, no random question/exclamation stacking, no `...`/`--` forced pauses?
+- [ ] `...` / `——` / `—` / `--` in the body (including dialogue) converted to action/short sentences/commas/periods?
+- [ ] No "he said/she said" tag chains?
 
-### 钩子
-- [ ] 每 2-3 小节有钩子？
-- [ ] 章末有钩子（悬念或余韵）？
+### Hooks
+- [ ] A hook every 2-3 sections?
+- [ ] Section end has a hook (suspense or residue)?
 
-### AI 腔
-- [ ] 无禁止比喻：「命运的齿轮」「如潮水般」「仿佛春风」「心猛地一沉」「眼眶泛红」
-- [ ] 同一身体部位/情绪描写不超 5 次（统计：手指/心/膝盖/眼睛，超限必须替换）
-- [ ] 「像」使用频率：全文不超 10 处（含「像是」「不像」）
-- [ ] 完整 AI 腔黑名单见 short-deslop.md
+### AI flavor
+- [ ] No banned similes: "the gears of fate," "like a tide," "as gentle as a spring breeze," "heart dropping," "eyes welling up"
+- [ ] Same body part/emotion description ≤ 5 times (count: hands/heart/knees/eyes; over-limit must replace)
+- [ ] "like" usage: ≤ 10 total across the whole text (including "seemed like," "wasn't like")
+- [ ] Full AI-flavor blacklist in short-deslop.md
 
-### 技法
-- [ ] 情绪外化：直给的情绪词后面是否接了场景里的具体动作或物件？无空泛情绪总结句（一丝X涌上心头）？
-- [ ] 信物（若用）：意义翻转是否完整？（查设定.md追踪表）
-- [ ] 一动一静：每节是否有动有静？
-- [ ] 开头密度：前 100 字事件 ≥ 3？
+### Technique
+- [ ] Emotion externalization: does each direct emotion word land on a scene-specific action or object? No hollow emotion summaries ("a sliver of X surfaced")?
+- [ ] Through-line object (if used): meaning flip complete? (check setting.md tracking table)
+- [ ] Action and quiet: does each section have both?
+- [ ] Opening density: ≥ 3 events in the first 100 words?
 
-### 结尾
-- [ ] 结尾是否有余韵？
-- [ ] 读者会不会想转发？
+### Ending
+- [ ] Does the ending leave residue?
+- [ ] Would the reader want to share it?
 ```
 
-### 标点确定性收尾
+### Deterministic punctuation cleanup
 
-精修后对 `正文.md` 先运行 `node scripts/check-ai-patterns.js --check --fail-on=blocking 正文.md`。blocking 先改正文并复扫；advisory 只作读感提示，确属问题才改，功能性写法标 `[需复核]`。
-再运行 `node scripts/normalize-punctuation.js 正文.md`（默认 `--quote-mode keep`）清理无功能省略号、破折号、双连字符和独立分隔线；盐言「」不受影响。
+After polishing, run `node scripts/check-ai-patterns.js --check --fail-on=blocking prose.md` on the body first. Fix blocking hits in the body and re-scan; advisory hits are read-feel hints only — fix only genuine problems, mark functional writing `[needs review]`.
+Then run `node scripts/normalize-punctuation.js prose.md` (default `--quote-mode keep`) to clean non-functional ellipses, em dashes, double hyphens, and standalone dividers.
 
-### 删减原则
+### Deletion principles
 
-1. 不推动剧情的对话 → 删
-2. 不铺垫反转的描写 → 删
-3. 不推高情绪的心理活动 → 删
-4. 读者能猜到的内容 → 缩短
-5. 重复表达的情绪 → 合并
+1. Dialogue that doesn't advance the plot → delete
+2. Description that doesn't seed the reversal → delete
+3. Interiority that doesn't raise emotion → delete
+4. What the reader can guess → shorten
+5. Repeated-emotion expression → merge
 
 ---
 
-## 常见问题与解决方案
+## Common problems and solutions
 
-| 问题 | 原因 | 解决方案 |
-|------|------|----------|
-| 开头不抓人 | 在做背景铺垫 | 直接从冲突开始 |
-| 中间拖沓 | 信息密度太低 | 删减或合并场景 |
-| 反转没力度 | 铺垫不够或太明显 | 增加误导线索 |
-| 结尾无力 | 反转后拖太长 | 反转后 500 字内收尾 |
-| 全篇平淡 | 情绪曲线太平 | 加大情绪落差 |
-| 感觉像流水账 | 缺乏情绪描写 | 加入人物内心感受 |
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Opening doesn't grab | Background setup | Start from the conflict |
+| Middle drags | Information density too low | Cut or merge scenes |
+| Reversal has no force | Setup insufficient or too obvious | Add misdirection clues |
+| Ending is weak | Too long after the reversal | Wrap up within 500 words of the reversal |
+| Whole piece flat | Emotion curve too even | Increase the emotion gaps |
+| Reads like a diary log | Lack of emotion description | Add the character's inner feelings |

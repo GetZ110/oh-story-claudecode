@@ -785,8 +785,8 @@ def _clean_markdown_label(label: str) -> str:
 
 def _normalize_rule_field(label: str) -> str:
     label = _clean_markdown_label(label)
-    if label.startswith("本章") or label.startswith("This chapter"):
-        label = label[2:] if label.startswith("本章") else label[len("This chapter"):]
+    if label.startswith("本章") or label.startswith("This chapter's ") or label.startswith("This chapter ") or label.startswith("This chapter"):
+        label = label[2:] if label.startswith("本章") else (label[len("This chapter's "):] if label.startswith("This chapter's ") else (label[len("This chapter "):] if label.startswith("This chapter ") else label[len("This chapter"):]))
     label = re.sub(r"[（(].*$", "", label).strip()
     return label
 

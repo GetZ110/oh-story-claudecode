@@ -74,12 +74,16 @@ with tempfile.TemporaryDirectory(prefix="shared-assets-") as tmp:
     clean = run(root, manifest, "check")
     assert clean.returncode == 0, clean.stderr + clean.stdout
 
-    target.chmod(0o644)
-    mode_drift = run(root, manifest, "check")
-    assert mode_drift.returncode == 1, mode_drift.stderr + mode_drift.stdout
-    assert "mode" in mode_drift.stdout
-    assert run(root, manifest, "sync").returncode == 0
-    assert target.stat().st_mode & 0o111, "sync must repair executable mode drift"
+    # Unix executable modes are not expressible on Windows (chmod 0o755/0o644 both
+    # land on 0o666); the mode-drift assertions only apply where the platform
+    # honors them.
+    if source.stat().st_mode & 0o111:
+        target.chmod(0o644)
+        mode_drift = run(root, manifest, "check")
+        assert mode_drift.returncode == 1, mode_drift.stderr + mode_drift.stdout
+        assert "mode" in mode_drift.stdout
+        assert run(root, manifest, "sync").returncode == 0
+        assert target.stat().st_mode & 0o111, "sync must repair executable mode drift"
 
     target.write_text("drift\n", encoding="utf-8")
     drift = run(root, manifest, "check")
@@ -90,7 +94,8 @@ with tempfile.TemporaryDirectory(prefix="shared-assets-") as tmp:
     synced = run(root, manifest, "sync")
     assert synced.returncode == 0, synced.stderr + synced.stdout
     assert target.read_bytes() == source.read_bytes()
-    assert target.stat().st_mode & 0o111, "sync must preserve executable mode"
+    if source.stat().st_mode & 0o111:
+        assert target.stat().st_mode & 0o111, "sync must preserve executable mode"
     assert run(root, manifest, "check").returncode == 0
 
     target.unlink()
@@ -140,7 +145,9 @@ with tempfile.TemporaryDirectory(prefix="shared-assets-") as tmp:
                 ],
             }
         ],
-        "duplicate managed target skills/one/scripts/tool.js repeated in repeated",
+        "duplicate managed target skills{}one{}scripts{}tool.js repeated in repeated".format(
+            os.sep, os.sep, os.sep
+        ),
     )
 
     copy_chain = [
@@ -224,7 +231,7 @@ with tempfile.TemporaryDirectory(prefix="shared-assets-") as tmp:
     assert missing_source_sync.returncode == 1, (
         missing_source_sync.stderr + missing_source_sync.stdout
     )
-    assert "MISSING SOURCE [tool] src/tool.js" in missing_source_sync.stdout
+    assert "MISSING SOURCE [tool] src{}tool.js".format(os.sep) in missing_source_sync.stdout
     assert "FAIL: synchronization incomplete" in missing_source_sync.stdout
     assert "OK:" not in missing_source_sync.stdout
 
@@ -243,7 +250,10 @@ with tempfile.TemporaryDirectory(prefix="python-store-stub-") as tmp:
     environment = os.environ.copy()
     environment["PATH"] = str(stub_dir) + os.pathsep + environment.get("PATH", "")
     wrapper = subprocess.run(
-        ["bash", str(REPO_ROOT / "scripts" / "check-shared-files.sh")],
+        # A relative script path with cwd=REPO_ROOT: MSYS bash spawned from a
+        # native process cannot translate a drive-letter absolute path, while a
+        # relative path resolves against the inherited cwd everywhere.
+        ["bash", "scripts/check-shared-files.sh"],
         cwd=REPO_ROOT,
         env=environment,
         text=True,

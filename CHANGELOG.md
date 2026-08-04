@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.8.0 (English Edition)
+
+> Full English conversion of the toolkit: all 13 skills, hooks, agents, references,
+> the dashboard, and the project structure are now English. English market scanning
+> (Royal Road, Webnovel, Wattpad, Amazon Kindle, Inkitt, Radish, Galatea) replaces
+> the Chinese platform scrapers; the de-AI-flavor engine was re-derived for English
+> AI fingerprints; the project structure is now `teardown-lib/` / `tracking/` /
+> `prose/` / `outline/` / `setting/` with `outline_chapter_N.md` and `Chapter N`
+> chapter files. **This release ships `agents_version` 23 and `setup_skill_version`
+> 1.3.0 — deployed projects must re-run `/story-setup` and start a new session,
+> otherwise neither this release's prose rules nor its hooks take effect.** Chinese
+> editions before v0.8.0 are historical (see the git history and the Chinese entries
+> below).
+
+### 新增
+
+- **English edition**: every skill body, reference, hook message, agent prompt,
+  command, and dashboard string is now English; the router, scan, analyze, write,
+  review, deslop, import, and cover skills use English trigger phrases and English
+  platform data.
+- **English project structure** (naming contract in `docs/english-naming-contract.md`):
+  `teardown-lib/`, `tracking/`, `prose/`, `outline/`, `setting/`, `benchmark/`;
+  `outline_chapter_NNN.md`, `tracking/context.md`, `tracking/foreshadowing.md`,
+  `tracking/timeline.md`, `tracking/character-state.md`, `Chapter N` chapter files,
+  and the `<!-- deslop:skip -->` exemption marker.
+- **English de-AI-flavor engine**: `check-ai-patterns.js` re-derived for English AI
+  fingerprints (voice-contrast, negation parades, "the kind of X that Y",
+  trailer endings, chapter-end state verdicts, em-dash clusters, cliche/metaphor/
+  reasoning-chain densities, system-notice formality) with word-based metrics
+  (per 1000 words) and an initial calibration baseline; `banned-words.md` and
+  `anti-ai-writing.md` rewritten for English AI-isms; the write-time hooks and the
+  JS↔Python parity locks follow the same English patterns.
+- **English market scanning**: story-long-scan / story-short-scan target Royal Road,
+  Webnovel, Wattpad, Amazon Kindle, Inkitt, Radish, Galatea, Dreame, GoodNovel, and
+  Tapas through WebSearch + CDP-assisted research instead of hardcoded Chinese
+  scrapers (the qidian/fanqie/jjwxc/qimao/ciweimao/heiyan scrapers were removed).
+- **English genre content**: long-form genre prose cards and short-form genre style
+  packs rebuilt for English web-fiction genres (romance subgenres, progression
+  fantasy, LitRPG, cultivation, urban fantasy, thriller, horror, cozy mystery,
+  system apocalypse, ...); word-count contracts converted to words (long-form
+  2000-3000 words/chapter; short-form 4000-12000 words).
+- **English dashboard**: UI, messages, project markers, and CLI output in English.
+
+### 维护
+
+- Guard/test scripts rewritten for the English behavior (AI-pattern fixtures,
+  js↔py parity fixtures, hook-contract fixtures, deployment regression);
+  `static-check.py` and `check-current-skill-contracts.py` accept English section
+  markers and artifact names; demo rebuilt with English sample novels
+  (The Last Knight teardown, The Secret Keeper short teardown, The Shattered Throne
+  continuation project) and the e2e/dashboard tests updated to the English UI.
+- Repository docs are now English-first: README.md is the English canonical
+  document (README_EN.md removed), CONTRIBUTING.md translated, plugin/marketplace
+  manifests and issue templates in English. Old Chinese entries below are
+  historical records.
+
 ## v0.7.2
 
 > 本地工作台 `/story dashboard`（只绑 127.0.0.1、零生产依赖）；治细纲形状被正文照抄导致的生硬与章尾总结体；仓库质量门禁不再掩盖破坏性失败；修会话起点两处长期误报。**本版把 `agents_version` 发到 21，已部署项目需重新运行 `/story-setup` 并新开会话**——v0.7.1 发出去的是 20，不重新部署则 v0.7.1、v0.7.2 的正文与 hook 改动都不会生效。

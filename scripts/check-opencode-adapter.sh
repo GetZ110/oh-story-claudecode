@@ -20,6 +20,25 @@ echo "OpenCode adapter check"
 echo "======================"
 echo "Repo: $REPO_ROOT"
 
+# Locate a working Python interpreter: python3 may be a Windows Store stub that
+# exits without running anything, so probe python3 -> python -> py.
+PYBIN=""
+for cand in python3 python py; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" -c 'import sys' >/dev/null 2>&1; then
+    PYBIN="$cand"
+    break
+  fi
+done
+[ -n "$PYBIN" ] || fail "no usable Python interpreter (tried python3, python, py)"
+
+# Windows without developer mode cannot create symlinks (os.symlink -> WinError
+# 1314). The symlink-redirection scenario is then untestable; skip it so the rest
+# of the rollback suite still runs (same policy as the Codex adapter check).
+SYMLINKS_OK=1
+if ! "$PYBIN" -c "import os,tempfile; d=tempfile.mkdtemp(); os.symlink(d, d+'-ln'); os.unlink(d+'-ln')" >/dev/null 2>&1; then
+  SYMLINKS_OK=0
+fi
+
 assert_dir "$ROOT"
 assert_file "$ROOT/AGENTS.md.tmpl"
 assert_file "$ROOT/opencode.json.patch"
@@ -29,8 +48,8 @@ assert_dir "$ROOT/agents"
 assert_dir "$ROOT/commands"
 assert_file "scripts/sync-opencode.py"
 
-python3 -m json.tool "$ROOT/opencode.json.patch" >/dev/null
-python3 - <<'PY'
+"$PYBIN" -m json.tool "$ROOT/opencode.json.patch" >/dev/null
+"$PYBIN" - <<'PY'
 import json
 from pathlib import Path
 cfg = json.loads(Path('skills/story-setup/references/opencode/opencode.json.patch').read_text())
@@ -45,7 +64,7 @@ echo "  OK config patch"
 # Snapshot the generated surface so --check itself is held to its read-only contract,
 # including when a developer already has unrelated worktree changes.
 cp -R "$ROOT" "$TMP_DIR/opencode-before"
-if ! python3 scripts/sync-opencode.py --check >"$SYNC_LOG" 2>&1; then
+if ! "$PYBIN" scripts/sync-opencode.py --check >"$SYNC_LOG" 2>&1; then
   cat "$SYNC_LOG" >&2 || true
   echo "::error::OpenCode templates are out of sync with Claude Code templates." >&2
   echo "::error::Run 'python3 scripts/sync-opencode.py' locally and commit the changes." >&2
@@ -56,7 +75,7 @@ diff -qr "$TMP_DIR/opencode-before" "$ROOT" >/dev/null \
 
 echo "  OK generated OpenCode templates are in sync (--check stayed read-only)"
 
-python3 - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
+SYMLINKS_OK="$SYMLINKS_OK" "$PYBIN" - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
 import importlib.util
 import sys
 from pathlib import Path
@@ -101,8 +120,9 @@ PY
 
 echo "  OK malformed source cannot partially update generated agents"
 
-python3 - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
+SYMLINKS_OK="$SYMLINKS_OK" "$PYBIN" - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
 import importlib.util
+import os
 import sys
 from pathlib import Path
 
@@ -230,29 +250,32 @@ if snapshot(commit_dst) != before:
     raise SystemExit("sync-opencode failed to roll back an interrupted commit")
 
 
-# A copied symlink at opencode/agents must never redirect staging writes into an
-# external/user directory.
-link_root = tmp / "opencode-symlink-parent"
-link_src_root = link_root / "skills/story-setup/references/templates"
-link_src = link_src_root / "agents"
-link_dst = link_root / "skills/story-setup/references/opencode"
-external = tmp / "opencode-external"
-link_src.mkdir(parents=True)
-link_dst.mkdir(parents=True)
-external.mkdir()
-write_agent(link_src / "a.md", "a")
-(link_src_root / "CLAUDE.md.tmpl").write_text("instructions\n", encoding="utf-8")
-(external / "a.md").write_text("external sentinel\n", encoding="utf-8")
-(link_dst / "agents").symlink_to(external, target_is_directory=True)
-before_external = snapshot(external)
-try:
-    run_normal(link_root)
-except ValueError:
-    pass
+if os.environ.get("SYMLINKS_OK") == "1":
+    # A copied symlink at opencode/agents must never redirect staging writes into
+    # an external/user directory.
+    link_root = tmp / "opencode-symlink-parent"
+    link_src_root = link_root / "skills/story-setup/references/templates"
+    link_src = link_src_root / "agents"
+    link_dst = link_root / "skills/story-setup/references/opencode"
+    external = tmp / "opencode-external"
+    link_src.mkdir(parents=True)
+    link_dst.mkdir(parents=True)
+    external.mkdir()
+    write_agent(link_src / "a.md", "a")
+    (link_src_root / "CLAUDE.md.tmpl").write_text("instructions\n", encoding="utf-8")
+    (external / "a.md").write_text("external sentinel\n", encoding="utf-8")
+    (link_dst / "agents").symlink_to(external, target_is_directory=True)
+    before_external = snapshot(external)
+    try:
+        run_normal(link_root)
+    except ValueError:
+        pass
+    else:
+        raise SystemExit("sync-opencode must reject a symlinked agents directory")
+    if snapshot(external) != before_external:
+        raise SystemExit("sync-opencode followed agents symlink and modified external files")
 else:
-    raise SystemExit("sync-opencode must reject a symlinked agents directory")
-if snapshot(external) != before_external:
-    raise SystemExit("sync-opencode followed agents symlink and modified external files")
+    print("  [SKIP] symlink-redirection test (host cannot create symlinks)")
 PY
 
 echo "  OK OpenCode generated-file failures roll back without replacing the adapter root"
@@ -260,7 +283,7 @@ echo "  OK OpenCode generated-file failures roll back without replacing the adap
 # A stale generated agent that cannot be removed (immutable flag, lock, read-only
 # mount) must not abort the rollback: restorable files return to their prior
 # bytes, the un-removable file keeps its content, and manual assets stay put.
-python3 - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
+SYMLINKS_OK="$SYMLINKS_OK" "$PYBIN" - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
 import importlib.util
 import sys
 from pathlib import Path
@@ -330,7 +353,7 @@ PY
 
 echo "  OK OpenCode rollback survives an un-removable stale agent file"
 
-python3 - <<'PY'
+"$PYBIN" - <<'PY'
 from pathlib import Path
 expected = {
     'chapter-extractor', 'character-designer', 'consistency-checker',
@@ -358,17 +381,20 @@ for p in sorted(base.glob('*.md')):
     assert '.claude/skills/story-setup/references/agent-references/' not in text, f'{p}: leaked Claude reference path'
     assert '.opencode/skills/story-setup/references/agent-references/' not in text, f'{p}: stale hidden OpenCode reference fallback'
     if p.stem in {'character-designer', 'consistency-checker', 'narrative-writer', 'story-architect'}:
-        assert '{项目根}/skills/story-setup/references/agent-references/' in text, f'{p}: missing canonical OpenCode reference path'
+        assert '{project root}/skills/story-setup/references/agent-references/' in text, f'{p}: missing canonical OpenCode reference path'
 PY
 
 echo "  OK agent templates"
 
-# frontmatter 解析必须锚定独占一行的 `---`（值里的三连字符不得截断 permission/steps），
-# 且 disallowedTools 里的 Bash 必须落成真正的标量 deny：OpenCode 未声明 bash 权限时
-# evaluate() 返回 ask（不是 deny），只有 edit: deny 的只读 agent 仍能借 shell 重定向写正文。
-# 不给任何“只读命令”例外：上游 shell.ts 只把 command 的**直接父节点** redirected_statement
-# 纳入鉴权，`( allowlisted-command ) > 正文.md` 的 command 直接父节点是 subshell，能绕过字面量白名单。
-python3 - "scripts/sync-opencode.py" <<'PY'
+# Frontmatter parsing must anchor on a `---` that owns its own line (triple dashes
+# inside values must not truncate permission/steps), and Bash in disallowedTools
+# must become a real scalar deny: OpenCode returns ask (not deny) when bash
+# permission is undeclared, so an edit: deny read-only agent could still write
+# prose through shell redirection. No "read-only command" exceptions: upstream
+# shell.ts only feeds the command's **direct parent** redirected_statement into
+# the check, so `( allowlisted-command ) > prose.md` has a subshell as the direct
+# parent and slips past the literal allowlist.
+"$PYBIN" - "scripts/sync-opencode.py" <<'PY'
 import importlib.util
 import sys
 from pathlib import Path
@@ -380,16 +406,17 @@ assert spec.loader is not None
 spec.loader.exec_module(module)
 
 source = (
-    "---\nname: a\ndescription: |\n  只读 agent --- 7 Gate。\n"
+    "---\nname: a\ndescription: |\n  read-only agent --- 7 Gate.\n"
     "tools: [Read, Glob, Grep]\ndisallowedTools: [Write, Edit, Bash]\nmaxTurns: 9\n"
-    "# 备注 --- 与主 skill 平级\n---\nbody\n"
+    "# note --- at the same level as the main skill\n---\nbody\n"
 )
 fm, body = module.parse_frontmatter(source)
 missing = {'name', 'description', 'tools', 'disallowedTools', 'maxTurns'} - set(fm)
 assert not missing, f'frontmatter truncated at an inline ---: missing {missing}'
 assert body.strip() == 'body', body
 
-# 正文是授权的唯一依据，所以 body 是必传参数：给它一个默认值就等于「忘了传 = 悄悄改权限」。
+# The body is the sole basis for permissions, so it is a required parameter: giving
+# it a default would silently change permissions when a caller forgets to pass it.
 try:
     module.convert_claude_to_opencode(fm)
 except TypeError:
@@ -397,26 +424,29 @@ except TypeError:
 else:
     raise AssertionError('convert_claude_to_opencode must require the agent body (no default)')
 
-# 只读 agent 的正文若要求执行命令，生成器必须大声失败，而不是暗开 shell 例外。
+# If a read-only agent's body asks for a command, the generator must fail loudly
+# instead of silently opening a shell exception.
 try:
     module.convert_claude_to_opencode(
-        fm, '**确定项目根目录：** 执行 `git rev-parse --show-toplevel`，失败则用当前工作目录。\n'
+        fm, '**Determine the project root:** run `git rev-parse --show-toplevel`, falling back to the current working directory.\n'
     )
 except ValueError as error:
     assert 'git rev-parse --show-toplevel' in str(error), error
 else:
     raise AssertionError('restricted agent instructions must not require Bash')
 
-# 正文没提该命令 → 一条都不放（标量 deny 还会让上游 disabled() 把 bash 工具整个摘掉）
-plain = module.convert_claude_to_opencode(fm, '只读 agent，正文没有任何 shell 步骤\n')
+# Body never mentions the command -> emit nothing (a scalar deny also makes
+# upstream disabled() drop the bash tool entirely)
+plain = module.convert_claude_to_opencode(fm, 'read-only agent, body has no shell steps\n')
 assert plain['permission']['bash'] == 'deny', (
     f'read-only agent whose body never asks for a command must get a plain bash deny: {plain}'
 )
 
-# 生成器必须**大声失败**，而不是默默产出一个跑不动或被撬开的 agent。
-# 正文要求任何 shell 命令 → 生成必须中断并点名该命令
+# The generator must fail loudly rather than silently produce an agent that cannot
+# run or was pried open. Body requires any shell command -> generation must abort
+# and name the command.
 try:
-    module.convert_claude_to_opencode(fm, '**准备环境：** 执行 `npm install`，然后开始检查。\n')
+    module.convert_claude_to_opencode(fm, '**Prepare the environment:** run `npm install`, then start the review.\n')
 except ValueError as error:
     assert 'npm install' in str(error), error
 else:
@@ -424,9 +454,10 @@ else:
 
 
 def bash_rules_in_file_order(fm_text: str):
-    """按**文件里的书写顺序**取 bash 规则——顺序就是优先级，不能走 dict/set。
+    """Collect bash rules in **file order** — order is priority, so dict/set won't do.
 
-    同时兼容标量写法 `bash: deny`：上游 fromConfig() 把它展开成单条 `*` 规则。
+    Also accepts the scalar form `bash: deny`: upstream fromConfig() expands it
+    into a single `*` rule.
     """
     import re
     rules = []
@@ -450,8 +481,9 @@ def bash_rules_in_file_order(fm_text: str):
     return rules
 
 
-# format_frontmatter 不得对键排序：一排序，生成器里「宽 deny 在前、窄 allow 在后」的
-# 顺序就被静默抹掉。用逆字母序的插入顺序探它。
+# format_frontmatter must not reorder keys: sorting would silently erase the
+# generator's "broad deny first, narrow allow after" ordering. Probe it with a
+# reverse-alphabetical insertion order.
 probe = {
     'permission': {
         'read': 'allow',
@@ -463,19 +495,21 @@ assert probe_rules == [('zzz cmd', 'deny'), ('*', 'deny'), ('aaa cmd', 'allow')]
     f'format_frontmatter reordered permission globs (must preserve dict order): {probe_rules}'
 )
 
-# 生成器自身的输出：只读 agent 必须是不可覆盖的标量 deny。
+# The generator's own output: a read-only agent must carry a non-overridable scalar deny.
 generated_rules = bash_rules_in_file_order(module.format_frontmatter(plain))
 assert generated_rules == [('*', 'deny')], generated_rules
 PY
 
 echo "  OK generator makes read-only Bash unavailable and rejects contradictory instructions"
 
-# 生成产物的**裁决矩阵**（#265 二轮 review）。这里独立复刻上游 opencode v1.18.5 的判定，
-# 刻意不复用 sync-opencode.py 里的同名函数——复用的话，复刻本身写错时测试会跟着一起错：
+# Adjudication matrix for generated artifacts (#265 second-round review). This
+# independently reimplements upstream opencode v1.18.5's decision logic and
+# deliberately does not reuse the same-named functions in sync-opencode.py — if
+# the replica itself were wrong, reusing it would let the test fail together with it:
 #   util/wildcard.ts     match()
-#   permission/index.ts  fromConfig() / evaluate()（findLast）/ Permission.ask()
-#   tool/shell.ts        source()（带重定向时取整条 redirected_statement）/ collect()
-python3 - <<'PY'
+#   permission/index.ts  fromConfig() / evaluate() (findLast) / Permission.ask()
+#   tool/shell.ts        source() (whole redirected_statement when redirected) / collect()
+"$PYBIN" - <<'PY'
 import re
 from pathlib import Path
 
@@ -485,15 +519,16 @@ def wildcard_match(value: str, pattern: str) -> bool:
     pattern = pattern.replace('\\', '/')
     escaped = re.sub(r'[.+^${}()|\[\]\\]', r'\\\g<0>', pattern)
     escaped = escaped.replace('*', '.*').replace('?', '.')
-    # 上游原注释：pattern 以 " *" 结尾时让尾段可选，好让 "ls *" 也匹配 "ls"。
-    # 正是这一步让前缀 glob 吃下带重定向的整条语句。
+    # Upstream comment: a pattern ending in " *" makes the trailing segment
+    # optional so "ls *" also matches "ls".
+    # This is exactly what lets a prefix glob swallow a whole redirected statement.
     if escaped.endswith(' .*'):
         escaped = escaped[:-3] + '( .*)?'
     return re.match('^' + escaped + '$', value, flags=re.DOTALL) is not None
 
 
 def evaluate(rules, pattern: str) -> str:
-    """findLast：最后一条命中的规则生效；一条都不命中时上游默认 ask。"""
+    """findLast: the last matching rule wins; if none match, upstream defaults to ask."""
     action = 'ask'
     for rule_pattern, rule_action in rules:
         if wildcard_match(pattern, rule_pattern):
@@ -502,7 +537,7 @@ def evaluate(rules, pattern: str) -> str:
 
 
 def resolve(rules, patterns) -> str:
-    """Permission.ask()：任一 pattern 判 deny，整条 shell 调用即被拒。"""
+    """Permission.ask(): if any pattern resolves to deny, the whole shell call is rejected."""
     verdict = 'allow'
     for pattern in patterns:
         action = evaluate(rules, pattern)
@@ -536,15 +571,17 @@ def bash_rules_in_file_order(fm_text: str):
 
 
 NEEDED = 'git rev-parse --show-toplevel'
-TARGET = 'book/正文/第001章.md'
-# 每项 =（展示用命令, collect() 会产生的 scan.patterns）。一条 shell 命令可能含多个
-# tree-sitter `command` 节点；带重定向的节点取整条 redirected_statement 的文本。
+TARGET = 'book/prose/chapter_001.md'
+# Each item = (display command, the scan.patterns collect() would produce).
+# One shell command may contain several tree-sitter `command` nodes; a redirected
+# node contributes the whole redirected_statement text.
 ESCAPES = [
     (f'{NEEDED} > {TARGET}', [f'{NEEDED} > {TARGET}']),
     (f'{NEEDED} >> {TARGET}', [f'{NEEDED} >> {TARGET}']),
     (f'{NEEDED} 2> {TARGET}', [f'{NEEDED} 2> {TARGET}']),
-    # 上游 source() 只检查 command 的直接父节点。套一层 subshell/compound 后，collect()
-    # 看见的 pattern 仍是裸 NEEDED，外层重定向没有进入鉴权 pattern。
+    # Upstream source() only inspects the command's direct parent. Wrapped in a
+    # subshell/compound, collect() still sees the bare NEEDED pattern and the outer
+    # redirection never enters the authorization patterns.
     (f'( {NEEDED} ) > {TARGET}', [NEEDED]),
     (f'{{ {NEEDED}; }} > {TARGET}', [NEEDED]),
     (f'{NEEDED} | tee {TARGET}', [NEEDED, f'tee {TARGET}']),
@@ -554,7 +591,7 @@ ESCAPES = [
     ('git push', ['git push']),
     ('rm -rf /', ['rm -rf /']),
     ("python3 -c 'print(1)'", ["python3 -c 'print(1)'"]),
-    ('echo x > 第1章.md', ['echo x > 第1章.md']),
+    ('echo x > chapter_001.md', ['echo x > chapter_001.md']),
     ('bash -c "cat /etc/passwd"', ['bash -c "cat /etc/passwd"']),
 ]
 
@@ -570,19 +607,21 @@ for name in sorted(read_only):
     assert resolve(rules, [NEEDED]) == 'deny', (
         f'{name}: bare {NEEDED!r} must also be denied'
     )
-    # 反向：重定向/追加/stderr 重定向/管道/串联，以及任意越权命令，一律 deny
+    # Reverse direction: redirection/append/stderr/pipe/chain and any unprivileged
+    # command must all resolve to deny
     for shown, patterns in ESCAPES:
         got = resolve(rules, patterns)
         assert got == 'deny', (
-            f'{name}: `{shown}` resolved to {got!r}, must be deny — 只读 agent 不得借'
-            f'重定向/管道/串联覆写作者正文（rules in file order: {rules}）'
+            f'{name}: `{shown}` resolved to {got!r}, must be deny — a read-only agent'
+            f'must not overwrite author prose via redirection/pipe/chain (rules in file order: {rules})'
         )
 PY
 
 echo "  OK read-only agents deny bare commands plus redirection/subshell/pipe/chain escapes"
 
-# 生成必须幂等：跑两遍产物一致。否则 --check 会在无人改模板时随机报 out-of-sync。
-python3 - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
+# Generation must be idempotent: two runs produce identical output. Otherwise
+# --check would randomly report out-of-sync when nobody touched the templates.
+SYMLINKS_OK="$SYMLINKS_OK" "$PYBIN" - "scripts/sync-opencode.py" "$TMP_DIR" <<'PY'
 import contextlib
 import importlib.util
 import io
@@ -635,7 +674,7 @@ PY
 
 echo "  OK generation is idempotent (second run is byte-identical)"
 
-python3 - <<'PY'
+"$PYBIN" - <<'PY'
 from pathlib import Path
 skill_names = {p.parent.name for p in Path('skills').glob('*/SKILL.md')}
 command_names = {p.stem for p in Path('skills/story-setup/references/opencode/commands').glob('*.md')}
@@ -645,7 +684,7 @@ for p in sorted(Path('skills/story-setup/references/opencode/commands').glob('*.
     assert text.startswith('---\n'), f'{p}: missing frontmatter'
     fm = text.split('---', 2)[1]
     assert 'description:' in fm, f'{p}: missing description'
-    assert f'请使用 {p.stem} skill' in text, f'{p}: command body must route to same skill'
+    assert f'Use the {p.stem} skill' in text, f'{p}: command body must route to same skill'
 PY
 
 echo "  OK slash command templates"
@@ -660,7 +699,7 @@ assert_grep 'from "\./lib/story_hook_core\.js"' "$ROOT/plugin.ts" "OpenCode plug
 # deploy manifest must place the core under .opencode/plugins/lib/, never flat in
 # .opencode/plugins/ (a flat *.js there is auto-loaded by OpenCode as a broken second plugin).
 assert_grep '\.opencode/plugins/lib/story_hook_core\.js' "$REPO_ROOT/skills/story-setup/SKILL.md" "SKILL.md deploy manifest must target .opencode/plugins/lib/story_hook_core.js, not a flat .opencode/plugins/story_hook_core.js"
-assert_grep '正文' "$ROOT/plugin.ts" "OpenCode plugin must inspect prose targets"
+assert_grep 'prose/' "$ROOT/plugin.ts" "OpenCode plugin must inspect prose targets"
 assert_grep '@opencode-ai/plugin' "$ROOT/plugin.ts" "OpenCode plugin must import OpenCode plugin types"
 # The shared prose-guard core (light net / outline guard / wordcount·landing·dup-title) deploys
 # alongside plugin.ts and is imported by it; it must be byte-identical to the ZCode copy and valid JS.

@@ -1,170 +1,170 @@
-# 结构迁移映射规则（短篇）
+# Structure Migration Mapping Rules (Short-Form)
 
-Phase 3-S 短篇结构迁移的详细映射规则。将 `拆文库/{书名}/` 短篇拆文产物转换为 `{短篇标题}/` 短篇工程结构，供 `story-short-write` Phase 3 无缝接手续写。
+The detailed mapping rules for Phase 3-S short-form structure migration: converting `teardown-lib/{Book Title}/`'s short-form teardown artifacts into the `{ShortTitle}/` short-form project structure, for `story-short-write` Phase 3 to take over seamlessly.
 
-> 长篇迁移规则见 `structure-mapping-long.md`。
-
----
-
-## 与长篇的关键差异
-
-| 维度 | 短篇 | 长篇 |
-|------|------|------|
-| 正文 | 单文件 `正文.md`，**不切章** | `正文/第XXX章_章名.md` 多文件 |
-| 追踪目录 | **不产** `追踪/` | 产 `追踪/`（伏笔/时间线/角色状态/上下文） |
-| 角色状态 | **不产** `追踪/角色状态.md` | 产，由 `character-state-reverse.md` 反推 |
-| 大纲体系 | **不产** 卷纲、细纲 | 产 `大纲/卷纲_第X卷.md` + `大纲/细纲_第N章.md` |
-| 大纲目录 | **不产** `大纲/` 目录 | 产 |
-| 续写衔接 | story-short-write Phase 3（逐场景写作） | story-long-write 日更循环 |
+> Long-form migration rules: `structure-mapping-long.md`.
 
 ---
 
-## 映射总览
+## Key differences from long-form
 
-| 拆书产物 | 短篇工程文件 | 转换方式 |
-|---------|------------|---------|
-| 原文全文（`拆文库/{书名}/原文/`） | `{标题}/正文.md` | 单文件迁移，按下方『正文.md 格式规范』规范化，不重写内容 |
-| `拆文报告.md` 的故事核/题材/对标字段 | `{标题}/设定.md`（核心框架区） | 反推核心框架，格式见下方「设定.md 反推规则」 |
-| `情节节点.md` 的功能分段 | `{标题}/小节大纲.md` | 反推小节大纲（按开头段/铺垫段/升级段/反转段/结尾段，钩子字段标 `[待补充]`） |
-| `拆文报告.md` + `写作手法.md` | `{标题}/设定.md`（对标摘要区） | 把结构/情绪/反转/写作手法写入对标摘要 |
-| `拆文库/{书名}/` 整体 | `{标题}/对标/{书名}/` | 可选：复制为引用视图，供续写阶段按需加载 |
+| Dimension | Short-form | Long-form |
+|-----------|------------|-----------|
+| Body | single file `prose.md`, **no chapter splitting** | `prose/chapter_NNN_Title.md`, multiple files |
+| Tracking directory | **no `tracking/`** | produces `tracking/` (foreshadowing/timeline/character-state/context) |
+| Character state | **no `tracking/character-state.md`** | produced, back-derived per `character-state-reverse.md` |
+| Outline system | **no volume outlines, chapter outlines** | produces `outline/volume_outline_{X}.md` + `outline/outline_chapter_NNN.md` |
+| Outline directory | **no `outline/` directory** | produced |
+| Continue-writing handoff | story-short-write Phase 3 (per-scene writing) | story-long-write daily-update loop |
 
 ---
 
-## 设定.md 反推规则
+## Mapping overview
 
-目标文件使用本文件定义的当前核心框架模板，分两个区块：
+| Teardown artifact | Short-form project file | Conversion |
+|-------------------|-------------------------|------------|
+| Full source text (`teardown-lib/{Book Title}/source/`) | `{ShortTitle}/prose.md` | single-file migration, normalized per the 'prose.md format conventions' below; no content rewriting |
+| `teardown-report.md`'s story core / genre / benchmark fields | `{ShortTitle}/setting.md` (core-framework block) | back-derive the core framework, format in the "setting.md back-derivation rules" below |
+| `plot-nodes.md`'s functional segments | `{ShortTitle}/section-outline.md` | back-derive the section outline (by opening/development/escalation/reversal/ending segments; hook fields marked `[TBD]`) |
+| `teardown-report.md` + `craft-methods.md` | `{ShortTitle}/setting.md` (benchmark-summary block) | write structure/emotion/reversal/writing-craft into the benchmark summary |
+| `teardown-lib/{Book Title}/` wholesale | `{ShortTitle}/benchmark/{Book Title}/` | optional: copy as a reference view for on-demand loading during continuation |
 
-### 区块一：核心框架
+---
 
-从 `拆文报告.md` 的故事核、结构划分、人物分析等字段提取，填入以下模板：
+## setting.md back-derivation rules
+
+The target file uses the current core-framework template defined in this file, in two blocks:
+
+### Block one: core framework
+
+Extracted from the story core, structure split, and character analysis fields of `teardown-report.md` into the following template:
 
 ```markdown
-## 短篇核心框架
+## Short-Story Core Framework
 
-### 基本信息
-- 标题：{原书名}
-- 目标字数：{原文实际字数} 字
-- 目标平台：{从拆文报告提取，无则填 [待补充]}
-- 情绪目标：{从拆文报告「情感线/爆点分析」提取读者预期感受}
+### Basic info
+- Title: {original title}
+- Target words: {the source's actual word count} words
+- Target platform: {extracted from the teardown report; if none, fill [TBD]}
+- Emotional goal: {the reader feeling extracted from the teardown report's "emotional line/eruption analysis"}
 
-### 一句话梗概
-{主角 + 困境 + 反转 + 情绪落点（从拆文报告故事核提取）}
+### One-line synopsis
+{protagonist + dilemma + reversal + emotional landing (from the teardown report's story core)}
 
-### 核心反转
-- 反转类型：{从拆文报告反转分析提取：身份反转/视角反转/动机反转/时间线反转}
-- 反转内容：{一句话描述}
-- 铺垫线索：{从情节节点中的「铺垫」类节点提取，至少 3 个；不足时标 [待补充]}
+### Core reversal
+- Reversal type: {extracted from the teardown report's reversal analysis: perspective/identity/motive/timeline}
+- Reversal content: {one sentence}
+- Setup clues: {from the "setup" type nodes in plot-nodes.md, at least 3; mark [TBD] when insufficient}
 
-### 情绪设计
-- 开头情绪：{从情感曲线第一个节点提取}（强度 {1-10}）
-- 中段情绪：{中段情感节点}（强度 {1-10}）
-- 反转情绪：{反转节情感峰值}（强度 {1-10}）
-- 结尾情绪：{结尾节情感}（强度 {1-10}）
+### Emotion design
+- Opening emotion: {from the first node of the emotion curve} (intensity {1-10})
+- Middle emotion: {mid emotion node} (intensity {1-10})
+- Reversal emotion: {the reversal node's peak} (intensity {1-10})
+- Ending emotion: {the ending node's emotion} (intensity {1-10})
 
-### 人设速写
-- 主角：{一句话人设，从人物分析提取}
-- 关键角色：{一句话人设}
-- 关系：{他们之间的关系}
+### Character sketches
+- Protagonist: {one-sentence persona, from the character analysis}
+- Key characters: {one-sentence persona}
+- Relationship: {their relationship}
 ```
 
-> 不确定字段一律加 `[待补充]` 标记，不留空字段。
+> Any uncertain field gets the `[TBD]` marker; never leave an empty field.
 
-### 区块二：对标摘要
+### Block two: benchmark summary
 
-从 `拆文报告.md` 和 `写作手法.md` 提取，汇总为对标摘要区块：
+Extracted from `teardown-report.md` and `craft-methods.md`, aggregated into the benchmark-summary block:
 
 ```markdown
-## 对标摘要：{原书名}
+## Benchmark summary: {original title}
 
-### 故事结构
-{从拆文报告「功能分段」字段提取，概述各段功能}
+### Story structure
+{extracted from the teardown report's "functional segments" field, summarizing each segment's function}
 
-### 情绪节奏
-{从情感曲线/爆点分析提取，描述情绪走势与峰值位置}
+### Emotional rhythm
+{extracted from the emotion curve / eruption analysis, describing the emotional trend and peak positions}
 
-### 核心反转机制
-{从反转机制分析提取，含铺垫路径}
+### Core reversal mechanics
+{extracted from the reversal-mechanics analysis, incl. the setup path}
 
-### 可复用写作手法
-{从写作手法.md 或拆文报告「可复用结构」字段提取，≥3 条}
+### Reusable writing craft
+{extracted from craft-methods.md or the teardown report's "reusable structures" field, ≥3 items}
 ```
 
 ---
 
-## 小节大纲.md 反推规则
+## section-outline.md back-derivation rules
 
-从 `情节节点.md` 的功能分段结构提取，映射到短篇段-小节结构。
+Extracted from `plot-nodes.md`'s functional-segment structure, mapped onto the short-form segment-episode structure.
 
-### 段级映射
+### Segment-level mapping
 
-| 短篇段名 | 对应情节节点功能段 | 说明 |
-|---------|----------------|------|
-| 开头段 | 开端（引入主角/世界/困境） | 通常 1-2 个小节 |
-| 铺垫段 | 发展前期（冲突积累/伏笔布置） | 通常 2-4 个小节 |
-| 升级段 | 发展后期（冲突升级/误解加深） | 通常 2-3 个小节 |
-| 反转段 | 高潮（核心反转引爆） | 通常 1-2 个小节，情绪峰值 |
-| 结尾段 | 结局（收束/情绪落点） | 通常 1-2 个小节 |
+| Short-form segment | Matching plot-node functional segment | Notes |
+|--------------------|---------------------------------------|-------|
+| Opening segment | opening (introducing the protagonist/world/dilemma) | usually 1-2 episodes |
+| Development segment | early development (conflict accumulation / foreshadowing placement) | usually 2-4 episodes |
+| Escalation segment | late development (conflict escalation / misunderstanding deepening) | usually 2-3 episodes |
+| Reversal segment | climax (the core reversal detonates) | usually 1-2 episodes, the emotional peak |
+| Ending segment | ending (closure / emotional landing) | usually 1-2 episodes |
 
-### 小节条目模板
+### Episode-entry template
 
 ```markdown
-## 开头段
+## Opening segment
 
-### 小节 1
-- 核心事件：{从情节节点提取该分段的主要情节点}
-- 情绪目标：{对应情感曲线节点的情绪词}
-- 章首钩子：[待补充]
-- 章尾钩子：[待补充]
-- 参考字数：{按原文对应段落字数估算}
+### Episode 1
+- Core event: {the segment's main plot node(s) from plot-nodes.md}
+- Emotional goal: {the matching emotion-curve node's emotion word}
+- Opening hook: [TBD]
+- Ending hook: [TBD]
+- Target words: {estimated from the source segment's word count}
 ```
 
-> 钩子字段标 `[待补充]`——无法可靠提取，留给用户或续写时填写。
+> Hook fields are marked `[TBD]` — they can't be reliably extracted; left for the user or for continuation writing.
 
-### 小节数量推算
+### Episode-count estimation
 
-按原文实际字数估算：`总字数 ÷ 1000 ≈ 小节数`（短篇参考区间 8-15 个小节）。小节数与正文实际段落结构一致是质量清单必检项。
+Estimate by the source's actual word count: `total words ÷ 1000 ≈ episode count` (short-form reference range 8-15 episodes). The episode count matching the body's actual paragraph structure is a mandatory quality-checklist item.
 
 ---
 
-## 正文.md 格式规范
+## prose.md format conventions
 
-将原文迁移为单文件 `正文.md`，格式按 `format-and-structure.md` 规范化：
+Migrate the source into the single file `prose.md`, normalized per `format-and-structure.md`:
 
-| 规范项 | 要求 |
-|--------|------|
-| 小节标记 | `###1.` `###2.` `###3.`（短篇通用格式；用户指定平台时按 `format-and-structure.md` 平台覆盖表切换） |
-| 段落划分 | 按戏剧单元/镜头/一件事结束自然断段；不按固定字数强拆；完整推理、氛围、情绪链可保留稍长段，避免通篇同长度或碎成提纲 |
-| 段间空行 | 正文相邻段落之间**只允许一个换行符 `\n`**，不得出现空行或 `\n\n` |
-| 对话引号 | 默认 `""` 半角双引号；知乎盐言平台可用 `「」` |
-| 缩进 | 无缩进，不用全角/半角空格 |
-| Markdown | 正文段落中不使用 `**` `*` `#` `---` 等 Markdown 语法（仅小节标记除外） |
+| Convention | Requirement |
+|------------|-------------|
+| Episode markers | `###1.` `###2.` `###3.` (the general short-form format; when the user specifies a platform, switch per the platform override table in `format-and-structure.md`) |
+| Paragraph splits | break naturally by dramatic unit/shot/one-completed-thing; no forced splits by fixed word counts; complete reasoning, atmosphere, and emotional chains may keep slightly longer paragraphs; avoid uniform lengths or outline-shattering |
+| Blank lines between paragraphs | adjacent body paragraphs allow **exactly one line break `\n`**; no blank lines or `\n\n` |
+| Dialogue quotes | default curly double quotes `""`; straight quotes or corner brackets per platform/user specification |
+| Indentation | none; no full/half-width spaces |
+| Markdown | no `**` `*` `#` `---` Markdown syntax in body paragraphs (except the episode markers) |
 
-**原文内容不改动**，只做格式规范化（分段、引号统一、小节标记添加）。
-
----
-
-## 对标引用视图（可选）
-
-将 `拆文库/{书名}/` 整体复制为 `{标题}/对标/{书名}/`，供续写阶段的对标上下文加载：
-
-```
-{标题}/对标/{书名}/
-├── 拆文报告.md
-├── 情节节点.md
-└── 写作手法.md
-```
-
-此视图为可选项。建议默认生成，以便续写时按「对标上下文加载」规则检索。
+**The source content is not changed** — only format normalization (paragraphing, quote unification, episode markers added).
 
 ---
 
-## 质量检查清单
+## Benchmark reference view (optional)
 
-Phase 3-S 迁移完成后执行：
+Copy `teardown-lib/{Book Title}/` wholesale into `{ShortTitle}/benchmark/{Book Title}/` for benchmark-context loading during continuation:
 
-- [ ] `正文.md` 单文件存在且格式符合 `format-and-structure.md`（小节标记、段落划分/主语节奏、段间仅单换行、引号格式）
-- [ ] `设定.md` 含核心框架区块 + 对标摘要区块，且核心框架符合本文件模板
-- [ ] `小节大纲.md` 节数与正文实际段落结构一致
-- [ ] 所有 `[待补充]` 标记已添加（不确定字段不留空）
-- [ ] 未误建 `追踪/`、`大纲/`、`正文/` 等长篇专属目录
+```
+{ShortTitle}/benchmark/{Book Title}/
+├── teardown-report.md
+├── plot-nodes.md
+└── craft-methods.md
+```
+
+This view is optional. Generating it by default is recommended, so continuation can retrieve it per the "benchmark-context loading" rules.
+
+---
+
+## Quality-check checklist
+
+Run after Phase 3-S migration completes:
+
+- [ ] `prose.md` single file exists and its format meets `format-and-structure.md` (episode markers, paragraph splits/subject rhythm, single line break between paragraphs, quote format)
+- [ ] `setting.md` contains the core-framework block + the benchmark-summary block, and the core framework matches this file's template
+- [ ] `section-outline.md`'s episode count matches the body's actual paragraph structure
+- [ ] All `[TBD]` markers added (no empty uncertain fields)
+- [ ] No mistakenly created long-form-only directories (`tracking/`, `outline/`, `prose/` directory, etc.)

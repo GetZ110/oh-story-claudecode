@@ -18,10 +18,21 @@ echo "Reasonix adapter check"
 echo "======================"
 echo "Repo: $REPO_ROOT"
 
-[ -f reasonix-plugin.json ] || fail "reasonix-plugin.json missing"
-python3 -m json.tool reasonix-plugin.json >/dev/null || fail "reasonix-plugin.json is not valid JSON"
+# Locate a working Python interpreter: python3 may be a Windows Store stub that
+# exits without running anything, so probe python3 -> python -> py.
+PYBIN=""
+for cand in python3 python py; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" -c 'import sys' >/dev/null 2>&1; then
+    PYBIN="$cand"
+    break
+  fi
+done
+[ -n "$PYBIN" ] || fail "no usable Python interpreter (tried python3, python, py)"
 
-python3 - <<'PY'
+[ -f reasonix-plugin.json ] || fail "reasonix-plugin.json missing"
+"$PYBIN" -m json.tool reasonix-plugin.json >/dev/null || fail "reasonix-plugin.json is not valid JSON"
+
+"$PYBIN" - <<'PY'
 import json, re
 from pathlib import Path
 

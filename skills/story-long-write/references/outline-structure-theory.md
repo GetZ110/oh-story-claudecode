@@ -1,326 +1,326 @@
-# 深度结构设计
+# Deep Structure Design
 
-> 一二级结构、三幕/五幕/六幕结构、因果链、重剧情vs重人设、五级逐层展开法、换地图、多线写长。用于大纲结构设计时查阅。
+> Level-1/2 structures, three-act/five-act/six-act structures, causal chains, plot-heavy vs persona-heavy, five-level layer-by-layer expansion, map changes, multi-line long-form writing. Consult for outline structure design.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在做什么 | 查阅哪个模块 |
+| What you're doing | Which module |
 |-----------|-------------|
-| 选择整体结构层级 | 一级结构与二级结构 -> 三级结构 |
-| 设计单卷/单章因果链 | 故事基本结构 -> 因果链建立手段 -> 五幕式 |
-| 选择故事架构模板 | 三幕式与五幕式 -> 三幕/起承转合/五幕的关系 |
-| 设计装逼的深层逻辑 | 网文第六幕：余波 |
-| 搭建大纲框架 | 五级大纲逐层展开法 -> 布局八条线 |
-| 选择重剧情还是重人设 | 大纲结构选择：重剧情型 vs 重人设型 |
-| 设计换地图节奏 | 换地图与地图架构 -> 换地图三法 -> 顶层框架法 |
-| 拉长篇幅不崩盘 | 多线写长技法 -> 传统文框架与四大留存手段 |
-| 写西幻题材 | 西幻创作要点 |
-| 把对标书节奏搬进自己大纲 | 一级结构=对标书的剧情单元 + 对标节奏迁移 |
-| 排章避免每章像短篇 | 章节定位与张弛 |
+| Choose the overall structure tier | level-1 & level-2 structures -> level-3 structure |
+| Design a volume/chapter causal chain | basic story structure -> causal-chain building -> the five-act |
+| Choose a story-architecture template | three-act & five-act -> the relationship of three-act/four-stage/five-act |
+| Design the deep logic of status flex | web fiction's sixth act: the aftermath |
+| Build the outline framework | five-level layer-by-layer expansion -> lay out eight lines |
+| Choose plot-heavy or persona-heavy | outline structure choice: plot-heavy vs persona-heavy |
+| Design map-change rhythm | map changes & map architecture -> three map-change methods -> top-frame method |
+| Stretch length without collapse | multi-line long-form techniques -> traditional frameworks & four retention tools |
+| Write western fantasy | western fantasy creation points |
+| Move the benchmark book's rhythm into your outline | level-1 structure = the benchmark's story units + benchmark pacing migration |
+| Arrange chapters to avoid every chapter reading like short-form | chapter positioning & tension |
 
-结构规则是**必须遵守**的框架约束（如五幕式的因果链环数、每幕功能）。遇到冲突时：因果链规则 > 结构模板 > 具体技法。
+Structure rules are **must-follow** framework constraints (like the five-act's causal-chain links and per-act functions). On conflict: causal-chain rules > structure templates > concrete techniques.
 
 ---
 
-## 一级结构与二级结构
+## Level-1 & level-2 structures
 
-### 一级结构 = 单元剧串联
+### Level-1 structure = unit stories in series
 
-一条故事线由若干单元剧组成，互相孤立，主角如绳子串起所有单元剧。
+One storyline consists of several mutually isolated unit stories; the protagonist strings them all together like a rope.
 
-- 优势：爽点密集，结构简单不易出错
-- 劣势：撑不起长篇幅，期待感单一，上限有限
+- Advantage: dense payoffs, simple structure, hard to err
+- Disadvantage: can't carry long lengths, single anticipation, limited ceiling
 
-### 二级结构 = 单元剧套娃升维
+### Level-2 structure = unit-story nesting, dimension-up
 
-把一级结构的"单元剧"拉长到整卷，每卷是一个完整故事。核心问题：一卷二三十万字只展开一个故事，铺垫太长。
+Stretch the level-1 "unit stories" to a whole volume; each volume is one complete story. Core problem: one volume of 200-300k words opening only one story — setup too long.
 
-**解决方案 = 套娃**：大故事的每个结构部分本身也是一个小故事，小故事有爽点，同时暗中铺垫大故事。层层递进，高潮时串在一起引爆。
+**The fix = nesting**: every structural part of the big story is itself a small story; small stories have payoffs while secretly setting up the big story. Layer by layer; at the climax they string together and detonate.
 
-### 三级结构
+### Level-3 structure
 
-卷与卷之间不再孤立，按一个故事结构统一，所有情节互相联系互相作用。对编织情节能力要求极高。
+Volumes no longer isolated; unified by one story structure; all plots interconnect and interact. Requires extremely high plot-weaving skill.
 
-### 长篇特殊认知
+### Long-form special cognition
 
-- 最小冲突单元 = 节拍（一个动作对应一个反应）
-- 过渡章节的问题往往是信息铺垫太多、冲突太少
-- 剧作理论不适用两点：①人物弧——几百万字主角早该成熟，主角可当工具人 ②细节打磨——长篇读者不会深研潜台词
+- The minimum conflict unit = a beat (one action to one reaction)
+- Transition-chapter problems are usually too much info setup, too little conflict
+- Screenwriting theory doesn't apply at two points: ①character arcs — after millions of words the protagonist should have matured; the protagonist can be a tool ②detail polish — long-form readers don't study subtext deeply
 
-## 故事基本结构（主角->障碍->目标）
+## Basic story structure (protagonist → obstacle → goal)
 
-**核心模型**：主角->障碍->目标
+**Core model**: protagonist → obstacle → goal
 
-从基础到好的三步升级：
-1. **加曲折**：多个障碍才叫故事
-2. **递增难度**：难度一致=单调，难度递减=乏味，必须越来越难
-3. **意料之外**：主角即将到达目标时给一个意外——计划失败。解法：灵机一动（临时想到）或神秘一笑（隐藏已久的招）
+The three-step upgrade from basic to good:
+1. **Add twists**: multiple obstacles make a story
+2. **Rising difficulty**: equal difficulty = monotonous; decreasing = boring; must get harder
+3. **The unexpected**: just as the protagonist nears the goal, give a surprise — the plan fails. Fixes: a flash of inspiration (improvised) or a mysterious smile (a long-hidden move)
 
-### 支线与主线的双向对接法
+### The sub-line/main-line two-way tunneling
 
-从支线端和主线端同时开凿，最后对上->前后能圆回来。让支线不成"孤例"——大政策层层传导，主角遭遇只是大现象切面。
+Tunnel from both the sub-line end and the main-line end, meeting in the middle — so it closes front and back. Prevent sub-lines from being "isolated cases" — big policies relay down layer by layer; the protagonist's encounter is only a slice of a larger phenomenon.
 
-### 短篇到长篇的连接
+### Connecting short-form to long-form
 
-长篇 = 一个个短篇连接，连接物 = 钩子。短篇结束前必须留没处理干净的东西。钩子有"定向"作用。
+Long-form = short pieces joined; the joint = hooks. Before a short piece ends, something unresolved must remain. Hooks "direct" the reader.
 
-## 三幕式与五幕式
+## Three-act & five-act
 
-### 故事的本质：事实->事件->故事
+### The nature of story: fact → event → story
 
-- **事实**：静态呈现，不是故事
-- **事件**：变化的事实（从X到Y的变化）
-- **故事**：对事件进行选择、排序、因果化的产物
-- **因果产生意义**：加入因果逻辑后读者会问"为什么？"，意义自成
+- **Fact**: static presentation, not a story
+- **Event**: a changed fact (a change from X to Y)
+- **Story**: the product of selecting, ordering, and causalizing events
+- **Causality creates meaning**: with causal logic, the reader asks "why?" and meaning forms itself
 
-### 因果链建立手段
+### Causal-chain building tools
 
-| 手段 | 说明 |
+| Tool | Explanation |
 |------|------|
-| 排序 | 打乱时间顺序建立因果关系 |
-| 铺垫 | 在事件b之前，在事件a旁边埋下因 |
-| 伏笔 | 事件a + 事件h的因，隔很多事件后才揭示 |
-| 钩子 | 在事件d旁边埋下事件e的因，制造悬念 |
+| Ordering | scramble time order to build causal relationships |
+| Setup | before event B, plant the cause beside event A |
+| Foreshadowing | the cause of event A + event H, revealed many events later |
+| Hooks | plant the cause of event E beside event D, creating suspense |
 
-### 五幕式：因果链的最优弯曲模板
+### The five-act: the optimal bending template for causal chains
 
-| 幕 | 规则 | 因果链状态 |
+| Act | Rule | Causal-chain state |
 |----|------|-----------|
-| 第一幕：开局 | 因必须在此埋下 | 种子 |
-| 第二幕：发展 | 果+因，发展为下一幕的因 | 生长 |
-| 第三幕：转折 | 果+因，质变为下一幕的因 | 转折 |
-| 第四幕：行动 | 果+因，白热化 | 冲刺 |
-| 第五幕：结局 | 果，收束 | 完成 |
+| Act 1: opening | the cause must be planted here | seed |
+| Act 2: development | effect + cause, developing into the next act's cause | growth |
+| Act 3: turn | effect + cause, qualitatively changing into the next act's cause | turn |
+| Act 4: action | effect + cause, white-hot | sprint |
+| Act 5: ending | effect, closing | complete |
 
-**五幕式规定**：因果链必须有五环；每一环有固定功能；不能跳步、不能乱序。
+**The five-act rule**: the causal chain must have five links; each link has a fixed function; no skipped steps, no disorder.
 
-### 三幕、起承转合与五幕的关系
+### Three-act, four-stage (qi-cheng-zhuan-he), and five-act
 
-- **三幕**（冲突开始->对抗->解决）：世界矛盾本身够强、不靠主角推就成立时用（末世、天灾）
-- **四幕/起承转合**：外力推着主角走，他来不及反抗、被动承受（追妻火葬场前期、宿命局）
-- **五幕**：主角被逼到墙角后主动反杀（爽文、复仇）
+- **Three-act** (conflict begins → confrontation → resolution): use when the world's contradiction is strong enough to stand without the protagonist pushing (apocalypse, natural disaster)
+- **Four-stage / qi-cheng-zhuan-he**: external forces push the protagonist; he can't resist, passively endures (comeback-romance early stages, fate plays)
+- **Five-act**: the protagonist, cornered, actively counter-kills (payoff fiction, revenge)
 
-**转折的本质**：冲突性质的质变——冲突变得更严重，主角处境更糟。转折的因要偷偷提前埋下。
+**The nature of the turn**: a qualitative change of conflict — the conflict grows more severe, the protagonist's situation worse. The turn's cause must be secretly planted early.
 
-### 网文第六幕：余波（装逼的深层逻辑）
+### Web fiction's sixth act: the aftermath (the deep logic of status flex)
 
-装逼的**本质冲突**是"主角与社会认知的冲突"，不是主角与反派的冲突。
+Status flex's **essential conflict** is "the protagonist vs society's perception of him," not the protagonist vs the antagonist.
 
-主角实力两个维度：
-- **明线**：战力体系里的晋升
-- **暗线**：社会对主角的认知定位
+The protagonist's power has two dimensions:
+- **Visible line**: promotion inside the power system
+- **Hidden line**: society's cognitive positioning of the protagonist
 
-明线高于暗线时产生冲突->装逼->暗线拉高到一致。小失衡有小装逼，大失衡有大装逼。
+When the visible line exceeds the hidden line, conflict arises → flex → the hidden line rises to match. Small imbalances = small flexes; big imbalances = big flexes.
 
-装逼的正确方式：少让主角主动证明"我很强"，多让环境、他人、时间告诉社会"你确实变强了"。
+The correct flex way: have the protagonist rarely prove "I'm strong" actively; let the environment, others, and time tell society "you did get stronger."
 
-### 八股文套路化写作六大模块
+### The eight-legged formulaic writing six modules
 
-1. **定调**（黄金三章本质）：回应读者期待。核心公式：令人不安的处境 + 急待提升的地位 + 充满希望的外挂 + 能被展望的美好未来
-2. **金手指设计**：信息挂（最优，不易失控）> 加速升级挂 > 物品调用挂（容易失控）。核心：简单，功能与升级规则清晰
-3. **脸谱化角色**：给角色贴标签，一看到特征就想起角色
-4. **升级流节奏**：目标->行动->完成->奖励循环，周期要短
-5. **密集爽点轰炸**：不爽->移除不爽=爽
-6. **套路化冲突**：冲突本身越简单越好理解，悬念构建越复杂越好吸引人
+1. **Tone-setting** (the essence of the golden three chapters): answer reader expectations. Core formula: an unsettling situation + a status crying out for elevation + a hopeful cheat + a future worth anticipating
+2. **Cheat design**: info cheats (best, hard to lose control) > speed-up cheats > object-summoning cheats (easy to lose control). Core: simple; functions and upgrade rules clear
+3. **Labeled characters**: tag characters; one trait recalls the character
+4. **Progression rhythm**: goal → action → complete → reward loop, short cycles
+5. **Dense payoff bombardment**: not-satisfying → remove the not-satisfying = satisfying
+6. **Formulaic conflict**: conflicts as simple and comprehensible as possible; suspense construction as complex as possible for attraction
 
-## 五级大纲逐层展开法
+## The five-level layer-by-layer expansion
 
-| 级别 | 说明 |
+| Level | Explanation |
 |------|------|
-| 1级 | 统筹全文，一句话概括全书 |
-| 2级 | 一个故事情节 = 一条2级主线 |
-| 3级 | 具体剧情 |
-| 4级 | 更细的剧情推演，如堂哥矛盾->羞辱->奋发->金手指->干死对手 |
-| 5级 | 最细致的具体过程，获得金手指的具体过程 |
+| 1 | oversee the whole book; summarize in one sentence |
+| 2 | one plot = one level-2 main line |
+| 3 | concrete plots |
+| 4 | finer plot derivation, e.g. cousin conflict → humiliation → resolve → cheat → destroy the enemy |
+| 5 | the finest concrete process, e.g. how the cheat is obtained |
 
-**下一级服务上一级**。3级足以支撑长篇，5级容易混乱。从上往下推不会卡文，从下往上推容易卡且脱离主线。
+**The next level serves the level above.** Level 3 suffices for long-form; level 5 gets chaotic. Top-down derivation never sticks; bottom-up sticks and drifts from the main line.
 
-### 暗线设计
+### Hidden-line design
 
-- 暗线 = 读者看不出来的线，出其不意
-- 暗线统筹全文，从开始到结束不明写但留伏笔
-- **一伏千里** = 答案从开局就给了，读者到最后才发现
-- 悬疑常用多暗线同时进行->汇合->再汇合其他暗线->最终统筹全文
+- Hidden line = a line the reader can't see; takes them by surprise
+- The hidden line oversees the whole book; from start to end never explicit but keeps foreshadowing
+- **One foreshadowing, a thousand miles** = the answer given at the opening, readers only discover at the end
+- Mystery commonly runs multiple hidden lines simultaneously → converging → converging with other hidden lines → finally overseeing the whole book
 
-### 布局八条线
+### Laying out eight lines
 
-用三到四条线就够——主线（推目标）+ 感情线 + 一两条支线/暗线（埋伏笔），下级服务上级。
+Three or four lines suffice — main line (pushing the goal) + romance line + one or two sub/hidden lines (planting foreshadowing); the lower serves the higher.
 
-## 大纲结构选择：重剧情型 vs 重人设型
+## Outline structure choice: plot-heavy vs persona-heavy
 
-### 强主线（二级结构）
+### Strong main line (level-2 structure)
 
-典型：升级文、悬疑文。重剧情轻人物，配角是工具人。
+Typical: progression fiction, mystery fiction. Plot-heavy, character-light; supporting characters are tools.
 
-核心特征：
-- 每卷有完整三幕式，每幕又有小三幕式（嵌套）
-- 只有一条主线，所有支线推动主线
+Core traits:
+- Every volume has a complete three-act; every act has its own mini-three-act (nesting)
+- Only one main line; all sub-lines push it
 
-**大钩子设计**：主线拆成大支线，每个最终目标 = 大钩子。
-- 大钩子必须不间断，一个断了马上接另一个
-- 更换大钩子关键是铺垫，不能突兀
+**Big-hook design**: split the main line into big sub-lines; each final goal = a big hook.
+- Big hooks must never break; when one ends, the next connects immediately
+- Changing big hooks hinges on setup; no abruptness
 
-### 弱主线（一级结构）
+### Weak main line (level-1 structure)
 
-典型：无敌文、日常文。轻剧情重人设。
+Typical: invincible fiction, daily fiction. Plot-light, persona-heavy.
 
-核心特征：
-- 单元剧模式，各有完整三幕式
-- 公式：核心爽点 + 讨喜人设 + 单元剧舞台
-- 不需要明确主线，主角串联一切
-- 人设的新颖是重点
+Core traits:
+- Unit-story mode, each with a complete three-act
+- Formula: core payoff + likable persona + unit-story stage
+- No explicit main line needed; the protagonist strings everything
+- Persona novelty is the point
 
-### 过渡型
+### Transitional
 
-开局弱主线（单元剧日常），后期逐渐过渡为强主线。
+Open weak-main-line (unit-story daily), gradually transitioning to strong-main-line later.
 
-### 支线设计原则
+### Sub-line design principles
 
-支线必须与主线有关，否则是废线。支线人物身份设定自然服务于主线。
+Sub-lines must relate to the main line or they're dead lines. Sub-line characters' identities naturally serve the main line.
 
-## 传统文框架与四大留存手段
+## Traditional frameworks & four retention tools
 
-### 每卷框架设计（目的+高潮结尾）
+### Per-volume framework (purpose + climax ending)
 
-框架 = 骨相，剧情 = 皮相。每卷做好两件事：①来到新地方的目的是什么 ②设置大高潮结尾。
+Framework = the bone; plot = the skin. Every volume does two things: ①the purpose of arriving at the new place ②set a big-climax ending.
 
-### 四大留存手段
+### The four retention tools
 
-1. **升级**：不只打斗实力，还包括地位、金钱
-2. **资源困境**：修炼需要资源，谋求资源是留住读者的好手段
-3. **设置目标**：大目标+小目标+假目标（不一定要实现，用来勾起期待）
-4. **解密**：展现冰山一角->层层解密->不断拨开迷雾
+1. **Upgrades**: not just combat power — status, money
+2. **Resource traps**: cultivation needs resources; pursuing resources retains readers
+3. **Goal-setting**: big goals + small goals + fake goals (fake ones needn't be achieved; they raise anticipation)
+4. **Decryption**: show the tip of the iceberg → layer-by-layer decryption → parting the fog
 
-## 换地图与地图架构
+## Map changes & map architecture
 
-### 换地图的四种演进方式
+### Four evolutionary map-change styles
 
-| 代际 | 核心 | 问题 |
+| Generation | Core | Problem |
 |------|------|------|
-| 1.0 飞升流 | 凡间->仙界->神界 | 人际关系全抛弃 |
-| 2.0 莲花地图法 | 莲心核心地图+花瓣分支 | 空间有局限 |
-| 3.0 新玩法 | 家族流/模拟器/版本迭代 | 需从中期开始铺垫 |
+| 1.0 ascension style | mortal world → immortal world → god world | all relationships abandoned |
+| 2.0 lotus-map method | lotus-core map + petal branches | spatial limits |
+| 3.0 new plays | family style / simulator / version iterations | needs setup from the mid-run |
 
-### 换地图三法
+### Three map-change methods
 
-1. **千丝万线法**：两个大地图间不断穿针引线
-2. **不换大地图法**：只换小地图，都在一个大地图里转
-3. **莲花地图法**：地图像莲花层层展开
+1. **A thousand threads, a thousand lines**: keep threading between two big maps
+2. **No big-map change**: only small maps, all inside one big map
+3. **Lotus-map method**: the map unfolds like a lotus, layer by layer
 
-### 顶层框架法（防崩盘）
+### The top-frame method (anti-collapse)
 
-开书前先设整张地图所有顶尖势力作为"柱子"。从顶层向下延展：区域->小家族->小宗门->功法宝物。每个出场人物都与某个顶层势力挂钩。
+Before opening the book, set all top-tier factions of the whole map as "pillars." Extend from the top down: region → small family → small sect → techniques and treasures. Every appearing character hooks to some top faction.
 
-**刻度尺思维**：提前设计顶层实力表现力作为标杆。开头boss=5，中期=50，后期才写100。
+**Ruler thinking**: design the top-tier power display as the benchmark in advance. Opening boss = 5, mid-run = 50, late-run = 100.
 
-### 人际关系先行法
+### The relationships-first method
 
-去下一个地图前，先把人际关系铺出去。核心：人际关系动了->主角再动。
+Before moving to the next map, lay relationships out first. Core: relationships move → the protagonist moves.
 
-### 换地图关键认知
+### Map-change key cognitions
 
-- 大地图转换可能掉三分之一追订
-- 损失的读者永远回不来
-- 如果后续写得好追订可涨回来
+- A big map change may drop a third of follow-through
+- Lost readers never return
+- Good later writing can recover follow-through
 
-## 多线写长技法
+## Multi-line long-form techniques
 
-### 多线并进与挖坑填坑
+### Parallel lines & dig-fill
 
-从开头主线就要埋伏笔开支线。主线+两条以上支线同时展开，主线一停->支线接入。不断挖坑填坑 = 剧情不断延展。
+From the opening main line, plant foreshadowing and open sub-lines. Main line + two or more sub-lines unfold together; when the main line pauses → sub-lines take over. Keep digging and filling = the plot keeps extending.
 
-### 多线缓解疲劳
+### Multi-line fatigue relief
 
-长剧情中间插入半章配角视角的无关事件->短暂放松。切换要自然：主线中埋支线伏笔->适当展开->回到主线。
+Mid-long plots insert a half-chapter of supporting-character POV on an unrelated event → brief relaxation. Switching must be natural: plant sub-line foreshadowing in the main line → unfold moderately → return to the main line.
 
-## 西幻创作要点
+## Western fantasy creation points
 
-**选材**：选DND式、巫师、种田、领主文等常青树。避开高武和日式奇幻。
+**Material**: pick evergreen types — D&D-style, wizard, homestead, lord. Avoid high-martial and Japanese-style fantasy.
 
-**世界观**：通过人物对话和行为展现，不搞大段设定文旁白。
+**Worldview**: show through character dialogue and behavior; no long setting-exposition narration.
 
-**人物**：用中文谐音做译名降低门槛；先设计金手指特性，人物性格围绕金手指展开；道德爽感是最高级爽点。
+**Characters**: lower the entry threshold; design the cheat's traits first; personalities orbit the cheat; moral payoff is the highest payoff.
 
 ---
 
-## 一级结构 = 对标书的剧情单元（节奏对标的轴）
+## Level-1 structure = the benchmark book's story units (the axis of pacing benchmark)
 
-一级结构是一个完整单元剧：一个矛盾从起到爆发收束，约 1.5-3 万字 / 数章。拆对标书拆出来的「剧情单元 / 章节摘要 / 爽点循环」就是它的一级结构序列；自己卷纲里的「剧情单元」也是一级结构。所以「一级结构」是理论叫法，落到产物就是**剧情单元**（对标侧=拆出的剧情单元，本书侧=卷纲里的剧情单元卡）。所以对标节奏不是另起炉灶——是把对标书的一级结构序列，保留情绪与功能、换素材，搬进自己的卷纲。
+A level-1 structure is a complete unit story: one conflict from rise to burst and close, ~10k-30k words / several chapters. The "story units / chapter summaries / payoff loops" torn from the benchmark book are its level-1 structure sequence; the "story units" in your own volume outline are also level-1 structures. So "level-1 structure" is the theoretical name; in artifacts it lands as **story units** (benchmark side = torn-out story units; book side = story-unit cards in the volume outline). Benchmark pacing is not a new invention — it's taking the benchmark's level-1 structure sequence, keeping the emotion and functions, swapping the material, and moving it into your own volume outline.
 
-### 关键点法（统一各尺度的节奏锚）
+### The key-point method (unified pacing anchors across scales)
 
-任意尺度（全书 / 卷 / 一级结构 / 支线 / 章）都有五个关键点：开场、1/4、中点、3/4、结尾。其中 1/4、中点、3/4 是放关键情节的位置。关键情节三类：
+Any scale (whole book / volume / level-1 structure / sub-line / chapter) has five key points: opening, 1/4, midpoint, 3/4, ending. The 1/4, midpoint, and 3/4 are the positions for key plots. Three key-plot classes:
 
-| 类型 | 含义 |
+| Type | Meaning |
 |------|------|
-| 情节逆转 | 发展在读者意料内，但主角的解决方式让人直呼精彩（装逼打脸、英雄救美） |
-| 情节转折 | 意料之外（身份反转、敌变友、局势骤变） |
-| 激励情节 | 全书或一卷第一个、与核心主线直接相关的命运改变时刻 |
+| Plot reversal | development stays inside reader expectations, but the protagonist's solution makes readers marvel (flex-comeuppance, hero saves beauty) |
+| Plot turn | the unexpected (identity reversal, enemy to ally, sudden situation change) |
+| Inciting plot | the first fate-changing moment of the book or a volume, directly tied to the core main line |
 
-不是每个尺度都把三处填满，但一卷至少在 1/4、中点、3/4 各安排一个关键情节，避免全程一个力度。
+Not every scale fills all three spots, but a volume places at least one key plot at each of 1/4, midpoint, 3/4 — avoiding one uniform intensity throughout.
 
-### 对标节奏迁移（卷纲定稿前做一次，无对标书可跳过）
+### Benchmark pacing migration (do once before finalizing volume outlines; skip with no benchmark)
 
-1. **选段（以剧情单元为单位）**：在主对标里圈出本卷要对标的一级结构序列——选段单位就是拆文产出的剧情单元（`剧情/{剧情标题}.md`）。检索顺序：先读主对标 `剧情/README.md`「剧情单元清单」（有清单则一书一文件，按「类型 / 桥段标签」直接命中同类）；无清单则在 `剧情/*.md` 里按「类型」行（第一键，必填枚举）+「桥段标签 / 套路框架位置」行（第二键）圈同类；仍无命中回退按章节范围圈段，全程不阻塞。多对标时按 `cross-book-recall.md` 大纲预算从副对标补同类条目。读取必备权威文件 `剧情/节奏.md`（爆发密度 / 爽点循环）；缺失时先修复或重跑拆文 Stage 3，不从摘要猜测节奏。本卷对标几条一级结构 ≈ 本卷字数 ÷ 1.5-3 万。
-2. **标关键点**：看对标这几个一级结构在 1/4、中点、3/4 各放了什么关键情节，判为逆转 / 转折 / 激励。摘要里「类型=转折点」的情节点 + 基调突变（如温馨→压抑）就是关键点的确定性锚，不靠凭感觉；剧情单元的「结构分布」（铺垫/发展/高潮/收尾期）与「情节点索引」同为确定性锚。
-3. **换素材**：保留对标的情绪链和功能位，把对象、场景、事件全换成自己的，禁止照搬具体桥段。功能位清单取必备权威文件 `剧情/情绪模块.md` 的可替换项；缺失时先修复，不生成替代清单。
-4. **修正硬伤**：换素材前比对 `拆文报告.md`「不建议模仿」。对标若在某个关键点是弱处理（慢热留白、主角长期旁观等已知硬伤），迁移时要在该位置补一个缺的关键情节、或把后面的关键情节前置，而不是把弱处理一起抄过来——关键点该有的力度不能因为对标偷懒就跟着偷懒。
-5. **排章 + 落卷纲**：把换好（并修正）的关键情节落到本卷相同相对位置——这里的 1/4·中点·3/4 是**卷尺度**（1/4≈总章×0.25、中点×0.5、3/4×0.75）；卷里有几条一级结构时，每条一级结构内部另有自己的铺垫→逆转→收尾，别和卷尺度的关键点混为一谈。关键点之间用普通推进章过渡，每个关键点之后按需插一章呼吸 / 关系章；写进卷纲「对标结构坐标」与情绪弧线的章节定位列，细纲承接时每章标章节定位。同时把选中的剧情单元以 {书名}《剧情标题》写入剧情单元卡「对标剧情参照」。
+1. **Select segments (in story units)**: circle the level-1 structure sequence in the primary benchmark that this volume benchmarks against — the selection unit is the teardown's story units (`plot/{story-unit title}.md`). Search order: first read the primary benchmark's `plot/README.md` "story unit list" (with a list, one book one file; hit same-type directly by "type / beat tag"); without a list, circle same-type units in `plot/*.md` by the "Type" line (first key, required enum) + "Beat tag / pattern-framework position" line (second key); still no hit, fall back to circling by chapter range — never blocking. With multiple benchmarks, fill same-type entries from secondary benchmarks per cross-book-recall.md's outline budget. Must read the authoritative `plot/pacing.md` (burst density / payoff loops); when missing, repair or re-run teardown Stage 3 first; never guess pacing from summaries. How many level-1 structures this volume benchmarks ≈ volume words ÷ 10k-30k.
+2. **Mark key points**: see what key plots the benchmark placed at 1/4, midpoint, 3/4 in these level-1 structures; classify as reversal / turn / inciting. In summaries, plot points typed "turn" + tone mutations (e.g. warm → oppressive) are the deterministic anchors — not gut feeling; the story unit's "structure distribution" (setup/development/climax/closing) and "plot-point index" are equally deterministic anchors.
+3. **Swap material**: keep the benchmark's emotion chain and function slots; replace all objects, scenes, and events with your own; direct copying of concrete scenes is banned. The function-slot list comes from the authoritative `plot/emotional-beats.md` replaceable items; when missing, repair first — no substitute lists.
+4. **Fix the hard flaws**: before swapping, compare `teardown-report.md` "do not imitate." If the benchmark handles a key point weakly (slow-burn blank space, the protagonist watching for long stretches — known flaws), add a missing key plot there or front-load a later key plot — don't copy the weakness along with everything else. Key points' required force cannot slack because the benchmark slacked.
+5. **Arrange chapters + land the volume outline**: place the swapped (and fixed) key plots at the same relative positions in this volume — here 1/4 · midpoint · 3/4 are **volume-scale** (1/4≈total chapters×0.25, midpoint×0.5, 3/4×0.75); when the volume has several level-1 structures, each has its own internal setup→reversal→close — don't confuse them with the volume-scale key points. Between key points use ordinary advancement chapters; after each key point insert a breathing/relationship chapter on demand; write them into the volume outline's "benchmark structure coordinates" and the emotion curve's positioning column; chapter outlines inherit the positioning. Meanwhile write the selected story units as {book} "{plot title}" into the story-unit card's "benchmark plot reference."
 
-近精细远模糊：只精排当前卷，后续卷做粗坐标即可，不必一上来规划全书。
+Near precise, far fuzzy: finely arrange only the current volume; later volumes get rough coordinates; no need to plan the whole book up front.
 
-一个最小例子：对标书某卷开篇一级结构，1/4 放「捡到不起眼的戒指」（伏笔、无显性爽点）、中点放「强者过境屠城、主角认知被掀翻」（情节转折）、3/4 放「灾难中护亲人、戒指认主收师」（情节转折＋善行机缘）。换素材后——1/4 改成「拾到锈蚀指环、顺手识破管家偷卖当众打脸」（把对标 1/4 的慢热留白补成一个显性小逆转），中点改成「冰原巫王过境屠商队、主角血脉躁动」，3/4 改成「两强交战护妹流血、残魂认主授艺」。情绪链和功能位照搬，对象场景全换，对标的慢热硬伤被就地修正。
+A minimal example: a benchmark volume's opening level-1 structure put "picking up an unremarkable ring" at 1/4 (foreshadowing, no visible payoff), "a strongman passes and massacres a city; the protagonist's cognition is overturned" at the midpoint (plot turn), and "protecting family in the disaster; the ring accepts its master and takes a teacher" at 3/4 (plot turn + good-deed luck). After material swap — 1/4 becomes "finding a rusted ring and catching the steward selling off goods on the spot, public comeuppance" (fixing the benchmark's slow-burn blank into a visible mini-reversal), the midpoint becomes "the Ice-Plain Witch King passes and slaughters a caravan; the protagonist's bloodline stirs," and 3/4 becomes "holding the line to protect his sister while two powers clash; the remnant soul accepts its master and teaches." The emotion chain and function slots are copied; objects and scenes all swapped; the benchmark's slow-burn flaw fixed on the spot.
 
-### 按剧情批出细纲（细纲分批边界）
+### Chapter outlines by story-unit batch (batch boundaries for chapter outlines)
 
-一批细纲 = 卷纲里的一个剧情单元（约 5-15 章）。体量换算：剧情单元字数 ÷ 单章目标字数 → 章数，单章目标字数取本书既有细纲惯例，无惯例按题材节奏档取默认（快节奏/短平快约 2000，均衡约 3000）；剧情单元超过 1.5 万字且节拍含两个以上独立高潮时拆成多个剧情单元，否则单个剧情单元。剧情单元 >10 章拆两批建纲，两批共享同一次召回；首批 = 前 10 章封顶、可跨单元（跨入的剧情单元建卡时召回一次，余章由后续滚动批共享剧情单元卡结论），停靠规则不变（见 [Phase 3：大纲搭建](../SKILL.md#phase-3大纲搭建)）。
+One batch of chapter outlines = one story unit in the volume outline (~5-15 chapters). Size conversion: story-unit words ÷ per-chapter target words → chapter count; per-chapter target follows this book's existing chapter-outline convention, or defaults by genre rhythm tier (fast-paced/short-quick ≈2000, balanced ≈3000); story units over 15k words with 2+ independent climaxes split into multiple units, otherwise one unit. Story units >10 chapters split into two outline batches sharing the same recall; the first batch = capped at the first 10 chapters, may cross units (the crossed-into unit recalled once when building its card; remaining chapters share the card's conclusions in later rolling batches); stopping rules unchanged (see [Phase 3: Outline building](../SKILL.md#phase-3-outline-building)).
 
-建卡时做一次**剧情批召回**：读剧情单元卡「对标剧情参照」指向的剧情单元（≤3 个文件）的「结构分布」「情节点索引」，回查该书 `剧情/节奏.md` 同章节区间的爽点循环 / 触动点与被引情绪模块卡，提炼 5-8 拍共性节拍写入剧情单元卡「单元节拍/章功能分配」，单元情绪引擎字段对照主对标 `剧情/情绪模块.md` 的可复现模块校准（缺失按原流程，不阻塞）；换素材与修硬伤纪律同上方迁移步骤 3/4——保留情绪链和功能位，对象、场景、事件全换，对标弱处理就地修正。结论固化进剧情单元卡后，逐章细纲只消费剧情单元卡，不重读剧情单元。
+When building the card, do one **story-unit batch recall**: read the "structure distribution" and "plot-point index" of the story units (≤3 files) referenced by the card's "benchmark plot reference," cross-check that book's `plot/pacing.md` payoff loops / trigger points in the same chapter range and the referenced emotion-module card, distill 5-8 common beats into the card's "unit beats/chapter function allocation," and calibrate the unit emotional engine against the primary benchmark's `plot/emotional-beats.md` reproducible modules (missing → follow the original flow, non-blocking); the swap-material and fix-hard-flaws discipline follows migration steps 3/4 — keep the emotion chain and function slots, swap all objects/scenes/events, fix the benchmark's weak handling on the spot. After conclusions freeze into the card, per-chapter outlines consume only the card, never re-read the unit files.
 
-日更中途补建细纲遇旧版卷纲（无「对标剧情参照」字段）或锁定卷纲时，节拍结论只记入本批「批次定位与阶段约束」和 `追踪/上下文.md`，**绝不回写卷纲**。
+When daily updates build missing outlines against a legacy volume outline (no "benchmark plot reference" field) or a locked volume outline, beat conclusions are recorded only in this batch's "batch positioning & stage constraints" and `tracking/context.md` — **never written back into the volume outline**.
 
-## 章节定位与张弛（破「每章像短篇」）
+## Chapter positioning & tension (against "every chapter like short-form")
 
-一卷里章的压力本就该有高有低。这里的压力级指**爆发 / 冲突烈度**（复用悬念刻度 1 微 / 2 小 / 3 中 / 4 大 / 5 极），不是情感烈度——关系回收 / 泪目这类章可以压力低（爆发小）但情感强度顶满，情感烈度由卷纲情绪弧线的「情绪基调 + 强度」承载。章节定位由「这一章在它所属一级结构里的位置」自然落出，不是另贴一套独立标签：一级结构首章多为铺垫 / 共情，中段承载逆转，收尾爆发收束；黄金开篇、高潮结算 + 温情这类章可复合标注（如「高压 + 关系」）或留空。
+A volume's chapters should naturally vary in pressure. Here pressure level means **burst / conflict intensity** (reusing the suspense scale 1 micro / 2 small / 3 mid / 4 large / 5 extreme), not emotional intensity — relationship-payoff/tearjerker chapters can be low pressure (small bursts) with maxed emotional intensity; emotional intensity is carried by the volume outline's emotion curve's "tone + intensity." Chapter positioning falls out naturally from "where this chapter sits inside its level-1 structure," not a separate label set: the first chapter of a level-1 structure is mostly setup/empathy, the middle carries reversals, the tail bursts and closes; golden openings, climax settlements + warmth chapters may compound-label (e.g. "high pressure + relationship") or stay blank.
 
-| 章节定位 | 功能 | 压力级 | 卷内占比（均衡/长书基线，非硬配额） | 钩子要求 |
+| Positioning | Function | Pressure | In-volume share (balanced/long-book baseline, not a hard quota) | Hook requirements |
 |------|------|--------|--------------------------|----------|
-| 高压章 | 打脸 / 掉马 / 反转 / 高潮；关键点的关键情节落点 | 4-5 | 约 15-20% | 章尾强钩子；承载逆转 / 转折 |
-| 普通推进章 | 主线推进、冲突升级、单元剧中段 | 2-3 | 约 40-50% | 章尾中钩子；至少一个小爽点或期待递进 |
-| 修炼试错章 | 实力 / 资源积累、能力铺垫、失败试错 | 2 | 约 5-10% | 进度钩子（差一点 / 即将突破），可无反转 |
-| 关系回收章 | 感情线兑现、关系转折、身边人日常 | 2-3 | 约 5-10% | 情感钩子；拉扯仍带主线相关 |
-| 低压生活章 | 高潮后喘息、关系升温、张弛调节 | 1-2 | 不超过约 10% | 允许弱钩子或仅情绪钩子；不强求反转 / 爽点 |
-| 信息整理章 | 转场、设定交代、时间缝合 | 1 | 不超过约 5%，能并章就并章、少独立成章 | 允许无显性爽点；信息用「表演」承载；结尾给下一段目标 |
+| High-pressure chapter | comeuppance/mask-drop/reversal/climax; key plots of key points land here | 4-5 | ~15-20% | strong chapter-end hook; carries reversals/turns |
+| Ordinary advancement chapter | main-line advancement, conflict escalation, unit mid-run | 2-3 | ~40-50% | mid chapter-end hook; at least one small payoff or anticipation advance |
+| Training-trial chapter | power/resource accumulation, ability setup, trial-and-error | 2 | ~5-10% | progress hook (one step away / about to break through); reversals optional |
+| Relationship-payoff chapter | romance-line delivery, relationship turns, daily life of people around | 2-3 | ~5-10% | emotion hook; the pull still carries main-line relevance |
+| Low-pressure life chapter | post-climax breathing, relationship warming, tension regulation | 1-2 | ≤ ~10% | weak hooks or emotion-only hooks allowed; no forced reversal/payoff |
+| Information-assembly chapter | transitions, setting delivery, time stitching | 1 | ≤ ~5%; merge when possible, rarely standalone | no visible payoff required; info carried by "performance"; end gives the next segment's goal |
 
-两条底线：
+Two floors:
 
-- **期待不断、爆发分布**。低压章可以没有爽点和反转，但每章都要给读者一个往下看的理由（微好奇、阶段目标、暧昧期待）。掉的是爆发烈度，不是往前的拉力——番茄追读尤其吃这条。
-- **禁情绪母题扎堆**。比「每章像短篇」更隐蔽的疲劳源，是连续多章同一情绪母题高位运行（如连五章家国 / 泪目）——章节定位分得再开也救不了。排卷纲情绪弧线时逐行看相邻 3-4 章的情绪基调，同母题别连超 2-3 章；靠换情绪、换钩子方式、多线穿插来差异化，不是靠砍钩子。
+- **Anticipation never breaks; bursts stay distributed.** Low-pressure chapters may lack payoffs and reversals, but every chapter must give the reader a reason to keep reading (micro-curiosity, stage goals, ambiguity anticipation). What drops is burst intensity, not forward pull — Webnovel follow-through especially lives on this.
+- **No emotion-motif clustering.** More hidden than "every chapter like short-form" is fatigue from consecutive chapters running the same emotion motif at high intensity (e.g. five chapters of family/nation or tearjerking) — even perfect positioning can't save it. When arranging the volume's emotion curve, scan the adjacent 3-4 chapters' tones row by row; the same motif must not run 2-3+ consecutive chapters; differentiate by changing emotion, hook style, and multi-line interleaving — not by cutting hooks.
 
-题材分级（上面占比是均衡 / 长书基线，按题材分档）：番茄短平快 / 男频事业线，高压可到 30% 以上、呼吸章压到 5% 上下都正常，别拿基线去「补呼吸、砍高压」反而掉追读；女频 / 世情 / 追妻，人设关系容量大、关系 / 低压章可更多，但仍走情绪折线、不必每章三折。低压 / 关系章定位是看点（主角身边人的日常本身是订阅点），不是填充。
+Genre tiers (the shares above are balanced/long-book baselines; adjust by genre): Webnovel fast-paced / male-audience career lines may run high pressure above 30% with breathing chapters down to ~5% — don't "add breathing, cut high pressure" against the baseline and lose follow-through; romance/slice-of-life/comeback genres carry more persona-relationship capacity and may use more relationship/low-pressure chapters, but still walk the emotion fold-line — not every chapter needs three folds. Low-pressure/relationship chapters are draws (the daily life of the protagonist's circle is itself a subscription point), not filler.
 
-与字数预算的衔接：章节定位只改密 / 疏配比的下限，不改 Σ 契约。高压章靠多密点达到 Σ∈[章目标, ×1.1]；低压生活 / 信息整理 / 纯过场章靠铺垫（120-150）与疏点（≈40）凑字、允许 0 密点，但关系回收章要保 ≥1 个情感密点（≈250），否则关系写塌。写后字数 <90% 定位欠账时，高压 / 推进章补密点重写，低压 / 过场章补铺垫 / 互动 / 表演 beat，不强塞爽点密点——低密点是设计，不是欠账。
+Handoff to word budgets: positioning only changes the dense/light mix's floor, not the Σ contract. High-pressure chapters reach Σ∈[chapter target, ×1.1] with more dense points; low-pressure life / information-assembly / pure-transition chapters fill with setup (120-150) and light points (≈40), 0 dense points allowed — but relationship-payoff chapters must keep ≥1 emotional dense point (≈250) or the relationship collapses. When post-writing words <90% positions the deficit, high-pressure/advancement chapters add dense points and rewrite; low-pressure/transition chapters add setup/interaction/performance beats — never force payoff dense points; low dense-point counts are design, not deficit.
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-完成大纲/结构设计后，逐项检查：
+After outline/structure design, verify:
 
-- [ ] **结构层级匹配**：选择的层级（一级/二级/三级）与题材和篇幅匹配
-- [ ] **因果链完整**：五幕式每幕有固定功能，无跳步、无乱序
-- [ ] **转折有因**：每个转折的因已提前埋下，不是突兀出现
-- [ ] **难度递增**：障碍难度从低到高，没有递减或匀速
-- [ ] **钩子不间断**：大钩子一个断了马上接另一个，没有空窗期
-- [ ] **支线不废**：每条支线与主线有关，支线人物服务于主线
-- [ ] **五级展开合理**：下一级服务上一级，不超过3级（长篇）
-- [ ] **暗线有伏笔**：暗线从开局就埋伏笔，不是后期硬塞
-- [ ] **换地图有铺垫**：人际关系先行，不是突然跳地图
-- [ ] **刻度尺一致**：顶层实力标杆已设，boss难度在合理区间
-- [ ] **多线挖填平衡**：挖的坑有计划填，填完有新坑接上
-- [ ] **装逼暗线匹配**：明线战力 > 暗线社会认知时触发装逼，装逼后暗线拉平
-- [ ] **章节定位分布**：本卷有高压 / 推进 / 呼吸的层次，不是全程同一力度？低压 + 过场克制（合计不超约 15%）？
-- [ ] **期待不断**：低压 / 过场章仍给了往下看的理由（不是裸奔无钩子）？相邻章没有情绪趋同？
-- [ ] **对标坐标**（有对标书时）：1/4·中点·3/4 各锚定一个关键情节，且是换素材而非照搬桥段？
+- [ ] **Structure tier matched**: chosen tier (1/2/3) matches the genre and length
+- [ ] **Causal chain complete**: the five-act has fixed functions per act; no skipped steps, no disorder
+- [ ] **Turns have causes**: every turn's cause planted in advance, not abrupt
+- [ ] **Difficulty rising**: obstacles rise low to high, no decreasing or uniform
+- [ ] **Hooks unbroken**: a big hook ends, the next connects immediately; no dead windows
+- [ ] **No dead sub-lines**: every sub-line relates to the main line; sub-line characters serve it
+- [ ] **Five-level expansion sound**: the lower serves the higher; not past level 3 (long-form)
+- [ ] **Hidden lines foreshadowed**: hidden lines plant foreshadowing from the opening, not late-force-fed
+- [ ] **Map changes set up**: relationships first; no sudden map jumps
+- [ ] **Ruler consistent**: top-tier power benchmark set; boss difficulty in a reasonable range
+- [ ] **Dig-fill balanced**: dug holes have planned fills; fills lead to new holes
+- [ ] **Flex hidden-line matched**: visible power > hidden social cognition triggers flex; after flex the hidden line catches up
+- [ ] **Chapter-positioning spread**: the volume has high-pressure/advancement/breathing layers, not one uniform intensity? Low-pressure + transition restrained (total ≤ ~15%)?
+- [ ] **Anticipation unbroken**: low-pressure/transition chapters still give a reason to keep reading (no naked hookless chapters)? No adjacent-chapter emotion convergence?
+- [ ] **Benchmark coordinates** (with a benchmark): a key plot anchored at each of 1/4 · midpoint · 3/4, with swapped material rather than copied scenes?

@@ -1,8 +1,12 @@
 #!/bin/bash
 # test-prose-backstop-hook.sh — regression tests for check-prose-after-write.sh
-# 核心保证：① 绝不过度捕获非正文文件（代码/细纲/设定/大纲/游离正文）；② 真正文兜底触发；
-# ③ 轻量内容网抓对硬信号（截断/拒绝语/工程词/复读），干净正文（排比+对话+悬念）静默。
-# 过度捕获用路径门验证（不依赖解释器）；内容网用内嵌 python（与 parity 测试同源）。
+# Core guarantees: ① never over-captures non-prose files (code/outlines/setting/
+# master-outline/stray prose); ② real prose backstop fires; ③ the lightweight
+# content net catches hard signals (landing/truncation/refusal/engineering-word/
+# verbatim repeat) and clean prose (parallelism + in-story AI dialogue + suspense
+# ending) stays silent. Over-capture is verified with the path gate (no
+# interpreter needed); the content net runs through the node shared core (same
+# source as the parity tests).
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -12,67 +16,81 @@ HOOK="$REPO_ROOT/skills/story-setup/references/templates/hooks/check-prose-after
 
 bash -n "$HOOK" || { echo "FAIL: hook has syntax errors" >&2; exit 1; }
 
+# The content net runs on the node shared core; skip when node is unavailable
+# (the hook itself degrades silently then, and the silence assertions would
+# false-green).
+if ! node -e "" >/dev/null 2>&1; then
+  echo "test-prose-backstop-hook: no node interpreter, skipped."
+  exit 0
+fi
+
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
-# 真书结构：设定.md + 大纲/ + 正文/
-mkdir -p "$TMP/某书/正文" "$TMP/某书/大纲" "$TMP/docs/正文" "$TMP/游离/正文"
-printf '# 设定\n主角江晨。\n' > "$TMP/某书/设定.md"
-printf '## 细纲（第1章）\n- 情节点序列：本章细纲，作为AI我无法继续。他握紧拳头。他握紧拳头。\n' > "$TMP/某书/大纲/细纲_第001章.md"
-printf '# 大纲\n第1章 第2章 细纲 本章 下一章\n' > "$TMP/某书/大纲/大纲.md"
-printf '# 卷纲\n本卷细纲。\n' > "$TMP/某书/大纲/卷纲_第1卷.md"
-printf 'const x=1; // 细纲 本章 下一章 作为AI我无法继续 复读复读复读\n' > "$TMP/某书/x.js"
-printf '## 正文\n按照细纲，作为AI我无法继续。\n' > "$TMP/docs/正文.md"   # 正文.md 但无 设定.md 兄弟
-printf '## 第5章\n按照细纲，作为AI我无法继续。\n' > "$TMP/游离/正文/第005章.md" # 正文/第N章 但无书结构
-printf '他' > "$TMP/某书/正文/第001章_截断.md"                            # 真正文，极短 → 落盘触发
+# Real book structure: setting.md + outline/ + prose/
+mkdir -p "$TMP/the-book/prose" "$TMP/the-book/outline" "$TMP/docs/prose" "$TMP/stray/prose"
+printf '# Setting\nProtagonist: Jiang Chen.\n' > "$TMP/the-book/setting.md"
+printf '## Chapter Outline (Chapter 1)\n- plot point sequence: this chapter outline, as an AI I cannot continue. He clenched his fists. He clenched his fists.\n' > "$TMP/the-book/outline/outline_chapter_001.md"
+printf '# Outline\nChapter 1 Chapter 2 outline this chapter next chapter\n' > "$TMP/the-book/outline/outline.md"
+printf '# Volume Outline\nthis volume outline\n' > "$TMP/the-book/outline/volume_outline_1.md"
+printf 'const x=1; // outline this chapter next chapter as an AI I cannot continue repeat repeat repeat\n' > "$TMP/the-book/x.js"
+printf '## Prose\nAccording to the chapter outline, as an AI I cannot continue.\n' > "$TMP/docs/prose.md"   # prose.md but no setting.md sibling
+printf '## Chapter 5\nAccording to the chapter outline, as an AI I cannot continue.\n' > "$TMP/stray/prose/chapter_005.md" # prose/chapter_N but no book structure
+printf 'He' > "$TMP/the-book/prose/chapter_001_truncated.md"                          # real prose, extremely short -> landing signal fires
 
 run() { CLAUDE_PROJECT_DIR="$TMP" CLAUDE_TOOL_INPUT="{\"tool_input\":{\"file_path\":\"$1\"}}" bash "$HOOK" 2>/dev/null; }
 
 fails=0
 expect_silent() {
   local out; out="$(run "$1")"
-  if [ -n "$out" ]; then echo "FAIL: over-capture on non-正文 file: $1" >&2; echo "$out" | head -2 >&2; fails=$((fails+1)); fi
+  if [ -n "$out" ]; then echo "FAIL: over-capture on non-prose file: $1" >&2; echo "$out" | head -2 >&2; fails=$((fails+1)); fi
 }
 expect_fire() {
   local out; out="$(run "$1")"
-  if [ -z "$out" ]; then echo "FAIL: backstop did not fire on real 正文: $1" >&2; fails=$((fails+1)); fi
+  if [ -z "$out" ]; then echo "FAIL: backstop did not fire on real prose: $1" >&2; fails=$((fails+1)); fi
 }
 
-# ① 绝不捕获这些非正文文件（含工程词/复读/拒绝语文本，证明确实没被扫）
-expect_silent "$TMP/某书/大纲/细纲_第001章.md"
-expect_silent "$TMP/某书/大纲/大纲.md"
-expect_silent "$TMP/某书/大纲/卷纲_第1卷.md"
-expect_silent "$TMP/某书/x.js"
-expect_silent "$TMP/某书/设定.md"
-expect_silent "$TMP/docs/正文.md"
-expect_silent "$TMP/游离/正文/第005章.md"
-# ② 真正文（极短→落盘信号）必须触发
-expect_fire "$TMP/某书/正文/第001章_截断.md"
+# ① never capture these non-prose files (they contain engineering words/
+# repeats/refusal text, proving they are really not scanned)
+expect_silent "$TMP/the-book/outline/outline_chapter_001.md"
+expect_silent "$TMP/the-book/outline/outline.md"
+expect_silent "$TMP/the-book/outline/volume_outline_1.md"
+expect_silent "$TMP/the-book/x.js"
+expect_silent "$TMP/the-book/setting.md"
+expect_silent "$TMP/docs/prose.md"
+expect_silent "$TMP/stray/prose/chapter_005.md"
+# ② real prose (extremely short -> landing signal) must fire
+expect_fire "$TMP/the-book/prose/chapter_001_truncated.md"
 
-# ③ 内容网：真正文里的硬信号必须被抓，且抓对类型；干净正文（排比+AI角色对话+悬念收尾）静默。
+# ③ content net: hard signals in real prose must be caught with the right kind;
+# clean prose (parallelism + in-story AI dialogue + suspense ending) stays silent.
 expect_fire_kw() {
   local out; out="$(run "$1")"
   if ! printf '%s' "$out" | grep -q "$2"; then
-    echo "FAIL: 内容网未抓到「$2」: $1" >&2; printf '%s\n' "$out" | head -4 >&2; fails=$((fails+1))
+    echo "FAIL: content net did not catch \"$2\": $1" >&2; printf '%s\n' "$out" | head -4 >&2; fails=$((fails+1))
   fi
 }
-# bash 字符串重复填充正文（不走 python stdout：Windows runner 上 python<3.15 的文本 stdout
-# 是 cp1252，写中文会 UnicodeEncodeError；printf 直出脚本里的 UTF-8 字节字面量才稳）。
-PAD() { local s='江晨握紧拳头慢慢走向门口心里盘算着接下来的每一步棋。'; printf '%s' "$s$s$s$s$s$s$s$s"; }
-# 干净：长正文 + 排比 + AI 角色对话（「作为AI…」在引号内豁免）+ 悬念收尾标点 → 完全静默
-{ printf '# 第10章 决战\n\n'; PAD; printf '\n要么生，要么死。\n要么战，要么逃。\n「作为AI管家，我陪你到最后。」\n他终于停下了脚步。\n'; } > "$TMP/某书/正文/第010章_决战.md"
-expect_silent "$TMP/某书/正文/第010章_决战.md"
-# 截断：结尾无标点
-{ printf '# 第11章\n\n'; PAD; printf '\n他猛地冲过去一拳砸在'; } > "$TMP/某书/正文/第011章_截断.md"
-expect_fire_kw "$TMP/某书/正文/第011章_截断.md" 截断
-# 生成拒绝语 / AI 自指（叙述行，非对话）
-{ printf '# 第12章\n\n'; PAD; printf '\n作为AI我无法继续创作这部分内容。\n'; } > "$TMP/某书/正文/第012章_拒绝.md"
-expect_fire_kw "$TMP/某书/正文/第012章_拒绝.md" 元信息泄漏
-# 工程词漏进正文
-{ printf '# 第13章\n\n'; PAD; printf '\n按照本章细纲的情节点，他该出场了。\n他出场了。\n'; } > "$TMP/某书/正文/第013章_工程词.md"
-expect_fire_kw "$TMP/某书/正文/第013章_工程词.md" 工程词
-# 紧邻整行复读（≥8 可见字符）
-{ printf '# 第14章\n\n'; PAD; printf '\n他握紧拳头一步步走过去缓缓逼近。\n他握紧拳头一步步走过去缓缓逼近。\n他停下了。\n'; } > "$TMP/某书/正文/第014章_复读.md"
-expect_fire_kw "$TMP/某书/正文/第014章_复读.md" 复读
+# bash string padding for the prose body (printf writes the script's UTF-8 byte
+# literals directly; no python stdout involved in this hook anymore)
+PAD() { local s='Jiang Chen clenched his fists and walked slowly toward the door, weighing every next move in his head. '; printf '%s' "$s$s$s$s"; }
+# clean: long body + parallelism + in-story AI dialogue ("As an AI..." inside
+# quotes is exempt) + a suspense ending with terminal punctuation -> fully silent
+{ printf '# Chapter 10 Final Battle\n\n'; PAD; printf '\nEither live or die.\nEither fight or flee.\n"As an AI housekeeper, I stay with you to the end."\nHe finally stopped walking.\n'; } > "$TMP/the-book/prose/chapter_010_final_battle.md"
+expect_silent "$TMP/the-book/prose/chapter_010_final_battle.md"
+# landing: file below 200 bytes
+printf 'He' > "$TMP/the-book/prose/chapter_011_landing.md"
+expect_fire_kw "$TMP/the-book/prose/chapter_011_landing.md" '\[LANDED\]'
+# truncation: no terminal punctuation at the end
+{ printf '# Chapter 12\n\n'; PAD; printf '\nHe rushed forward and swung at'; } > "$TMP/the-book/prose/chapter_012_truncated.md"
+expect_fire_kw "$TMP/the-book/prose/chapter_012_truncated.md" 'suspected truncation'
+# generation refusal / AI self-reference (narration line, not dialogue)
+{ printf '# Chapter 13\n\n'; PAD; printf '\nAs an AI I am unable to continue writing this part of the story.\n'; } > "$TMP/the-book/prose/chapter_013_refusal.md"
+expect_fire_kw "$TMP/the-book/prose/chapter_013_refusal.md" 'meta leakage'
+# engineering words leaking into prose
+{ printf '# Chapter 14\n\n'; PAD; printf '\nAccording to the chapter outline, it was his turn to appear.\nHe appeared.\n'; } > "$TMP/the-book/prose/chapter_014_engword.md"
+expect_fire_kw "$TMP/the-book/prose/chapter_014_engword.md" 'engineering-word leakage'
+# back-to-back verbatim line (>= 8 visible chars)
+{ printf '# Chapter 15\n\n'; PAD; printf '\nHe clenched his fists and walked over step by step, slowly closing in.\nHe clenched his fists and walked over step by step, slowly closing in.\nHe stopped.\n'; } > "$TMP/the-book/prose/chapter_015_repeat.md"
+expect_fire_kw "$TMP/the-book/prose/chapter_015_repeat.md" 'verbatim repeat'
 
 if [ "$fails" -ne 0 ]; then
   echo "Prose backstop hook tests FAILED ($fails)." >&2

@@ -1,79 +1,130 @@
-# 拆文实例（3 个完整案例）
+# Deconstruction Examples (3 Complete Cases)
 
-> 拆文时参考结构范例。先用决策路由选相近类型，再对照案例检查自己的拆文。
+> Reference structural examples during teardown. First use the routing table to pick the closest type, then check your teardown against the cases.
 
-## 决策路由
+## Decision routing
 
-| 你在拆什么类型的故事 | 参考案例 | 重点看 |
-|---------------|---------|--------|
-| 现代虐恋/反转 | 案例 1（盲女保镖 x 霸总） | 假盲设定 + 双关 + 日记揭露 |
-| 古代虐恋/身份反转 | 案例 2（庶女 x 将军） | 信物转赠 + 底层翻身 |
-| 权谋/多角关系 | 案例 3（长公主 x 四位青梅） | 主动布局 + 信息差设计 |
+| What kind of story you're tearing down | Reference case | Focus on |
+|-----------------------------------------|----------------|----------|
+| Contemporary hurt/revenge, silent-observer POV | Case 1 (The Maid of the Hour) | the observer setup + the public reversal + the recording evidence |
+| Small-town second chance, faked-death reveal | Case 2 (The Last Ferry) | the faked-death foreshadowing + the walk-away ending |
+| Cozy mystery, community + twist | Case 3 (The Book Club Alibi) | the closed set + the twin reveal + fair-play clues |
 
-## 案例 1：现代虐恋（盲女保镖 x 霸总）
+## Case 1: Contemporary hurt/revenge — "The Maid of the Hour"
 
-**导语**
-- 背景：女主是盲人保镖，救过男主，男主承诺照顾她一辈子
-- 虐点：女主发现男主和女配出轨，为报恩忍耐
-- 反转：女主其实是假盲，她看得见一切背叛
-- 钩子：女主能看见但没人知道 | 她只给自己 7 天时间离开
+**Logline**
+- Background: Wren is the housekeeper at the Vale estate. Adrian Vale saved her brother's life when she was fifteen; she has loved him silently for ten years and never told anyone
+- Pain point: Wren overhears Adrian planning to marry the heiress June Ashworth and quietly bankrupt her father's clinic as merger leverage — the "savior" she worshipped is the man crushing the people who saved him
+- Reversal: the silent housekeeper was never silent — she recorded every conversation, kept every receipt, and understood the estate better than the family did
+- Hook: Wren can hear everything and no one knows | she gives herself seven days to leave
 
-**起**：女主在厨房听到男主打电话约女配 -> 假装不知道端汤出去 -> 男主手机弹出女配消息，女主"碰巧"看到屏幕 -> 虐点：男主在她面前毫无顾忌
+**Setup**: Wren is polishing glasses in the pantry when Adrian takes a call — the merger plan with June's father, the clinic's debts, the phrase "then we own the whole town" -> she pours the tea and serves it smiling (her face trained, her hands steady)
 
-**承+转1**：女主发现怀孕想告诉男主 -> 撞见男主给女配庆生 -> 看到项链是当年自己送的定情物 -> 虐点升级：信物被转赠
+**Turn 1**: Wren finds her father's clinic flagged for audit the next morning -> she begins recording: voice memos on her phone, the safe's combination, the second set of books she was never supposed to see -> pain escalates: the man she loved is methodical about ruin
 
-**承**：女主沉默回家收拾行李 -> 男主回来问眼睛 -> 她说"好多了，什么都能看见了"（双关，男主没听懂）
+**Development**: June comes to the estate; Wren serves them champagne and hears June laugh about "the housekeeper who doesn't know which fork is which" -> Wren keeps the smile, keeps the recordings, and starts copying the ledgers by hand (one page per night, hidden in the lining of her coat)
 
-**承+转2**：男主生日宴会，女配以女伴身份出席，女主作为"保镖"在角落站着 -> 女主当众宣布离婚递协议 -> 爽点：全场震惊
+**Turn 2**: The engagement gala. June announces the engagement; the town applauds; Adrian toasts "to what we'll build together." Wren, in her uniform, walks to the microphone and plays the first recording — Adrian's own voice naming the bankruptcy plan. The projector behind her shows the copied ledgers, page by page
 
-**合**：女主离开后男主发现她留下的日记 -> 日记记录了她"看见"的每一次背叛 -> 男主崩溃但女主已消失 -> 爽点+悬念
+**Climax**: June's father walks out with the ledgers. Adrian stands alone on the stage, and Wren — still in her housekeeper's uniform — says the only line she ever addresses to him directly: "You saved my brother once. I'm returning the favor — you never have to see me again." She leaves through the kitchen door, coat pockets empty, the town watching her go
 
----
+**Story core**: the servant who sees everything, the master who saw nothing — revenge delivered with a smile and a recording app
 
-## 案例 2：古代虐恋（庶女 x 将军）
+**5-dim score** (1-5):
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Opening attraction | 4 | the pantry overhearing in scene one; class contrast + secret love both loaded |
+| Emotional pull | 5 | V-shape: worship → betrayal → cold satisfaction; the smile-and-pour beat is the hinge |
+| Reversal design | 4 | the faked blindness of "the maid" is set from line one; the recordings make the reveal physical |
+| Rhythm control | 4 | every act of service doubles as evidence-gathering — no dead scenes |
+| Ending aftershock | 5 | the uniform as armor; the kitchen-door exit; the town as witness |
 
-**导语**
-- 背景：庶女与将军秘密相恋三年，将军承诺战后娶她
-- 虐点：将军凯旋带回正妻——是嫡姐
-- 反转：庶女发现自己只是嫡姐的"练手工具"
-- 钩子：庶女能否从贱籍翻身到龙床 | 将军会后悔到什么程度
+**Payoff facets**: the class comeuppance (the rich who never saw the help) | the methodical evidence chain (recordings + ledgers) | the public stage (the gala is the arena) | the restraint (she never shouts — the quiet is the weapon)
 
-**起**：庶女在后院刺绣听到将军回城 -> 满心期待准备嫁衣 -> 门口传来嫡姐声音："夫君，你回来了"
+**Cognitive reversal**: the reader re-reads every "she serves tea smiling" scene — the smile was never submission, it was surveillance. The protagonist wasn't a victim of the world; she was its archivist
 
-**承+转1**：庶女被迫给嫡姐敬茶 -> 偷听到"不过是拿她练练手，你别介意" -> 虐点：三年感情只是工具
-
-**承**：庶女表面顺从暗中接近太子宴席 -> 用才艺引起太子注意 -> 虐中蓄力
-
-**承+转2**：将军发现庶女被太子纳入府中震惊 -> 庶女当众揭穿将军靠嫡姐上位 -> 爽点：身份反转将军颜面尽失
-
-**合**：庶女成为太子侧妃后成正妃 -> 将军在战场被追杀无人救援 -> 临死前看到庶女画像终于后悔 -> 爽点：迟来的后悔比死更难受
+**Resonance layers**: emotional (the unrecognized servant) strong | values (work is seen) strong | social-phenomenon (class blindness, gig-economy invisibility) strong | experience (having been talked over in a room) medium
 
 ---
 
-## 案例 3：权谋公主（长公主 x 四位青梅竹马）
+## Case 2: Small-town second chance — "The Last Ferry"
 
-**导语**
-- 背景：长公主有四位青梅竹马未婚夫，但她心里只有那个不爱她的将军
-- 虐点：她选了最没权势的那个，放弃了一直默默守护的将军
-- 反转：她选的那个才是害她母后的人
-- 钩子：公主放弃真爱会怎样 | 被放弃的人如何反击
+**Logline**
+- Background: Nell runs the ferry on Merrow Island. Twelve years ago Elias left on the last boat of summer, promising to come back — then the letters stopped and he was declared dead in a storm off the mainland
+- Pain point: Nell has kept the light in the window every night since. Elias walks off the ferry one foggy evening — alive, older, wearing a mainland suit
+- Reversal: he never abandoned her — his family's debt collectors were hunting him; the death was staged by his own father to end the hunt, and Elias spent twelve years paying the debt off in silence, one wire transfer a month to a blind account in her name
+- Hook: she can't forgive the lie | he can't explain the truth without naming the crime his family committed
 
-**起**：抽签决定婚姻，公主表面顺从 -> 暗中做了手脚让最弱的那个中签 -> 读者知道她在保护将军
+**Setup**: the fog, the ferry bell, the figure on the dock — Nell's hand on the rope, recognizing him by the way he stands before she sees his face -> the last line of the scene: "You're twelve years late, Elias." / "I know."
 
-**承+转1**：被选中的驸马展露野心 -> 发现驸马与敌国通信 -> 虐点：公主以为在保护人实际养虎为患
+**Turn 1**: he explains the faked death; she shows him the light she kept -> pain point: she says "you let me grieve a man who was alive." He has no answer because the debt was paid in his name, not hers
 
-**承**：公主被软禁，将军在外征战不知情 -> 公主利用暗线传递消息反击 -> 虐中蓄力
+**Development**: the town reacts (the gossip, the old friends, the father who won't meet his eye); Nell finds the bank records in her own name — twelve years of monthly wires she never noticed, because she never opened the account statements ("I was too busy keeping the light on") -> foreshadowing: the reader has seen her burn the unopened envelopes twice, early
 
-**承+转2**：将军回朝发现公主被囚 -> 公主早已安排好反击计划，等的是时机，救援只是掩护 -> 爽点：公主从来不弱
+**Turn 2**: Elias prepares to leave again — "you deserve the truth, not me" — and Nell makes the choice at the dock: she hands him the keys to the ferry. "You owe me twelve winters. You can start by learning to run this boat."
 
-**合**：驸马叛变被镇压公主亲临城楼 -> 将军问为何当年不选自己 -> "因为只有你不在我身边，你才能成为最强的那把刀" -> 爽点+余韵
+**Climax**: they take the ferry out together at dawn; she teaches him the channel; the last line is hers: "The light stays on, Elias. That was never conditional."
+
+**Story core**: a promise kept in the wrong currency — the letters stopped, but the debt was paid monthly, and the kept light was the real contract
+
+**5-dim score** (1-5):
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Opening attraction | 4 | the fog + the silhouette + the one-line recognition |
+| Emotional pull | 5 | wave shape: grief → anger → the bank-record thaw → the dawn choice |
+| Reversal design | 5 | the faked death is seeded (unopened envelopes, the father's silence) and re-reads cleanly |
+| Rhythm control | 4 | island time as rhythm; the town scenes pace the two-handers |
+| Ending aftershock | 5 | the keys + the dawn crossing; the "conditional" line reframes the whole grief |
+
+**Payoff facets**: the delayed truth (the wires as evidence of love the letters stopped) | the walk-away that isn't (he leaves again, but this time it's a test, not an ending) | the town's vindication of her waiting | the small object (the light, the keys) carrying the emotional load
+
+**Cognitive reversal**: "he stopped writing" re-reads as "he never stopped providing" — the reader's anger at Elias converts into grief for what the lie cost them both; the unopened envelopes were the love letters
+
+**Resonance layers**: emotional (waiting) strong | experience (being left without explanation) strong | values (a promise kept, even broken-shaped) medium | cultural (the lighthouse/ferry as keeper imagery) medium
 
 ---
 
-## 拆文检查清单
+## Case 3: Cozy mystery — "The Book Club Alibi"
 
-1. **标记情绪**：每段标注虐/爽/蓄力，检查分布是否合理
-2. **找钩子**：每篇至少 2 个钩子，至少 1 个信息差钩子
-3. **查结构**：起承转合是否完整，转折是否合理
-4. **看铺垫**：每个反转前是否至少 2 个铺垫线索
-5. **评估爽度**：最大爽点是否在全文 70-85% 位置
+**Logline**
+- Background: the Merrow Island book club (Nell's mainland cousins' village) meets at the Harbor House; the founder, Miriam Voss, is found dead in the locked reading room, a half-finished crossword on the table
+- Pain point: every member has an alibi from the book club itself — the victim was "fine at 8pm, reading aloud"
+- Reversal: the killer is the victim's twin sister, visiting under a different name, who has been attending the club for three months as "the new member from the city"
+- Hook: the clue is the crossword — Miriam filled in one wrong answer on purpose, every week, the same error | the librarian notices
+
+**Setup**: the locked room, the cozy details (the tea, the afghans, the crossword), the club's seven members each with a chapter to read aloud -> the librarian, Juniper Cole, notices the crossword is wrong — Miriam never makes that error
+
+**Turn 1**: Juniper checks the attendance book: "the new member" signed in with a city address that doesn't exist -> pain point: the twin has been here for three months, learning the club's rhythms, the victim's habits, the code to the reading room
+
+**Development**: the alibis crack one by one as Juniper reconstructs the evening — the twin read Miriam's chapter aloud in her voice, then "left early" through the kitchen, and the locked door was locked from inside by the twin using Miriam's own key, returned to the bowl
+
+**Turn 2**: the gathering scene at the next meeting — Juniper lays out the crossword, the attendance book, the key bowl, and asks the new member to "read the chapter where you left off." The twin opens her mouth and the voice that comes out is Miriam's
+
+**Climax**: the confession in front of the club — a family inheritance, a forged will, a sister who wanted the life Miriam had; Juniper had already called the mainland police, who found the twin's real name on the ferry manifest
+
+**Story core**: a cozy murder solved by a librarian who knows her readers — the one wrong crossword answer, the wrong address, and a sister's borrowed voice
+
+**5-dim score** (1-5):
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Opening attraction | 3 | the locked room opens the puzzle cleanly |
+| Emotional pull | 3 | curiosity-driven rather than emotion-driven; the twin's reveal adds the ache |
+| Reversal design | 5 | the twin is on stage from page one ("the new member"); the voice is the final clue |
+| Rhythm control | 4 | club scenes as rhythm; each alibi crack is a chapter beat |
+| Ending aftershock | 4 | the borrowed-voice reveal + the quiet closing on the crossword, now completed |
+
+**Payoff facets**: the fair-play clue chain (crossword error → false address → key bowl → the voice) | the community stage (the club as jury) | the procedural satisfaction (the ferry manifest, the phone call) | the quiet vindication of the overlooked librarian
+
+**Cognitive reversal**: "the new member from the city" re-reads as the twin's rehearsal — every book-club meeting the reader watched was the killer learning to be the victim; the wrong crossword answer was a cry for help that only the librarian read
+
+**Resonance layers**: emotional (grief over the family fracture) medium | experience (book clubs, small-town membership) strong | values (attention as care — the librarian who actually reads) strong | social-phenomenon (identity theft within family) medium
+
+---
+
+## Teardown checklist
+
+1. **Label the emotions**: mark each passage's hurt/gratification/charging, check the distribution is sane
+2. **Find the hooks**: at least 2 hooks per piece, at least 1 information-gap hook
+3. **Check the structure**: setup-development-turn-climax complete? Are the turns justified?
+4. **Look at the setup**: at least 2 setup clues before each reversal
+5. **Assess the gratification**: is the biggest gratification at 70-85% of the piece?

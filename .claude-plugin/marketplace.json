@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "English web-fiction writing toolkit — market scanning, book deconstruction, and full writing workflows for long-form and short-form novels",
-    "version": "0.7.2"
+    "version": "0.8.0"
   },
   "plugins": [
     {

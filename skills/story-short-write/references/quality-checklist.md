@@ -1,222 +1,221 @@
 
-# 网文质量检查清单
+# Fiction Quality Checklist
 
-## 目录
+## Contents
 
-- [一、通用检查](#一通用检查)
-- [三、短篇专项](#三短篇专项)
+- [1. General checks](#1-general-checks)
+- [2. Five-dimension scoring](#2-five-dimension-scoring)
+- [3. Short-story specifics](#3-short-story-specifics)
 
-## 一、通用检查
+## 1. General checks
 
-### 章节结构
-- [ ] 开头有钩子（不是天气/风景/日常开场）
-- [ ] 中段有推进（有事件发生）
-- [ ] 局势有变化（读完这章，世界跟之前不一样了）
-- [ ] 结尾落在变化上（不是总结）
+### Section structure
+- [ ] Opening has a hook (not weather/scenery/daily-life openings)
+- [ ] Middle advances (something happens)
+- [ ] The situation changes (after this section, the world is different from before)
+- [ ] The end lands on the change (not a summary)
 
-### 开篇检查（前 300-500 字）
-- [ ] 有钩子，能抓住注意力
-- [ ] 不从天气/风景/日常开始
-- [ ] 主角快速出场
-- [ ] 卖点或危机可见
+### Opening check (first 300-500 words)
+- [ ] Hook present; attention held
+- [ ] Doesn't start from weather/scenery/daily routine
+- [ ] Protagonist appears quickly
+- [ ] Selling point or crisis visible
 
-### 章节推进
-- [ ] 有核心事件
-- [ ] 局势有变化
-- [ ] 不是水字数（删掉这章会影响理解吗？不会 = 水了）
-- [ ] 任务卡点有用：卡住之后是否带来信息、情绪、关系、代价或伏笔变化？
-- [ ] 推进了主线/关系/设定中的至少一项
+### Section advancement
+- [ ] Core event present
+- [ ] Situation changes
+- [ ] Not padding (would deleting this section affect understanding? No = padded)
+- [ ] Task blockers useful: does blocking produce information, emotion, relationship, cost, or foreshadowing change?
+- [ ] Advances at least one of: main line / relationship / setting
 
-### 信息传递
-- [ ] 没有大段设定说明文
-- [ ] 信息跟着冲突走（通过事件传递设定）
-- [ ] 设定量可控（一章不超 3 个新概念）
+### Information delivery
+- [ ] No long setting-explanation passages
+- [ ] Information follows conflict (setting delivered through events)
+- [ ] Setting volume controlled (≤ 3 new concepts per section)
 
-### 场景检查
-- [ ] 场景有目标（人物要什么）
-- [ ] 场景有阻碍（什么挡着）
-- [ ] 场景有变化（结束后跟之前不同）
-- [ ] 人物在做事情，不是在感觉事情
-- [ ] 没有可删除的段落
+### Scene checks
+- [ ] Scene has a goal (what the character wants)
+- [ ] Scene has an obstacle (what blocks it)
+- [ ] Scene has change (different after than before)
+- [ ] Characters are doing things, not feeling things
+- [ ] No deletable paragraphs
 
-### 章尾
-- [ ] 结尾落在变化上
-- [ ] 有危机/决定/发现/反转中的至少一个
-- [ ] 不是总结式结尾
-- [ ] 拉住读者翻下一页
+### Section end
+- [ ] Ends on a change
+- [ ] Contains at least one of: crisis / decision / discovery / reversal
+- [ ] Not a summary-style ending
+- [ ] Pulls the reader to the next page/section
 
-### 语言
-- [ ] 没有空洞的抒情段落
-- [ ] 没有连续多段同一情绪
-- [ ] 对话符合人物身份（不同人说话方式不同）
-- [ ] 情绪通过动作落地（不是直接说"他很难过"）
+### Language
+- [ ] No hollow lyrical passages
+- [ ] No consecutive same-emotion paragraphs
+- [ ] Dialogue fits the character (different people speak differently)
+- [ ] Emotion lands through action (not "he was very sad" directly)
 
-### 连载连续性
-- [ ] 没有遗忘之前的承诺/伏笔
-- [ ] 没有突然塞入大量新设定
-- [ ] 伏笔有推进
-- [ ] 故事引擎还在运转
+### Serialization continuity
+- [ ] No forgotten promises/foreshadowing
+- [ ] No sudden large setting dumps
+- [ ] Foreshadowing advances
+- [ ] The story engine still runs
 
-### 水（filler）检测
-以下信号出现 = 可能水了：
-- 全章对话没有任何新信息
-- 同一个情绪写了 3 段以上
-- 场景描写超过 500 字但不推进剧情
-- 角色回忆之前发生的事但没有任何新视角
-- 连续 2 章以上没有冲突
-- 删掉无损的流程细节 / 任务卡点 = 水；压缩或删除
-
----
-
-### 五维评分标准
-
-每个维度 0-100 分，根据评分结果选择精修策略。
-
-### 维度 1：核心一致度
-检查：关键冲突、关键行动、人物动机是否前后一致。
-
-| 问题 | 严重度 | 修复 |
-|------|--------|------|
-| 人物动机突然改变无铺垫 | critical | 补充动机转变的触发事件 |
-| 核心冲突前后不一致 | high | 回溯修改冲突设定 |
-| 关键行动与人物性格矛盾 | high | 调整行动或补充解释 |
-| 次要矛盾遗忘 | medium | 回收或弱化 |
-
-### 维度 2：表层重写度
-检查：句式与措辞是否足够原创，避免套路化表达。
-
-| 问题 | 严重度 | 修复 |
-|------|--------|------|
-| 照搬原句导致语气不自然 | medium | 只在确有 AI 腔时改写，正常原句可保留 |
-| 大量使用 AI 标志词 | high | 替换为具体描述 |
-| 同一句式重复出现 | medium | 变换表达方式 |
-| 描写过于文学化（辞藻堆砌、书面腔、比喻成串） | medium | 改为口语化/动作化；动作化不是切成三五字短句串，改写后叙述仍以逗号长句为主 |
-
-### 维度 3：格式一致度
-检查：段落是否按戏剧单元/镜头自然断开，主语/角色名节奏是否自然，开头结尾格式是否统一。
-
-| 问题 | 严重度 | 修复 |
-|------|--------|------|
-| 机械按字数切段或主语过密 | medium | 按戏剧单元重排段落，段首点名、段中代词/省略、关键转折再点名 |
-| 章节字数偏离目标 | **high** | 写作/大纲修复时先回到细纲补足计划内情节点，再展开；去AI味已有正文时不得新增剧情 |
-| 格式混乱（对话/描写不统一）| low | 统一格式 |
-
-### 维度 4：可读性
-检查：是否有啰嗦、AI 腔、空泛总结、套路修辞。
-
-| AI 腔特征 | 如何识别 | 如何修复 |
-|-----------|----------|----------|
-| 空泛总结 | 「他终于明白了」「一切尽在不言中」 | 删掉，用行动代替 |
-| 套路修辞 | 「命运仿佛在和他开玩笑」 | 删掉或换成具体描述 |
-| 比喻堆叠 | 连续多处「像/好像/仿佛/如同」，每个画面都靠比喻解释 | 只留最有叙事功能的少数比喻，其余改成动作、物件、声音或后果 |
-| 情绪标签 | 「他感到一阵悲伤」 | 改为行为表现 |
-| 心理描写空转 | 内心独白无新信息、重复同一情绪或复述读者已知 | 只压缩空转部分；带新信息、决断或情绪转折的独白不按句数压缩 |
-
-### 维度 5：逻辑连贯
-检查：句间/段间是否通顺，有无设定冲突。
-
-| 问题 | 严重度 | 修复 |
-|------|--------|------|
-| 设定前后矛盾 | critical | 查找并统一设定 |
-| 时间线错误 | high | 标记时间线并修正 |
-| 角色信息不一致 | high | 建立角色档案对照 |
-| 因果链断裂 | medium | 补充过渡 |
-
-### 精修策略
-
-根据五维评分结果，选择精修策略：
-
-| 主要问题 | 策略 | 说明 |
-|----------|------|------|
-| 核心一致度低 | rewrite | 围绕核心冲突重写相关段落 |
-| 字数超标 | compress | 删减不推动剧情的内容 |
-| 无意义卡点 | compress | 保留卡出的变化，压掉流程 |
-| AI 腔重 | de_ai | 替换禁用词、改写句式 |
-| 小问题多 | polish | 打磨语言细节 |
+### Padding (filler) detection
+These signals = possibly padded:
+- A whole section of dialogue with no new information
+- The same emotion written for 3+ paragraphs
+- Scene description over 500 words that doesn't advance the plot
+- Character recalling earlier events with no new perspective
+- 2+ sections in a row without conflict
+- Procedure details / task blockers that delete without loss = padded; compress or delete
 
 ---
 
-## 三、短篇专项
+## 2. Five-dimension scoring
 
-### 虐爽节奏检查
+Each dimension scores 0-100; pick the polish strategy from the result.
 
-短篇特有的检查项——虐点和爽点的分布是否合理：
+### Dimension 1: Core consistency
+Checks: key conflicts, key actions, character motivations consistent throughout.
+
+| Problem | Severity | Fix |
+|---------|----------|-----|
+| Motivation flips without setup | critical | Add the trigger event for the change |
+| Core conflict inconsistent | high | Go back and revise the conflict setup |
+| Key action contradicts character | high | Adjust the action or add explanation |
+| Secondary conflict forgotten | medium | Recover or de-emphasize |
+
+### Dimension 2: Surface rewrite
+Checks: sentence originality; no template phrasing.
+
+| Problem | Severity | Fix |
+|---------|----------|-----|
+| Copied sentences sound unnatural | medium | Rewrite only where genuinely AI-flavored; natural originals can stay |
+| Heavy AI-signature wording | high | Replace with concrete description |
+| Same sentence shape recurring | medium | Vary the expression |
+| Over-literary description (word-piling, written register, simile sheets) | medium | Colloquialize/action-ize; action-izing is not chopping into 3-5 word fragments — narration keeps comma-linked sentences |
+
+### Dimension 3: Format consistency
+Checks: paragraphs break naturally by dramatic unit/shot; subject/name rhythm natural; opening/ending format unified.
+
+| Problem | Severity | Fix |
+|---------|----------|-----|
+| Mechanical word-count paragraphing or subject overload | medium | Re-flow by dramatic unit; name at paragraph start, pronouns/elision mid-chain, name again at key turns |
+| Section word count off target | **high** | Fix via the section outline first (add planned plot points), then expand; de-AI-passing already-written prose must not add new plot |
+| Format chaos (dialogue/description inconsistent) | low | Unify the format |
+
+### Dimension 4: Readability
+Checks: wordiness, AI-flavor, hollow summaries, template rhetoric.
+
+| AI-flavor trait | How to spot | How to fix |
+|-----------------|-------------|------------|
+| Hollow summary | "he finally understood" / "words could not express" | Delete; replace with action |
+| Template rhetoric | "fate seemed to be playing a joke on him" | Delete or make concrete |
+| Simile piling | many "like/as if/as though", every image explained by metaphor | Keep only the few most functional; the rest become action, objects, sounds, or consequences |
+| Emotion label | "a wave of sadness washed over him" | Show behavior |
+| Idle interiority | monologue with no new info, repeating the same emotion, or restating known facts | Compress the idle parts only; monologues carrying new info, decisions, or emotion turns are not compressed by sentence count |
+
+### Dimension 5: Logical coherence
+Checks: smooth sentence/section flow; no setting contradictions.
+
+| Problem | Severity | Fix |
+|---------|----------|-----|
+| Setting contradiction | critical | Find and unify |
+| Timeline error | high | Mark and correct the timeline |
+| Character info inconsistent | high | Build a character sheet to compare |
+| Cause-effect chain broken | medium | Add a bridge |
+
+### Polish strategies
+
+| Main problem | Strategy | What to do |
+|--------------|----------|------------|
+| Low core consistency | rewrite | Rewrite the relevant passages around the core conflict |
+| Over word count | compress | Cut content that doesn't advance the plot |
+| Meaningless blockers | compress | Keep the blocked change; compress the procedure |
+| Heavy AI-flavor | de_ai | Replace banned phrases, rewrite sentence shapes |
+| Many small problems | polish | Polish language details |
+
+---
+
+## 3. Short-story specifics
+
+### Hurt/satisfaction rhythm
+
+Short-story-specific checks — the distribution of hurt and payoff:
 
 ```
-理想分布：虐1 → 虐2 → 虐3 → 爽1(小) → 虐4 → 爽2(大)
-禁忌分布：虐1 → 虐2 → 虐3 → 虐4 → 虐5（无爽点，读者流失）
-禁忌分布：爽1 → 爽2 → 爽3 → 爽4（无铺垫，爽感疲劳）
+Ideal: hurt1 → hurt2 → hurt3 → payoff1 (small) → hurt4 → payoff2 (big)
+Forbidden: hurt1 → hurt2 → hurt3 → hurt4 → hurt5 (no payoff; readers leave)
+Forbidden: payoff1 → payoff2 → payoff3 → payoff4 (no setup; payoff fatigue)
 ```
 
-检查规则：
-- 每 300 字至少 1 个小冲突
-- 虐点间隔不超过全文的 30%
-- 最大爽点必须出现在全文的 70-85% 位置
-- 结尾必须有情绪落点
+Rules:
+- At least 1 small conflict per 300 words
+- Hurt intervals never exceed 30% of the whole
+- The biggest payoff sits at 70-85% of the whole
+- The ending must carry an emotion landing
 
-### 对话密度检查
+### Dialogue density
 
-| 指标 | 合格标准 | 警戒线 |
-|------|----------|--------|
-| 对话占全文比 | 45-65% | <30%（太干）或>75%（太水） |
-| 每章对话条数 | 12-18条/千字 | <8条（缺交互）或>25条（碎片化） |
-| 伤人性对话占比 | 35-45%（虐文）/ 20-30%（爽文） | 虐文<20%（不够痛）/ 爽文>40%（太压抑） |
+| Metric | Pass | Warning line |
+|--------|------|--------------|
+| Dialogue share of whole | 45-65% | <30% (too dry) or >75% (too watery) |
+| Dialogue lines per 1000 words | 12-18 | <8 (no interaction) or >25 (fragmented) |
+| Hurtful dialogue share | 35-45% (hurt genres) / 20-30% (payoff genres) | hurt genres <20% (not painful enough) / payoff genres >40% (too oppressive) |
 
-### 主角冷静度检查（打脸/复仇文专用）
+### Protagonist composure check (comeuppance/revenge pieces)
 
-| 检查项 | 标准 |
-|--------|------|
-| 主角是否有标志性冷静动作？ | 必须有（端水杯/整理西装/转笔等） |
-| 主角是否有情绪失控场面？ | 复仇文最多1次，且必须在前30% |
-| 反派是否比主角更歇斯底里？ | 必须是——反差是爽感来源 |
-| 主角台词是否短于反派？ | 平均短30-50%——越短越有力 |
-| 是否有"审判式对话"？ | 至少2处（主角提问→对方自爆） |
+| Check | Standard |
+|-------|----------|
+| Signature composed action? | Required (the cup of tea, the straightened tie, the turned pen) |
+| Loss-of-composure scene? | At most 1, and before 30% |
+| Antagonist more hysterical than the protagonist? | Must be — the contrast is the satisfaction source |
+| Protagonist lines shorter than antagonist's? | Average 30-50% shorter — shorter is stronger |
+| "Judgment dialogue" present? | At least 2 (protagonist asks → the other self-exposes) |
 
-### 证据链完整性检查（复仇/打脸文专用）
+### Evidence-chain completeness (revenge/comeuppance pieces)
 
-| 检查项 | 标准 |
-|--------|------|
-| 证据是否分章释放？ | 至少分3次揭露，不能一次全给 |
-| 每个证据是否有铺垫？ | 前文必须埋过线索 |
-| 反派是否每次都先得意再被打脸？ | 必须是——先扬后抑 |
-| 最终证据是否最致命？ | 最后一个证据要改变全局认知 |
-| 是否有"定时炸弹"证据？ | 至少1个主角提前布局的证据 |
+| Check | Standard |
+|-------|----------|
+| Evidence released in stages? | At least 3 reveals; never all at once |
+| Every piece seeded? | The earlier text must have planted the clue |
+| Antagonist arrogant before each comeuppance? | Must be — rise before the fall |
+| Final evidence most lethal? | The last piece changes the whole picture |
+| "Time bomb" evidence? | At least 1 piece the protagonist planted ahead |
 
-### 追妻/情绪流雷区检查（女频情绪流专用）
+### Relationship/hurt-flow minefield check (emotional genres)
 
-| 雷区 | 自查 |
-|------|------|
-| 女主心死后还在照顾男主？ | 拉扯清零——心死后必须彻底抽离，不看不听不在意不照顾 |
-| 男主只渣不苏？ | 没颜值/能力/地位的资本，读者只觉女主眼瞎，不会期待追回 |
-| 回忆杀冗长？ | 大段回忆打断当下情绪，必须短而精、与当下场景一一对应 |
-| 女主觉醒太晚？ | 全程虐到底读者弃文——最迟付费卡点前女主须彻底心死离开 |
-| 男主醒悟太早？ | 女主没走就后悔，虐不透、火葬场没力度——须等女主抽离后再后知后觉 |
-| 轻易破镜重圆？ | 伤太深却随便原谅，前期的虐全白写 |
-| 反派降智无动机？ | 坏得没理由立不住，给个真实动机反而更戳人 |
+| Minefield | Self-check |
+|-----------|------------|
+| Protagonist still caretaking after heart-dead? | The pull must be zeroed — after heart-dead, fully withdrawn: no watching, no listening, no caring, no caretaking |
+| Love interest only bad, nothing to redeem? | No looks/ability/status capital → readers think the protagonist has bad taste; no hope of wanting them back |
+| Flashback bloat? | Long memories interrupt present emotion — keep them short and one-to-one with the present scene |
+| Awakening too late? | Hurting to the end makes readers quit — before the paywall/cut point, the protagonist must be heart-dead and gone |
+| Realization too early? | The other side regretting before the protagonist leaves = the hurt isn't complete, the grovel has no weight — realization must wait until after the withdrawal |
+| Easy reunion? | Deep wounds forgiven casually = all the earlier hurt wasted |
+| Villain with no motive? | Evil without a reason doesn't stand; a real motive lands harder |
 
-### 毒点/代入感/震惊/开头/结尾/情绪/期待感速查
+### Quick reference: poison points / immersion / shock / opening / ending / emotion / expectation
 
-> 详细的毒点排查见 `genre-writing-techniques.md`「毒点排查核心」；AI 腔自检见 `short-deslop.md`。
+> Detailed poison-point triage in `genre-writing-techniques.md`; AI-flavor self-check in `short-deslop.md`.
 
-| 检查项 | 标准 |
-|--------|------|
-| 爽文不爽 | 金手指效果必须展示清楚 |
-| 压制无目的 | 每次压制必须服务于后续爆发 |
-| 反派结局与主角无关 | 反派之死必须因主角行动导致 |
-| 经济/战力崩坏 | 设定前后一致，以普通人为锚点 |
-| 女主/女配降智 | 人设正常可写，老套路别写 |
-| 读者期待长时间不满足 | 适时满足或引入新期待 |
-| 主角行为不可理解 | 必须能理解、能共鸣 |
-| 氛围被突兀梗破坏 | 氛围 > 突兀梗（乐子文除外） |
-| 钩子不回收 | 钩子不回收 = 烂尾 |
-| 震惊分层 | 点→网→深度，不能只写点震惊 |
-| 震惊阶梯递进 | 阶梯式上升，非直线 |
-| 震惊有广度 | 关系网都要有反应 |
-| 前50字有冲突/异常 | 不能是背景铺垫 |
-| 前100字知核心矛盾 | 必须知道 |
-| 开头情绪强度 | ≥7（1-10） |
-| 结尾是具体的 | 动作/对话/画面，禁止总结/反思 |
-| 结尾有余韵 | 读者还想往下看 |
-| 结尾情绪强度 | 虐≥8，爽≥7，治愈≥6 |
-| 情绪对等释放 | 虐多少补多少，反派结局关联主角 |
-| 期待管理 | 两长一短不断，核心卖点贯穿 |
+| Check | Standard |
+|-------|----------|
+| Payoff genre without payoff | The special ability/card's effect must be shown clearly |
+| Pressure without purpose | Every pressure must serve a later burst |
+| Villain's end unrelated to the protagonist | The villain's fall must result from the protagonist's actions |
+| Economy/power breakdown | Setting internally consistent, anchored to ordinary people |
+| Character IQ drop | Fine to write normal people; don't write the dated tropes |
+| Reader expectation unmet too long | Satisfy at the right time, or introduce a new expectation |
+| Protagonist actions incomprehensible | Must be understandable, resonant, acceptable |
+| Atmosphere broken by a random meme | Atmosphere > random meme (except comedy-for-comedy pieces) |
+| Hook never collected | Uncollected hook = broken ending |
+| Shock layering | Point → network → deep; never only point shock |
+| Shock escalation | Laddered, not flatline |
+| Shock has breadth | The relationship network must react |
+| First 50 words have conflict/anomaly | No background warm-up |
+| First 100 words reveal the core conflict | Must be knowable |
+| Opening emotion intensity | ≥ 7 (1-10) |
+| Ending is concrete | Action/dialogue/image; summaries/reflections forbidden |
+| Ending leaves residue | The reader wants to keep reading |
+| Ending emotion intensity | hurt ≥ 8, payoff ≥ 7, healing ≥ 6 |
+| Emotion released in proportion | Whatever is hurt must be repaid; the villain's end ties to the protagonist |
+| Expectation management | Two long one short, always running; the core selling point carried throughout |

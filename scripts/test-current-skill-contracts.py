@@ -36,7 +36,8 @@ def repository_manifest() -> object:
 
 
 def manifest_with(**overrides: object) -> object:
-    """按正常加载路径构造一个改过值的当前契约，用来演练 bump。"""
+    """Build an overridden current contract through the normal load path, to
+    exercise a version bump."""
     raw = json.loads((SCRIPT_DIR / "current-contract.json").read_text(encoding="utf-8"))
     raw.update(overrides)
     with tempfile.TemporaryDirectory() as tmp:
@@ -93,7 +94,7 @@ def test_manifest_contract() -> None:
         )
 
         malformed_sections = dict(raw)
-        malformed_sections["required_outline_sections"] = [{"rule": "阶段位置"}]
+        malformed_sections["required_outline_sections"] = [{"rule": "Stage position"}]
         malformed_path = tmpdir / "malformed-sections.json"
         malformed_path.write_text(json.dumps(malformed_sections, ensure_ascii=False), encoding="utf-8")
         _, malformed_findings = VALIDATOR.load_manifest(malformed_path)
@@ -103,7 +104,7 @@ def test_manifest_contract() -> None:
         )
 
         duplicate_artifacts = dict(raw)
-        duplicate_artifacts["primary_benchmark_artifacts"] = ["剧情/节奏.md", "剧情/节奏.md"]
+        duplicate_artifacts["primary_benchmark_artifacts"] = ["plot/pacing.md", "plot/pacing.md"]
         duplicate_path = tmpdir / "duplicate-artifacts.json"
         duplicate_path.write_text(json.dumps(duplicate_artifacts, ensure_ascii=False), encoding="utf-8")
         _, duplicate_findings = VALIDATOR.load_manifest(duplicate_path)
@@ -114,8 +115,8 @@ def test_manifest_contract() -> None:
 
         renamed_artifacts = dict(raw)
         renamed_artifacts["primary_benchmark_artifacts"] = [
-            "剧情/主情绪.md",
-            "剧情/主节奏.md",
+            "benchmark/emotional-engine.md",
+            "benchmark/rhythm-index.md",
         ]
         renamed_path = tmpdir / "renamed-artifacts.json"
         renamed_path.write_text(
@@ -127,7 +128,7 @@ def test_manifest_contract() -> None:
             "renamed current artifacts must remain manifest-driven",
         )
         renamed_semantic = semantic_findings(
-            "- 若 `剧情/主节奏.md` 缺失，回退读取 `拆文报告.md`。",
+            "- If `benchmark/rhythm-index.md` is missing, fall back to reading `teardown-report.md`.",
             renamed_manifest.primary_benchmark_artifacts,
         )
         require(
@@ -150,13 +151,13 @@ def semantic_findings(
 
 def test_bad_fallbacks_fail() -> None:
     bad_cases = {
-        "inline report fallback": "- 若 `剧情/情绪模块.md` 缺失，回退读取 `拆文报告.md`。",
+        "inline report fallback": "- If `plot/emotional-beats.md` is missing, fall back to reading `teardown-report.md`.",
         "nested summary substitution": """
-1. 检查 `剧情/节奏.md`。
-2. 任一主产物缺失时：
-   - 使用 `章节/*_摘要.md` 代替。
+1. Check `plot/pacing.md`.
+2. When any primary artifact is missing:
+   - Use `chapters/chapter_5_summary.md` instead.
 """,
-        "structured gap story fallback": "- `rhythm_missing: true` 时改用 `故事线.md` 补足节奏。",
+        "structured gap story fallback": "- When `plot/pacing.md` is missing and `rhythm_missing: true`, switch to `storylines.md` to fill the rhythm.",
     }
     for label, text in bad_cases.items():
         findings = semantic_findings(text)
@@ -168,12 +169,12 @@ def test_bad_fallbacks_fail() -> None:
 
 def test_fail_fast_prose_passes() -> None:
     good_cases = {
-        "explicit不得": "- `剧情/情绪模块.md` 缺失时必须停止；不得以 `拆文报告.md`、章节摘要或故事线代替。",
-        "explicit禁止 fallback": "- `rhythm_missing: true` 时返回 `missing_primary_contract`，禁止 fallback 到 `故事线.md`。",
-        "normal complete branch": "- 两个主产物都存在时读取 `拆文报告.md`，仅作人类可读概览。",
+        "explicit prohibition": "- When `plot/emotional-beats.md` is missing, stop; do not substitute `teardown-report.md`, chapter summaries, or storylines.",
+        "explicit no fallback": "- When `rhythm_missing: true`, return `missing_primary_contract`; fallback to `storylines.md` is prohibited.",
+        "normal complete branch": "- When both primary artifacts exist, read `teardown-report.md` as a human-readable overview.",
         "deep-dive fallback is not primary fallback": (
-            "- 先读 `剧情/情绪模块.md` 与 `剧情/节奏.md`；模块或节奏文件缺失时停止修复。"
-            "匹配 `章节/*_摘要.md` 后，若同章深度拆解不存在，则回退黄金三章深度拆解。"
+            "- First read `plot/emotional-beats.md` and `plot/pacing.md`; stop to repair when the module or rhythm file is missing. "
+            "After matching `chapters/chapter_5_summary.md`, if the same chapter's deep dive does not exist, fall back to the golden-three-chapters deep dives."
         ),
     }
     for label, text in good_cases.items():
@@ -182,106 +183,110 @@ def test_fail_fast_prose_passes() -> None:
 
 
 def test_sibling_bullets_do_not_lend_the_missing_condition() -> None:
-    """相邻条目各自是独立契约：fail-fast 兄弟条目不得把「主产物缺失」借给正确的读取条目。"""
-    fail_fast = "- `剧情/节奏.md` → 缺失时停止导入，不得以 `拆文报告.md`、章节摘要或故事线代替"
+    """Adjacent items are independent contracts: a fail-fast sibling must not
+    lend its "primary artifact missing" condition to a correct reading item."""
+    fail_fast = "- `plot/pacing.md` → when missing, stop the import; do not substitute `teardown-report.md`, chapter summaries, or storylines"
     good_neighbours = {
-        "benign read after a fail-fast sibling": "- 两个主产物都存在时读取 `拆文报告.md`，仅作人类可读概览。",
-        "human-readable overview bullet": "- 故事线（人类可读概览）→ 从 `剧情/故事线.md` 读取；缺失时留空",
-        "prose block after a fail-fast bullet": "**无损检查**（任一不过即删除 `_章节摘要汇总.md`、回退逐文件扫描）：",
+        "benign read after a fail-fast sibling": "- When both primary artifacts exist, read `teardown-report.md` as a human-readable overview.",
+        "human-readable overview bullet": "- storylines (human-readable overview) → read from `storylines.md`; leave blank when missing",
+        "prose block after a fail-fast bullet": "**lossless check** (when any fails, delete `_chapter-summary-index.md` and fall back to per-file scanning):",
     }
     for label, good in good_neighbours.items():
         findings = semantic_findings(fail_fast + "\n" + good + "\n")
         require(not findings, "{} should pass, got {}".format(label, findings))
 
     nested = (
-        "任一主产物缺失时：\n"
-        "- 先记录到追踪\n"
-        "- 再确认块状态\n"
-        "- 回退读取 `拆文报告.md` 拼出对标视图\n"
+        "When any primary artifact is missing:\n"
+        "- record it in tracking first\n"
+        "- then confirm the block state\n"
+        "- then fall back to reading `teardown-report.md` to assemble the benchmark view\n"
     )
     require(
         "silent-primary-artifact-fallback" in finding_codes(semantic_findings(nested)),
-        "上级条目给出的缺失条件必须仍然拦住降级子项",
+        "a missing condition on a parent item must still block a downgraded child",
     )
-    deep = "- 主产物缺失时：\n  - 导入分支：\n    - 采用 `故事线.md` 顶替。\n"
+    deep = "- When any primary artifact is missing:\n  - import branch:\n    - adopt `storylines.md` as a substitute.\n"
     require(
         "silent-primary-artifact-fallback" in finding_codes(semantic_findings(deep)),
-        "隔了一层的上级条件也要拦住降级子项",
+        "a missing condition two levels up must still block a downgraded child",
     )
-    wrapped = "- 若 `剧情/节奏.md` 缺失，\n  则改读 `章节/*_摘要.md` 补足节奏。\n"
+    wrapped = "- If `plot/pacing.md` is missing,\n  then switch to reading `chapters/chapter_2_summary.md` to fill the rhythm.\n"
     require(
         "silent-primary-artifact-fallback" in finding_codes(semantic_findings(wrapped)),
-        "同一条目的续行仍与条件同属一件事",
+        "a continuation line still belongs to the same item as its condition",
     )
     table_rows = (
-        "| 条件 | 行为 |\n"
+        "| Condition | Action |\n"
         "|---|---|\n"
-        "| `剧情/节奏.md` 缺失 | 停止 Stage 6 并报 `missing_primary_contract` |\n"
-        "| `章节/第1-3章_深度拆解.md` 缺失 | 对话潜台词段从拆文报告兜底 |\n"
+        "| `plot/pacing.md` missing | stop Stage 6 and report `missing_primary_contract` |\n"
+        "| `chapters/chapter_1-3_deep-dive.md` missing | dialogue subtext falls back to the teardown report |\n"
     )
     require(
         not semantic_findings(table_rows),
-        "表格里相邻行是独立记录，深度拆解兜底不是主产物降级：{}".format(
+        "adjacent table rows are independent records; a deep-dive fallback is not a primary downgrade: {}".format(
             semantic_findings(table_rows)
         ),
     )
     bad_row = (
-        "| 条件 | 行为 |\n"
+        "| Condition | Action |\n"
         "|---|---|\n"
-        "| `剧情/节奏.md` 缺失 | 回退读取 `拆文报告.md` 补足节奏 |\n"
+        "| `plot/pacing.md` missing | fall back to reading `teardown-report.md` to fill the rhythm |\n"
     )
     require(
         "silent-primary-artifact-fallback" in finding_codes(semantic_findings(bad_row)),
-        "同一表格行内的主产物降级必须拦住",
+        "a primary downgrade inside the same table row must be blocked",
     )
 
 
 def test_undecodable_markdown_is_a_named_failure() -> None:
-    """非 UTF-8 文本会让所有内容规则静默放行，必须命名报错；二进制资产照旧跳过。"""
+    """Non-UTF-8 text would silently pass every content rule; it must be a named
+    failure. Binary assets are still skipped."""
     rule = next(
         r for r in VALIDATOR.LEGACY_RULES if r.code == "dotted-demo-workflow-label"
     )
-    dotted = "# 流程说明\n\n旧编号：Step 1.2：旧编号标签\n"
+    dotted = "# Process notes\n\nOld label \u2014 St\u00e9phane's note: Step 1.2: old label\n"
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         demo = root / "demo"
         demo.mkdir()
-        target = demo / "流程说明.md"
+        target = demo / "process-notes.md"
         target.write_text(dotted, encoding="utf-8")
         require(
             VALIDATOR.check_absent_rule(root, rule),
-            "UTF-8 的旧编号标签必须被内容规则拦住",
+            "a UTF-8 dotted label must be intercepted by the content rule",
         )
         target.write_bytes(dotted.encode("gb18030"))
         require(
             not VALIDATOR.check_absent_rule(root, rule),
-            "内容规则读不出 GBK 文件，这正是需要专门扫描的原因",
+            "the content rule cannot read a GBK file — exactly why a dedicated scan is needed",
         )
         require(
             "unreadable-source-file"
             in finding_codes(VALIDATOR.undecodable_source_findings([demo])),
-            "非 UTF-8 的契约文本必须是命名失败，不能静默跳过",
+            "non-UTF-8 contract text must be a named failure, not a silent skip",
         )
         target.write_text(dotted, encoding="utf-16")
         require(
             "unreadable-source-file"
             in finding_codes(VALIDATOR.undecodable_source_findings([demo])),
-            "UTF-16 Markdown 含 NUL，但仍是契约文本，不能伪装成二进制资产跳过",
+            "UTF-16 Markdown contains NUL but is still contract text; it must not masquerade as a binary asset",
         )
         target.write_text(dotted, encoding="utf-8")
-        (demo / "封面.png").write_bytes(b"\x89PNG\r\n\x1a\n\xff\xfe")
-        # 无后缀 / 非白名单后缀的二进制（.DS_Store 之类）靠 NUL 字节识别，不能误报
+        (demo / "cover.png").write_bytes(b"\x89PNG\r\n\x1a\n\xff\xfe")
+        # Extension-less / non-whitelisted binaries (.DS_Store etc.) are
+        # recognized by NUL bytes and must not be misreported.
         (demo / ".DS_Store").write_bytes(b"\x00\x00\x00\x01Bud1\xff\xfe")
         require(
             not VALIDATOR.undecodable_source_findings([demo]),
-            "二进制资产不是契约文本，必须保持静默：{}".format(
+            "binary assets are not contract text and must stay silent: {}".format(
                 VALIDATOR.undecodable_source_findings([demo])
             ),
         )
 
 
 def test_progress_schema_pins_are_repo_wide() -> None:
-    """bump progress_schema_version 时，每个字面锚点都要被点名，不能只点 pipeline-ops.md。"""
+    """Bumping progress_schema_version must name every literal anchor, not just
+    pipeline-ops.md."""
     current = repository_manifest().progress_schema_version
     stale = flagged_paths(
         manifest_with(progress_schema_version=current + 1), "progress-schema-version"
@@ -291,22 +296,23 @@ def test_progress_schema_pins_are_repo_wide() -> None:
         "skills/story-long-analyze/SKILL.md",
         "skills/story-import/SKILL.md",
         "skills/story-setup/UPGRADING.md",
-        "demo/拆文库/盘龙/_progress.md",
+        "demo/teardown-lib/The-Last-Knight/_progress.md",
     ):
         require(
             relative in stale,
-            "{} 的 schema_version 锚点必须跟着 manifest 走，实际命中 {}".format(
+            "{} schema_version anchor must follow the manifest; actual hits {}".format(
                 relative, sorted(stale)
             ),
         )
     require(
         "CHANGELOG.md" not in stale,
-        "CHANGELOG 的历史记录不受当前值约束",
+        "CHANGELOG history is not constrained by the current value",
     )
 
 
 def test_stale_scan_phase_reference_accepts_backticks() -> None:
-    """房子风格 `story-long-scan` Phase N 与裸 token 写法都要被 stale 引用扫描抓到。"""
+    """Both backticked `story-long-scan` Phase N and bare-token forms must be
+    caught by the stale reference scan."""
     current = repository_manifest().topic_decision_phase
     stale = flagged_paths(
         manifest_with(topic_decision_phase=current + 1),
@@ -318,7 +324,7 @@ def test_stale_scan_phase_reference_accepts_backticks() -> None:
     ):
         require(
             relative in stale,
-            "{} 的选题决策阶段引用必须被扫到，实际命中 {}".format(relative, sorted(stale)),
+            "{} topic-decision phase reference must be caught; actual hits {}".format(relative, sorted(stale)),
         )
 
 
@@ -327,7 +333,7 @@ def test_structured_sentinel_contract() -> None:
     scattered = """
 agents_version: {agents_version}
 setup_skill_version: {setup_skill_version}
-说明文字中还提到了 target_cli、resolver_strategy 与 references_dir。
+the surrounding prose also mentions target_cli, resolver_strategy and references_dir.
 """.format(
         agents_version=manifest.agents_version,
         setup_skill_version=manifest.setup_skill_version,
@@ -347,9 +353,9 @@ setup_skill_version: {setup_skill_version}
     )
 
     structured = """
-### Step 8：创建部署标记
+### Step 8: Create deployment marker
 
-- 写入以下字段：
+- Write the following fields:
 
 ```yaml
 deployed_at: 2026-07-14T00:00:00Z
@@ -387,7 +393,7 @@ def test_structured_outline_contract() -> None:
     rule_names = [rule for rule, _ in manifest.required_outline_sections]
     demo_names = [demo for _, demo in manifest.required_outline_sections]
 
-    scattered_rule = "2. **细纲必填项**\n\n" + "、".join(rule_names)
+    scattered_rule = "2. **Required chapter-outline fields**\n\n" + " ".join(rule_names)
     require(
         "outline-rule-section"
         in finding_codes(
@@ -398,9 +404,9 @@ def test_structured_outline_contract() -> None:
         "outline names scattered in prose must not satisfy structured rules",
     )
     structured_rule = (
-        "2. **细纲必填项**\n"
-        + "\n".join("- {}：必填".format(name) for name in rule_names)
-        + "\n3. **下一条规则**\n"
+        "2. **Required chapter-outline fields**\n"
+        + "\n".join("- {}: required".format(name) for name in rule_names)
+        + "\n3. **Next rule**\n"
     )
     require(
         not VALIDATOR.outline_rule_contract_findings(
@@ -409,7 +415,7 @@ def test_structured_outline_contract() -> None:
         "structured outline rule fields must pass",
     )
 
-    scattered_demo = "本章应包含：" + "、".join(demo_names)
+    scattered_demo = "This chapter should contain: " + " ".join(demo_names)
     declared = VALIDATOR.extract_demo_outline_fields(scattered_demo)
     require(
         not set(demo_names).issubset(declared),
@@ -427,12 +433,12 @@ def test_structured_outline_contract() -> None:
 def test_upgrading_version_contract() -> None:
     manifest = repository_manifest()
     structured = """
-## 当前版本
+## Current Version
 
 - `setup_skill_version: {setup_skill_version}`
 - `agents_version: {agents_version}`
 
-## 下一节
+## Next Section
 """.format(
         setup_skill_version=manifest.setup_skill_version,
         agents_version=manifest.agents_version,
@@ -444,7 +450,7 @@ def test_upgrading_version_contract() -> None:
         "structured current-version bullets must pass",
     )
     scattered = (
-        "说明 setup_skill_version: {}，agents_version: {}，但没有当前版本字段。".format(
+        "The text mentions setup_skill_version: {} and agents_version: {}, but has no current-version section.".format(
             manifest.setup_skill_version, manifest.agents_version
         )
     )
@@ -461,37 +467,38 @@ def test_upgrading_version_contract() -> None:
 
 def test_deeply_nested_fallback_keeps_all_governing_ancestors() -> None:
     text = (
-        "- `剧情/节奏.md` 缺失时：\n"
-        "  - 导入阶段：\n"
-        "    - 第六阶段：\n"
-        "      - 对标视图：\n"
-        "        - 回退读取 `拆文报告.md` 拼出节奏。\n"
+        "- When `plot/pacing.md` is missing:\n"
+        "  - import stage:\n"
+        "    - sixth stage:\n"
+        "      - benchmark view:\n"
+        "        - fall back to reading `teardown-report.md` to assemble the rhythm.\n"
     )
     found = VALIDATOR.semantic_primary_fallback_findings(
         text,
         Path("deeply-nested.md"),
-        ("剧情/节奏.md",),
+        ("plot/pacing.md",),
     )
     require(
         "silent-primary-artifact-fallback" in finding_codes(found),
-        "深层列表的主产物缺失条件必须一路传到回退动作，不能在三层后丢失",
+        "a missing condition in a deep list must reach the fallback action, not get lost after three levels",
     )
 
 
 def test_old_artifact_prose_silent_only() -> None:
-    """keep C：带显式标记的旧格式大纲容忍放行，无标记的静默降级仍拦（drop A/B 不受影响）。"""
+    """keep C: explicitly-marked old-format outline tolerance passes; unmarked
+    silent downgrades are still blocked (drop A/B unaffected)."""
     rule = next(r for r in VALIDATOR.LEGACY_RULES if r.code == "old-artifact-prose")
     require(rule.exempt_when is not None, "old-artifact-prose must narrow to silent-only")
     flagged = [
-        "旧版细纲缺这些字段不阻塞读取，未知项写 `[待补充]`。",
-        "旧版细纲回退读取核心事件、情节点序列、目标情绪。",
-        "旧版卷纲缺少卷契约/剧情单元卡不阻塞日更；本轮记录到 `追踪/上下文.md`。",
-        "旧版细纲只核对核心事件、目标情绪、章首/章尾钩子和字数目标。",
+        "Old chapter outline format missing these fields does not block reading; unknown items are written as `[TODO]`.",
+        "Old chapter outline format falls back to reading core event, plot point sequence, and target emotion.",
+        "Old volume outline format missing the volume contract/story-unit card does not block the daily update; this round is recorded in `tracking/context.md`.",
+        "Old chapter outline format only checks core event, target emotion, opening/closing hooks, and target words.",
     ]
     silent = [
-        "直接改读旧版细纲当权威，不提示。",
-        "早期拆文库格式直接拿来用。",
-        "兼容旧结构，静默继续写作。",
+        "legacy teardown format used directly, without conversion.",
+        "The old outline format is taken as authoritative without notice.",
+        "legacy structure accepted silently, continues writing.",
     ]
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

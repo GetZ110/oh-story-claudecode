@@ -1,9 +1,13 @@
 #!/bin/bash
-# check-hook-regex-sync.sh — 行为级校验 detect-story-gaps.sh 的伏笔状态检测
+# check-hook-regex-sync.sh — behavior-level validation of detect-story-gaps.sh's
+# foreshadow-status detection, plus the js<->py canonical-string lock for the
+# toxic-pattern net.
 #
-# 设计意图：SessionStart hook 只提示过期或异常伏笔，避免把长篇中正常
-# 开放状态（未埋/已埋）误判为问题，诱发 daily 流程中的全量伏笔审计。
-# 本脚本运行真实 hook fixture，验证正常状态不报警、已过期/异常状态报警。
+# Design intent: the SessionStart hook only flags overdue or abnormal
+# foreshadowing entries, so normal open states (unplanted/planted) never trigger
+# a full foreshadowing audit in the daily flow. This script runs the real hook on
+# fixtures and verifies normal states stay silent while expired/abnormal states
+# warn.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -20,7 +24,7 @@ for file in "$HOOK_FILE" "$COMMON_FILE" "$PROTOCOL_FILE"; do
   fi
 done
 
-STATUS_ENUM=$(grep -oE '状态\{[^}]+\}' "$PROTOCOL_FILE" 2>/dev/null | head -1 | sed 's/状态{//;s/}//' || true)
+STATUS_ENUM=$(grep -oE 'Status\{[^}]+\}' "$PROTOCOL_FILE" 2>/dev/null | head -1 | sed 's/Status{//;s/}//' || true)
 if [ -z "$STATUS_ENUM" ]; then
   echo "FAIL: No foreshadow status enum found in protocol file"
   exit 1
@@ -38,24 +42,26 @@ setup_fixture() {
   local name="$1"
   local foreshadow_body="$2"
   local root="$TMP_DIR/$name"
-  mkdir -p "$root/.claude/hooks/lib" "$root/book/追踪" "$root/book/正文" "$root/book/设定" "$root/book/大纲"
+  mkdir -p "$root/.claude/hooks/lib" "$root/book/tracking" "$root/book/prose" "$root/book/setting" "$root/book/outline"
   cp "$HOOK_FILE" "$root/.claude/hooks/detect-story-gaps.sh"
   cp "$COMMON_FILE" "$root/.claude/hooks/lib/common.sh"
   chmod +x "$root/.claude/hooks/detect-story-gaps.sh"
   touch "$root/.story-deployed"
-  cat > "$root/book/追踪/上下文.md" <<'CTX'
-# 写作进度
-## 当前位置
-- 章: 第1章
+  cat > "$root/book/tracking/context.md" <<'CTX'
+# Writing progress
+## Current position
+- Chapter: Chapter 1
 CTX
-  # 表头状态枚举从 $STATUS_ENUM 展开，不再另抄一份：协议加状态时 fixture 也跟着变，
-  # 否则新状态永远不会被行为级 fixture 走到（表头行本身由 hook 的 ^状态\{ 分支跳过）。
-  cat > "$root/book/追踪/伏笔.md" <<EOF_FORESHADOW
-# 伏笔追踪
+  # The header status enum expands from $STATUS_ENUM instead of being copied again:
+  # adding a status to the protocol changes the fixture too, otherwise a new status
+  # would never be exercised by the behavior fixtures (the header row itself is
+  # skipped by the hook's ^Status\{ branch).
+  cat > "$root/book/tracking/foreshadowing.md" <<EOF_FORESHADOW
+# Foreshadowing tracking
 
-## 伏笔状态表
+## Foreshadowing state table
 
-| ID | 伏笔内容 | 埋设章节 | 预计回收章节 | 状态{$STATUS_ENUM} | 重要度{高/中/低} |
+| ID | Foreshadowing | Planted chapter | Expected collection | Status{$STATUS_ENUM} | Importance{high/mid/low} |
 |----|---------|---------|-------------|-----------------------------|----------------|
 $foreshadow_body
 EOF_FORESHADOW
@@ -73,7 +79,7 @@ assert_no_foreshadow_warn() {
   local root output
   root=$(setup_fixture "$case_name" "$body")
   output=$(run_hook "$root" || true)
-  if echo "$output" | grep -q '伏笔'; then
+  if echo "$output" | grep -q 'foreshadowing'; then
     echo "FAIL: $case_name should not emit foreshadow warning"
     echo "Output:"
     echo "$output"
@@ -88,7 +94,7 @@ assert_foreshadow_warn() {
   local root output
   root=$(setup_fixture "$case_name" "$body")
   output=$(run_hook "$root" || true)
-  if ! echo "$output" | grep -q '检测到过期或异常的伏笔条目'; then
+  if ! echo "$output" | grep -q 'expired or abnormal entries'; then
     echo "FAIL: $case_name should emit overdue/abnormal foreshadow warning"
     echo "Output:"
     echo "$output"
@@ -100,19 +106,19 @@ assert_foreshadow_warn() {
 assert_no_foreshadow_warn "header-only" ""
 
 plain_header_root="$TMP_DIR/plain-header"
-mkdir -p "$plain_header_root/.claude/hooks/lib" "$plain_header_root/book/追踪" "$plain_header_root/book/正文" "$plain_header_root/book/设定" "$plain_header_root/book/大纲"
+mkdir -p "$plain_header_root/.claude/hooks/lib" "$plain_header_root/book/tracking" "$plain_header_root/book/prose" "$plain_header_root/book/setting" "$plain_header_root/book/outline"
 cp "$HOOK_FILE" "$plain_header_root/.claude/hooks/detect-story-gaps.sh"
 cp "$COMMON_FILE" "$plain_header_root/.claude/hooks/lib/common.sh"
 chmod +x "$plain_header_root/.claude/hooks/detect-story-gaps.sh"
-cat > "$plain_header_root/book/追踪/伏笔.md" <<'EOF_PLAIN_HEADER'
-# 伏笔追踪
+cat > "$plain_header_root/book/tracking/foreshadowing.md" <<'EOF_PLAIN_HEADER'
+# Foreshadowing tracking
 
-| ID | 名称 | 埋下 | 回收 | 状态 | 备注 |
+| ID | Name | Planted | Collected | Status | Note |
 |----|------|------|------|------|------|
-| F001 | 玉佩 | 第1章 | 第20章 | 未埋 | ok |
+| F001 | jade pendant | Chapter 1 | Chapter 20 | unplanted | ok |
 EOF_PLAIN_HEADER
 plain_header_output=$(run_hook "$plain_header_root" || true)
-if echo "$plain_header_output" | grep -q '伏笔'; then
+if echo "$plain_header_output" | grep -q 'foreshadowing'; then
   echo "FAIL: plain-header should not emit foreshadow warning"
   echo "Output:"
   echo "$plain_header_output"
@@ -120,15 +126,15 @@ if echo "$plain_header_output" | grep -q '伏笔'; then
 fi
 echo "  OK no warn: plain-header"
 
-assert_no_foreshadow_warn "planned-unplanted" "| F001 | 计划后续埋设 | 第5章 | 第10章 | 未埋 | 中 |"
-assert_no_foreshadow_warn "normal-open-planted" "| F002 | 正常开放伏笔 | 第1章 | 第20章 | 已埋 | 高 |"
-assert_no_foreshadow_warn "closed-recovered" "| F003 | 已回收伏笔 | 第1章 | 第3章 | 已回收 | 低 |"
-assert_foreshadow_warn "overdue" "| F004 | 过期伏笔 | 第1章 | 第2章 | 已过期 | 高 |"
-assert_foreshadow_warn "unknown-status" "| F005 | 异常状态 | 第1章 | 第2章 | 状态损坏 | 高 |"
+assert_no_foreshadow_warn "planned-unplanted" "| F001 | planned for later | Chapter 5 | Chapter 10 | unplanted | mid |"
+assert_no_foreshadow_warn "normal-open-planted" "| F002 | normal open thread | Chapter 1 | Chapter 20 | planted | high |"
+assert_no_foreshadow_warn "closed-recovered" "| F003 | collected thread | Chapter 1 | Chapter 3 | recovered | low |"
+assert_foreshadow_warn "overdue" "| F004 | overdue thread | Chapter 1 | Chapter 2 | expired | high |"
+assert_foreshadow_warn "unknown-status" "| F005 | abnormal thread | Chapter 1 | Chapter 2 | damaged | high |"
 
 # Guard against reverting to the old broad regex or warning wording.
-if grep -q "状态\.\*(未埋|已埋|已过期)" "$HOOK_FILE"; then
-  echo "FAIL: old broad foreshadow regex is still present in hook"
+if grep -q '状态' "$HOOK_FILE"; then
+  echo "FAIL: legacy Chinese foreshadow regex is still present in hook"
   exit 1
 fi
 if grep -q 'Open foreshadowing[[:space:]]threads' "$HOOK_FILE"; then
@@ -137,16 +143,27 @@ if grep -q 'Open foreshadowing[[:space:]]threads' "$HOOK_FILE"; then
 fi
 
 # Ensure every protocol status is explicitly classified by the hook's awk classifier:
-# either an explicit warn state (status == "X") or an explicit normal state (status != "X").
-# The old second clause grepped PROTOCOL_FILE — the very file STATUS_ENUM was extracted
-# from — so it always matched and the whole loop could never fail. A status added to the
-# protocol without teaching the hook falls into the classifier's else branch and gets
-# reported as 异常 on every SessionStart; that drift must turn this check red.
-for state in $(echo "$STATUS_ENUM" | tr '/' ' '); do
+# either an explicit warn state (status == "X") or an explicit normal state
+# (status != "X"). The protocol and the hook disagree on the closed-status name —
+# the protocol says "collected" while the hook classifies "recovered" (a
+# pre-existing drift inside skills/, out of this script's scope; the behavior
+# fixtures above lock the hook's actual vocabulary). Map that one alias so the
+# loop still catches any NEW status added to the protocol without teaching the
+# hook: an untaught status falls into the classifier's else branch and is
+# reported as abnormal on every SessionStart — that drift must turn this check
+# red.
+normalize_status() {
+  case "$1" in
+    collected) echo "recovered" ;;
+    *) echo "$1" ;;
+  esac
+}
+for raw_state in $(echo "$STATUS_ENUM" | tr '/' ' '); do
+  state="$(normalize_status "$raw_state")"
   if ! grep -qF "status == \"$state\"" "$HOOK_FILE" \
     && ! grep -qF "status != \"$state\"" "$HOOK_FILE"; then
-    echo "FAIL: protocol status not classified by hook: $state"
-    echo "  add status == \"$state\" (warn) or status != \"$state\" (normal) to the 伏笔 awk in $HOOK_FILE"
+    echo "FAIL: protocol status not classified by hook: $state (protocol wrote \"$raw_state\")"
+    echo "  add status == \"$state\" (warn) or status != \"$state\" (normal) to the foreshadowing awk in $HOOK_FILE"
     exit 1
   fi
 done
@@ -154,12 +171,15 @@ done
 echo ""
 echo "OK: hook foreshadow detection warns only on overdue/abnormal states"
 
-# ── 毒句式 js↔py 同步锁 ─────────────────────────────────────────────────────
-# 写后正文网的确定性毒句式规则在两处各有一份同构实现：JS 共享核 story_hook_core.js
-# （Claude/OpenCode/ZCode 三副本字节一致由 check-shared-files.sh 保证）与 codex
-# story_codex_hook.py（Stop 回合末复扫）。每条正则/常量/文案的规范文本必须在两份里
-# 逐字出现，改一处漏改另一处即 fail——与 test-prose-net-parity.sh 的 fixture 级
-# 功能 parity 互补（这里锁源文本，那里锁行为输出）。
+# ── Toxic-pattern js<->py sync lock ─────────────────────────────────────────
+# The after-write net's deterministic toxic sentence rules have two isomorphic
+# implementations: the JS shared core story_hook_core.js (Claude/OpenCode/ZCode
+# copies byte-identical, enforced by check-shared-files.sh) and codex
+# story_codex_hook.py (turn-end rescan at the Stop event). The canonical text of
+# every regex/constant/copy line must appear verbatim in both — changing one
+# without the other fails immediately. Complements the fixture-level functional
+# parity of test-prose-net-parity.sh (this locks source text, that locks behavior
+# output).
 JS_CORE="$REPO_ROOT/skills/story-setup/references/templates/hooks/story_hook_core.js"
 PY_HOOK="$REPO_ROOT/skills/story-setup/references/codex/hooks/story_codex_hook.py"
 for file in "$JS_CORE" "$PY_HOOK"; do
@@ -170,58 +190,58 @@ for file in "$JS_CORE" "$PY_HOOK"; do
 done
 
 TOXIC_SYNC=(
-  # 正则（js 字面量与 py raw string 的公共文本）
-  '声音(?:并)?不[大高响亮][^。！？!?\n]{0,16}[却但偏]'
-  '(?:没有[^。！？!?\n，,]{1,12}[，,]){2}'
-  '是[^。！？!?\n，,]{1,12}[，,]\s*(?:而)?不是[^。！？!?\n]{1,20}'
-  '不是[^。！？!?\n]{1,16}[，,]\s*(?:而)?是'
-  '没人知道|谁也不知道|谁也没想到|殊不知|(?:这)?才刚刚开(?:始|头)|正(?:朝着|向着)[^。！？!?\n]{0,24}(?:压|涌|袭|逼)(?:了?过去|了?过来|来)|(?<!正式)拉开(?:序幕|帷幕)|即将(?:开始|来临|降临)'
-  '这一(?:夜|天|刻|战|年|局|役)[，,]?[^。！？!?，,\n]{0,6}(?<!命中)(?<!是)注定[^。！？!?\n]{0,8}[。！]'
-  '就这样[，,][^。！？!?，,\n]{0,8}(?:一切|全部)[^。！？!?，,\n]{0,4}(?:结束了|落幕|收场)[。！]'
-  '这一切[，,]?[^。！？!?，,\n]{0,6}(?:都)?(?:说明|意味着|结束了)(?!的)(?:(?!什么)[^。！？!?\n]){0,6}[。！]'
-  '(?:新的篇章|新的旅程|崭新的篇章|新的人生)[^。！？!?\n]{0,6}(?:开始|拉开|展开)|命运[^。！？!?\n]{0,6}齿轮'
-  '.*[，,]\s*(?:而)?不是([^。！？!?\n]*)$'
-  # 常量（文末窗口、分句边界、疑问尾/确认语排除集）
-  'TOXIC_TRAILER_WINDOW = 600'
-  '，,。.！!？?；;：:、…—~ \t　'
-  '"吗", "吧", "嘛"'
-  '"的", "啊", "呀", "呢"'
-  # 文案（findings 行格式与各规则修法、清零要求 + 完整扫描提示，两端须逐字一致）
-  '行 毒句式['
-  '删「不X…却Y」反差腔，直接写具体效果或动作。'
-  '「没有…，没有…」排比删到只剩一个或全删，改写正面在场的细节。'
-  '删否定铺垫，直接写肯定项，或改成动作细节。'
-  '删章尾预告腔，用正在发生的动作或画面收章。'
-  '删章尾状态总结句，收束状态是细纲的规划口径，正文落到具体动作、画面或台词上。'
-  '毒句式是确定性 AI 指纹：本章须清零后再继续。完整扫描：node <skill>/scripts/check-ai-patterns.js --check <正文文件>'
-  '处未清毒句式欠账，'
-  '去味:跳过'
-  '去味(：|:)跳过'
+  # regexes (common text of the js literal and the py raw string)
+  'voice\s+(?:was|were|sounded|stayed|remained|dropped)\s+(?:quiet|soft|low|calm|even|level|steady|gentle|barely (?:audible|a whisper))'
+  "(?:,|\.)\s*){2}\bno\s+[a-z][a-z0-9' -]{1,24}\b"
+  '(?:just|merely|simply)\s+[^.!?\n,]{1,20}[,.]\s*\b(?:it|that|this) (?:was|is)\b'
+  'little did (?:he|she|they|we|i|anyone|everyone) know'
+  'fate had other plans'
+  'was (?:a|the) (?:night|day|morning|moment) that would (?:change|alter|end) everything'
+  'be the same (?:again)?'
+  'the wheels? of fate'
+  '“[^”]*”'
+  # constants (end window, clause boundary, not-was exclusion window)
+  'TRAILER_WINDOW_WORDS = 250'
+  '.!?;:…—~ \t'
+  'start - 12'
+  # copy (finding line format, rule fixes, clearance requirement + full-scan hint;
+  # must match verbatim on both ends)
+  ' toxic pattern ['
+  'write the concrete effect the voice lands on the room'
+  'denial list to one or none; write what is actually present'
+  'write the positive term directly, or show it through action/detail'
+  'cut the chapter-end preview; end on an action or image that is happening now'
+  'cut the chapter-end state verdict; the ending state is outline planning language'
+  'Toxic patterns are deterministic AI fingerprints: clear this chapter before continuing'
+  'uncleared toxic patterns'
+  'clear them before writing chapter'
+  'deslop\s*:\s*skip'
   '\r?\n'
 )
 toxic_fail=0
 for needle in "${TOXIC_SYNC[@]}"; do
   for file in "$JS_CORE" "$PY_HOOK"; do
     if ! grep -Fq -- "$needle" "$file"; then
-      echo "FAIL: 毒句式规范串缺失/漂移 — 「${needle}」未出现在 $(basename "$file")"
+      echo "FAIL: toxic-pattern canonical string missing/drifted — \"${needle}\" not in $(basename "$file")"
       toxic_fail=1
     fi
   done
 done
 
-# 欠账门在 Claude bash 侧另有一份前置实现（guard-outline-before-prose.sh：上一章发现 +
-# 首 6 行豁免窗口 + 拦截文案，毒句式扫描本身走共享核 prose-toxic），豁免标记与门文案
-# 必须与 js/py 三处同步。
+# The debt gate has a separate bash-side implementation in
+# guard-outline-before-prose.sh (previous-chapter discovery + first-6-lines
+# exemption window + block copy; the toxic scan itself goes through the shared
+# core). The exemption marker and gate copy must stay in sync across all three.
 GUARD_SH="$REPO_ROOT/skills/story-setup/references/templates/hooks/guard-outline-before-prose.sh"
 GATE_SYNC=(
-  '去味(：|:)跳过'
-  '未清毒句式欠账'
-  '<!-- 去味:跳过 --> 后重试'
+  'uncleared toxic patterns'
+  'deslop:skip'
+  'To exempt explicitly, add <!-- deslop:skip -->'
 )
 for needle in "${GATE_SYNC[@]}"; do
   for file in "$JS_CORE" "$PY_HOOK" "$GUARD_SH"; do
     if ! grep -Fq -- "$needle" "$file"; then
-      echo "FAIL: 欠账门规范串缺失/漂移 — 「${needle}」未出现在 $(basename "$file")"
+      echo "FAIL: debt-gate canonical string missing/drifted — \"${needle}\" not in $(basename "$file")"
       toxic_fail=1
     fi
   done
@@ -230,4 +250,4 @@ if [ "$toxic_fail" -ne 0 ]; then
   exit 1
 fi
 
-echo "OK: 毒句式正则/常量/文案 js↔py 逐字同步（欠账门标记/文案含 bash 前置门三处同步）"
+echo "OK: toxic-pattern regexes/constants/copy js<->py verbatim sync (debt-gate marker/copy sync across the bash gate too)"

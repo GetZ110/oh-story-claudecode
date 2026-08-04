@@ -1,349 +1,348 @@
-# 开头设计：网文开篇操作手册
+# Opening Design: Web-Fiction Opening Operations Manual
 
-> 开新书、写前 3 章时加载。先看决策路由选开头类型，再套题材模板。
+> Load when opening a new book or writing the first 3 chapters. First look at the decision routing to pick the opening type, then apply the genre templates.
 
 ---
 
-## 决策路由
+## Decision routing
 
 ```
-你的故事是？
-|-- 女频言情
-|   |-- 总裁豪门 → 用"被迫+极端环境"或"纪念日+白月光"
-|   |-- 古代宅斗 → 用"被害+回归+身份反差"
-|   +-- 青春校园 → 用"苦难叠加+遇见"
-|-- 男频爽文
-|   |-- 都市脑洞 → 用"中年危机+系统"
-|   |-- 玄幻修仙 → 用"群众恐慌+主角报名"
-|   +-- 动漫衍生 → 用"原作场景+系统选择"
-|-- 现实题材
-|   |-- 家庭伦理 → 用"场景冲突+被背叛"
-|   +-- 行业文   → 用"专业场景+异常事件"
-+-- 轻喜剧       → 用"吐槽式反应+认知错位"
+What is your story?
+|-- Romance-focused
+|   |-- Billionaire romance → use "forced + extreme environment" or "anniversary + first-love shadow"
+|   |-- Historical household → use "harmed + return + identity contrast"
+|   +-- Campus/youth → use "stacked hardship + meeting"
+|-- Male-audience payoff fiction
+|   |-- Urban wild-idea → use "midlife crisis + system"
+|   |-- Fantasy cultivation → use "crowd panic + protagonist signs up"
+|   +-- Anime-derived → use "original-world scene + system choice"
+|-- Realistic genres
+|   |-- Family ethics → use "scene conflict + betrayed"
+|   +-- Industry fiction   → use "professional scene + anomalous event"
++-- Light comedy       → use "banter-style reaction + cognition mismatch"
 ```
 
-> **路由只示意每个题材一个可行的开头方向，不是必用套路。** 箭头是"起手候选之一"，不是查表取的唯一解。每本书按主角、卖点、对标自选或自造开头切口；同一题材连续开书不复用同一套路骨架——照套就成了可检索的开头指纹（同 writing-craft.md 身体细节规则：照抄或复用，产物本身就是新模板指纹）。下方「题材开头模板」同理，是菜单不是模具。
+> **The routing only shows one feasible opening direction per genre, not a mandatory pattern.** The arrows are "one candidate to start with," not the only answer from a lookup table. Every book picks or invents its own opening cut by protagonist, selling point, and benchmark; opening consecutive books in the same genre without reusing the same pattern skeleton — mechanically reusing becomes a searchable opening fingerprint (same as writing-craft.md's body-detail rule: copying or reusing makes the product itself a new template fingerprint). The "genre opening templates" below are likewise a menu, not a mold.
 
-### 开头策略选择
+### Opening strategy selection
 
-| 策略 | 操作 | 适用 |
+| Strategy | Operation | Suits |
 |------|------|------|
-| 危机开局 | 从生死压力开始 | 系统文、玄幻、都市 |
-| 悬疑开局 | 用悬念钩好奇心 | 悬疑、身份错位 |
-| 反转开局 | 颠覆读者预期 | 重生、穿越、脑洞 |
+| Crisis opening | start from life-death pressure | system fiction, fantasy, urban |
+| Suspense opening | hook curiosity with suspense | mystery, identity displacement |
+| Reversal opening | overturn reader expectations | second-chance, transmigration, wild-idea |
 
 ---
 
-## 黄金一章检查清单
+## The golden-chapter-one checklist
 
-开篇前 3 章必须通过以下全部检查：
+The opening 3 chapters must pass all the following checks:
 
-### 必达指标
+### Must-hit metrics
 
-- [ ] 从故事最精彩、最有冲突的地方写起
-- [ ] 主角三种状态选一：身处危机 / 令人羡慕 / 被丢入陌生环境
-- [ ] 300 字内主角登场，1000 字内出现爽点或期待点
-- [ ] 三个基点前 3 章内全部完成（人设基点 / 切入点基点 / 金手指基点）
-- [ ] 第一个冲突影响重大，事先点明解决的好处和不解决的坏处
-- [ ] 第一章必须说明：主角目标 + 本文卖点
+- [ ] Start from the most exciting, most conflicted place in the story
+- [ ] Protagonist in one of three states: in crisis / enviable / thrown into an unfamiliar environment
+- [ ] Protagonist appears within 300 words; a payoff or anticipation point within 1000 words
+- [ ] The three base points all complete within the first 3 chapters (persona base point / entry base point / cheat base point)
+- [ ] The first conflict is consequential; state the benefit of solving it and the cost of not solving it in advance
+- [ ] Chapter 1 must state: the protagonist's goal + this book's selling point
 
-### 绝对禁止
+### Absolute bans
 
-| 禁止 | 理由 |
+| Banned | Why |
 |------|------|
-| 大段背景介绍 | 开头全是"缓"没有"冲突"，读者秒退 |
-| 天气/风景开头 | 除非反差极大 |
-| 出场 3 个以上主要角色 | 信息过载 |
-| 序章/楔子/引 | 除非以叙事为主、足够简短且与第一章逻辑紧密 |
-| 插叙/切视角/回忆梦境 | 正叙为主 |
-| 世界观详细解说 | 至少等到第一个一级结构结束 |
+| Long background introductions | an opening all "slow" with no "conflict" → instant reader exit |
+| Weather/scenery openings | unless the contrast is extreme |
+| More than 3 major characters appearing | info overload |
+| Prologues/wedges/preludes | unless narrative-focused, short enough, and tightly logical with chapter 1 |
+| Flashbacks/POV cuts/memories and dreams | forward narration first |
+| Detailed worldview exposition | at least until the first level-1 structure ends |
 
-### 冲突节奏
+### Conflict rhythm
 
-- 背景融入冲突（如用旁人议论同时完成背景和冲突）
-- 两个紧张场景间要有缓和，但缓和 ≠ 无冲突
-- 背景信息分批释放（信息团排版），优先级：危机感 > 人设 > 金手指暗示 > 世界观，每次释放服务于当前情绪目标
+- Background fused into conflict (e.g. bystander talk completes background and conflict at once)
+- A lull between two tense scenes, but a lull ≠ no conflict
+- Background information released in batches (info-package layout), priority: crisis > persona > cheat hints > worldview; every release serves the current emotion target
 
-### 开篇结构范例（鬼灭之刃）
+### Opening structure example (a classic shonen work)
 
-| 阶段 | 内容 | 功能 |
+| Stage | Content | Function |
 |------|------|------|
-| 起 | 冒雪卖炭+家庭日常+嗅觉帮人+对话引世界观 | 四板斧立人设+嵌入主线 |
-| 转 | 惨案→妹妹鬼化→义勇出现→跪地求饶→智慧反击 | 危机叠加+获得动力和目标 |
-| 合 | 留下短/中期目标+凄冷景色渲染+牵亲人奔向未知 | 新篇章开启 |
+| Rise | selling charcoal in the snow + family daily + helping people with smell + dialogue introducing worldview | four moves establishing the persona + embedding the main line |
+| Turn | tragedy → sister demonized → the swordsman appears → kneeling plea → smart counterattack | crisis stacking + gaining drive and goal |
+| Close | short/mid goals left + bleak scenery + charging toward the unknown with kin | a new chapter opens |
 
 ---
 
-## 三大基点与核心模板
+## The three base points & core templates
 
-| 基点 | 内容 | 作用 | 完成时机 |
+| Base point | Content | Function | Completion |
 |------|------|------|---------|
-| 人设基点 | 展示主角核心性格和处境 | 建立代入感和共情 | 前 3 章 |
-| 切入点基点 | 主角遭遇的第一个冲突/机遇 | 制造紧迫感和阅读动力 | 最好第 1 章 |
-| 金手指基点 | 展示主角独特优势 | 制造期待感和差异化 | 前 3 章 |
+| Persona base point | show the protagonist's core personality and situation | build immersion and empathy | first 3 chapters |
+| Entry base point | the protagonist's first conflict/opportunity | create urgency and reading drive | ideally chapter 1 |
+| Cheat base point | show the protagonist's unique edge | create anticipation and differentiation | first 3 chapters |
 
-困境型先人设，优势型先金手指。切入点必须跟主线强相关。
+Trap-type books do persona first; advantage-type books do the cheat first. The entry point must strongly relate to the main line.
 
-### 模板一：困境切入型
-
-```
-1. 主角处于不利处境（人设基点=共情入口）
-2. 遭遇压迫/危机（切入点=紧迫感）
-3. 金手指激活/展示（金手指=反转期待）
-4. 初步解决问题但引出更大问题（钩子）
-```
-
-### 模板二：优势切入型
+### Template 1: trap-entry type
 
 ```
-1. 主角已有独特优势但被低估/隐藏（人设+金手指合一）
-2. 优势在某个场景中意外暴露（切入点）
-3. 周围人的认知被刷新（震惊反应）
-4. 暴露引来更大的关注/麻烦（钩子）
+1. The protagonist in an adverse situation (persona base = empathy entrance)
+2. Oppression/crisis (entry = urgency)
+3. Cheat activation/display (cheat = reversal anticipation)
+4. Initially solving the problem but raising a bigger one (hook)
+```
+
+### Template 2: advantage-entry type
+
+```
+1. The protagonist already has a unique edge, underestimated/hidden (persona + cheat fused)
+2. The edge accidentally exposed in a scene (entry)
+3. Surrounding cognition refreshed (shock reactions)
+4. The exposure draws bigger attention/trouble (hook)
 ```
 
 ---
 
-## 开头常见问题速查
+## Opening common-problem quick reference
 
-| 问题 | 症状 | 修正操作 |
+| Problem | Symptoms | Fix |
 |------|------|---------|
-| 信息传达不清 | 主角在哪/干什么/动机不明 | 开局交代背景和处境，明确目标再进事件 |
-| 人设逼格过低 | 见美女紧张/无意义内心戏 | 主角要有逼格，配角要有特色 |
-| 情绪缺失 | 战斗枯燥/看几段不想读 | 战斗中穿插情绪——恐惧、愤怒、决心 |
-| 节奏拖沓 | 出场过多无关人物/铺垫太长 | 删无关互动，尽快进主线 |
-| 金手指出场突兀 | 像写日记一样冒出金手指 | 用危机或困境触发金手指 |
-| 铺垫章掉追读 | 章节名暴露是铺垫 | 用有戏剧性的标题把读者"骗"进来 |
+| Info delivery unclear | where the protagonist is / what they're doing / motive unclear | deliver background and situation at the opening; clarify the goal, then enter events |
+| Persona gravitas too low | nervous around women / meaningless interiority | the protagonist needs gravitas; supporting characters need traits |
+| Emotion missing | dull combat / lose interest in a few paragraphs | weave emotion into combat — fear, anger, resolve |
+| Rhythm dragging | too many irrelevant characters / long setups | cut irrelevant interactions; enter the main line fast |
+| Cheat appearing abruptly | the cheat pops out like a diary entry | trigger the cheat with crisis or trap |
+| Setup chapters drop follow-through | the title reveals it's setup | use dramatic titles to "trick" readers in |
 
-### 情绪波动线操作
+### The emotion fluctuation line
 
-上行-下行交替法：穿越成仙人（上行）→ 只是记名弟子（下行）→ 杂活累活还背锅（下行到最低+共鸣点）→ 有金手指了（上行）→ 金手指是同归于尽的（下行+戏剧性）→ 和穿越前有什么区别（触底）
+Up-down alternation: transmigrating into an immortal (up) → only a name-registered disciple (down) → chores and scapegoating (down to the bottom + resonance point) → getting a cheat (up) → the cheat is mutual-destruction (down + drama) → "what's different from before transmigration" (rock bottom)
 
-关键：每次波动要有具体信息支撑；共鸣是关键步骤；戏剧性情节必须写出来。
+Key: every fluctuation needs concrete info support; resonance is the key step; dramatic plots must be written out.
 
-### 信息差与期待感
+### Info gaps & anticipation
 
-期待感公式：情绪 + 情节（人设+动机）+ 信息差，三者缺一则不足。核心循环：情报 → 收获 → 震惊，短平快过渡到下一个有用剧情。
+Anticipation formula: emotion + plot (persona + motive) + info gap — missing any one is insufficient. Core loop: intel → gains → shock, fast short-plain transitions to the next useful plot.
 
-### 期待感三路径
+### The three anticipation paths
 
-- **事业线**：设定新颖，读者预见结局但猜不到过程
-- **爱情线**：人设搭配有吸引力，开头抛出亮点
-- **双线缠绕**：事业线与爱情线同时进行，互相影响
+- **Career line**: novel setting; readers foresee the ending but not the process
+- **Romance line**: attractive persona pairing; the opening throws highlights
+- **Dual-line entanglement**: career and romance run together, affecting each other
 
-### 改进方向
+### Improvement directions
 
-- **强情绪开头**：从高潮事件或复仇类强情绪切入，重大事件不能写得像闹着玩
-- **情报与期待感**：每个情报都要有期待价值，关键情报拉起"然后呢？"
-- **目标驱动**：主角目标要交代清楚，打斗必须基于主角目标
-- **共鸣**：通过角色处境产生共鸣，先让读者站在主角这边
+- **Strong-emotion openings**: cut in from climax events or revenge-class strong emotion; major events can't read like jokes
+- **Intel & anticipation**: every intel has anticipation value; key intel raises "and then?"
+- **Goal-driven**: the protagonist's goal stated clearly; combat must be based on it
+- **Resonance**: resonate through the character's situation; make the reader stand with the protagonist first
 
-### 创意的正确展开
+### The correct unfolding of creativity
 
-- 创意验证规则：每个创意点必须转化为具体的剧情冲突，而非仅停留在概念层面
-- 书名/简介/正文三者统一（书名写"苟"但主角张扬=一致性违规）
-
----
-
-## 题材开头模板
-
-> 下列每个题材只给一个填空骨架，**是示意方向、不是要照填的模具**。填空即成稿会让同题材两本书开头逐句同构（同样的地点句→场景句→反常行为句→悬念句），正是"开头同质化"的来源。用它定"开头该解决什么"（快速抛冲突/身份反差/悬念），具体切口、句序、信息释放顺序按本书主角和对标一本一变；同一题材连续开书别复用同一骨架。
-
-### 都市脑洞
-
-范例：《病娇妈妈们找上门》
-
-```
-{城市名}。
-{简短场景描述}。
-{主角}{一个反常行为}。
-{一句话解释为什么这么做，但留悬念}。
-实际上，{真相，制造更大悬念}。
-```
-
-### 豪门总裁
-
-范例A：《禁她入骨》
-
-```
-{极端/异国地点}。{季节}。
-{2-3个感官细节}。
-{困境描写，1-2句}。
-{主角身份交代}。
-{一句话揭示谁害了她}。
-```
-
-范例B：《不愿再让你低头》
-
-```
-出了{医院/法院/某场所}，{天气映射心情}。
-{主角}{一个微动作暗示内心}。
-脑海中闪过{某人}的话——
-"{冲击性的一句话}"
-{主角的反应}。
-{一个动作推动下一步}。
-```
-
-### 古代宅斗
-
-范例：《十年前他们要我顶替妹妹进青楼》
-
-```
-{N年前，被害/被弃的事件}。
-{亲人选择救别人不救主角}。
-"{被弃时的伤人台词}"
-{N年后，主角已{隐藏身份/实力}}。
-{回归场景，制造身份反差}。
-```
-
-### 玄幻修仙
-
-范例A：《西游你叫我吗喽》
-
-```
-"{一条震惊的新闻/传闻}"
-"{群众反应/讨论}"
-——安静——
-{场景转换：学校/公司/日常}
-{权威人物宣布一个危险任务}
-{所有人退缩}
-"我报名！"
-{主角站出来，所有人震惊}
-{暗示主角有隐藏优势}
-```
-
-范例B（动漫衍生）
-
-```
-{原作角色名}的声音{描述}
-{原作角色向主角提出请求/挑战}
-主角内心：{穿越者视角的分析}
-系统/面板出现：
-【选择一：{选项}】奖励：{xxx} 代价：{xxx}
-【选择二：{选项}】奖励：{xxx} 代价：{xxx}
-主角选择+理由。
-```
-
-### 青春校园
-
-范例：《你携盛夏，渡我寒冬》
-
-```
-最{负面状态}那年，我遇到了{对方}。
-我{被欺负}，被{家人伤害}，被{社会歧视}。
-{对方}则{不良/叛逆行为列举}。
-我走投无路。
-"{交易/请求台词}"
-"{对方的反应，出人意料}"
-```
-
-### 现实情感
-
-范例：《五年恩情，一朝两清》
-
-```
-{对方}{重要事件}那天，是{我们的重要日子}。
-{被忽视的场景细节，暗示等待}。
-手机屏幕亮了："{敷衍的消息}"
-{主角查看{朋友圈/聊天}——真相}。
-{一句话内心独白，冷静但心碎}。
-```
-
-### 年代文
-
-
-```
-{主角}这会儿{状态}，{反应}。
-明明{昨天在做的事}，一{闭眼/醒来}，居然就{穿越了}。
-{记忆涌入——原主的悲惨经历}
-"{情绪爆发——愤怒/不甘}"
-利用{前世知识/穿越者优势}，{第一个行动目标}
-```
+- Creative-validation rule: every creative point must convert into concrete plot conflict, not stay conceptual
+- Title/blurb/prose three-part unity (a title saying "play dead" with a flamboyant protagonist = consistency violation)
 
 ---
 
-## 书名/简介/开篇三位一体
+## Genre opening templates
 
-- 书名告诉读者金手指和题材
-- 简介只写三件事：主角处境、金手指能干嘛、第一个爽点预览
-- 开篇必须呼应书名和简介的承诺
-- 书名翻车预警：三字四字看不出亮点是大忌；不要拿悬念当期待感，直接告诉能干嘛
+> Each genre below gets only one fill-in skeleton — **a direction to illustrate, not a mold to fill**. Filling it in directly makes two books of the same genre open sentence-identical (the same place sentence → scene sentence → anomalous-behavior sentence → suspense sentence), which is exactly the source of "homogenized openings." Use it to decide "what the opening must solve" (fast conflict throw / identity contrast / suspense); the concrete cut, sentence order, and info-release order change per this book's protagonist and benchmark; opening consecutive books in the same genre shouldn't reuse the same skeleton.
 
-### 噱头三分法
+### Urban wild-idea
 
-| 噱头类型 | 写法 | 要点 |
+Example: *The Yandere Moms Came Knocking*
+
+```
+{City name}.
+{short scene description}.
+{the protagonist does}{an anomalous behavior}.
+{one sentence explaining why, but leaving suspense}.
+Actually, {the truth, creating a bigger suspense}.
+```
+
+### Billionaire romance
+
+Example A: *Bone-Deep Possession*
+
+```
+{extreme/foreign location}. {season}.
+{2-3 sensory details}.
+{trap description, 1-2 sentences}.
+{the protagonist's identity revealed}.
+{one sentence revealing who harmed her}.
+```
+
+Example B: *I Won't Bow My Head for You Again*
+
+```
+{leaving a hospital/courthouse/place}, {weather mirroring mood}.
+{the protagonist}{a micro-action hinting at the interior}.
+{A certain person}'s words flash through the mind —
+"{one impactful line}"
+{the protagonist's reaction}.
+{an action pushing the next step}.
+```
+
+### Historical household
+
+Example: *Ten Years Ago They Wanted Me to Take My Sister's Place in the Brothel*
+
+```
+{N years ago, the harm/abandonment event}.
+{family choosing to save someone other than the protagonist}.
+"{the hurtful line at the abandonment}"
+{N years later, the protagonist already {hidden identity/power}}.
+{the return scene, creating identity contrast}.
+```
+
+### Fantasy cultivation
+
+Example A: *Journey to the West, Did You Call Me a Monkey?*
+
+```
+"{one stunning news/rumor}"
+"{crowd reactions/discussion}"
+— silence —
+{scene switch: school/company/daily life}
+{an authority announces a dangerous mission}
+{everyone shrinks back}
+"I'll sign up!"
+{the protagonist steps forward; everyone shocked}
+{hint at the protagonist's hidden edge}
+```
+
+Example B (anime-derived)
+
+```
+{original character name}'s voice {description}
+{the original character asks a request/challenge of the protagonist}
+Inner thought: {the transmigrator's analysis}
+A system/panel appears:
+[Choice one: {option}] Reward: {xxx} Cost: {xxx}
+[Choice two: {option}] Reward: {xxx} Cost: {xxx}
+The protagonist chooses + the reason.
+```
+
+### Campus youth
+
+Example: *You Carried Me Through Summer into Winter*
+
+```
+The {worst-state} year, I met {the other person}.
+I was {bullied}, {hurt by family}, {discriminated against by society}.
+{The other person}, meanwhile, {bad/rebellious behavior listing}.
+I was out of options.
+"{a deal/request line}"
+"{the other's reaction, unexpected}"
+```
+
+### Realistic romance
+
+Example: *Five Years of Kindness, Settled in a Day*
+
+```
+{The other person}{important event} that day was {our important day}.
+{an overlooked scene detail hinting at the waiting}.
+The phone screen lit up: "{a perfunctory message}"
+{the protagonist checks {moments/chats} — the truth}.
+{one line of interior monologue, calm but heartbroken}.
+```
+
+### Era second-chance
+
+```
+{the protagonist} right now {state}, {reaction}.
+Just {what they were doing yesterday}, with one {eye-close/wake-up}, and they were {transmigrated}.
+{memories flooding in — the original body's miserable history}
+"{an emotion burst — anger/resentment}"
+Using {past-life knowledge/transmigrator edge}, {the first action goal}
+```
+
+---
+
+## Title/blurb/opening trinity
+
+- The title tells the reader the cheat and the genre
+- The blurb writes only three things: the protagonist's situation, what the cheat can do, the first payoff preview
+- The opening must echo the title's and blurb's promises
+- Title crash warning: a three- or four-word title showing no highlight is a big taboo; don't treat suspense as anticipation — directly tell what it can do
+
+### The three-way hook split
+
+| Hook type | Writing | Points |
 |----------|------|------|
-| 事件噱头 | 书名即事件，极快进入故事 | 用日常常见事件开局；一上来就进事件，不要铺垫穿越/金手指 |
-| 金手指噱头 | 主角→困境→目标→金手指首次施展→少许成果 | 可结合事件写法：事件拉成主线→诞生目标→出金手指 |
-| 人设噱头（高复杂度） | 出彩人设直接影响剧情构建 | 只有当该人设能持续驱动剧情和冲突时使用；单纯“杀伐果断”不算出彩人设 |
+| Event hook | the title is the event; enter the story extremely fast | open with common everyday events; enter the event immediately; no transmigration/cheat setup |
+| Cheat hook | protagonist → trap → goal → cheat's first display → small results | may combine the event style: the event stretches into the main line → a goal is born → the cheat appears |
+| Persona hook (high complexity) | a standout persona directly affects plot construction | only when the persona keeps driving plot and conflict; mere "decisive" isn't a standout persona |
 
-噱头吸引读者后立刻嫁接主线，事件结束后马上接新目标。
+After the hook attracts readers, graft the main line immediately; after the event ends, connect the new goal right away.
 
 ---
 
-## 金手指与人设匹配
+## Cheat & persona matching
 
-| 人设类型 | 适合的金手指 | 翻车组合 |
+| Persona type | Fitting cheat | Crash combinations |
 |----------|-------------|----------|
-| 开朗/搞笑型 | 自爆类（装逼爽+吐槽契合） | 搞笑型+自爆金手指=不搭 |
-| 心狠手辣型 | 传统型（升级、资源获取） | 冷酷型+搞笑金手指=违和 |
+| Cheerful/goofy | self-destruct type (flex-payoff + banter fit) | goofy + self-destruct cheat = mismatch |
+| Ruthless | traditional (upgrades, resource acquisition) | cold + goofy cheat = incongruous |
 
 ---
 
-## 七步法字数分配
+## The seven-step word allocation
 
-| 段落 | 字数 | 内容 |
+| Segment | Words | Content |
 |------|------|------|
-| 世界观+穿越事实+前身经历 | 300 字 | 快速交代背景 |
-| 第一个吸睛小剧情 | 500 字 | 用事件制造初始吸引 |
-| 前置金手指获得安全感 | 400 字 | 金手指首次展示 |
-| 感受到不安全 | 400 字 | 新的威胁出现 |
-| 遇见危机 | 500 字 | 核心冲突到来 |
-| 直接使用金手指 | 400 字 | 解决问题，完成第一个爽点 |
+| Worldview + transmigration fact + past-life history | 300 | fast background delivery |
+| First eye-catching mini-plot | 500 | initial attraction via events |
+| Front-loaded cheat for safety | 400 | the cheat's first display |
+| Feeling unsafe | 400 | a new threat appears |
+| Meeting the crisis | 500 | the core conflict arrives |
+| Using the cheat directly | 400 | solving the problem, completing the first payoff |
 
 ---
 
-## 卖点设计与验证
+## Selling-point design & validation
 
-### 卖点的显性与隐性分层
+### Visible vs hidden selling-point layers
 
-- 商业性卖点（噱头、创新、新鲜金手指）vs 文学性卖点（文风、笔力、世界观）
-- 卖点被"海水"淹没=需要更多努力（番茄波涛最大，起点次之）
-- 即使已有强品牌或强 IP，也需要多卖点叠加
+- Commercial selling points (hooks, innovation, fresh cheats) vs literary selling points (style, craft, worldview)
+- A selling point drowned in the "sea" = needs more effort (Webnovel's waves are the biggest, Royal Road next)
+- Even with a strong brand or IP, multiple selling points must stack
 
-### 五步验证法
+### The five-step validation
 
-1. 检查核心梗/金手指/开头情节（不能以"升级""爽文"为卖点）
-2. 围绕核心特化世界观和情节
-3. 检查人设反差/卖点
-4. 检查个人写法特色
-5. 蹭热点/蹭话题
+1. Check the core hook / cheat / opening plot (can't sell on "progression" or "payoff fiction")
+2. Specialize the worldview and plot around the core
+3. Check persona contrast / selling points
+4. Check personal writing traits
+5. Ride hot topics / trending talk
 
 ---
 
-## 平台差异化
+## Platform differentiation
 
-| 维度 | 番茄 | 起点 | 晋江 |
+| Dimension | Webnovel | Royal Road | Wattpad |
 |------|------|------|------|
-| 核心取舍 | 节奏 > 代入感 | 代入感 > 节奏 | 人设 > 情节 |
-| 开头策略 | 强情绪+强噱头 | 人物铺垫+慢热可接受 | 角色魅力先立 |
-| 期待感 | 核心情绪深挖+反复提及 | 多线铺垫+伏笔 | 情感推进即期待 |
-| 爽点密度 | 每 2000 字一个 | 每 3000-5000 字一个 | 情感推进即爽点 |
-| 节奏 | 快，不能停 | 可慢，不能散 | 细，不能水 |
+| Core tradeoff | rhythm > immersion | immersion > rhythm | persona > plot |
+| Opening strategy | strong emotion + strong hooks | character setup; slow burn acceptable | character charm first |
+| Anticipation | core emotion deeply dug + repeatedly mentioned | multi-line setup + foreshadowing | romance advancement is anticipation |
+| Payoff density | one per 2000 words | one per 3000-5000 words | romance advancement is the payoff |
+| Rhythm | fast; can't stop | can be slow, can't scatter | fine; can't pad |
 
 ---
 
-## 循环套路参考
+## Loop-pattern reference
 
-| 类型 | 循环模式 |
+| Type | Loop mode |
 |------|----------|
-| 升级文 | 展示优势→制造信息差→展示信息差→装逼震惊→收获奖励→铺垫下文 |
-| 日常/狗粮文 | 稳定人设+固定剧情流程=读者稳定期待 |
-| 高武/升级文 | 练武→拜师→比赛，靠升级循环的稳定期待感拉住读者 |
+| Progression fiction | show the edge → create info gaps → show the gap → flex-shock → gain rewards → set up the next |
+| Daily/sugar fiction | stable persona + fixed plot flow = stable reader anticipation |
+| High-martial/progression | train → take a master → compete; holding readers with the stable anticipation of the upgrade loop |
 
 ---
 
-## 内容红线
+## Content red lines
 
-- 擦边和三观不正风险极大，非要写用外国背景+提前跟编辑打招呼
-- 女频特殊规则：双洁是基础规则，不要挑战；补救用"其实是同一个人（转世/穿越）"化解
+- Edgy content and twisted values carry extreme risk; if it must be written, use a foreign background + clear it with the editor in advance
+- Romance-specific rule: mutual single-commitment is the base rule; don't challenge it; the patch is "it's actually the same person (reincarnated/transmigrated)"

@@ -1,367 +1,367 @@
 ---
 name: story-review
 version: 1.1.0
-description: "多视角对抗式审查。full/lean 模式在已部署 reviewer agents 时并行 spawn；缺失/异常 agents 或 spawn 失败时自动降级 solo，参考文件不可读时使用内置 rubric fallback。触发方式：/story-review、/审查、「审查一下」「帮我审一下」。"
+description: "Multi-perspective adversarial review. full/lean modes spawn reviewers in parallel when deployed; missing/abnormal agents or spawn failures degrade to solo automatically; when reference files are unreadable the built-in rubric fallback is used. Trigger phrases: /story-review, /review, review this chapter, check my writing."
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
-# story-review：多视角对抗式审查
+# story-review: Multi-perspective adversarial review
 
-你是审查协调器。你的职责是找出小说文本中的结构、角色、文字、设定问题，并给出可执行修改建议。
+You are the review coordinator. Your job is to find structural, character, prose, and setting problems in the fiction text and give actionable fixes.
 
-**执行铁律：审查是找问题，不是验证正确性。**
-
----
-
-## Review Mode 选择
-
-- `/story-review` 或 `/story-review full` → 优先 spawn 全部 4 个 Agent；如果当前已经在子代理内，核心 Agent 未部署/异常，或 spawn 失败，自动降级为 solo。
-- `/story-review lean` → 优先 spawn `story-architect` + `consistency-checker`；如果当前已经在子代理内，任一所需 Agent 未部署/异常，或 spawn 失败，自动降级为 solo。
-- `/story-review solo` → 不 spawn Agent，由当前会话执行基础审查。
-- 未指定 → 默认 full，并在报告里写明最终实际执行模式。
-
-> AI味 / 文字自然度这一维度只有 `narrative-writer` 审，仅 full 模式覆盖。lean 只 spawn `story-architect` + `consistency-checker`，审的是结构与设定一致性，不含文字自然度审查；要审文字层是否像人写，用 full。
+**Iron rule: review finds problems; it does not validate correctness.**
 
 ---
 
-## Phase 0：预检与降级（必须先执行）
+## Choosing a Review Mode
 
-1. **确定请求模式**：解析用户输入中的 `full`、`lean`、`solo`；未指定时目标模式为 `full`。
-2. **确认是否允许 spawn**：如果当前已经在子代理/Agent 内执行，不再递归 spawn，直接降级为 `solo`。
-3. **识别 ZCode 能力边界**：如果当前运行于 ZCode 且项目使用 `.zcode/`，ZCode 3.3.4 不执行项目/plugin custom agents；不要因为磁盘上存在其他端的 agent 文件就尝试同名 spawn，直接降级 `solo` 并报告 `Fallback: project custom agents unavailable -> solo`。
-4. **检查核心 Agent 部署状态**（检查项目内 agents，同时兼容 Claude Code、OpenCode 和 Codex）：
-   - 优先检查 `.claude/agents/`，其次检查 `.opencode/agents/`，再检查 `.codex/agents/`；三个目录任一存在即视为已部署
-    - full 必需：Claude/OpenCode 为 `story-architect.md`、`character-designer.md`、`narrative-writer.md`、`consistency-checker.md`；Codex 为同名 `.toml`
-    - lean 必需：Claude/OpenCode 为 `story-architect.md`、`consistency-checker.md`；Codex 为同名 `.toml`
-    - 对每个必需 Agent 文件：
-      - **Claude Code agent（`.claude/agents/`）**：读取 frontmatter，确认 `name:` 与 subagent_type 完全一致；frontmatter 缺失、不可解析或 name 不匹配时视为 malformed agent。
-      - **OpenCode agent（`.opencode/agents/`）**：文件名即 agent 名（OpenCode 不要求在 frontmatter 中写 `name:`），读取 frontmatter 确认 `mode: subagent` 和 `permission` 字段存在且可解析即可；frontmatter 缺失或不可解析视为 malformed。
-      - **Codex agent（`.codex/agents/`）**：文件名为 `{agent}.toml`，TOML 必须可解析，且包含 `name`、`description`、`developer_instructions`；`name` 必须与目标 agent 完全一致。
-    - 如果 `.story-deployed` 存在且 `agents_version` 缺失、非整数或小于 `22`，视为 stale deployment；不要 spawn，降级 `solo`，建议用户重新运行 `/story-setup`。`agents_version` 大于 `22` 时也不 spawn：这表示当前 skill 比项目部署旧，降级 `solo` 并提示先更新 oh-story-claudecode，不要用 v22 重新部署。
-   - 如果目标模式所需任一文件缺失或 malformed，**不要尝试 spawn 缺失/异常 Agent**；自动降级为 `solo`，并在报告开头写明：`Fallback: missing agents -> solo` 或 `Fallback: malformed agents -> solo`，列出问题文件，建议用户运行 `/story-setup`。
-5. **确认 Agent/Task 工具可用**：如果当前环境没有可用的子 Agent/Task 调用能力，直接降级为 `solo`，报告 `Fallback: agent tool unavailable -> solo`。
-6. **运行时失败降级**：如果任何 Agent spawn 返回失败、`subagent_type` / `agent_type` 不可用、frontmatter/TOML 运行时解析失败或子 Agent 无法启动，停止继续 spawn，改用 `solo` 重新审查，并报告 `Fallback: spawn failed -> solo` 与失败的 subagent_type/agent_type；不要把部分成功的 Agent 结果当成 full/lean 结论。
-7. **确定实际模式**：报告中必须同时列出 `Requested Mode` 与 `Effective Mode`。
-8. **禁止把 `.active-book` 当作平台来源**：`.active-book` 只表示当前书名/目录名，不代表目标平台。
+- `/story-review` or `/story-review full` -> prefer spawning all 4 agents; if already inside a subagent, a core agent is missing/abnormal, or spawning fails, degrade to solo automatically.
+- `/story-review lean` -> prefer spawning `story-architect` + `consistency-checker`; if already inside a subagent, any required agent is missing/abnormal, or spawning fails, degrade to solo automatically.
+- `/story-review solo` -> no agent spawning; this session runs the base review.
+- Unspecified -> default to full, and state the final effective mode in the report.
+
+> The AI-flavor / prose-naturalness dimension is only reviewed by `narrative-writer`, covered by full mode only. lean spawns only `story-architect` + `consistency-checker` and reviews structure and setting consistency — no prose-naturalness review; use full if the prose layer needs a human-voice check.
 
 ---
 
-## 审查基准与参考资料规则（必须遵守）
+## Phase 0: Preflight and degradation (must run first)
 
-`story-review` 的核心审查标准必须始终可用。参考文件是增强资料，不是运行前提。
+1. **Determine the request mode**: parse `full`, `lean`, `solo` from the user input; when unspecified, the target mode is `full`.
+2. **Check whether spawning is allowed**: if already running inside a subagent/Agent, do not spawn recursively — degrade to `solo`.
+3. **Identify ZCode capability boundaries**: if running under ZCode and the project uses `.zcode/`, ZCode 3.3.4 does not execute project/plugin custom agents; do not attempt same-name spawns just because agent files exist on disk for other runtimes — degrade to `solo` and report `Fallback: project custom agents unavailable -> solo`.
+4. **Check core agent deployment** (check project agents; compatible with Claude Code, OpenCode, and Codex):
+   - Check `.claude/agents/` first, then `.opencode/agents/`, then `.codex/agents/`; any of the three directories existing counts as deployed
+   - full requires: `story-architect.md`, `character-designer.md`, `narrative-writer.md`, `consistency-checker.md` (Claude/OpenCode) or same-name `.toml` (Codex)
+   - lean requires: `story-architect.md`, `consistency-checker.md` (Claude/OpenCode) or same-name `.toml` (Codex)
+   - For each required agent file:
+     - **Claude Code agent (`.claude/agents/`)**: read the frontmatter; `name:` must exactly match the subagent_type. Missing/unparseable frontmatter or a name mismatch = malformed agent.
+     - **OpenCode agent (`.opencode/agents/`)**: the filename is the agent name (OpenCode does not require `name:` in frontmatter); frontmatter must have parseable `mode: subagent` and `permission` fields. Missing/unparseable frontmatter = malformed.
+     - **Codex agent (`.codex/agents/`)**: filename `{agent}.toml`; the TOML must parse and contain `name`, `description`, `developer_instructions`; `name` must exactly match the target agent.
+   - If `.story-deployed` exists with `agents_version` missing, non-integer, or less than `22`, treat it as a stale deployment; do not spawn, degrade to `solo`, and suggest re-running `/story-setup`. If `agents_version` is greater than `22`, do not spawn either: the installed skill is older than the project deployment — degrade to `solo` and prompt to update oh-story-claudecode first; do not redeploy with v22.
+   - If any required agent file for the target mode is missing or malformed, **do not spawn the missing/abnormal agent**; degrade to `solo` automatically and state at the top of the report: `Fallback: missing agents -> solo` or `Fallback: malformed agents -> solo`, list the problem files, and suggest running `/story-setup`.
+5. **Confirm Agent/Task tool availability**: if the current environment has no sub-agent/Task capability, degrade to `solo` and report `Fallback: agent tool unavailable -> solo`.
+6. **Runtime failure degradation**: if any agent spawn returns failure, `subagent_type` / `agent_type` is unavailable, frontmatter/TOML fails to parse at runtime, or a subagent cannot start, stop spawning, re-review with `solo`, and report `Fallback: spawn failed -> solo` plus the failing subagent_type/agent_type; never treat partially successful agent results as full/lean conclusions.
+7. **Determine the effective mode**: the report must list both `Requested Mode` and `Effective Mode`.
+8. **Never treat `.active-book` as a platform source**: `.active-book` only names the current book/directory, not the target platform.
 
-### 报告元数据字段（必须逐字输出）
+---
 
-最终报告开头必须逐行输出以下英文 key，**不要翻译、不要改名、不要只输出中文同义词**。可以在英文 key 后追加中文说明，但 key 本身必须逐字出现，便于脚本和用户核对实际执行路径：
+## Review standards and reference file rules (mandatory)
+
+The core review standards of `story-review` must always be available. Reference files are enhancements, not a runtime prerequisite.
+
+### Report metadata fields (must be output verbatim)
+
+The final report must start with the following English keys, one per line — **do not translate, rename, or output only Chinese synonyms**. You may append a Chinese explanation after an English key, but the key itself must appear verbatim so scripts and users can trace the actual execution path:
 
 ```md
 Requested Mode: full | lean | solo
 Effective Mode: full | lean | solo
 Fallback: none | project custom agents unavailable -> solo | missing agents -> solo | malformed agents -> solo | stale agents -> solo | agent tool unavailable -> solo | spawn failed -> solo | subagent recursion guard -> solo
-Rubric: fanqie | qidian | zhihu | generic web-fiction
+Rubric: royal-road | webnovel | kindle | generic web-fiction
 Rubric Source: file | embedded fallback
 ```
 
-### 参考资料解析顺序
+### Reference file resolution order
 
-可读取参考文件时，按以下顺序尝试：
-1. `{项目根}/.claude/skills/{规范路径}`（Claude Code 项目内安装）
-2. `{项目根}/.opencode/skills/{规范路径}`（OpenCode 项目内安装）
-3. `{项目根}/.codex/skills/{规范路径}`（Codex 项目内安装）
-4. `{项目根}/.zcode/skills/{规范路径}`（ZCode 项目内安装）
-5. `{项目根}/skills/{规范路径}`（本仓库开发环境）
-6. 工具自身可访问的全局 skill 搜索路径中同名 `{skill-name}/...` 目录
+When reference files are readable, try in this order:
+1. `{project root}/.claude/skills/{canonical path}` (Claude Code in-project install)
+2. `{project root}/.opencode/skills/{canonical path}` (OpenCode in-project install)
+3. `{project root}/.codex/skills/{canonical path}` (Codex in-project install)
+4. `{project root}/.zcode/skills/{canonical path}` (ZCode in-project install)
+5. `{project root}/skills/{canonical path}` (this repo's dev environment)
+6. same-name `{skill-name}/...` directories on the tool's own global skill search paths
 
-规范路径如下；禁止只写裸文件名，禁止跨 skill 误读其他 skill 的 references：
+Canonical paths are as follows; bare filenames are forbidden, and reading another skill's references across skills is forbidden:
 
-| 用途 | 规范路径 |
+| Purpose | Canonical path |
 |---|---|
-| 通用质量清单 | `story-review/references/quality-checklist.md` |
-| 通用内容评分 rubric | `story-review/references/quality-rubric.md` |
-| 去 AI 味方法 | `story-review/references/anti-ai-writing.md` |
-| 剧情循环/高潮公式 | `story-review/references/plot-core-methods.md` |
-| 角色关系/好感度 | `story-review/references/character-relations.md` |
-| 对话质量 | `story-review/references/dialogue-mastery.md` |
-| 审查禁用词 | `story-review/references/banned-words.md` |
-| 平台 rubric | `story-review/references/rubrics/{fanqie,qidian,zhihu}.md` |
-| 标点预检脚本 | `story-review/scripts/normalize-punctuation.js` |
-| AI句式预检脚本 | `story-review/scripts/check-ai-patterns.js` |
+| Generic quality checklist | `story-review/references/quality-checklist.md` |
+| Generic content rubric | `story-review/references/quality-rubric.md` |
+| De-AI-flavor methods | `story-review/references/anti-ai-writing.md` |
+| Plot loops / climax formulas | `story-review/references/plot-core-methods.md` |
+| Character relations / affinity | `story-review/references/character-relations.md` |
+| Dialogue quality | `story-review/references/dialogue-mastery.md` |
+| Review banned words | `story-review/references/banned-words.md` |
+| Platform rubrics | `story-review/references/rubrics/{royal-road,webnovel,kindle}.md` |
+| Punctuation precheck script | `story-review/scripts/normalize-punctuation.js` |
+| AI-pattern precheck script | `story-review/scripts/check-ai-patterns.js` |
 
-### 内置审查基准包（路径不可读时必用）
+### Built-in review standards package (mandatory when paths are unreadable)
 
-如果上述参考文件在当前项目中不可读，**不要把审查降级为无 rubric，也不要在报告里说“无法加载具体 rubric”后停止使用标准**。必须使用本节内置基准包，并报告：`Rubric Source: embedded fallback`。
+If the reference files above are unreadable in the current project, **do not degrade the review to rubric-less, and do not stop using standards while claiming "rubric could not be loaded"**. Use this section's built-in package and report `Rubric Source: embedded fallback`.
 
-通用网文内容 rubric：
-- 核心卖点：本章是否围绕明确卖点推进；看不出卖点至少 S2。
-- 冲突推进：本章是否有阻碍、选择、代价或关系变化；只解释/闲聊/总结至少 S2。
-- 情绪曲线：是否有铺垫、升温、释放或反转；情绪平直或突兀至少 S2/S3。
-- 钩子与期待：开头或结尾是否制造后续问题；没有悬念或未完成期待至少 S2。
-- 开头新鲜度（仅开篇/前 3 章）：开局有具体人物/处境切口，还是同题材默认套路（能整体换到任意同类书）？"有钩子/非天气开场"不豁免同质化；套路化开局即使有钩子也至少 S3，整体撞同题材模板 S2。
-- 角色动机：行为是否符合目标、性格、处境和关系压力；为剧情服务而失真是 S1/S2。
-- 对话质量：是否有潜台词、信息控制、角色差异；说明书式对话至少 S2。
-- 设定一致性：不违背已写规则、时间线、角色属性；明确事实冲突通常 S1。
-- 文字自然度：具体、可感、动作承载信息；AI 腔、陈词滥调、总结体按影响定 S2/S3。
-- 句长节奏：叙述默认是逗号长句（一句用逗号串起 2-4 件事再落句号）；碎句和电报体（逗号之间连着都是 ≤5 字、通篇超短句像提纲）与 AI 腔同级，按影响定 S3/S2，不因「短=网文节奏」放行。
-- 标点节奏：标点是否服务语气/人物声线；通篇句号化、随机堆砌问号/感叹号，或残留 `……`/`——` 硬造停顿，按影响定 S3/S2。
-- 具体字数表达校验：正文用“这五个字 / 短短四字 / 三个字一落 / 八个字砸下去”等具体字数表达评价台词、题字、信件、念头或弹幕时，必须能确认统计口径、机器核对结果和叙事必要；不能确保字数计算正确时，按文字自然度问题处理，建议改成“这句话一落”“那几个字”“话音落下”等非具体数字表达。
-- 格式可读性：段落短、对话独立、无多余空行；格式阻碍阅读按 S3，严重混乱按 S2。
-- 最小剧情循环：目标 → 阻碍 → 行动 → 代价/反馈 → 新期待；缺少目标/阻碍/反馈通常至少 S2。
-- 高潮构建：蓄能 → 假胜 → 崩解 → 反转/兑现；高潮直接平铺、无代价或无兑现通常 S2/S3。
-- 关系/好感度：互动尺度必须匹配当前关系阶段；越界亲密、突然信任、突然敌对都需要铺垫，否则按影响定 S1/S2。
-- 伏笔与连载期待：伏笔状态需可追踪；伏笔密度只作为结构风险提示，除非直接造成理解混乱，否则不升级到 S2+。
+Generic web-fiction content rubric:
+- Core appeal: does the chapter advance a clear appeal; if no appeal is visible, at least S2.
+- Conflict advancement: is there a blocker, a choice, a cost, or a relationship change; if it only explains/chats/summarizes, at least S2.
+- Emotional curve: setup, escalation, release, or reversal; flat or abrupt emotions, S2/S3.
+- Hooks and anticipation: does the opening or ending create a follow-up question; no suspense or unresolved anticipation, at least S2.
+- Opening freshness (only for the first chapter/first 3): does the opening cut into a concrete character/situation, or is it the genre's default template (swappable onto any comparable book)? "Has a hook / not a weather opening" does not waive homogeneity; a templated opening with a hook is at least S3, a full genre-template collision S2.
+- Character motivation: does behavior follow goals, personality, situation, and relationship pressure; distortion for plot's sake is S1/S2.
+- Dialogue quality: subtext, information control, character differentiation; manual-style dialogue at least S2.
+- Setting consistency: no violations of established rules, timeline, or character attributes; clear factual conflicts are usually S1.
+- Prose naturalness: concrete, perceptible, actions carrying information; AI flavor, cliches, and summary voice are S2/S3 by impact.
+- Sentence rhythm: narration defaults to comma-linked mid-length sentences (one sentence strings 2-4 actions with commas then lands on a period); fragments and telegraphic style (consecutive <=5-word clauses, whole passages of ultra-short sentences like an outline) are the same class as AI voice — S3/S2 by impact; "short = web-fiction pacing" is not a pass.
+- Punctuation rhythm: punctuation serves tone/character voice; whole-text period flattening, random `?`/`!` stacking, or leftover `...`/`--` manufactured pauses are S3/S2 by impact.
+- Concrete word-count expressions: when the prose evaluates a line, inscription, letter, thought, or comment with specific word counts ("these five words / the three-word reply / eight words hitting the ground"), the counting basis, machine-verification result, and narrative necessity must be confirmable; if the count cannot be guaranteed, treat it as a prose-naturalness issue and suggest replacing with non-numeric phrasing ("the words landed", "those few words", "as the line fell").
+- Format readability: short paragraphs, standalone dialogue lines, no stray blank lines; format that blocks reading is S3, severe chaos S2.
+- Minimal plot loop: goal -> blocker -> action -> cost/feedback -> new anticipation; missing goal/blocker/feedback is usually at least S2.
+- Climax construction: energy build -> false win -> collapse -> reversal/payoff; a flat climax with no cost or no payoff is usually S2/S3.
+- Relationship/affinity: interaction intensity must match the current relationship stage; overstepping intimacy, sudden trust, or sudden hostility needs setup, otherwise S1/S2 by impact.
+- Foreshadowing and serialization anticipation: foreshadowing state must be traceable; density is only a structural risk note and does not escalate to S2+ unless it directly breaks comprehension.
 
-AI 味 / 禁用词 fallback 速查：
-- 高频套话：`命运的齿轮开始转动`、`心猛地一沉`、`眼神复杂`、`深刻变化`、`踏上新的旅程`。
-- 章末总结体：`这一切都说明...`、`他终于明白...`、`新的篇章开始了...`。
-- 信息倾倒：角色直接说“我要解释世界观/规则/关系变化”。
-- 论文体/万能结论：过度使用“然而、与此同时、不可否认、这意味着”。
-- 处理原则：有原文证据才输出 finding；给出可执行替换方向，不只评价“AI 味重”。修法方向不默认「拆短 / 删虚词 / 剥标点」：把正常的逗号长句拆成碎句，与 AI 腔同样是问题。
+AI-flavor / banned-words fallback quick ref:
+- High-frequency tells: `little did he know`, `it was a night that would change everything`, `a wave of relief washed over`, `the kind of smile that...`, `couldn't help but`.
+- Chapter-end summary body: `he finally understood...`, `a new chapter began...`, `nothing would ever be the same`.
+- Information dumps: a character directly saying "let me explain the world/rules/relationship change".
+- Essay voice / universal conclusions: overuse of "however / at the same time / admittedly / this means".
+- Handling principles: only output a finding with original-text evidence; give executable replacement directions, not just "AI flavor heavy". Fix direction does not default to "split sentences / delete function words / strip punctuation": chopping normal comma-linked sentences into fragments is itself the same class of problem as AI voice.
 
-平台 fallback 摘要：
-- 番茄：强开局、强冲突、高频爽点/情绪反馈、低理解门槛。
-- 起点：设定自洽、升级路径、长线期待、世界观承载力。
-- 知乎盐言：短篇钩子、反转密度、情绪兑现、信息差推进。
+Platform fallback summaries:
+- Royal Road: progression pacing, follow-through on new chapters, chapter-end hooks that pull the next chapter, system/progression clarity.
+- Webnovel: serialized episode hooks, power-stone engagement, fast-gratification pacing, freemium retention.
+- Kindle: KU binge-readability, page-turn rate, market fit (genre/trope clarity), series read-through.
 
-### 传给子 Agent 的规则
+### Rules passed to sub-agents
 
-full/lean 模式下，主会话必须把“审查基准包摘要”直接写进每个 Agent prompt。**不要要求子 Agent 必须读取 `story-review/references/*` 才能完成任务**；如需补充，只读取本 Skill 的 `story-review/references/*`，最终遵守注入的 rubric 摘要和统一 Findings Schema。
+In full/lean modes, the main session must write the "review standards package summary" directly into every agent prompt. **Do not require sub-agents to read `story-review/references/*` to complete the task**; if supplementation is needed, read only this skill's own `story-review/references/*`, and ultimately obey the injected rubric summary and the unified Findings Schema.
 
 ---
 
-## Phase 1：收集待审查内容
+## Phase 1: Collect the material to review
 
-1. **确定审查范围**：
-   - 用户指定了章节/文件 → 只审查指定内容。
-   - 用户未指定 → 优先审查最近修改的正文文件（`git diff --name-only` 中的正文/设定/大纲相关文件），否则审查当前书的当前章节。
-2. **范围传递策略**：
-   - 优先把文件路径、章节名、行号范围传给 reviewer，不要把整本或大量章节完整复制进每个 prompt。
-   - 单文件或短片段可附 300-1200 字关键摘录。
-   - 多章/整卷/整本审查必须分批：按章节或文件组拆分，每批输出独立 findings，再综合。
-   - **跨批连续性（分批必做）**：审每一批前，先读 `追踪/伏笔.md` 里「已埋未回收 / 未埋」且预计回收章 ≤ 本批末章的开放项，连同上一批 findings 摘要，作为「继承的开放项」注入本批 reviewer / consistency-checker prompt（与既有「已知角色」并列）——这样审 200-300 时能看见 1-200 埋下、本批本该兑现却悬空的钩子/伏笔/未完成剧情，跨批不断线。审完把本批新发现、且不在 `伏笔.md` 里的开放钩子补登记进 `追踪/伏笔.md`（续写/import 工程常见 reviewer 先于写手发现）。
-   - **乱序/重叠审查提醒**：若已审过靠后的范围（如先审 300-400），之后审靠前的范围（200-300）时，只有当本批**新增/改动了一个开放项、且其预计兑现章落在已审过的靠后范围内**，才提醒用户「200-300 的改动可能影响已审的 300-400」，并让用户选择复审受影响章节 / 全量复审 / 仅记为待办——**默认记为待办，不盲目全量重跑**。无具体跨范围依赖时不提醒。
-3. **读取相关支撑材料**：正文、相关设定、角色档案、大纲、追踪/上下文、伏笔文件；缺失时在报告中标记证据不足。
-4. **识别目标平台并加载 rubric**：
-   - 优先使用用户显式指定的平台。
-   - 其次读取项目文档里的 `目标平台` / `平台` 字段，例如 `设定/题材定位.md`、`大纲/`、`拆文报告` 等。
-   - 不要把 `.active-book` 当作平台来源；它只能辅助定位当前书名目录。
-   - 番茄小说 → 优先读取 `story-review/references/rubrics/fanqie.md`；不可读时使用内置番茄 fallback 摘要。
-   - 起点 → 优先读取 `story-review/references/rubrics/qidian.md`；不可读时使用内置起点 fallback 摘要。
-   - 知乎盐言 → 优先读取 `story-review/references/rubrics/zhihu.md`；不可读时使用内置知乎 fallback 摘要。
-   - 未识别平台 → 优先读取 `story-review/references/quality-rubric.md`；不可读时使用内置通用网文内容 rubric，并报告 `Rubric: generic web-fiction` 与 `Rubric Source: file | embedded fallback`。
-5. **形成审查基准包摘要**：把已加载的文件内容或内置 fallback 摘要压缩为 5-12 条审查标准，后续 solo 和子 Agent 都必须使用这份摘要。摘要必须保留一条句长标准：叙述默认是逗号长句，碎句和电报体与 AI 腔同级处理，不因「短」放行。
-6. **确定性预检（只报告，不修改）**：当审查范围包含本地正文文件路径时，运行本 skill 自带脚本：
+1. **Determine the review scope**:
+   - User specified chapters/files -> review only what was specified.
+   - User did not specify -> prefer the recently modified prose files (`git diff --name-only` files under prose/setting/outline), otherwise review the current book's current chapter.
+2. **Scope-passing strategy**:
+   - Prefer passing file paths, chapter names, and line ranges to reviewers; do not paste whole books or large chapter sets into every prompt.
+   - A single file or a short excerpt may include 300-1200 words of key excerpts.
+   - Multi-chapter/volume/book reviews must be batched: split by chapter or file group, each batch outputs its own findings, then synthesize.
+   - **Cross-batch continuity (mandatory when batching)**: before each batch, read `tracking/foreshadowing.md` for open items marked "planted, not yet collected / not yet planted" whose planned collection chapter <= this batch's last chapter; inject them together with the previous batch's findings summary as "inherited open items" into this batch's reviewer / consistency-checker prompts (alongside the known characters) — so reviewing chapters 200-300 can see hooks/foreshadowing planted in 1-200 that this batch was supposed to pay off but left hanging; continuity survives across batches. After the review, register open hooks newly found in this batch that are not in `foreshadowing.md` back into `tracking/foreshadowing.md` (reviewers often find hooks before the writer during continuation/import work).
+   - **Out-of-order / overlapping review reminder**: if a later range was reviewed first (e.g., 300-400 first), then an earlier range (200-300) is reviewed, only when this batch **adds or changes an open item whose planned payoff chapter falls inside the already-reviewed later range** should you tell the user "changes in 200-300 may affect the already-reviewed 300-400" and let them choose: re-review affected chapters / full re-review / just log as a todo — **default to logging as a todo; never blindly re-run everything**. No cross-range dependency, no reminder.
+3. **Read supporting material**: prose, related setting, character sheets, outline, tracking/context, foreshadowing files; mark evidence gaps in the report when missing.
+4. **Identify the target platform and load the rubric**:
+   - Prefer the platform the user explicitly stated.
+   - Otherwise read the `Target platform` / `Platform` fields in project documents, e.g. `setting/genre-positioning.md`, `outline/`, `teardown-report`.
+   - Do not treat `.active-book` as a platform source; it only locates the current book directory.
+   - Royal Road -> prefer `story-review/references/rubrics/royal-road.md`; if unreadable use the built-in Royal Road fallback summary.
+   - Webnovel (webnovel.com) -> prefer `story-review/references/rubrics/webnovel.md`; if unreadable use the built-in Webnovel fallback summary.
+   - Kindle / KU -> prefer `story-review/references/rubrics/kindle.md`; if unreadable use the built-in Kindle fallback summary.
+   - Platform unrecognized -> prefer `story-review/references/quality-rubric.md`; if unreadable use the built-in generic web-fiction content rubric and report `Rubric: generic web-fiction` plus `Rubric Source: file | embedded fallback`.
+5. **Form the review standards package summary**: compress the loaded file content or the built-in fallback summary into 5-12 review standards; solo and all sub-agents must use this summary. The summary must keep one sentence-rhythm standard: narration defaults to comma-linked mid-length sentences; fragments and telegraphic style are treated the same class as AI voice; "short" is not a pass.
+6. **Deterministic prechecks (report only, no modification)**: when the scope includes local prose file paths, run this skill's own scripts:
    ```bash
-   node scripts/normalize-punctuation.js --check <正文文件...>
-   node scripts/check-ai-patterns.js --check --fail-on=blocking <正文文件...>
-   node scripts/check-degeneration.js --check <正文文件...>
+   node scripts/normalize-punctuation.js --check <prose files...>
+   node scripts/check-ai-patterns.js --check --fail-on=blocking <prose files...>
+   node scripts/check-degeneration.js --check <prose files...>
    ```
-   - 将 `ellipsis`、`double-hyphen`、`markdown-divider` 结果作为 `format` findings 合并进报告。`em-dash` 破折号只采用 `check-ai-patterns.js` 的语义改写建议（见下条）；`normalize-punctuation.js` 报的同一位置 `em-dash` 在合并时去重丢弃，避免同处出现「机械替换」与「按功能改写」两条相互冲突的 finding。另外人工检查标点节奏是否通篇句号化或随机堆砌，脚本不替代语气判断。
-   - `check-ai-patterns.js` 的 findings 合并进 `prose`：severity=blocking 的类别一律按 S2（当前为 `not-is-comparison` / `em-dash` / `voice-contrast` / `negation-parade` / `reverse-not-is` / `trailer-ending` / `trailer-summary`），修法直接采用检测器输出的建议（删否定铺垫/反差腔/排比否定/章尾预告腔/章尾状态总结句，直接写后项或具体动作；破折号按功能改成动作/短句/逗号/冒号）。
-   - 其余 prose findings 统一按 S4：只指出读感风险，不替代人工判断；功能性写法标 `[需复核]` 并保留。完整类别和修法见 `anti-ai-writing.md`。
-   - `check-degeneration.js` 报告模型退化（逐字复读/截断/占位符/工程词泄漏），每条带 `severity: blocking|advisory`：blocking（复读/截断/tier1 工程词）作为 S1/S2 `prose` findings，修复建议是「重新生成该段，不是改写」；advisory（tier2 章节/歧义词）作为 S4。
-   - `story-review` 不修改文件；需要自动修复时建议转 `/story-deslop`。
-   - 默认 `--quote-mode keep`，不把知乎盐言短篇的 `「」` 当作问题；只有项目明确指定引号风格时才检查对应转换建议。
-   - 这些脚本都是 `story-review` 的本地副本，不引用其他 skill 的文件。
+   - Merge `ellipsis`, `double-hyphen`, `markdown-divider` results into the report as `format` findings. For `em-dash`, take only `check-ai-patterns.js`'s semantic rewrite suggestions (next bullet); drop and dedupe the same-position `em-dash` report from `normalize-punctuation.js` to avoid two conflicting findings ("mechanical replacement" vs "rewrite by function") at the same spot. Also manually check whether punctuation rhythm is whole-text period-flattened or randomly stacked; scripts do not replace tone judgment.
+   - Merge `check-ai-patterns.js` findings into `prose`: severity=blocking categories are always S2 (currently `not-is-comparison` / `em-dash` / `voice-contrast` / `negation-parade` / `reverse-not-is` / `trailer-ending` / `trailer-summary`); the fix uses the detector's own suggestions (cut negation setups / contrast voice / negation parades / chapter-end trailer voice / chapter-end state summaries — write the direct statement or a concrete action; dashes become action/short sentence/comma/colon by function).
+   - Other prose findings are uniformly S4: they only flag read-feel risk and do not replace human judgment; functional writing is marked `[needs review]` and kept. Full categories and fixes live in `anti-ai-writing.md`.
+   - `check-degeneration.js` reports model degeneration (verbatim re-reading / truncation / placeholders / engineering-word leakage), each item with `severity: blocking|advisory`: blocking (re-reading / truncation / tier1 engineering words) becomes S1/S2 `prose` findings with the fix "regenerate that passage, not rewrite it"; advisory (tier2 chapter/ambiguous words) becomes S4.
+   - `story-review` never modifies files; for auto-fix, suggest `/story-deslop`.
+   - Default `--quote-mode keep`; curly/straight quote style is not a problem by itself — only check a conversion suggestion when the project explicitly specifies a quote style.
+   - These scripts are story-review's local copies; they do not reference other skills' files.
 
-**story-explorer 预查询（可选）**。仅当 `Effective Mode` 仍为 `full`/`lean`、当前允许 spawn 且 Agent/Task 工具可用时，才可检查 agent 目录（优先 `.claude/agents/`，其次 `.opencode/agents/`，再检查 `.codex/agents/`）下的 `story-explorer.md` 或 `story-explorer.toml` 并 spawn `story-explorer` 预查设定摘要；`solo` 或子代理递归保护场景下不得 spawn，只能直接 Read/Grep。Prompt 示例：
+**story-explorer pre-query (optional)**: only when `Effective Mode` is still `full`/`lean`, spawning is allowed, and the Agent/Task tool is available may you check the agent directories (prefer `.claude/agents/`, then `.opencode/agents/`, then `.codex/agents/`) for `story-explorer.md` / `story-explorer.toml` and spawn `story-explorer` for a setting summary pre-query; in `solo` or subagent-recursion-guard scenarios you must not spawn — use Read/Grep directly. Example prompt:
 
 ```text
-项目目录：{dir}
-查询类型：setting_appearances
-查询参数：{审查涉及的设定关键词}
+Project directory: {dir}
+Query type: setting_appearances
+Query parameters: {setting keywords involved in this review}
 ```
 
-此步可选，跳过不影响审查流程。
+This step is optional; skipping it does not affect the review flow.
 
 ---
 
-## 统一 Findings Schema（所有模式必须使用）
+## Unified Findings Schema (all modes must use it)
 
-所有 reviewer（包括 solo）输出问题时必须使用统一结构，方便综合排序。`location` 必须使用工具读取结果显示的原始文件行号；不要删除空行后重新编号。
+Every reviewer (including solo) must output problems in the unified structure so synthesis can sort them. `location` must use the original file line numbers from the tool read result; do not delete blank lines and renumber.
 
-对 `consistency` / `factual` / `causal` / `rule_boundary` 类 finding，`fix` 字段只写事实统一方向（例如“统一为左臂旧伤，并同步正文/设定中冲突处”或“需在 A/B 时间线中裁定一个来源”），不要写文学创作建议。
+For `consistency` / `factual` / `causal` / `rule_boundary` findings, the `fix` field only states the fact-unification direction (e.g., "unify to left-arm old injury and sync conflicting spots in prose/setting" or "a source must be adjudicated between timelines A/B") — no creative-writing suggestions.
 
 ```yaml
 - severity: S1 | S2 | S3 | S4
   category: structure | character | prose | consistency | platform | factual | format | causal | rule_boundary
-  location: 文件路径:行号 或 章节/段落描述
-  evidence: "引用原文或具体证据"
-  issue: "问题描述"
-  fix: "可执行修改建议"
+  location: file path:line or chapter/paragraph description
+  evidence: "quote the original text or concrete evidence"
+  issue: "problem description"
+  fix: "actionable fix suggestion"
 ```
 
-严重度定义：
-- **S1**：会破坏主线、角色动机、世界规则或读者信任，需优先修。
-- **S2**：明显影响章节效果、留存、节奏、人物可信度，建议本轮修。
-- **S3**：局部质量问题，如措辞、轻微格式、局部节奏，可排期修。
-- **S4**：建议项或风格微调，不阻塞发布。
+Severity definitions:
+- **S1**: breaks the main line, character motivation, world rules, or reader trust; fix first.
+- **S2**: clearly hurts chapter effect, retention, pacing, or character credibility; fix this round.
+- **S3**: local quality issues (wording, minor format, local pacing); can be scheduled.
+- **S4**: suggestion or style tweak; does not block release.
 
 ---
 
-## Phase 2：并行 Spawn Agent（full/lean 模式）
+## Phase 2: Parallel agent spawning (full/lean modes)
 
-使用 Agent/Task 工具并行调用（Codex 原生子代理使用 `agent_type`，Claude Code 兼容面使用 `subagent_type`；实际字段以当前 CLI 暴露的工具为准）。每个 Agent 不继承父对话上下文，prompt 必须自包含项目路径、审查范围、文件路径、必要摘录、审查基准包摘要、Rubric Source 和统一 Findings Schema。
+Use the Agent/Task tool for parallel calls (Codex native subagents use `agent_type`; Claude Code compatible surface uses `subagent_type`; the actual field follows the current CLI's exposed tool). Each agent inherits no parent context; prompts must be self-contained with project path, review scope, file paths, necessary excerpts, the review standards package summary, Rubric Source, and the unified Findings Schema.
 
-**调用规则**：执行 Phase 0 后，只有实际模式仍是 full/lean 时才 spawn。不要 spawn 缺失 Agent。
+**Calling rules**: after Phase 0, only spawn when the effective mode is still full/lean. Never spawn missing agents.
 
-**Agent 1: story-architect**（subagent_type: story-architect）
-- full/lean 均调用。
-- 审查视角：主题对齐、大纲结构、钩子/反转质量、范围控制、平台期待。
-- 提示指令：
+**Agent 1: story-architect** (subagent_type: story-architect)
+- Called in full/lean.
+- Review perspective: theme alignment, outline structure, hook/reversal quality, scope control, platform expectations.
+- Prompt:
   ```
-  你是 story-architect，从故事架构层面审查以下内容。
-  你的任务是【找问题】，不是验证正确性。以最严苛的标准审视。
-  项目路径：{项目根}
-  审查范围：{文件路径/章节/必要摘录}
-  审查基准包摘要：{Phase 1 形成的 rubric / fallback 摘要，必须内联}
+  You are story-architect, reviewing the following from the story-architecture level.
+  Your task is to FIND PROBLEMS, not validate correctness. Use the most stringent standards.
+  Project path: {project root}
+  Review scope: {file paths/chapters/necessary excerpts}
+  Review standards package summary: {rubric/fallback summary from Phase 1, must be inline}
   Rubric Source: file | embedded fallback
-  相关文件路径：{设定/大纲/细纲文件路径}
-  继承的开放项（分批审查必填，无则写「无」）：{从 追踪/伏笔.md 提取的、预计回收章 ≤ 本批末章的已埋未回收/未埋钩子，连同上一批 findings 摘要}
-  可选补充参考：本 Skill 的 `story-review/references/quality-checklist.md`、`story-review/references/plot-core-methods.md`；若不可读，不影响审查。
-  检查项：
-  1. 这一章是否推进了故事主题？
-  2. 大纲结构是否完整（钩子/爽点/悬念）？
-  3. 情绪节奏是否合理？
-  4. 钩子和反转设计质量如何？
-  5. 范围控制：有无角色/设定膨胀？
-  6. 剧情循环是否存在且可重复？（参照审查基准包摘要里的剧情循环原则）
-  7. 高潮场景是否用了蓄能→假胜→崩解结构？（参照审查基准包摘要里的高潮构建原则）
-  8. 伏笔密度、连载期待和结构信息量是否合理？（伏笔密度通常只作为 S4 结构风险，除非已造成理解混乱）
-  9. 按平台 rubric 或通用内容 rubric 逐项对照，标记 PASS/FAIL。
-  10. 继承的开放项里，本批本该兑现的钩子/伏笔是否落空？
-  11. 开头同质化（仅当本章是全书开篇/前 3 章）：开局切口是不是同题材的默认套路（穿越即退婚、系统绑定、末世第一天、开场即打脸等），能不能原样换到任意同类书？"有钩子/非天气开场"不等于不同质。对照 references/plot-core-methods.md「噱头分类与开篇流程」判断——能整体换到同类书=同质化（撞题材模板至少 S2；套路化但有具体人物/处境微差 S3）。
-  12. 结尾总结：章尾是总结/升华/复述式收尾（"就这样……""他终于明白……""这一夜注定……"），还是落在动作/画面/悬念上？检测器已判 blocking 的（`trailer-summary`）按上面「blocking 一律 S2」处理，不重复定级；检测器没覆盖的总结/升华/复述式收尾按影响定 S2/S3（改写走 /story-deslop Gate F，本 skill 只标问题不改写）。
+  Related file paths: {setting/outline/chapter-outline paths}
+  Inherited open items (mandatory when batching; write "none" if absent): {open hooks/foreshadowing from tracking/foreshadowing.md whose planned collection chapter <= this batch's last chapter, plus the previous batch's findings summary}
+  Optional supplementary reference: this skill's own `story-review/references/quality-checklist.md`, `story-review/references/plot-core-methods.md`; unreadable ones do not block the review.
+  Check items:
+  1. Does this chapter advance the story theme?
+  2. Is the outline structure complete (hooks/payoffs/suspense)?
+  3. Is the emotional pacing sound?
+  4. Quality of hook and reversal design?
+  5. Scope control: any character/setting bloat?
+  6. Does a repeatable plot loop exist? (per the plot-loop principle in the standards package summary)
+  7. Do climax scenes use energy-build -> false-win -> collapse structure? (per the climax-construction principle in the standards package summary)
+  8. Is foreshadowing density, serialization anticipation, and structural information load reasonable? (density is usually only an S4 structural risk unless it already breaks comprehension)
+  9. Check item by item against the platform rubric or generic content rubric; mark PASS/FAIL.
+  10. Among the inherited open items, did any hook/foreshadowing this batch was supposed to pay off fall flat?
+  11. Opening homogeneity (only when this chapter is the book's opening/first 3): is the opening cut the genre's default template (transmigration-with-divorce, system-binding, apocalypse-day-one, instant comeuppance, etc.), swappable onto any comparable book? "Has a hook / not a weather opening" does not equal non-homogeneous. Check against references/plot-core-methods.md's hook classification and opening flow — swappable wholesale onto a comparable book = homogeneous (genre-template collision at least S2; templated but with concrete character/situation micro-differences S3).
+  12. Ending summary: does the chapter end with a summary/elevation/replay close ("and that was that..." / "he finally understood..." / "this night would be remembered..."), or land on action/image/suspense? Detector-flagged blocking (`trailer-summary`) is handled per the "blocking is always S2" rule above — do not re-grade; detector-uncovered summary/elevation/replay closes are S2/S3 by impact (rewrites go through /story-deslop Gate F; this skill only flags, never rewrites).
 
-  输出格式：
+  Output format:
   VERDICT: APPROVE / CONCERNS / REJECT
-  FINDINGS: 必须使用统一 Findings Schema，severity 必须是 S1/S2/S3/S4。
-  INHERITED_ITEMS: 逐条列继承的开放项 + 已检查 / 未能检查；本批本该兑现却落空的列为 finding。
-  RECOMMENDATIONS: [修改建议]
+  FINDINGS: must use the unified Findings Schema; severity must be S1/S2/S3/S4.
+  INHERITED_ITEMS: list each inherited open item + checked / could not check; items this batch should have paid off but left hanging become findings.
+  RECOMMENDATIONS: [fix suggestions]
   ```
 
-**Agent 2: character-designer**（subagent_type: character-designer）
-- full 模式调用。
-- 审查视角：角色语言风格一致性、对话质量、人物弧线、关系推进。
-- 提示指令：
+**Agent 2: character-designer** (subagent_type: character-designer)
+- Called in full mode.
+- Review perspective: character voice consistency, dialogue quality, character arcs, relationship advancement.
+- Prompt:
   ```
-  你是 character-designer，从角色和对话层面审查以下内容。
-  你的任务是【找问题】，不是验证正确性。以最严苛的标准审视。
-  项目路径：{项目根}
-  审查范围：{文件路径/章节/必要摘录}
-  审查基准包摘要：{Phase 1 形成的 rubric / fallback 摘要，必须内联}
+  You are character-designer, reviewing the following from the character and dialogue level.
+  Your task is to FIND PROBLEMS, not validate correctness. Use the most stringent standards.
+  Project path: {project root}
+  Review scope: {file paths/chapters/necessary excerpts}
+  Review standards package summary: {rubric/fallback summary from Phase 1, must be inline}
   Rubric Source: file | embedded fallback
-  相关角色文件：{角色设定文件路径}
-  可选补充参考：本 Skill 的 `story-review/references/character-relations.md`、`story-review/references/dialogue-mastery.md`；若不可读，不影响审查。
-  检查项：
-  1. 角色语言风格是否与语言风格档案一致？
-  2. 对话是否千篇一律或信息过满？
-  3. 人物弧线是否连贯？
-  4. 角色行为是否符合其动机？
-  5. 对话是否有潜台词和信息控制？
-  6. 爱情线好感度与 CP 行为是否匹配？（参照审查基准包摘要或本 Skill 的角色关系参考）
-  7. 好感度进度是否可感知？
-  8. 对话三症状（可选读 `story-review/references/dialogue-mastery.md` 自查项）：① 机械对话/问答式/句间无情绪承接；② 角色当「科普嘴」整段讲设定原理(Gate G 同样管台词)；③ 说话不分场合(高压/生死 beat 的玩笑、口头梗、插科打诨出戏)。命中按 S2/S3 报具体引用+改法。
+  Related character files: {character sheet file paths}
+  Optional supplementary reference: this skill's own `story-review/references/character-relations.md`, `story-review/references/dialogue-mastery.md`; unreadable ones do not block the review.
+  Check items:
+  1. Does the character's language style match the style profile?
+  2. Is dialogue samey or overloaded with information?
+  3. Is the character arc coherent?
+  4. Does character behavior follow motivation?
+  5. Does dialogue carry subtext and information control?
+  6. Do romance-line affinity and CP behavior match? (per the standards package summary or this skill's character-relations reference)
+  7. Is affinity progress perceptible?
+  8. Three dialogue symptoms (optional self-check via `story-review/references/dialogue-mastery.md`): (a) mechanical dialogue / Q&A form / no emotional carry between lines; (b) a character as "lecture mouth" explaining whole settings in one block (Gate G applies to dialogue too); (c) tone-deaf lines (jokes, catchphrases, riffing during high-pressure/life-death beats). Hits are S2/S3 with a specific quote + fix.
 
-  输出格式：
+  Output format:
   VERDICT: APPROVE / CONCERNS / REJECT
-  FINDINGS: 必须使用统一 Findings Schema，severity 必须是 S1/S2/S3/S4。
-  RECOMMENDATIONS: [修改建议]
+  FINDINGS: must use the unified Findings Schema; severity must be S1/S2/S3/S4.
+  RECOMMENDATIONS: [fix suggestions]
   ```
 
-**Agent 3: narrative-writer**（subagent_type: narrative-writer）
-- full 模式调用。
-- 审查视角：AI味检测（含解释腔/上帝感/安排感=模式 8）、情绪烈度（够不够爽/会不会太保守）、格式合规、节奏均匀度、文字自然度。
-- 提示指令：
+**Agent 3: narrative-writer** (subagent_type: narrative-writer)
+- Called in full mode.
+- Review perspective: AI-flavor detection (incl. explainer voice / god-feel / arranged feel = Pattern 8), emotional intensity (payoff strong enough / too conservative), format compliance, rhythm uniformity, prose naturalness.
+- Prompt:
   ```
-  你是 narrative-writer，从文字质量层面审查以下内容。
-  你的任务是【找问题】，不是验证正确性。以最严苛的标准审视。
-  项目路径：{项目根}
-  审查范围：{文件路径/章节/必要摘录}
-  审查基准包摘要：{Phase 1 形成的 rubric / fallback 摘要，必须内联}
+  You are narrative-writer, reviewing the following from the prose-quality level.
+  Your task is to FIND PROBLEMS, not validate correctness. Use the most stringent standards.
+  Project path: {project root}
+  Review scope: {file paths/chapters/necessary excerpts}
+  Review standards package summary: {rubric/fallback summary from Phase 1, must be inline}
   Rubric Source: file | embedded fallback
-  AI 味 / 禁用词摘要：{从 anti-ai-writing、banned-words 或内置 fallback 提取，必须内联}
-  可选补充参考：本 Skill 的 `story-review/references/anti-ai-writing.md`、`story-review/references/banned-words.md`、`story-review/references/quality-checklist.md`；若不可读，不影响审查。
-  检查项：
-  1. 是否存在禁用词/套话/陈词滥调，或“像/好像/仿佛/如同”式比喻成片堆叠？
-  2. 是否出现 AI 写作指纹、8 种 AI 写作模式（含模式 8 解释腔/上帝视角/安排感）或章末总结体？
-  3. 格式是否合规（按戏剧单元/镜头自然断段、无机械字数切分、无空行、对话独立成行、主语节奏自然）？
-  4. 标点节奏是否匹配语气/人物声线：是否通篇句号化、随机堆砌问号/感叹号，或残留 `……`/`——` 硬造停顿？正文（含对话）里的破折号是否已清理？
-  5. 是否出现“这五个字 / 短短四字 / 三个字一落 / 八个字砸下去”等正文内具体字数表达？若统计口径不明、未见机器核对结果或无叙事必要，标为问题并建议改成非具体数字表达。
-  6. 节奏是否均匀（有无连续多节无情绪变化）？
-  7. 是否存在删掉无损的任务卡点或流程细节？若只是水/局部节奏问题标 S3；明显拖垮主线推进标 S2。
-  8. 身体部位同一词是否超 5 次？
-  9. AI味分级（轻度/中度/重度）及证据。
-  10. 去 AI 补充复核：是否有作者解释总结/意义尾巴；是否连续堆精致戏剧反应短语；是否把已有手机/屏幕/公告/规则/证据载体改成叙述者解释；是否把任务卡点当成自然感或凑字数手段；是否机械删除了有功能的生活化/角色化比喻或短篇主观审判句。
+  AI-flavor / banned-words summary: {extracted from anti-ai-writing, banned-words, or the built-in fallback; must be inline}
+  Optional supplementary reference: this skill's own `story-review/references/anti-ai-writing.md`, `story-review/references/banned-words.md`, `story-review/references/quality-checklist.md`; unreadable ones do not block the review.
+  Check items:
+  1. Any banned words/templates/cliches, or simile sheets ("like/as if/as though")?
+  2. Any AI writing fingerprints, the AI writing patterns (incl. Pattern 8 explainer voice / god view / arranged feel), or chapter-end summary body?
+  3. Format compliant (paragraphs broken by dramatic unit/shot, no mechanical word-count splitting, no blank lines, dialogue on its own lines, natural subject rhythm)?
+  4. Punctuation rhythm matches tone/character voice: whole-text period flattening, random `?`/`!` stacking, or leftover `...`/`--` manufactured pauses? Dashes in prose (incl. dialogue) cleaned?
+  5. Concrete word-count expressions in prose ("these five words / the three-word reply / eight words hitting the ground")? If the counting basis is unclear, no machine-verification result exists, or no narrative necessity, flag it and suggest non-numeric phrasing.
+  6. Rhythm uniform (no multi-section runs without emotional change)?
+  7. Task blockers/procedure details that could be deleted with zero loss? Water/local pacing = S3; clearly dragging the main line = S2.
+  8. Does the same body-part word exceed 5 occurrences?
+  9. AI-flavor level (light/medium/heavy) + evidence.
+  10. De-AI supplementary re-check: author explanation summaries / meaning tails; chains of polished dramatic-reaction phrases; existing phone/screen/notice/rule/evidence carriers rewritten into narrator explanation; task blockers used as fake naturalness or word-count padding; mechanically deleted functional life-like/character-bound metaphors or short-fiction subjective verdicts.
 
-  输出格式：
+  Output format:
   VERDICT: APPROVE / CONCERNS / REJECT
-  FINDINGS: 必须使用统一 Findings Schema，severity 必须是 S1/S2/S3/S4；AI味级别写入 issue 或 category。
-  RECOMMENDATIONS: [修改建议]
+  FINDINGS: must use the unified Findings Schema; severity must be S1/S2/S3/S4; the AI-flavor level goes in issue or category.
+  RECOMMENDATIONS: [fix suggestions]
   ```
 
-**Agent 4: consistency-checker**（subagent_type: consistency-checker）
-- full/lean 均调用。
-- 审查视角：grep-first + 推理型一致性检测，输出 S1-S4 报告。
-- 提示指令：
+**Agent 4: consistency-checker** (subagent_type: consistency-checker)
+- Called in full/lean.
+- Review perspective: grep-first + reasoning-based consistency detection, output an S1-S4 report.
+- Prompt:
   ```
-  你是 consistency-checker，使用 grep-first + 推理型一致性审查检测事实矛盾。
-  你的任务是【找事实矛盾、状态断线和需要推理才能发现的设定逻辑冲突】，不做创作评判，不评价文学质量，不输出创作修改建议。
-  项目路径：{项目根}
-  审查范围：{文件路径/章节/必要摘录}
-  已知角色：{从设定文件提取角色列表}
-  继承的开放项（分批审查必填，无则写「无」）：{从 追踪/伏笔.md 提取的、预计回收章 ≤ 本批末章的已埋未回收/未埋伏笔，连同上一批 findings 摘要}
-  审查基准包摘要：{Phase 1 形成的 rubric / fallback 摘要，必须内联}
+  You are consistency-checker, detecting factual contradictions with grep-first + reasoning-based consistency review.
+  Your task is to FIND factual contradictions, state discontinuities, and setting-logic conflicts that need inference; no creative judgment, no literary-quality evaluation, no creative fix suggestions.
+  Project path: {project root}
+  Review scope: {file paths/chapters/necessary excerpts}
+  Known characters: {character list extracted from setting files}
+  Inherited open items (mandatory when batching; write "none" if absent): {open hooks/foreshadowing from tracking/foreshadowing.md whose planned collection chapter <= this batch's last chapter, plus the previous batch's findings summary}
+  Review standards package summary: {rubric/fallback summary from Phase 1, must be inline}
   Rubric Source: file | embedded fallback
-  可选补充参考：本 Skill 的 `story-review/references/quality-checklist.md`；若不可读，不影响事实冲突扫描。
-  检查项：
-  1. 角色属性是否前后一致？
-  2. 世界规则是否被违反？
-  3. 伏笔状态是否前后一致（已埋/计划回收/已回收/断线）？
-  4. 时间线是否自洽？
-  5. 术语、身份、地点、能力边界是否前后一致？
-  6. 继承的开放项里，本批本该回收的伏笔是否仍悬空？
+  Optional supplementary reference: this skill's own `story-review/references/quality-checklist.md`; unreadable ones do not block the factual-conflict scan.
+  Check items:
+  1. Are character attributes consistent across appearances?
+  2. Are world rules violated?
+  3. Are foreshadowing states consistent (planted / planned collection / collected / broken)?
+  4. Is the timeline self-consistent?
+  5. Are terms, identities, locations, and ability boundaries consistent?
+  6. Among the inherited open items, is anything this batch should have collected still hanging?
 
-  输出格式：
+  Output format:
   VERDICT: APPROVE / CONCERNS / REJECT
-  FINDINGS: 必须使用统一 Findings Schema，severity 必须是 S1/S2/S3/S4；category 只能使用 consistency / factual / format / causal / rule_boundary。
-  INHERITED_ITEMS: 逐条列继承的开放项 + 已检查 / 未能检查；本批新发现、不在 伏笔.md 的开放钩子单列，供主会话回写 追踪/伏笔.md。
-  FACTUAL_RECONCILIATION: [仅列需统一的事实来源或需人工裁决项，不写文学创作建议]
-  REASONING_CHAINS: [仅列推理型 finding 的前提/规则 -> 触发事件 -> 矛盾点 -> 需裁决问题]
+  FINDINGS: must use the unified Findings Schema; severity must be S1/S2/S3/S4; category may only be consistency / factual / format / causal / rule_boundary.
+  INHERITED_ITEMS: list each inherited open item + checked / could not check; open hooks newly found in this batch that are not in foreshadowing.md are listed separately for the main session to write back into tracking/foreshadowing.md.
+  FACTUAL_RECONCILIATION: [list only the factual sources to unify or items needing human adjudication; no creative suggestions]
+  REASONING_CHAINS: [list only reasoning-type findings: premise/rule -> triggering event -> contradiction -> question to adjudicate]
   ```
 
 ---
 
-## Phase 3：综合裁决
+## Phase 3: Synthesis and verdict
 
-1. 收集实际执行的 reviewer VERDICT 和 FINDINGS。
-2. 合并去重：按 `severity` 排序（S1 > S2 > S3 > S4），同级内按影响范围排序。
-3. **可选事实核查**：如果审查内容涉及需要验证的外部事实（历史年代、地理方位、职业细节等），只有在 `Effective Mode` 仍为 `full`/`lean`、当前不是子 Agent、Agent/Task 工具可用且 agent 目录（优先 `.claude/agents/`，其次 `.opencode/agents/`，再检查 `.codex/agents/`）下的 `story-researcher.md` 或 `story-researcher.toml` 已部署时，才可额外 spawn `story-researcher` 搜索验证；`solo`、missing/malformed/stale/spawn failed 降级或子代理递归保护场景下不得 spawn，只能在报告中标记“需人工事实核查”。
-4. **分歧呈现**：如果 reviewer 间有冲突意见，明确呈现分歧让用户裁决；不要自动妥协。
-5. 输出综合审查报告。报告必须列出实际模式、fallback 原因、使用的 rubric、Rubric Source、审查范围和证据不足项。
+1. Collect the executed reviewers' VERDICTs and FINDINGS.
+2. Merge and dedupe: sort by `severity` (S1 > S2 > S3 > S4), then by impact scope within the same level.
+3. **Optional fact-check**: only when the review touches external facts needing verification (historical dates, geography, profession details, etc.), `Effective Mode` is still `full`/`lean`, the current context is not a subagent, the Agent/Task tool is available, and `story-researcher.md` / `story-researcher.toml` is deployed in the agent directories (prefer `.claude/agents/`, then `.opencode/agents/`, then `.codex/agents/`) may you additionally spawn `story-researcher` to search and verify; in `solo`, missing/malformed/stale/spawn-failed degradation, or subagent-recursion-guard scenarios you must not spawn — mark "needs human fact-check" in the report instead.
+4. **Present disagreements**: if reviewers conflict, present the disagreement explicitly for the user to adjudicate; do not auto-compromise.
+5. Output the consolidated review report. The report must state the effective mode, fallback reason, rubric used, Rubric Source, review scope, and evidence gaps.
 
 ---
 
-## Phase 4：输出报告（full / lean 模式）
+## Phase 4: Report output (full / lean modes)
 
-只有 `Effective Mode` 确实为 `full` 或 `lean` 时才使用本模板；如果 Phase 0 或运行时失败导致降级 `solo`，必须改用 solo 模式模板。
+Use this template only when `Effective Mode` is actually `full` or `lean`; if Phase 0 or runtime failure degraded to `solo`, use the solo template instead.
 
-注意：下列 `Requested Mode`、`Effective Mode`、`Fallback`、`Rubric`、`Rubric Source` 五个英文 key 必须逐字保留；不要改成“请求模式/实际模式/回退/评估标准”等中文 key。
+Note: the five English keys `Requested Mode`, `Effective Mode`, `Fallback`, `Rubric`, `Rubric Source` below must be preserved verbatim; do not change them into Chinese keys.
 
 ```md
-=== 故事审查报告 ===
+=== Story Review Report ===
 Requested Mode: full | lean
 Effective Mode: full | lean
 Fallback: none
-Rubric: fanqie | qidian | zhihu | generic web-fiction
+Rubric: royal-road | webnovel | kindle | generic web-fiction
 Rubric Source: file | embedded fallback
-审查范围: {章节/文件/批次}
+Review scope: {chapters/files/batches}
 
-## Verdict Summary / 结论汇总
+## Verdict Summary
 - story-architect: APPROVE / CONCERNS(n) / REJECT / NOT_RUN
 - character-designer: APPROVE / CONCERNS(n) / REJECT / NOT_RUN
 - narrative-writer: APPROVE / CONCERNS(n) / REJECT / NOT_RUN
 - consistency-checker: APPROVE / CONCERNS(n) / REJECT / NOT_RUN
 
-> `NOT_RUN` 只用于 lean 模式排除的 reviewer 或可选 reviewer；如果 full/lean 必需 reviewer 缺失或 spawn 失败，应降级 solo，而不是在 full/lean 报告中标记 NOT_RUN 后继续综合。
+> `NOT_RUN` is only for reviewers excluded by lean mode or optional reviewers; if a required full/lean reviewer is missing or failed to spawn, degrade to solo instead of marking NOT_RUN in a full/lean report and continuing synthesis.
 
 ## Severity Counts
 - S1: n
@@ -369,96 +369,98 @@ Rubric Source: file | embedded fallback
 - S3: n
 - S4: n
 
-## 综合评定
-APPROVE(通过) / CONCERNS(有问题) / REJECT(需重写)
+## Overall Verdict
+APPROVE / CONCERNS / REJECT
 
-## 发现的问题
-{按统一 Findings Schema 或等价表格列出所有问题}
+## Findings
+{all problems listed per the unified Findings Schema or an equivalent table}
 
-## Agent 分歧（如有）
-{列出 reviewer 间不同意见和证据}
+## Agent Disagreements (if any)
+{conflicting reviewer opinions and evidence}
 
-## 证据不足 / 需补充
-{缺失设定、缺失大纲、无法核查事实等}
+## Insufficient Evidence / Needs Supplement
+{missing setting, missing outline, unverifiable facts, etc.}
 
-## 修改建议
-{按 S1→S4 优先级排列}
+## Fix Suggestions
+{ordered by S1->S4 priority}
 ```
 
 ---
 
-## lean 模式
+## Lean mode
 
-lean 模式只 spawn `story-architect` + `consistency-checker`。如果任一缺失，按 Phase 0 自动降级 solo。其余流程同 full。
+lean mode spawns only `story-architect` + `consistency-checker`. If either is missing, degrade to solo per Phase 0. Everything else runs like full.
 
 ---
 
-## solo 模式
+## Solo mode
 
-不 spawn Agent。先按 Phase 1 第 4 步识别目标平台并加载对应 rubric；即使是 solo，也必须用平台 rubric、`story-review/references/quality-rubric.md` 或内置审查基准包校准判断。
+No agent spawning. First identify the target platform per Phase 1 step 4 and load the matching rubric; even solo must calibrate judgment with the platform rubric, `story-review/references/quality-rubric.md`, or the built-in review standards package.
 
-solo 必须执行基础检查：
-1. 格式合规性检查（戏剧单元/画面分段、无机械字数切分、无空行、对话格式、主语/角色名节奏）。
-2. 简单的设定一致性 grep（角色名、属性、关键设定、伏笔关键词）+ 推理型一致性检查（规则边界、设定层级、跨章因果链、可滥用漏洞、代价一致性）。
-3. AI 味与禁用词检查（优先读取 `story-review/references/banned-words.md` 与 `story-review/references/anti-ai-writing.md`，不可读时使用内置 AI 味 / 禁用词 fallback 速查）。
-4. 通用网文内容评分（优先读取 `story-review/references/quality-rubric.md`，不可读时使用内置通用网文内容 rubric）。
-5. 按统一 Findings Schema 输出简化版报告。
+solo must run the base checks:
+1. Format compliance (paragraphs broken by dramatic unit/shot, no mechanical word-count splitting, no blank lines, dialogue format, subject/character-name rhythm).
+2. Simple setting-consistency grep (character names, attributes, key settings, foreshadowing keywords) + reasoning-based consistency checks (rule boundaries, setting hierarchy, cross-chapter causal chains, abusable loopholes, cost consistency).
+3. AI-flavor and banned-words check (prefer `story-review/references/banned-words.md` and `story-review/references/anti-ai-writing.md`; use the built-in AI-flavor / banned-words fallback quick ref when unreadable).
+4. Generic web-fiction content scoring (prefer `story-review/references/quality-rubric.md`; use the built-in generic web-fiction content rubric when unreadable).
+5. Output a simplified report per the unified Findings Schema.
 
-### solo 模式输出格式
+### Solo mode output format
 
-注意：下列 `Requested Mode`、`Effective Mode`、`Fallback`、`Rubric`、`Rubric Source` 五个英文 key 必须逐字保留；不要改成“请求模式/实际模式/回退/评估标准”等中文 key。
+Note: the five English keys `Requested Mode`, `Effective Mode`, `Fallback`, `Rubric`, `Rubric Source` below must be preserved verbatim; do not change them into Chinese keys.
 
 ```md
-=== 故事审查报告（solo）===
+=== Story Review Report (solo) ===
 Requested Mode: {full | lean | solo}
 Effective Mode: solo
 Fallback: none | missing agents -> solo | malformed agents -> solo | stale agents -> solo | agent tool unavailable -> solo | spawn failed -> solo | subagent recursion guard -> solo
-Rubric: fanqie | qidian | zhihu | generic web-fiction
+Rubric: royal-road | webnovel | kindle | generic web-fiction
 Rubric Source: file | embedded fallback
-审查范围: {章节/文件}
+Review scope: {chapters/files}
 
-## 基础检查结果
+## Base Check Results
 
-### 格式合规性
-- [{x| }] 段落按戏剧单元/镜头/一件事结束自然断开，非机械按字数切分；偶发稍长的完整推理/氛围/情绪链不算违规，通篇同阈值切段或碎成提纲才算：通过/不通过；证据：...
-- [{x| }] 主语/角色名节奏自然：段首能建立主语，段中有代词/省略，关键转折再点名；连续句/段无必要重复同一主角名才算主语过密：通过/不通过；证据：...
-- [{x| }] 无段间空行：通过/不通过；证据：...
-- [{x| }] 对话独立成行：通过/不通过；证据：...
-- [{x| }] 具体字数表达已确认统计正确且有叙事必要；不能确认时已改成非具体数字表达：通过/不通过；证据：...
-- 违规位置：{列出}
+### Format Compliance
+- [{x| }] Paragraphs break naturally at dramatic unit/shot/one completed thing, not mechanically by word count; an occasional longer complete reasoning/atmosphere/emotion chain is not a violation; whole-text uniform-threshold splitting or outline-shattering counts: pass/fail; evidence: ...
+- [{x| }] Subject/character-name rhythm natural: sentence/section openings establish the subject, mid-passage pronouns/ellipsis, names return at key turns; continuous unnecessary repetition of the same protagonist name across sentences/paragraphs counts as subject overload: pass/fail; evidence: ...
+- [{x| }] No blank lines between paragraphs: pass/fail; evidence: ...
+- [{x| }] Dialogue on its own lines: pass/fail; evidence: ...
+- [{x| }] Concrete word-count expressions confirmed correct and narratively necessary; otherwise changed to non-numeric phrasing: pass/fail; evidence: ...
+- Violation locations: {list}
 
-> checklist 约定：`[x]` 只表示通过，`[ ]` 表示未通过；不得出现“`[x] ... 不通过`”这种矛盾写法。
+> checklist convention: `[x]` only means pass, `[ ]` means fail; never write "[x] ... fail".
 
-### 设定一致性（grep + 推理扫描）
-- 字面事实冲突：{列出发现的矛盾或证据不足}
-- 推理型一致性：{规则边界/设定层级/跨章因果/可滥用漏洞/代价一致性的发现；无则写“未发现”}
+### Setting Consistency (grep + reasoning scan)
+- Literal factual conflicts: {contradictions or insufficient evidence found}
+- Reasoning-based consistency: {findings on rule boundaries/setting hierarchy/cross-chapter causality/abusable loopholes/cost consistency; "none found" if clean}
 
-### AI 味 / 禁用词
-- {列出问题，必须附 evidence}
+### AI Flavor / Banned Words
+- {list problems; evidence mandatory}
 
 ### Findings
-{按统一 Findings Schema 或等价表格列出，severity 必须是 S1/S2/S3/S4}
+{listed per the unified Findings Schema or an equivalent table; severity must be S1/S2/S3/S4}
 
-### 修改建议
-{按优先级排列}
+### Fix Suggestions
+{ordered by priority}
 ```
 
 ---
 
-## 流程衔接
+## Pipeline handoff
 
-**流水线：** 通用
-**位置：** 审查（写作之后）
+**Pipeline:** generic
+**Position:** review (after writing)
 
-| 时机 | 跳转到 | 命令 |
-|---|---|---|
-| 要修改查出的问题 | story-long-write / story-short-write | 返回对应写作 skill 修改 |
-| 发现 AI 味需清理 | story-deslop | `/story-deslop` |
-| 需要重新拆解对标书 | story-long-analyze / story-short-analyze | `/story-long-analyze` 或 `/story-short-analyze` |
+| When | Jump to | Command |
+|------|---------|---------|
+| Fix the found problems | story-long-write / story-short-write | return to the matching writing skill |
+| AI flavor needs cleaning | story-deslop | `/story-deslop` |
+| Re-teardown a benchmark book | story-long-analyze / story-short-analyze | `/story-long-analyze` or `/story-short-analyze` |
 
 ---
 
-## 语言
+## Language
 
-- 跟随用户的语言回复，用户用什么语言就用什么语言回复。
-- 中文回复遵循《中文文案排版指北》。
+- Follow the user's language.
+- English prose follows the house style rules in the skill's `references/` files
+  (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
+  and free of AI-flavor patterns.

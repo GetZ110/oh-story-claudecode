@@ -38,8 +38,48 @@ SKILL_PATH_RE = re.compile(
     + r")[^\s`\"')\]><「（，。；：、])+)"
 )
 ASCII_MD_RE = re.compile(r"^[a-z0-9_-]+\.md$")
+# Project-structure paths (the naming contract's writing-project tree) referenced
+# by skill docs are not skill-local files and must not be existence-checked
+# against the skill directory: teardown-lib/ tracking/ prose/ outline/ setting/
+# benchmark/ and their files. Single-file names in this set (or chapter_NNN_*
+# files) are project artifacts, not skill assets.
+PROJECT_DIR_PREFIXES = frozenset({
+    "teardown-lib", "tracking", "prose", "outline", "setting", "benchmark",
+    "source", "chapters", "characters", "plot", "reference",
+})
+PROJECT_FILE_NAMES = frozenset({
+    "prose.md", "section-outline.md", "setting.md",
+    "context.md", "foreshadowing.md", "timeline.md", "character-state.md",
+    "style.md", "relationships.md", "genre-positioning.md", "worldview.md",
+    "overview.md", "teardown-report.md", "quick-preview.md", "cheat.md",
+    "plot-points.md", "writing-techniques.md", "craft-methods.md", "plot-nodes.md",
+    "topic-decision.md", "outline.md", "volume-outline.md",
+    "emotional-beats.md", "pacing.md", "storylines.md", "loose-threads.md",
+    "scene-units.md", "genre-prose-card.md", "background.md", "geography.md",
+    "source.txt", "power-system.md", "source.md",
+})
+PROJECT_PATH_RE = re.compile(r"^chapter[_ -]?[0-9]+")
+# Scan-output files follow the `{platform}_{ranking}_{YYYYMMDD}.md` convention and
+# live in the user's scan directory, not the skill.
+SCAN_OUTPUT_RE = re.compile(r"^[a-z-]+(?:_[a-z0-9-]+)?_[0-9]{8}\.md$")
+
+
+def is_project_structure_path(raw: str) -> bool:
+    """True when an inline path names the writing-project tree, not a skill file."""
+    normalized = raw.replace("\\", "/")
+    parts = normalized.split("/")
+    if len(parts) > 1 and parts[0] in PROJECT_DIR_PREFIXES:
+        return True
+    if len(parts) == 1:
+        if normalized in PROJECT_FILE_NAMES:
+            return True
+        if PROJECT_PATH_RE.match(normalized):
+            return True
+        if SCAN_OUTPUT_RE.match(normalized):
+            return True
+    return False
 INLINE_MD_PATH_RE = re.compile(
-    r"(?P<path>(?:[A-Za-z0-9._-]+/)*[a-z0-9_-]+\.md)(?=$|[^A-Za-z0-9_.-])"
+    r"(?P<path>(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9_-]+\.md)(?=$|[^A-Za-z0-9_.-])"
 )
 AGENT_REF_RES = (
     re.compile(r"subagent_type\s*:\s*\"([a-z][a-z0-9_-]*)\""),
@@ -287,7 +327,7 @@ def parse_document(path: Path) -> Document:
             for path_match in INLINE_MD_PATH_RE.finditer(code):
                 raw = path_match.group("path")
                 base = Path(raw).name
-                if ASCII_MD_RE.fullmatch(base) and not base.startswith("_"):
+                if ASCII_MD_RE.fullmatch(base) and not base.startswith("_") and not is_project_structure_path(raw):
                     document.refs.append(SourceRef(line=line_number, raw=raw, kind="inline-md"))
 
         prose = strip_inline_markup(line)

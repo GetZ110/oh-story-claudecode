@@ -1,688 +1,688 @@
 ---
 name: story-import
 version: 1.0.0
-description: "逆向导入已有小说。将已写好的小说（半成品或完本）反向解析为标准项目目录结构，兼容 story-long-write / story-short-write 后续写作流程；内部复用 story-long-analyze / story-short-analyze 的拆解管道，按篇幅自动分流。触发方式：/story-import、「导入小说」「反向解析」「导入」「把我的书导进来」。"
+description: "Reverse import of an existing novel. Reverse-parses an already-written novel (partial or complete) into the standard project directory structure, compatible with the story-long-write / story-short-write flows that follow; internally reuses the story-long-analyze / story-short-analyze teardown pipelines, routing automatically by length. Triggers: /story-import, \"import this novel\", \"reverse parse\", \"import\", \"import my book\"."
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
-# story-import：逆向导入已有小说
+# story-import: Reverse Import of an Existing Novel
 
-你是小说项目逆向工程师。导入按篇幅分流：长篇走 Phase 3-L，短篇走 Phase 3-S。
+You are a novel-project reverse engineer. Import routes by length: long-form takes Phase 3-L, short-form takes Phase 3-S.
 
-**交付物是写作工程**：把作者已有的书重建为可续写的**写作工程**（项目结构 + 拆文库分析资产）。`拆文库/` 属于工程的一部分（喂给项目 `对标/`），不能当成用完即弃的中间产物，也不能替代交付物本身——交付物应让作者能直接续写。执行时以「建工程」为可见目标，别把「拆文」当成终点或对外标签。
-
----
-
-> Agent 兼容性：检查专业 agent 是否可用时，按 `.claude/agents/{agent}.md` → `.opencode/agents/{agent}.md` → `.codex/agents/{agent}.toml` 的顺序查找。Codex 原生子代理调用优先使用同名 `agent_type`；如果当前 Codex 运行时返回 `unknown agent_type` 或未暴露 custom-agent registry，必须降级为 solo/direct。检测到 `.zcode/` 时同样直接 solo/direct，因为 ZCode 3.3.4 不执行项目 custom agents；报告 `Fallback: project custom agents unavailable -> solo`。Claude/OpenCode 兼容面保留 `subagent_type`。
-
-## 核心原则
-
-### 原则 1：先分析后迁移
-
-先用拆解管道完整拆解小说（输出到 `拆文库/`），再将分析结果迁移为项目结构。**`拆文库/` 是写作工程的一部分**（分析资产，喂给项目 `对标/`），保留不丢弃，不是用完即弃的中间产物。
-
-### 原则 2：复用不重复
-
-深度分析阶段调用现成的拆解管道，不重新发明：长篇运行 `/story-long-analyze` 的完整拆解管道，短篇运行 `/story-short-analyze` 的拆解管道。拆解方法论与输出模板由对应 analyze skill 自带，story-import 不执行拆解方法论、不维护这些文件。
+**The deliverable is a writing project**: rebuild the author's existing book into a **continuable writing project** (project structure + teardown-library analysis assets). `teardown-lib/` is part of the project (feeding the project's `benchmark/`), not a throwaway intermediate; it can't replace the deliverable itself — the deliverable must let the author keep writing directly. Execute with "building the project" as the visible goal; don't treat "the teardown" as the endpoint or as an external label.
 
 ---
 
-## Phase 1：确认导入源
+> Agent compatibility: when checking whether professional agents are available, look them up in the order `.claude/agents/{agent}.md` → `.opencode/agents/{agent}.md` → `.codex/agents/{agent}.toml`. Codex native subagent calls prefer the same-named `agent_type`; if the current Codex runtime returns `unknown agent_type` or does not expose a custom-agent registry, you must degrade to solo/direct. When `.zcode/` is detected, also go straight to solo/direct, because ZCode 3.3.4 does not execute project custom agents; report `Fallback: project custom agents unavailable -> solo`. The Claude/OpenCode compatibility surface keeps `subagent_type`.
 
-### Step 1：导入续写入口顺序（先答用户的流程问题）
+## Core principles
 
-当用户问"导入续写先走 story-setup 还是 story-import"、"已有小说怎么续写"、"导入流程"这类流程问题时，先直接给出结论，再继续收集原文：
+### Principle 1: analyze first, then migrate
 
-1. **推荐顺序**：先 `/story-setup`（部署 hooks/agents/AGENTS），新开/刷新会话后运行 `/story-import`，最后用 `/story-long-write 日更/写第N章` 续写。
-2. **也可以直接 `/story-import`**：本 skill 会在进入深度分析前检测 `.story-deployed` 与专业 agent；未部署时会给出"先去 setup"或"继续导入（串行降级）"两种选择。
-3. **已导入过的项目**：不要重复跑完整导入；直接进入书名目录，确认 `.active-book`/`追踪/上下文.md` 指向正确书目，再用 `/story-long-write 日更` 或 `/story-long-write 写第N章`。
+First run the complete teardown pipeline on the novel (output to `teardown-lib/`), then migrate the analysis into the project structure. **`teardown-lib/` is part of the writing project** (analysis assets, feeding the project's `benchmark/`) — keep it, don't discard it; it's not a throwaway intermediate.
 
-这段结论必须出现在任何导入源追问之前，避免用户只想确认流程却被直接要求贴原文。
+### Principle 2: reuse, don't reinvent
 
-问用户：**「你要导入哪本书？请提供文件路径或直接贴文本。」**
-
-### Step 2：确认意图（写作工程 vs 仅拆文库）
-
-默认目标是**完整写作工程**（可续写）。若用户意图不明确——是要可续写的工程，还是只要一份拆文库分析——**主动询问**，不要默认：
-
-> 「你是想把这本书做成可续写的写作工程（设定/大纲/正文/追踪，能接着写第 N+1 章），还是只要一份拆文库分析？」
-
-- 要可续写工程 → 走完整 story-import（Phase 2 拆 + Phase 3 迁移）。
-- 只要分析 / 拆文库 → 直接用 `/story-long-analyze`（短篇 `/story-short-analyze`），到拆文库为止，不进 Phase 3 迁移。
-
-### Step 3：输入方式识别
-
-```
-用户提供路径？
-├─ 单文件路径（.txt/.md）
-│   └─ 按章节分隔符自动切分
-├─ 目录路径
-│   └─ 按文件名排序，合并处理
-└─ 无路径 → 用户直接贴文本？
-              ├─ 是 → 保存到临时文件后处理
-              └─ 否 → 提示用户提供源文件
-```
-
-### Step 4：基本信息确认
-
-1. **自动检测**：从文本中识别书名（如果有）、总章数、总字数、章节格式
-2. **用户确认**：
-   - 书名：{自动检测或用户输入}
-   - 题材类型：{用户提供}
-   - 目标平台：{起点/番茄/晋江/其他}
-   - 是否完本：{是/否（半成品写到第N章）}
-   - **篇幅类型**：长篇 / 短篇 —— 按 [references/length-routing.md](references/length-routing.md) 自动检测（用户显式声明 > 结构信号 > 字数兜底），并向用户复述检测结果请其确认。判定结果决定 Phase 3 走长篇还是短篇路径。
-   - **最后一章是否完整**：完整章 / 残稿（写了一半）。若是残稿，提示用户并把「残稿到第 N 章」记入上下文，让用户决定是「基于残章续写」还是「先补完再导入」。story-import 只记录用户决定，不替用户选。
-3. **输出确认**：向用户展示检测到的章节范围、字数、判定的篇幅类型、最后一章状态，确认后开始分析
-
-### Step 5：环境检测前置
-
-在进入 Phase 2 之前，先检测项目是否已部署 story-setup 基础设施：
-
-- 检测 `.story-deployed` 是否存在；
-- 优先检测 `.claude/agents/` 下的 `chapter-extractor.md` 是否存在；不存在时再检测 `.opencode/agents/`，再不存在时检测 `.codex/agents/`（Phase 2 长篇深度分析的并行 agent）。
-- 如果 `.story-deployed` 的 `target_cli` 包含 `zcode`，项目 agents 缺失是 ZCode 3.3.4 的预期状态：不要提示重复部署，直接以串行 solo/direct 进入分析并报告 fallback。
-
-**未部署且不是已部署 ZCode 项目时**，提示用户：
-
-> 「检测到当前项目尚未部署写作基础设施。建议先运行 `/story-setup` 再回来导入，否则深度分析阶段无法使用并行 chapter-extractor agent。」
-
-给用户两个选择：
-
-1. **先去 setup**：暂停导入，运行 `/story-setup`，部署完成后重新触发 `/story-import`；
-2. **继续导入**：接受 Phase 2 降级为串行处理（长篇逐章摘要不并行，速度较慢，但产物完整）。
-
-用户选择记入上下文，Phase 2 据此决定是否走并行模式。
-
-### Step 6：原文备份
-
-原文备份由 Phase 2 调用的 analyze 拆解管道负责（analyze 管道前置步骤会把原文复制/保存到 `拆文库/{书名}/原文/`，对应 story-long-analyze 与 story-short-analyze 的「原文备份（管道前置步骤）」）。Phase 1 只需确认源文件就绪（路径有效或文本已拿到），不在此处单独备份，避免与 analyze 管道重复备份逻辑。
+The deep-analysis phase calls the existing teardown pipelines; it doesn't reinvent them: long-form runs `/story-long-analyze`'s full teardown pipeline, short-form runs `/story-short-analyze`'s teardown pipeline. The teardown methodology and output templates live in the corresponding analyze skill; story-import doesn't execute teardown methodology and doesn't maintain those files.
 
 ---
 
-## Phase 2：深度分析
+## Phase 1: Confirm the import source
 
-按 Phase 1 判定的篇幅类型，调用对应 analyze skill 的**完整拆解管道**；不要做「复用方法论」式的半流程，要驱动整条管道跑完，拿到全套结构化产物。
+### Step 1: import-and-continue entry order (answer the user's flow question first)
 
-| 篇幅 | 调用的拆解管道 | 产物目录 |
-|------|--------------|---------|
-| 长篇 | story-long-analyze 的完整管道（Stage 0-6） | `拆文库/{书名}/` |
-| 短篇 | story-short-analyze 的拆解管道（Stage 2-6） | `拆文库/{书名}/` |
+When the user asks flow questions like "for import-and-continue, do I run story-setup or story-import first", "how do I continue an existing novel", "what's the import flow", answer with the conclusion directly, then continue collecting the source:
 
-### 调用契约
+1. **Recommended order**: run `/story-setup` first (deploys hooks/agents/AGENTS), then start/refresh a session and run `/story-import`, finally continue writing with `/story-long-write daily / write chapter N`.
+2. **Or run `/story-import` directly**: this skill detects `.story-deployed` and the professional agents before entering deep analysis; when not deployed, it offers two choices: "run setup first" or "continue importing (serial degradation)".
+3. **Already-imported projects**: don't re-run the full import; go into the book directory, confirm `.active-book` / `tracking/context.md` point at the right book, then use `/story-long-write daily` or `/story-long-write write chapter N`.
 
-#### 长篇：自动续跑过 Stage 1 停靠点
+This conclusion must come before any import-source follow-up questions, so users who only want to confirm the flow aren't asked to paste the source text first.
 
-story-long-analyze 在 Stage 0+1（黄金三章）后会**自动停靠**并用 AskUserQuestion 询问是否继续全量拆解（对应 story-long-analyze 的「Stage 1 停靠点」）。但导入场景需要 Stage 2-6 的全套产物（逐章摘要 / 聚合分析 / `剧情/节奏.md` / `剧情/情绪模块.md` / 设定关系 / 汇总报告 / 文风），缺一不可——否则 Phase 3 迁移会拿到半成品。
+Ask the user: **"Which book do you want to import? Provide the file path or paste the text directly."**
 
-**当前拆文契约**：`_progress.md` 必须是 `schema_version: 2`，且 `剧情/节奏.md` 与 `剧情/情绪模块.md` 是导入必备权威产物。任一缺失都先修复或重跑对应 Stage，不得用摘要文件拼出看似完整的对标视图。
+### Step 2: confirm the intent (writing project vs teardown-library only)
 
-因此调用 story-long-analyze 时**必须在一开始就以「完整拆解、一次跑完、不要停下询问」模式驱动管道**，命中其「跳过询问」路径（用户开头明确说「完整拆解 / 一次跑完 / 系统拆解 / 别问」时不停靠），让管道自动从 Stage 2 续跑到 Stage 6。
+The default goal is a **complete writing project** (continuable). If the intent is unclear — whether they want a continuable project or just a teardown-library analysis — **ask proactively**, don't assume:
 
-- 措辞示例：启动深度分析时声明「以『完整拆解、一次跑完、不要停下询问』模式拆解本书，确保 Stage 2-6 全部产出」。
-- **兜底**：若运行环境实际仍停在 Stage 1 询问处，story-import 自动选择「继续全量拆解」，**绝不把停靠询问甩给用户**。
-- 环境检测（Phase 1）发现未部署 chapter-extractor agent 且用户选择「继续导入」时，Stage 2 逐章摘要降级为串行处理，产物仍完整，仅速度变慢。
+> "Do you want this book turned into a continuable writing project (setting/outline/prose/tracking, so you can write chapter N+1), or do you just want a teardown-library analysis?"
 
-#### 短篇：单一全量管道
+- Continuable project → full story-import (Phase 2 teardown + Phase 3 migration).
+- Analysis / teardown-library only → use `/story-long-analyze` directly (short-form: `/story-short-analyze`), stop at the teardown library; no Phase 3 migration.
 
-story-short-analyze 是单一全量拆解管道（Stage 2-6），**无 Stage 1 停靠点**，契约较简单：调用后让其跑完 Stage 2-6 即可，无需声明跳过询问。
-
-### 输出目录
-
-#### 长篇拆文库结构
-
-长篇分析输出到 `拆文库/{书名}/`，与 story-long-analyze 拆解管道完全一致：
+### Step 3: input-method recognition
 
 ```
-拆文库/{书名}/
-├── 原文/
-│   └── 原文.txt          # 扩展名随源文件；对话直接贴入的文本存为 原文.md
-├── 概要.md
-├── 章节/
-│   ├── 第1章_深度拆解.md
-│   ├── 第1章_摘要.md
-│   └── ...               # 每章同时有 第N章_深度拆解.md 和 第N章_摘要.md
-├── 快速预览.md
-├── 角色/
-│   ├── {角色名}.md
-│   └── 角色关系.md
-├── 剧情/
-│   ├── {剧情标题}.md
-│   ├── 故事线.md
-│   ├── 节奏.md          # 关键信息推进 / 情绪触动点 / 爆发节奏
-│   ├── 情绪模块.md      # 读者需求 / 情绪引擎 / 可复现模块
-│   └── 散落情节.md
-├── 设定/
-│   ├── 世界观/         # 背景设定.md / 力量体系.md / 地理.md / 金手指.md（子目录形态）
-│   └── 势力/           # {势力名}.md（每势力一文件）
-├── 拆文报告.md
-├── 文风.md          # Stage 6 文风：写作技法视图 + 原文范例锚点
+User provides a path?
+├─ single file path (.txt/.md)
+│   └─ split automatically by chapter separators
+├─ directory path
+│   └─ sort by filename, merge-process
+└─ no path → user pastes text directly?
+              ├─ yes → save to a temp file, then process
+              └─ no → ask the user to provide the source file
+```
+
+### Step 4: basic-info confirmation
+
+1. **Auto-detect**: recognize the title (if present), total chapter count, total word count, and chapter format from the text
+2. **User confirmation**:
+   - Title: {auto-detected or user input}
+   - Genre: {user provided}
+   - Target platform: {Royal Road / Webnovel / Wattpad / Amazon Kindle / Other}
+   - Completed or not: {yes / no (partial, written through chapter N)}
+   - **Length type**: long-form / short-form — auto-detected per [references/length-routing.md](references/length-routing.md) (user explicit declaration > structural signals > word-count fallback), and repeated back to the user for confirmation. The verdict decides whether Phase 3 takes the long-form or short-form path.
+   - **Whether the last chapter is complete**: complete / draft (half-written). If it's a draft, tell the user and record "draft through chapter N" in the context, and let the user decide between "continue from the draft chapter" and "finish it before importing". story-import only records the user's decision; it doesn't choose for them.
+3. **Output confirmation**: show the user the detected chapter range, word count, length verdict, and last-chapter status; after confirmation, start the analysis
+
+### Step 5: environment detection (pre-flight)
+
+Before entering Phase 2, check whether the project has story-setup infrastructure deployed:
+
+- Check whether `.story-deployed` exists;
+- Prefer checking `.claude/agents/` for `chapter-extractor.md`; if absent, check `.opencode/agents/`, then `.codex/agents/` (the parallel agent for Phase 2 long-form deep analysis).
+- If `.story-deployed`'s `target_cli` includes `zcode`, missing project agents are the expected state for ZCode 3.3.4: don't prompt to re-deploy; enter the analysis in serial solo/direct and report the fallback.
+
+**When not deployed and not an already-deployed ZCode project**, tell the user:
+
+> "This project doesn't have the writing infrastructure deployed yet. I recommend running `/story-setup` first and coming back to import — otherwise the deep-analysis phase can't use the parallel chapter-extractor agent."
+
+Give the user two choices:
+
+1. **Run setup first**: pause the import, run `/story-setup`, and after deployment re-trigger `/story-import`;
+2. **Continue importing**: accept Phase 2 degrading to serial processing (long-form per-chapter summaries not parallel — slower, but the artifacts stay complete).
+
+Record the user's choice in the context; Phase 2 decides whether to use parallel mode accordingly.
+
+### Step 6: source backup
+
+Source backup is handled by the analyze teardown pipeline called in Phase 2 (the analyze pipeline's pre-step copies/saves the source to `teardown-lib/{Book Title}/source/`, per story-long-analyze and story-short-analyze's "source backup (pipeline pre-step)"). Phase 1 only needs to confirm the source file is ready (path valid or text received); no separate backup here, to avoid duplicating the analyze pipeline's backup logic.
+
+---
+
+## Phase 2: deep analysis
+
+Per the length verdict from Phase 1, call the matching analyze skill's **complete teardown pipeline**; don't do a half-flow "methodology reuse" — drive the whole pipeline to completion and get the full set of structured artifacts.
+
+| Length | Teardown pipeline called | Artifact directory |
+|--------|--------------------------|--------------------|
+| Long-form | story-long-analyze's full pipeline (Stage 0-6) | `teardown-lib/{Book Title}/` |
+| Short-form | story-short-analyze's teardown pipeline (Stage 2-6) | `teardown-lib/{Book Title}/` |
+
+### Call contract
+
+#### Long-form: auto-continue past the Stage 1 stop point
+
+story-long-analyze auto-stops after Stage 0+1 (opening hook chapters) and asks via AskUserQuestion whether to continue the full teardown (story-long-analyze's "Stage 1 stop point"). But the import scenario needs the full Stage 2-6 artifact set (per-chapter summaries / aggregation analysis / `plot/pacing.md` / `plot/emotional-beats.md` / settings & relationships / final report / style) — all required; otherwise Phase 3 migration gets a half-finished product.
+
+**Current teardown contract**: `_progress.md` must be `schema_version: 2`, and `plot/pacing.md` and `plot/emotional-beats.md` are the import-required authoritative artifacts. If any is missing, fix it or re-run the matching Stage first; never assemble a seemingly complete benchmark view from summary files.
+
+Therefore, when calling story-long-analyze you **must** drive the pipeline from the start in "full teardown, run it all in one go, don't stop to ask" mode, hitting its "skip the question" path (it doesn't stop when the user said up front "full teardown / run it all / systematic teardown / don't ask"), letting the pipeline auto-continue from Stage 2 through Stage 6.
+
+- Wording example: when starting the deep analysis, declare "tearing down this book in 'full teardown, run it all in one go, don't stop to ask' mode, ensuring Stage 2-6 all produce output".
+- **Fallback**: if the runtime still stops at the Stage 1 question, story-import automatically selects "continue the full teardown" — **never hand the stop question to the user**.
+- When the Phase 1 environment check found no deployed chapter-extractor agent and the user chose "continue importing", Stage 2 per-chapter summaries degrade to serial processing — artifacts stay complete, just slower.
+
+#### Short-form: the single full pipeline
+
+story-short-analyze is a single full teardown pipeline (Stage 2-6) with **no Stage 1 stop point**; the contract is simpler: call it and let it run Stage 2-6; no need to declare skipping the question.
+
+### Output directories
+
+#### Long-form teardown-library structure
+
+Long-form analysis outputs to `teardown-lib/{Book Title}/`, identical to the story-long-analyze teardown pipeline:
+
+```
+teardown-lib/{Book Title}/
+├── source/
+│   └── source.txt          # extension follows the source file; pasted text saved as source.md
+├── overview.md
+├── chapters/
+│   ├── chapter_1_deep-dive.md
+│   ├── chapter_1_summary.md
+│   └── ...               # every chapter has both chapter_N_deep-dive.md and chapter_N_summary.md
+├── quick-preview.md
+├── characters/
+│   ├── {Character Name}.md
+│   └── relationships.md
+├── plot/
+│   ├── {story-unit title}.md
+│   ├── storylines.md
+│   ├── pacing.md          # key-info progression / emotional touchpoints / burst rhythm
+│   ├── emotional-beats.md # reader needs / emotional engine / reproducible modules
+│   └── loose-threads.md
+├── setting/
+│   ├── worldview/         # background.md / power-system.md / geography.md / (subdirectory form)
+│   └── factions/          # {Faction Name}.md (one file per faction)
+├── teardown-report.md
+├── style.md          # Stage 6 style: writing-technique view + source anchor excerpts
 └── _progress.md
 ```
 
-#### 短篇拆文库结构
+#### Short-form teardown-library structure
 
-短篇分析输出到 `拆文库/{书名}/`，与 story-short-analyze 拆解管道一致：
+Short-form analysis outputs to `teardown-lib/{Book Title}/`, matching the story-short-analyze teardown pipeline:
 
 ```
-拆文库/{书名}/
-├── 原文/
-│   └── 原文.txt          # 扩展名随源文件；对话直接贴入的文本存为 原文.md
-├── 拆文报告.md
-├── 情节节点.md
-└── 写作手法.md
+teardown-lib/{Book Title}/
+├── source/
+│   └── source.txt          # extension follows the source file; pasted text saved as source.md
+├── teardown-report.md
+├── plot-nodes.md
+└── craft-methods.md
 ```
 
-### 长篇完整管道（Stage 0-6）
+### The long-form full pipeline (Stage 0-6)
 
-> 管道详细说明见 story-long-analyze（运行 `/story-long-analyze`），此处仅列概要。
+> Pipeline details in story-long-analyze (run `/story-long-analyze`); summarized here.
 
-| 阶段 | 名称 | 输入 | 输出 | 完成标志 |
-|------|------|------|------|----------|
-| 0 | 概要提取 | 原始文本 | 概要.md + 章节索引 | 章节结构识别完成 |
-| 1 | 黄金三章 | 前 3 章原文 | 第1章_深度拆解.md / 第2章_深度拆解.md / 第3章_深度拆解.md → **停靠产出快速预览.md**（导入场景自动续跑，不停下询问） | 3 章拆解完成 |
-| 2 | 逐章摘要 | 分块章节文本 | 章节摘要.md（含情节点+角色+**关键信息与扩写技法**）。每章10-40情节点（密度150-200字/个，按字数动态调节）。角色过滤（龙套不提取、别名归类）。**并行 chapter-extractor agent 模式**（未部署 agent 时降级串行）。**计数验证：摘要数 == 章节数**。 | 所有章节处理完成 |
-| 3 | 聚合分析 | 全部章节摘要 | `剧情/*.md` + `剧情/README.md` + `剧情/故事线.md` + **`剧情/节奏.md` + `剧情/情绪模块.md`**。**故事框架识别**（前置）。**两步法剧情聚合**（先从摘要识别剧情大纲，再按大纲分配情节点）。**关键信息推进索引**、**情绪触动点与爆发节奏**、**读者需求 / 情绪引擎 / 可复现模块**。**角色合并**（跨章节去重+别名归一）。**角色分级**（主角/反派/核心配角/功能角色）。**散落情节兜底**（6步，含覆盖率验证）。**质量检查**（置信度>=0.85/覆盖率85%-95%/重叠率<=35%）。 | 质量检查通过 |
-| 4 | 设定+关系 | 阶段 3 合并后角色数据+情节点 | 设定/*.md + 角色/*.md。**两阶段角色模型**。**别名解析**（置信度≥0.85自动合并）。 | 设定和关系提取完成 |
-| 5 | 汇总报告 | 全部输出 | 拆文报告.md（含「读者需求 / 情绪引擎」「关键信息与扩写技法总览」「节奏与情绪触动点」「可复现模块」，并指向 `剧情/节奏.md` / `剧情/情绪模块.md`） | 报告生成完成 |
-| 6 | 文风 | 拆文报告.md + 章节/第1-3章_深度拆解.md + 章节/*_摘要.md + 原文/原文.txt | 文风.md（整书级写作技法视图，story-long-write 日更循环必读） | 文风落盘 `拆文库/{书名}/文风.md` |
+| Stage | Name | Input | Output | Completion marker |
+|-------|------|-------|--------|-------------------|
+| 0 | Overview extraction | raw text | overview.md + chapter index | chapter structure recognized |
+| 1 | Opening hook chapters | first 3 chapters | chapter_1_deep-dive.md / chapter_2_deep-dive.md / chapter_3_deep-dive.md → **stops to produce quick-preview.md** (import scenario auto-continues without stopping to ask) | 3 chapters done |
+| 2 | Per-chapter summary | chunked chapter text | chapter summaries (plot points + characters + **key info and expansion techniques**). 10-40 plot points per chapter (density 150-200 words/point, adjusted by word count). Character filtering (walk-ons not extracted, aliases merged). **Parallel chapter-extractor agent mode** (serial degradation when agents aren't deployed). **Count validation: summary count == chapter count**. | all chapters processed |
+| 3 | Aggregation analysis | all chapter summaries | `plot/*.md` + `plot/README.md` + `plot/storylines.md` + **`plot/pacing.md` + `plot/emotional-beats.md`**. **Story-framework recognition** (first). **Two-step plot aggregation** (identify the plot outline from summaries first, then assign plot points by it). **Key-info progression index**, **emotional touchpoints and burst rhythm**, **reader needs / emotional engine / reproducible modules**. **Character merge** (cross-chapter dedup + alias normalization). **Character tiering** (protagonist/antagonist/core supporting/functional). **Loose-thread safety net** (6 steps, incl. coverage validation). **Quality checks** (confidence >=0.85 / coverage 85%-95% / overlap <=35%). | quality checks passed |
+| 4 | Setting + relationships | Stage 3 merged character data + plot points | setting/*.md + characters/*.md. **Two-stage character model**. **Alias resolution** (confidence ≥0.85 auto-merge). | settings and relationships extracted |
+| 5 | Final report | all outputs | teardown-report.md (incl. "Reader needs / emotional engine", "Key info and expansion techniques overview", "Rhythm and emotional touchpoints", "Reproducible modules", pointing to `plot/pacing.md` / `plot/emotional-beats.md`) | report generated |
+| 6 | Style | teardown-report.md + chapters/chapter_1-3_deep-dive.md + chapters/*_summary.md + source/source.txt | style.md (whole-book writing-technique view; must-read in the story-long-write daily-update loop) | style.md written to `teardown-lib/{Book Title}/style.md` |
 
-### 短篇拆文管道
+### The short-form teardown pipeline
 
-> 管道详细说明见 story-short-analyze（运行 `/story-short-analyze`），此处仅列概要。
+> Pipeline details in story-short-analyze (run `/story-short-analyze`); summarized here.
 
-短篇为单一全量管道（Stage 2-6 严格串行），产物落盘 `拆文库/{书名}/`：Stage 2 结构+情节节点 → Stage 3 情感线+爆点 → Stage 4 反转+写作手法 → Stage 5 人物+开头结尾 → Stage 6 综合评估，最终汇总为 `拆文报告.md`、`情节节点.md`、`写作手法.md`。
+Short-form is a single full pipeline (Stage 2-6, strictly serial), artifacts landing in `teardown-lib/{Book Title}/`: Stage 2 structure + plot nodes → Stage 3 emotional line + eruption points → Stage 4 reversal + writing craft → Stage 5 characters + opening/ending → Stage 6 combined assessment, finally aggregated into `teardown-report.md`, `plot-nodes.md`, `craft-methods.md`.
 
-### 分块策略（长篇）
+### Chunking strategy (long-form)
 
-沿用 story-long-analyze 的分块策略（Stage 2 使用 chapter-extractor agent 并行，其他阶段按以下策略分块）：
+Follows story-long-analyze's chunking strategy (Stage 2 uses chapter-extractor agents in parallel; other stages chunk per the strategy below):
 
-| 规模 | 策略 | 块大小 |
-|------|------|--------|
-| <50 章 | 按阶段整体处理 | 无需分块 |
-| 50-100 章 | 按阶段整体处理 | 无需分块（可选智能分块） |
-| 100-500 章 | 按章节分块 | 5-8 章/块 |
-| >500 章 | 语义分块：按自然分界切分，无明确分界时按固定章节数均匀切分 | 50-200 章/块 |
+| Scale | Strategy | Chunk size |
+|-------|----------|------------|
+| <50 chapters | whole-stage processing | no chunking needed |
+| 50-100 chapters | whole-stage processing | no chunking needed (optional smart chunking) |
+| 100-500 chapters | chunk by chapters | 5-8 chapters/chunk |
+| >500 chapters | semantic chunking: cut at natural boundaries; when no clear boundary, cut evenly by fixed chapter counts | 50-200 chapters/chunk |
 
-### 恢复机制
+### Resume mechanism
 
-- 中断时通过进度文件追踪进度
-- 新会话读取进度文件定位断点
-- 从断点所在块的起始章节恢复
-- 长篇进度文件格式沿用 story-long-analyze 拆解管道的进度段落约定，包含当前阶段、最后处理章节、已完成阶段列表、更新时间
+- On interruption, track progress through the progress file
+- New sessions read the progress file to locate the breakpoint
+- Resume from the first chapter of the chunk containing the breakpoint
+- Long-form progress files follow the story-long-analyze teardown pipeline's progress-section conventions, including the current stage, last processed chapter, completed-stage list, and update time
 
-### 质量检查
+### Quality checks
 
-长篇阶段 3-4 完成前执行质量检查（置信度 >= 0.85，覆盖率 85%-95%，重叠率 <= 35%），由 story-long-analyze 拆解管道自带的质量检查负责。短篇质量检查见 story-short-analyze 各阶段的完成标志。
+Before long-form Stage 3-4 complete, quality checks run (confidence >= 0.85, coverage 85%-95%, overlap <= 35%), handled by the story-long-analyze teardown pipeline's built-in quality checks. Short-form quality checks per story-short-analyze's per-stage completion markers.
 
 ---
 
-## Phase 3：结构迁移
+## Phase 3: structure migration
 
-将 `拆文库/{书名}/` 的分析结果迁移为可被写作 skill 消费的项目结构。
+Migrate `teardown-lib/{Book Title}/`'s analysis results into the project structure the writing skills can consume.
 
-### 分流路由
+### Routing
 
-按 Phase 1 判定的篇幅类型分流，两条路径产出的工程结构完全不同：
+Route by the length verdict from Phase 1; the two paths produce completely different project structures:
 
-| 篇幅 | 迁移路径 | 映射规则 | 续写接手 |
-|------|---------|---------|---------|
-| 长篇 | **3-L：长篇结构迁移** | [references/structure-mapping-long.md](references/structure-mapping-long.md) | story-long-write 日更循环 |
-| 短篇 | **3-S：短篇结构迁移** | [references/structure-mapping-short.md](references/structure-mapping-short.md) | story-short-write Phase 3 逐场景写作 |
+| Length | Migration path | Mapping rules | Continue-writing handoff |
+|--------|----------------|---------------|--------------------------|
+| Long-form | **3-L: long-form structure migration** | [references/structure-mapping-long.md](references/structure-mapping-long.md) | story-long-write daily-update loop |
+| Short-form | **3-S: short-form structure migration** | [references/structure-mapping-short.md](references/structure-mapping-short.md) | story-short-write Phase 3 per-scene writing |
 
 ---
 
-## Phase 3-L：长篇结构迁移
+## Phase 3-L: long-form structure migration
 
-将 `拆文库/{书名}/` 的分析结果迁移为 `{书名}/` 长篇项目结构。迁移规则详见 [references/structure-mapping-long.md](references/structure-mapping-long.md)。
+Migrate `teardown-lib/{Book Title}/`'s analysis results into the `{Book Title}/` long-form project structure. Migration rules in detail: [references/structure-mapping-long.md](references/structure-mapping-long.md).
 
-### 迁移步骤
+### Migration steps
 
-#### Step 1：创建项目骨架
+#### Step 1: create the project skeleton
 
 ```
-{书名}/
-├── 设定/
-│   ├── 世界观/
-│   ├── 角色/
-│   └── 势力/
-├── 大纲/
-├── 正文/
-├── 追踪/
-├── 对标/
-│   └── {书名}/剧情/
-└── 参考资料/
+{Book Title}/
+├── setting/
+│   ├── worldview/
+│   ├── characters/
+│   └── factions/
+├── outline/
+├── prose/
+├── tracking/
+├── benchmark/
+│   └── {Book Title}/plot/
+└── reference/
 ```
 
-#### Step 2：正文标准化
+#### Step 2: standardize the prose
 
-将原文迁移到 `正文/`，统一命名格式：`第XXX章_章名.md`。
+Migrate the source into `prose/`, unified naming: `chapter_NNN_Title.md`.
 
-- 识别章节分隔符（第X章、Chapter X 等）
-- 提取章节标题
-- 补零对齐编号（第1章 → 第001章）
-- 保留原文内容不变
+- Recognize chapter separators (Chapter X, plain numbered titles, etc.)
+- Extract chapter titles
+- Zero-pad the numbering (Chapter 1 → chapter_001)
+- Keep the original content unchanged
 
-#### Step 3：角色文件迁移
+#### Step 3: migrate the character files
 
-将 `拆文库/{书名}/角色/{角色名}.md` 迁移到 `设定/角色/{角色名}.md`。
+Migrate `teardown-lib/{Book Title}/characters/{Character Name}.md` into `setting/characters/{Character Name}.md`.
 
-迁移时增加 story-long-write 角色模板字段：
+Add the story-long-write character-template fields during migration:
 
 ```markdown
 ---
-name: {角色名}
+name: {Character Name}
 ---
 
-# {角色名}
+# {Character Name}
 
-## 基本信息
-- 身份：{}
-- 核心特质：{}
-- 当前能力：{}
-- 核心动机：{}
-- 弱点/缺陷：{}
+## Basic info
+- Identity: {}
+- Core traits: {}
+- Current ability: {}
+- Core motive: {}
+- Weakness/flaw: {}
 
-## 出场记录
-| 章节 | 关键事件 | 状态变化 |
-|------|---------|---------|
+## Appearance log
+| Chapter | Key event | State change |
+|---------|-----------|--------------|
 ```
 
-角色分级（沿用 story-long-analyze 标准）：
+Character tiering (per story-long-analyze standards):
 
-| 等级 | 标准 | 迁移策略 |
-|------|------|---------|
-| 主角 | 出现章节 ≥50% + 推动主线 + 完整成长轨迹 | 完整迁移 |
-| 反派 | 与主角对立 + 推动核心冲突 + 明确动机 | 完整迁移 |
-| 核心配角 | 出现章节 ≥20% 或推动重要支线 | 完整迁移 |
-| 功能角色 | 出现章节 <20% + 作用有限 | 简化迁移 |
+| Tier | Criterion | Migration strategy |
+|------|-----------|---------------------|
+| Protagonist | appears in ≥50% of chapters + drives the main line + full growth arc | full migration |
+| Antagonist | opposes the protagonist + drives the core conflict + clear motive | full migration |
+| Core supporting | appears in ≥20% of chapters or drives an important subline | full migration |
+| Functional | appears in <20% of chapters + limited function | simplified migration |
 
-#### Step 4：关系文件迁移
+#### Step 4: migrate the relationship file
 
-将 `拆文库/{书名}/角色/角色关系.md` 转换为 `设定/关系.md`，按 [structure-mapping-long.md](references/structure-mapping-long.md)「关系文件转换规则」的目标格式模板输出。
+Convert `teardown-lib/{Book Title}/characters/relationships.md` into `setting/relationships.md`, per the "relationship-file conversion rules" target-format template in [structure-mapping-long.md](references/structure-mapping-long.md).
 
-#### Step 5：同步世界观设定
+#### Step 5: sync the worldview settings
 
-当前拆文契约已按主题输出 `拆文库/{书名}/设定/世界观/*.md` 与 `设定/势力/*.md`。导入时原样同步到项目；`世界观/` 必须包含 `背景设定.md`。`力量体系.md` 小于 200 字并已并入 `背景设定.md` 时可省略；否则缺失当前必需产物时停止并提示重跑 story-long-analyze Stage 4。不再现场拆分扁平文件。
+The current teardown contract outputs `teardown-lib/{Book Title}/setting/worldview/*.md` and `setting/factions/*.md` by topic. Sync them as-is into the project; `worldview/` must contain `background.md`. `power-system.md` may be omitted when it's under 200 words and already merged into `background.md`; otherwise, when a current-required artifact is missing, stop and tell the user to re-run story-long-analyze Stage 4. No on-the-fly splitting of flat files anymore.
 
-#### Step 6：大纲生成
+#### Step 6: generate the outlines
 
-**大纲.md**（卷级结构）：从 `剧情/故事线.md`、`剧情/*.md` 和 `快速预览.md` 反推。**卷划分采用用户确认制**，规则见 [structure-mapping-long.md](references/structure-mapping-long.md)「大纲反推规则」：
+**outline.md** (volume-level structure): back-derived from `plot/storylines.md`, `plot/*.md`, and `quick-preview.md`. **Volume split uses user-confirmation**; rules in the "outline back-derivation rules" of [structure-mapping-long.md](references/structure-mapping-long.md):
 
-- **原文有明确卷界**（存在「第一卷」「卷一」等卷级标题）→ 按原文卷界直接划分，无需询问。
-- **原文无明确卷界** → **不机械按「每卷 20-40 章」硬切**。根据故事线/场景切换/大型时间跳跃检测候选卷边界，向用户展示候选划分方案，**等待用户确认后**才写定卷纲；用户确认前 `大纲/大纲.md` 只记录候选方案。
+- **The source has explicit volume boundaries** ("Volume 1", "Book One" level titles) → split by the source's own volume boundaries directly; no asking.
+- **The source has no explicit volume boundaries** → **don't mechanically cut "20-40 chapters per volume"**. Detect candidate volume boundaries from storylines/scene switches/large time jumps, present the candidate split to the user, **wait for user confirmation** before writing the volume outlines; before confirmation, `outline/outline.md` only records the candidates.
 
 ```markdown
-# 全书大纲
+# Whole-book outline (master outline)
 
-## 卷级大纲
+## Volume-level outline
 
-### 第一卷：{卷名}（约 {X} 万字，{Y} 章）
-- 功能：{从剧情分析推断}
-- 核心事件：{一句话}
-- 起始状态 → 结束状态：{从角色弧线推断}
+### Volume 1: {volume name} (about {X}K words, {Y} chapters)
+- Function: {inferred from the plot analysis}
+- Core event: {one sentence}
+- Starting state → ending state: {inferred from character arcs}
 ```
 
-**卷纲**：卷划分确认后，从剧情文件聚合生成 `大纲/卷纲_第X卷.md`，按 [structure-mapping-long.md](references/structure-mapping-long.md)「卷纲反推」模板格式。
+**Volume outlines**: after the volume split is confirmed, aggregate from the plot files into `outline/volume_outline_{X}.md`, per the "volume-outline back-derivation" template in [structure-mapping-long.md](references/structure-mapping-long.md).
 
-**细纲**：从章节摘要反推生成 `大纲/细纲_第XXX章.md`：
+**Chapter outlines**: back-derived from the chapter summaries into `outline/outline_chapter_NNN.md`:
 
 ```markdown
-## 细纲（第 N 章）
+## Chapter Outline (Chapter N)
 
-### 第 N 章：{章名}
-- 核心事件：{从摘要中提取}
-- 字数目标：{原文实际字数}
-- 目标情绪：{从章节基调/情绪曲线提取；未知写 [待补充]}
-- 章首钩子：[待补充]
-- 爽点：{从情节点推断；无明确证据写 [待补充]}
+### Chapter N: {title}
+- Core event: {extracted from the summary}
+- Target words: {the source chapter's actual word count}
+- Target emotion: {from the chapter tone/emotion curve; unknown → [TBD]}
+- Opening hook: [TBD]
+- Payoff: {inferred from plot points; no clear evidence → [TBD]}
 
-#### 内容概括（五段式）
-- 起因：{从情节点归纳；未知写 [待补充]}
-- 发展：{从情节点归纳；未知写 [待补充]}
-- 转折：{从情节点归纳；未知写 [待补充]}
-- 高潮：{从情节点归纳；未知写 [待补充]}
-- 结尾：{原文最后落在什么动作/画面/台词上；未知写 [待补充]}
+#### Content summary (five-part)
+- Cause: {generalized from plot points; unknown → [TBD]}
+- Development: {generalized from plot points; unknown → [TBD]}
+- Turn: {generalized from plot points; unknown → [TBD]}
+- Climax: {generalized from plot points; unknown → [TBD]}
+- Ending: {what action/image/line the source ends on; unknown → [TBD]}
 
-#### 情节安排（多线）
-- 主线推进：{从剧情单元索引/摘要反推}
-- 辅线推进：{无证据写“无”或 [待补充]}
-- 事件线 / 任务线：{外部事件链}
-- 感情线 / 关系线：{有证据才写；否则“无显性”或 [待补充]}
-- 逻辑线：原因 → 行动 → 结果 → 后果/新问题
+#### Plot arrangement (multi-line)
+- Main line: {back-derived from the story-unit index/summary}
+- Sub-line: {no evidence → "none" or [TBD]}
+- Event & task line: {the external event chain}
+- Relationship line: {only with evidence; else "none visible" or [TBD]}
+- Logic line: cause → action → result → consequence/new problem
 
-#### 人物关系和出场顺序
-- 出场顺序：{摘要中角色/势力/关键物件出现顺序}
-- 人物关系变化：{本章前 → 本章后；未知写 [待补充]}
-- 视角/信息差：{谁知道什么；读者知道什么；主角误判什么；未知写 [待补充]}
+#### Characters and appearance order
+- Appearance order: {the order characters/factions/key objects appear in the summary}
+- Relationship changes: {before this chapter → after this chapter; unknown → [TBD]}
+- POV & information gap: {who knows what; what the reader knows; what the protagonist misjudges; unknown → [TBD]}
 
-#### 情节细化
-- 情节点序列：{从摘要情节点反推，每点“谁做了什么 + 功能标签”}
-- 行动成本（可无）/收益归属：{有证据才写；行动成本可无、不硬造；未知写 [待补充]}
+#### Plot detail
+- Plot-point sequence: {back-derived from the summary plot points, "who did what + function tag" per point}
+- Action cost (optional)/benefit attribution: {only with evidence; the action cost may be absent — don't invent; unknown → [TBD]}
 
-#### 结尾设定和钩子
-- 结尾设定：{原文收束落在什么动作或画面；未解决问题；下一章推动力；未知写 [待补充]}
-- 章尾钩子：[待补充]
+#### Ending and hook
+- Ending design: {what action or image the source closes on; unresolved problems; the next chapter's driver; unknown → [TBD]}
+- Chapter-end hook: [TBD]
 ```
 
-> 钩子、人物关系变化、辅线/感情线、行动成本/收益归属等无法由原文摘要稳定判断的字段统一标 `[待补充]`；story-import 只反推有证据的蓝图，不为补齐字段编造关系或副线。
+> Fields that can't be reliably determined from the chapter summaries — hooks, relationship changes, sub-lines/relationship lines, action cost/benefit attribution — are uniformly marked `[TBD]`; story-import only back-derives evidence-based blueprints and never invents relationships or sub-lines to fill fields.
 
-#### Step 7：追踪文件生成
+#### Step 7: generate the tracking files
 
-追踪目录共四个文件，**必须按以下顺序生成**（后一个文件依赖前一个的产出）：
+The tracking directory has four files, **generated in this order** (each depends on the previous one's output):
 
 ```
-① 追踪/伏笔.md     ← 先生成（角色状态反推的「待回收伏笔」字段依赖此文件）
-② 追踪/时间线.md   ← 与伏笔同步或紧随其后
-③ 追踪/角色状态.md ← 依赖伏笔.md 已存在
-④ 追踪/上下文.md   ← 最后生成（其「角色状态：最近变更」字段依赖角色状态.md）
+① tracking/foreshadowing.md  ← generated first (character-state's "pending foreshadowing" field depends on it)
+② tracking/timeline.md       ← together with or right after foreshadowing
+③ tracking/character-state.md ← depends on foreshadowing.md existing
+④ tracking/context.md         ← generated last (its "character state: recent changes" field depends on character-state.md)
 ```
 
-**① 追踪/伏笔.md**：从情节点的「铺垫」类型情节点提取潜在伏笔：
+**① tracking/foreshadowing.md**: extract candidate foreshadowing from the "setup" type plot points:
 
 ```markdown
-# 伏笔追踪
+# Foreshadowing Tracking
 
-## 伏笔状态表
+## Foreshadowing status table
 
-| ID | 伏笔内容 | 埋设章节 | 预计回收章节 | 状态 | 重要度 |
-|----|---------|---------|-------------|------|--------|
-| F001 | {从铺垫情节点提取} | 第{N}章 | {如已回收则标注} | {已埋/已回收} | {中} |
+| ID | Foreshadowing | Planted in | Expected recovery in | Status | Importance |
+|----|---------------|------------|----------------------|--------|------------|
+| F001 | {extracted from setup plot points} | Chapter {N} | {mark if already recovered} | {planted/recovered} | {medium} |
 ```
 
-**② 追踪/时间线.md**：从时间标记提取：
+**② tracking/timeline.md**: extracted from time markers:
 
 ```markdown
-# 故事时间线
+# Story Timeline
 
-## 关键事件时序
+## Key-event chronology
 
-| 章节 | 故事时间 | 事件 | 涉及角色 | 与主线关系 |
-|------|---------|------|---------|-----------|
+| Chapter | Story time | Event | Characters involved | Relation to the main line |
+|---------|------------|-------|---------------------|---------------------------|
 ```
 
-**③ 追踪/角色状态.md**：从拆书产物反推每个主要角色的当前状态。反推算法详见 [references/character-state-reverse.md](references/character-state-reverse.md)：
+**③ tracking/character-state.md**: back-derive each major character's current state from the teardown artifacts. The back-derivation algorithm: [references/character-state-reverse.md](references/character-state-reverse.md):
 
-- **输入来源**：拆文库已有产物（`角色/{角色名}.md`、`角色/角色关系.md`、`章节/第N章_摘要.md` 情节点、`剧情/*.md`）+ 已生成的 `追踪/伏笔.md`，**不重读 `原文/`**。
-- **追踪范围**：主角、反派、核心配角；功能角色不进入。
-- **输出对齐**：严格对齐 [character-state-reverse.md](references/character-state-reverse.md)「输出格式」的 `角色状态.md` 标准模板（当前身份 / 当前能力 / 关键关系 / 公众形象 / 待回收伏笔 / 状态变更记录）。
-- **生成时机**：必须在 `追踪/伏笔.md` 之后（步骤「待回收伏笔」依赖伏笔状态）。
-- **半成品书**：最后一章为残稿时，角色状态以「残稿之前的最后一个完整章节」为准，文件头注明基准章节。
+- **Input sources**: existing teardown-library artifacts (`characters/{Character Name}.md`, `characters/relationships.md`, `chapters/chapter_N_summary.md` plot points, `plot/*.md`) + the generated `tracking/foreshadowing.md`; **do not re-read `source/`**.
+- **Tracking scope**: protagonist, antagonist, core supporting; functional characters stay out.
+- **Output alignment**: strictly align with the standard `character-state.md` template in the "output format" section of [character-state-reverse.md](references/character-state-reverse.md) (current identity / current ability / key relationships / public image / pending foreshadowing / state-change log).
+- **Generation timing**: must come after `tracking/foreshadowing.md` (the "pending foreshadowing" step depends on the foreshadowing status).
+- **Partial books**: when the last chapter is a draft, character state reflects "the last complete chapter before the draft"; note the baseline chapter in the file header.
 
-> 此文件不可遗漏。story-long-write 的日更写前准备「状态筛选」依赖 `追踪/角色状态.md`；若缺失，导入书进入日更会永久走「从角色设定和前文推断」的兜底分支，长期降级。
+> This file is not optional. story-long-write's daily-update pre-write "state filtering" depends on `tracking/character-state.md`; if missing, the imported book permanently runs the "infer from character sheet and prior text" fallback branch in daily updates — a permanent degradation.
 
-**④ 追踪/上下文.md**：进度摘要（最后生成，「当前状态」中的角色状态变更引用 `角色状态.md`）：
+**④ tracking/context.md**: progress summary (generated last; the "current state" section's character-state changes reference `character-state.md`):
 
 ```markdown
-## 写作进度
+## Writing progress
 
-- 最后完成章节：第 {N} 章
-- 更新时间：{导入日期}
-- 本期完成：导入 {N} 章，共 {X} 字
+- Last completed chapter: Chapter {N}
+- Updated: {import date}
+- This session: imported {N} chapters, {X} words total
 
-## 当前状态
+## Current state
 
-- 活跃伏笔：{A} 条待回收
-- 角色状态：最近变更见 `追踪/角色状态.md`
-- 下一章细纲状态：已有
-- 注意事项：最后一章为残稿时在此注明残稿到第 N 章及用户选定的续写策略
+- Active foreshadowing: {A} pending recovery
+- Character state: recent changes in `tracking/character-state.md`
+- Next chapter outline status: exists
+- Notes: when the last chapter is a draft, note here that the draft runs through chapter N and the user's chosen continuation strategy
 ```
 
-#### Step 8：题材定位生成
+#### Step 8: genre positioning
 
-从拆文报告中提取核心发现，生成 `设定/题材定位.md`（按 [structure-mapping-long.md](references/structure-mapping-long.md)「题材定位生成」模板格式）。
+Extract core findings from the teardown report and generate `setting/genre-positioning.md` (per the "genre-positioning generation" template in [structure-mapping-long.md](references/structure-mapping-long.md)).
 
-`设定/题材定位.md` **必须包含「对标书清单 + 主对标书」段**。主对标书最多 1 本；副对标 / 参考对标不限制数量，按用户素材和题材相关性追加到列表，不要截断成“一本副书”。格式：
+`setting/genre-positioning.md` **must include a "benchmark-book list + primary benchmark book" section**. The primary benchmark book is at most 1; secondary/reference benchmark books are unlimited in number — append by the user's material and genre relevance; don't truncate to "one secondary book". Format:
 
 ```yaml
-主对标书: {书名}  # 多本对标时日更默认用哪本的文风；缺失时 story-long-write 用字典序第一本并提示用户补
-对标书列表:
-  - 书名: {书名 A}
-    引用强度: 主  # 主 / 辅 / 参考
-    题材类型: {题材}
-    相关性: 同题材
-    用途: 文风+核心结构
-  - 书名: {书名 B}
-    引用强度: 辅
-    题材类型: {题材}
-    相关性: 同题材/弱相关
-    用途: {补设定/大纲/模块，不进文风}
-  - 书名: {书名 C}
-    引用强度: 辅
-    题材类型: {题材}
-    相关性: 同题材/弱相关
-    用途: {补设定/大纲/模块，不进文风}
-  - 书名: {书名 D}
-    引用强度: 参考
-    题材类型: {题材}
-    相关性: 同题材/弱相关
-    用途: {仅按预算召回摘要}
+primary benchmark book: {Book Title}  # with multiple benchmarks, which one's style the daily update defaults to; when missing, story-long-write uses the first alphabetically and tells the user to fill it in
+benchmark book list:
+  - title: {Book Title A}
+    reference strength: primary  # primary / secondary / reference
+    genre: {genre}
+    relevance: same-genre
+    use: style + core structure
+  - title: {Book Title B}
+    reference strength: secondary
+    genre: {genre}
+    relevance: same-genre / weakly-related
+    use: {supplement settings/outline/modules, not style}
+  - title: {Book Title C}
+    reference strength: secondary
+    genre: {genre}
+    relevance: same-genre / weakly-related
+    use: {supplement settings/outline/modules, not style}
+  - title: {Book Title D}
+    reference strength: reference
+    genre: {genre}
+    relevance: same-genre / weakly-related
+    use: {recall summaries by budget only}
 ```
 
-后续如需快速概览，可另写「对标分析（派生概要）」表；该表不是权威 registry，不得替代 `主对标书` 与完整 `对标书列表`。
+For later quick overviews, you may additionally write a "benchmark analysis (derived summary)" table; that table is not the authoritative registry and must not replace the `primary benchmark book` + full `benchmark book list`.
 
-#### Step 9：对标结构化资产同步
+#### Step 9: benchmark structured-asset sync
 
-把拆文库的结构化分析资产同步到项目引用视图 `{项目}/对标/{书名}/`，供 story-long-write 的对标书路径查找优先读取。同步不重新生成内容，保持拆文库为唯一准源：
+Sync the teardown library's structured analysis assets to the project reference view `{project}/benchmark/{Book Title}/`, which story-long-write's benchmark-book path lookup reads first. The sync doesn't regenerate content; the teardown library stays the single canonical source:
 
-| 源路径 | 项目对标路径 | 用途 |
-|-------|-------------|------|
-| `拆文库/{书名}/剧情/节奏.md` | `{项目}/对标/{书名}/剧情/节奏.md` | story-long-write 读取关键信息推进、情绪触动点、爆发节奏 |
-| `拆文库/{书名}/剧情/情绪模块.md` | `{项目}/对标/{书名}/剧情/情绪模块.md` | story-long-write 读取读者需求 / 情绪引擎、可复现模块 |
-| `拆文库/{书名}/剧情/*.md` | `{项目}/对标/{书名}/剧情/*.md` | 剧情单元与故事线参考 |
-| `拆文库/{书名}/章节/*.md` | `{项目}/对标/{书名}/章节/*.md` | 匹配章摘要和关键信息与扩写技法证据 |
-| `拆文库/{书名}/角色/*.md` | `{项目}/对标/{书名}/角色/*.md` | 角色功能位参考 |
-| `拆文库/{书名}/设定/` | `{项目}/对标/{书名}/设定/` | 世界观/势力参考 |
-| `拆文库/{书名}/拆文报告.md` | `{项目}/对标/{书名}/拆文报告.md` | 人类可读摘要投影 |
+| Source path | Project benchmark path | Use |
+|-------------|------------------------|-----|
+| `teardown-lib/{Book Title}/plot/pacing.md` | `{project}/benchmark/{Book Title}/plot/pacing.md` | story-long-write reads key-info progression, emotional touchpoints, burst rhythm |
+| `teardown-lib/{Book Title}/plot/emotional-beats.md` | `{project}/benchmark/{Book Title}/plot/emotional-beats.md` | story-long-write reads reader needs / emotional engine, reproducible modules |
+| `teardown-lib/{Book Title}/plot/*.md` | `{project}/benchmark/{Book Title}/plot/*.md` | story units and storylines reference |
+| `teardown-lib/{Book Title}/chapters/*.md` | `{project}/benchmark/{Book Title}/chapters/*.md` | matching-chapter summaries and key-info/expansion-technique evidence |
+| `teardown-lib/{Book Title}/characters/*.md` | `{project}/benchmark/{Book Title}/characters/*.md` | character functional-slot reference |
+| `teardown-lib/{Book Title}/setting/` | `{project}/benchmark/{Book Title}/setting/` | worldview/faction reference |
+| `teardown-lib/{Book Title}/teardown-report.md` | `{project}/benchmark/{Book Title}/teardown-report.md` | human-readable summary projection |
 
-**缺失处理**：
+**Missing-artifact handling**:
 
-- 缺 `剧情/节奏.md` 或 `剧情/情绪模块.md` → **导入停下并给修复动作**：提示重跑 `/story-long-analyze` Stage 3+ 或手动补齐对应文件；导入报告写 `module_or_rhythm_required_missing`，不得继续生成看似完整的对标视图。
-- 其它结构化子目录缺失 → 按既有导入缺失项提示，不阻塞项目创建
+- Missing `plot/pacing.md` or `plot/emotional-beats.md` → **stop the import and give a fix action**: tell the user to re-run `/story-long-analyze` Stage 3+ or manually complete the files; the import report writes `module_or_rhythm_required_missing`; don't keep generating a seemingly complete benchmark view.
+- Other missing structured subdirectories → follow the existing import missing-item prompts; don't block project creation.
 
-#### Step 10：文风同步
+#### Step 10: style sync
 
-把 `拆文库/{书名}/文风.md` 复制到 `{项目}/对标/{书名}/文风.md`。纯复制，不重新生成。
+Copy `teardown-lib/{Book Title}/style.md` to `{project}/benchmark/{Book Title}/style.md`. Pure copy; no regeneration.
 
-**缺失处理**：
+**Missing-artifact handling**:
 
-- 拆文库没有文风文件（analyze 未跑 Stage 6）→ 导入报告提示用户重跑 `/story-long-analyze` 后再同步；日更前文风缺失会被 fail-fast 拦截
-- 项目对标已有旧文风文件 → 覆盖（最新拆文产物优先），在导入报告告知
+- No style file in the teardown library (analyze didn't run Stage 6) → the import report tells the user to re-run `/story-long-analyze` before syncing; a missing style before daily updates is intercepted by fail-fast
+- An old style file already exists in the project benchmark → overwrite (latest teardown artifacts win); note it in the import report
 
 ---
 
-## Phase 3-S：短篇结构迁移
+## Phase 3-S: short-form structure migration
 
-将 `拆文库/{书名}/` 的短篇拆文产物迁移为 `{短篇标题}/` 短篇工程结构，供 story-short-write Phase 3 逐场景写作无缝接手。迁移规则详见 [references/structure-mapping-short.md](references/structure-mapping-short.md)。
+Migrate `teardown-lib/{Book Title}/`'s short-form teardown artifacts into the `{ShortTitle}/` short-form project structure for story-short-write Phase 3 per-scene writing to take over seamlessly. Migration rules in detail: [references/structure-mapping-short.md](references/structure-mapping-short.md).
 
-> **短篇工程与长篇完全不同**：短篇正文是单文件 `正文.md`（不切章），**不产** `追踪/`、`大纲/`、`正文/` 等长篇目录。迁移时严禁误建这些长篇专属目录。
+> **The short-form project is completely different from long-form**: the short-form body is the single file `prose.md` (no chapter splitting), and **does not produce** `tracking/`, `outline/`, `prose/` (directory), or other long-form directories. During migration it is forbidden to mistakenly create these long-form-only directories.
 
-### 短篇目标工程结构
+### Short-form target project structure
 
 ```
-{短篇标题}/
-├── 设定.md              ← 含核心框架 + 对标摘要
-├── 小节大纲.md          ← 按段-小节结构反推
-├── 正文.md              ← 单文件全文正文
-└── 对标/{书名}/         ← 可选：拆文引用视图
-    ├── 拆文报告.md
-    ├── 情节节点.md
-    └── 写作手法.md
+{ShortTitle}/
+├── setting.md              ← contains the core framework + benchmark summary
+├── section-outline.md      ← back-derived by segment-episode structure
+├── prose.md                ← the whole piece in one file
+└── benchmark/{Book Title}/ ← optional: the teardown reference view
+    ├── teardown-report.md
+    ├── plot-nodes.md
+    └── craft-methods.md
 ```
 
-### 迁移步骤
+### Migration steps
 
-#### Step 1：正文迁移
+#### Step 1: prose migration
 
-将 `拆文库/{书名}/原文/` 的全文迁移为单文件 `{标题}/正文.md`，按 [format-and-structure.md](references/format-and-structure.md) 规范化格式（小节标记 `###1.`、段间仅单换行、对话引号按项目/平台约定统一）。**原文已是成稿，不重写内容，只规范格式。**
+Migrate the full text from `teardown-lib/{Book Title}/source/` into the single file `{ShortTitle}/prose.md`, normalized per [format-and-structure.md](references/format-and-structure.md) (episode markers `###1.`, single line break between paragraphs, dialogue quotes unified per project/platform convention). **The source is a finished draft — don't rewrite the content, only normalize the format.**
 
-#### Step 2：设定生成
+#### Step 2: setting generation
 
-从 `拆文报告.md`、`写作手法.md` 反推 `{标题}/设定.md`，含两个区块：
+Back-derive `{ShortTitle}/setting.md` from `teardown-report.md` and `craft-methods.md`, with two blocks:
 
-- **核心框架**：对齐 story-short-write 核心框架模板（基本信息、一句话梗概、核心反转、情绪设计、人设速写）。
-- **对标摘要**：把故事结构、情绪节奏、核心反转机制、可复用写作手法写入对标摘要区。
+- **Core framework**: aligned with the story-short-write core-framework template (basic info, one-line synopsis, core reversal, emotion design, character sketches).
+- **Benchmark summary**: write the story structure, emotional rhythm, core reversal mechanics, and reusable writing craft into the benchmark-summary block.
 
-#### Step 3：小节大纲生成
+#### Step 3: section-outline generation
 
-从 `情节节点.md` 的功能分段反推 `{标题}/小节大纲.md`，按开头段/铺垫段/升级段/反转段/结尾段映射；短篇只做轻量蓝图：每节写 `结构段/五段功能`、主事件、3-5 个子事件、目标情绪、人物/关系变化、因果/逻辑链、结尾承接/小钩子。钩子或关系无法判断时标 `[待补充]`，不套用长篇完整章节蓝图。
+Back-derive `{ShortTitle}/section-outline.md` from `plot-nodes.md`'s functional segments, mapped onto opening/development/escalation/reversal/ending segments; shorts get a lightweight blueprint only: per episode write `structure segment / five-part function`, the main event, 3-5 sub-events, the target emotion, character/relationship changes, the causal/logic chain, and the episode-end handoff/hook. Hooks or relationships that can't be judged are marked `[TBD]`; don't apply the long-form full chapter blueprint.
 
-#### Step 4：对标引用视图（可选）
+#### Step 4: benchmark reference view (optional)
 
-将 `拆文库/{书名}/` 整体复制为 `{标题}/对标/{书名}/`，供续写阶段的对标上下文加载。默认生成。
+Copy `teardown-lib/{Book Title}/` wholesale into `{ShortTitle}/benchmark/{Book Title}/` for benchmark-context loading during continuation. Generated by default.
 
 ---
 
-## Phase 4：项目激活
+## Phase 4: project activation
 
-### Step 1：质量检查
+### Step 1: quality checks
 
-按篇幅对照对应的质量检查清单：
+Check against the matching quality checklist by length:
 
-- **长篇**：完整迁移质量清单见 [references/structure-mapping-long.md](references/structure-mapping-long.md) 末尾的质量检查清单（含正文文件数对照、主要角色覆盖、`追踪/角色状态.md` 已生成且对齐标准模板、卷划分已经用户确认等）。
-- **短篇**：质量清单见 [references/structure-mapping-short.md](references/structure-mapping-short.md) 末尾的质量检查清单（含 `正文.md` 单文件存在且格式合规、`设定.md` 含核心框架+对标摘要、未误建长篇专属目录等）。
+- **Long-form**: the full migration quality checklist at the end of [references/structure-mapping-long.md](references/structure-mapping-long.md) (incl. prose file-count comparison, major-character coverage, `tracking/character-state.md` generated and aligned with the standard template, volume split user-confirmed, etc.).
+- **Short-form**: the quality checklist at the end of [references/structure-mapping-short.md](references/structure-mapping-short.md) (incl. `prose.md` single file present and format-compliant, `setting.md` containing the core framework + benchmark summary, no mistakenly created long-form-only directories, etc.).
 
-### Step 2：缺失项提示
+### Step 2: missing-item prompts
 
-输出导入结果摘要和待补充项，按篇幅分支。
+Output the import summary and to-do items, branched by length.
 
-**长篇导入完成报告**：
-
-```
-=== 导入完成报告（长篇）===
-书名：{书名}
-源文件：{X} 章，{Y} 万字
-项目目录：{路径}
-
-## 已生成文件
-- 正文：{N} 章
-- 角色文件：{M} 个
-- 大纲：大纲.md + {V} 个卷纲 + {N} 个细纲
-- 追踪：伏笔.md + 时间线.md + 角色状态.md + 上下文.md
-- 设定：{世界观文件数} 个
-- 对标同步：`对标/{书名}/剧情/节奏.md`（节奏已同步/未同步）+ `对标/{书名}/剧情/情绪模块.md`（情绪模块已同步/未同步）+ 文风.md + 拆文报告.md
-
-## 待补充项
-- [ ] 细纲中的章首/章尾钩子需要补充
-- [ ] 题材定位的核心梗三分法需要确认
-- [ ] 伏笔追踪中的伏笔已复核
-- [ ] 角色状态.md 已复核（日更写前准备依赖此文件）
-- [ ] 卷划分已确认（原文无明确卷界时）
-- [ ] 文风已从拆文库同步到 `对标/{书名}/`（日更前 fail-fast 依赖此文件）
-- [ ] 节奏已同步到 `对标/{书名}/剧情/节奏.md`；缺失时必须先修复或重跑 Stage 3
-- [ ] 情绪模块已同步到 `对标/{书名}/剧情/情绪模块.md`；缺失时必须先修复或重跑 Stage 3
-- [ ] `设定/题材定位.md` 已含 `主对标书` 字段（多本对标时必填）
-
-## 下一步操作
-- 运行 `/story-review lean` 审查导入结果
-- 运行 `/story-long-write` + "日更" 开始续写
-```
-
-**短篇导入完成报告**：
+**Long-form import completion report**:
 
 ```
-=== 导入完成报告（短篇）===
-标题：{短篇标题}
-源文件：{Y} 字
-项目目录：{路径}
+=== Import completion report (long-form) ===
+Title: {Book Title}
+Source: {X} chapters, {Y}K words
+Project directory: {path}
 
-## 已生成文件
-- 正文.md（单文件，{Y} 字）
-- 设定.md（核心框架 + 对标摘要）
-- 小节大纲.md（{N} 个小节）
-- 对标/{书名}/（可选引用视图）
+## Files generated
+- Prose: {N} chapters
+- Character files: {M}
+- Outlines: outline.md + {V} volume outlines + {N} chapter outlines
+- Tracking: foreshadowing.md + timeline.md + character-state.md + context.md
+- Settings: {worldview file count} files
+- Benchmark sync: `benchmark/{Book Title}/plot/pacing.md` (rhythm synced/not) + `benchmark/{Book Title}/plot/emotional-beats.md` (modules synced/not) + style.md + teardown-report.md
 
-## 待补充项
-- [ ] 所有 [待补充] 标记的文件已复核
-- [ ] 小节大纲的章首/章尾钩子需要补充
-- [ ] 核心反转的铺垫线索已确认
+## To-do items
+- [ ] Chapter-outline opening/ending hooks need filling
+- [ ] The genre-positioning core-hook three-way split needs confirmation
+- [ ] Foreshadowing entries in the tracking reviewed
+- [ ] character-state.md reviewed (daily-update pre-write depends on it)
+- [ ] Volume split confirmed (when the source has no explicit volume boundaries)
+- [ ] style.md synced from the teardown library to `benchmark/{Book Title}/` (daily-update fail-fast depends on it)
+- [ ] Rhythm synced to `benchmark/{Book Title}/plot/pacing.md`; when missing, fix or re-run Stage 3 first
+- [ ] Emotional modules synced to `benchmark/{Book Title}/plot/emotional-beats.md`; when missing, fix or re-run Stage 3 first
+- [ ] `setting/genre-positioning.md` includes the `primary benchmark book` field (required with multiple benchmarks)
 
-## 下一步操作
-- 运行 `/story-short-write` Phase 3 开始续写
+## Next steps
+- Run `/story-review lean` to review the import result
+- Run `/story-long-write` + "daily" to start continuing
 ```
 
-### Step 3：项目激活
+**Short-form import completion report**:
 
-- 设置 `.active-book` 指向导入的书名/标题目录
-- 确认项目可以被对应写作 skill 识别（长篇 → story-long-write，短篇 → story-short-write）
-- 可选验证：如果项目已部署 story-explorer agent（优先检查 `.claude/agents/` 下的 `story-explorer.md` 是否存在；不存在时再检查 `.opencode/agents/`，再不存在时检查 `.codex/agents/`），可 spawn `Agent(subagent_type: "story-explorer", prompt: "项目目录：{dir}\n查询类型：progress\n查询参数：导入验证")` 交叉验证迁移数据完整性
+```
+=== Import completion report (short-form) ===
+Title: {ShortTitle}
+Source: {Y} words
+Project directory: {path}
 
-> setup 环境检测已在 Phase 1「环境检测前置」完成，此处不再重复检测。
+## Files generated
+- prose.md (single file, {Y} words)
+- setting.md (core framework + benchmark summary)
+- section-outline.md ({N} episodes)
+- benchmark/{Book Title}/ (optional reference view)
+
+## To-do items
+- [ ] All [TBD]-marked files reviewed
+- [ ] Section-outline opening/ending hooks need filling
+- [ ] Core-reversal setup clues confirmed
+
+## Next steps
+- Run `/story-short-write` Phase 3 to start continuing
+```
+
+### Step 3: project activation
+
+- Set `.active-book` to point at the imported book/title directory
+- Confirm the project is recognizable by the matching writing skill (long-form → story-long-write, short-form → story-short-write)
+- Optional validation: if the project has the story-explorer agent deployed (prefer checking `.claude/agents/` for `story-explorer.md`; if absent, check `.opencode/agents/`, then `.codex/agents/`), you may spawn `Agent(subagent_type: "story-explorer", prompt: "Project directory: {dir}\nQuery type: progress\nQuery parameters: import validation")` to cross-validate the migrated data completeness
+
+> Setup environment detection already happened in Phase 1's "environment detection (pre-flight)"; no repeated detection here.
 
 ---
 
-## 大型作品处理（>200 章）
+## Large works (>200 chapters)
 
-> 本节仅适用于长篇导入。短篇为单文件全量迁移，无增量导入需求。
+> This section applies to long-form import only. Short-form is a single-file full migration; no incremental import needed.
 
-超过 200 章的作品，采用增量导入策略：
+Works over 200 chapters use the incremental import strategy:
 
-1. **首期导入**：只导入前 50 章 + 全书概要
-2. **增量补充**：后续按用户需求分批导入剩余章节
-3. **上下文摘要**：未导入的章节生成简化摘要（200 字/章）
-
----
-
-## 参考资料索引
-
-按阶段加载，不一次全部加载。
-
-本 skill 自带的 reference 文件全部位于 `references/`，按场景加载。涉及别的 skill 的方法论/模板时，story-import 不直接加载文件，而是运行对应 `/命令` 由该 skill 自行加载。
-
-### Phase 1：确认导入源
-
-| 场景 | 加载文件 |
-|------|---------|
-| 篇幅分流判定 | `references/length-routing.md` |
-| 章节格式识别 | 由 story-long-analyze 拆解管道（运行 `/story-long-analyze`）的阶段 1 负责 |
-
-### Phase 2：深度分析
-
-| 场景 | 加载文件 / 相关 skill |
-|------|---------|
-| 长篇深度分析（方法论、质量检查、输出模板均自带） | 运行 `/story-long-analyze` 调用长篇拆解管道 |
-| 短篇深度分析（方法论、质量检查、输出模板均自带） | 运行 `/story-short-analyze` 调用短篇拆解管道 |
-
-### Phase 3：结构迁移
-
-| 场景 | 加载文件 |
-|------|---------|
-| 长篇迁移映射规则 | `references/structure-mapping-long.md` |
-| 短篇迁移映射规则 | `references/structure-mapping-short.md` |
-| 角色状态反推规则（长篇） | `references/character-state-reverse.md` |
-| 角色状态规则（character-state-reverse.md 依赖） | `references/state-tracking.md` |
-| 短篇正文格式规范 | `references/format-and-structure.md` |
-
-> 长篇细纲模板格式参见 story-long-write（Phase 3 细纲部分）；短篇核心框架模板参见 story-short-write（核心框架部分）。这两项为纯文本指引，story-import 不加载对应 skill 的文件。
-
-### Phase 4：项目激活
-
-| 场景 | 说明 |
-|------|---------|
-| 长篇项目结构规范 | 参见 story-long-write（Phase 4 项目文件结构） |
-| 短篇项目结构规范 | 参见 story-short-write（Phase 3 项目结构） |
-| 环境部署 | 部署模板由 `/story-setup` 提供，story-import 不负责部署 |
+1. **First import**: import only the first 50 chapters + the whole-book overview
+2. **Incremental additions**: later batch-import the remaining chapters per user request
+3. **Context summaries**: generate simplified summaries for unimported chapters (200 words/chapter)
 
 ---
 
-## 流程衔接
+## Reference index
 
-**流水线：** 长篇 / 短篇
-**位置：** 导入（在开书之前）
+Load by phase; don't load everything at once.
 
-| 时机 | 跳转到 | 命令 |
+This skill's own reference files all live in `references/`; load by scenario. For methodology/templates in other skills, story-import doesn't load the files directly — it runs the corresponding `/command` and lets that skill load them itself.
+
+### Phase 1: confirm the import source
+
+| Scenario | Load |
+|----------|------|
+| Length routing verdict | `references/length-routing.md` |
+| Chapter-format recognition | handled by the story-long-analyze teardown pipeline (run `/story-long-analyze`) stage 1 |
+
+### Phase 2: deep analysis
+
+| Scenario | Load file / relevant skill |
+|----------|---------------------------|
+| Long-form deep analysis (methodology, quality checks, output templates included) | run `/story-long-analyze` to call the long-form teardown pipeline |
+| Short-form deep analysis (methodology, quality checks, output templates included) | run `/story-short-analyze` to call the short-form teardown pipeline |
+
+### Phase 3: structure migration
+
+| Scenario | Load |
+|----------|------|
+| Long-form migration mapping rules | `references/structure-mapping-long.md` |
+| Short-form migration mapping rules | `references/structure-mapping-short.md` |
+| Character-state back-derivation rules (long-form) | `references/character-state-reverse.md` |
+| Character-state rules (dependency of character-state-reverse.md) | `references/state-tracking.md` |
+| Short-form prose format conventions | `references/format-and-structure.md` |
+
+> The long-form chapter-outline template format comes from story-long-write (Phase 3 chapter-outline part); the short-form core-framework template comes from story-short-write (core-framework part). Both are plain-text guidance; story-import doesn't load those skills' files.
+
+### Phase 4: project activation
+
+| Scenario | Notes |
+|----------|-------|
+| Long-form project structure conventions | see story-long-write (Phase 4 project file structure) |
+| Short-form project structure conventions | see story-short-write (Phase 3 project structure) |
+| Environment deployment | deployment templates provided by `/story-setup`; story-import doesn't deploy |
+
+---
+
+## Flow handoffs
+
+**Pipeline:** long-form / short-form
+**Position:** import (before opening a new book)
+
+| When | Jump to | Command |
 |---|---|---|
-| 导入完想继续写（长篇） | story-long-write | `/story-long-write` + "日更" |
-| 导入完想继续写（短篇） | story-short-write | `/story-short-write` |
-| 导入完想审查质量 | story-review | `/story-review` |
-| 想深入分析对标（长篇） | story-long-analyze | `/story-long-analyze` |
-| 想深入分析对标（短篇） | story-short-analyze | `/story-short-analyze` |
-| 从零开新书（长篇） | story-long-write | `/story-long-write` + "开书" |
-| 从零开新书（短篇） | story-short-write | `/story-short-write` |
-| 项目未部署环境 | story-setup | `/story-setup` |
+| Imported, want to keep writing (long-form) | story-long-write | `/story-long-write` + "daily" |
+| Imported, want to keep writing (short-form) | story-short-write | `/story-short-write` |
+| Imported, want a quality review | story-review | `/story-review` |
+| Want deep benchmark analysis (long-form) | story-long-analyze | `/story-long-analyze` |
+| Want deep benchmark analysis (short-form) | story-short-analyze | `/story-short-analyze` |
+| Start a new book from zero (long-form) | story-long-write | `/story-long-write` + "open a book" |
+| Start a new book from zero (short-form) | story-short-write | `/story-short-write` |
+| Project environment not deployed | story-setup | `/story-setup` |
 
 ---
 
-## 语言
+## Language
 
-- 跟随用户的语言回复，用户用什么语言就用什么语言回复
-- 中文回复遵循《中文文案排版指北》
+> - Follow the user's language.
+> - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

@@ -494,6 +494,6 @@ Hook registration merges deduplicated by the command field:
 |------|---------|---------|
 | Deployment complete, start writing | story-long-write / story-short-write | `/story-long-write` or `/story-short-write` |
 | Import an existing novel for teardown | story-import | `/story-import` |
-| Needs browser login state (market scan / teardown source text) | browser-cdp | `/browser-cdp`; generic requires the platform to allow local scripts/browser control |
+| Needs browser login state (market scan / teardown source text) | browser-cdp | `/browser-cdp`; generic requires the platform to allow local script or browser control |
 
 Per-CLI invocation syntax: Claude `/name`, Codex/ZCode `$name`, OpenClaw `/skill name`, Reasonix / generic name the skill directly.

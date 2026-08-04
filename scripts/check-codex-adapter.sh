@@ -17,6 +17,11 @@ assert_file() { [ -f "$1" ] || fail "required file missing: $1"; }
 assert_path() { [ -e "$1" ] || fail "required path missing: $1"; }
 assert_grep() { grep -Eq "$1" "$2" || fail "$3 ($2)"; }
 
+# Probe a working python interpreter (Windows python3 may be the Store stub).
+PYBIN=""
+for c in python3 python py; do "$c" -c "" >/dev/null 2>&1 && { PYBIN="$c"; break; }; done
+[ -n "$PYBIN" ] || { echo "FAIL: no working python interpreter (tried python3 python py)" >&2; exit 1; }
+
 cd "$REPO_ROOT"
 
 echo "Codex adapter check"
@@ -36,8 +41,8 @@ assert_file "scripts/generate-codex-hooks.py"
 assert_file "scripts/test-codex-hook-merge.py"
 assert_file "skills/story-setup/scripts/merge-codex-hooks.py"
 
-python3 -m json.tool "$CODEX_DIR/hooks/hooks.json" >/dev/null
-python3 - <<'PY'
+"$PYBIN" -m json.tool "$CODEX_DIR/hooks/hooks.json" >/dev/null
+"$PYBIN" - <<'PY'
 from pathlib import Path
 for name in (
     'scripts/generate-codex-agents.py',
@@ -46,19 +51,20 @@ for name in (
 ):
     compile(Path(name).read_text(encoding='utf-8'), name, 'exec')
 PY
-python3 scripts/generate-codex-hooks.py --check
-python3 scripts/test-codex-hook-merge.py
+"$PYBIN" scripts/generate-codex-hooks.py --check
+"$PYBIN" scripts/test-codex-hook-merge.py
 
 echo "  OK JSON/Python syntax"
 
-# Windows encoding safety (issue #164 class): the hook carries Chinese 正文/细纲 over
-# stdin/stdout, so it must use UTF-8 bytes, not Windows' ANSI code page text streams.
+# Windows encoding safety (issue #164 class): the hook carries prose/outline
+# content over stdin/stdout, so it must use UTF-8 bytes, not Windows' ANSI code page
+# text streams.
 HOOK_PY="$CODEX_DIR/hooks/story_codex_hook.py"
 # Walk the AST instead of grepping lines. A line-based read_text(/encoding= pair fails both ways:
 # it reports a regression against a correct call wrapped over two lines (or against a comment that
 # merely mentions .read_text()), and it accepts `p.read_text() + p.read_text(encoding="utf-8")[:0]`
 # because the encoding token is somewhere on the line. The AST sees calls, never comments.
-python3 - "$HOOK_PY" <<'PY'
+"$PYBIN" - "$HOOK_PY" <<'PY'
 import ast
 import sys
 from pathlib import Path
@@ -98,31 +104,39 @@ PY
 
 echo "  OK Windows encoding safety (UTF-8 stdio + file reads)"
 
-# Prose backstop parity surface: Codex has no PostToolUse, so the light prose net runs at Stop
-# (sweeping git-changed 正文) and continuity runs at SessionStart. These must stay present.
+# Prose backstop parity surface: Codex has no PostToolUse, so the light prose net runs at
+# Stop (sweeping git-changed prose) and continuity runs at SessionStart. These must stay
+# present.
 assert_grep 'def prose_net_findings' "$HOOK_PY" "Codex hook must carry the light prose net (parity with claude/opencode)"
 assert_grep 'def find_changed_prose_files' "$HOOK_PY" "Codex Stop sweep must discover git-changed prose"
-assert_grep 'def continuity_findings' "$HOOK_PY" "Codex hook must carry the continuity backstop (追踪 staleness + dup-title)"
+assert_grep 'def continuity_findings' "$HOOK_PY" "Codex hook must carry the continuity backstop (tracking staleness + dup-title)"
 
 echo "  OK prose backstop parity surface (Stop net + SessionStart continuity)"
 
 # .agents/skills is a relative symlink to skills/ (the agentskills.io path Codex scans), so
 # there is no second skill copy. Must be a valid relative symlink: an invalid/absolute one
 # (openai/codex#11314) or a Windows no-symlinks text stub silently breaks discovery.
-[ -L ".agents/skills" ] || fail ".agents/skills must be a symlink (got a regular file/dir; on Windows enable git core.symlinks)"
-target="$(readlink .agents/skills)"
-[ "$target" = "../skills" ] || fail ".agents/skills symlink target must be relative '../skills', got '$target'"
-skill_count="$(find skills -maxdepth 2 -name SKILL.md | wc -l | tr -d ' ')"
-[ "$skill_count" = "13" ] || fail "expected 13 skills, found $skill_count"
-for skill in skills/*/SKILL.md; do
-  name="$(basename "$(dirname "$skill")")"
-  assert_file ".agents/skills/$name/SKILL.md"
-done
+if [ "$(git config core.symlinks 2>/dev/null || echo true)" = "false" ]; then
+  # Windows checkouts without core.symlinks materialize the symlink as a text file
+  # containing the target; the symlink form cannot be verified locally (CI on Linux
+  # checks out real symlinks and runs the strict assertions).
+  echo "  SKIP .agents/skills symlink assertions (core.symlinks=false; working tree materializes the symlink as a text file)"
+else
+  [ -L ".agents/skills" ] || fail ".agents/skills must be a symlink (got a regular file/dir; on Windows enable git core.symlinks)"
+  target="$(readlink .agents/skills)"
+  [ "$target" = "../skills" ] || fail ".agents/skills symlink target must be relative '../skills', got '$target'"
+  skill_count="$(find skills -maxdepth 2 -name SKILL.md | wc -l | tr -d ' ')"
+  [ "$skill_count" = "13" ] || fail "expected 13 skills, found $skill_count"
+  for skill in skills/*/SKILL.md; do
+    name="$(basename "$(dirname "$skill")")"
+    assert_file ".agents/skills/$name/SKILL.md"
+  done
 
-echo "  OK .agents/skills discovery symlink ($skill_count skills)"
+  echo "  OK .agents/skills discovery symlink ($skill_count skills)"
+fi
 
 # Custom-agent TOMLs are generated deterministically from the Claude templates.
-python3 scripts/generate-codex-agents.py --dest "$TMP_DIR/agents" >/dev/null
+"$PYBIN" scripts/generate-codex-agents.py --dest "$TMP_DIR/agents" >/dev/null
 diff -qr "$TMP_DIR/agents" "$CODEX_DIR/agents" >/dev/null \
   || fail "generated Codex agents are stale; run scripts/generate-codex-agents.py"
 if grep -RInE '当前 Claude 部署|(^|[^[:alnum:]_])/story(-[a-z0-9-]+)?' "$CODEX_DIR/agents"; then
@@ -133,7 +147,7 @@ fi
 # typo in --source silently prunes every generated TOML while returning success.
 mkdir -p "$TMP_DIR/empty-source" "$TMP_DIR/safe-dest"
 printf 'keep\n' > "$TMP_DIR/safe-dest/sentinel.toml"
-if python3 scripts/generate-codex-agents.py \
+if "$PYBIN" scripts/generate-codex-agents.py \
   --source "$TMP_DIR/empty-source" --dest "$TMP_DIR/safe-dest" >/dev/null 2>&1; then
   fail "Codex generator must reject an empty source directory"
 fi
@@ -153,7 +167,7 @@ printf 'missing frontmatter\n' >"$TMP_DIR/malformed-source/b.md"
 printf 'keep old a\n' >"$TMP_DIR/transactional-dest/a.toml"
 printf 'keep sentinel\n' >"$TMP_DIR/transactional-dest/sentinel.toml"
 cp -R "$TMP_DIR/transactional-dest" "$TMP_DIR/transactional-before"
-if python3 scripts/generate-codex-agents.py \
+if "$PYBIN" scripts/generate-codex-agents.py \
   --source "$TMP_DIR/malformed-source" \
   --dest "$TMP_DIR/transactional-dest" >/dev/null 2>&1; then
   fail "Codex generator must reject malformed agent source"
@@ -182,7 +196,7 @@ EOF
 printf 'keep old a\n' > "$TMP_DIR/write-failure-dest/a.toml"
 printf 'keep manual asset\n' > "$TMP_DIR/write-failure-dest/manual.txt"
 cp -R "$TMP_DIR/write-failure-dest" "$TMP_DIR/write-failure-before"
-if python3 scripts/generate-codex-agents.py \
+if "$PYBIN" scripts/generate-codex-agents.py \
   --source "$TMP_DIR/write-failure-source" \
   --dest "$TMP_DIR/write-failure-dest" >/dev/null 2>&1; then
   fail "Codex generator must fail when a generated target is a directory"
@@ -193,7 +207,7 @@ diff -qr "$TMP_DIR/write-failure-before" "$TMP_DIR/write-failure-dest" >/dev/nul
 # Also inject a failure during the second atomic commit (after a.toml was
 # replaced) and verify the rollback restores every generated byte while keeping
 # unrelated files in the destination directory.
-python3 - "scripts/generate-codex-agents.py" "$TMP_DIR" <<'PY'
+"$PYBIN" - "scripts/generate-codex-agents.py" "$TMP_DIR" <<'PY'
 import importlib.util
 import sys
 from pathlib import Path
@@ -234,7 +248,7 @@ PY
 # A stale generated file that cannot be removed (immutable flag, lock, read-only
 # mount) must not abort the rollback: every restorable file returns to its prior
 # bytes and the un-removable file keeps its original content.
-python3 - "scripts/generate-codex-agents.py" "$TMP_DIR" <<'PY'
+"$PYBIN" - "scripts/generate-codex-agents.py" "$TMP_DIR" <<'PY'
 import importlib.util
 import sys
 from pathlib import Path
@@ -301,7 +315,7 @@ description: must be rejected
 body
 EOF
 printf 'outside sentinel\n' > "$TMP_DIR/victim.toml"
-if python3 scripts/generate-codex-agents.py \
+if "$PYBIN" scripts/generate-codex-agents.py \
   --source "$TMP_DIR/escape-source" \
   --dest "$TMP_DIR/escape-dest" >/dev/null 2>&1; then
   fail "Codex generator must reject path-like agent names"
@@ -311,7 +325,7 @@ fi
 [ -z "$(find "$TMP_DIR/escape-dest" -mindepth 1 -print -quit)" ] \
   || fail "Codex generator touched the destination for an invalid agent name"
 
-python3 - <<'PY'
+"$PYBIN" - <<'PY'
 import tomllib
 from pathlib import Path
 expected = {
@@ -328,7 +342,7 @@ for path in sorted(Path('skills/story-setup/references/codex/agents').glob('*.to
     instructions = data['developer_instructions']
     assert path.name == f'{name}.toml', f'{path}: filename/name mismatch'
     assert '.codex/skills/story-setup/references/agent-references/' in instructions
-    for stale in ('.claude/skills/', '.opencode/skills/', '{项目根}/skills/story-setup/references/agent-references/'):
+    for stale in ('.claude/skills/', '.opencode/skills/', '{project root}/skills/story-setup/references/agent-references/'):
         assert stale not in instructions, f'{path}: stale cross-CLI reference fallback {stale}'
     assert 'agent_type' in instructions, f'{path}: missing Codex agent_type guidance'
     assert 'subagent_type' not in instructions, f'{path}: leaked Claude subagent_type wording'
@@ -354,11 +368,14 @@ fi
 # and (b) no-op when the hook file is absent instead of running "//.codex/..." (root="/"). And
 # the Python hook must self-locate from __file__ so a Git Bash MSYS root still resolves on Windows.
 #
-# 每份注册的 event token 还必须与三个消费方的白名单逐一对齐：run-story-hook.sh 的 case、
-# run-story-hook.cmd 的 if /I 链、story_codex_hook.py main() 的分派。少一处就是一个永久哑火的
-# hook（launcher case 落到 *) exit 2，stdout/stderr 全空），而 command↔commandWindows 的一致性
-# 断言只证明两边抄的是同一个错字。白名单从三个消费方解析出来比较，不在这里再抄第五份。
-python3 - "$CODEX_DIR/hooks/hooks.json" "$CODEX_DIR/hooks/story_codex_hook.py" \
+# Every registered event token must also line up with the allowlists of the three
+# consumers: run-story-hook.sh's case, run-story-hook.cmd's if /I chain, and
+# story_codex_hook.py main() dispatch. One miss is a permanently dead hook (the
+# launcher case falls to *) exit 2 with empty stdout/stderr), and the
+# command↔commandWindows consistency assertions only prove both sides copied the
+# same typo. The allowlists are parsed from the three consumers and compared — no
+# fifth hand-copied list here.
+"$PYBIN" - "$CODEX_DIR/hooks/hooks.json" "$CODEX_DIR/hooks/story_codex_hook.py" \
   "$CODEX_DIR/hooks/run-story-hook.sh" "$CODEX_DIR/hooks/run-story-hook.cmd" <<'PY'
 import json, re, sys
 from pathlib import Path
@@ -378,7 +395,8 @@ for h in all_hooks:
     assert f"'{posix_event}'" in w, f"command/commandWindows event mismatch: {posix_event} vs {w}"
     registered.append(posix_event)
 
-# 同一个 handler 被注册两次 = 复制粘贴整块后忘了改 event token，另一个事件因此没有注册。
+# The same handler registered twice = a copied block whose event token was not
+# changed, leaving another event unregistered.
 dupes = sorted({e for e in registered if registered.count(e) > 1})
 assert not dupes, f"hooks.json registers the same event token more than once: {dupes}"
 
@@ -386,8 +404,9 @@ launcher_sh = Path(sys.argv[3]).read_text(encoding="utf-8")
 launcher_cmd = Path(sys.argv[4]).read_text(encoding="utf-8")
 hook_py = Path(sys.argv[2]).read_text(encoding="utf-8")
 
-# 只在 case "$EVENT" in ... esac 这一段里收 arm，且把每个 arm 的 a|b|c 全部展开：
-# 别的 case 块（比如探测 PYBIN）不会污染白名单，名单被改写成一行一个 arm 也照样解析。
+# Only collect arms from the case "$EVENT" in ... esac block, expanding every
+# a|b|c arm: other case blocks (e.g. the PYBIN probe) never pollute the allowlist,
+# and the list still parses when rewritten as one arm per line.
 case_block = re.search(r'case[ \t]+"\$EVENT"[ \t]+in(.*?)esac', launcher_sh, re.S)
 assert case_block, 'run-story-hook.sh must gate "$EVENT" with a case allowlist'
 sh_tokens = set()
@@ -412,16 +431,16 @@ PY
 echo "  OK generated launcher routing + Python self-location + cmd.exe commandWindows"
 
 # Reference-path contract: generated Codex agents use only the bundle story-setup deploys.
-python3 - "$CODEX_DIR/agents" <<'PY'
+"$PYBIN" - "$CODEX_DIR/agents" <<'PY'
 import sys
 from pathlib import Path
 for path in sorted(Path(sys.argv[1]).glob("*.toml")):
     text = path.read_text(encoding="utf-8")
-    if "1. `{项目根}/" not in text:
+    if "1. `{project root}/" not in text:
         continue  # this agent has no numbered reference list
-    assert text.count("1. `{项目根}/.codex/skills/story-setup/references/agent-references/") == 1, \
+    assert text.count("1. `{project root}/.codex/skills/story-setup/references/agent-references/") == 1, \
         f"{path.name}: numbered reference list must contain the canonical Codex path once"
-    for stale in (".claude/skills/", ".opencode/skills/", "{项目根}/skills/story-setup/references/agent-references/"):
+    for stale in (".claude/skills/", ".opencode/skills/", "{project root}/skills/story-setup/references/agent-references/"):
         assert stale not in text, f"{path.name}: stale cross-CLI reference fallback {stale}"
 PY
 

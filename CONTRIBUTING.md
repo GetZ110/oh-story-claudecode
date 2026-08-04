@@ -1,85 +1,85 @@
-# 贡献指南
+# Contributing Guide
 
-感谢你对网文写作 skill 包的关注，欢迎贡献。
+Thank you for your interest in the web-fiction writing skill pack. Contributions are welcome.
 
-## 仓库结构
+## Repository Structure
 
 ```
 skills/
-├── story/                   # 工具箱路由
-├── story-setup/             # 环境部署
-├── story-import/            # 逆向导入
-├── story-long-write/        # 长篇写作
-├── story-long-analyze/      # 长篇拆文
-├── story-long-scan/         # 长篇扫榜
-├── story-short-write/       # 短篇写作
-├── story-short-analyze/     # 短篇拆文
-├── story-short-scan/        # 短篇扫榜
-├── story-deslop/            # 去AI味
-├── story-review/            # 多视角审查
-├── story-cover/             # 封面生成
-└── browser-cdp/             # 浏览器操控
-scripts/                       # 开发守卫 / 测试 / 代码生成（完整索引见 scripts/README.md）
+├── story/                   # Toolbox router
+├── story-setup/             # Environment deployment
+├── story-import/            # Reverse import
+├── story-long-write/        # Long-form writing
+├── story-long-analyze/      # Long-form deconstruction
+├── story-long-scan/         # Long-form market scanning
+├── story-short-write/       # Short-form writing
+├── story-short-analyze/     # Short-form deconstruction
+├── story-short-scan/        # Short-form market scanning
+├── story-deslop/            # De-AI-flavoring
+├── story-review/            # Multi-perspective review
+├── story-cover/             # Cover generation
+└── browser-cdp/             # Browser control
+scripts/                       # Dev guards / tests / code generation (full index in scripts/README.md)
 ```
 
-每个 skill 由一个 `SKILL.md`（入口）和 `references/` 目录（知识库）组成。
+Each skill consists of one `SKILL.md` (entry point) plus a `references/` directory (knowledge base).
 
-## Skill 格式
+## Skill Format
 
-`SKILL.md` 开头必须有 frontmatter：
+`SKILL.md` must start with frontmatter:
 
 ```yaml
 ---
 name: skill-name
-description: "一句话描述。触发方式：/skill-name、触发词1、触发词2"
+description: "One-sentence description. Triggers: /skill-name, trigger phrase 1, trigger phrase 2"
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
 ```
 
-为兼容 OpenClaw，frontmatter 必须保持单行键值：`description` 不使用 `|`/`>` 块，`metadata` 必须是单行 JSON 对象。更长的触发说明放到正文中。
+For OpenClaw compatibility the frontmatter must stay single-line key/value: `description` must not use `|`/`>` blocks and `metadata` must be a single-line JSON object. Longer trigger notes go in the body.
 
-`references/` 中的文件由 skill 按需加载，不会全部塞进上下文。
+Files in `references/` are loaded on demand by the skill; they are never all injected into context.
 
-## 如何贡献
+## How to Contribute
 
-### 改进现有 skill
+### Improving an existing skill
 
-1. Fork 仓库
-2. 从 `main` 创建分支：`git checkout -b feat/your-feature main`
-3. 修改对应的 `SKILL.md` 或 `references/` 文件
-4. 提交 PR，说明改了什么、为什么改
+1. Fork the repository
+2. Create a branch from `main`: `git checkout -b feat/your-feature main`
+3. Edit the relevant `SKILL.md` or `references/` files
+4. Open a PR describing what changed and why
 
-### 新增 skill
+### Adding a new skill
 
-1. 在 `skills/` 下创建目录，包含 `SKILL.md` 和 `references/`
-2. 确保在仓库根目录运行 `npx skills validate` 无报错
-3. 提交 PR
+1. Create a directory under `skills/` containing `SKILL.md` and `references/`
+2. Make sure `npx skills validate` passes from the repository root
+3. Open a PR
 
-## CI 检查
+## CI Checks
 
-PR 自动运行 `.github/workflows/cross-platform.yml`。static-check job 跑以下检查（全部强制）：
+PRs automatically run `.github/workflows/cross-platform.yml`. The static-check job runs these checks (all mandatory):
 
-- `scripts/static-check.sh` — 结构化解析 frontmatter、精确 Markdown 路径/锚点、Agent 引用与 references 可达性；除基础组件 `browser-cdp` 外禁止跨 Skill 文件引用
-- `python3 scripts/skill-numbering.py check` — 工作流编号连续性、引用可绑定性及小数标签守卫
-- `scripts/check-current-skill-contracts.sh` — 按 `scripts/current-contract.json` 校验当前版本 / Phase / schema / 主产物 / 细纲契约，并拦截历史路径与静默兼容分支
-- `python3 scripts/test-current-skill-contracts.py` — current-contract manifest 与主产物 fail-fast 语义回归
-- `scripts/check-hook-regex-sync.sh` — hook 伏笔状态检测行为
-- `scripts/check-shared-files.sh` — 共享 runtime 资产清单 + 跨 skill reference 副本一致性
-- `scripts/check-story-setup-deployment.sh` — story-setup 部署完整性
-- `scripts/check-claude-adapter.sh` — Claude marketplace 与 skill 映射检查
-- `scripts/check-opencode-adapter.sh` — OpenCode adapter 同步、commands/agents/config 结构与 plugin 真实行为检查
-- `scripts/check-openclaw-skills.sh` — OpenClaw 单行 frontmatter、`metadata.openclaw` 与可选真实 CLI 发现检查
-- `scripts/check-codex-adapter.sh` — Codex repo skills symlink、custom-agent TOML、hook 生成确定性与 launcher 契约
-- `scripts/test-codex-hooks.sh` — Codex hooks 合成事件测试
-- `scripts/check-zcode-adapter.sh` — ZCode plugin/marketplace、13 Skills/Commands、受支持 Hook 事件与部署锚点检查
-- `scripts/test-zcode-hooks.sh` — ZCode 严格 JSON Hook 契约、正文守卫、连续性与跨平台 Node runner 测试
-- 采集脚本 `node --check` 语法校验
+- `scripts/static-check.sh` — structured frontmatter parsing, exact Markdown path/anchor checks, agent references and references reachability; cross-skill file references are forbidden except the base `browser-cdp` component
+- `python3 scripts/skill-numbering.py check` — workflow-number continuity, reference bindability, and fractional-label guard
+- `scripts/check-current-skill-contracts.sh` — validates the current version / Phase / schema / primary artifacts / chapter-outline contract against `scripts/current-contract.json`, and intercepts historical paths and silent-compat branches
+- `python3 scripts/test-current-skill-contracts.py` — regression for the current-contract manifest and primary-artifact fail-fast semantics
+- `scripts/check-hook-regex-sync.sh` — hook foreshadow-status detection behavior
+- `scripts/check-shared-files.sh` — shared runtime-asset manifest + cross-skill reference copy consistency
+- `scripts/check-story-setup-deployment.sh` — story-setup deployment completeness
+- `scripts/check-claude-adapter.sh` — Claude marketplace and skill mapping checks
+- `scripts/check-opencode-adapter.sh` — OpenCode adapter sync, commands/agents/config structure, and plugin real-behavior checks
+- `scripts/check-openclaw-skills.sh` — OpenClaw single-line frontmatter, `metadata.openclaw`, and optional real-CLI discovery checks
+- `scripts/check-codex-adapter.sh` — Codex repo skills symlink, custom-agent TOML, hook-generation determinism, and launcher contracts
+- `scripts/test-codex-hooks.sh` — Codex hooks synthetic-event tests
+- `scripts/check-zcode-adapter.sh` — ZCode plugin/marketplace, 13 Skills/Commands, supported hook events, and deployment anchors
+- `scripts/test-zcode-hooks.sh` — ZCode strict-JSON hook contract, prose guard, continuity, and cross-platform Node runner tests
+- `node --check` syntax validation for the scraper/utility scripts
 
-以上为代表性列举；**强制清单按 `.github/workflows/cross-platform.yml` 为准**，每个脚本的用途与触发时机见 [scripts/README.md](scripts/README.md)。另有 `.github/workflows/cli-compat.yml` 在相关 PR、每周定时和手动触发时安装官方当前版本，真实运行 Claude Code、Codex、OpenCode、OpenClaw 的无鉴权 smoke。
+The list above is representative; **the authoritative mandatory list is `.github/workflows/cross-platform.yml`**, and each script's purpose and trigger timing are documented in [scripts/README.md](scripts/README.md). There is also `.github/workflows/cli-compat.yml` which installs the current official versions on relevant PRs, weekly schedules, and manual triggers, and really runs the unauthenticated smokes of Claude Code, Codex, OpenCode, and OpenClaw.
 
-另有 windows / macos job 验证 cdp-utils 加载与 setup 脚本 dry-run。
+There are also windows / macos jobs that verify cdp-utils loading and the setup script dry-run.
 
-提交前建议按 Linux CI 的强制清单本地跑一遍：
+Before committing, run the Linux-CI mandatory list locally:
 
 ```bash
 bash scripts/static-check.sh
@@ -110,18 +110,18 @@ bash scripts/test-hook-encoding-portable.sh
 bash scripts/test-charcount-portable.sh
 bash scripts/test-charcount-portable.sh --stub
 
-# 可选真实 CLI smoke（需分别安装对应 CLI）
+# Optional real-CLI smokes (each CLI must be installed)
 CLAUDE_REAL_CHECK=1 bash scripts/check-claude-adapter.sh
 bash scripts/test-codex-cli-e2e.sh
 bash scripts/test-opencode-cli-e2e.sh
 OPENCLAW_REAL_CHECK=1 bash scripts/check-openclaw-skills.sh
 ```
 
-## 工作流编号规范
+## Workflow Numbering Conventions
 
-新增或调整流程步骤时，显式标题使用 `Step 1`、`Step 2` 这类连续整数；不要为了插入步骤创建 `Step 1.5` / `Phase 2.1` / `Stage 0.5`，也不要在 `SKILL.md` 用 `### 2.1` 或 `- 2.1` 代替明确的工作流标题。`references/` 手册自身的 `3.1` 章节/列表号不受此规则影响。
+When adding or adjusting workflow steps, use explicit titles like `Step 1`, `Step 2` with consecutive integers; do not create `Step 1.5` / `Phase 2.1` / `Stage 0.5` to insert steps, and do not use `### 2.1` or `- 2.1` in `SKILL.md` in place of explicit workflow titles. `3.1`-style section/list numbers inside `references/` manuals are not affected by this rule.
 
-修改编号前先预览，再写入并复查：
+Preview before renumbering, then write and re-check:
 
 ```bash
 python3 scripts/skill-numbering.py audit
@@ -130,147 +130,147 @@ python3 scripts/skill-numbering.py fix --write
 python3 scripts/skill-numbering.py check
 ```
 
-自动修复只重排显式 Step 标题及可无歧义绑定的引用。无法绑定的 fractional Step 引用或一对多映射会让整个写入在落盘前失败；Phase、裸编号标题和 bullet 子步骤需要按语义手工命名。完整算法与局部路径用法见 [scripts/README.md](scripts/README.md#工作流编号维护)。
+Auto-fix only renumbers explicit Step titles and references that can be bound unambiguously. Unbindable fractional Step references or one-to-many mappings fail the whole write before landing; Phase, bare-numbered titles, and bullet sub-steps must be named manually by semantics. Full algorithm and partial-path usage are in [scripts/README.md](scripts/README.md#workflow-numbering-maintenance).
 
-涉及 agent/skill/plugin/hook 协议的断言必须先核对对应项目官方文档，再以真实 CLI 输出复核；不要从其他 agent 的相似字段推断。
+Assertions involving agent/skill/plugin/hook protocols must first be checked against the respective official project documentation, then re-verified against real CLI output; do not infer from similar fields of other agents.
 
-## 共享文件规范
+## Shared-File Conventions
 
-部分文件跨 skill 共享（如 banned-words.md、anti-ai-writing.md），修改时必须同步所有副本。
+Some files are shared across skills (e.g. banned-words.md, anti-ai-writing.md); every copy must be synced when they change.
 
-- runtime 脚本的唯一源/目标定义在 `scripts/shared-assets.json`；先改 `source`，再运行 `python3 scripts/sync-shared-assets.py sync`。
-- 同名 runtime 脚本只能属于一个 canonical group，且每个 target 必须保留 source basename；禁止用改名 target 绕过单一 owner。
-- reference 文档仍由 `check-shared-files.sh` 按内容组校验。
-- 提交前统一运行 `bash scripts/check-shared-files.sh`；未在 manifest 登记的重名 runtime 脚本会直接失败。
+- The single source/targets of runtime scripts are defined in `scripts/shared-assets.json`; edit the `source` first, then run `python3 scripts/sync-shared-assets.py sync`.
+- A same-name runtime script may belong to only one canonical group, and every target must keep the source basename; renaming targets to bypass the single owner is forbidden.
+- Reference documents are still validated per content group by `check-shared-files.sh`.
+- Before committing, always run `bash scripts/check-shared-files.sh`; same-name runtime scripts not registered in the manifest fail outright.
 
-### 知识库贡献
+### Knowledge-Base Contributions
 
-最有价值的贡献类型：
+The most valuable contribution types:
 
-- **实战数据**：各平台最新榜单分析、题材趋势变化
-- **新题材框架**：新的题材写作公式、结构模板
-- **去AI味规则**：新的 AI 痕迹模式、改写范例
-- **平台规则更新**：投稿要求、推荐机制的变化
+- **Real-world data**: latest ranking analyses and genre-trend changes on the English platforms
+- **New genre frameworks**: new genre writing formulas and structure templates
+- **De-AI rules**: new AI-trace patterns and rewrite examples
+- **Platform rule updates**: submission requirements and recommendation-mechanism changes
 
-## 质量要求
+## Quality Requirements
 
-- **操作性**：内容必须能让 AI agent 直接执行，不要写教程
-- **简洁**：用表格和模板，不要长篇叙述
-- **无冗余**：不同 skill 的 `references/` 之间可以共享文件（通过路径引用），但同一 skill 内不要重复
-- **中文**：所有内容用中文
+- **Operability**: content must be directly executable by an AI agent — no tutorials
+- **Concision**: use tables and templates, not long prose
+- **No redundancy**: files may be shared between different skills' `references/` (via path references), but do not duplicate within one skill
+- **English**: all content is in English
 
-## 提交流程
+## Commit Flow
 
 ```
 fork → branch → commit → PR → review → merge
 ```
 
-- 一个 PR 聚焦一个改动
-- commit message 用中文，格式：`类型: 简短描述`
-- 类型：`feat`（新增）/ `fix`（修复）/ `docs`（文档）/ `refactor`（重构）
+- One PR focuses on one change
+- Commit messages are in English, format: `type: short description`
+- Types: `feat` (new) / `fix` (fix) / `docs` (documentation) / `refactor` (refactor)
 
-## OpenCode 模板同步
+## OpenCode Template Sync
 
-本项目同时支持 Claude Code、OpenCode、Codex、ZCode、OpenClaw 和 Reasonix（Phase 1）。OpenCode 的 agent 模板和项目指令模板由 `scripts/sync-opencode.py` 从 Claude Code 模板自动生成。
+This project supports Claude Code, OpenCode, Codex, ZCode, OpenClaw, and Reasonix (Phase 1). OpenCode agent templates and project-instruction templates are generated automatically from the Claude Code templates by `scripts/sync-opencode.py`.
 
-### 何时需要同步
+### When to Sync
 
-当你修改了以下文件后，需要运行同步脚本：
+Run the sync script after modifying:
 
-- `skills/story-setup/references/templates/agents/*.md`（agent 定义）
-- `skills/story-setup/references/templates/CLAUDE.md.tmpl`（项目指令模板）
+- `skills/story-setup/references/templates/agents/*.md` (agent definitions)
+- `skills/story-setup/references/templates/CLAUDE.md.tmpl` (project-instruction template)
 
-### 同步步骤
+### Sync Steps
 
 ```bash
 python3 scripts/sync-opencode.py
-python3 scripts/sync-opencode.py --check  # 可选：只校验，不改文件
+python3 scripts/sync-opencode.py --check  # optional: validate only, no writes
 bash scripts/check-opencode-adapter.sh
-bash scripts/test-opencode-cli-e2e.sh  # 可选：需要本机已安装 opencode
+bash scripts/test-opencode-cli-e2e.sh  # optional: requires opencode installed locally
 ```
 
-脚本会：
-1. 将 `templates/agents/` 下的 Claude Code agent 转换为 opencode 格式，写入 `opencode/agents/`
-2. 将 `CLAUDE.md.tmpl` 复制到 `opencode/AGENTS.md.tmpl`，替换 `.claude/` 路径引用
-3. 输出同步结果摘要
-4. 可选真实 CLI smoke 会在临时项目里验证 13 个 slash commands、7 个 agents 与 `story-hooks.ts` 插件能被 OpenCode 解析加载
+The script:
+1. Converts the Claude Code agents under `templates/agents/` to opencode format, writing to `opencode/agents/`
+2. Copies `CLAUDE.md.tmpl` to `opencode/AGENTS.md.tmpl`, rewriting `.claude/` path references
+3. Prints a sync summary
+4. Optionally runs a real-CLI smoke that verifies the 13 slash commands, 7 agents, and the `story-hooks.ts` plugin parse and load in a temp project
 
-### CI 检测
+### CI Detection
 
-PR 中如果修改了 Claude Code 模板文件，CI 会自动检测 opencode 模板是否同步，并额外检查 `opencode.json.patch`、13 个 command、7 个 agent 的结构以及 `plugin.ts` 的实际守卫/收尾行为。如果 CI 报错，请在本地运行同步脚本和 `bash scripts/check-opencode-adapter.sh`，再提交结果。
+When a PR modifies the Claude Code template files, CI automatically detects whether the opencode templates are synced, and additionally checks the `opencode.json.patch`, the 13 commands, the 7 agents' structure, and the plugin's actual guard/backstop behavior. If CI reports an error, run the sync script and `bash scripts/check-opencode-adapter.sh` locally, then commit the results.
 
-### 手动维护的部分
+### Manually Maintained Parts
 
-以下文件无法自动生成，需要手动维护：
+These files cannot be auto-generated and must be maintained by hand:
 
-- `skills/story-setup/references/opencode/plugin.ts` — hooks 逻辑
+- `skills/story-setup/references/opencode/plugin.ts` — hooks logic
 - `skills/story-setup/references/opencode/commands/` — slash commands
-- `skills/story-setup/references/opencode/opencode.json.patch` — 配置片段
+- `skills/story-setup/references/opencode/opencode.json.patch` — config fragments
 
-### sync-opencode.py 已知局限
+### Known sync-opencode.py Limitations
 
-运行同步脚本后需进行以下手动检查：
+Manual checks after running the sync script:
 
-- **路径解析段**：已由 `fix_path_rules_section()` 自动处理，无需手动修复
-- **agent 数量**：确认 `opencode/agents/` 下始终为 7 个文件
+- **Path-resolution section**: handled automatically by `fix_path_rules_section()` — no manual fix needed
+- **Agent count**: confirm `opencode/agents/` always has exactly 7 files
 
-### OpenCode 关键兼容性问题
+### OpenCode Key Compatibility Issues
 
-**Glob 不搜索隐藏目录**：opencode 的 Glob 工具不搜索 `.opencode/` 目录，这导致了以下设计决策：
+**Glob does not search hidden directories**: opencode's Glob tool does not search `.opencode/` directories, which led to these design decisions:
 
-- **agent-references** 部署到 `skills/story-setup/references/agent-references/`（非隐藏），而非 `.opencode/skills/`
-- **agent 文件** 双份部署：`.opencode/agents/`（opencode 系统使用）+ `agents/`（Glob 可见副本）
-- **subagent 检测**：所有 spawn agent 的 skill（story-review、story-long-write、story-deslop、story-import、story-long-analyze、story-short-write）需按 `.claude/agents/` → `.opencode/agents/` → `.codex/agents/` 顺序检查；ZCode 3.3.4 与 OpenClaw Phase 1 不部署项目 agents，走 solo/direct fallback。
+- **agent-references** deploys to `skills/story-setup/references/agent-references/` (non-hidden), not `.opencode/skills/`
+- **agent files** are deployed twice: `.opencode/agents/` (used by the opencode system) + `agents/` (Glob-visible copy)
+- **subagent detection**: every skill that spawns agents (story-review, story-long-write, story-deslop, story-import, story-long-analyze, story-short-write) checks in this order: `.claude/agents/` → `.opencode/agents/` → `.codex/agents/`; ZCode 3.3.4 and OpenClaw Phase 1 do not deploy project agents and use solo/direct fallback.
 
-**插件输出不可见**：opencode 插件的 `output.extra.system` 已移除（真实 API 中不存在此字段）。系统提示注入改用 `experimental.session.compacting` 的 `output.context` 传递写作上下文。
+**Plugin output not visible**: the `output.extra.system` field of opencode plugins has been removed (it does not exist in the real API). System-prompt injection instead passes the writing context via `experimental.session.compacting`'s `output.context`.
 
-**session-start 系统提示注入不支持**：OpenCode 公开 Plugin API 中无 `chat.message` 或等效 hook，部署状态检测和写作进度无法在会话开始时注入模型上下文。用户可手动运行 `/story-setup` 查看状态。
+**session-start system-prompt injection unsupported**: the public OpenCode Plugin API has no `chat.message` or equivalent hook, so deployment-state detection and writing progress cannot be injected into the model context at session start. Users can manually run `/story-setup` to see the status.
 
-**其它 hook 差异**：`detect-gaps`（缺口检测）插件未移植，会话开始不注入提示（仅保留 compact 摘要与写正文前的大纲守卫）；`session-end` opencode 无等价事件、暂不支持；`validate-commit` 改用 git 原生 `pre-commit` hook（适用于所有 CLI）。
+**Other hook differences**: the `detect-gaps` plugin was not ported and no session-start prompt is injected (only the compact summary and the pre-prose outline guard remain); `session-end` has no equivalent event in opencode and is unsupported; `validate-commit` uses git's native `pre-commit` hook instead (applies to every CLI).
 
-### OpenCode 使用注意事项
+### OpenCode Usage Notes
 
-- **首次部署后需要重启 opencode**：story-setup 部署的 `.opencode/commands/` 下的 slash command 在 opencode 重启后才会生效。退出 opencode 后执行 `opencode -c` 重新进入即可。
-- **首次部署使用自然语言触发**：新项目中没有 slash command，需要用自然语言触发 story-setup（如「请使用 story-setup skill，帮我部署网文写作环境」）。
-- **opencode 配置不热加载**：修改 `opencode.json`、agent 文件或 plugin 后均需重启 opencode。
-- **browser-cdp 长耗时操作可能卡死**：opencode 无后台任务机制，长耗时浏览器操作需用户按 `ESC` 打断（SKILL.md 已内置超时包装指引）。
+- **Restart opencode after first deployment**: slash commands under `.opencode/commands/` deployed by story-setup only take effect after opencode restarts. Exit opencode and re-enter with `opencode -c`.
+- **First deployment uses natural language**: a new project has no slash commands; trigger story-setup with natural language (e.g. "use the story-setup skill to deploy the fiction writing environment").
+- **opencode config does not hot-reload**: opencode must be restarted after modifying `opencode.json`, agent files, or the plugin.
+- **Long-running browser-cdp operations can hang**: opencode has no background-task mechanism; long browser operations require the user to interrupt with `ESC` (the SKILL.md includes a built-in timeout wrapper).
 
-## OpenClaw 适配维护
+## OpenClaw Adapter Maintenance
 
-OpenClaw 当前采用 **Phase 1 skills-only** 适配：
+OpenClaw currently uses a **Phase 1 skills-only** adapter:
 
-- canonical source 仍是仓库根 `skills/`；不要为 OpenClaw 维护第二份 skill。
-- 所有 `SKILL.md` frontmatter 必须符合 OpenClaw/AgentSkills 约束：单行 `name`、单行 `description`、单行 JSON `metadata`，且 `metadata.openclaw` 存在。
-- `metadata.openclaw.requires.bins/env/config/anyBins` 用于 OpenClaw load-time gating；例如 `story-cover` 通过 `GPT_IMAGE_API_KEY` 控制可见性。
-- `story-setup target_cli=openclaw` 只部署项目 `skills/` 与 `references/openclaw/AGENTS.md.tmpl`，不部署 OpenClaw agents/hooks/plugin。
-- OpenClaw 会在 session 启动时 snapshot eligible skills；变更后需要新 session 或等待 skills watcher 刷新。
+- The canonical source remains the repo-root `skills/`; do not maintain a second copy of any skill for OpenClaw.
+- All `SKILL.md` frontmatter must satisfy OpenClaw/AgentSkills constraints: single-line `name`, single-line `description`, single-line JSON `metadata`, with `metadata.openclaw` present.
+- `metadata.openclaw.requires.bins/env/config/anyBins` gates OpenClaw load-time visibility; for example `story-cover` controls visibility via `GPT_IMAGE_API_KEY`.
+- `story-setup target_cli=openclaw` deploys only the project `skills/` and `references/openclaw/AGENTS.md.tmpl`; no OpenClaw agents/hooks/plugin are deployed.
+- OpenClaw snapshots eligible skills at session start; after changes, start a new session or wait for the skills watcher to refresh.
 
-### OpenClaw 检查步骤
+### OpenClaw Check Steps
 
 ```bash
 bash scripts/check-openclaw-skills.sh
-OPENCLAW_REAL_CHECK=1 bash scripts/check-openclaw-skills.sh  # 本机安装 openclaw 时可选
+OPENCLAW_REAL_CHECK=1 bash scripts/check-openclaw-skills.sh  # optional when openclaw is installed locally
 ```
 
-`OPENCLAW_REAL_CHECK=1` 会用临时 profile + 临时 workspace 创建隔离 agent，确认 OpenClaw CLI 能从 workspace `skills/` 发现 13 个 story skill；脚本结束后清理临时 profile。
+`OPENCLAW_REAL_CHECK=1` creates an isolated agent with a temp profile + temp workspace, confirms the OpenClaw CLI discovers the 13 story skills from the workspace `skills/`, and cleans up the temp profile afterwards.
 
-### OpenClaw 已知边界
+### OpenClaw Known Boundaries
 
-- **agents 暂缓**：OpenClaw 的 agent/session 模型与 Claude/Codex 项目内 agent 文件不同，暂不生成 OpenClaw Gateway agents。涉及 agent 协作的 skill 必须降级 solo/direct。
-- **hooks 暂缓**：写正文前大纲守卫、commit 提醒、session-start/compact 注入未迁移为 OpenClaw hook/plugin；OpenClaw 下只作为 skill 流程软约束。
-- **package 暂缓**：OpenClaw 可识别 workspace/personal/managed skill roots；现阶段不发布 OpenClaw 原生 plugin package。
+- **Agents deferred**: OpenClaw's agent/session model differs from Claude/Codex project agents, so OpenClaw Gateway agents are not generated. Skills needing agent collaboration must fall back to solo/direct.
+- **Hooks deferred**: the pre-prose outline guard, commit reminders, and session-start/compact injection are not ported to OpenClaw hooks/plugins; under OpenClaw they exist only as soft skill-flow constraints.
+- **Package deferred**: OpenClaw can recognize workspace/personal/managed skill roots; no native OpenClaw plugin package is published at this stage.
 
-## ZCode 适配维护
+## ZCode Adapter Maintenance
 
-ZCode 采用「原生 plugin + `story-setup` workspace 部署」双入口：
+ZCode uses a dual entry: "native plugin + `story-setup` workspace deployment":
 
-- `.zcode-plugin/plugin.json` 与根 `marketplace.json` 暴露同一组 13 Skills、13 Commands 和 ZCode Hooks；版本必须与 `skills/story/VERSION` 同步。
-- `skills/story-setup/references/zcode/` 是 workspace 部署模板，包含 `AGENTS.md.tmpl`、Commands、`config.json.patch` 与无第三方依赖的 Node Hook runner。
-- ZCode 3.3.4 只支持 `SessionStart`、`UserPromptSubmit`、`PreToolUse`、`PermissionRequest`、`PostToolUse`、`PostToolUseFailure`、`Stop`。不要复制 Claude 的 `PreCompact`、`PostCompact`、`SessionEnd`、`SubagentStop` 或 `Notification`。
-- Hook stdout 为空表示放行；只要非空就必须满足严格 JSON schema。诊断只写 stderr，异常 fail-open；优先使用 `process` + `node`，不要引入 shell/Python launcher 的跨平台分支。
-- 3.3.4 不执行项目级或 plugin custom agents，也不发现 `.zcode/rules`。不要生成 `.zcode/agents/` / `.zcode/rules/` 或默认写入用户 home；涉及专业 Agent 的 Skill 必须明确报告 solo/direct fallback。
+- `.zcode-plugin/plugin.json` and the root `marketplace.json` expose the same set of 13 Skills, 13 Commands, and ZCode Hooks; versions must stay in sync with `skills/story/VERSION`.
+- `skills/story-setup/references/zcode/` is the workspace deployment template, containing `AGENTS.md.tmpl`, Commands, `config.json.patch`, and a dependency-free Node hook runner.
+- ZCode 3.3.4 supports only `SessionStart`, `UserPromptSubmit`, `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PostToolUseFailure`, and `Stop`. Do not copy Claude's `PreCompact`, `PostCompact`, `SessionEnd`, `SubagentStop`, or `Notification`.
+- Empty hook stdout means pass; any non-empty output must satisfy the strict JSON schema. Diagnostics go to stderr only, exceptions fail open; prefer `process` + `node`, do not introduce cross-platform branches of shell/Python launchers.
+- 3.3.4 does not execute project-level or plugin custom agents and does not discover `.zcode/rules`. Do not generate `.zcode/agents/` / `.zcode/rules/` or write to the user home by default; skills needing specialist agents must explicitly report solo/direct fallback.
 
-### ZCode 检查步骤
+### ZCode Check Steps
 
 ```bash
 bash scripts/check-zcode-adapter.sh
@@ -278,33 +278,33 @@ bash scripts/test-zcode-hooks.sh
 bash scripts/test-prose-net-parity.sh
 ```
 
-更新正文轻量确定性网时，必须同步 Claude、OpenCode、Codex、ZCode 四端，并让 parity 测试通过。
+When updating the lightweight deterministic prose net, you must sync all four ends (Claude, OpenCode, Codex, ZCode) and make the parity tests pass.
 
-## Reasonix 适配维护
+## Reasonix Adapter Maintenance
 
-Reasonix（DeepSeek-Reasonix CLI）当前支持 skills + 原生 plugin manifest + skills-only 的项目级 `story-setup` 部署；hooks 与 custom agents 留待后续阶段（涉及专业 Agent 的 Skill 走 solo/direct fallback）：
+Reasonix (DeepSeek-Reasonix CLI) currently supports skills + native plugin manifest + skills-only project-level `story-setup` deployment; hooks and custom agents are left for a later phase (skills needing specialist agents use solo/direct fallback):
 
-- 根 `reasonix-plugin.json` 是 plugin manifest；`version` 必须与 `skills/story/VERSION` 同步（`check-reasonix-adapter.sh` 守卫）。
-- Reasonix 原生扫描项目 skill root（`.agents/skills` 等，指向 `skills/` 的 symlink，与 Codex 共用）发现 13 个 skill。
-- `story-setup` 的 `target_cli=reasonix` 走 skills-only 部署：复制 13 个 skill 到项目 `skills/`、写入 `references/reasonix/AGENTS.md.tmpl`，不部署 hooks/agents（与 OpenClaw / generic 同构，由 `check-story-setup-deployment.sh` 守卫）。改动 Reasonix 部署路径或模板时同步该守卫。
-- 真实 CLI 校验 `reasonix doctor capabilities` 不在 CI 内，发版前可手动跑。
+- The root `reasonix-plugin.json` is the plugin manifest; `version` must stay in sync with `skills/story/VERSION` (guarded by `check-reasonix-adapter.sh`).
+- Reasonix natively scans project skill roots (`.agents/skills` etc., a symlink to `skills/` shared with Codex) and discovers the 13 skills.
+- `story-setup`'s `target_cli=reasonix` is a skills-only deployment: it copies the 13 skills into the project `skills/` and writes `references/reasonix/AGENTS.md.tmpl`, without hooks/agents (isomorphic with OpenClaw/generic, guarded by `check-story-setup-deployment.sh`). When changing Reasonix deployment paths or templates, sync that guard.
+- The real-CLI check `reasonix doctor capabilities` is not in CI; run it manually before releases.
 
-### Reasonix 检查步骤
+### Reasonix Check Steps
 
 ```bash
 bash scripts/check-reasonix-adapter.sh
 ```
 
-## Codex 适配维护
+## Codex Adapter Maintenance
 
-本项目同时支持 Codex CLI（repo skills 发现 + `$story-setup` 项目部署）：
+This project also supports the Codex CLI (repo skills discovery + `$story-setup` project deployment):
 
-- repo-local skills：`.agents/skills` 是指向 `skills/` 的相对 symlink（`../skills`，agentskills.io 标准路径），Codex 扫描它发现 skill，别复制第二份。必须是有效相对 symlink（`check-codex-adapter.sh` 守卫 target=`../skills`；无效/绝对会让发现失效，见 openai/codex#11314）；Windows 需 git `core.symlinks=true`。OpenClaw 原生扫 workspace `skills/`，不依赖它。
-- project deployment hooks：`skills/story-setup/references/codex/hooks/hooks.json` 面向 `$story-setup` 部署到写作项目。POSIX `command` 与 Windows `commandWindows` 都从当前目录向上寻找 `.codex/hooks/run-story-hook.*`，不依赖 Git 仓库；找到后由共享 launcher 统一完成事件白名单、解释器探测、`CODEX_PROJECT_DIR` 注入与 Python hook 调度。
-- Windows hooks：Codex 在 Windows 下用 `%COMSPEC% /C`（cmd.exe）启动 `commandWindows`。当前注册命令用 PowerShell 做逐级向上定位，再调用 `run-story-hook.cmd`；因此嵌套工作目录与 POSIX 行为一致，而不是只支持项目根目录。改事件清单或 launcher 后必须重跑生成器和适配检查，禁止在六个注册项里手工复制探测逻辑。
-- custom agents：`skills/story-setup/references/codex/agents/*.toml` 由 `scripts/generate-codex-agents.py` 从 `references/templates/agents/*.md` 生成。修改 Claude agent 模板后必须重新生成并提交。
+- repo-local skills: `.agents/skills` is a relative symlink to `skills/` (`../skills`, the agentskills.io standard path); Codex scans it to discover skills — don't copy a second copy. It must be a valid relative symlink (guarded by `check-codex-adapter.sh` with target=`../skills`; invalid/absolute breaks discovery, see openai/codex#11314); Windows needs git `core.symlinks=true`. OpenClaw natively scans the workspace `skills/` and does not depend on it.
+- project deployment hooks: `skills/story-setup/references/codex/hooks/hooks.json` is aimed at `$story-setup` deployment into writing projects. Both the POSIX `command` and Windows `commandWindows` search upward from the current directory for `.codex/hooks/run-story-hook.*` without depending on a git repo; the shared launcher then handles event allowlisting, interpreter detection, `CODEX_PROJECT_DIR` injection, and Python hook dispatch.
+- Windows hooks: Codex launches `commandWindows` with `%COMSPEC% /C` (cmd.exe) on Windows. The registered command uses PowerShell for the upward search, then calls `run-story-hook.cmd`; nested working directories therefore behave like POSIX instead of only supporting the project root. After changing the event manifest or launcher, re-run the generator and the adapter checks; never hand-copy the probe logic into the six registrations.
+- custom agents: `skills/story-setup/references/codex/agents/*.toml` are generated from `references/templates/agents/*.md` by `scripts/generate-codex-agents.py`. After modifying a Claude agent template you must regenerate and commit.
 
-### Codex 同步步骤
+### Codex Sync Steps
 
 ```bash
 python3 scripts/generate-codex-agents.py
@@ -313,10 +313,10 @@ bash scripts/check-codex-adapter.sh
 bash scripts/test-codex-hooks.sh
 ```
 
-### Codex 关键兼容性问题
+### Codex Key Compatibility Issues
 
-- **hooks 信任门槛**：Codex project `.codex/` 配置层需要被 trust，非 managed command hooks 还需要用户在 `/hooks` review/trust 后才会运行。
-- **hook JSON 契约**：`PreToolUse`、`PreCompact`、`PostCompact` 的普通 stdout 会被忽略；需要输出 JSON，如 `hookSpecificOutput.permissionDecision = "deny"` 或 `hookSpecificOutput.additionalContext`。
-- **PreToolUse 不完整拦截**：Codex 官方说明当前 shell/edit 拦截不是完备安全边界；story hooks 只作为写作流程 guardrail，不能替代版本控制和人工审查。
-- **agent 文件格式**：Codex custom agents 是 `.codex/agents/{name}.toml`，必需 `name`、`description`、`developer_instructions`；只读 agent 使用 `sandbox_mode = "read-only"`。
-- **custom-agent 运行时注册**：`$story-setup` 写入 `.codex/agents/*.toml` 后，需要 trust 项目 `.codex/` 配置层并新开 Codex 会话。若当前 Codex 运行时仍返回 `unknown agent_type`（本地 `codex exec 0.141.0` 临时项目烟测可复现），skill 必须降级 solo/direct 并报告 fallback；自动化硬门槛是 TOML schema 与文件部署检查。
+- **hooks trust gate**: the Codex project `.codex/` config layer must be trusted; non-managed command hooks additionally require the user to review/trust them in `/hooks` before they run.
+- **hook JSON contract**: plain stdout is ignored for `PreToolUse`, `PreCompact`, `PostCompact`; they must output JSON, e.g. `hookSpecificOutput.permissionDecision = "deny"` or `hookSpecificOutput.additionalContext`.
+- **PreToolUse is not a complete interception**: Codex's official docs state that shell/edit interception is not a complete security boundary; story hooks are only writing-flow guardrails, not a replacement for version control and human review.
+- **agent file format**: Codex custom agents are `.codex/agents/{name}.toml`, requiring `name`, `description`, and `developer_instructions`; read-only agents use `sandbox_mode = "read-only"`.
+- **custom-agent runtime registration**: after `$story-setup` writes `.codex/agents/*.toml`, trust the project `.codex/` config layer and start a new Codex session. If the current Codex runtime still returns `unknown agent_type` (reproducible with a local `codex exec 0.141.0` temp-project smoke), the skill must fall back to solo/direct and report the fallback; the automated hard gate is the TOML schema and file-deployment checks.

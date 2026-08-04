@@ -1,7 +1,8 @@
 #!/bin/bash
-# test-skill-numbering.sh — skill 工作流编号维护器的隔离回归。
+# test-skill-numbering.sh — isolated regression for the skill workflow numbering tool.
 #
-# 所有 fixture 都在临时目录创建，不读取或改写仓库 skills/，因此可与内容迁移并行运行。
+# All fixtures are created in a temporary directory and never read or modify the
+# repository skills/, so the suite can run in parallel with content migration.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"

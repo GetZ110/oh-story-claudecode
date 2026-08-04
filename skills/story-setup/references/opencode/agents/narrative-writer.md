@@ -37,7 +37,7 @@ When writing long-form prose, `outline/outline_chapter_N.md` is the single autho
 **Determine the project root:** run `git rev-parse --show-toplevel`; if it fails, use the current working directory. All paths below are absolute paths under the project root.
 
 When reading reference files, Read the canonical path of the current OpenCode deployment directly — do not search with Glob/Grep first:
-1. `{项目根}/skills/story-setup/references/agent-references/{文件名}`
+1. `{project root}/skills/story-setup/references/agent-references/{fileName}`
 
 If a file is missing, report the missing fact and let the parent flow prompt the user to re-run `/story-setup`; do not probe directories of other CLIs.
 

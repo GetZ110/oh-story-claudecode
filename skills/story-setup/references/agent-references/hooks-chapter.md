@@ -1,225 +1,225 @@
-# 章级钩子：章首/章尾钩子选择与写作
+# Chapter-Level Hooks: Chapter-Open / Chapter-End Hook Selection & Writing
 
-> 写每章开头或结尾时加载。先看决策路由，选对钩子类型，再套模板。
+> Load when writing each chapter's opening or ending. First look at the decision routing, pick the right hook type, then apply the templates.
 
 ---
 
-## 决策路由
+## Decision routing
 
-### 章尾钩子：根据本章情绪选类型
+### Chapter-end hooks: pick by this chapter's emotion
 
-| 本章情绪/阶段 | 推荐钩子 | 为什么 |
+| Chapter emotion/stage | Recommended hook | Why |
 |-------------|---------|-------|
-| 悬念/未知 | 突然揭示 / 神秘物品 / 留白 | 激发好奇 |
-| 紧迫/危机 | 紧急危机 / 倒计时 / 未完成动作 | 制造焦虑 |
-| 反转/真相 | 身份反转 / 隐藏含义 / 回声 | 颠覆认知 |
-| 情感/关系 | 两难抉择 / 承诺威胁 / 情感转折 | 拉扯情绪 |
-| 系统文特有 | 系统激活 / 选择型 | 期待金手指 |
-| 氛围/日常 | 意象钩子 / 离奇消失 / 信息差 | 暗流涌动 |
+| Suspense/unknown | sudden reveal / mysterious object / blank space | ignite curiosity |
+| Urgency/crisis | urgent crisis / countdown / unfinished action | create anxiety |
+| Reversal/truth | identity reversal / hidden meaning / echo | overturn cognition |
+| Emotion/relationship | dilemma / promise-threat / emotional turn | pull the heartstrings |
+| System-genre specific | system activation / choice-type | anticipate the cheat |
+| Atmosphere/daily | image hook / impossible disappearance / info gap | undercurrents |
 
-### 章首钩子：根据开篇策略选类型
+### Chapter-opening hooks: pick by opening strategy
 
-| 开篇策略 | 推荐钩子 | 为什么 |
+| Opening strategy | Recommended hook | Why |
 |---------|---------|-------|
-| 直接冲击 | 未完成动作开局 / 倒计时开局 | 即时紧迫感 |
-| 制造好奇 | 悬念对话 / 闪前碎片 / 神秘独白 | 信息差驱动 |
-| 对比冲击 | 反差场景 / 意象预示 | 反差吸引 |
+| Direct impact | unfinished-action opening / countdown opening | instant urgency |
+| Curiosity | suspenseful dialogue / flash-forward fragment / cryptic monologue | information-gap driven |
+| Contrast impact | contrast scene / image portent | contrast attracts |
 
-### 章节阶段与钩子强度
+### Story stage & hook strength
 
-| 故事阶段 | 推荐类型 | 强度 |
+| Story stage | Recommended type | Strength |
 |----------|---------|------|
-| 第 1 章 | 系统激活 / 截断 / 危机升级 | 必须强 |
-| 2-3 章 | 选择 / 信息差 / 情感转折 | 强 |
-| 中期日常 | 对话悬念 / 信息差 / 身份即将揭露 | 中 |
-| 高潮前 | 危机升级 / 悬念预知 | 强 |
-| 大结局 | 时间跳跃 / 情感转折 | 收束 |
+| Chapter 1 | system activation / interruption / crisis escalation | must be strong |
+| Chapters 2-3 | choice / info gap / emotional turn | strong |
+| Mid-run daily | dialogue suspense / info gap / identity about to be revealed | medium |
+| Before climax | crisis escalation / suspense foreknowledge | strong |
+| Finale | time skip / emotional turn | closing |
 
 ---
 
-## 章尾钩子 13 式
+## The 13 chapter-end hook techniques
 
-| # | 名称 | 公式 | 示例 |
+| # | Name | Formula | Example |
 |---|------|------|------|
-| 1 | 突然揭示 | 抛出改变全局的信息 | "信上的日期，是他死后第七天。" |
-| 2 | 紧急危机 | 下章必须回应的紧迫威胁 | "裂缝在扩大，灵石还差三块。" |
-| 3 | 未完成动作 | 动作被新变量打断 | "他刚伸手，手腕忽然被人扣住。'别动。'身后传来一个声音。" |
-| 4 | 身份反转 | 身份真相偏离读者预期 | "她叫林小月。但档案上写的是：林小月，已故。" |
-| 5 | 两难抉择 | 被迫在两个坏选项中选一个 | "签了这份文件，公司保住了，但他得进去。" |
-| 6 | 神秘物品 | 重要但含义未知的物件 | "包裹里是一把钥匙，附了张纸条：'你欠我的。'" |
-| 7 | 倒计时 | 时间不够用 | "医生说还有三个月。那是两个月前的事了。" |
-| 8 | 承诺/威胁 | 有人宣布了行动意图 | "今晚十二点之前，我会告诉所有人你做了什么。" |
-| 9 | 离奇消失 | 不可能的消失 | "手铐还在，人没了。整个房间只有一个门，门没开过。" |
-| 10 | 隐藏含义 | 表面正常，实际暗藏信息 | "他说：'你和妹妹真像。'可她是独生女。" |
-| 11 | 意象钩子 | 反复出现的意象发生变化 | "窗台上那盆枯了一个月的茉莉，突然冒出了花苞。" |
-| 12 | 回声钩子 | 章尾句呼应开头，关键细节变了 | 开头："她说她永远不会原谅他。" / 结尾："她说她永远不会原谅他。但她的手，攥得更紧了。" |
-| 13 | 留白钩子 | 只展示反应，不揭示发生了什么 | "他看了信。脸色变了。什么也没说，把信叠好放进口袋。" |
+| 1 | Sudden reveal | throw out information that changes everything | "The date on the letter was the seventh day after his death." |
+| 2 | Urgent crisis | an urgent threat the next chapter must answer | "The crack was spreading, and three shards were still missing." |
+| 3 | Unfinished action | an action interrupted by a new variable | "He reached out — a hand clamped around his wrist. 'Don't move.' A voice from behind." |
+| 4 | Identity reversal | the identity truth veers from reader expectations | "Her name was Lin Xiaoyue. But the file said: Lin Xiaoyue, deceased." |
+| 5 | Dilemma | forced to choose between two bad options | "Sign the paper and the company survives — but he goes inside." |
+| 6 | Mysterious object | an important object of unknown meaning | "The package held a key, with a note: 'You owe me.'" |
+| 7 | Countdown | time running out | "The doctor said three months. That was two months ago." |
+| 8 | Promise / threat | someone declares an intended action | "By midnight tonight, I will tell everyone what you did." |
+| 9 | Impossible disappearance | a disappearance that cannot happen | "The handcuffs were still there. He was gone. One door in the whole room — it had never opened." |
+| 10 | Hidden meaning | superficially normal, secretly loaded | "He said: 'You really look like your sister.' She was an only child." |
+| 11 | Image hook | a recurring image changes | "The jasmine on the windowsill, dead for a month, suddenly put out a bud." |
+| 12 | Echo hook | the chapter-end line echoes the opening, with a key detail changed | Opening: "She said she would never forgive him." / Ending: "She said she would never forgive him. But her hand tightened around the strap." |
+| 13 | Blank-space hook | show only the reaction, not what happened | "He read the letter. His face changed. He said nothing, folded the letter, and put it in his pocket." |
 
 ---
 
-## 章首钩子 7 式
+## The 7 chapter-opening hook techniques
 
-| # | 名称 | 公式 | 示例 |
+| # | Name | Formula | Example |
 |---|------|------|------|
-| 1 | 悬念对话开局 | 直接从意味深长的对话开始 | "你确定要这么做？/ 确定。/ 那你就别后悔。" |
-| 2 | 闪前碎片 | 先给结果碎片，再回正常叙事 | "后来他才知道，那个电话改变了所有事。但此刻他还一无所知。" |
-| 3 | 倒计时开局 | 开头就建立紧迫感 | "距离合同到期还有 72 小时。" |
-| 4 | 神秘独白 | 第一人称诡异内心独白 | "我一直在想，那天如果我没有回头，一切会不会不一样。" |
-| 5 | 反差场景 | 两个截然不同的场景并列 | "一边是婚礼现场，香槟塔堆得老高。另一边，医院走廊的灯在闪。" |
-| 6 | 未完成动作开局 | 动作进行中被截断 | "他刚把钥匙插进锁孔，门里传来一声轻响。" |
-| 7 | 意象预示 | 用环境意象暗示即将发生的事 | "天边烧得通红，像是什么东西在着。她抬头看了一眼，继续走。" |
+| 1 | Suspenseful dialogue opening | start directly from loaded dialogue | "Are you sure about this? / Yes. / Then don't come crying later." |
+| 2 | Flash-forward fragment | give a fragment of the result, then return to normal narration | "He would only learn later that this call changed everything. Right now, he knew nothing." |
+| 3 | Countdown opening | establish urgency in the first line | "Seventy-two hours until the contract expires." |
+| 4 | Cryptic monologue | uncanny first-person interior monologue | "I keep thinking — if I hadn't turned around that day, would any of it have happened?" |
+| 5 | Contrast scene | two utterly different scenes side by side | "One side was a wedding, champagne towers stacked high. The other side, the hospital corridor lights flickered." |
+| 6 | Unfinished-action opening | an action cut off mid-way | "The key had just gone into the lock when a soft click sounded from inside the door." |
+| 7 | Image portent | an environmental image foreshadows what comes | "The sky burned red at the edge, as if something were on fire. She glanced up and kept walking." |
 
 ---
 
-## 章尾实战模板
+## Chapter-end working templates
 
-### 一、系统激活型
+### 1. System-activation type
 ```
-就在{主角}{最低谷状态}之际。
-{一个感官描写}。
-叮！
-【{系统名}，正式启动。】
+Just as {protagonist} was at {lowest point}.
+{one sensory detail}.
+Ding!
+[System {name}, activated.]
 ```
-> 就在他万念俱灰之际。一个冰冷的机械音，突然在他脑海中响起。叮！【年少轻狂系统，正式启动。】
+> Just as he was at rock bottom, a cold mechanical voice rang in his mind. Ding! [The Wild Youth System is now active.]
 
-### 二、悬念预知型
+### 2. Suspense foreknowledge type
 ```
-{主角}{冷静/冷漠地}看着{对方的嚣张行为}。
-{一个短句：继续吧/慢慢来/不着急}。
-{预告即将发生的反转，不透露细节}。
+{protagonist} watches {the other side's arrogance} {calmly/coldly}.
+{one short line: go on / take your time / no rush}.
+{tease the coming reversal without details}.
 ```
-> 我冷眼看着笑得前仰后合的人。笑吧。多笑会儿。过了今天，你们就再也笑不出来了。
+> I watched them laugh until they doubled over. Laugh. Laugh while you can. After today, none of you will be laughing.
 
-### 三、截断型
+### 3. Interruption type
 ```
-{一个小动作}。
-{剧烈反应}。
-{震惊/疑问。本章结束，不给答案}。
+{one small action}.
+{violent reaction}.
+{shock/question. Chapter ends, no answer}.
 ```
-> 仅仅一口！她的瞳孔猛地收缩成针尖状。轰！一股恐怖到难以形容的热流，瞬间在她的腹中炸开！这粥有问题！里面到底放了什么？
+> One sip — and her pupils snapped to pinpoints. A blast of heat that defied description detonated in her stomach. This porridge was wrong! What was in it?
 
-### 四、选择型
+### 4. Choice type
 ```
-【选择一：{诱人选项}】奖励：{极其诱人} 代价：{隐含风险}
-【选择二：{另一选项}】奖励：{另一种诱人} 代价：{另一种风险}
+[Choice one: {tempting option}] Reward: {extremely tempting} Cost: {hidden risk}
+[Choice two: {other option}] Reward: {other temptation} Cost: {other risk}
 ```
-章节结束，不给出选择结果。
+Chapter ends without the choice result.
 
-### 五、危机升级型
+### 5. Crisis-escalation type
 ```
-{突然的声响/动作}！
-{新威胁出现}。
-{主角的恐惧/紧迫反应}。
+{sudden sound/action}!
+{new threat appears}.
+{the protagonist's fear/urgency reaction}.
 ```
-> "都给老子出来！快点！"哐啷！！！一只沾满泥污的军靴，粗暴地踹开了笼门。
+> "Everybody out! Now!" The mud-caked boot kicked the cage door off its hinges.
 
-### 六、身份即将揭露型
+### 6. Identity-about-to-be-revealed type
 ```
-{一个旁观者}突然{提出疑问/发现线索}。
-"{暗示主角真实身份的话}"
-{其他人不以为意，主角暗暗紧张}。
-```
-
-### 七、情感转折型
-```
-就在这时，{角色}的{表情/态度}突然{大变}。
-{一个出人意料的示弱/请求动作}。
-"{戳中主角软肋的话}"
+{a bystander} suddenly {asks a question / finds a clue}.
+"{a line hinting at the protagonist's true identity}"
+{others shrug it off; the protagonist quietly tenses}.
 ```
 
-### 八、信息差型
+### 7. Emotional-turn type
 ```
-{主角的自我怀疑/感慨}。
-{一个意象/比喻}。
-{暗示即将改变，但不明说}。
-```
-> 花有重开日，人无再少年。自己怎么就把日子，过成了这副狗屎样？
-
-### 九、对话悬念型
-```
-"{提出请求的前半句}"
-"{对方回应}"
-"{意想不到的后半句，不是读者预期的}"
-```
-> "我有一个请求。"苏牧缓缓说道。"你说。""离婚之前，我要证明一次自己。"
-
-### 十、时间跳跃型
-```
-{精确/模糊的时间标记}。
-{出人意料的结果}。
-{暗示过程的一句话}。
-```
-> 三分三秒后。江亦瑶神色从容地走出房间，整理了一下微乱的衣服。
-
----
-
-## 三种速写章末钩子
-
-### 收获预告型（副本/任务尾声）
-```
-{当前行动接近完成}。
-{暗示即将获得的奖励}。
-{一句话暗示奖励比预期更大}。
+Just then, {character}'s {expression/attitude} suddenly {changes completely}.
+{an unexpected show of weakness / a request action}.
+"{a line that hits the protagonist's soft spot}"
 ```
 
-### 反派逼近型（铺垫段结尾）
+### 8. Information-gap type
 ```
-{主角当前状态}。
-{暗处/远方，反派的某个行动}。
-{暗示这个行动将影响主角}。
+{the protagonist's self-doubt / reflection}.
+{an image / metaphor}.
+{hint that change is coming, without saying it}.
 ```
+> Flowers bloom again; a man's youth never returns. How the hell did I let my life get this bad?
 
-### 行动预告型（装逼/打脸前）
+### 9. Dialogue-suspense type
 ```
-{主角做出一个决定}。
-{一个准备动作}。
-{暗示即将发生的行动}。不写结果。
+"{first half of a request}"
+"{the other side's response}"
+"{an unexpected second half, not what the reader expected}"
 ```
+> "I have one request," Su Mu said slowly. "Name it." "Before the divorce — let me prove myself once."
+
+### 10. Time-skip type
+```
+{a precise/vague time marker}.
+{an unexpected result}.
+{one line hinting at the process}.
+```
+> Three minutes and three seconds later, Jiang Yiyao walked out of the room with a composed expression, straightening her slightly rumpled clothes.
 
 ---
 
-## 爽点与看点设计规则
+## Three quick chapter-end hooks
 
-### 爽点核心公式
+### Reward-teaser type (end of a dungeon/task)
+```
+{current action near completion}.
+{hint at the coming reward}.
+{one line hinting the reward is bigger than expected}.
+```
 
-爽点 = 两个逻辑的冲突点：
-- **大众逻辑**：对手不可战胜 → 恐惧/绝望
-- **主角逻辑**：正好手痒/轻描淡写
-- 落差越大 → 爽点越爽
+### Antagonist-approaching type (end of a setup passage)
+```
+{protagonist's current state}.
+{in the dark/distance, the antagonist does something}.
+{hint that this action will affect the protagonist}.
+```
 
-### 爽点三要素
+### Action-teaser type (before a status flex / comeuppance)
+```
+{the protagonist makes a decision}.
+{a preparation action}.
+{hint at the coming action}. No result written.
+```
 
-| 角色 | 操作 |
+---
+
+## Payoff & attraction design rules
+
+### The core payoff formula
+
+Payoff = the clash point of two logics:
+- **Common logic**: the opponent is unbeatable → fear/despair
+- **Protagonist logic**: "finally, something fun" / effortless
+- The bigger the gap → the better the payoff
+
+### The payoff three elements
+
+| Role | Operation |
 |------|------|
-| 吃瓜群众 | 用议论吹高对手逼格 → 震惊反应完成打脸升华 |
-| 对手 | 嚣张到让读者恨 → 被打脸时才爽 |
-| 主角 | 铺垫时低调 → 释放时干脆 |
+| Bystanders | talk up the opponent's gravitas → shock reactions complete the comeuppance |
+| Opponent | arrogant enough to make the reader hate him → satisfying when crushed |
+| Protagonist | low-key during setup → clean when releasing |
 
-看点 = 吊起读者期待；爽点 = 满足期待。一一对应：前面铺垫多少，后面爽点就有多少。
+Attraction = raise the reader's anticipation; payoff = satisfy it. One-to-one: the more setup before, the more payoff after.
 
-### 装逼打脸节奏
+### Status-flex / comeuppance rhythm
 
-| 阶段 | 公众期（5 章循环） | VIP 期 |
+| Stage | Public period (5-chapter loop) | VIP period |
 |------|-------------------|--------|
-| 人设 | 1 章 | 1-2 章 |
-| 铺垫 | 2 章 | 5 章 |
-| 打脸 | 1 章 | 1-2 章 |
-| 善后 | 1 章 | 1 章 |
+| Persona | 1 chapter | 1-2 chapters |
+| Setup | 2 chapters | 5 chapters |
+| Comeuppance | 1 chapter | 1-2 chapters |
+| Aftermath | 1 chapter | 1 chapter |
 
-**关键**：
-- 前置小无敌：打脸前必须把道具/人物/实力准备好，没有则读者担惊受怕，嘲讽变虐主
-- 铺垫比打脸重要：铺垫到位后主角站着不说话都能装逼
-- 打脸对象层级决定爽感层级：路人甲震惊不叫爽，有分量的人震惊才叫爽
-- 章末钩子约 100 字即可显著提升完读率
+**Keys**:
+- Pre-positioned invincibility: before the comeuppance, the item/person/power must be ready; otherwise the reader worries and the mockery becomes protagonist-abusement
+- Setup matters more than the comeuppance: with full setup, the protagonist can flex by standing there saying nothing
+- The comeuppance target's tier decides the payoff tier: a nobody's shock is not payoff; a heavyweight's shock is
+- A chapter-end hook of about 100 words noticeably lifts completion rates
 
 ---
 
-## 质量检查
+## Quality check
 
-写完章首/章尾后对照：
+After writing the chapter open/end, verify:
 
-- [ ] 章首前 100 字有钩子（不是风景/天气开头）
-- [ ] 章尾有让读者想翻下一页的东西
-- [ ] 钩子强度与章节阶段匹配（日常章不必强钩子）
-- [ ] 连续两章不用同一种钩子
-- [ ] 钩子约 100 字，点到即止，不拖沓
+- [ ] First 100 words of the chapter open have a hook (not scenery/weather)
+- [ ] Chapter end has something making the reader turn the page
+- [ ] Hook strength matches the chapter stage (daily chapters need no strong hook)
+- [ ] No two consecutive chapters use the same hook type
+- [ ] Hooks about 100 words; land and stop, no dragging

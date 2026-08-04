@@ -1,78 +1,77 @@
-# 选题决策：从扫榜数据到"写什么能爆"
+# Topic Decision: From Scan Data to "What Should I Write"
 
-把扫榜结果变成能直接用的选题建议：**推荐写什么、为什么能爆、行不行、怎么验证**。
-Phase 5 用本文方法产出 `选题决策.md`——市场角度的选题初稿："能爆的原因"先当假设，拆文（story-long-analyze）后回填验证，写作（story-long-write）开书时直接用。
-
----
-
-## 决策路由
-
-| 你在做什么 | 看这节 |
-|-----------|--------|
-| 把扫榜结果变成选题建议 | 选题四步 |
-| 判断一个方向行不行 | 可行性判断 |
-| 没联网/没榜单数据 | 内置知识模式 |
-| 落盘交付 | 选题决策.md 模板 + 交付 |
+Turns scan results into directly usable topic recommendations: **what to write, why it could hit, whether it's viable, and how to verify**. Phase 5 produces `topic-decision.md` — the market-side topic draft: "why it could hit" starts as a hypothesis, gets backfilled by teardown (story-long-analyze) after validation, and is read directly when a book opens (story-long-write).
 
 ---
 
-## 选题四步
+## Decision routing
 
-每个推荐选题都走完这四步，缺一不可：
-
-1. **能爆的原因（先当假设）**：从榜上**重复出现的样本**（排除单本个例）+ 新元素提取，推出"这个方向能爆，依靠 X 结构/梗/人设吃这波读者"。单本上榜只是个例（扫榜原则 1：多本重复才算信号）。这里只写假设，标 `待拆文验证`；要坐实得靠拆文回填。
-2. **市场验证**：榜上同方向有几本 + 趋势（↑/→/↓）+ 反例（同方向有没有扑街/烂尾的）。样本越多、趋势越稳，越可信。
-3. **差异化定位**：作者优势 × 市场缺口 = "你的版本和榜上现有的不同在哪"。没有差异化 = 同质化挤不进去。
-4. **可行性 + 风险 + 验证动作**：给出可行性高/中/低（下节规则）、最可能的失败点、开写前怎么低成本验证（通常："先写黄金三章测追读，不行就换"）。
-
----
-
-## 可行性判断
-
-分三档；样本不够时不许给"高"，别让几条数据撑出假信心：
-
-| 可行性 | 含义 | 条件 |
-|--------|------|------|
-| 高 | 可放心写 | 同方向榜上样本够（≥15，小平台≥10）+ 趋势↑或→ + 作者素材能撑 + 有差异化空间 |
-| 中 | 可写但先验证 | 样本够但趋势↓ / 或差异化不清 / 或作者素材半撑 |
-| 低 | 不建议 | 同方向已饱和（扑街反例多）/ 或作者素材撑不住 / 或平台调性不符 |
-
-**硬规则**：某方向背靠的榜单若标了 `[数据稀疏]`（有效条目 < 15，小平台 < 10，即扫榜采集质量检查标的稀疏阈值），该方向**不许给"高"**，强制降到"中" + 写明"样本不足，先扫够样本或试水再定"。
-
-**内置知识模式**：无榜单、纯凭知识库趋势时，**所有方向一律给"中"**，理由写"基于通用认知，无榜单验证，开写前必须先扫榜或小成本试水"。不许给"高"。
+| What you're doing | Read this section |
+|-------------------|-------------------|
+| Turning scan results into topic recommendations | The four topic steps |
+| Judging whether a direction is viable | Feasibility judgment |
+| No network / no ranking data | Built-in-knowledge mode |
+| Writing the deliverable | topic-decision.md template + delivery |
 
 ---
 
-## 选题决策.md 模板
+## The four topic steps
+
+Every recommended topic must complete all four steps:
+
+1. **Why it could hit (as a hypothesis)**: from **repeated samples** on the lists (exclude single-book anecdotes) + extracted new elements, infer "this direction could hit because X structure/trope/character setup feeds these readers." A single ranked book is an anecdote (scan principle 1: repetition across books is the signal). Record this as a hypothesis marked `needs teardown verification`; confirmation comes from teardown backfill.
+2. **Market validation**: how many books in this direction are on the lists + trend (up/->/down) + counter-examples (books in the same direction that flopped or fizzled). More samples and a steadier trend = more credible.
+3. **Differentiated positioning**: author advantage x market gap = "how your version differs from what's already on the lists." No differentiation = too homogeneous to break in.
+4. **Feasibility + risk + verification**: give feasibility high/medium/low (rules in the next section), the most likely failure point, and how to verify cheaply before writing (usually: "write the first three chapters, test follow-through, switch if it fails").
+
+---
+
+## Feasibility judgment
+
+Three tiers; with insufficient samples you may not give "high" — don't let a few data points manufacture false confidence:
+
+| Feasibility | Meaning | Conditions |
+|-------------|---------|------------|
+| High | Safe to write | Enough samples in this direction on the lists (>=15; small platforms >=10) + trend up or flat + author material can support it + differentiation room |
+| Medium | Write but verify first | Samples sufficient but trend down / or differentiation unclear / or material only half-supports |
+| Low | Not recommended | Direction saturated (many flop counter-examples) / or material can't support it / or platform mismatch |
+
+**Hard rule**: if the list backing a direction is marked `[data sparse]` (valid entries <15, small platforms <10 — the sparse threshold from the scan quality check), that direction may **not** be rated "high"; force it to "medium" and write "sample too thin — scan more or run a cheap test before committing".
+
+**Built-in-knowledge mode**: with no live lists, purely knowledge-based trends, **every direction is rated "medium"**, with the reason "based on general knowledge, no list validation — scan or run a small test before writing." Never "high".
+
+---
+
+## topic-decision.md template
 
 ```
-# 选题决策：{平台/方向}
-- 扫榜日期：{YYYYMMDD}     # 数据新鲜度；写作读取时若过期会提示复扫
-- 数据来源：{榜单文件名 / 内置知识}
+# Topic decision: {platform/direction}
+- Scan date: {YYYYMMDD}     # data freshness; writing re-prompts a re-scan if stale
+- Data source: {ranking file names / built-in knowledge}
 
-## 推荐选题
+## Recommended topics
 
-### 选题 1：{一句话方向}
-- 题材组合：{主类型 + 副类型/梗}
-- 目标读者：{画像}
-- 核心卖点：{读者为什么追}
-- 能爆的原因：{X 结构/梗为什么吃这波}（假设，`待拆文验证`）
-- 差异化定位：{和榜上现有的不同在哪}
-- 可行性：高/中/低 — {理由，写清同方向几本 + 趋势}
-- 失败风险：{最可能崩在哪}
-- 验证动作：{开写前怎么低成本验证}
-- 篇幅/平台：{建议字数区间 + 目标平台}
+### Topic 1: {one-line direction}
+- Genre mix: {primary + secondary/trope}
+- Target readers: {profile}
+- Core appeal: {why readers keep following}
+- Why it could hit: {X structure/trope and why it feeds this audience} (hypothesis, `needs teardown verification`)
+- Differentiated positioning: {how it differs from what's on the lists}
+- Feasibility: high/medium/low — {reason: how many books in this direction + trend}
+- Failure risk: {most likely place it collapses}
+- Verification action: {cheap check before writing}
+- Length/platform: {suggested word range + target platform}
 
-### 选题 2 ...
-### 选题 3 ...
+### Topic 2 ...
+### Topic 3 ...
 ```
 
-2-3 个选题为宜，按可行性排序（高的在前）。
+2-3 topics is right; sort by feasibility (high first).
 
 ---
 
-## 交付
+## Delivery
 
-1. 写到本次扫榜的输出目录（和榜单文件同一个目录）：`{outdir}/选题决策.md`。
-2. 告知用户路径，并说明下一步：「开书时把 `选题决策.md` 放到小说项目根目录，写作会自动读取；想确认"能爆的原因"就先 `/story-long-analyze` 拆对标书，拆完会回填。」
-3. 后续衔接（本文件不执行，仅说明）：拆文在汇总报告产出后回填对应选题的"能爆的原因"；写作 Phase 1 读取 `选题决策.md` 作为开书起点。
+1. Write to this scan's output directory (same directory as the ranking files): `{outdir}/topic-decision.md`.
+2. Tell the user the path and the next step: "When you open a book, put `topic-decision.md` in the project root and writing will read it automatically; to confirm the 'why it could hit' claims, run `/story-long-analyze` on benchmark books first — teardown backfills the file."
+3. Downstream handoff (this file only explains, never executes): teardown backfills the "why it could hit" field of the matching topic after the summary report is produced; story-long-write reads `topic-decision.md` as the opening point in its Phase 1.

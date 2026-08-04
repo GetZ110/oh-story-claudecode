@@ -1,685 +1,685 @@
-# 短篇小说拆解方法论
+# Short-Fiction Deconstruction Methodology
 
-## 目录
+## Contents
 
-1. [短篇 vs 长篇：核心差异](#短篇-vs-长篇核心差异)
-2. [拆解思路](#拆解思路)
-3. [拆解流程 5 阶段](#拆解流程-5-阶段)
-4. [情节节点提取规则](#情节节点提取规则)
-5. [写作手法分析](#写作手法分析)
-6. [情感线分析](#情感线分析)
-7. [节奏分析](#节奏分析)
-8. [人物提取规则](#人物提取规则)
-9. [共鸣分析](#共鸣分析)
-10. [结构类型速查](#结构类型速查)
-11. [质量标准](#质量标准)
-12. [references 协作关系](#references-协作关系)
-
----
-
-## 短篇 vs 长篇：核心差异
-
-| 维度 | 长篇 | 短篇 |
-|------|------|------|
-| 篇幅 | 数十万字、数百章 | 5000-15000字、6-12节 |
-| 弧线 | 多线交织、多卷结构 | 单弧线、压缩三幕 |
-| 人物 | 群像、分级体系 | 精简（3-5人）、功能高度浓缩 |
-| 世界观 | 复杂设定、力量体系 | 现实为主、极少特殊设定 |
-| 核心驱动 | 爽点循环、升级感 | 爆点设计、反转冲击 |
-| 读者粘性 | 追更驱动 | 一口气读完 |
-| 分析重心 | 结构完整性、伏笔管理 | 情感设计、写作手法、节奏 |
-
-**核心：短篇靠共鸣和爆点驱动。拆文就是看它用什么故事核、怎么铺垫、在哪里引爆。**
+1. [Short vs long: the core differences](#short-vs-long-the-core-differences)
+2. [Deconstruction thinking](#deconstruction-thinking)
+3. [The 5-stage deconstruction process](#the-5-stage-deconstruction-process)
+4. [Plot-node extraction rules](#plot-node-extraction-rules)
+5. [Writing-craft analysis](#writing-craft-analysis)
+6. [Emotional-line analysis](#emotional-line-analysis)
+7. [Rhythm analysis](#rhythm-analysis)
+8. [Character extraction rules](#character-extraction-rules)
+9. [Resonance analysis](#resonance-analysis)
+10. [Structure-type quick reference](#structure-type-quick-reference)
+11. [Quality standards](#quality-standards)
+12. [References collaboration](#references-collaboration)
 
 ---
 
-## 拆解思路
+## Short vs long: the core differences
 
-### 核心原则
+| Dimension | Long | Short |
+|-----------|------|-------|
+| Length | hundreds of thousands of words, hundreds of chapters | 5000-15000 words, 6-12 episodes |
+| Arc | multi-line interweaving, multi-volume structure | single arc, compressed three acts |
+| Characters | ensemble, tiered system | lean (3-5 people), highly condensed functions |
+| Worldview | complex settings, power systems | reality-based, rarely special settings |
+| Core driver | payoff cycles, escalation feel | eruption-point design, reversal impact |
+| Reader stickiness | follow-driven | read in one sitting |
+| Analysis focus | structural completeness, foreshadowing management | emotion design, writing craft, rhythm |
 
-| 原则 | 说明 |
-|------|------|
-| 故事核驱动 | 先找到故事的核心梗（一句话），所有分析围绕故事核展开。故事核变了，整篇的分析方向都会变 |
-| 读者视角优先 | 每一步从读者体验出发——读者看到了什么？感受到了什么？为什么在意？不猜测创作者动机，只分析文本实际制造的读者体验 |
-| 可复用性导向 | 每个分析点都要输出可迁移的结构、功能位或风险阈值；纯欣赏型分析不合格 |
-| 爆点为中心 | 短篇拆文的核心问题是——什么让读者情绪爆发？什么让读者想转发？找到爆点，拆解它的铺垫和释放机制 |
-| 共鸣决定传播 | 一篇短篇能火，关键在引发共鸣；文笔好坏不单独决定传播。共鸣层次越多，传播性越强 |
+**Core: short fiction runs on resonance and eruption points. Teardown means seeing what story core it uses, how it sets up, and where it detonates.**
 
-### 分析顺序（从外到内，层层递进）
+---
+
+## Deconstruction thinking
+
+### Core principles
+
+| Principle | Notes |
+|-----------|-------|
+| Story-core driven | find the core hook first (one sentence); all analysis orbits the story core. Change the core, and the whole analysis direction changes |
+| Reader perspective first | every step starts from the reader's experience — what did the reader see? feel? why do they care? Don't guess the creator's motives; only analyze the reader experience the text actually produces |
+| Reusability oriented | every analysis point must output a transferable structure, functional slot, or risk threshold; appreciation-style analysis fails |
+| Eruption-point centered | the core question of short teardown — what makes the reader's emotion erupt? what makes the reader want to share? Find the eruption point, break down its setup and release mechanics |
+| Resonance decides spread | a short story goes viral on resonance; prose quality alone doesn't decide spread. More resonance layers = stronger shareability |
+
+### Analysis order (outside-in, layer by layer)
 
 ```
-故事核 → 结构 → 人物 → 情感线 → 写作手法 → 共鸣+爆点性+话题性 → 综合评估
-  │         │       │       │          │              │                  │
-  │         │       │       │          │              │                  └─ 可借鉴结构
-  │         │       │       │          │              └─ 为什么能火
-  │         │       │       │          └─ 怎么写出来的
-  │         │       │       └─ 读者感受到了什么
-  │         │       └─ 谁在推动故事
-  │         └─ 怎么布局的
-  └─ 写的是什么（锚定一切分析的起点）
+story core → structure → characters → emotional line → writing craft → resonance + eruption potential + topicality → combined assessment
+  │            │           │            │               │                  │                          │
+  │            │           │            │               │                  │                          └─ reusable structures
+  │            │           │            │               │                  └─ why it can go viral
+  │            │           │            │               └─ how it was written
+  │            │           │            └─ what the reader felt
+  │            │           └─ who drives the story
+  │            └─ how it was laid out
+  └─ what it is about (anchors every analysis's starting point)
 ```
 
-### 每个阶段的核心问题
+### The core question of each stage
 
-拆文目标是回答问题，不能机械填表。每个阶段都有一个核心问题：
+Teardown means answering questions, not mechanically filling tables. Each stage has one core question:
 
-| 阶段 | 核心问题 | 回答不了说明 |
-|------|----------|-------------|
-| 故事核 | 一句话讲清楚这个故事卖什么？ | 还没读懂，别急着拆 |
-| 结构 | 文本如何布局？开端/发展/高潮/结局各占多少？ | 布局决定了节奏，不知道布局就不知道节奏 |
-| 人物 | 谁是主人公？谁是主动型角色？谁是被动型角色？ | 不知道谁在推故事，就不知道故事怎么动的 |
-| 情感线 | 读者的情绪是怎么被一步步拉扯的？ | 这是短篇的核心价值，拆不出来等于白拆 |
-| 写作手法 | 文本用了什么手法让读者产生这种体验？ | 手法必须被拆成可复用功能位，否则无法迁移 |
-| 共鸣+爆点 | 为什么这篇能火？触发了什么共鸣？ | 不回答这个问题，拆文就变成了文学鉴赏 |
-| 综合评估 | 哪些结构可复用？复用条件和风险是什么？ | 不能指导下一份 artifact 的拆文没有意义 |
+| Stage | Core question | If you can't answer it |
+|-------|---------------|------------------------|
+| Story core | In one sentence, what is this story selling? | you haven't understood it; don't rush the teardown |
+| Structure | How is the text laid out? What share is opening/development/climax/ending? | layout decides rhythm; without layout there's no rhythm |
+| Characters | Who is the protagonist? Who is active? Who is passive? | not knowing who pushes the story means not knowing how it moves |
+| Emotional line | How is the reader's emotion pulled step by step? | this is short fiction's core value; failing here means a wasted teardown |
+| Writing craft | What craft makes the reader feel this way? | craft must be broken into reusable functional slots or it can't transfer |
+| Resonance + eruption | Why did this piece go viral? What resonance did it trigger? | not answering this turns the teardown into literary appreciation |
+| Combined assessment | Which structures are reusable? What are the conditions and risks? | a teardown that can't guide the next artifact is meaningless |
 
-### 拆解约束
+### Deconstruction constraints
 
-1. **禁止主观评价** — 不评价好坏，只拆解机制。输出中不得出现"写得好/写得差"类评价
-2. **从体验反推手法** — 先定位读者情绪高峰，再反推文本用什么手法制造了这个高峰
-3. **深度优先于全面** — 核心维度（故事核/爆点/共鸣）必须深入，可选维度按需
-4. **可复用性导向** — 每个分析点必须输出复用条件、可迁移做法和风险边界
+1. **No subjective judgments** — don't grade good/bad; only break down mechanics. Outputs must not contain "well written / badly written" style judgments
+2. **Reverse-engineer craft from experience** — locate the reader's emotional peaks first, then reverse-engineer which craft produced them
+3. **Depth over breadth** — core dimensions (story core / eruption points / resonance) must go deep; optional dimensions as needed
+4. **Reusability oriented** — every analysis point must output reuse conditions, transferable moves, and risk boundaries
 
 ---
 
-## 拆解流程 5 阶段
+## The 5-stage deconstruction process
 
-> **编号说明**：Phase 1（确认拆解对象+题材路由）是 SKILL.md 处理的顶层工作流阶段。本文件描述拆解管道的 Stage 2-6。
+> **Numbering note**: Phase 1 (confirm the target + genre routing) is the top-level workflow stage handled by SKILL.md. This file describes pipeline Stages 2-6.
 
-### Stage 2：结构分析 + 情节节点提取
+### Stage 2: structure analysis + plot-node extraction
 
-- 识别章节/小节分隔符（###01、第一章、01 等）
-- 提取标题，记录每节字数
-- 提取**故事核**（分三层概括）：
-  - **设定**：故事的前提/触发条件（如"重生三次被母弟杀害"）
-  - **主题**：核心矛盾/价值观冲突（如"极端重男轻女"）
-  - **核心行动**：主角做了什么（如"放任母弟自毁"）
-  - 合并为一句：如"重生三次被母弟杀害的女孩，第四世放任她们自毁"
-- 写**故事梗概**（200-500字概括）
-- 识别 POV（第一/第三人称、全知视角）
-- 识别叙事时间线（线性/插叙/倒叙/双线交叉）
-- 将全文按功能划分为 4-6 段（必须包含开端/发展/高潮/结局，可酌情增加转折/过渡段），标注每段字数范围和占比
+- Recognize episode/section separators (`###01`, `Chapter 1`, `01`, etc.)
+- Extract titles, record each section's word count
+- Extract the **story core** (three-layer summary):
+  - **Premise**: the story's precondition/triggering condition (e.g., "killed by her mother and brother three times, reborn each time")
+  - **Theme**: core contradiction / values conflict (e.g., "extreme son-preference")
+  - **Core action**: what the protagonist does (e.g., "lets them destroy themselves")
+  - Combined into one sentence: e.g., "A girl killed three times by her mother and brother lets them destroy themselves in the fourth life"
+- Write the **story summary** (200-500 words)
+- Identify the POV (first/third person, omniscient)
+- Identify the narrative timeline (linear / interleaved / flashback / double-line crossing)
+- Split the whole piece into 4-6 functional segments (must include opening/development/climax/ending; may add turn/transition segments), labeling each segment's word range and share
 
-> **灵活分节**：部分故事只有2-3章但内含数字编号小节，此时"节"应以叙事功能单元为准，而非物理章节。章节过少时以小节/编号段为分析单位。
+> **Flexible segmentation**: some stories have only 2-3 chapters but contain numbered sub-sections; then "episodes" should follow narrative function units, not physical chapters. When chapters are too few, use sub-sections/numbered segments as the analysis unit.
 
-#### B. 情节节点提取
+#### B. Plot-node extraction
 
-情节节点 = 推动故事发展的关键事件或信息释放。
+Plot node = a key event or info release that pushes the story forward.
 
-密度原则：每 200-300 字一个节点，每节 3-8 个。全文目标节点数按字数分档，以下表为唯一权威：
+Density principle: one node per 200-300 words, 3-8 per episode. Total target node count by word-count tier, the following table is the sole authority:
 
-| 全文字数 | 目标节点数 | 说明 |
-|----------|-----------|------|
-| ≤5000 | 15-25 个 | 精短型，每个节点必须有效 |
-| 5000-8000 | 25-40 个 | 标准型 |
-| 8000-12000 | 35-55 个 | 中长型 |
-| >12000 | 45-60 个 | 长短篇（上限） |
+| Total words | Target node count | Notes |
+|-------------|-------------------|-------|
+| ≤5000 | 15-25 | concise form; every node must earn its place |
+| 5000-8000 | 25-40 | standard |
+| 8000-12000 | 35-55 | medium-long |
+| >12000 | 45-60 | long short (cap) |
 
-每个节点提取：
+Per node:
 
-| 字段 | 说明 |
-|------|------|
-| 序号 | 严格时间顺序 |
-| 类型 | 情绪节点/信息节点/冲突节点/转折节点/对话节点/氛围节点 |
-| 描述 | 客观白描，只记录发生了什么（禁止叙事框架词） |
-| 原文引用 | ≤300 字直接引用 |
-| 情绪标记 | 情绪类型 + 强度（-9 到 +9） |
-| 涉及人物 | 全名 |
-| 手法标记 | 使用了什么手法（如有时） |
+| Field | Notes |
+|-------|-------|
+| Index | strictly chronological |
+| Type | emotion/info/conflict/turn/dialogue/atmosphere |
+| Description | objective plain description; only record what happened (no narrative-frame words) |
+| Source quote | ≤300 words verbatim |
+| Emotion label | emotion type + intensity (-9 to +9) |
+| Characters involved | full names |
+| Craft label | which craft was used (when present) |
 
-### Stage 3：情感线 + 爆点分析
+### Stage 3: emotional line + eruption-point analysis
 
-#### A. 情感曲线
+#### A. Emotion curve
 
-从情节节点数据生成情感曲线。节点数 = 至少 max(5, 节数) 个，确保每节至少一个情绪节点。
+Generate the emotion curve from the plot-node data. Node count: at least max(5, episode count), ensuring at least one emotion node per episode.
 
-曲线特征提取：
-- 起始情绪
-- 走向模式（上行/下行/波浪/V形/倒V/阶梯/断崖/压缩弹簧）
-- 极值（最高点、最低点及其位置百分比）
-- 方向差（起始到结尾的净变化）
-- 翻转次数（正负交替次数）
+Curve trait extraction:
+- Starting emotion
+- Direction pattern (uphill/downhill/wave/V-shape/inverted-V/staircase/cliff/compressed-spring)
+- Extrema (highest point, lowest point, and their position percentages)
+- Net change (start to end)
+- Direction-flip count (positive/negative alternations)
 
-#### B. 爆点分析
+#### B. Eruption-point analysis
 
-分析故事的情感爆发设计：
+Analyze the story's emotional-eruption design:
 
-| 维度 | 问题 |
-|------|------|
-| 铺垫 | 什么让读者开始在意？前多少字完成？ |
-| 积累 | 什么在积累情绪势能？积累多久？ |
-| 延迟 | 有没有延迟释放？信息差/误解/悬念？ |
-| 爆发点 | 哪个瞬间释放全部情绪？精确到句子 |
-| 余波 | 释放后有没有余震？多个角色反应？ |
-| 印象 | 情绪释放后留下什么？读者记住什么？ |
+| Dimension | Question |
+|-----------|----------|
+| Setup | What makes the reader start caring? How many words in? |
+| Accumulation | What is building emotional potential? For how long? |
+| Delay | Is release delayed? Information gap / misunderstanding / suspense? |
+| Eruption point | Which instant releases all the emotion? Down to the sentence |
+| Aftershock | Tremors after release? Multiple character reactions? |
+| Impression | What remains after release? What does the reader remember? |
 
-**叠加爆点**：有些故事的爆点是分层的——表层爆点（如死亡/分离）刚引爆，深层爆点（如真相揭示/认知颠覆）在前一个余波中二次爆发。分析时需标注：
-- 是否存在叠加爆点？
-- 表层爆点和深层爆点分别是什么？
-- 叠加效果（1+1>2 的增效在哪里？）
+**Stacked eruption**: some stories' eruption points are layered — the surface eruption (e.g., death/separation) just detonates when the deep eruption (e.g., truth reveal / cognitive overturn) detonates a second time inside the first aftershock. Note when analyzing:
+- Does a stacked eruption exist?
+- What are the surface and deep eruptions?
+- The stacking effect (where is 1+1>2?)
 
-**多爆点串联**：部分故事（豪门复仇、舆论反转）有多个独立爆点逐个引爆，每个爆点自成一体但互相呼应。分析时需标注：
-- 有几个独立爆点？分别是什么？
-- 爆点之间是递进（一个比一个爽）还是并列（不同维度的满足）？
-- 爆点间隔是否合理（间隔太远=情绪断裂，太近=疲劳）？
+**Multi-eruption chain**: some stories (family revenge, public-opinion reversal) have several independent eruption points detonating one after another, each self-contained but echoing the others. Note when analyzing:
+- How many independent eruption points? What are they?
+- Progressive (each more gratifying) or parallel (different dimensions of satisfaction)?
+- Are the intervals sane (too far = emotional break, too close = fatigue)?
 
-#### C. 期待感分析
+#### C. Anticipation analysis
 
-逐节追踪期待状态，表模板见 output-templates.md Stage 3C。
+Track the expectation state section by section; template in output-templates.md Stage 3C.
 
-规则：不超过两节不制造新期待，不超过一节不推进核心期待。
+Rule: no more than two episodes without creating a new expectation; no more than one episode without advancing the core expectation.
 
-### Stage 4：反转设计 + 写作手法
+### Stage 4: reversal design + writing craft
 
-#### A. 反转分析
+#### A. Reversal analysis
 
-**前置反转检查**：是否有在故事时间线之前就已存在的谎言/误判。
+**Pre-reversal check**: is there a lie/misjudgment that predates the story timeline?
 
-> **无反转型/报应型**：有些故事（复仇爽文、重生文）没有传统反转，爽感来自看反派因果报应逐步兑现。遇到此类故事，跳过反转机制拆解，改为分析"报应设计"——反派如何一步步走向毁灭，每一步的铺垫和满足感。使用报应设计表：每条恶行→对应的报应→爽感来源。理想情况下每条报应与恶行形成精确对应（"以彼之道还施彼身"）。
+> **No-reversal / karmic-justice stories**: some stories (gratification revenge, second-chance) have no traditional reversal — the gratification comes from watching the antagonist's karma cash out step by step. For such stories, skip the reversal-mechanics breakdown and analyze the "karma design" instead — how the antagonist walks into their own destruction, with the setup and satisfaction of each step. Use the karma-design table: each misdeed → corresponding karma → source of gratification. Ideally every karma corresponds precisely to a misdeed ("taste of their own medicine").
 >
-> **主动报应 vs 反派自毁**：报应设计分两种——①主角设局让反派自爆（如香水复仇、比赛设局）；②主角不复仇，反派内部反目自己作死。第二种更真实但爽感较低，分析时标注类型。
+> **Active karma vs self-destruction**: two designs — ① the protagonist sets a trap and the antagonist self-detonates (e.g., perfume revenge, tournament setup); ② the protagonist doesn't take revenge and the antagonist faction turns on itself. The second is more realistic but less gratifying; label the type when analyzing.
 
-**反转机制拆解**（存在反转时执行）：
-- 铺垫线索（≥2条，含原文位置）
-- 误导方向（文本把读者往哪引）
-- 真相揭示（怎么揭开的）
-- 合理性（回看得不失真）
-- 时机（全文百分之几位置）
-- 铺放比（铺垫字数 : 释放字数）
+**Reversal-mechanics breakdown** (run when a reversal exists):
+- Setup clues (≥2, with source positions)
+- Misdirection (where the text steers the reader)
+- Truth reveal (how it's uncovered)
+- Plausibility (holds up on re-read)
+- Timing (position in the piece as a percentage)
+- Setup:release ratio (setup words : release words)
 
-**反转链**：部分故事（舆论反转文、套娃反转文）包含多个连续反转，前一个反转的结论被后一个反转推翻。分析时需按顺序列出每个反转：
-- 每个反转：类型 + 触发事件 + 读者认知变化
-- 反转之间的因果关系（前一个反转如何为后一个反转铺垫）
-- 反转链的整体效果（递进/叠加/出其不意）
+**Reversal chain**: some stories (public-opinion reversal, nested reversal) contain several consecutive reversals, each later one overturning the previous conclusion. List each reversal in order when analyzing:
+- Per reversal: type + triggering event + reader cognitive change
+- The causality between reversals (how each reversal sets up the next)
+- The chain's overall effect (progressive / stacking / out-of-the-blue)
 
-**套娃反转的质量检验**：套娃反转好不好，看反转之间有没有因果关系——反转A必须解释或加深反转B，避免随手堆砌。检验方法：删掉任意一层反转，其他反转还成立吗？如果成立，说明反转之间没有因果关联，只是堆砌。
+**Nested-reversal quality test**: whether nested reversals are good depends on the causality between them — reversal A must explain or deepen reversal B; avoid random piling. Test: delete any one layer — do the others still hold? If yes, the reversals lack causal links and are just stacked.
 
-**伏笔式反转**：部分反转依托开头早就给过的信息，读者知道真相后回头看，含义完全变了。这就是伏笔的经典用法——不铺新线索，只是让读者自己"恍然大悟"。分析时标注：伏笔原文位置、初读时读者的理解、知道真相后的新理解。
+**Foreshadowing-style reversal**: some reversals lean on information given at the very start; once the reader knows the truth, re-reading changes the meaning completely. That's the classic foreshadowing use — no new clues planted, the reader just "gets it" themselves. Note when analyzing: foreshadowing source position, first-read understanding, post-truth understanding.
 
-#### B. 写作手法分析
+#### B. Writing-craft analysis
 
-逐项分析以下维度的使用情况：
+Analyze each dimension's usage:
 
-| 维度 | 分析内容 |
-|------|----------|
-| POV策略 | 人称选择的效果、叙事距离、可靠性 |
-| 对话手法 | 密度比、潜台词率、模式识别 |
-| 时间操控 | 时间跳跃、场景压缩、平行剪辑 |
-| 信息控制 | 读者知道 vs 角色知道、隐瞒/揭示时机 |
-| 感官锚定 | 五感分布、主导感官、感官切换 |
-| 句式节奏 | 长短句交替、节奏加速/减速、关键句位置 |
-| 对比设计 | 角色对比、前后对比、环境对比 |
-| 意象/物件 | 重复出现的物件、意象、象征 |
-| 留白手法 | 不写之写、省略的艺术、暗示 |
-| 专业技能武器化 | 主角用职业特长作为复仇/对抗工具（调香师用香水、AI工程师用AI、律师用法律）。职业技能越专业，手段越可信越有新意 |
-| 倒计时框架 | 用明确时限（10天/5小时/1分钟）制造紧迫感。每一段倒计时都是情感催化剂，读者和主角一起倒数 |
-| 双视角叙事 | 同一事件从两个角色视角分别体验。先跟A感受痛苦，再跟B感受悔恨。读者情感判断被迫修正，无法简单站队 |
-| 弹幕/评论互动 | 故事内的"读者评论"成为角色——提供任务、吐槽、剧情预告。弹幕本身可以有变化弧线（从自信到崩溃） |
-| 反差萌 | 角色想装一种人却总是暴露本性，每次"装失败"都让对方更喜欢。注意识别重复升级的模式 |
+| Dimension | What to analyze |
+|-----------|-----------------|
+| POV strategy | effect of the person choice, narrative distance, reliability |
+| Dialogue craft | density share, subtext rate, pattern recognition |
+| Time manipulation | time jumps, scene compression, parallel cutting |
+| Info control | reader knows vs character knows, concealment/reveal timing |
+| Sensory anchoring | five-sense distribution, dominant sense, sense switches |
+| Sentence rhythm | long/short alternation, speed-up/slow-down, key-sentence positions |
+| Contrast design | character contrast, before/after contrast, environment contrast |
+| Imagery/objects | repeated objects, imagery, symbols |
+| White space | writing by not writing, the art of omission, suggestion |
+| Professional-skill weaponization | the protagonist weaponizes their profession as a revenge/confrontation tool (a perfumer with perfume, an AI engineer with AI, a lawyer with the law). The more professional the skill, the more credible and fresh the means |
+| Countdown frame | a clear deadline (10 days / 5 hours / 1 minute) manufactures urgency. Every tick is an emotional catalyst; reader and protagonist count down together |
+| Dual-POV narration | the same event experienced from two characters' perspectives. Feel the pain with A first, then the regret with B. The reader's emotional verdict is forced to revise — no easy side-taking |
+| Comment/danmaku interaction | in-story "reader comments" act as characters — handing out quests, roasting, previewing plot. The comments themselves can have an arc (from confident to breaking down) |
+| Endearing contrast | a character tries to act one way but keeps exposing their true nature; every "failed act" makes the other like them more. Watch for escalating repeat patterns |
 
-每项手法标注：使用位置、效果评价、可复用条件。
+Per craft item, label: usage position, effect assessment, reuse conditions.
 
-### Stage 5：人物分析 + 开头结尾
+### Stage 5: character analysis + opening/ending
 
-#### A. 人物提取
+#### A. Character extraction
 
-短篇人物精简（通常 3-5 人），但每个人物承担多重功能。
+Short fiction keeps characters lean (usually 3-5), but each one carries multiple functions.
 
-**人物分类**（二维体系）：
+**Character classification** (two-dimension system):
 
-维度一 — 叙事角色（这人在故事里的位置）：
-- **主人公**：故事的第一视角人物或核心焦点人物
-- **重要配角**：戏份重、有独立弧线的人物
-- **功能人物**：承担特定叙事功能（催化剂/对照组等）
+Dimension one — narrative role (position in the story):
+- **Protagonist**: the first-POV or core focus character
+- **Major supporting**: heavy screen time, independent arc
+- **Functional character**: serves a specific narrative function (catalyst/foil, etc.)
 
-维度二 — 行动角色（这人在故事里怎么动）：
-- **主动型**：主动推动剧情发展、做出关键选择
-- **被动型**：被剧情推着走、被动承受
-- **转变型**：从被动转为主动（或反过来）
+Dimension two — action role (how they move in the story):
+- **Active**: pushes the plot, makes key choices
+- **Passive**: pushed by the plot, endures
+- **Transforming**: shifts from passive to active (or the reverse)
 
-> 同一人物可以同时是"主人公"+"被动型"（如前期的乔青），也可以从"被动型"转变为"主动型"。两个维度独立标注。
+> The same character can be "protagonist" + "passive" (like the early Mara), or shift from "passive" to "active". The two dimensions are labeled independently.
 
-**双主人公结构**：部分故事（BE虐文、双向视角文）存在两个主人公，各自驱动故事的不同阶段。识别标准：①两人都有完整的情感弧线（不是扁平的）②故事分为明显的"A段"和"B段"，各自以不同角色为中心③读者对两人都有强烈的共情。标注时两人都标为"主人公"，并注明各自主驱动的章节范围。
+**Dual-protagonist structure**: some stories (BE misery, dual-POV) have two protagonists driving different phases. Recognition criteria: ① both have full emotional arcs (not flat) ② the story clearly splits into an "A phase" and "B phase" centered on different characters ③ the reader empathizes strongly with both. Label both as "protagonist" and note each one's driven chapter range.
 
-| 字段 | 说明 |
-|------|------|
-| 姓名 | 全名 |
-| 分类 | 叙事角色{主人公/重要配角/功能人物} + 行动角色{主动型/被动型/转变型} |
-| 人物性格 | 从行为归纳，不从标签推导 |
-| 内在矛盾 | 核心心理冲突（不是外部遭遇） |
-| 关键台词 | 最能代表该角色的 1-2 句话 |
-| 弧线 | 始→转→终（标注触发事件和位置）。无明显弧线标注"扁平" |
-| 功能标签 | 在故事中承担什么叙事作用 |
+| Field | Notes |
+|-------|-------|
+| Name | full name |
+| Classification | narrative role{protagonist/major supporting/functional} + action role{active/passive/transforming} |
+| Personality | generalized from behavior, not deduced from labels |
+| Inner contradiction | the core psychological conflict (not external events) |
+| Key lines | the 1-2 lines most representative of the character |
+| Arc | start→turn→end (mark triggering events and positions). No visible arc → "flat" |
+| Function labels | what narrative role it serves in the story |
 
-**人物功能标签**（7 种）：
+**Character function labels** (7):
 
-| 标签 | 定义 | 示例 |
-|------|------|------|
-| 情绪承载者 | 承载读者共情的主要载体 | 第一人称主角 |
-| 压迫源 | 制造负面情绪的角色 | 冷漠/控制的男主 |
-| 反转触发器 | 触发关键反转的角色 | 绑架事件中的第三方 |
-| 道德锚点 | 代表正常价值观的角色 | 关心/担忧主角的长辈 |
-| 对照组 | 与主角形成对比的角色 | 温和的配角 vs 冷酷的主角 |
-| 催化剂 | 推动剧情但不直接参与核心冲突 | 连接/温暖型角色 |
-| 自毁型 | 自身行为导致自我毁灭的角色 | 重男轻女的母亲、偏执的家属 |
+| Label | Definition | Example |
+|-------|------------|---------|
+| Emotion carrier | the main vessel of reader empathy | first-person protagonist |
+| Pressure source | the character manufacturing negative emotion | cold/controlling male lead |
+| Reversal trigger | the character triggering the key reversal | the third party in a kidnapping |
+| Moral anchor | represents normal values | the elder who cares about the protagonist |
+| Foil | contrasts with the protagonist | the warm supporting vs the cold protagonist |
+| Catalyst | advances the plot without joining the core conflict | connecting/warming characters |
+| Self-destructive | destroys themselves through their own behavior | the son-preferring mother, the obsessive relative |
 
-一个人物可以有多个标签。
+One character can carry multiple labels.
 
-#### A2. 人物关系
+#### A2. Character relationships
 
-从情节节点中提取人物间的关系和演变：
+Extract relationships and their evolution from the plot nodes:
 
-| 字段 | 说明 |
-|------|------|
-| 关系对 | A ↔ B（全名） |
-| 关系本质 | 一句话概括关系核心（如：单向依附→对等拒绝） |
-| 演变轨迹 | 节N:状态A → 节M:状态B，标注触发事件 |
-| 情绪贡献 | 这段关系对情感线的贡献 |
+| Field | Notes |
+|-------|-------|
+| Pair | A ↔ B (full names) |
+| Relationship essence | one sentence on the core (e.g., one-way dependence → equal refusal) |
+| Evolution trajectory | episode N: state A → episode M: state B, with triggering events |
+| Emotional contribution | this relationship's contribution to the emotional line |
 
-提取策略：
-- 只提取有直接互动或明确情感描述的人物对
-- 同一对人物保留最终状态，历史变化写入演变轨迹
-- 关注关系转折的精确位置和触发原因
+Extraction strategy:
+- Only extract pairs with direct interaction or explicit emotional description
+- Keep the final state per pair; historical changes go into the evolution trajectory
+- Note the precise position and trigger of relationship turns
 
-#### B. 开头分析
+#### B. Opening analysis
 
-- 前 3 句原文引用
-- 前 50 字分析：有没有冲突/异常？
-- 前 100 字分析：读者是否知道核心矛盾？
-- 钩子类型：悬念/冲突/反差/代入/信息差
-- 开头情绪强度（1-10）
-- 代入感评估：强（立刻在意主角）/ 中（需几段投入）/ 弱（缺乏共鸣点）
-- 信息密度评估：高/中/低
-- 声音辨识度：强（一句话就能辨认是谁在说话）/ 中（有特征但不够突出）/ 弱（角色声音同质化）
+- First 3 lines quoted
+- First 50 words: conflict/anomaly present?
+- First 100 words: does the reader know the core contradiction?
+- Hook type: suspense/conflict/contrast/immersion/information gap
+- Opening emotional intensity (1-10)
+- Immersion assessment: strong (care immediately) / medium (takes a few paragraphs) / weak (no resonance point)
+- Info-density assessment: high/medium/low
+- Voice distinctiveness: strong (one line identifies the speaker) / medium (characterful but not distinctive) / weak (homogenized voices)
 
-#### C. 结尾分析
+#### C. Ending analysis
 
-- 最后一段原文引用或概括
-- 结尾类型：HE满足/BE遗憾/开放式/反转余韵/留白
-- 结尾情绪强度（1-10，参考标准：虐文≥8、爽文≥7、治愈文≥6、通透满足≥5、震惊反转≥7、**BE意难平≥8** 为合格）
-- 情绪落点（读者离开时在想什么）
-- 余韵设计
-- 传播欲（读者会不会推荐）
-- 收束完整性（所有钩子是否回收）
-- 价值观传达：这篇故事最终想说什么？（如"爱情只是调味剂，不是必需品"）
+- Last paragraph quoted or summarized
+- Ending type: satisfying(HE)/regretful(BE)/open-ended/reversal aftershock/white space
+- Ending emotional intensity (1-10; reference: misery ≥8, gratification ≥7, healing ≥6, clarity-satisfaction ≥5, shock-reversal ≥7, **BE bittersweet ≥8** as passing)
+- Emotional landing (what the reader is thinking when they leave)
+- Aftershock design
+- Shareability (would the reader recommend it)
+- Closure completeness (are all hooks recovered)
+- Values conveyed: what this story ultimately wants to say (e.g., "love is a seasoning, not a necessity")
 
-#### D. 首尾呼应
+#### D. Opening-ending echo
 
-对比开头和结尾的元素呼应：
+Compare opening and ending elements:
 
-| 呼应元素 | 开头位置 | 结尾位置 | 呼应方式 | 效果 |
-|----------|----------|----------|----------|------|
+| Echo element | Opening position | Ending position | Echo mode | Effect |
+|--------------|------------------|-----------------|-----------|--------|
 
-**重读发现**：部分故事的开头包含特殊的伏笔——开头的某句话在初读时是一种含义，读完真相后回头再看含义完全变了。分析时标注：哪些开头语句有这种效果？真相揭示后含义如何变化？
+**Re-read discovery**: some openings contain special foreshadowing — a sentence reads one way on first pass, completely differently once the truth is known. Note: which opening sentences have this effect? How does the meaning change after the truth reveal?
 
-#### E. 钩子回收检查
+#### E. Hook-recovery check
 
-列出全文埋设的所有钩子及其回收状态：
+List every hook planted and its recovery status:
 
-| 钩子 | 埋设位置 | 类型 | 回收位置 | 回收方式 | 状态 |
-|------|----------|------|----------|----------|------|
+| Hook | Planted at | Type | Recovered at | How recovered | Status |
+|------|------------|------|--------------|---------------|--------|
 
-未回收的钩子标注为「留白」或「遗漏」。
+Unrecovered hooks are marked "white space" or "omitted".
 
-### Stage 6：综合评估报告
+### Stage 6: combined assessment report
 
-综合所有阶段数据，输出评估报告：
-- 故事核评价
-- 五维评分（开头吸引力、情感拉扯力、反转设计、节奏控制、结尾余韵）
-  > **甜宠/喜剧类替代维度**：当故事类型为甜宠/喜剧/反差萌时，"反转设计"维度天然低分（此类故事通常无反转），可替换为"反差萌浓度"，"情感拉扯力"替换为"甜度曲线"。替代维度：开头吸引力、甜度曲线、反差萌浓度、节奏控制、结尾余韵
-- 爆点性 + 话题性
-- 共鸣层次分析
-- 可复用结构（至少 3 条，含适用场景）
-- 同类型写作动作
+Combine all stage data and output the assessment report:
+- Story-core assessment
+- Five-dimension score (opening attraction, emotional pull, reversal design, rhythm control, ending aftershock)
+  > **Sweet/comedy substitute dimensions**: when the story type is sweet/comedy/endearing-contrast, the "reversal design" dimension scores naturally low (such stories usually have no reversal); substitute "endearing-contrast density", and substitute "sweetness curve" for "emotional pull". Substitute dimensions: opening attraction, sweetness curve, endearing-contrast density, rhythm control, ending aftershock
+- Eruption potential + topicality
+- Resonance-layer analysis
+- Reusable structures (at least 3, with applicable scenarios)
+- Same-type writing actions
 
-### 可选模块：同类对比
+### Optional module: same-type comparison
 
-将分析对象与同题材、同结构的其他作品对比：
+Compare the piece against other works of the same genre and structure:
 
-| 维度 | 本文 | 对标作品A | 对标作品B |
-|------|------|----------|----------|
-| 情感曲线形态 | | | |
-| 核心手法 | | | |
-| 开头钩子强度 | 1-5 | 1-5 | 1-5 |
-| 反转惊喜度 | 1-5 | 1-5 | 1-5 |
-| 结尾余韵 | 1-5 | 1-5 | 1-5 |
+| Dimension | This piece | Benchmark A | Benchmark B |
+|-----------|-----------|-------------|-------------|
+| Emotion-curve shape | | | |
+| Core craft | | | |
+| Opening hook strength | 1-5 | 1-5 | 1-5 |
+| Reversal surprise | 1-5 | 1-5 | 1-5 |
+| Ending aftershock | 1-5 | 1-5 | 1-5 |
 
-**差异化亮点**：关键差异是优势还是劣势？
+**Differentiation highlights**: is the key difference an advantage or a weakness?
 
-### 可选模块：平台适配评估
+### Optional module: platform-adaptation assessment
 
-| 平台 | 适配度 | 原因 | 调整动作 |
-|------|--------|------|----------|
-| 知乎盐言 | 高/中/低 | 偏重文笔和情感深度，8000-12000字 | |
-| 番茄短篇 | 高/中/低 | 偏重节奏和爽感，5000-10000字 | |
-| 七猫短篇 | 高/中/低 | 偏重故事完整性和可读性，6000-12000字 | |
+| Platform | Suitability | Reason | Adjustment action |
+|----------|-------------|--------|-------------------|
+| Wattpad | high/medium/low | favors voice and emotional depth, 8000-12000 words | |
+| Radish / Dreame / GoodNovel / Galatea | high/medium/low | favors rhythm and gratification, 5000-10000 words, episode-based | |
+| Inkitt / Tapas | high/medium/low | favors story completeness and readability, 6000-12000 words | |
 
-### 可选模块：详细节奏分析
+### Optional module: detailed rhythm analysis
 
-逐节标注节奏指标，形成节奏分布图：
+Label rhythm metrics per episode, forming a rhythm distribution map:
 
-| 节 | 字数 | 事件密度 | 对话占比 | 冲突占比 | 节奏判断 |
-|----|------|----------|----------|----------|----------|
-
----
-
-## 情节节点提取规则
-
-### 节点类型（6 种，不得自创）
-
-| 类型 | 定义 | 识别特征 |
-|------|------|----------|
-| 情绪节点 | 角色内在情绪发生明显转变 | 情绪词、行为变化、内心独白 |
-| 信息节点 | 新信息被释放（读者或角色获得新认知） | 揭示、发现、被告知 |
-| 冲突节点 | 人物间产生正面对抗 | 直接对抗、拒绝、威胁 |
-| 转折节点 | 故事方向发生偏转 | 剧情方向改变 |
-| 对话节点 | 包含关键信息的对话或潜台词 | 传递新信息或改变关系 |
-| 氛围节点 | 环境/氛围的重大转变 | 场景切换、时间跳跃、季节变化 |
-
-### 质量要求
-
-1. **客观白描**：只记录"发生了什么"，禁止主观评价
-   - 禁止：「沈暮月心碎地听到了真相」
-   - 正确：「沈暮月听到"私生子而已"，手停在半空」
-2. **绝对时序**：严格按文本中事件出现顺序排列
-3. **情绪标记精确**：每个节点标注情绪类型和强度值
-4. **信息保真**：不遗漏改变上下文的关键细节
-5. **高度浓缩**：一个节点一句话概括
-6. **复合合并**：为同一情绪/叙事目的服务的连续微动作合并为一个节点，共用一个 N 编号；密度校验的「节点数」按最终 N 编号总数计
-
-### 白描 vs 评价
-
-- 禁止：「通过这段对话展现了她的坚强」
-- 正确：「她直视霍庭煜说"我没有义务配合你"」
-- 禁止：「气氛变得紧张」
-- 正确：「霍庭煜眼神骤冷，周身散发出威压」
+| Episode | Words | Event density | Dialogue share | Conflict share | Rhythm judgment |
+|---------|-------|---------------|----------------|----------------|-----------------|
 
 ---
 
-## 写作手法分析
+## Plot-node extraction rules
 
-### POV 策略
+### Node types (6; do not invent more)
 
-| POV 类型 | 效果 | 适用情绪 |
-|----------|------|----------|
-| 第一人称 | 亲密感、代入感强、可操控信息 | 虐恋、自省、内心戏 |
-| 第三人称限制 | 兼顾代入和观察距离 | 通用 |
-| 第三人称全知 | 上帝视角、多线并进 | 群像、悬疑 |
-| 第二人称 | 极度沉浸 | 实验性、心理恐怖 |
-| 非人视角 | 新奇感、陌生化 | 系统/鬼/动物视角 |
+| Type | Definition | Recognition traits |
+|------|-------------|-------------------|
+| Emotion node | a character's inner emotion shifts visibly | emotion words, behavior changes, inner monologue |
+| Info node | new info released (reader or character gains new knowledge) | reveal, discovery, being told |
+| Conflict node | direct confrontation between characters | direct clash, refusal, threat |
+| Turn node | the story direction deflects | plot direction changes |
+| Dialogue node | dialogue carrying key info or subtext | transmits new info or changes a relationship |
+| Atmosphere node | a major environment/atmosphere shift | scene switch, time jump, season change |
 
-分析要点：
-- 选择这个 POV 的好处和代价
-- 有没有 POV 内的信息操控（如不可靠叙述者）
-- POV 切换（如有）的时机和效果
-- **代理人问题**：当POV角色无法直接推动剧情时（如灵魂旁观、昏迷旁观），需依赖"活人代理人"来执行行动。代理人的出场时机和行动力直接影响剧情可信度
+### Quality requirements
 
-### 对话手法
+1. **Objective plain description**: only record "what happened"; no subjective judgment
+   - Forbidden: "Mara heard the truth and her heart broke"
+   - Correct: "Mara heard 'just a by-blow,' and her hand stopped mid-air"
+2. **Absolute chronology**: strictly in the text's event order
+3. **Precise emotion labels**: every node labeled with emotion type and intensity
+4. **Information fidelity**: don't drop key details that change the context
+5. **High compression**: one sentence per node
+6. **Composite merging**: consecutive micro-actions serving the same emotional/narrative purpose merge into one node sharing one N number; the density check's "node count" counts final N numbers
 
-| 指标 | 计算方式 | 说明 |
-|------|----------|------|
-| 对话占比 | 对话字数 / 全文字数 | 短篇标准 45-65% |
-| 潜台词率 | 含潜台词对话条数 / 总对话条数 | 高手 > 60% |
-| 审判式对话 | 主角提问→对方自爆的数量 | 至少 2 处 |
-| 信息差对话 | 读者知道但角色不知道的对话 | 虐文/反转文核心 |
+### Plain description vs judgment
 
-**对话模式识别**：
-- 审判式：主角提问 → 对方被迫自爆
-- 压制式：台词短促强硬、句句紧逼 → 对方歇斯底里
-- 信息差式：双方信息不对称，读者在中间
-- 推拉式：靠近又推开，反复循环
-- 称呼变化追踪：不同角色对同一人用不同称呼（如"阿虎"vs"林川"），称呼的变化反映了关系和身份认同的变化。分析时追踪称呼变化轨迹，标注转变的触发事件
-
-### 时间操控
-
-| 手法 | 定义 | 识别特征 |
-|------|------|----------|
-| 时间跳跃 | 跳过一段时间 | 「三年后」「五年后」 |
-| 场景压缩 | 用几句话概括长时间 | 概述性段落 |
-| 平行剪辑 | 两条时间线交替 | A线/B线交替出现 |
-| 倒叙 | 先说结果再说过程 | 结果先行，回溯原因 |
-| 闪回 | 穿插回忆片段 | 突然插入过去场景 |
-| 实时展开 | 逐秒展开关键时刻 | 关键场景慢动作 |
-
-### 信息控制
-
-| 时刻 | 读者知道的 | 角色A知道的 | 角色B知道的 | 信息差 |
-|------|-----------|-----------|-----------|--------|
-| 开头 | | | | |
-| 反转前 | | | | |
-| 反转后 | | | | |
-
-### 意象/物件追踪
-
-| 物件/意象 | 出现位置 | 每次承载的含义 | 演变轨迹 |
-|-----------|---------|---------------|---------|
-
-如无重复物件/意象，注明"无明显意象重复"。
-
-**主题意象群**：当多个物件/意象都指向同一个主题时，不应单独分析每个物件，而应识别它们的关联。如拳套（身份错位）+纹身（被迫标记）+储物间（精神囚禁）都指向"身份囚禁"这个主题。分析时标注：共同主题、各物件的角度、整体效果。
-
-### 留白手法
-
-识别文本刻意留白的内容：
-- 省略的背景（留给读者想象）
-- 未说出口的话（对话中的停顿/省略号）
-- 跳过的过程（直接给结果）
-- 留白的结尾（不交代后续）
+- Forbidden: "This dialogue showed her strength"
+- Correct: "She looked Dorian Hale in the eye and said, 'I don't owe you cooperation'"
+- Forbidden: "The atmosphere turned tense"
+- Correct: "Hale's gaze went cold; the pressure in the room pressed down on everyone"
 
 ---
 
-## 情感线分析
+## Writing-craft analysis
 
-### 情绪类型
+### POV strategy
 
-| 类型 | 信号词 |
-|------|--------|
-| 心疼 | 行为细节、隐忍描写 |
-| 愤怒 | 反派行为、不公待遇 |
-| 震惊 | 反转、真相揭示 |
-| 满足 | 爽点释放、恶人受罚 |
-| 紧张 | 悬念、危机 |
-| 心酸 | 放手、遗憾、成长 |
-| 治愈 | 关怀、团聚、被理解 |
-| 压抑 | 委曲求全、隐忍 |
+| POV type | Effect | Best emotions |
+|----------|--------|---------------|
+| First person | intimacy, strong immersion, controllable info | misery, self-reflection, inner drama |
+| Limited third | immersion + observation distance | general |
+| Omniscient third | god's eye, multi-line parallel | ensemble, suspense |
+| Second person | extreme immersion | experimental, psychological horror |
+| Non-human POV | novelty, defamiliarization | system/ghost/animal POV |
 
-### 情绪强度量表
+Analysis points:
+- What this POV choice buys and costs
+- Info manipulation inside the POV (e.g., unreliable narrator)
+- POV switches (if any): timing and effect
+- **The proxy problem**: when the POV character can't act directly (ghost watching, coma), the plot needs a "living proxy" to execute actions. The proxy's entrance timing and agency directly affect plot credibility
 
-| 值 | 对应 | 描述 |
-|----|------|------|
-| +9 | 极致爽感 | 打脸、碾压、终极反转、恶人伏法 |
-| +7 | 强烈满足 | 关键证据揭露、期待满足 |
-| +5 | 明显正面 | 小胜利、温情时刻 |
-| +3 | 轻微正面 | 小进展、日常温馨 |
-| 0 | 中性 | 过渡、铺垫 |
-| -3 | 轻微不适 | 小挫折、小委屈 |
-| -5 | 明显负面 | 被羞辱、被误解、被威胁 |
-| -7 | 强烈虐感 | 被抛弃、被背叛、孩子受委屈 |
-| -9 | 极致虐感 | 生死威胁、灵魂碾压、信仰崩塌 |
+### Dialogue craft
 
-> **量表说明**：本量表用于情感曲线，区分方向（虐/爽）和强度，范围 -9~+9（仅使用奇数值：±9, ±7, ±5, ±3 和 0）。开头/结尾分析使用独立的 1-10 绝对强度量表（只看强弱，不看正负）。
+| Metric | Calculation | Notes |
+|--------|-------------|-------|
+| Dialogue share | dialogue words / total words | short-fiction standard 45-65% |
+| Subtext rate | subtext-carrying dialogue lines / total dialogue lines | master-level >60% |
+| Interrogation dialogue | protagonist asks → the other side self-detonates | at least 2 |
+| Information-gap dialogue | reader knows what the character doesn't | core of misery/reversal pieces |
 
-### 情感曲线形态
+**Dialogue-pattern recognition**:
+- Interrogation: the protagonist asks → the other side is forced to self-detonate
+- Suppression: clipped, hard lines pressing relentlessly → the other side turns hysterical
+- Information-gap: asymmetric information, the reader in the middle
+- Push-pull: draw close then push away, looping
+- Appellation-change tracking: different characters use different appellations for the same person (e.g., "Hub" vs "Dorian"); appellation changes track relationship and identity shifts. Track the trajectory and mark the triggering event of each shift
 
-| 形态 | 特征 | 适用题材 | 典型效果 |
-|------|------|----------|----------|
-| V形 | 先虐后爽 | 打脸/复仇 | 极致反差 |
-| 倒V | 先甜后虐 | BE虐文 | 遗憾意难平 |
-| 波浪 | 正负交替 | 追妻火葬场 | 情绪拉扯 |
-| 阶梯上升 | 逐步升级 | 爽文/打脸 | 节奏感强 |
-| 断崖下跌 | 突然反转 | 死人文学/反转 | 震惊 |
-| 压缩弹簧 | 长期压抑后一次释放 | 隐忍布局 | 极致释放 |
-| 双峰 | 两个高潮 | 复杂短篇 | 层次丰富。两个高潮可以都是虐的（如两次告别），也可以是不同性质的（先解脱后通透） |
-| **混合型** | 上述形态的组合 | 视组合而定 | 需标注主要形态和次要形态。甜宠/喜剧类可能全程正値不经历负值，属于阶梯上升的变体 |
+### Time manipulation
 
----
+| Technique | Definition | Recognition traits |
+|-----------|-------------|-------------------|
+| Time jump | skip a stretch of time | "three years later", "five years later" |
+| Scene compression | summarize a long period in a few lines | summarizing passages |
+| Parallel cutting | two timelines alternating | A-line/B-line alternating |
+| Inverted narration | result first, then process | result-led, then backstory |
+| Flashback | memory inserts | sudden past scenes |
+| Real-time expansion | second-by-second expansion of a key moment | key scenes in slow motion |
 
-## 节奏分析
+### Info control
 
-### 节奏指标
+| Moment | Reader knows | Character A knows | Character B knows | Information gap |
+|--------|--------------|-------------------|-------------------|-----------------|
+| Opening | | | | |
+| Before reversal | | | | |
+| After reversal | | | | |
 
-| 维度 | 计算方式 | 标准范围 | 说明 |
-|------|----------|----------|------|
-| 事件密度 | 节点数 / 全文字数 × 1000 | 3-6 个/千字 | 太低=水，太高=赶 |
-| 对话密度 | 对话字数 / 全文字数 × 100% | 45-65% | 短篇偏对话驱动 |
-| 冲突密度 | 冲突节点数 / 总节点数 × 100% | 30-50% | 低于20%=太平，高于60%=疲劳 |
-| 信息密度 | 信息节点数 / 总节点数 × 100% | 20-35% | 太低=无聊，太高=消化不及 |
+### Imagery/object tracking
 
-### 节奏异常检测
+| Object/imagery | Appearances | Meaning carried each time | Evolution trajectory |
+|----------------|-------------|---------------------------|----------------------|
 
-| 异常模式 | 检测条件 | 问题 |
-|----------|----------|------|
-| 节奏塌陷 | 连续2节冲突密度<15% | 读者可能弃文 |
-| 冲突过载 | 连续3节冲突密度>60% | 情绪疲劳 |
-| 信息洪峰 | 单节信息节点>50% | 读者消化不及 |
-| 对话荒漠 | 连续2节对话<20% | 文本偏干 |
-| 对话泛滥 | 单节对话>80% | 碎片化 |
-| 反转密度过载 | 连续2节内出现≥3层反转 | 读者消化不及，震惊感递减（每层反转间隔建议≥800字） |
+If no repeated objects/imagery, write "no notable imagery repetition".
 
----
+**Thematic imagery cluster**: when several objects/imagery point at one theme, don't analyze each object separately — recognize their linkage. E.g., boxing gloves (identity displacement) + tattoo (forced marking) + storage room (mental imprisonment) all point at "identity imprisonment". Note when analyzing: the shared theme, each object's angle, the overall effect.
 
-## 人物提取规则
+### White space
 
-### 提取标准（短篇特化）
-
-短篇人物精简，但必须提取所有有名有姓或有叙事功能的人物。
-
-**必须提取**：
-- 有名字（≥2字符）且有台词或推动剧情的人物
-- 虽无明确名字但反复出现（≥2节）且承担叙事功能的人物
-
-**不提取**：
-- 群体称呼（"旁人""大家"）
-- 无名路人（"一个中年人""助理"——除非有关键台词）
-- 通用称呼黑名单：同长篇 chapter-extractor 的黑名单（老师、老板、师傅等）
-
-### 人物分类
-
-> 分类标准见 Stage 5 人物分类（二维体系）：叙事角色{主人公/重要配角/功能人物} + 行动角色{主动型/被动型/转变型}。
-
-### 人物内在矛盾提取
-
-短篇人物的核心在于内在矛盾，不是外部遭遇：
-
-| 错误 | 正确 |
-|------|------|
-| 她被霍庭煜抛弃了（外部遭遇） | 她渴望被爱但学会了在不爱中生存（内在矛盾） |
-| 他对她不好（行为描述） | 他习惯了掌控一切却无法掌控自己的感情（内在矛盾） |
-
-### 人物功能评估
-
-短篇每个人物都必须"物尽其用"：
-
-| 指标 | 问题 |
-|------|------|
-| 出场效率 | 第一次出场就完成定位了吗？ |
-| 功能密度 | 承担了多少叙事功能？ |
-| 可删除性 | 删掉故事还成立吗？（不成立=好，成立=多余） |
-| 对话贡献 | 每次对话都推动剧情或情绪吗？ |
+Identify the text's deliberate omissions:
+- Omitted background (left for the reader's imagination)
+- Unspoken words (pauses/ellipses in dialogue)
+- Skipped processes (results given directly)
+- White-space endings (no follow-through)
 
 ---
 
-## 共鸣分析
+## Emotional-line analysis
 
-### 共鸣层次（9 层）
+### Emotion types
 
-| 层次 | 定义 | 分析要点 |
-|------|------|----------|
-| 情感共鸣 | 读者对角色当下情绪的即时共情（如心疼、愤怒） | 共情点在哪里 |
-| 价值观共鸣 | 对故事传达的具体价值观的认同（如"女性不该被定义"） | 传达了什么价值观 |
-| 经历共鸣 | 与读者自身经历的相似性 | 哪些经历容易产生代入 |
-| 社会现象共鸣 | 与社会热点/普遍现象的关联 | 映射了什么社会现象 |
-| 文化共鸣 | 与文化传统的共鸣 | 触发了什么文化记忆 |
-| 普世价值共鸣 | 对人类共同追求的宏观认同（如自由、尊严、爱） | 触及了什么普世主题 |
-| 哲学思考共鸣 | 引发对人生/存在的深层思考 | 触发了什么思考 |
-| 情感深度共鸣 | 情绪体验留下的持久影响（读完几天后还在想） | 情绪是否深入持久 |
-| 人物深度共鸣 | 对人物复杂性的理解和认同 | 人物是否有深度 |
+| Type | Signal words |
+|------|--------------|
+| Sympathy | behavior details, endurance descriptions |
+| Anger | antagonist behavior, injustice |
+| Shock | reversal, truth reveal |
+| Satisfaction | payoff release, the wicked punished |
+| Tension | suspense, crisis |
+| Heartache | letting go, regret, growth |
+| Healing | care, reunion, being understood |
+| Oppression | swallowing pride, endurance |
 
-每层共鸣标注强度：极强（读者强烈共情，无法自控）/ 强（读者明确感知）/ 中（需要细品）/ 弱（若有若无）/ 无（未触发）。至少 3 层达到"强"或"中"的短篇才具备传播潜力。
+### Emotion-intensity scale
 
-> **易混淆区分**：情感共鸣（与角色当下情绪的即时共情）vs 情感深度共鸣（读完几天后还在想的持久影响）；价值观共鸣（对故事传达的具体价值观的认同）vs 普世价值共鸣（对自由、尊严、爱等人类共同追求的宏观认同）。
+| Value | Meaning | Description |
+|-------|---------|-------------|
+| +9 | extreme gratification | comeuppance, domination, ultimate reversal, the wicked brought to justice |
+| +7 | strong satisfaction | key evidence exposed, expectation fulfilled |
+| +5 | clearly positive | small wins, warm moments |
+| +3 | mildly positive | small progress, everyday warmth |
+| 0 | neutral | transitions, setup |
+| -3 | mildly uncomfortable | small setbacks, small grievances |
+| -5 | clearly negative | humiliated, misunderstood, threatened |
+| -7 | strongly miserable | abandoned, betrayed, a child wronged |
+| -9 | extreme misery | life-or-death threat, spirit crushed, faith shattered |
 
-### 爆点性分析
+> **Scale note**: this scale is for the emotion curve, separating direction (misery/gratification) and intensity, range -9~+9 (only odd values: ±9, ±7, ±5, ±3 and 0). The opening/ending analysis uses a separate 1-10 absolute-intensity scale (strength only, no direction).
 
-评估故事的爆点（容易引发传播/讨论的关键点）：
-- 核心爆点是什么？
-- 爆点的铺垫是否充分？
-- 爆点的释放是否到位？
-- 爆点是否具有传播性？
+### Emotion-curve shapes
 
-### 话题性分析
-
-评估故事的话题性：
-- 读者读完会讨论什么？
-- 是否有争议点？
-- 是否有代入式的自省？
-- 是否有"如果是我会怎样"的讨论空间？
-
----
-
-## 结构类型速查
-
-| 结构 | 特点 | 适合情绪 |
-|------|------|----------|
-| 三幕反转式 | 铺垫→升级→反转 | 震惊、意难平 |
-| 双线交叉式 | 明线暗线交替推进 | 悬疑、真相揭晓 |
-| 时间跳跃式 | 过去/现在穿插 | 遗憾、成长 |
-| 套娃反转式 | 多层反转嵌套 | 惊讶、烧脑 |
-| 对话驱动式 | 通过对话推进叙事 | 虐恋、人际冲突 |
-| 独白式 | 第一人称内心独白 | 治愈、自省 |
-| 重生反常式 | 重生后做相反的事→对手自乱 | 爽、解气 |
-| 灵魂旁观式 | 死后灵魂看世界→揭露真相 | 意难平、愤怒 |
-| 双重生博弈式 | 两人都重生→信息战 | 紧张、痛快 |
-| 隐忍布局式 | 表面顺从暗中布局→反攻 | 压抑→极致释放 |
-| 非人视角式 | 鬼/系统/灵魂看人间 | 新奇、恐怖、爽 |
-| 成长救赎式 | 苦难中被人拉一把→自我救赎→与救赎者约定未来 | 温暖、心酸、治愈 |
-| 舆论反转式 | 舆论多次反转→证据反击→最终真相大白 | 爽、解气、震惊 |
-| 冷面复仇式 | 冷静主角收集证据→果断出手→全身而退 | 爽、痛快、满足 |
-| 倒计时告别式 | 明确时限的告别/离开→倒计时推进→最终诀别 | 心酸、意难平、通透 |
-
-### 匹配分析要点
-
-1. **主结构识别**：主要使用了哪种结构？
-2. **混合结构**：大部分优秀短篇都是混合型。标注方式：主结构（主）+ 副结构（副），如"灵魂旁观式（主）+ 压缩弹簧（副）"。主结构决定叙事框架，副结构决定情绪节奏
-3. **结构创新**：有没有对标准结构的创新使用？如"AI系统×复仇"的类型嫁接
-4. **结构适配度**：这个结构是否最适合这个题材和情绪目标？
+| Shape | Traits | Best genres | Typical effect |
+|-------|--------|-------------|----------------|
+| V-shape | misery first, gratification after | comeuppance / revenge | extreme contrast |
+| Inverted-V | sweet first, misery after | BE misery | regret, bittersweet |
+| Wave | positive/negative alternating | regret-chasing | emotional tug |
+| Staircase up | step-by-step escalation | gratification / comeuppance | strong rhythm |
+| Cliff drop | sudden reversal | ghost POV / reversal | shock |
+| Compressed spring | long oppression, one release | patient schemes | extreme release |
+| Twin peaks | two climaxes | complex shorts | layered. Both peaks may be misery (two farewells) or different in kind (first relief, then clarity) |
+| **Mixed** | combination of the above | depends | label the primary and secondary shapes. Sweet/comedy pieces may stay positive throughout — a staircase-up variant |
 
 ---
 
-## 质量标准
+## Rhythm analysis
 
-### 拆解完整性检查
+### Rhythm metrics
 
-| 指标 | 阈值 | 计算 | 不达标处理 |
-|------|------|------|------------|
-| 情节节点覆盖 | ≥90% | 有明确功能的节点数 / 总节点数 | <90% 检查遗漏 |
-| 情感曲线完整度 | 100% | 每个节点都有情绪标记 | 补充缺失标记 |
-| 写作手法识别数 | ≥5项 | 识别出的手法维度的数量 | <5 项深入分析 |
-| 对话分析覆盖 | ≥80% | 已分析的对话条数 / 总对话条数 | <80% 补充分析 |
-| 人物提取完整 | 100% | 有名人物全部提取 | 补充遗漏人物 |
+| Dimension | Calculation | Standard range | Notes |
+|-----------|-------------|----------------|-------|
+| Event density | node count / total words × 1000 | 3-6 per 1000 words | too low = padding, too high = rushed |
+| Dialogue density | dialogue words / total words × 100% | 45-65% | shorts lean dialogue-driven |
+| Conflict density | conflict nodes / total nodes × 100% | 30-50% | <20% = too flat, >60% = fatigue |
+| Info density | info nodes / total nodes × 100% | 20-35% | too low = boring, too high = can't digest |
 
-### 拆文报告质量检查
+### Rhythm-anomaly detection
 
-| 检查项 | 标准 |
-|--------|------|
-| 故事核概括 | 一句话点明核心梗 |
-| 五维评分 | 每项有具体说明（非"写得很好"） |
-| 爆点性+话题性 | 具体指出传播点 |
-| 共鸣层次 | 至少分析 3 层共鸣 |
-| 可复用结构 | 至少 3 条，含手法名+用法+适用场景 |
-| 同类型写作动作 | 具体行动，不是"多练习" |
+| Anomaly | Detection condition | Problem |
+|---------|---------------------|---------|
+| Rhythm collapse | 2 consecutive episodes with conflict density <15% | readers may drop |
+| Conflict overload | 3 consecutive episodes with conflict density >60% | emotional fatigue |
+| Info flood | a single episode >50% info nodes | reader can't digest |
+| Dialogue desert | 2 consecutive episodes <20% dialogue | text runs dry |
+| Dialogue flood | a single episode >80% dialogue | fragmented |
+| Reversal overload | ≥3 reversal layers within 2 consecutive episodes | reader can't digest; shock value decays (≥800 words between layers recommended) |
 
 ---
 
-## references 协作关系
+## Character extraction rules
 
-短篇拆书由 SKILL.md + 多个 references 文件协同工作：
+### Extraction standards (short-fiction specific)
 
-- **SKILL.md** = 路由逻辑 + 管道概要（Phase 1 用户交互 + 字数路由 + Stage 2-6 管道表 + 验收）
-- **本文件（material-decomposition.md）** = 方法论细节（Stage 2-6 操作步骤 + 情节节点 + 写作手法 + 情感线 + 节奏 + 共鸣）+ **质量标准唯一权威**（阈值/数值/计算方式）
-- **output-templates.md** = 具体输出格式模板（每个 Stage 的 markdown 模板 + 质量检查逐项 checklist 含 `[BLOCK]`/`[WARN]` 标注 + Stage 6 `_meta.json.structure_counts` 产出模板，数值引用本文件）
-- **output-contract.md** = 输出契约 SSOT：定义 Stage → 文件映射 + `_meta.json` schema（含 `structure_counts`）+ 下游 `story-short-write` 消费规范 + 验收接入点。与 `story-short-write` 副本字节一致，由 `scripts/check-shared-files.sh` 守护
-- **quality-checklist.md** = 短篇拆书的质量自检清单（评估**源文**质量时用，数值引用本文件）
-- **anti-ai-writing.md + banned-words.md** = 拆文报告**本身**的 AI 腔守门员（「拆文报告 AI 腔自检」调用扫描 `拆文报告.md`，不是源文滤镜）
+Short fiction keeps characters lean, but every named or narratively functional character must be extracted.
 
-对照标尺类文件的加载时机见 SKILL.md「参考资料」。
+**Must extract**:
+- Named (≥2 characters) with lines or plot-driving presence
+- Not clearly named but recurring (≥2 episodes) with narrative function
+
+**Don't extract**:
+- Group appellations ("the onlookers", "everyone")
+- Nameless passersby ("a middle-aged man", "the assistant" — unless they carry a key line)
+- Generic-title blacklist: same as the long-form chapter-extractor blacklist (teacher, boss, master, etc.)
+
+### Character classification
+
+> Standards in the Stage 5 character classification (two-dimension system): narrative role{protagonist/major supporting/functional} + action role{active/passive/transforming}.
+
+### Inner-contradiction extraction
+
+The short-fiction character's core is the inner contradiction, not external events:
+
+| Wrong | Right |
+|-------|-------|
+| She was abandoned by Dorian Hale (external event) | She craves love but has learned to survive without it (inner contradiction) |
+| He treated her badly (behavior description) | He is used to controlling everything yet can't control his own feelings (inner contradiction) |
+
+### Character function assessment
+
+Every short-fiction character must earn their place:
+
+| Metric | Question |
+|--------|----------|
+| Entrance efficiency | did the first appearance complete the positioning? |
+| Function density | how many narrative functions does it carry? |
+| Deletability | does the story survive its removal? (no = good, yes = redundant) |
+| Dialogue contribution | does every line advance plot or emotion? |
+
+---
+
+## Resonance analysis
+
+### Resonance layers (9)
+
+| Layer | Definition | Analysis point |
+|-------|------------|----------------|
+| Emotional resonance | instant empathy with the character's present emotion (sympathy, anger) | where is the empathy point |
+| Values resonance | agreement with the specific values conveyed ("a woman shouldn't be defined by others") | what values are conveyed |
+| Experience resonance | similarity to the reader's own experience | which experiences invite projection |
+| Social-phenomenon resonance | ties to hot social issues / common phenomena | what social phenomenon it mirrors |
+| Cultural resonance | ties to cultural traditions | what cultural memory it triggers |
+| Universal-values resonance | agreement with shared human pursuits (freedom, dignity, love) | what universal theme it touches |
+| Philosophical resonance | deeper thoughts about life/existence | what thought it triggers |
+| Deep emotional resonance | the lasting impact of the emotional experience (still thinking about it days later) | is the emotion deep and lasting |
+| Character-depth resonance | understanding and recognition of character complexity | does the character have depth |
+
+Per-layer intensity: overwhelming (reader empathizes uncontrollably) / strong (reader clearly feels it) / medium (needs savoring) / weak (barely there) / none (not triggered). A short story needs at least 3 layers at "strong" or "medium" to have spread potential.
+
+> **Confusion guard**: emotional resonance (instant empathy with the character's present emotion) vs deep emotional resonance (the lasting effect days later); values resonance (agreement with the specific values conveyed) vs universal-values resonance (macro agreement with freedom, dignity, love).
+
+### Eruption-potential analysis
+
+Assess the story's eruption points (key points that spread/discuss):
+- What is the core eruption point?
+- Is the setup sufficient?
+- Is the release on point?
+- Is the eruption point shareable?
+
+### Topicality analysis
+
+Assess the story's topicality:
+- What will readers discuss after finishing?
+- Any controversy points?
+- Any immersive self-reflection?
+- Is there "what would I do" discussion space?
+
+---
+
+## Structure-type quick reference
+
+| Structure | Traits | Best emotions |
+|-----------|--------|---------------|
+| Three-act reversal | setup → escalation → reversal | shock, bittersweet |
+| Double-line crossing | visible/hidden lines alternating | suspense, truth reveal |
+| Time-jump | past/present interleaving | regret, growth |
+| Nested reversal | multi-layer reversals | surprise, mind-bending |
+| Dialogue-driven | narration advanced through dialogue | misery, interpersonal conflict |
+| Monologue | first-person inner monologue | healing, self-reflection |
+| Second-chance anti-expectation | after rebirth, does the opposite of last time → opponents self-destruct | gratification, vindication |
+| Ghost POV | dead soul watches the world → truth exposed | bittersweet, anger |
+| Double-second-chance game | both reborn → information war | tension, vindication |
+| Patient-scheme | outwardly compliant, secretly scheming → counterattack | oppression → extreme release |
+| Non-human POV | ghost/system/soul watching the human world | novelty, horror, gratification |
+| Growth-redemption | pulled from suffering → self-redemption → a promise with the savior | warmth, heartache, healing |
+| Public-opinion reversal | opinion reverses multiple times → evidence counters → truth finally out | gratification, vindication, shock |
+| Cold-faced revenge | the calm protagonist collects evidence → strikes decisively → walks away clean | gratification, vindication, satisfaction |
+| Countdown farewell | a farewell/leaving with a clear deadline → countdown → final parting | heartache, bittersweet, clarity |
+
+### Matching-analysis points
+
+1. **Primary structure recognition**: which structure is primarily used?
+2. **Mixed structure**: most good shorts are mixed. Label as primary + secondary, e.g., "ghost POV (primary) + compressed spring (secondary)". The primary structure decides the narrative frame; the secondary decides the emotional rhythm
+3. **Structural innovation**: any innovative use of a standard structure? E.g., "AI system × revenge" genre grafting
+4. **Structural fit**: is this structure the best fit for this genre and emotional goal?
+
+---
+
+## Quality standards
+
+### Teardown-completeness check
+
+| Metric | Threshold | Calculation | If below |
+|---------|-----------|-------------|----------|
+| Plot-node coverage | ≥90% | nodes with clear function / total nodes | <90% check for omissions |
+| Emotion-curve completeness | 100% | every node has an emotion label | fill missing labels |
+| Craft-identification count | ≥5 items | number of craft dimensions identified | <5 go deeper |
+| Dialogue-analysis coverage | ≥80% | analyzed dialogue lines / total lines | <80% supplement |
+| Character-extraction completeness | 100% | all named characters extracted | supplement missing characters |
+
+### Teardown-report quality check
+
+| Check | Standard |
+|-------|----------|
+| Story-core summary | one sentence naming the core hook |
+| Five-dimension score | specific notes per item (not "well written") |
+| Eruption potential + topicality | concretely point at the spread points |
+| Resonance layers | at least 3 layers analyzed |
+| Reusable structures | at least 3, each with craft name + usage + applicable scenario |
+| Same-type writing actions | concrete actions, not "practice more" |
+
+---
+
+## References collaboration
+
+Short-fiction teardown is a joint effort of SKILL.md + multiple reference files:
+
+- **SKILL.md** = routing logic + pipeline overview (Phase 1 user interaction + word-count routing + Stage 2-6 pipeline table + acceptance)
+- **This file (material-decomposition.md)** = methodology details (Stage 2-6 procedures + plot nodes + writing craft + emotional line + rhythm + resonance) + **sole authority for quality standards** (thresholds/numbers/calculations)
+- **output-templates.md** = concrete output-format templates (per-Stage markdown templates + item-by-item quality-check checklists with `[BLOCK]`/`[WARN]` labels + the Stage 6 `_meta.json.structure_counts` production template; numbers reference this file)
+- **output-contract.md** = the output-contract SSOT: defines the Stage → file mapping + the `_meta.json` schema (incl. `structure_counts`) + downstream `story-short-write` consumption rules + acceptance entry points. Must stay byte-equal with the story-short-write copy, guarded by `scripts/check-shared-files.sh`
+- **quality-checklist.md** = short-fiction teardown self-check list (use when assessing **the source text's** quality; numbers reference this file)
+- **anti-ai-writing.md + banned-words.md** = the gatekeeper for **the teardown report's own** AI flavor (the "teardown-report AI-flavor self-check" scans `teardown-report.md`; not a source filter)
+
+Yardstick-file load timing in the SKILL.md "References" section.

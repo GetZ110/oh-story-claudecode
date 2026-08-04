@@ -1,207 +1,192 @@
-# 扫榜数据采集格式规范
-定义起点/番茄/七猫/晋江的采集字段、输出模板和清洗规则。
+# Scan Data Collection Format Specification
+
+Field definitions, output templates, and cleaning rules for Royal Road / Webnovel / Wattpad / Amazon Kindle / Inkitt collection.
 
 ---
 
-## 起点
+## Royal Road
 
-### 起点采集说明
+### Collection notes
 
-榜单清单与 URL 见 SKILL.md「起点采集目标」表。
+Ranking list and URLs are in SKILL.md's Royal Road research table. Use WebSearch to locate the current ranking URLs, then open pages with `/browser-cdp` (`agent-browser --cdp 9222 open "<URL>"`). Extract rows with `evalJSON` from `scripts/cdp-utils.js` (base64 channel; never hand-escape JS with quotes). Output header records the collection method.
 
-优先使用 `scripts/qidian-rank-scraper.js` 的默认 `--mode auto`。脚本先读取 `https://m.qidian.com` 移动端 SSR pageContext JSON，规避 PC 站风控页；移动端不可用时才回退到 CDP/PC 页面。输出头部会标注 `抓取方式：mobile-ssr` 或 `cdp-pc`。
+### Fields
 
+rank | title | author | genre | status | length (words) | follows | rating | votes | views | tags | latest update | fiction page URL | blurb (truncated ~150 words)
 
-### 字段
-
-排名 | 书名 | 作者 | 题材 | 状态 | 签约 | 收费模式 | 字数(万字) | 总推荐 | 标签(详情页) | 最新更新(详情页) | 作品页链接 | 简介(详情页，截断100字)
-
-### 输出模板
+### Output template
 
 ```markdown
-# qidian · {榜单名称}
-- 来源：{榜单URL}
-- 抓取时间：{ISO 8601}
-- 条目数：{N}
+# Royal Road · {ranking name}
+- Source: {ranking URL}
+- Collected: {ISO 8601}
+- Valid entries: {N}
+- Data quality: [OK / issues found]
 
 ---
 
-## #{排名} {书名}
-*{作者} · {题材} · {状态} · {签约} · {免费/VIP} · {字数}万字 · {推荐数}总推荐*
-**标签：** {标签}
-**最新更新：** {YYYY-MM-DD HH:MM:SS} · {章节标题}
+## #{rank} {title}
+*{author} · {genre} · {status} · {length} words · {follows} follows · {rating}★ ({votes} votes) · {views} views*
+**Tags:** {tags}
+**Latest update:** {YYYY-MM-DD} · {chapter title}
 
-[作品页]({URL})
+[Fiction page]({URL})
 
-**简介**
-{简介原文}
+**Blurb**
+{blurb text}
 ```
 
-### 采集要点
+### Collection notes
 
-榜单页含：排名/书名/作者/题材/字数/推荐/签约/免费VIP。详情页需：标签/最新更新/简介。三江按周分组。
+The ranking page has rank/title/author/genre/length; detail pages add follows/rating/votes/views/tags/blurb. Rising Stars and Popular This Week re-rank frequently; record the collection timestamp in the header.
 
 ---
 
-## 番茄小说
+## Webnovel
 
-榜单 URL 格式与参数说明见 SKILL.md「番茄采集目标」表。
+### Fields
 
-### 题材cat_id
+rank | title | author | genre | status | views | power stones | favorites | rating | chapters | latest update | bookId | book page URL | blurb (truncated ~150 words)
 
-男频19个：西方奇幻(1141) / 东方仙侠(1140) / 科幻末世(8) / 都市日常(261) / 都市修真(124) / 都市高武(1014) / 历史古代(273) / 战神赘婿(27) / 都市种田(263) / 传统玄幻(258) / 历史脑洞(272) / 悬疑脑洞(539) / 都市脑洞(262) / 玄幻脑洞(257) / 悬疑灵异(751) / 抗战谍战(504) / 游戏体育(746) / 动漫衍生(718) / 男频衍生(1016)
-
-女频18个：古风世情(1139) / 科幻末世(8) / 游戏体育(746) / 女频衍生(1015) / 玄幻言情(248) / 种田(23) / 年代(79) / 现言脑洞(267) / 宫斗宅斗(246) / 悬疑脑洞(539) / 古言脑洞(253) / 快穿(24) / 青春甜宠(749) / 星光璀璨(745) / 女频悬疑(747) / 职场婚恋(750) / 豪门总裁(748) / 民国言情(1017)
-
-### 字段
-
-排名 | 书名(需详情页解码) | 作者(需详情页解码) | 题材(详情页 categoryV2) | 状态 | 在读(核心指标) | 字数 | 标签(简介内【】) | 最新更新 | bookId | 作品页链接 | 简介(截断100字)
-
-> 番茄 SSR 详情页**没有数字评分**，故不输出评分。题材取详情页 `categoryV2`（转义 JSON 的首个 `Name`，如「西方奇幻」）；标签取简介开头的 `【tag+tag+...】`（如「种田、慢热、西幻」），是题材细分的真实信号。
-
-### 输出模板
+### Output template
 
 ```markdown
-# 番茄 · {频道}{榜单名} · 全 {N} 题材
-- 频道参数：channel={0女频/1男频}，type={1新书榜/2阅读榜}
-- 抓取时间：{ISO 8601}
-- 标题解析：成功 {X} / 共 {Y}
-- 数据质量：[OK / 标题解析异常 / 无数据]
-- 每题材上限 ≈ {N}（cap≈20）
+# Webnovel · {channel}{ranking name} · {N} entries
+- Source: {ranking URL}
+- Collected: {ISO 8601}
+- Data quality: [OK / issues found]
 
 ---
 
-## {题材名称} — {N} 本
+## #{rank} {title}
+*{author} · {genre} · {status} · {views} views · {power stones} power stones · {favorites} favorites*
+**Latest update:** {chapter}
+**bookId:** {bookId}
 
-### #{排名} {书名}
-*{作者} · {题材} · {状态} · {在读数} 在读 · {字数}字*
-**标签：** {标签1、标签2}
-**最新更新：** {章节}
-**bookId：** {bookId}
+[Book page]({URL})
 
-[作品页]({URL})
-
-**简介**
-{简介原文}
+**Blurb**
+{blurb text}
 ```
 
-> 标题/作者/题材/标签/简介均为可选字段：详情页拿到才输出。书名解码失败时书名显示 `（标题待解析）`，但 bookId 与作品页链接始终保留，便于人工回查。
+### Collection notes
 
-### 采集要点
-
-字体反爬：列表页 innerText 被自定义字体混淆，`scripts/fanqie-rank-scraper.js` 改从详情页 HTML（内嵌 JSON `bookName`/`author`/`abstract`/`categoryV2` + `<title>` + og:meta）多策略解码明文，规避字体反爬。流程：访问品类页 → 提取品类链接 → 逐品类取 `__INITIAL_STATE__` 列表 → 分批（每 5 本）请求详情页解码。单页上限约 20 本需滚动加载；`--top N` 可调每题材上限。
-
-**故障排查（书名全是 `bookId:xxx` / `（标题待解析）`）**：
-- 看文件头 `数据质量`：标 `[标题解析异常]` 说明详情页解码失败率高。
-- 多为详情页结构变动或被登录/验证页拦截。在已登录的 Chrome 里手动打开任一 `https://fanqienovel.com/page/{bookId}` 确认页面正常、非验证页。
-- 控制台若报 `CDP 无响应`，说明 Chrome/CDP 没起来或端口不对，按 browser-cdp skill 重新启动。确认正常后重采。
+webnovel.com is a heavy client-side app; list pages need browser state. If a page requires login or shows a verification wall, open it manually in the logged-in Chrome first, then re-collect. When a title/author fails to decode, show `(title pending)` but always keep the bookId and book-page URL for manual re-check.
 
 ---
 
-## 七猫
+## Wattpad
 
-### 榜单
+### Fields
 
-入口：qimao.com/paihang，男生榜/女生榜tab切换。类型：大热榜(日/月) / 新书榜 / 完结榜 / 收藏榜 / 更新榜
+rank | title | author | genre/tag | status | reads | votes | comments | parts | last update | story URL | description (truncated ~150 words)
 
-### 字段
-
-排名 | 书名 | 作者 | 题材 | 分类标签 | 状态 | 字数(万字) | 热度(核心指标) | 最新更新 | 作品页链接 | 简介(截断100字)
-
-### 输出模板
+### Output template
 
 ```markdown
-# 七猫 · {男/女}频 · {榜单名称}
-- 来源：qimao.com/paihang
-- 抓取时间：{ISO 8601}
-- 条目数：{N}
+# Wattpad · {tag/ranking name} · {N} entries
+- Source: {ranking URL}
+- Collected: {ISO 8601}
+- Valid entries: {N}
 
 ---
 
-### #{排名} {书名}
-*{作者} · {题材} · {分类标签} · {状态} · {字数}万字 · {热度}万热度*
-**最新更新：** {时间} · {章节}
+### #{rank} {title}
+*{author} · {tag} · {status} · {reads} reads · {votes} votes · {comments} comments · {parts} parts*
+**Last update:** {date}
 
-[作品页]({URL})
+[Story page]({URL})
 
-**简介**
-{简介原文}
+**Description**
+{description text}
 ```
 
-### 采集要点
+### Collection notes
 
-无明显反爬需滚动加载。男生榜/女生榜tab切换，大热榜有日/月切换。
+Wattpad rankings are tag-scoped; collect per hot tag. Reads vs votes ratio is a cheap engagement-quality signal.
 
 ---
 
-## 晋江
+## Amazon Kindle
 
-### 榜单URL
+### Fields
 
-`jjwxc.net/topten.php?orderstr={榜单ID}&t={频道ID}`（t=0全站，各频道ID从页面获取）
+rank | title | author | category | price/KU badge | rating | reviews | page count | publication date | series position | ASIN | product page URL | blurb (truncated ~150 words)
 
-| 榜单 | orderstr |
-|------|----------|
-| 收入金榜 | 12 |
-| 月榜 | 7 |
-| 季度榜 | 8 |
-| 完结金榜 | 14 |
-| 新手金榜 | 15 |
-| 千字金榜 | 17 |
-
-### 字段
-
-频道 | 排名 | 书名 | 作者 | novelid | 收藏数(核心) | 营养液 | 积分 | 字数 | 状态 | 作品页链接
-
-### 输出模板
+### Output template
 
 ```markdown
-# 晋江 · {榜单名}
-- 来源：{topten URL}
-- 抓取时间：{ISO 8601}
-- 频道数：{N} / 总条目数：{M}
-- 详情采集：{命中收藏数} / {计划数}（每频道前 {top}，上限 {limit}）
-- 数据质量：[OK / 详情解析异常·登录态缺失 / 仅列表-无核心指标]
+# Kindle · {list name} · {N} entries
+- Source: {list URL}
+- Collected: {ISO 8601}
+- Valid entries: {N}
 
 ---
 
-## {频道名} — {N} 本
+### #{rank} {title}
+*{author} · {category} · {price}/{KU} · {rating}★ ({reviews} reviews) · {page count} pages · {publication date} · {series position}*
+**ASIN:** {asin}
 
-### #{排名} {书名}
-*{作者} · 收藏 {X} · 营养液 {Y} · 积分 {Z} · 字数 {W}字 · {状态}*
-[作品页](https://www.jjwxc.net/onebook.php?novelid={id})
+[Product page]({URL})
+
+**Blurb**
+{blurb text}
 ```
 
-### 采集要点
+### Collection notes
 
-两步：① 列表页 `topten.php` 取频道分组 + 书名/作者，从书名 anchor 取 `novelid`（排除"X向《书名》投了Y"霸王票记录）；② 进 `onebook.php?novelid=` 详情页补采核心指标。
-- **编码**：晋江是 gb18030，详情页必须 `fetch+arrayBuffer+TextDecoder('gb18030')` 解码（同步 XHR 的 responseText 按 UTF-8 解码会乱码）。
-- **字段来源**：详情页 `itemprop` 微数据——`collectedCount`(收藏)/`nutritionCount`(营养液)/`scoreCount`(积分)/`wordCount`(字数)/`updataStatus`(状态)。这些是公开指标，**无需登录**。
-- **控量**：列表全量保留，仅每频道前 `--top` 本（受 `--detail-limit` 总量约束）补详情，避免对全站数百本逐一请求。
+Kindle pages are bot-tolerant but slow; batch with per-page waits and re-verify rank at collection time (Best Seller rank floats hourly). For KU reads, the page displays "Kindle Unlimited" but exact page-read totals are only visible to enrolled authors — record page count as the proxy and mark reads as `[needs fill]` when unavailable.
 
 ---
 
-## 数据清洗
+## Inkitt
 
-通用：移除平台模板文本→简介超100字在句号处截断加`...`→空值标`[待补]`
+### Fields
 
-| 平台 | 额外必填 |
-|------|----------|
-| 起点 | 题材、字数、总推荐 |
-| 番茄 | 在读数 |
-| 七猫 | 热度 |
-| 晋江 | 收藏数、营养液(或积分)、字数 |
+rank | title | author | genre | status | reads | votes | chapters | story URL | blurb (truncated ~150 words)
 
-最低采集量：主流平台15条，小平台10条。低于底线标`[数据稀疏]`。
+### Output template
+
+```markdown
+# Inkitt · {list name} · {N} entries
+- Source: {list URL}
+- Collected: {ISO 8601}
+- Valid entries: {N}
 
 ---
 
-## 批量采集
+### #{rank} {title}
+*{author} · {genre} · {status} · {reads} reads · {votes} votes · {chapters} chapters*
+[Story page]({URL})
 
-| 平台 | 默认组合 |
-|------|----------|
-| 起点 | 新人签约新书榜+签约作者新书榜前20+月票榜前20+畅销榜前20 |
-| 番茄 | 男频阅读榜全题材+女频阅读榜全题材 |
-| 七猫 | 男频大热榜日榜+女频大热榜日榜 |
-| 晋江 | 收入金榜+月榜 |
-| 全平台 | 起点+番茄+七猫默认组合 |
+**Blurb**
+{blurb text}
+```
+
+---
+
+## Data cleaning
+
+General: remove platform boilerplate text -> truncate blurbs over ~150 words at a sentence end with `...` -> mark empty values `[needs fill]`.
+
+| Platform | Extra required fields |
+|----------|-----------------------|
+| Royal Road | genre, length, follows (or rating+votes) |
+| Webnovel | views (or power stones) |
+| Wattpad | reads (or votes) |
+| Kindle | category, rating+reviews (or price/KU badge) |
+| Inkitt | reads (or votes) |
+
+Minimum collection volume: 15 entries for main platforms, 10 for small platforms. Below the floor, mark `[data sparse]`.
+
+---
+
+## Batch collection
+
+| Platform | Default combination |
+|----------|---------------------|
+| Royal Road | Rising Stars + Popular This Week + top follows |
+| Webnovel | Power Rankings (main genres) + New Books |
+| Kindle | Top 100 Paid + Top 100 Free (target category) |
+| Wattpad | Hot lists for 2-3 target tags |
+| Full sweep | Royal Road + Webnovel + Kindle default combinations |

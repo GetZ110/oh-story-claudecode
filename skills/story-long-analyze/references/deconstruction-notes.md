@@ -1,270 +1,270 @@
-# 长篇拆文参考
-拆书方法论、结构设计、卖点循环、题材实战要点的速查手册。配合 SKILL.md 和 `material-decomposition.md` 使用。
+# Long-Form Teardown Reference
+A quick-reference manual for teardown methodology, structural design, selling-point loops, and genre practice. Use together with SKILL.md and `material-decomposition.md`.
 
-## 管道阶段映射
+## Pipeline-stage mapping
 
-| 本文件章节 | 适用管道阶段 | 用途 |
-|-----------|-------------|------|
-| 核心情绪控制 | Stage 1（黄金三章）| 判断开篇情绪是否到位 |
-| 题材边界与核心梗 | Stage 0（概要提取）| 识别题材类型和核心梗 |
-| 拆书方法论 | Stage 1-2（三章+逐章）| 拆解视角和提取方法 |
-| 结构设计与节奏 | Stage 3（聚合分析）| 节奏地图和情绪曲线构建 |
-| 卖点循环设计 | Stage 3（聚合分析）| 爽点循环模式识别 |
-| 桥段词表 | Stage 3（聚合分析）| 给剧情模块打桥段标签 |
-| 经典作品拆解 | Stage 1-2 | 对标拆解参考框架 |
-| 拆书实操技巧 | Stage 2（逐章摘要）| 情绪折线图、期待分析 |
-| 对标书选择 | Stage 0（概要提取）| 确定拆解对象 |
-| 抽象拆书法 | Stage 3（聚合分析）| 三幕式结构归纳 |
-| 影视拉片与情绪控制 | Stage 2-3 | 情绪曲线精细化分析 |
-| 多线叙事与结构循环 | Stage 3（聚合分析）| 多线交织识别 |
-| 题材实战 | Stage 0-1（概要+三章）| 题材特有爽点形态 |
-| 人设塑造 | Stage 4（设定+关系）| 角色档案和出场设计 |
-| 素材转化 | Stage 0-5（全流程）| 拆文结果转化为写作指导 |
-
----
-
-## 核心情绪控制
-
-### 自检规则
-
-拆解或审查时标记：文本是否偏离核心梗、是否出现只服务表达欲但不服务读者期待的段落。偏离核心梗时，输出为留存风险而不是主观评价。
-
-### 核心情绪崩溃案例
-
-| 问题 | 教训 |
-|------|------|
-| 主角独断万古身边人死绝 | 读者代入后"天下无敌啥也得不到"，憋屈 |
-| 换地图杀光所有配角 | 留存/追读风险显著升高，读者难以接受代入资产清零 |
-| 所有人牺牲成工具人 | 高开低走，核心情绪崩坏 |
-
-修正：悲情通过创造挫折体现，非杀死重要角色；换地图可让原有人遇险给主角行动理由。
-
-### 刀人原则
-
-- 刀人是手段非目的，对笔力要求极高
-- 必须刀人时，埋伏笔留弥补空间
-- 项目没有足够铺垫、补偿机制和后续情绪回收方案时，不要刀重要角色
-- 悲情强度必须由目标平台近期样本校准；默认不让悲情覆盖核心爽感或安全感
-
-### 强情绪样本校验
-
-若目标平台近期样本高频出现强情绪文，拆解时记录：触发情绪、释放节奏、噱头位置、留存证据。没有近期样本时，不把强情绪当作硬性趋势，只作为候选假设。
+| Section in this file | Pipeline stage it serves | Use |
+|---------------------|--------------------------|-----|
+| Core emotional control | Stage 1 (opening hook chapters) | judge whether the opening's emotion lands |
+| Genre boundary and core hook | Stage 0 (overview extraction) | identify genre and core hook |
+| Teardown methodology | Stage 1-2 (three chapters + per-chapter) | teardown lens and extraction method |
+| Structure design and pacing | Stage 3 (aggregation analysis) | pacing map and emotion-curve construction |
+| Selling-point loop design | Stage 3 (aggregation analysis) | payoff-cycle pattern recognition |
+| Trope word list | Stage 3 (aggregation analysis) | trope-label each plot module |
+| Classic-works deconstruction | Stage 1-2 | benchmark teardown reference framework |
+| Teardown hands-on techniques | Stage 2 (per-chapter summary) | emotion polyline, anticipation analysis |
+| Benchmark-book selection | Stage 0 (overview extraction) | choose the teardown target |
+| Abstract teardown method | Stage 3 (aggregation analysis) | three-act structure generalization |
+| Film-scene teardown and emotional control | Stage 2-3 | refined emotion-curve analysis |
+| Multi-line narrative and structural loops | Stage 3 (aggregation analysis) | multi-line interweaving recognition |
+| Genre practice | Stage 0-1 (overview + three chapters) | genre-specific payoff shapes |
+| Character building | Stage 4 (setting + relationships) | character files and entrance design |
+| Material transformation | Stage 0-5 (full pipeline) | turning teardown results into writing guidance |
 
 ---
 
-## 题材边界与核心梗
+## Core emotional control
 
-### 核心梗 = 读者需求，偏离 = 抛弃读者
+### Self-check rules
 
-| 偏离类型 | 后果 |
-|----------|------|
-| 核心对比消失（都市高武→普通） | 在读直降 |
-| 核心机制不升级（网游困在新手村） | 限制上限 |
-| 题材串味（玄幻混诡异/悬疑跑偏到玄幻） | 两边读者都不讨好 |
-| 后期三观偏离 | 受众筛选过严重 |
+When tearing down or reviewing, flag: whether the text drifts from its core hook, whether there are passages that serve only the author's self-expression without serving reader expectations. When it drifts from the core hook, output it as a retention risk, not a subjective judgment.
 
-### 核心梗延伸四维度
+### Core-emotion collapse cases
 
-以"逆袭系统（早到流）"为例：1.任务数量 2.奖励难度 3.等级阶层+隐藏触发 4.奖励触发新戏剧性任务。仅用前两点戏剧性快速消耗殆尽，四点结合才持续。
+| Problem | Lesson |
+|---------|--------|
+| Protagonist becomes unbeatable, everyone around them dies | After projecting into the protagonist, "invincible yet gets nothing" feels suffocating |
+| Map-swap wipes out all supporting cast | Retention/follow-through risk jumps; readers can't accept their invested cast being zeroed out |
+| Everyone sacrifices and becomes tools | Starts high, fades fast; the core emotion collapses |
 
-### 核心梗密度参考
+Fix: pathos comes from creating setbacks, not from killing important characters; a map-swap can put existing people in danger to give the protagonist a reason to act.
 
-《美食赋我词条》11章内核心梗应用5次，密度极高。
+### Killing-off principles
 
----
+- Killing characters is a means, not an end, and demands very high craft
+- When a kill is necessary, plant foreshadowing to leave room for redemption
+- Don't kill important characters when the project lacks enough setup, compensation mechanisms, and a follow-up emotional-recovery plan
+- Pathos intensity must be calibrated against recent samples from the target platform; by default, pathos must not override the core gratification or sense of safety
 
-## 拆书方法论
+### Strong-emotion sample validation
 
-### 六原则
-
-有目的 / 有方法 / 拆出理论 / 摒弃好恶 / 扬长避短 / 拆自己喜欢的书
-
-### 流程
-
-概括一句话 → 识别结构单元（起承转合，递进扩大） → 抽离框架+情绪链条 → 借鉴框架非抄内容
-
-### 条件框架提取法
-
-剧情提炼为条件（如：展露部分天赋+两方势力争夺+信息差制造慧眼识珠），替换人物/背景/金手指后复用，保留情绪相似。
-
-### 抽象五步法
-
-概括 → 拆为信息团（情绪转折点） → 按上行/下行/转折归类 → 提取通用条件框架 → 用素材填充
-
-### 感情线拆法：双标法
-
-同一件事（送可乐），男配送女主拒绝，男主送女主接受。三要素：①差不多同一件事前后连续 ②女主态度截然不同 ③男主不清楚。
+If recent target-platform samples frequently contain strong-emotion pieces, record during the teardown: triggered emotion, release rhythm, gimmick position, retention evidence. Without recent samples, don't treat strong emotion as a hard trend — only a candidate hypothesis.
 
 ---
 
-## 结构设计与节奏
+## Genre boundary and core hook
 
-### 情绪拉扯工具
+### Core hook = reader need; drift = abandoning the reader
 
-| 技巧 | 做法 |
-|------|------|
-| 熟悉情绪套路 | 选套路→搞人设→填剧情 |
-| 期待断掉续上 | 引入新角色/新事件重新拉起 |
-| 装逼打脸底层 | 鄙视链+人际关系舞台+正向反向传播 |
-| 复合型配角 | 主角"白手套"：替主角发声+绝对支持+搞笑 |
+| Drift type | Consequence |
+|------------|-------------|
+| Core contrast disappears (urban high-martial-arts → ordinary) | reading count drops instantly |
+| Core mechanic stops upgrading (game stuck in the starter village) | ceiling capped |
+| Genre bleed (xianxia mixed with weird-horror / mystery veering into xianxia) | pleases neither reader base |
+| Late-story values drift | audience screening becomes too severe |
 
-### 望远镜拉期待法
+### Four dimensions of core-hook extension
 
-倒计时结构：不断描写"发现→观测→打捞→失败→坠落"——读者都知道子弹会射向主角→巨大期待。
+Using the "comeback-system (early-arrival flow)" as an example: 1. task count 2. reward difficulty 3. tier/rank + hidden triggers 4. rewards triggering new dramatic tasks. Using only the first two burns through the drama quickly; all four combined sustain it.
 
-### 分卷节奏（天才俱乐部案例）
+### Core-hook density reference
 
-每二三十万字一卷，有明确核心与目标；卷内多线头纠缠打破线性"起承转合"；"起"必须抛钩子；每卷结尾为下卷埋线。
-
-### 时代适应
-
-从强冲突开场→人情冷暖+基础需求展开；文风更细腻；画面剪辑感极强；套路熟悉但两三章速战速决。
+The webnovel "Cuisine Bestows Me Tags" applies its core hook 5 times within 11 chapters — extremely high density.
 
 ---
 
-## 卖点循环设计
+## Teardown methodology
 
-### 完美循环（天灾信使）
+### Six principles
 
-开小号装逼打脸赚好处→拿好处做主线任务→获得奖励→给小号提升武力→新地图装逼打脸→循环。关键：每次内容不同；情感进展拉住期待感；最终暴露小号身份=装出去的逼兜回主角。
+Purposeful / methodical / extract theory / set aside taste / play to strengths and avoid weaknesses / tear down books you like
 
-### 信息密集型循环（苟在初圣宗）
+### Process
 
-按"轮回"拆分，每轮回=完整故事。力量体系不崩即可无限拉长。
+Summarize in one sentence → identify structural units (setup-development-turn-climax, expanding progression) → extract the framework + emotional chain → borrow the framework, not the content
 
-### 直播流循环
+### Conditional-framework extraction
 
-有目标（确定性预期）→ 有对抗（短平快胜负）→ 有阶段性（任务升级）→ 整活正反馈
+Condense a plot into conditions (e.g., showing partial talent + two factions competing + information gap creating recognition), then reuse it after replacing characters/background/cheat while keeping similar emotion.
 
----
+### Abstract five-step method
 
-## 经典作品拆解
+Summarize → break into information clusters (emotional turning points) → classify as up/down/turn → extract the universal conditional framework → fill with material
 
-| 作品/作者 | 核心拆解点 |
-|-----------|-----------|
-| 遮天（辰东） | 九龙拉棺倒计时+同学打脸+前女友回归+进荒古禁地（不断切换期待类型） |
-| 夜无疆（辰东） | 大病初愈+无粮+邻居救济→画面剪辑感→熟悉套路两三章速战速决 |
-| 我吃西红柿 | "没有特点"=普适性强；敢写升级突飞猛进+敌人摧枯拉朽；前提三观正 |
-| 赘婿（香蕉） | 写诗装逼教科书：铺设人际→构架舞台→诗作逐层传播→多轮震惊→态度闭环 |
-| 炮火弧线 | 煽情+身临其境；军文核心=国与国、信仰与信仰 |
+### Romance-line teardown: the double-standard method
+
+The same thing (offering a soda), the male lead's rival gives it to the heroine and she refuses, the male lead gives it and she accepts. Three elements: ① roughly the same thing happening twice consecutively ② the heroine's attitude differs completely ③ the male lead doesn't know.
 
 ---
 
-## 拆书实操技巧
+## Structure design and pacing
 
-### 从期待出发
+### Emotional tug-of-war tools
 
-- 先知先觉类金手指使用场景：介绍世界观/提升实力/装逼前/对比高手前/介绍新人物前
-- 过渡情节写收获/暧昧/小情节，无冲突可跳到冲突前一秒
+| Technique | How |
+|-----------|-----|
+| Familiar emotional tropes | pick trope → build characters → fill in plot |
+| Break the expectation, then restore it | introduce a new character/event to pull anticipation back up |
+| Status-flex + comeuppance substrate | contempt chain + relationship stage + positive and negative propagation |
+| Composite supporting character | the protagonist's "white glove": speaks for the protagonist + absolute support + comic relief |
 
-### 情绪折线图
+### Telescope method of stretching anticipation
 
-横轴=章节，纵轴=情绪正负。控制节奏=控制"富有戏剧性的信息团"出现速度。信息团=能造成情绪转折的情节。
+Countdown structure: keep describing "discovery → observation → salvage → failure → fall" — the reader knows the bullet is coming for the protagonist → enormous anticipation.
 
-### 逐段功能标注法
+### Volume pacing (Genius Club case)
 
-对照原文逐段标记叙事功能（铺垫/转折/高潮/过渡），追踪情绪走向、困境设计、伏笔衔接，输出可复用框架；禁止复制剧情内容或表达。
+One volume per 200k-300k words with a clear core and goal; multi-line tangles inside the volume break the linear "setup-development-turn-climax"; the "setup" must throw a hook; each volume's ending seeds the next volume.
 
----
+### Era adaptation
 
-## 对标书选择
-
-| 错误 | 原因 |
-|------|------|
-| 只拆一本对标书 | 至少5本同网站同题材同类型参考 |
-| 只拆唯一头部爆款 | 头部作品可能依赖不可复制的作者品牌或历史流量，优先选择同平台同题材、数据稳定、非唯一头部的可复制样本 |
-| 跨网站对标 | 不同网站读者群体不同，写法差异大 |
-
-流程：广泛收集同题材样本→定方向→定参考书5-10本→定对标书
+From strong-conflict openings → human warmth + basic needs development; finer prose; strong montage feel; familiar tropes but decisive two-to-three-chapter resolutions.
 
 ---
 
-## 抽象拆书法：三幕式
+## Selling-point loop design
 
-| 幕 | 核心 |
-|----|------|
-| 第一幕-建立 | 暗示矛盾→主角+金手指→惊人意外→情绪上下拉扯→主线确立 |
-| 第二幕-对抗 | 新世界→更强对手→中点反转→情绪拉扯（下行后必有上行） |
-| 第三幕-决战 | 线索收束→矛盾极限→关键选择（体现人物弧光）→决战+主题升华 |
+### The perfect loop (Disaster Courier case)
 
----
+Alt-account status-flex for rewards → use rewards on the main quest → get the reward → upgrade the alt's combat power → new map status-flex → loop. Key: different content every round; emotional progress holds anticipation; eventually the alt identity is exposed = the flex returns to the protagonist.
 
-## 影视拉片与情绪控制
+### Info-dense loop (Slacking in the Founding Sect case)
 
-- 人物态度转变=最能体现情绪
-- 打斗间穿插反应但控制字数，否则截断节奏
-- 用情绪展示境况（感叹/震惊/窃喜）表现优劣
-- 每个动作段落要带出情绪变化
+Split by "cycles", each cycle = a complete story. As long as the power system doesn't break, it can stretch indefinitely.
+
+### Livestream-flow loop
+
+A goal (deterministic expectation) → confrontation (short, fast wins and losses) → staged progress (task upgrades) → positive feedback from the spectacle
 
 ---
 
-## 多线叙事与结构循环
+## Classic-works deconstruction
 
-### 多线拆解维度
-
-事件节点（新人物/冲突爆发）/ 情绪链条节点（一句话概括）/ 事业线 / 感情线
-
-感情线模板（单角色）：相遇态度→关键转折→态度递进（厌恶→好奇→心动→沦陷）→推倒引爆点
-
-### 循环层次感
-
-同一框架循环时每次内容必须不同（地图/角色/冲突/情感细节更新）。力量体系不崩可无限拉长。
+| Work / author | Core deconstruction points |
+|---------------|---------------------------|
+| Covering the Heavens (Chen Dong) | nine-dragon-coffin countdown + classmate comeuppance + ex-girlfriend return + entering the ancient forbidden land (constantly switching anticipation types) |
+| Night Without Borders (Chen Dong) | recovering from illness + no food + neighbor relief → montage feel → familiar tropes resolved decisively in 2-3 chapters |
+| I Eat Tomatoes | "no distinctive feature" = universal appeal; dares to write skyrocketing upgrades and enemies mowed down; premise values must be sound |
+| My Wife Is the Empress (Banana) | poetry status-flex textbook: build relationships → construct the stage → the poem spreads layer by layer → multiple rounds of shock → attitude loop closed |
+| Artillery Arc | pathos + immersion; military fiction core = nation vs nation, faith vs faith |
 
 ---
 
-## 题材实战
+## Teardown hands-on techniques
 
-| 题材 | 核心要点 |
-|------|----------|
-| 历史文 | 本质=类同人写法；书名"朝代+开局事件"；核心梗=先知先觉震惊名人+改变历史 |
-| 军事文 | 卖点=煽情+身临系境；核心矛盾=国与国/信仰/意识形态 |
-| 种田/脑洞 | 密集小爽点（收藏/能力/面板/震惊）；面板设定要细致 |
-| 直播流 | 目标（确定性预期）+对抗（短平快）+阶段性+爽点写法：先告诉读者打算怎么装逼，再装个更大的 |
-| 两界穿梭 | 书名即卖点；核心梗=在A世界低调用B世界资源；长生凡人流：时间尺度大+配角代际更替 |
-| 重生流 | 天然期待感；前世被辜负→这一世报复；爽点可重复使用每次形式不同；番茄标准=简单直给打标签 |
+### Starting from anticipation
 
----
+- Foresight-type cheat usage scenes: introducing the worldview / raising strength / before status-flexing / before comparing with experts / before introducing new characters
+- Transition scenes write gains/ambiguity/small plots; when there's no conflict, jump to one second before the conflict
 
-## 桥段词表
+### Emotion polyline
 
-给 Stage 3 的 `剧情/{标题}.md` 打「桥段标签」用的常见桥段词。命中就标，逗号分隔；不在表内但本书确有的桥段照实写，不硬凑、宁缺毋滥。**可扩展种子，不是封闭枚举。**
+X-axis = chapters, Y-axis = positive/negative emotion. Controlling pacing = controlling the appearance speed of "dramatic information clusters." An information cluster = a plot that can cause an emotional turn.
 
-| 题材 | 常见桥段 |
-|------|----------|
-| 都市/言情 | 打脸、扮猪吃虎、马甲掉落、先婚后爱、追妻火葬场、破镜重圆、替身、契约婚姻、萌宝助攻 |
-| 玄幻/修仙 | 废柴逆袭、扮猪吃虎、越级战斗、夺宝、护短打脸、绝境翻盘、机缘逆天 |
-| 历史/种田 | 先知先觉、改变历史、科举经商崛起、攒钱起家、技能点亮 |
-| 悬疑/无限 | 信息差、反转打脸、规则怪谈、身份揭穿、复盘解谜 |
-| 系统流 | 任务奖励、签到、面板升级、强制任务、积分兑换 |
-| 重生/穿越 | 前世复仇、改命、身份调换、双重生、未卜先知 |
-| 世情/家庭 | 极品亲戚、婆媳争斗、偏心打脸、维权反击、自我觉醒 |
-| 直播/两界 | 直播整活、低调用资源、两界差价、围观震惊 |
+### Per-passage function labeling
+
+Against the source, mark each passage's narrative function (setup / turn / climax / transition), track emotional direction, dilemma design, and foreshadowing joins, and output a reusable framework; copying plot content or expressions is forbidden.
 
 ---
 
-## 人设塑造
+## Benchmark-book selection
 
-### 第一章立人设
+| Mistake | Reason |
+|---------|--------|
+| Tearing down only one benchmark book | Need at least 5 same-site, same-genre, same-type references |
+| Tearing down only the single top hit | Top hits may depend on unreplicable author brand or historical traffic; prefer same-platform, same-genre, steadily performing, non-unique-hit replicable samples |
+| Cross-site benchmarking | Different sites have different reader bases and very different writing conventions |
 
-小事件展示性格→贴标签确立；紧急事件快速带入剧情；女角色第一步反应要体现性格。
-
-### 日常体现人设
-
-重复出现符合人设的行为；配角功能化（嫉妒型：得意→嫉妒；崇拜型：质疑→佩服）；配角情绪转变要写出。
-
-### 开篇逻辑
-
-被动入局→交流了解世界观→陷入困境→明确目标→展示金手指→通过金手指收获
+Process: broadly collect same-genre samples → set direction → pick 5-10 reference books → pick the benchmark book
 
 ---
 
-## 素材转化
+## Abstract teardown method: three acts
 
-从热点提取：识别核心冲突→定主线方向→用经典框架填充素材。
+| Act | Core |
+|-----|------|
+| Act 1 — Establish | hint the contradiction → protagonist + cheat → stunning surprise → emotional tug up and down → main line established |
+| Act 2 — Confront | new world → stronger opponents → midpoint reversal → emotional tug (down must be followed by up) |
+| Act 3 — Decisive battle | threads converge → contradiction at its limit → key choice (showing the character arc) → final battle + theme elevation |
 
-### 文体决定行文
+---
 
-| 文体 | 行文 |
-|------|------|
-| 打脸爽文 | 节奏快、描写少、言语凝练 |
-| 感情流 | 细水长流、细腻描写 |
+## Film-scene teardown and emotional control
+
+- Character attitude shifts show emotion best
+- Interleave reactions during fights but control their length, or the rhythm breaks
+- Use emotion to display situation (sigh / shock / secret delight) to show advantage or disadvantage
+- Every action passage must carry an emotional change
+
+---
+
+## Multi-line narrative and structural loops
+
+### Multi-line teardown dimensions
+
+Event nodes (new character / conflict eruption) / emotional-chain nodes (one-sentence summary) / career line / romance line
+
+Romance-line template (single character): first-meeting attitude → key turn → attitude progression (aversion → curiosity → heart-flutter → falling) → tipping point
+
+### Loop layering
+
+Every time a framework loops, the content must differ (map / characters / conflict / emotional details updated). As long as the power system doesn't break, it can stretch indefinitely.
+
+---
+
+## Genre practice
+
+| Genre | Core points |
+|-------|-------------|
+| Historical fiction | Essentially fan-fiction-style writing; title = "dynasty + opening event"; core hook = foresight shocking famous figures + changing history |
+| Military fiction | Selling point = pathos + immersion; core conflict = nation vs nation / faith / ideology |
+| Slice-of-life / idea-driven | Dense small payoffs (collecting / abilities / stat panels / shock); the panel setup must be meticulous |
+| Livestream flow | goal (deterministic expectation) + confrontation (short and fast) + staged progress + payoff writing: tell the reader your flex plan first, then pull a bigger one |
+| Two-world travel | the title is the selling point; core hook = using World B's resources quietly in World A; immortal-mortal flow: huge time scale + supporting-cast generational turnover |
+| Second-chance flow (rebirth) | natural anticipation; previous life betrayed → this life retaliates; payoffs reusable with a different form each time; platform standard = simple, direct, label-driven |
+
+---
+
+## Trope word list
+
+Common trope words for tagging the "Trope tags" of Stage 3's `plot/{title}.md` files. Tag when they hit, comma-separated; tropes not in the list but genuinely present in the book are written as-is — don't force it; better none than wrong. **An extensible seed, not a closed enumeration.**
+
+| Genre | Common tropes |
+|-------|---------------|
+| Urban / romance | comeuppance, hidden-strength reveal, identity reveal, marriage-first-love-later, regret-chasing (husband-chasing crematorium), second-chance reunion, stand-in, contract marriage, cute-kid wingman |
+| Xianxia / cultivation | trash-to-genius rise, hidden-strength reveal, out-of-tier combat, treasure hunting, protective comeuppance, comeback from a dead end, heaven-defying fortune |
+| Historical / slice-of-life | foresight, changing history, civil-exam/business rise, saving up from nothing, skill unlock |
+| Mystery / infinite flow | information gap, reversal comeuppance, rule horror, identity exposure, retrospective puzzle-solving |
+| System flow | task rewards, daily check-in, panel upgrades, forced quests, point redemption |
+| Rebirth / transmigration | past-life revenge, changing fate, identity swap, double rebirth, precognition |
+| Domestic / family | awful relatives, mother-in-law battles, favoritism comeuppance, rights defense, self-awakening |
+| Livestream / two-world | livestream spectacle, quietly using resources, cross-world arbitrage, crowd shock |
+
+---
+
+## Character building
+
+### First-chapter character establishment
+
+Small events show personality → label to lock it in; urgent events pull into the plot fast; female characters' first reactions should show personality.
+
+### Daily scenes showing character
+
+Repeat behaviors that fit the character; functionalize supporting characters (envy type: smug → jealous; admiration type: doubting → impressed); supporting-character emotional shifts must be written out.
+
+### Opening logic
+
+Pulled in passively → communicate to learn the worldview → trapped in a dilemma → clear goal → show the cheat → harvest through the cheat
+
+---
+
+## Material transformation
+
+From hot topics: identify the core conflict → set the main-line direction → fill material with classic frameworks.
+
+### The form dictates the prose
+
+| Form | Prose |
+|------|-------|
+| Comeuppance gratification fiction | fast rhythm, sparse description, terse language |
+| Emotion-driven fiction | slow-burn, finely detailed description |

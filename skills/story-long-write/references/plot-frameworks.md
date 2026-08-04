@@ -1,711 +1,711 @@
-# 剧情框架 — 操作手册
+# Plot Frameworks — Operations Manual
 
-> 指令语气：直接、具体、可执行。不说"可以考虑"，说"必须做"。每个条目都是一个可落地的写作操作，不是理论探讨。
+> Directive tone: direct, concrete, executable. Don't say "you could consider"; say "must." Every item is a landable writing operation, not theory.
 
 ---
 
-## 决策路由表
+## Decision routing table
 
-根据当前写作场景，定位到对应章节。不要从头读到尾，按需取用。
+Locate the corresponding section by current writing scenario. Don't read front to back; take on demand.
 
-| 你的场景 | 操作 | 跳转到 |
+| Your scenario | Operation | Jump to |
 |---------|------|--------|
-| 选定了题材/类型，需要搭大结构 | 先确认题材属于哪种循环模式，再选对应框架 | [题材→框架路由](#题材框架路由) |
-| 升级文/系统文/玄幻：需要设计等级循环和奖励节奏 | 看RPG结构与奖励设计 + 玄幻框架拆解 + 套路模板重复法 | [RPG结构与奖励设计](#rpg结构与奖励设计) / [玄幻框架拆解](#玄幻框架拆解) |
-| 爽文/装逼文：需要设计打脸装逼的节奏 | 看阵营手牌法 + 套路模板重复法 + 装逼五步法 | [框架与阵营手牌法](#框架与阵营手牌法) / [套路模板重复法](#套路模板重复法) |
-| 感情线/追妻/虐文：需要设计拉扯节奏 | 看双线法与信息差 + 结构与人物的关系 + 悬念技巧 | [双线法与信息差](#双线法与信息差) / [结构与人物的关系](#结构与人物的关系) |
-| 开新卷/开新书：需要设计开头和卷结构 | 看开头设计要点 + 大结构的设计 + 热门书大框架拆解法 | [开头设计的要点](#开头设计的要点) / [大结构的设计](#大结构的设计) |
-| 多线并行：需要管理主线+支线+日常 | 看框架与阵营手牌法 + 热门书大框架拆解法的多线穿插 | [框架与阵营手牌法](#框架与阵营手牌法) |
-| 卡文/不知道下一步写什么 | 看分步骤与缓冲区 + 有进无出原则 + 悬念与冲突深化 | [分步骤与缓冲区](#分步骤与缓冲区) |
-| 套路用腻了，需要变招 | 看故事构型与套路运用 + 核心梗与细化法 | [故事构型与套路运用](#故事构型与套路运用) / [核心梗与细化法](#核心梗与细化法) |
-| 需要细化到章级结构 | 看结构化拆书法（单桥段四章结构） | [结构化拆书法](#结构化拆书法) |
-| 全局把控：整本书会不会崩 | 看剧情流判断标准（五不崩） + 故事本质与六幕结构 | [剧情流判断标准与优势](#剧情流判断标准与优势) |
-| 需要设计冲突和悬念 | 看冲突结构 + 死亡赌注 + 五种矛盾类型 + 悬念技巧 | [冲突的结构与有进无出原则](#冲突的结构与有进无出原则) |
-| 画面感不足/写出来干巴巴 | 看分镜与画面感 | [分镜与画面感](#分镜与画面感) |
-| 设计双线/现实+副本交替结构 | 看双线交替框架拆解 | [双线交替框架拆解](#双线交替框架拆解) |
-| 设计死亡赌注与黏结剂 | 看冲突的死亡赌注与黏结剂设计 | [冲突的死亡赌注与黏结剂设计](#冲突的死亡赌注与黏结剂设计) |
-| 选择矛盾推动类型 | 看利用矛盾推动剧情的五种类型 | [利用矛盾推动剧情的五种类型](#利用矛盾推动剧情的五种类型) |
-| 补充情绪调动/剧情技巧 | 看补充结构与剧情技巧 | [补充结构与剧情技巧](#补充结构与剧情技巧) |
+| Genre/type chosen, need the big structure | first confirm which loop mode the genre belongs to, then pick the framework | [genre→framework routing](#genreframework-routing) |
+| Progression/system/fantasy: level loops and reward rhythm | RPG structure & reward design + fantasy framework + pattern-template repetition | [RPG structure & reward design](#rpg-structure--reward-design) / [fantasy framework](#fantasy-framework) |
+| Payoff/flex fiction: comeuppance rhythm | faction-card method + pattern-template repetition + five-step flex | [framework & faction-card method](#framework--faction-card-method) / [pattern-template repetition](#pattern-template-repetition) |
+| Romance/comeback/anguish: pull rhythm | dual-line & info gap + structure-characters relationship + suspense techniques | [dual-line & info gap](#dual-line--info-gap) / [structure & characters](#structure--characters) |
+| New volume/new book: opening and volume structure | opening design points + big-structure design + popular-book big-framework teardown | [opening design points](#opening-design-points) / [big-structure design](#big-structure-design) |
+| Multi-line parallel: main + sub + daily | framework & faction-card + popular-book big-framework teardown's multi-line interleaving | [framework & faction-card](#framework--faction-card-method) |
+| Stuck / don't know what's next | steps & buffers + no-exit principle + suspense & conflict deepening | [steps & buffers](#steps--buffers) |
+| Patterns worn out, need new moves | story shape & pattern use + core hook & refinement | [story shape & pattern use](#story-shape--pattern-use) / [core hook & refinement](#core-hook--refinement) |
+| Need chapter-level structure | structured teardown (single-beat four-chapter structure) | [structured teardown](#structured-teardown) |
+| Whole-book collapse check | plot-flow judgment standards (five-never-collapse) + story essence & six-act structure | [plot-flow judgment & advantages](#plot-flow-judgment--advantages) |
+| Need conflict and suspense design | conflict structure + death stakes + five conflict types + suspense techniques | [conflict structure & no-exit principle](#conflict-structure--no-exit-principle) |
+| Weak imagery / dry writing | storyboarding & imagery | [storyboarding & imagery](#storyboarding--imagery) |
+| Dual-line / reality-dungeon alternation | dual-line alternation framework | [dual-line alternation framework](#dual-line-alternation-framework) |
+| Death stakes & adhesives | conflict death stakes & adhesive design | [conflict death stakes & adhesives](#conflict-death-stakes--adhesives) |
+| Choose a conflict driver | five types driving plot with conflicts | [five conflict-driven plot types](#five-conflict-driven-plot-types) |
+| Supplement emotion/plot techniques | supplementary structure & plot techniques | [supplementary structure & plot techniques](#supplementary-structure--plot-techniques) |
 
-### 题材→框架路由
+### Genre→framework routing
 
-| 题材类型 | 核心循环模式 | 主用框架 | 辅助框架 |
+| Genre type | Core loop mode | Main framework | Auxiliary |
 |---------|------------|---------|---------|
-| 升级文（玄幻/修仙/都市异能） | 夺宝+比武+美女 三要素轮换 | 玄幻框架拆解 | RPG奖励设计、阵营手牌法 |
-| 系统文/无限流 | 任务→奖励→兑换→新任务 | 核心梗循环法 | RPG奖励设计 |
-| 追妻火葬场 | 伤害→追悔→挽回→反复拉扯 | 双线法与信息差 | 结构与人物关系、悬念技巧 |
-| 重生复仇 | 前世记忆→布局→反杀→升级 | 有进无出原则 | 九条主线套路法 |
-| 都市装逼文 | 扮猪→吃虎→震惊→换地图 | 套路模板重复法 | 阵营手牌法、装逼五步法 |
-| 种田/基建 | 筹备→建设→收获→扩张 | RPG奖励设计 | 核心梗循环法 |
-| 苟道文/扮猪吃虎 | 隐藏实力→被看低→碾压→继续隐藏 | 双线交替框架 | 信息差技巧 |
-| 甜宠/日常向 | 小冲突→解决→甜蜜→新小冲突 | 结构化拆书法（桥段四章结构） | 缓冲区概念 |
-| 悬疑/解谜 | 线索→推理→反转→新谜题 | 故事本质与六幕结构 | 悬念技巧、伏笔展开 |
-| 热血战斗 | 升级→挑战→失败→爆发→碾压 | 装逼五步法 + 温酒斩华雄式 | 有进无出原则 |
+| Progression (fantasy/cultivation/urban supernatural) | treasure + combat + beauty rotation | fantasy framework | RPG rewards, faction-card |
+| System/infinite | task→reward→exchange→new task | core-hook loop | RPG rewards |
+| Comeback romance | harm→regret→recovery→repeated pull | dual-line & info gap | structure-characters, suspense techniques |
+| Second-chance revenge | past-life memory→scheming→counter-kill→upgrade | no-exit principle | nine main-line patterns |
+| Urban flex | play-pig→eat-tiger→shock→map change | pattern-template repetition | faction-card, five-step flex |
+| Homestead/infrastructure | prepare→build→harvest→expand | RPG rewards | core-hook loop |
+| Lying-low/play-pig-eat-tiger | hide power→looked down on→crush→keep hiding | dual-line alternation | info-gap techniques |
+| Sweet-spoil/daily | small conflict→solve→sweet→new small conflict | structured teardown (four-chapter beat) | buffer concepts |
+| Mystery/puzzle | clue→deduction→reversal→new puzzle | story essence & six-act | suspense techniques, foreshadowing |
+| Hot-blooded combat | upgrade→challenge→fail→burst→crush | five-step flex + warm-the-wine-kill-the-general | no-exit principle |
 
 ---
 
-## 双线法与信息差
+## Dual-line & info gap
 
-### 双线法的基本思路
+### Dual-line basics
 
-- 主线：让主角在做事的过程中产生情绪
-- 副线：让配角在挖掘主角身份/态度的过程中产生情绪
-- 把主角的幕后身份、人脉、背后故事写清楚，设计好缓冲区
-- 配角不断发现、不断被震惊就是一条很好的情绪线
+- Main line: the protagonist generates emotion while doing things
+- Sub-line: supporting characters generate emotion while digging into the protagonist's identity/attitude
+- Write the protagonist's behind-the-scenes identity, connections, and backstory clearly; design the buffer
+- Supporting characters discovering and being shocked repeatedly is itself a great emotion line
 
-### 信息差的运用
+### Info-gap use
 
-- 信息差是并列式衔接的关键工具
-- 主角知道读者知道但配角不知道 -> 配角发现时的震惊
-- 利用信息差可以制造多层爽点
-- 切换视角时用信息差做钩子，重新拉起读者兴趣
+- Info gaps are the key tool for parallel handoffs
+- The protagonist knows what the reader knows but supporting characters don't → the shock when they discover
+- Info gaps make multi-layer payoffs
+- POV switches use info gaps as hooks, re-raising reader interest
 
-### 《作家之旅》式的情绪推动
+### The hero's-journey-style emotion push
 
-- 先让主角走符合逻辑的路（拒斥召唤）
-- 通过一系列情绪拉扯、安全感打破，让主角选无可选
-- 最终选A但一切符合逻辑、顺其自然
-
----
-
-## 分步骤与缓冲区
-
-### 缓冲区概念
-
-主角和配角之间因利益、事件、感情产生了一段距离。随着这段距离不断被攻略，产生爽感。设计缓冲区需要把主角背后故事写清楚。
-
-### 目标的分步骤拆解
-
-- 主角始终有根本目标，把目标分成几个阶段
-- 不止大的目标，当前小目标也可以这样拆
-- 目的明确后行动才不会拖拉
-
-### 剧情推进的三种模式
-
-1. 主角主动去处理能推进目标的麻烦事
-2. 主角主动推进目标，过程中遇到麻烦
-3. 主角被找上门的麻烦事，解决后反而推动了目标
-
-### 计划-阻碍式结构
-
-计划1 -> 意外1 -> 计划2 -> 意外2 -> 高潮
-
-每一步计划都可能被打断，形成新的期待。
+- First let the protagonist walk the logical path (refusing the call)
+- Through a series of emotional pulls and safety breaks, make the protagonist out of options
+- Finally choose A, all logical and natural
 
 ---
 
-## 大结构的设计
+## Steps & buffers
 
-### 大结构是欺骗式的主线
+### The buffer concept
 
-大结构作为噱头吊着读者，每次接近完成又差一点，悬念永不断。如马甲曝光线：每次都被质疑，每次都能打破质疑，但总是差一点曝光。
+A distance between the protagonist and supporting characters from interests/events/emotion. As the distance gets wooed, payoff emerges. Buffer design needs the protagonist's backstory written clearly.
 
-### 起承转合的大框架
+### Goal step-splitting
 
-| 阶段 | 内容 |
+- The protagonist always has a fundamental goal; split it into stages
+- Not just big goals; current small goals split too
+- Clear purposes prevent dragging actions
+
+### Three plot-advancement modes
+
+1. The protagonist actively handles troubles advancing the goal
+2. The protagonist actively advances the goal and hits trouble en route
+3. Troubles find the protagonist; solving them advances the goal
+
+### Plan-obstacle structure
+
+plan 1 → surprise 1 → plan 2 → surprise 2 → climax
+
+Every plan may be interrupted, forming new anticipation.
+
+---
+
+## Big-structure design
+
+### The big structure is a deceptive main line
+
+The big structure dangles readers like a hook; every near-completion falls one step short; suspense never breaks. E.g. the mask-exposure line: questioned every time, breaking the doubt every time, but always one step from exposure.
+
+### The four-stage big framework
+
+| Stage | Content |
 |------|------|
-| 起 | 建立世界观、引出主角、给出金手指 |
-| 承 | 主角利用金手指推进，填充大量小剧情 |
-| 转 | 局势变化，引入更大的敌人或危机 |
-| 合 | 大高潮解决核心矛盾 |
+| Establishment | build the worldview, introduce the protagonist, give the cheat |
+| Development | the protagonist advances with the cheat, filled with many small plots |
+| Turn | the situation changes; a bigger enemy or crisis enters |
+| Close | the big climax solves the core conflict |
 
-主要笔墨集中在"承"上。
+The main ink lands on "development."
 
-### 填充的小剧情越多越好
+### The more small plots, the better
 
-- 大期待前的小剧情越多，追读越稳定
-- 小剧情之间不能留空隙
-- 并列式写法是填满空隙的最佳方法
-
----
-
-## 开头设计的要点
-
-- 书名、简介、开篇必须成为一个整体
-- 金手指出现后，剧情必须跟金手指产生强关联
-- 代入感模糊时，搭建读者能理解的社会权力结构来增加代入感
-- 视角转变太多会导致不流畅
-- 开篇场景要有动作、有信息、有画面感
-- 从具体动作切入，引出金手指，再切入剧情
+- The more small plots before a big anticipation, the more stable the follow-through
+- Small plots can't leave gaps
+- Parallel writing is the best way to fill the gaps
 
 ---
 
-## 分镜与画面感
+## Opening design points
 
-### 分镜写作的基本方法
-
-- 机位1：主角视角（主角看到了什么）
-- 机位2：目标视角（主角做了什么反应）
-- 不要同时搞太多机位
-- 根据信息团要点进行脑内拍摄
-
-### 分镜的本质
-
-分镜不负责把信息团机械写长；它让整块内容更具体、更有画面感。先保证戏剧性，再考虑分镜。
-
-### 提升画面感
-
-- 规划一章只写主要信息，不要规划写到多少字
-- 拉片规则：画面到文字转化存在鸿沟，需做视觉到文字的转译
+- Title, blurb, and opening must form a whole
+- After the cheat appears, the plot must strongly associate with it
+- When immersion is fuzzy, build an understandable social power structure to add immersion
+- Too many POV changes cause choppiness
+- Opening scenes need action, information, and imagery
+- Cut in from a concrete action, lead out the cheat, then enter the plot
 
 ---
 
-## RPG结构与奖励设计
+## Storyboarding & imagery
 
-### 升级文的本质是RPG
+### Basic storyboarding
 
-核心是反馈点的设计：读者在什么位置获得满足感。升级文的剧情相对不重要，重要的是阅读观感。
+- Camera 1: the protagonist's POV (what the protagonist sees)
+- Camera 2: the target's POV (how the protagonist reacts)
+- Don't run too many cameras at once
+- Mentally film per the information-package points
 
-### 奖励点编织
+### The essence of storyboarding
 
-- 每个阶段都要给读者"奖励"——不仅是主角升级，还包括配角反应、环境变化、新信息揭示
-- 奖励不能太密也不能太稀
-- 奖励的形式要多样化：混合收获、认可、揭秘等类型
+Storyboarding doesn't mechanically lengthen information packages; it makes the block more concrete and visual. Drama first, then storyboarding.
 
-### 飞升换地图的循环
+### Raising imagery
 
-- 换地图可以有多种理由：被追杀隐瞒身份、找宗门伪装、从外门弟子开始扮猪吃虎
-- 每次重置都要带来新的信息和新的人设展开空间
-- 避免简单重复，做到螺旋上升
+- Plan a chapter to write only the main information; don't plan word counts
+- Pulling-film rule: there's a gap between image and text; translate vision to text
 
 ---
 
-## 故事构型与套路运用
+## RPG structure & reward design
 
-### 从原型故事到套路的三层抽象
+### Progression fiction is RPG at heart
 
-| 层级 | 说明 |
+The core is feedback-point design: where the reader gets satisfaction. Progression fiction's plot is relatively unimportant; reading feel matters.
+
+### Reward-point weaving
+
+- Every stage gives the reader "rewards" — not just the protagonist's upgrades, but supporting-character reactions, environment changes, new-info reveals
+- Rewards can't be too dense or too sparse
+- Reward forms vary: mixed gains, recognition, reveals
+
+### The ascension-map-change loop
+
+- Map changes have many reasons: hunted while hiding identity, joining a sect disguised, starting from an outer disciple playing pig
+- Every reset brings new info and new persona-expansion room
+- Avoid simple repetition; spiral upward
+
+---
+
+## Story shape & pattern use
+
+### The three-layer abstraction from prototype stories
+
+| Layer | Explanation |
 |------|------|
-| 经典故事情节（具象化） | 起因、经过、结果都具体确定 |
-| 戏剧单元（戏剧性抽象） | 保留逻辑结构，可换壳重用 |
-| 情绪模块（情绪抽象） | 读者想看什么的直接反映 |
+| Classic plot (concrete) | cause, process, result all concretely fixed |
+| Dramatic unit (dramatic abstraction) | logical structure kept; reusable with a new shell |
+| Emotion module (emotion abstraction) | a direct reflection of what readers want to see |
 
-举例：经典情节=「萧炎被退婚后三年崛起打脸纳兰家」；戏剧单元=「主角被某势力羞辱→蛰伏变强→当众反杀」（退婚可换逐出宗门、夺嫡失败）；情绪模块=「憋屈→翻盘」。换壳就是保留「憋屈→翻盘」，把退婚换成校园被踢出社团。
+Example: classic plot = "after the dumped engagement, three years of rising, publicly destroying the family that dumped him"; dramatic unit = "the protagonist humiliated by a faction → lies low and grows strong → public counter-kill" (the dumped engagement can swap for being expelled from the sect, losing the succession); emotion module = "repressed → turnaround." Shell-swapping means keeping "repressed → turnaround" and changing the dumped engagement to being kicked out of a campus club.
 
-### 戏剧单元的特点
+### Dramatic-unit traits
 
-- 戏剧单元越抽象，可变性越强
-- 多个戏剧单元可以组合成"故事构型"
-- 戏剧性会磨损：同类结构用多了就不好用了
+- The more abstract the dramatic unit, the more variable
+- Multiple dramatic units combine into "story shapes"
+- Drama wears out: same structures used too often stop working
 
-### 情绪模块的特点
+### Emotion-module traits
 
-- 戏剧性会磨损，但情绪不会磨损
-- 当戏剧单元磨损后，可以通过强化或更换情绪模块来重组
+- Drama wears out; emotion doesn't
+- When a dramatic unit wears out, restructure by strengthening or replacing the emotion module
 
-### 正确使用套路 vs 错误使用套路
+### Correct vs wrong pattern use
 
-| 做法 | 结果 |
+| Approach | Result |
 |------|------|
-| 直接套用经典故事情节 | 故事雷同、人设崩坏 |
-| 重构使用（更换故事构型） | 正确 |
-| 微调使用（深挖人设，根据人设调整情节） | 正确，且让人物动机和故事逻辑更合理 |
+| Directly applying classic plots | similar stories, persona collapse |
+| Reconstruction (changing the story shape) | correct |
+| Fine-tuning (digging the persona, adjusting the plot to it) | correct; makes motives and story logic more plausible |
 
-长篇作品（百万字级）必须掌握重构使用，否则必然同质化。
-
----
-
-## 结构与人物的关系
-
-### 人物驱动结构
-
-- 你在为创造出来的人物选择剧情结构，而不是为剧情结构选择人物
-- 如果先合成新人物再找合适剧情结构，容易崩塌
-
-### 感情线与事业线的结构设计
-
-- 事业线关键点：阻碍、危机、装逼、探明、取得、义举
-- 感情线要有明确的戏剧性和结构
-- 感情线需要层次感和阶段性，不是堆砌好看的桥段
-- 不同题材的感情线写法有区别：战斗类写生死与共，不要硬塞都市约会
-- 不同人设的女主感情线要做出区分，避免观感趋同
-
-### 事业线与感情线的绑定
-
-- 帮助女主和事业线目标完全绑定是高效写法
-- 更泛用的写法：男主主观上忙事业线，顺便帮助了女主
-
-### 以退为进
-
-- 以退为进也是拉扯，只要情绪上行下行拉扯好，无所谓付出毒点
-- 但只在必要的时候用，前提是先有大格局的装逼/帮助情节
+Long-form (million-word level) must master reconstruction, or homogenization is inevitable.
 
 ---
 
-## 框架与阵营手牌法
+## Structure & characters
 
-**框架的本质**：主线 + 支线 + 日常的比重与排列组合。
+### Character-driven structure
 
-**阵营手牌法**：像三国杀一样，不同阵营按回合出牌，每张牌带来反应后果，排序成主线。
+- You choose plot structure for the characters you've created, not characters for the plot structure
+- Synthesizing new characters first then hunting for a fitting structure easily collapses
 
-**三个阵营**：主角阵营 / 敌人阵营 / 观众阵营
+### Romance-line & career-line structural design
 
-**线性剧情三层次**：基础版/进阶版/高阶版的完整出牌结构见 plot-special-topics.md「阵营手牌法」三版本，本处不重复。
+- Career-line key points: obstacles, crises, flex, investigation, acquisition, righteous acts
+- The romance line needs clear drama and structure
+- The romance line needs layers and stages, not pretty-scene stacking
+- Different genres write the romance line differently: combat genres write shared life-and-death, no forced urban dates
+- Different heroine personas need differentiated romance lines, avoiding sameness
 
-**避免毒点**：主角吃瘪时必须从其他角度拉回情绪（揭示深层逻辑/意外收获）。
+### Career-line & romance-line binding
 
-**框架进阶**：线性剧情天花板有限 -> 高阶用螺旋并线：两条以上主线轮流推进、每轮都比上轮升一级（如查案线和升级线交替，每破一案实力涨一档、案子也更大），避免单线打到天花板。
+- Binding the heroine's help fully to the career-line goal is an efficient writing method
+- More universal: the male lead works the career line and incidentally helps the heroine
+
+### Retreat-to-advance
+
+- Retreat-to-advance is also pulling; as long as the emotion up-down pulls well, no poison point concerns
+- But only when needed; first establish a big-picture flex/help plot
 
 ---
 
-## 热门书大框架拆解法
+## Framework & faction-card method
 
-### 单段剧情结构模板（每段10-40章）
+**The essence of a framework**: the proportion and arrangement of main line + sub-lines + daily.
 
-1. **起因**：主角面临新矛盾/进入新环境
-2. **发展**：金手指运用/结识新角色/获得新资源
-3. **铺垫**：为下一段剧情埋线
-4. **高潮**：装逼打脸/比武/夺宝的关键场景
-5. **转折**：身份暴露/关系变化/真相揭示
-6. **结局/收获**：战利品清点
+**The faction-card method**: like a card game, different factions play cards by turn; each card brings reactions and consequences, ordered into the main line.
 
-### 多段剧情的排列规律
+**Three factions**: protagonist faction / enemy faction / audience faction
 
-- 三种核心元素变化组合：夺宝+美女+比武，三种轮换避免重复
-- 每段结束后收获必须明确列出
-- 铺垫线和收获线交替
+**Linear plot three tiers**: the basic/advanced/high-tier full card structures live in plot-special-topics.md "faction-card method" three versions; not repeated here.
 
-### 多线穿插的节奏
+**Avoiding poison points**: when the protagonist takes a fall, pull the emotion back from another angle (deep logic reveal / unexpected gains).
 
-| 线索 | 频率 |
+**Framework advancement**: linear plots have limited ceilings → high tier uses spiral parallel: two or more main lines advance in turns, each round one level up (e.g. the case-solving line and the upgrade line alternating; each solved case raises power one tier and the case gets bigger) — avoiding one line hitting the ceiling.
+
+---
+
+## Popular-book big-framework teardown
+
+### Single-plot structure template (10-40 chapters each)
+
+1. **Cause**: the protagonist faces a new conflict / enters a new environment
+2. **Development**: cheat use / meeting new characters / gaining new resources
+3. **Setup**: planting threads for the next plot
+4. **Climax**: the key scene — flex-comeuppance/combat/treasure-grab
+5. **Turn**: identity exposure / relationship change / truth reveal
+6. **Ending/gains**: loot inventory
+
+### Multi-plot arrangement rules
+
+- Three core elements rotate: treasure + beauty + combat
+- Each segment's end must explicitly list gains
+- Setup lines and gain lines alternate
+
+### Multi-line interleaving rhythm
+
+| Line | Frequency |
 |------|------|
-| 战力提升线 | 每段至少一次实力跃升 |
-| 装备收获线 | 每段至少获得一件关键道具/技能 |
-| 情感线 | 每段与至少一位女性角色深化关系 |
-| 声望线 | 每段至少一个"震惊旁观者"的场景 |
+| Power-up line | at least one power leap per segment |
+| Equipment-gain line | at least one key item/skill per segment |
+| Romance line | deepen a relationship with at least one female character per segment |
+| Prestige line | at least one "bystander shock" scene per segment |
 
-四条线不同步推进，错开节奏避免同质化。
+Four lines advance out of lockstep; stagger the rhythm to avoid sameness.
 
-### 卷的结构
+### Volume structure
 
-- 100章左右为一卷，卷末同时解决当前矛盾+开启新地图
-- 卷的最后一幕同时是下一卷第一幕 -- 无缝衔接
+- ~100 chapters per volume; the volume end simultaneously solves the current conflict and opens a new map
+- The volume's last scene is simultaneously the next volume's first — seamless handoff
 
 ---
 
-## 九条主线套路法
+## Nine main-line patterns
 
-### 主角三要素
+### The protagonist's three elements
 
-| 要素 | 说明 |
+| Element | Explanation |
 |------|------|
-| 目标 | 支撑主角行进的原动力，没有确切目标不是好主角 |
-| 性格 | 单一化最佳，根据性格发展情节 = 上乘手法 |
-| 修炼体系 | 照抄无压力，改头换面即可 |
+| Goal | the original drive supporting the protagonist's movement; no definite goal, no good protagonist |
+| Personality | single best; developing the plot from personality = top-tier technique |
+| Cultivation system | copy without pressure; reskin it |
 
-### 上乘矛盾冲突写法
+### Top-tier conflict writing
 
-| 类型 | 说明 |
+| Type | Explanation |
 |------|------|
-| 复仇 | 为亲人/门派复仇，关键 = 写出热血感 |
-| 理念冲突 | 两方理念对立，最自然 |
-| 门派恩怨 | 两大势力恩怨，主角夹其中不得不战 |
-| 生存之战 | 为势力生存而战，不得不出力 |
-| 上层恩怨 | 师父/上层人物与对方有恩怨，主角牵连其中 |
-| 怀璧其罪 | 获宝物 -> 消息泄露 -> 引来追杀 |
+| Revenge | avenging family/sect; the key is writing the heat |
+| Ideological conflict | opposing ideals, the most natural |
+| Sect grudges | two big factions' feud; the protagonist caught in the middle must fight |
+| Survival war | fighting for the faction's survival, must contribute |
+| Upper-echelon grudges | the mentor/upper figures' feuds; the protagonist implicated |
+| The crime of the treasure | gaining a treasure → news leaks → hunted |
 
-### 下乘冲突（避免）
+### Low-tier conflicts (avoid)
 
-- 富二代故意欺辱 -> 翻来覆去 -> 读者烦闷
-- 无故挑衅 -> 流于肤浅
+- Rich kids deliberately humiliating → repeated back-and-forth → reader fatigue
+- Unmotivated provocation → shallow
 
-### 套路与反套路
+### Patterns & anti-patterns
 
-- 掌握套路是创新的前提
-- 套路 = 骨架，往里填充血肉，变化场景/人物/情绪，模板不变内容变
+- Mastering patterns is the precondition of innovation
+- Pattern = skeleton; fill with flesh; change scenes/characters/emotions; the template stays, the content changes
 
 ---
 
-## 套路模板重复法
+## Pattern-template repetition
 
-### 通用升级装逼模板
+### The universal upgrade-flex template
 
-要素固定：男主 + 男反（高逼格）+ 女人（奖励）+ 名额 + 时间限制
+Fixed elements: male lead + male antagonist (high gravitas) + woman (reward) + quota + time limit
 
-1. 烘托：男反高逼格表现，众人追捧
-2. 扮猪：主角选择看似最差的选项，被人看低
-3. 吃虎：最后一刻爆发，超越所有预期
+1. Render: the antagonist's high-gravitas display, everyone fawning
+2. Play pig: the protagonist picks the seemingly worst option, looked down on
+3. Eat tiger: bursts at the last moment, exceeding all expectations
 
-关键：场景更换，套路不变，金手指/人物/剧情的变化会自然产生不同故事。
+Key: scenes change, the pattern stays; cheat/character/plot changes naturally produce different stories.
 
-### 套路重复的三个层次
+### Three repetition layers
 
-| 层次 | 说明 |
+| Layer | Explanation |
 |------|------|
-| 看点重复 | 市场上已有成功模板，选最好的拿来用 |
-| 人物重复 | 给人物一个固定行为特质，在不同场景重复展现 |
-| 剧情重复 | 核心看点 + 人物看点结合后自然诞生的套路循环 |
+| Draw repetition | market-proven templates; take the best and use it |
+| Character repetition | give a character a fixed behavior trait, displayed across scenes |
+| Plot repetition | the pattern loop naturally born from core draw + character draw |
 
-### 避免审美疲劳
+### Avoiding aesthetic fatigue
 
-- 好的套路和写作，读者看不出有套路，但其实是有的
-- 最高境界：看不出套路，但读者已被深陷其中
+- Good patterns and writing hide the pattern; readers can't see it, but it's there
+- The highest level: readers can't see the pattern yet are deeply hooked
 
-### 立Flag技巧
+### Flag-planting technique
 
-让配角说一句flag："这里面不会有怪物吧？""我做完这个任务就能回家娶老婆了"。有效就反复用。
-
----
-
-## 玄幻框架拆解
-
-### 整体结构模式
-
-三大要素循环：夺宝+美女+比武 -> 美女+副本+比武 -> 副本+美女+比武，三种变化着来。
-
-### 关键抽取点
-
-- 节奏明快爽点密集，每个事件都有明确高潮和收获
-- 女性角色人设立得深入人心
-- 装逼舞台搭建层次分明
-- 多线穿插：战力提升+装备收获+情感线+声望，紧密安排
-- 每个事件结尾都有收获+铺垫下一事件
+Let a supporting character say a flag: "There aren't any monsters in here, right?" / "I finish this quest and I'm going home to get married." Effective = reuse.
 
 ---
 
-## 双线交替框架拆解
+## Fantasy framework
 
-### 交替结构模式
+### Overall structure mode
 
-现实线和副本线交叉：现实线用主角不平凡+灵气复苏展开，副本线提升实力+收获。
+Three-element loop: treasure + beauty + combat → beauty + dungeon + combat → dungeon + beauty + combat, rotating.
 
-### 三压一爆三震技巧
+### Key extraction points
 
-- 一压：友好势力 -> 觉得男主是大佬
-- 二压：敌方势力 -> 两次铺垫 + 不服让男主上
-- 三压：中立势力
-- 一爆：男主出手碾压
-- 三震：对三方势力的震惊反应
-
-### 排行榜的三个功能
-
-1. 期待男主排名提升 -> 提供升级动力
-2. 通过排行榜介绍新对手 -> 期待碰撞
-3. 排行榜出现 -> 以后装逼有余震效果
-
-### 底牌管理
-
-手里始终保持3个以上底牌没用，每次只出1个，同时获得新技能。
-
-### 伏笔展开原则
-
-每一个不同之处/天赋都可以成为伏笔，开启一条线。
-
-### 温酒斩华雄式
-
-B打败A -> C打败B -> 主角打败C -> 引出大BOSS。升级文替换："台词"换"战斗特点"，"主持会议"换"登台"。
+- Fast rhythm, dense payoffs; every event has a clear climax and gains
+- Female characters with personas that sink into readers' hearts
+- Flex stages layered clearly
+- Multi-line interleaving: power + equipment + romance + prestige tightly arranged
+- Every event ends with gains + setup for the next
 
 ---
 
-## 结构化拆书法
+## Dual-line alternation framework
 
-### 长篇的桥段拆分结构
+### Alternation structure
 
-300万字的书约等于40-50个单元，每个单元6-8万字，包含4-5个桥段，每个桥段约4章。整本书约200-300个桥段。
+Reality line and dungeon line cross: the reality line advances the protagonist's extraordinariness + spiritual-energy revival; the dungeon line raises power + gains.
 
-### 单桥段四章结构
+### The three-press-one-burst-three-shock technique
 
-| 章 | 内容 |
+- Press 1: friendly factions — think the protagonist is a big shot
+- Press 2: enemy factions — two setups + refusing to let the protagonist compete
+- Press 3: neutral factions
+- Burst: the protagonist acts and crushes
+- Shock 3: shock reactions from the three factions
+
+### The leaderboard's three functions
+
+1. Anticipate the protagonist's ranking rise → upgrade motivation
+2. Introduce new opponents through the leaderboard → anticipated clashes
+3. Leaderboard appearances → after-shocks for later flexes
+
+### Trump-card management
+
+Always hold 3+ unused cards; play one at a time while gaining new skills.
+
+### Foreshadowing expansion principles
+
+Every difference/talent can become foreshadowing, opening a line.
+
+### Warm-the-wine-kill-the-general style
+
+B beats A → C beats B → the protagonist beats C → lead out the big boss. Progression-fiction substitution: "dialogue" for "combat traits," "chairing the meeting" for "taking the stage."
+
+---
+
+## Structured teardown
+
+### Long-form beat-splitting structure
+
+A 3-million-word book ≈ 40-50 units, each 60-80k words containing 4-5 beats, each beat ~4 chapters. The whole book ≈ 200-300 beats.
+
+### The single-beat four-chapter structure
+
+| Chapter | Content |
 |----|------|
-| 第一章 | 上半做代入（日常场景），下半做信息差（展示金手指可解决的困境） |
-| 第二章 | 通过人物互动增强期待，结尾让主角开始装 |
-| 第三章 | 兑现期待，把爽感写透 |
-| 第四章 | 上半善后收尾+体现推进，下半开启下一个目标 |
+| Chapter 1 | first half immersion (daily scenes), second half info gap (showing the trap the cheat can solve) |
+| Chapter 2 | enhance anticipation through character interaction; the end starts the flex |
+| Chapter 3 | deliver the anticipation; write the payoff through |
+| Chapter 4 | first half aftermath/close + advancement; second half opens the next goal |
 
-### 核心原则
+### Core principles
 
-- 代入用N+1原则：用熟悉内容让读者接受新内容
-- 信息差 = 最常用的拉期待方式
-- 拉长/缩短/升级/反转/多轮拉扯 -> 灵活变化但基础结构不变
-- 拆书要用整体视角，将视野拉高俯瞰群山
+- Immersion uses the N+1 principle: use familiar content to make readers accept new content
+- Info gap = the most common anticipation-raising tool
+- Lengthen/shorten/upgrade/reverse/multi-round pulling → flexible variation on a fixed base structure
+- Tear down with a whole-book view; lift the eyes to scan the mountains
 
 ---
 
-## 故事本质与六幕结构
+## Story essence & six-act structure
 
-### 故事的定义
+### The definition of story
 
-- 事实 = 静态的呈现
-- 事件 = 变化的事实
-- 故事 = 对事件进行选择、排序、因果化的产物
+- Fact = static presentation
+- Event = a changed fact
+- Story = the product of selecting, ordering, and causalizing events
 
-### 因果链
+### Causal chains
 
-因果产生意义 -- 意义是故事的灵魂。同样的事件顺序，不同因果链 -> 完全不同的主题。
+Causality creates meaning — meaning is the story's soul. Same event order, different causal chains → completely different themes.
 
-- 铺垫本质：在事件B发生之前，在事件A旁边埋下因
-- 伏笔本质：提前埋下远期事件的因
-- 钩子本质：在当前事件末尾埋下下一段的因
-- 封死主角其他路 -> 他自然会走向你设计的那条剧情
+- Setup essence: before event B, plant the cause beside event A
+- Foreshadowing essence: plant the cause of a far event early
+- Hook essence: plant the next segment's cause at the current event's end
+- Seal the protagonist's other roads → he naturally walks the designed plot
 
-### 四种组织事件的方式
+### The four ways of organizing events
 
-| 方式 | 说明 |
+| Way | Explanation |
 |------|------|
-| 筛选 | 筛掉与主线无关的事件 |
-| 时间排列 | 顺叙/倒叙/插叙 |
-| 因果逻辑 | 事件之间建立因果关系（网文99%用此） |
-| 主题/联想逻辑 | 按主题关联组织 |
+| Filtering | filter out events unrelated to the main line |
+| Time ordering | chronological/reverse/interleaved |
+| Causal logic | build causal relationships between events (99% of web fiction uses this) |
+| Theme/association logic | organize by thematic association |
 
-### 开篇技巧为什么有效
+### Why opening techniques work
 
-列出开篇所有事件 -> 找到最有戏剧张力的事件 -> 安排在开头。
+List all opening events → find the most dramatic → place it first.
 
-### 五幕式本质
+### The five-act essence
 
-五幕 = 因果链的弯曲模板，把平直的因果链弯出节奏，节奏产生情绪。每幕功能 + 因果链状态见 outline-structure-theory.md「五幕式」，本处不重复。
+Five acts = the bending template of causal chains, bending a flat chain into rhythm; rhythm produces emotion. Each act's function + causal-chain state see outline-structure-theory.md "five-act"; not repeated here.
 
-### 三幕/四幕/五幕统一论
+### The unified three/four/five-act theory
 
-三幕、起承转合、五幕本质是同一种结构，根据冲突激烈程度自由选择删减。
+Three-act, four-stage, and five-act are the same structure at heart; freely pick and cut by conflict intensity.
 
-### 转折的核心
+### The turn's core
 
-转折的目的 = 增加冲突 -> 增加情绪。重点在冲突性质质变，让主角处境变得更糟；要做到"意料之外，情理之中"。
+The turn's purpose = increasing conflict → increasing emotion. The focus is the qualitative change of conflict, making the protagonist's situation worse; must be "unexpected yet reasonable."
 
-### 第六幕：余波（网文特色）
+### The sixth act: aftermath (web-fiction trait)
 
-- 明线（实力）vs 暗线（社会认知）：每次明暗线失衡就是装逼机会
-- 装逼 = 文本论证主角社会地位提高的过程
+- Visible line (power) vs hidden line (social cognition): every visible-hidden imbalance is a flex opportunity
+- Flex = the text arguing the protagonist's social status rise
 
-### 爽感来源图谱
+### The payoff-source map
 
-| 类型 | 回答的问题 |
+| Type | Question answered |
 |------|-----------|
-| 升级 | 我能变强吗 |
-| 碾压 | 我够强吗 |
-| 装逼 | 我的强被认可了吗 |
-| 复仇 | 不公会被纠正吗 |
-| 绝境逃亡 | 我能逃脱吗 |
-| 种田 | 弱者该如何变强 |
-| 苟道 | 弱者该如何生存 |
+| Progression | can I get stronger |
+| Crush | am I strong enough |
+| Flex | is my strength recognized |
+| Revenge | will injustice be corrected |
+| Desperate escape | can I escape |
+| Homestead | how does the weak get strong |
+| Lying-low | how does the weak survive |
 
-### 情节的定义
+### The definition of plot
 
-情节 = 把事件因果化，把因果链塞进五幕式后形成的结构。主线 = "主"（主题）+ "线"（因果链结构）。支线 = "支"（子题）+ "线"（解决子题的方案）。
+Plot = causalizing events; the structure after stuffing the causal chain into the five-act. Main line = "main" (theme) + "line" (causal-chain structure). Sub-line = "sub" (sub-theme) + "line" (the plan solving the sub-theme).
 
 ---
 
-## 核心梗与细化法
+## Core hook & refinement
 
-### 核心梗的定义
+### The definition of the core hook
 
-核心梗 = 一套固定的剧情发展模式，不断换花样循环。排行榜的书几乎都有核心梗。核心梗决定了整本书的观感基调。
+Core hook = a fixed plot-development mode looped with variations. Leaderboard books almost all have core hooks. The core hook decides the whole book's reading tone.
 
-### 经典核心梗案例
+### Classic core-hook cases
 
-| 作品 | 循环模式 |
+| Work | Loop mode |
 |------|----------|
-| 诡秘之主 | 灰雾空间 -> 迪化脑补 -> 交流情报 -> 交易材料 -> 赞美愚者 |
-| 放开那个女巫 | 魔女被唾弃 -> 拯救 -> 现代知识震撼 -> 魔法训练 -> 教会追杀 |
-| 无限流 | 主神 -> 轮回 -> 穿越 -> 完成任务 -> 获得奖励 -> 兑换 |
-| 阵营法（传统） | 反派打压 -> 友军劝阻渲染 -> 中立观望 -> 打脸 -> 反应 |
+| A certain mystery book | gray-fog space → brain-teasing deducing → info exchange → material trading → praising the Fool |
+| A certain witch book | witches despised → saved → modern knowledge shocks → magic training → church hunting |
+| Infinite flow | main god → reincarnation → transmigration → completing tasks → rewards → exchange |
+| Faction method (traditional) | antagonist suppresses → allies dissuade/render → neutrals watch → comeuppance → reactions |
 
-### 细化法
+### The refinement method
 
-从一句话主线到正文的细化路径：
+From a one-sentence main line to prose:
 
 ```
-一句话主线 -> 粗略卷纲 -> 详细卷纲 -> 章纲 -> 正文
+one-sentence main line -> rough volume outline -> detailed volume outline -> chapter outline -> prose
 ```
 
-每一层都是对上一层更具体的展开。天然形成多级结构，无需额外设计结构框架。
+Each layer expands the layer above concretely. Naturally forms a multi-level structure; no separate structural framework needed.
 
-结构选择规则：结构是为故事服务的工具，不是必须遵循的模具。细化法本身即构成结构。
+Structure-selection rule: structure is a tool serving the story, not a mold to follow. The refinement method itself constitutes a structure.
 
 ---
 
-## 冲突的结构与有进无出原则
+## Conflict structure & no-exit principle
 
-### 核心公式
+### The core formula
 
-冲突+情节+悬念 = 情感上令人满足的体验。悬念最重要。
+conflict + plot + suspense = an emotionally satisfying experience. Suspense matters most.
 
-危机感可用收获感替代：从"不做就死"改为"做了就获得"。
+Crisis can be replaced by gain: from "do it or die" to "do it and gain."
 
-### 三种危机（死亡）类型
+### The three crisis (death) types
 
-| 类型 | 示例 |
+| Type | Example |
 |------|------|
-| 肉体死亡 | 叶凡被抓炼药 |
-| 身份/职场死亡 | 萧炎天才陨落、被退婚 |
-| 心理死亡 | 道诡异仙开头，"幻觉是不是真的" |
+| Physical death | the protagonist captured for alchemy |
+| Identity/career death | the genius fallen and dumped |
+| Psychological death | "is the hallucination real?" in a weird-fiction opening |
 
-确定一种主要类型贯穿全局，次要类型推动情节但不喧宾夺主。
+Fix one primary type running through the book; secondary types push the plot without stealing the show.
 
-### 开篇 = 从乱子开始
+### Opening = starting from trouble
 
-开局必须让主角发生不平常的情况。值得追随的主角 = 他是谁 -> 遇到什么乱子 -> 怎么处理 -> 读者好奇他的处理方法。
+The opening must put the protagonist in an unusual situation. A followable protagonist: who he is → what trouble he meets → how he handles it → readers curious about his handling.
 
-### "有进无出"原则
+### The no-exit principle
 
-主角从安逸到激烈需要一个强迫性理由 -- **读者必须相信主角非踏入不可**。
+The protagonist's move from comfort to intensity needs a compulsive reason — **the reader must believe the protagonist has no choice but to enter.**
 
-期待感 = 有进无出 = 铺垫。所有期待都是在说"快看我之后要写这个"。
+Anticipation = no-exit = setup. All anticipation is saying "watch, I'm going to write this next."
 
-### "有进无出"的铺垫手法（三个层次）
+### Three layers of no-exit setup
 
-| 层次 | 手法 |
+| Layer | Technique |
 |------|------|
-| 基础 | 渲染敌人和主角的不共戴天 -> 塑造压迫感 |
-| 进阶 | 写主角变得前所未有地强 -> 敌人恰好跳出来 -> 主角拿他试刀 |
-| 更好 | 铺垫敌人背景，解决他引发什么大地震 -> 多重期待叠加 |
+| Basic | render the enemy and the protagonist's irreconcilable feud → build oppression |
+| Advanced | write the protagonist unprecedentedly strong → the enemy happens to jump out → the protagonist tries his blade on him |
+| Better | set up the enemy's background; what earthquake solving him triggers → multi-anticipation stacking |
 
-趋势：正向驱动（收获感/升级）比传统仇怨渲染更受欢迎。
+Trend: positive drives (gain/upgrade feelings) are more popular than traditional feud rendering.
 
-### 网文 = 复数个乱子 + 复数个关口
+### Web fiction = multiple troubles + multiple gates
 
-传统文学一个乱子两个关口，网文不断重复关口，不断将大门塑造成有进无出。每个关口之间用收获感和升级感连接。
-
----
-
-## 冲突的死亡赌注与黏结剂设计
-
-### 四种黏结剂设计
-
-| 黏结剂 | 说明 |
-|--------|------|
-| 杀人理由 | 反派有强烈理由必须置主角于死地 |
-| 工作职责 | 侦探接案必须破案，宗门弟子必须完成任务 |
-| 道德责任 | 亲人朋友遇险，主角无法袖手旁观 |
-| 实体场所 | 特殊场所束缚对抗双方（副本、密室） |
-
-如果读者感觉人物可以随时脱离困境，冲突紧张感荡然无存。
-
-### 常见冲突类型
-
-复仇、灾祸、反抗、恋爱阻碍、野心、身份矛盾、环境矛盾、生死危机、阶层矛盾、理念矛盾。
+Traditional literature has one trouble and two gates; web fiction repeats gates, forever molding the big door into no-exit. Between gates, connect with gain and upgrade feelings.
 
 ---
 
-## 利用矛盾推动剧情的五种类型
+## Conflict death stakes & adhesives
 
-| 类型 | 核心逻辑 |
+### The four adhesives
+
+| Adhesive | Explanation |
+|------|------|
+| Killing reasons | the antagonist has a strong reason to kill the protagonist dead |
+| Job duties | the detective must solve the case, the sect disciple must finish the task |
+| Moral responsibility | family and friends in danger; the protagonist can't stand by |
+| Physical venues | special venues binding both sides (dungeons, locked rooms) |
+
+If readers feel characters can escape anytime, conflict tension evaporates.
+
+### Common conflict types
+
+revenge, disaster, resistance, romance obstacles, ambition, identity contradiction, environmental contradiction, life-death crisis, class contradiction, ideological contradiction.
+
+---
+
+## Five conflict-driven plot types
+
+| Type | Core logic |
 |------|----------|
-| 身份矛盾 | 通过身份自带的外部压力创造矛盾，天然明确目标 |
-| 环境矛盾 | 外部压力直接创造矛盾，适合大格局小说 |
-| 生死危机矛盾 | "打了小的来老的"，始终保持高压，经典推进结构 |
-| 阶层矛盾 | 人的欲望层层递进，每个阶段有不同诉求 |
-| 理念矛盾 | 理想主义vs现实，高级手法，上限极高 |
+| Identity conflict | the identity's built-in external pressure creates conflict; naturally clear goals |
+| Environmental conflict | external pressure directly creates conflict; suits big-picture novels |
+| Life-death crisis | "hit the kid, the dad comes" — always high pressure, the classic advancing structure |
+| Class conflict | desires escalate layer by layer; each stage has different demands |
+| Ideological conflict | idealism vs reality; advanced technique, extremely high ceiling |
 
-### 进阶：序列唯一性设定法
+### Advanced: sequence-uniqueness setting
 
-- 扮演法：升级有风险，必须做xxx -> 给主角做支线剧情的理由
-- 序列唯一性：你升级就触碰既得利益者的利益 -> 同序列超凡者全是敌人 -> 天然矛盾线
-
----
-
-## 悬念与冲突的深化技巧
-
-### 期待感 > 爽点
-
-> 相关：爽点设计体系（六种类型/倒推法）以 [plot-emotion-system.md](plot-emotion-system.md)「爽点设计体系」为准；本文只对比"期待感比爽点更持久"。
-
-- 爽 = 情绪的释放过程，释放完就没了
-- 读者的紧张/好奇/担忧/愤怒/憋屈比"爽"更持久
-- 恋爱文最吸引人的是暧昧拉扯 -> 确认关系后反变无聊
-- 教训：过于完美的情节解决 -> 损害长线期待感
-
-### 悬念vs意外
-
-- 意外 = 桌子底下炸弹突然爆炸
-- 悬念 = 观众听到定时炸弹在滴答但不知道何时爆炸 -> 悬念远比意外有力
-- 章末断章留悬念 = 章结尾尚未解决的危险（高压/推进章用强悬念；低压/过场章弱钩子或阶段目标即可，按章节定位——见 outline-structure-theory.md「章节定位与张弛」）
-
-### 时间锁
-
-限定时间内必须完成某事，显著增强紧张感和节奏感。不知道如何写开篇时，尝试设置一个时间锁。
+- Play-role method: upgrading has risks; must do X → giving the protagonist reasons for sub-line plots
+- Sequence uniqueness: upgrading touches vested interests → all same-sequence transcendents are enemies → a natural conflict line
 
 ---
 
-## 剧情流判断标准与优势
+## Suspense & conflict deepening techniques
 
-### 什么是剧情流
+### Anticipation > payoff
 
-一本书在后期是否还精彩、"有劲"、有让读者津津乐道的高潮 -- 有就是剧情流。脑洞文高开低走容易崩，剧情流越到后期越精彩。
+> Related: the payoff design system (six types/back-derivation) is governed by [plot-emotion-system.md](plot-emotion-system.md) "payoff design system"; this only compares "anticipation outlasts payoff."
 
-### 千均写作指南：作品五不崩
+- Payoff = the emotion release process; once released, it's gone
+- Reader tension/curiosity/worry/anger/repression outlast "payoff"
+- Romance fiction's most attractive part is ambiguity pulling — post-confirmation it turns boring
+- Lesson: too-perfect plot solutions damage long-line anticipation
 
-1. 目标不缺失：主角始终有明确目标
-2. 卖点不减少：核心卖点不能中途消失
-3. 主角社会关系不空白：必须有互动的人际网络
-4. 上层地位不缺失：要有对上位者的追求和接触
-5. 地位收获提升不能停：持续的成长感
+### Suspense vs surprise
 
-### 千均写作指南：三线结构
+- Surprise = the bomb under the table suddenly exploding
+- Suspense = the audience hears a timer ticking and doesn't know when it explodes → suspense is far more powerful than surprise
+- Chapter-end cliffhangers = unresolved danger at the chapter end (high-pressure/advancement chapters use strong suspense; low-pressure/transition chapters need only weak hooks or stage goals, per positioning — see outline-structure-theory.md "chapter positioning & tension")
 
-- 世界线：世界观层面的宏大叙事
-- 剧情线：具体事件和矛盾冲突的推进
-- 升级线：主角实力/地位的持续成长
-- 三条线交织推进，缺一不可
+### Time locks
 
-### 千均写作指南：装逼五步法
-
-1. 主角很强但别人不知道
-2. 渲染困境难度
-3. 配角不看好主角
-4. 主角用金手指轻松解决
-5. 众人震惊
+Must complete something within a limited time; significantly sharpens tension and rhythm. Stuck on the opening? Try a time lock.
 
 ---
 
-## 补充结构与剧情技巧
+## Plot-flow judgment & advantages
 
-### 情绪调动的结构层次
+### What is plot-flow
 
-角色情绪引导原则：每个角色都引导 = 每个角色都没引导 -- 必须选择重点角色。
+Whether a book is still exciting late, "has juice," and has highs readers love discussing — yes = plot-flow. Wild-idea books that start high and fizzle easily collapse; plot-flow books get better late.
 
-好的反转结构：先引导对某角色持续恶感，再在关键事件中揭示其崇高品质。
+### The five-never-collapse principles
 
-### 四项自检
+1. Goals never missing: the protagonist always has a clear goal
+2. Selling point never shrinking: the core selling point cannot vanish mid-way
+3. Social relationships never empty: an interactive network must exist
+4. Upper echelon never missing: pursuit of and contact with superiors must exist
+5. Status gains never stop: sustained growth feeling
 
-1. 有没有记得住的爽点 / 人设钩子？
-2. 有没有给足题材该有的爽（升级给升级、追妻给拉扯）？
-3. 冲突够不够直白带情绪？
-4. 句子顺不顺？
+### The three-line structure
 
-一项偏弱可以，四项都垮才扑街。直白冲突比精巧构造更容易引起大众情绪共鸣。
+- World line: the worldview-level grand narrative
+- Plot line: concrete events and conflicts
+- Upgrade line: the protagonist's sustained power/status growth
+- Three lines interweave; none may be absent
+
+### The five-step flex method
+
+1. The protagonist is strong but no one knows
+2. Render the trap's difficulty
+3. Side characters don't believe in the protagonist
+4. The protagonist solves it effortlessly with the cheat
+5. Everyone shocked
 
 ---
 
-## 质量检查清单
+## Supplementary structure & plot techniques
 
-每次搭完框架或写完一段剧情后，用这张清单过一遍。逐项打勾，不通过就改。
+### Structural layers of emotion mobilization
 
-### 结构层
+Character-emotion guidance principle: everyone guided = no one guided — pick the key characters.
 
-- [ ] 主角始终有明确目标（当前小目标 + 长线大目标都清晰）
-- [ ] 当前段落有起因→发展→高潮→收获的完整闭环
-- [ ] 段落结尾同时完成两件事：收获清点 + 铺垫下一段
-- [ ] 大结构有"欺骗式主线"吊着读者（每次接近完成又差一点）
-- [ ] 主线和支线错开节奏推进，没有同时爆也没有同时空转
+Good reversal structure: guide sustained dislike of a character first, then reveal their noble qualities in a key event.
 
-### 冲突与悬念层
+### The four self-checks
 
-- [ ] 冲突有明确的黏结剂（读者认为主角不可能随时退出）
-- [ ] 每章结尾有让读者往下看的理由（断章留钩子；低压/过场章弱钩子或阶段目标即可，不强求强悬念）
-- [ ] 期待感 > 爽点：铺垫的篇幅不少于释放的篇幅
-- [ ] 主角吃瘪时从其他角度拉回了情绪（揭示深层逻辑 / 意外收获）
+1. Any memorable payoff / persona hook?
+2. Did the genre get its due payoff (progression gets progression, comeback gets pulling)?
+3. Is the conflict blunt enough with emotion?
+4. Do the sentences flow?
 
-### 爽感与节奏层
+One weak item is fine; all four collapsing is a flop. Blunt conflict resonates with mass readers more than elaborate construction.
 
-- [ ] 升级文：每个阶段都有明确的奖励点（升级/装备/认可/揭秘至少一项）
-- [ ] 装逼文：有"三压一爆三震"或"装逼五步法"的节奏结构
-- [ ] 感情线：有拉扯有层次，不是堆砌桥段
-- [ ] 套路重复时更换了场景/人物/情绪，读者看不出模板
-- [ ] 没有连续两段使用相同的核心要素组合（夺宝+美女+比武要轮换）
+---
 
-### 人物层
+## Quality checklist
 
-- [ ] 角色行为由性格驱动，不是由剧情需要倒推
-- [ ] 配角有自己的立场和动机，不是单纯工具人
-- [ ] 感情线和事业线有绑定或交叉，不是两条独立线
-- [ ] 底牌管理：手里始终有2-3个未揭示的底牌
+After building a framework or writing a plot stretch, run this list. Check item by item; not passing = fix.
 
-### 全局不崩检查（五不崩）
+### Structure layer
 
-- [ ] 目标不缺失：主角始终有明确目标
-- [ ] 卖点不减少：核心卖点没有中途消失
-- [ ] 社会关系不空白：主角有互动的人际网络
-- [ ] 上层地位不缺失：有对上位者的追求和接触
-- [ ] 成长不停止：地位/实力的提升持续给出
+- [ ] The protagonist always has a clear goal (current small goal + long-line big goal both clear)
+- [ ] The current segment has a complete cause→development→climax→gains loop
+- [ ] Segment endings do two things at once: gains inventory + next-segment setup
+- [ ] The big structure has a "deceptive main line" dangling readers (every near-completion falls short)
+- [ ] Main and sub-lines advance at staggered rhythms; no simultaneous bursts or simultaneous idling
+
+### Conflict & suspense layer
+
+- [ ] Conflicts have clear adhesives (readers believe the protagonist can't just exit)
+- [ ] Every chapter end gives a reason to keep reading (cliffhanger hooks; low-pressure/transition chapters need only weak hooks or stage goals, no forced strong suspense)
+- [ ] Anticipation > payoff: setup passages not shorter than release passages
+- [ ] Protagonist falls pull the emotion back from another angle (deep logic reveals / unexpected gains)
+
+### Payoff & rhythm layer
+
+- [ ] Progression fiction: every stage has a clear reward point (upgrade/equipment/recognition/reveal, at least one)
+- [ ] Flex fiction: the "three-press-one-burst-three-shock" or "five-step flex" rhythm
+- [ ] Romance line: pulling and layers, not scene stacking
+- [ ] Pattern repetition changes scenes/characters/emotions; readers can't see the template
+- [ ] No two consecutive segments using the same core-element combination (treasure+beauty+combat rotates)
+
+### Character layer
+
+- [ ] Character behavior driven by personality, not back-derived from plot needs
+- [ ] Supporting characters have their own stances and motives, not pure tools
+- [ ] Romance and career lines bound or crossing, not two independent lines
+- [ ] Trump-card management: 2-3 unrevealed cards always in hand
+
+### Whole-book no-collapse check (five-never-collapse)
+
+- [ ] Goals never missing: the protagonist always has a clear goal
+- [ ] Selling point never shrinking: the core selling point hasn't vanished mid-way
+- [ ] Social relationships never empty: the protagonist has an interactive network
+- [ ] Upper echelon never missing: pursuit of and contact with superiors exist
+- [ ] Growth never stops: status/power gains keep coming

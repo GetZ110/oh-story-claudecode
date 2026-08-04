@@ -1,15 +1,18 @@
 #!/bin/bash
-# check-python-invocation.sh — 守卫：技能文档里禁止裸调 `python3`
+# check-python-invocation.sh — guard: skill docs must not bare-call `python3`
 #
-# Windows 上 python.org 安装后 `python3` 会落到 Microsoft Store 占位程序、以 exit 49
-# 静默失败（见 issue #121）。所有调用必须先按 python3 -> python -> py 探测可用解释器：
+# On Windows, after a python.org install `python3` lands on the Microsoft Store
+# stub and silently fails with exit 49 (issue #121). Every invocation must probe
+# a working interpreter as python3 -> python -> py:
 #   for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done
 #   "$PYBIN" -c "..."
 #
-# 本守卫拦截一切「裸调用」形态：python3 紧跟空白再接任意参数（-c / -m / <<  /
-# 脚本路径 / 引号等），以及不带空白的重定向形态（python3<<'PY' / python3<脚本）——
-# 后者是合法 shell、同样会落到 Store 占位程序上。探测列表 `python3 python py` 与
-# 说明文字（python3 后紧跟反斜杠引号、破折号、箭头等，无空白）不受影响。
+# This guard intercepts every "bare call" form: python3 followed by whitespace
+# and any argument (-c / -m / << / script path / quotes etc.), plus the no-space
+# redirection forms (python3<<'PY' / python3<script) — the latter are valid shell
+# but still land on the Store stub. The probe list `python3 python py` and prose
+# mentioning python3 directly followed by a backslash-quote, dash, arrow etc.
+# (no whitespace) are not affected.
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -18,38 +21,44 @@ if [ -z "$REPO_ROOT" ]; then
   exit 1
 fi
 
-# 裸调用形态：python3 + 空白 + 任意非空白参数（覆盖 -c / -m / << / 脚本路径 / 引号），
-# 或 python3 紧跟 `<`（heredoc `python3<<'PY'` 与输入重定向 `python3<脚本`，无空白也照跑）。
-# `<` 之外的紧跟形态（反斜杠引号 / 破折号 / 箭头 / 斜杠）仍是说明文字，继续豁免。
+# Bare-call forms: python3 + whitespace + any non-space argument (covers
+# -c / -m / << / script paths / quotes), or python3 immediately followed by `<`
+# (heredoc `python3<<'PY'` and input redirection `python3<script`, no whitespace).
+# Immediately-following forms other than `<` (backslash-quote / dash / arrow /
+# slash) are still prose and stay exempt.
 PATTERN='python3([[:space:]]+[^[:space:]]|<)'
-# 探测列表 `... in python3 python py ...` 是允许写法，从命中里剔除（兼容 PYBIN/c 等变量名）
+# The probe list `... in python3 python py ...` is an allowed form; remove it
+# from hits (compatible with PYBIN/c variable names).
 ALLOW='python3 python py'
 
 echo "Python Invocation Guard"
 echo "======================="
 
-# skills/ 文档 + 部署模板 hook（CI scripts 自身允许用任意写法，不扫）
+# skills/ docs + deployed template hooks (the CI scripts themselves may use any
+# form and are not scanned)
 hits="$(grep -rnE "$PATTERN" "$REPO_ROOT/skills" 2>/dev/null | grep -vF "$ALLOW" || true)"
 
 if [ -n "$hits" ]; then
-  echo "FAIL: 发现裸调 python3（Windows 上会 exit 49）："
+  echo "FAIL: bare python3 call found (exits 49 on Windows):"
   echo "$hits"
   echo
-  echo "改用解释器探测形态："
+  echo "Use the interpreter-probe form instead:"
   echo '  for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done'
   echo '  "$PYBIN" -c "..."'
   exit 1
 fi
 
-echo "OK: 未发现裸调 python3"
+echo "OK: no bare python3 calls"
 echo
 
-# 第二道守卫：部署型 hook 内嵌 python 不准用文本模式 stdout 输出（print(/sys.stdout.write）。
-# Windows 中文系统 python stdout 默认 cp936，文本模式会把中文路径编成 GBK，与脚本里的 UTF-8
-# 字面量字节不一致，让守卫静默失效（issue #164）。要把值交给 shell 必须直写 UTF-8 字节：
+# Second guard: embedded python in deployed hooks must not write to stdout in
+# text mode (print(/sys.stdout.write). On a Chinese Windows system python's text
+# stdout defaults to cp936, encoding paths to GBK — bytes that don't match the
+# script's UTF-8 literals, silently disabling the guard (issue #164). Values
+# handed to the shell must go out as raw UTF-8 bytes:
 #   sys.stdout.buffer.write(value.encode("utf-8"))
-# `print(` 不会误命中 `printf `（无括号）；`sys.stdout.write(` 不会命中允许的
-# `sys.stdout.buffer.write(`（中间多了 .buffer）。
+# `print(` cannot false-hit `printf ` (no parens); `sys.stdout.write(` cannot hit
+# the allowed `sys.stdout.buffer.write(` (the extra .buffer).
 HOOKS_DIR="$REPO_ROOT/skills/story-setup/references/templates/hooks"
 TEXT_STDOUT='print\(|sys\.stdout\.write\('
 
@@ -62,12 +71,12 @@ else
 fi
 
 if [ -n "$enc_hits" ]; then
-  echo "FAIL: hook 内嵌 python 用了文本模式 stdout 输出（Windows 中文系统会编成 GBK，守卫静默失效）："
+  echo "FAIL: embedded python uses text-mode stdout output (encoded to GBK on Chinese Windows, silently disabling the guard):"
   echo "$enc_hits"
   echo
-  echo "把要交给 shell 的值直写 UTF-8 字节："
+  echo "Write values handed to the shell as raw UTF-8 bytes:"
   echo '  sys.stdout.buffer.write(value.encode("utf-8"))'
   exit 1
 fi
 
-echo "OK: hook 内嵌 python 未发现文本模式 stdout 输出"
+echo "OK: no text-mode stdout output in embedded hook python"

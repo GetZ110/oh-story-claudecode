@@ -1,433 +1,432 @@
-# 结构迁移映射规则（长篇）
+# Structure Migration Mapping Rules (Long-Form)
 
-Phase 3-L 长篇结构迁移的详细映射规则和模板。将 `拆文库/{书名}/` 分析结果转换为 `{书名}/` 长篇项目结构。
+The detailed mapping rules and templates for Phase 3-L long-form structure migration: converting `teardown-lib/{Book Title}/`'s analysis results into the `{Book Title}/` long-form project structure.
 
-> 短篇迁移规则见 `structure-mapping-short.md`。
-
----
-
-## 映射总览
-
-| 拆文库路径 | 项目路径 | 转换方式 |
-|-----------|---------|---------|
-| `原文/` | `正文/第XXX章_章名.md` | 按章节分割并标准化命名 |
-| `快速预览.md` | — | 参考卷划分候选、剧情走向，不直接迁移 |
-| `角色/{角色名}.md` | `设定/角色/{角色名}.md` | 增加角色模板字段 |
-| `角色/角色关系.md` | `设定/关系.md` | 格式转换 |
-| `设定/世界观/*.md` | `设定/世界观/*.md` | 按主题原样同步 |
-| `设定/势力/*.md` | `设定/势力/*.md` | 按势力原样同步 |
-| `剧情/故事线.md` | `大纲/大纲.md` | 反推卷级结构（需用户确认卷划分，见下） |
-| `剧情/{标题}.md` | `大纲/卷纲_第X卷.md` | 聚合为卷纲 |
-| `剧情/节奏.md` | `对标/{书名}/剧情/节奏.md` | 直接同步为写作侧权威节奏索引（关键信息推进/情绪触动点/爆发节奏） |
-| `剧情/情绪模块.md` | `对标/{书名}/剧情/情绪模块.md` | 直接同步为写作侧权威模块索引（读者需求 / 情绪引擎 / 可复现模块） |
-| `章节/第N章_摘要.md` | `大纲/细纲_第N章.md` | 反推细纲 |
-| — | `设定/题材定位.md` | 从拆文报告生成 |
-| — | `追踪/伏笔.md` | 从情节点提取（先于角色状态生成） |
-| — | `追踪/时间线.md` | 从时间标记提取（先于角色状态生成） |
-| — | `追踪/角色状态.md` | 由 `character-state-reverse.md` 反推（生成顺序见 [Step 7：追踪文件生成](../SKILL.md#step-7追踪文件生成)） |
-| `剧情/散落情节.md` | `大纲/大纲.md` 附录或对应卷纲 | 合并到相关卷的大纲 |
-| — | `追踪/上下文.md` | 生成进度摘要（最后生成，依赖角色状态） |
+> Short-form migration rules: `structure-mapping-short.md`.
 
 ---
 
-## 正文标准化规则
+## Mapping overview
 
-### 命名格式
-
-源文件名 → 标准格式：`第{零填充三位}章_{章名}.md`
-
-| 源文件名 | 标准化后 |
-|---------|---------|
-| 第一章_初入江湖.txt | 第001章_初入江湖.md |
-| 第1章.md | 第001章_无题.md |
-| chapter01.md | 第001章_无题.md |
-| 01_觉醒.md | 第001章_觉醒.md |
-
-### 章节分隔识别
-
-当源为单个大文件时，按以下分隔符切分（与 `length-routing.md` 优先级 2 复用同一识别表）：
-
-| 分隔符模式 | 示例 |
-|-----------|------|
-| `第X章` / `第X章 ` / `第X章：` / `第X章 XXX` | 第1章 初入江湖 |
-| `Chapter X` | Chapter 1 |
-| 纯数字编号 + 标题 | 1. 觉醒 |
-
-### 内容处理
-
-- 保留原文内容不变，不做任何修改
-- 编码统一为 UTF-8
-- 去除文件头尾无关信息（如广告、声明等）
+| Teardown-library path | Project path | Conversion |
+|------------------------|--------------|------------|
+| `source/` | `prose/chapter_NNN_Title.md` | split by chapter and standardize names |
+| `quick-preview.md` | — | reference for volume-split candidates and plot direction; not migrated directly |
+| `characters/{Character Name}.md` | `setting/characters/{Character Name}.md` | add character-template fields |
+| `characters/relationships.md` | `setting/relationships.md` | format conversion |
+| `setting/worldview/*.md` | `setting/worldview/*.md` | sync as-is by topic |
+| `setting/factions/*.md` | `setting/factions/*.md` | sync as-is by faction |
+| `plot/storylines.md` | `outline/outline.md` | back-derive the volume-level structure (volume split needs user confirmation, below) |
+| `plot/{title}.md` | `outline/volume_outline_{X}.md` | aggregate into volume outlines |
+| `plot/pacing.md` | `benchmark/{Book Title}/plot/pacing.md` | direct sync as the writing-side authoritative rhythm index (key-info progression / emotional touchpoints / burst rhythm) |
+| `plot/emotional-beats.md` | `benchmark/{Book Title}/plot/emotional-beats.md` | direct sync as the writing-side authoritative module index (reader needs / emotional engine / reproducible modules) |
+| `chapters/chapter_N_summary.md` | `outline/outline_chapter_NNN.md` | back-derive chapter outlines |
+| — | `setting/genre-positioning.md` | generated from the teardown report |
+| — | `tracking/foreshadowing.md` | extracted from plot points (generated before character state) |
+| — | `tracking/timeline.md` | extracted from time markers (generated before character state) |
+| — | `tracking/character-state.md` | back-derived per `character-state-reverse.md` (generation order: [Step 7: generate the tracking files](../SKILL.md#step-7-generate-the-tracking-files)) |
+| `plot/loose-threads.md` | appendix of `outline/outline.md` or the matching volume outline | merge into the relevant volume's outline |
+| — | `tracking/context.md` | generate the progress summary (generated last; depends on character state) |
 
 ---
 
-## 角色文件迁移模板
+## Prose standardization rules
+
+### Naming format
+
+Source filename → standard format: `chapter_{zero-padded 3 digits}_{Title}.md`
+
+| Source filename | Standardized |
+|-----------------|--------------|
+| Chapter 1_Entering the Jianghu.txt | chapter_001_Entering-the-Jianghu.md |
+| Chapter 1.md | chapter_001_Untitled.md |
+| chapter01.md | chapter_001_Untitled.md |
+| 01_Awakening.md | chapter_001_Awakening.md |
+
+### Chapter-separator recognition
+
+When the source is one big file, split by the following separators (same recognition table as `length-routing.md` priority 2):
+
+| Separator pattern | Example |
+|-------------------|---------|
+| `Chapter X` / `Chapter X ` / `Chapter X:` / `Chapter X XXX` | Chapter 1 Entering the Jianghu |
+| Plain numbered + title | 1. Awakening |
+
+### Content handling
+
+- Keep the original content unchanged; no modifications
+- Encode uniformly as UTF-8
+- Strip irrelevant header/footer info (ads, disclaimers, etc.)
+
+---
+
+## Character-file migration template
 
 ```markdown
 ---
-name: {角色名}
+name: {Character Name}
 ---
 
-# {角色名}
+# {Character Name}
 
-## 基本信息
-- 身份：{从拆文库角色文件提取}
-- 核心特质：{}
-- 当前能力：{}
-- 核心动机：{}
-- 弱点/缺陷：{}
+## Basic info
+- Identity: {extracted from the teardown-library character file}
+- Core traits: {}
+- Current ability: {}
+- Core motive: {}
+- Weakness/flaw: {}
 
-## 外在表现
-{身份/言行/外貌}
+## External presentation
+{identity/speech-and-deeds/appearance}
 
-## 内在分析
-{性格/目标/秘密}
+## Inner analysis
+{personality/goals/secrets}
 
-## 出场记录
-| 章节 | 关键事件 | 状态变化 |
-|------|---------|---------|
-| 第{N}章 | {事件} | {变化} |
+## Appearance log
+| Chapter | Key event | State change |
+|---------|-----------|--------------|
+| Chapter {N} | {event} | {change} |
 
-## 别名
-{如有别名，列出}
+## Aliases
+{list aliases if any}
 ```
 
 ---
 
-## 关系文件转换规则
+## Relationship-file conversion rules
 
-拆文库格式（角色关系.md）→ 项目格式（设定/关系.md）：
+Teardown-library format (relationships.md) → project format (setting/relationships.md):
 
 ```
-拆文库格式：
-A<->B：关系类型 | 情感 | 描述（50-200字）| 演变轨迹
+Teardown-library format:
+A<->B: relationship type | emotion | description (50-200 words) | evolution trajectory
 
-项目格式：
-| 角色 A | 角色 B | 关系类型 | 情感倾向 | 当前状态 | 起始章节 | 变化节点 |
+Project format:
+| Character A | Character B | Relationship type | Emotional valence | Current state | Starting chapter | Change nodes |
 ```
 
-转换规则：
-- 关系类型映射：家人→亲情、恋人→爱情、朋友→友情等
-- 情感倾向直接复用：正面/负面/中性/复杂
-- 演变轨迹提取到「变化节点」列
+Conversion rules:
+- Relationship-type mapping: family → kinship, lovers → romance, friends → friendship, etc.
+- Emotional valence reused directly: positive/negative/neutral/complex
+- The evolution trajectory goes into the "change nodes" column
 
-### 目标格式模板（设定/关系.md）
+### Target-format template (setting/relationships.md)
 
 ```markdown
-# 角色关系图
+# Character Relationship Map
 
-## 关系总览
+## Relationship overview
 
-| 角色 A | 角色 B | 关系类型{亲情/爱情/友情/敌对/师生/主从/利益} | 情感倾向{正面/负面/中性/复杂} | 当前状态 | 起始章节 | 变化节点 |
-|--------|--------|---------------------------------------------|-----------------------------|---------|---------|---------|
-| {名} | {名} | {类型} | {倾向} | {描述} | 第{N}章 | {事件} |
+| Character A | Character B | Relationship type{kinship/romance/friendship/emnity/mentor-student/master-servant/interest} | Emotional valence{positive/negative/neutral/complex} | Current state | Starting chapter | Change nodes |
+|-------------|-------------|--------------------------------------------------------------------------------------------|---------------------------------------------------|---------------|------------------|--------------|
+| {name} | {name} | {type} | {valence} | {description} | Chapter {N} | {event} |
 
-## 关系演变
+## Relationship evolution
 
-{角色A}<->{角色B}：
-- 起点：{初始关系}
-- 转折：{章节·事件·变化}
-- 当前：{现状}
+{Character A}<->{Character B}:
+- Start: {initial relationship}
+- Turns: {chapter · event · change}
+- Current: {present state}
 
-## 核心冲突关系
+## Core conflict relationships
 
-{列出推动剧情的2-3对核心对立/合作关系}
+{list the 2-3 core opposing/cooperative pairs driving the plot}
 ```
 
 ---
 
-## 世界观同步规则
+## Worldview sync rules
 
-当前 `story-long-analyze` 已输出主题化目录，导入阶段只做 pass-through，不再解析或拆分扁平 `世界观.md`。
+The current `story-long-analyze` already outputs topic-split directories; the import phase only does pass-through — no parsing or splitting of flat `worldview.md` files.
 
-| 源路径 | 目标路径 | 当前契约 |
-|---------|---------|---------|
-| `拆文库/{书名}/设定/世界观/*.md` | `{项目}/设定/世界观/*.md` | 原样同步；`背景设定.md` 必须存在 |
-| `拆文库/{书名}/设定/势力/*.md` | `{项目}/设定/势力/*.md` | 原样同步已独立的势力文件 |
+| Source path | Target path | Current contract |
+|-------------|-------------|------------------|
+| `teardown-lib/{Book Title}/setting/worldview/*.md` | `{project}/setting/worldview/*.md` | sync as-is; `background.md` must exist |
+| `teardown-lib/{Book Title}/setting/factions/*.md` | `{project}/setting/factions/*.md` | sync the already-standalone faction files as-is |
 
-`力量体系.md`、`地理.md` 或小势力资料不足 200 字时，上游会将其并入 `背景设定.md`，因此这些独立文件可省略。如缺少 `背景设定.md`，或当前内容指向独立力量体系却未产出对应文件，停止导入并提示重跑 `story-long-analyze` Stage 4。
+When `power-system.md`, `geography.md`, or small-faction material is under 200 words, the upstream merges it into `background.md`, so those standalone files may be omitted. If `background.md` is missing, or the current content implies an independent power system without the corresponding file, stop the import and tell the user to re-run `story-long-analyze` Stage 4.
 
 ---
 
-## 大纲反推规则
+## Outline back-derivation rules
 
-### 大纲.md（卷级结构）与卷划分规则
+### outline.md (volume-level structure) and the volume-split rules
 
-从 `剧情/故事线.md`、`剧情/*.md` 和 `快速预览.md` 反推，**卷划分必须遵守以下决策规则**：
+Back-derived from `plot/storylines.md`, `plot/*.md`, and `quick-preview.md`; **the volume split must follow these decision rules**:
 
-**情形 A：原文有明确卷界**
+**Case A: the source has explicit volume boundaries**
 
-原文中存在明确卷级标记（如「第一卷 XXXX」「卷一」等章节层级标题）→ 按原文卷界直接划分，无需询问用户。
+The source contains explicit volume-level markers (e.g., "Volume 1 XXX", "Book One" chapter-level titles) → split by the source's own volume boundaries directly; no asking the user.
 
-**情形 B：原文无明确卷界**
+**Case B: the source has no explicit volume boundaries**
 
-不做机械切卷。执行流程：
+No mechanical volume-splitting. Execution flow:
 
-1. 根据故事线/场景切换/大型时间跳跃，检测候选卷边界（见下方「候选边界检测参考」）；
-2. 向用户展示候选划分方案，格式示例：
+1. Detect candidate volume boundaries from storylines/scene switches/large time jumps (see the "candidate-boundary detection reference" below);
+2. Present the candidate split to the user, format example:
 
    ```
-   候选卷划分（供参考，非定论）：
-   - 候选卷一：第 1-18 章（世界观建立 + 初步成长，场景：城郊学院）
-   - 候选卷二：第 19-45 章（主线冲突爆发，场景：帝都议事堂）
-   - 候选卷三：第 46-XX 章（最终对决，场景切换：上古遗迹）
-   以上为故事线/场景切换自动检测结果，请确认或调整。
+   Candidate volume split (for reference, not final):
+   - Candidate volume 1: Chapters 1-18 (worldview establishment + initial growth, setting: the academy outside town)
+   - Candidate volume 2: Chapters 19-45 (main-line conflict erupts, setting: the council chamber in the capital)
+   - Candidate volume 3: Chapters 46-XX (final showdown, setting switch: the ancient ruins)
+   The above is the auto-detection result from storylines/scene switches; confirm or adjust.
    ```
 
-3. **等待用户确认卷划分方案**后，才生成 `大纲/大纲.md` 的卷级结构和对应 `大纲/卷纲_第X卷.md`；
-4. 用户未确认前，`大纲/大纲.md` 只记录候选方案，不写定卷纲。
+3. **Wait for user confirmation of the volume split** before generating the volume-level structure in `outline/outline.md` and the matching `outline/volume_outline_{X}.md`;
+4. Before confirmation, `outline/outline.md` only records the candidates; no finalized volume outlines.
 
-> **不允许**用「每卷默认 20-40 章」机械切分原文无卷界的书。候选仅作参考，最终由用户拍板。
+> **Not allowed**: mechanically splitting a source without volume boundaries at a default "20-40 chapters per volume". Candidates are only reference; the user decides.
 
-### 候选边界检测参考
+### Candidate-boundary detection reference
 
-| 信号类型 | 示例 | 卷边界可能性 |
-|---------|------|------------|
-| 章节连续 + 同一故事线 | 同一城市/同一势力视角 | 同一卷 |
-| 主要场景切换（新地图/新阵营） | 从城郊进入帝都 | 候选新卷起点 |
-| 大型时间跳跃（数月/数年） | 「三年后…」 | 候选新卷起点 |
-| 主要阶段目标完成 + 新目标开启 | 击败阶段 boss → 新危机出现 | 候选新卷起点 |
-| 故事线汇总中已有阶段划分 | `剧情/故事线.md` 内部分段 | 优先参考 |
+| Signal type | Example | Volume-boundary likelihood |
+|-------------|---------|---------------------------|
+| Consecutive chapters + one storyline | same city/same faction viewpoint | same volume |
+| Major scene switch (new map/new faction) | from the town outskirts into the capital | candidate new-volume start |
+| Large time jump (months/years) | "Three years later…" | candidate new-volume start |
+| Major phase goal completed + new goal opens | beat the phase boss → a new crisis appears | candidate new-volume start |
+| Storyline summary already has phases | the internal phases in `plot/storylines.md` | reference first |
 
-### 卷纲反推
+### Volume-outline back-derivation
 
-#### 目标格式模板（大纲/卷纲_第X卷.md）
+#### Target-format template (outline/volume_outline_{X}.md)
 
-卷纲是大纲的展开——大纲决定方向，卷纲决定节奏。包含本卷全部创作规划。
-
-```markdown
-# {卷名} 卷纲
-
-## 核心信息
-- 章节范围：第{X}-{Y}章
-- 字数目标：{W}万字
-- 本卷定位：{铺垫/发展/高潮/转折/收尾}
-
-## 核心矛盾
-{一句话：本卷要解决什么问题或达到什么目标}
-
-## 情绪弧线
-- 模板：{V形/倒V形/W形/渐进形/延迟满足形/急转弯形}
-- 选择理由：{结合题材和本卷定位}
-
-| 章节 | 情绪基调{紧张/轻松/悲伤/热血/温馨/震惊} | 强度{1-10} | 触发事件 |
-|------|-----------------------------------------|-----------|---------|
-| 第{N}章 | {基调} | {N} | {事件} |
-
-## 卷契约与终局储备（反推）
-- 卷契约：{从本卷剧情归纳读者期待与主角高光；证据不足写 `[待补充]`}
-- 本卷主推线：{从情节点归纳承担本卷最大高潮的线}
-- 本卷战果：{其余顺带兑现的线；证据不足写 `[待补充]`}
-- 本卷解锁的终局里程碑：`[待补充]`
-- 本卷禁碰的终局底牌：`[待补充]`
-- 契约风险：{契约安全 / 需补强 / 契约破坏；无法判断写 `[待补充]`}
-
-## 剧情单元（反推）
-| 单元ID | 章节范围 | 单元节拍（铺垫→释放→反应层→衔接） | 主推线/战果 | 下一单元因果钩子 |
-|------|---------|---------|-------|---------|
-| L{卷}-1 | {章X-Y} | {从爽点/情节点分布归纳} | {线} | {方式} |
-
-（导入反推只填有证据的字段，未知写 `[待补充]`、不杜撰；后续补纲/改纲时按 story-long-write 技能的「剧情单元卡」完整字段模板升级。）
-
-## 人物弧线
-| 角色 | 本卷起点 | 本卷终点 | 关键转变 |
-|------|---------|---------|---------|
-| {名} | {状态} | {状态} | {事件} |
-
-## 本卷反转（如有）
-| 类型{身份/动机/阵营/信息/命运} | 涉及角色 | 误导路径 | 揭示章节 | 影响范围 |
-|------|---------|---------|---------|---------|
-| {类型} | {名} | {如何误导读者} | 第{N}章 | {影响哪些线} |
-
-## 本卷伏笔
-| 伏笔 | 埋设章节 | 预计回收 | 类型{短期/中期/长期} |
-|------|---------|---------|---------------------|
-```
-
-#### 字段映射
-
-从剧情文件提取每卷的：
-- 核心矛盾 → 核心矛盾字段
-- 情节点分布 → 情绪弧线 + 剧情单元（反推）
-- 角色出场 → 人物弧线
-- 铺垫类情节点 → 伏笔
-
-### 细纲反推
-
-从每章摘要（`章节/第N章_摘要.md`）提取：
-
-| 摘要字段 | 细纲字段 | 转换方式 |
-|---------|---------|---------|
-| 关键事件 | 核心事件 | 直接复用 |
-| 章节字数 | 字数目标 | 从原文统计 |
-| 章节基调 / 情绪曲线 | 目标情绪 | 从摘要提取；缺失写 `[待补充]` |
-| 第一个情节点 | 章首钩子 | 只作为证据，设计目标标 `[待补充]` |
-| 爽点类情节点 | 爽点 | 从情节点类型推断；没有则写“无显性爽点 / [待补充]” |
-| 情节点起承转合 | 内容概括（起因/发展/转折/高潮/结尾） | 按情节点顺序归纳；证据不足写 `[待补充]` |
-| 主线/支线/任务线索 | 情节安排（主线/辅线/事件线/感情线/逻辑线） | 从剧情单元索引与摘要反推；无证据的辅线/感情线写“无”或 `[待补充]`，不得杜撰 |
-| 出场角色 / 关键物件 | 人物关系和出场顺序 | 按摘要出现顺序列出；关系变化只写有证据的“前 → 后”，缺失写 `[待补充]` |
-| 全部情节点 | 情节细化 / 情节点序列 | 每点写“谁做了什么 + 功能标签”；功能不明写 `[待补充]` |
-| 胜负/反转/收益损失 | 行动成本（可无）/收益归属 | 有明确证据才填写；行动成本可无、不硬造；否则 `[待补充]` |
-| 最后一个情节点 / 悬念类情节点 | 结尾设定和钩子 | 收束状态可归纳；章尾钩子设计目标标 `[待补充]` |
-
----
-
-## 角色状态反推
-
-由 character-state-reverse.md 反推，详见该文件。
-
----
-
-## 伏笔提取规则
-
-从情节点中识别潜在伏笔：
-
-### 识别模式
-
-| 情节点类型 | 伏笔可能性 | 提取方式 |
-|-----------|-----------|---------|
-| 铺垫 | 高 | 直接提取为伏笔 |
-| 信息揭示（部分） | 中 | 检查后续是否有呼应 |
-| 物品首次出现 | 中 | 检查后续是否有使用 |
-| 角色秘密 | 高 | 标记为角色伏笔 |
-| 未解决的悬念 | 高 | 从章尾标记提取 |
-
-### 状态推断
-
-- 铺垫点在后续章节有「揭示」或「解决」类情节点 → 标记「已回收」
-- 铺垫点无后续呼应 → 标记「已埋」
-- 半成品小说的最后几章铺垫 → 标记「已埋」，备注「接近断点」
-
----
-
-## 时间线提取规则
-
-### 时间标记识别
-
-从情节点和时间标记中提取：
-
-| 标记模式 | 示例 | 提取方式 |
-|---------|------|---------|
-| 明确日期 | "天元三年春" | 直接记录 |
-| 相对时间 | "三日后"、"半月后" | 推算绝对时间 |
-| 事件间隔 | "翌日"、"次日" | 连续标记 |
-| 季节标记 | "入冬"、"春暖花开" | 季节推断 |
-
-### 排序规则
-
-按章节顺序排列，同一章内按情节点序号排列。时间标记缺失时标注 `[推断]`。
-
----
-
-## 题材定位生成
-
-从拆文报告中提取核心发现，生成 `设定/题材定位.md`。
-
-### 目标格式模板（设定/题材定位.md）
+The volume outline is the expansion of the master outline — the master decides direction, the volume outline decides rhythm. It contains all the volume's creation planning.
 
 ```markdown
-# 题材定位
+# {volume name} Volume Outline
 
-## 基本信息
-- 题材类型：{玄幻/都市/系统/...}
-- 目标平台：{Phase 1 向用户采集的目标平台；无则从拆文报告提取，仍无填 [待补充]。story-review 据此选平台 rubric}
-- 核心梗：{一句话卖点}
-- 微创新点：{与同类题材的差异}
+## Core info
+- Chapter range: Chapters {X}-{Y}
+- Target words: {W}K words
+- Volume positioning: {setup/development/climax/turn/wrap-up}
 
-## 核心梗三分法
-- 表层卖点：{读者一眼看到的吸引力}
-- 深层爽点：{持续追读的情绪驱动力}
-- 长线钩子：{支撑全书的悬念/目标}
+## Core contradiction
+{one sentence: what problem this volume solves or what goal it reaches}
 
-## 读者需求 / 情绪引擎
-> 详细模块见 `对标/{书名}/剧情/情绪模块.md`；本段只保留开书/续写时的快速定位。
+## Emotional arc
+- Template: {V-shape/inverted-V/W-shape/progressive/delayed-gratification/sharp-turn}
+- Rationale: {by genre and this volume's positioning}
 
-| 读者需求 | 情绪缺口 | 满足方式 | 可复现模块 | 来源 |
-|---------|---------|---------|------------|------|
-| {安全感/优越感/期待感/情感补偿/认知反转/陪伴感} | {缺什么} | {如何被满足} | {EM-001 等} | `对标/{书名}/剧情/情绪模块.md` |
+| Chapter | Emotional tone{tense/light/sad/hot/warm/shock} | Intensity{1-10} | Triggering event |
+|---------|--------------------------------------------------|-----------------|------------------|
+| Chapter {N} | {tone} | {N} | {event} |
 
-## 节奏与触发参考
-> 详细节奏见 `对标/{书名}/剧情/节奏.md`；写作时以该文件为节奏权威。
+## Volume contract & endgame reserve (back-derived)
+- Volume contract: {the reader expectation and protagonist highlight generalized from this volume's plots; insufficient evidence → `[TBD]`}
+- Primary pushed line this volume: {the line carrying this volume's biggest climax, generalized from plot points}
+- Volume gains: {the other lines cashed in along the way; insufficient evidence → `[TBD]`}
+- Endgame milestones unlocked this volume: `[TBD]`
+- Endgame trump cards untouched this volume: `[TBD]`
+- Contract risk: {safe / needs reinforcement / broken; unknown → `[TBD]`}
 
-| 节奏模块 | 关键信息推进 | 情绪触动点 | 爆发节奏 | 来源 |
-|---------|-------------|------------|----------|------|
-| {RH/TR 编号} | {信息如何被扩写} | {触发什么感受} | {铺垫→爆发→冷却} | `对标/{书名}/剧情/节奏.md` |
+## Story units (back-derived)
+| Unit ID | Chapter range | Unit beats (setup→release→reaction layer→handoff) | Primary line/gains | Next-unit causal hook |
+|---------|---------------|----------------------------------------------------|--------------------|-----------------------|
+| L{volume}-1 | {Chapters X-Y} | {generalized from payoff/plot-point distribution} | {line} | {method} |
 
-## 对标书清单（canonical registry）
-主对标书: {书名}  # 最多 1 本；日更默认只读取这本的文风.md 和原文锚点
-对标书列表:
-  - 书名: {书名 A}
-    引用强度: 主  # 主 / 辅 / 参考
-    题材类型: {玄幻/都市/系统/...}
-    相关性: 同题材
-    用途: 文风+核心结构
-  - 书名: {书名 B}
-    引用强度: 辅
-    题材类型: {题材}
-    相关性: 同题材/弱相关
-    用途: {补设定/大纲/模块，不进文风}
-  - 书名: {书名 C}
-    引用强度: 参考
-    题材类型: {题材}
-    相关性: 同题材/弱相关
-    用途: {仅按预算召回摘要}
+(Import back-derivation only fills evidence-based fields; unknown → `[TBD]`, never invented; later outline completion/revision upgrades to the full "story-unit card" field template in the story-long-write skill.)
 
-## 对标分析（派生概要）
-> 完整对标数据见 `对标/` 目录；上方 registry 是权威清单。本表仅做快速概览，不可替代 `主对标书` + `对标书列表`。
+## Character arcs
+| Character | Volume start | Volume end | Key turn |
+|-----------|--------------|------------|----------|
+| {name} | {state} | {state} | {event} |
 
-| 对标书 | 相似点 | 差异点 | 可借鉴 |
-|--------|-------|-------|-------|
-| {书名} | {点} | {点} | {点} |
+## Volume reversals (if any)
+| Type{identity/motive/faction/info/fate} | Characters involved | Misdirection path | Reveal chapter | Scope of impact |
+|------|--------------------|-------------------|-----------------|------------------|
+| {type} | {name} | {how the reader was misled} | Chapter {N} | {which lines it affects} |
 
-## 题材框架
-- 八节点位置：{当前处于哪个节点}
-- 关键转折节点：{列出}
+## Volume foreshadowing
+| Foreshadowing | Planted in | Expected recovery | Type{short/medium/long} |
+|---------------|------------|-------------------|--------------------------|
 ```
 
-### 字段映射
+#### Field mapping
 
-- 题材类型、核心梗、微创新点 → 从 `拆文报告.md` 基本信息与核心发现段提取
-- 核心梗三分法 → 从 `拆文报告.md` 表层吸引力、爽点设计、长线悬念段提取
-- 读者需求 / 情绪引擎 → 从 `剧情/情绪模块.md` 提取；缺失时停止导入并给出重跑 Stage 3+ 的修复动作
-- 节奏与触发参考 → 从 `剧情/节奏.md` 提取；缺失时停止导入，不得以 `拆文报告.md`、章节摘要或 `剧情/故事线.md` 代替
-- 对标书清单 → 导入当前书时至少登记自身为 `主`；若用户提供多本素材，全部进入 `对标书列表`，副对标/参考对标不限制数量
-- 对标分析（派生概要）、题材框架 → 可由导入场景生成摘要；不得替代 canonical registry
+From the plot files, extract per volume:
+- Core contradiction → the core-contradiction field
+- Plot-point distribution → emotional arc + story units (back-derived)
+- Character appearances → character arcs
+- Setup-type plot points → foreshadowing
 
----
+### Chapter-outline back-derivation
 
-## 对标引用视图同步规则
+From each chapter summary (`chapters/chapter_N_summary.md`):
 
-长篇迁移必须把拆文库关键分析资产同步到项目侧 `对标/{书名}/`，使 story-long-write 优先读项目引用视图。项目视图尚未创建时，导入流程可读根目录 `拆文库/{书名}/` 这一 canonical 数据源并立即同步；这不是另一套产物格式。
-
-| 源路径 | 目标路径 | 同步语义 |
-|-------|---------|----------|
-| `拆文库/{书名}/剧情/节奏.md` | `{项目}/对标/{书名}/剧情/节奏.md` | 日更选择 `rhythm_reference` 的必备权威文件；缺失先修复 |
-| `拆文库/{书名}/剧情/情绪模块.md` | `{项目}/对标/{书名}/剧情/情绪模块.md` | 日更选择 `selected_emotion_module` 的必备权威文件；缺失先修复 |
-| `拆文库/{书名}/剧情/*.md` | `{项目}/对标/{书名}/剧情/*.md` | 剧情单元、故事线、散落情节等剧情资产；与权威节奏/情绪文件冲突时以后者为准 |
-| `拆文库/{书名}/章节/*.md`（第N章_摘要.md + 黄金三章 第1-3章_深度拆解.md）| `{项目}/对标/{书名}/章节/*.md` | 匹配章证据，含「关键信息与扩写技法」 |
-| `拆文库/{书名}/角色/*.md` | `{项目}/对标/{书名}/角色/*.md` | 角色功能位、关系与反应层参考 |
-| `拆文库/{书名}/设定/` | `{项目}/对标/{书名}/设定/` | 世界观、势力、金手指等设定约束参考 |
-| `拆文库/{书名}/拆文报告.md` | `{项目}/对标/{书名}/拆文报告.md` | 人类可读摘要投影 |
-| `拆文库/{书名}/文风.md` | `{项目}/对标/{书名}/文风.md` | 日更文风召回必读 |
-
-冲突规则：`对标/{书名}/剧情/情绪模块.md` 和 `对标/{书名}/剧情/节奏.md` 是写作侧情绪/节奏权威；`拆文报告.md`、`剧情/故事线.md` 只作为摘要投影。若摘要冲突，保留冲突说明并以权威文件为准；缺少任一权威文件时先重跑或修复拆文产物。
+| Summary field | Chapter-outline field | Conversion |
+|---------------|-----------------------|------------|
+| Key events | Core event | reuse directly |
+| Chapter word count | Target words | counted from the source |
+| Chapter tone / emotion curve | Target emotion | extracted from the summary; missing → `[TBD]` |
+| First plot point | Opening hook | evidence only; the design goal marked `[TBD]` |
+| Payoff-type plot points | Payoff | inferred from plot-point types; none → "no visible payoff / [TBD]" |
+| Plot points' setup-development-turn-climax | Content summary (Cause/Development/Turn/Climax/Ending) | generalized in plot-point order; insufficient evidence → `[TBD]` |
+| Main/sub/event/task thread clues | Plot arrangement (Main line / Sub-line / Event & task line / Relationship line / Logic line) | back-derived from the story-unit index and summary; evidence-free sub-lines/relationship lines → "none" or `[TBD]`, never invented |
+| Appearing characters / key objects | Characters and appearance order | listed in summary appearance order; relationship changes only with evidence ("before → after"); missing → `[TBD]` |
+| All plot points | Plot detail / plot-point sequence | "who did what + function tag" per point; unclear function → `[TBD]` |
+| Win/loss, reversal, gains/losses | Action cost (optional)/benefit attribution | only with clear evidence; the action cost may be absent — don't invent; else `[TBD]` |
+| Last plot point / suspense-type plot points | Ending and hook | the closing state can be generalized; the chapter-end hook design goal marked `[TBD]` |
 
 ---
 
-## 质量检查清单
+## Character-state back-derivation
 
-Phase 3-L 迁移完成后执行：
+Back-derived per character-state-reverse.md; see that file.
 
-- [ ] 正文文件数 = 源文件章节数
-- [ ] 主要角色（主角 + 核心配角）文件已创建
-- [ ] 关系.md 非空
-- [ ] 大纲.md 有卷级结构
-- [ ] 每章细纲已生成
-- [ ] 追踪/伏笔.md 中有内容（如有铺垫类情节点）
-- [ ] 追踪/时间线.md 中有内容（如有时间标记）
-- [ ] 追踪/角色状态.md 已生成且对齐 `character-state-reverse.md` 标准模板
-- [ ] 追踪/上下文.md 进度摘要已填写
-- [ ] 散落情节已合并到相关卷纲或大纲附录
-- [ ] 卷划分已经用户确认（原文无明确卷界时必检）
-- [ ] `剧情/节奏.md` 已同步到 `对标/{书名}/剧情/节奏.md`；缺失时迁移失败并附修复动作
-- [ ] `剧情/情绪模块.md` 已同步到 `对标/{书名}/剧情/情绪模块.md`；缺失时迁移失败并附修复动作
+---
+
+## Foreshadowing extraction rules
+
+Identify candidate foreshadowing from plot points:
+
+### Recognition patterns
+
+| Plot-point type | Foreshadowing likelihood | Extraction method |
+|-----------------|--------------------------|-------------------|
+| Setup | high | extract directly as foreshadowing |
+| Info reveal (partial) | medium | check for later echoes |
+| Object first appearance | medium | check for later use |
+| Character secret | high | mark as character foreshadowing |
+| Unresolved suspense | high | extracted from chapter-end markers |
+
+### State inference
+
+- A setup point followed by a "reveal" or "resolution" plot point in later chapters → mark "recovered"
+- A setup point with no later echo → mark "planted"
+- Setup points in the final chapters of a partial book → mark "planted", note "near the cutoff"
+
+---
+
+## Timeline extraction rules
+
+### Time-marker recognition
+
+Extracted from plot points and time markers:
+
+| Marker pattern | Example | Extraction method |
+|----------------|---------|-------------------|
+| Explicit date | "Spring of year three of the Tianyuan era" | record directly |
+| Relative time | "three days later", "half a month later" | calculate the absolute time |
+| Event interval | "the next day", "the following morning" | continuous markers |
+| Season marker | "winter set in", "when spring bloomed" | season inference |
+
+### Sorting rules
+
+Order by chapter; within a chapter, by plot-point index. Missing time markers are labeled `[inferred]`.
+
+---
+
+## Genre-positioning generation
+
+Extract core findings from the teardown report and generate `setting/genre-positioning.md`.
+
+### Target-format template (setting/genre-positioning.md)
+
+```markdown
+# Genre Positioning
+
+## Basic info
+- Genre: {fantasy/urban/system/...}
+- Target platform: {the platform collected from the user in Phase 1; if none, extract from the teardown report, and if still none fill [TBD]. story-review picks the platform rubric from this}
+- Core hook: {one-sentence selling point}
+- Micro-innovation points: {differences from the same-genre pack}
+
+## Core-hook three-way split
+- Surface sell: {the attraction readers see at a glance}
+- Deep gratification: {the emotional driver of sustained following}
+- Long-line hook: {the suspense/goal supporting the whole book}
+
+## Reader needs / emotional engine
+> Detailed modules in `benchmark/{Book Title}/plot/emotional-beats.md`; this section only keeps the quick positioning for opening/continuing.
+
+| Reader need | Emotional gap | How satisfied | Reproducible module | Source |
+|-------------|---------------|---------------|---------------------|--------|
+| {safety/superiority/anticipation/emotional compensation/cognitive reversal/companionship} | {the lack} | {how it's satisfied} | {EM-001 etc.} | `benchmark/{Book Title}/plot/emotional-beats.md` |
+
+## Rhythm and trigger reference
+> Detailed rhythm in `benchmark/{Book Title}/plot/pacing.md`; that file is the rhythm authority when writing.
+
+| Rhythm module | Key-info progression | Emotional touchpoints | Burst rhythm | Source |
+|---------------|----------------------|------------------------|--------------|--------|
+| {RH/TR IDs} | {how the info is expanded} | {what feeling is triggered} | {setup→eruption→cool-down} | `benchmark/{Book Title}/plot/pacing.md` |
+
+## Benchmark-book list (canonical registry)
+primary benchmark book: {Book Title}  # at most 1; the daily update only reads this one's style.md and source anchors
+benchmark book list:
+  - title: {Book Title A}
+    reference strength: primary  # primary / secondary / reference
+    genre: {fantasy/urban/system/...}
+    relevance: same-genre
+    use: style + core structure
+  - title: {Book Title B}
+    reference strength: secondary
+    genre: {genre}
+    relevance: same-genre/weakly-related
+    use: {supplement settings/outline/modules, not style}
+  - title: {Book Title C}
+    reference strength: reference
+    genre: {genre}
+    relevance: same-genre/weakly-related
+    use: {recall summaries by budget only}
+
+## Benchmark analysis (derived summary)
+> Full benchmark data in the `benchmark/` directory; the registry above is the authoritative list. This table is only a quick overview; it can't replace `primary benchmark book` + `benchmark book list`.
+
+| Benchmark book | Similarities | Differences | Borrowable |
+|----------------|--------------|-------------|------------|
+| {title} | {points} | {points} | {points} |
+
+## Genre framework
+- Eight-node position: {which node the current book is at}
+- Key turning nodes: {list}
+```
+
+### Field mapping
+
+- Genre, core hook, micro-innovation points → extracted from the basic-info and core-findings sections of `teardown-report.md`
+- Core-hook three-way split → extracted from the surface-attraction, payoff-design, and long-line-suspense sections of `teardown-report.md`
+- Reader needs / emotional engine → extracted from `plot/emotional-beats.md`; when missing, stop the import and give the fix action to re-run Stage 3+
+- Rhythm and trigger reference → extracted from `plot/pacing.md`; when missing, stop the import — never substitute `teardown-report.md`, chapter summaries, or `plot/storylines.md`
+- Benchmark-book list → when importing the current book, at least register itself as `primary`; when the user provides multiple books, all enter the `benchmark book list`; secondary/reference benchmarks are unlimited
+- Benchmark analysis (derived summary) and genre framework → may be summarized by the import scenario; must not replace the canonical registry
+
+---
+
+## Benchmark reference-view sync rules
+
+Long-form migration must sync the teardown library's key analysis assets to the project-side `benchmark/{Book Title}/` so story-long-write reads the project reference view first. Before the project view exists, the import flow may read the canonical source at the root `teardown-lib/{Book Title}/` and sync immediately; this is not a second artifact format.
+
+| Source path | Target path | Sync semantics |
+|-------------|-------------|----------------|
+| `teardown-lib/{Book Title}/plot/pacing.md` | `{project}/benchmark/{Book Title}/plot/pacing.md` | the required authoritative file for the daily update's `rhythm_reference`; fix if missing |
+| `teardown-lib/{Book Title}/plot/emotional-beats.md` | `{project}/benchmark/{Book Title}/plot/emotional-beats.md` | the required authoritative file for the daily update's `selected_emotion_module`; fix if missing |
+| `teardown-lib/{Book Title}/plot/*.md` | `{project}/benchmark/{Book Title}/plot/*.md` | plot assets (story units, storylines, loose threads); on conflict with the authoritative rhythm/emotion files, the latter win |
+| `teardown-lib/{Book Title}/chapters/*.md` (chapter_N_summary.md + opening chapters chapter_1-3_deep-dive.md) | `{project}/benchmark/{Book Title}/chapters/*.md` | matching-chapter evidence, incl. "key info and expansion techniques" |
+| `teardown-lib/{Book Title}/characters/*.md` | `{project}/benchmark/{Book Title}/characters/*.md` | character functional slots, relationships, reaction-layer reference |
+| `teardown-lib/{Book Title}/setting/` | `{project}/benchmark/{Book Title}/setting/` | worldview, factions, cheat setting-constraint reference |
+| `teardown-lib/{Book Title}/teardown-report.md` | `{project}/benchmark/{Book Title}/teardown-report.md` | human-readable summary projection |
+| `teardown-lib/{Book Title}/style.md` | `{project}/benchmark/{Book Title}/style.md` | must-read for daily-update style recall |
+
+Conflict rule: `benchmark/{Book Title}/plot/emotional-beats.md` and `benchmark/{Book Title}/plot/pacing.md` are the writing-side emotion/rhythm authorities; `teardown-report.md` and `plot/storylines.md` are only summary projections. If a summary conflicts, keep the conflict note and follow the authoritative files; when either authoritative file is missing, re-run or fix the teardown artifacts first.
+
+---
+
+## Quality-check checklist
+
+Run after Phase 3-L migration completes:
+
+- [ ] Prose file count = source chapter count
+- [ ] Major characters (protagonist + core supporting) files created
+- [ ] relationships.md non-empty
+- [ ] outline.md has volume-level structure
+- [ ] Every chapter outline generated
+- [ ] tracking/foreshadowing.md has content (when setup-type plot points exist)
+- [ ] tracking/timeline.md has content (when time markers exist)
+- [ ] tracking/character-state.md generated and aligned with the `character-state-reverse.md` standard template
+- [ ] tracking/context.md progress summary filled
+- [ ] Loose threads merged into the relevant volume outlines or the master-outline appendix
+- [ ] Volume split user-confirmed (mandatory when the source has no explicit volume boundaries)
+- [ ] `plot/pacing.md` synced to `benchmark/{Book Title}/plot/pacing.md`; when missing, migration fails with a fix action
+- [ ] `plot/emotional-beats.md` synced to `benchmark/{Book Title}/plot/emotional-beats.md`; when missing, migration fails with a fix action
