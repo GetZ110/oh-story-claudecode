@@ -1,19 +1,28 @@
 ---
 name: Bug Report
-about: 报告问题
+about: Report a problem
 labels: bug
 ---
 
-## 问题描述
-<!-- 简要描述你遇到的问题 -->
+## Problem description
+<!-- Briefly describe the problem you ran into -->
 
 
 
-## 环境信息
-- **操作系统：** [macOS / Windows / Linux]
-- **使用模型：** [例如 Claude Opus 4.6 / GLM-5.1 / DeepSeek-V4]
-- **使用 Skill：** [story-short-write / story-long-write / story-review / story-deslop / story-cover / story-import / 其他]
-- **写作类型：** [长篇 / 短篇]
+## Environment
+- **OS:** [macOS / Windows / Linux]
+- **Model:** [e.g. Claude Opus 4.6 / GLM-5.1 / DeepSeek-V4]
+- **Skill used:** [story-short-write / story-long-write / story-review / story-deslop / story-cover / story-import / other]
+- **Writing type:** [long-form / short-form]
 
-## 使用截图
-<!-- 如果有的话，贴一下运行截图或日志截图 -->
+## Screenshots
+<!-- If any, paste screenshots of the run or the logs -->
+
+## Expected vs actual
+- **Expected:**
+- **Actual:**
+
+## Reproduction steps
+1. 
+2. 
+3. 
