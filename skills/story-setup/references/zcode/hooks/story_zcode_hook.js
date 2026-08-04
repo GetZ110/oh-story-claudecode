@@ -95,18 +95,18 @@ function sessionStart() {
     try { text = fs.readFileSync(sentinel, "utf8") } catch {}
     const match = text.match(/^target_cli:\s*(.+)$/m)
     if (!match) {
-      messages.push("[story-setup] .story-deployed 缺少 target_cli；建议重新运行 $story-setup。")
+      messages.push("[story-setup] .story-deployed is missing target_cli; re-run $story-setup.")
     } else if (!match[1].split(",").map((item) => item.trim()).includes("zcode")) {
-      messages.push("[story-setup] 当前部署标记未包含 zcode；如需 ZCode 项目适配，请重新运行 $story-setup 并选择 ZCode。")
+      messages.push("[story-setup] the deployment marker does not include zcode; re-run $story-setup and choose ZCode to enable ZCode project adaptation.")
     }
   }
   const book = discoverActiveBook(root)
   if (book) {
-    const context = path.join(book, "追踪", "上下文.md")
+    const context = path.join(book, "tracking", "context.md")
     if (fs.existsSync(context)) {
-      messages.push(`[story context] 当前书目：${safeRelative(root, book)}。继续长篇写作前先读取 ${safeRelative(root, context)}。`)
+      messages.push(`[story context] Active book: ${safeRelative(root, book)}. Read ${safeRelative(root, context)} before continuing long-form writing.`)
     } else {
-      messages.push(`[story context] 检测到写作项目：${safeRelative(root, book)}。`)
+      messages.push(`[story context] Active story project detected: ${safeRelative(root, book)}.`)
     }
   }
   messages.push(...continuityFindings(root))

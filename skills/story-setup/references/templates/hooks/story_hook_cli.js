@@ -1,20 +1,22 @@
 #!/usr/bin/env node
 "use strict"
 
-// story_hook_cli.js — Claude Code bash hook 的 node 桥
-// Claude 侧 hook 是 bash（settings.json 挂 bash 脚本），归核逻辑走这里 require 的
-// 共享核 story_hook_core.js——和 OpenCode/ZCode 用的是同一份，由 check-shared-files
-// 保证字节相同。归核（单份实现在 core）的面：正文网/字数（prose-net）、路径抽取
-// （extract-target）、git commit 侦测（is-git-commit）、连续性（continuity）。
-// 尚未归核、各端独立实现的面：
-//   - 大纲阻断判定：Claude 走 guard-outline-before-prose.sh 纯 bash（本 cli 无 prose-block
-//     子命令）；codex prose_block_reason ↔ core proseBlockReason 由
-//     scripts/test-prose-net-parity.sh Part E 锁 parity。
-//   - staged markdown warnings：Claude 走 validate-story-commit.sh bash grep；codex
-//     staged_markdown_warnings ↔ core stagedMarkdownWarnings 同由 Part E 锁 parity。
-//     匹配语义与文案以 JS core 为准。
-// 各端只留读写各自 hook I/O 格式的薄壳。node 天生按 UTF-8 写 stdout，顺带免掉了
-// 旧内嵌 python 那套 cp936/LC_ALL 编码体操。
+// story_hook_cli.js — node bridge for Claude Code bash hooks
+// Claude-side hooks are bash (settings.json registers bash scripts); the core
+// logic lives here by requiring the shared core story_hook_core.js — the same one
+// OpenCode/ZCode use, guaranteed byte-identical by check-shared-files. Surfaces
+// centralized in the core (single implementation): prose net / word count
+// (prose-net), path extraction (extract-target), git commit detection
+// (is-git-commit), continuity (continuity).
+// Surfaces still implemented per-CLI:
+//   - outline block judgment: Claude uses guard-outline-before-prose.sh pure bash
+//     (this CLI has no prose-block subcommand); codex prose_block_reason ↔ core
+//     proseBlockReason parity is locked by scripts/test-prose-net-parity.sh Part E.
+//   - staged markdown warnings: Claude uses validate-story-commit.sh bash grep;
+//     codex staged_markdown_warnings ↔ core stagedMarkdownWarnings also locked by
+//     Part E. Match semantics and copy follow the JS core.
+// Each CLI keeps only a thin shell reading/writing its own hook I/O format. node
+// writes UTF-8 stdout natively, dropping the old embedded-python cp936/LC_ALL dance.
 
 const fs = require("node:fs")
 const core = require("./story_hook_core.js")
@@ -27,8 +29,9 @@ function readStdin() {
   }
 }
 
-// 与旧 extract_target_path 的 dig 逐字对应：只认 dict 的 file_path/path/filePath，
-// 再往 tool_input/input/parameters/args 里递归；list 不下钻。
+// Char-for-char matching the old extract_target_path dig: only dict
+// file_path/path/filePath, recursing into tool_input/input/parameters/args;
+// lists never descend.
 function digTargetPath(value) {
   if (value && typeof value === "object" && !Array.isArray(value)) {
     for (const key of ["file_path", "path", "filePath"]) {
@@ -43,8 +46,9 @@ function digTargetPath(value) {
   return ""
 }
 
-// 与旧 validate-story-commit find_command 逐字对应：dict 的 command/cmd/script（是字符串就取，
-// 允许空串），再往 tool_input/input/parameters/args 递归。
+// Char-for-char matching the old validate-story-commit find_command: dict
+// command/cmd/script (take any string, empty allowed), then recurse into
+// tool_input/input/parameters/args.
 function digCommand(value) {
   if (value && typeof value === "object" && !Array.isArray(value)) {
     for (const key of ["command", "cmd", "script"]) {
@@ -61,8 +65,9 @@ function digCommand(value) {
 const [command, ...args] = process.argv.slice(2)
 
 if (command === "extract-target") {
-  // PostToolUse 工具输入 JSON → 目标文件路径。无输入/解析失败/无路径都以非零退出，
-  // 让 bash 侧静默放行（与旧 python sys.exit(1) 一致）。
+  // PostToolUse tool-input JSON → target file path. Missing input / parse failure /
+  // no path all exit non-zero so the bash side passes silently (same as the old
+  // python sys.exit(1)).
   const raw = process.env.HOOK_INPUT || readStdin()
   if (!raw) process.exit(1)
   let obj
@@ -75,8 +80,10 @@ if (command === "extract-target") {
   if (!target) process.exit(1)
   process.stdout.write(target)
 } else if (command === "prose-net") {
-  // 轻量确定性网（含毒句式）+ 字数欠账，对齐旧内嵌 python 第二段的 out 列表（net 逐条 +
-  // 可选字数行）。读文件失败静默退出（兜底不反噬流程）。
+  // Lightweight deterministic net (incl. toxic patterns) + word-count debt,
+  // aligned with the old embedded-python second segment's out list (net items +
+  // optional word-count line). Read failures exit silently (a backstop must not
+  // bite the flow).
   const absolute = args[0]
   let text
   try {
@@ -89,9 +96,12 @@ if (command === "extract-target") {
   if (wordcount) out.push(wordcount)
   if (out.length) process.stdout.write(out.join("\n"))
 } else if (command === "prose-toxic") {
-  // 毒句式确定性检测单跑（供 guard 前置门 / 手工复扫调用；prose-net 已含同一组结果）。
-  // 契约：stdout 空 = 干净；非空 = findings 行（每行一条，末行为清零要求 + 完整扫描提示）。
-  // 文件读不了或任何内部异常一律 exit 0 静默放行（与本 CLI 的降级哲学一致，兜底不反噬流程）。
+  // Toxic-pattern deterministic scan standalone (for the guard pre-gate / manual
+  // rescan; prose-net already includes the same results).
+  // Contract: empty stdout = clean; non-empty = finding lines (one per line, last
+  // line is the clear-to-continue requirement + full-scan hint). Unreadable files
+  // or any internal error exit 0 silently (consistent with this CLI's degradation
+  // philosophy; a backstop must not bite the flow).
   const absolute = args[0]
   try {
     const text = fs.readFileSync(absolute, "utf8")
@@ -101,9 +111,11 @@ if (command === "extract-target") {
     process.exit(0)
   }
 } else if (command === "is-git-commit") {
-  // git commit 侦测。命令优先取 STORY_COMMIT_COMMAND，缺省再从 HOOK_INPUT 挖 command/cmd/script。
-  // 用共享核 isGitCommitCommand（js 分词语义，与 OpenCode/ZCode 一致；对「引号内分隔符」这类
-  // 边界与旧 python shlex 有已文档化、仅 advisory 的差异）。是 git commit → exit 0，否则 exit 1。
+  // git commit detection. The command prefers STORY_COMMIT_COMMAND, otherwise digs
+  // command/cmd/script out of HOOK_INPUT. Uses the shared core isGitCommitCommand
+  // (js word-splitting semantics, consistent with OpenCode/ZCode; the documented
+  // advisory-only differences from the old python shlex on "in-quote separators").
+  // Is a git commit → exit 0, otherwise exit 1.
   let raw = process.env.STORY_COMMIT_COMMAND || ""
   if (!raw) {
     const hookInput = process.env.HOOK_INPUT || ""
@@ -119,8 +131,10 @@ if (command === "extract-target") {
   if (!raw) process.exit(1)
   process.exit(core.isGitCommitCommand(raw) ? 0 : 1)
 } else if (command === "continuity") {
-  // 跨批连续性兜底：追踪 staleness + 章节标题去重。用共享核 continuityFindings（消息串与旧
-  // python 逐字一致；多书/并列去重的排序按 js 语义，仅影响 advisory 顺序）。
+  // Cross-batch continuity backstop: tracking staleness + duplicate chapter
+  // titles. Uses the shared core continuityFindings (messages verbatim-aligned
+  // with the old python; multi-book dedup ordering follows js semantics, only
+  // affecting advisory order).
   const root = args[0]
   const out = core.continuityFindings(root)
   if (out.length) process.stdout.write(out.join("\n") + "\n")

@@ -11,13 +11,16 @@ import {
   proseAfterWrite,
 } from "./lib/story_hook_core.js"
 
-// 写正文守卫的检测逻辑（去 AI 味轻量确定性网、大纲/细纲守卫、字数/落盘/标题去重、
-// 正文写入目标抽取）与 ZCode hook 共享同一份 story_hook_core.js，随本插件一起部署到
-// .opencode/plugins/lib/story_hook_core.js（放 lib/ 子目录而非平铺：OpenCode 只单层扫描
-// .opencode/plugins/*.js 当插件加载，平铺会被误当成第二个插件导致加载失败；lib/ 子目录不在
-// 扫描范围内）。这里只保留 OpenCode 宿主相关的部分：项目根定位、
-// 事件模型（experimental.session.compacting / tool.execute.*）、以及把发现追加进写工具
-// 返回结果的输出信封。共享核以 bash hook 为 oracle，parity 由 test-prose-net-parity.sh 守卫。
+// The prose-write guard logic (de-AI lightweight deterministic net, outline/chapter
+// outline guard, word count / landing / title dedup, prose target extraction) shares
+// the same story_hook_core.js with the ZCode hook, deployed with this plugin to
+// .opencode/plugins/lib/story_hook_core.js (in lib/ rather than flat: OpenCode scans
+// .opencode/plugins/*.js one level deep for plugins, and a flat copy would be mistaken
+// for a second plugin and fail loading; lib/ is out of the scan range). Only the
+// OpenCode-host-specific parts stay here: project-root resolution, the event model
+// (experimental.session.compacting / tool.execute.*), and the output envelope that
+// appends findings to write-tool results. The bash hook is the shared core's oracle;
+// parity is guarded by test-prose-net-parity.sh.
 
 function projectRoot(): string {
   try {
@@ -61,16 +64,17 @@ function tryGit(root: string, args: string): string {
   }
 }
 
-// OpenCode Plugin API 提供 chat.message hook（见 @opencode-ai/plugin 类型定义），
-// 可用于注入 session-start 检查与缺口检测。当前版以 partial 方式仅部署
-// experimental.session.compacting 和 tool.execute.before，后续版本可扩展。
+// The OpenCode Plugin API offers a chat.message hook (see the @opencode-ai/plugin
+// type definitions) that could inject session-start checks and gap detection. This
+// version deploys only experimental.session.compacting and tool.execute.* in
+// partial form; later versions can extend.
 
 function preCompactOutput(): string {
   const root = projectRoot()
   const lines = ["=== Pre-Compact Summary ==="]
   const bookDir = discoverActiveBook(root)
   if (bookDir) {
-    const ctxPath = path.join(bookDir, "追踪", "上下文.md")
+    const ctxPath = path.join(bookDir, "tracking", "context.md")
     if (fs.existsSync(ctxPath)) {
       const lineCount = fs.readFileSync(ctxPath, "utf-8").split("\n").length
       const relPath = path.relative(root, ctxPath)
@@ -102,7 +106,7 @@ export default (async () => {
       if (preMsg) {
         output.context = [...output.context, preMsg]
       }
-      // 不注入 post-compact 信息：OpenCode 无压缩后 hook
+      // No post-compact injection: OpenCode has no post-compact hook
     },
 
     "tool.execute.before": async (
@@ -115,10 +119,13 @@ export default (async () => {
         const filePath = (output.args?.filePath as string) || ""
         if (filePath) targets.push(filePath)
       } else if (input.tool === "apply_patch") {
-        // apply_patch 是 OpenCode 的 edit 类工具（upstream permission 与 write/edit 同组），
-        // 且 gpt-5 系模型只暴露它、隐藏 write/edit——不接这个分支等于守卫整场失效。
-        // 目标抽取（*** Add/Update File: 与 *** Move to: 的目的地）复用共享核，与 ZCode/Codex
-        // adapter 同一份判据；Move 必须走目的地，否则搬家式补丁能把无细纲草稿搬进 正文/。
+        // apply_patch is OpenCode's edit-class tool (upstream permission is in the
+        // same group as write/edit), and gpt-5-family models only expose it, hiding
+        // write/edit — skipping this branch would disable the guard entirely.
+        // Target extraction (*** Add/Update File: and the *** Move to: destination)
+        // reuses the shared core, the same judgment as the ZCode/Codex adapters;
+        // Move must resolve to the destination, otherwise a move-style patch could
+        // carry an outline-less draft into prose/.
         const patchText = (output.args?.patchText as string) || ""
         for (const t of extractPatchTargets(patchText)) targets.push(t)
       } else if (input.tool === "bash") {
@@ -128,8 +135,9 @@ export default (async () => {
         return
       }
 
-      // 非写类工具（read/grep/glob/list/…）已在上面 return：projectRoot() 是同步 execSync，
-      // 插件常驻在 OpenCode 服务进程里，只有确认有目标要查时才 fork git。
+      // Non-write tools (read/grep/glob/list/…) already returned above: projectRoot()
+      // is a synchronous execSync, and this plugin lives in the OpenCode service
+      // process — fork git only when there is a target to check.
       if (targets.length === 0) return
 
       const root = projectRoot()
@@ -137,14 +145,17 @@ export default (async () => {
       for (const target of [...new Set(targets)]) {
         const reason = proseBlockReason(root, resolveTarget(root, target, base))
         if (reason) {
-          throw new Error(`${reason}（此操作无法通过 Bash/命令行绕过。）`)
+          throw new Error(`${reason} (This operation cannot be bypassed through Bash/command line.)`)
         }
       }
     },
 
-    // 正文落盘兜底：写正文后跑轻量确定性网（截断/拒绝语/工程词/复读 + 落盘/字数/标题去重），
-    // 把发现追加进写工具的返回结果让模型读到。非正文文件、无发现一律不动结果（静默放行）。
-    // OpenCode 无 PostToolUse，tool.execute.after 是写后唯一可向模型回话的钩子。
+    // Prose landing backstop: after writing prose, run the lightweight deterministic
+    // net (truncation/refusal/engineering words/repeat + landing/word count/title
+    // dedup) and append findings to the write tool's returned output for the model
+    // to read. Non-prose files and clean results never touch the output (silent
+    // pass). OpenCode has no PostToolUse; tool.execute.after is the only post-write
+    // hook that can speak back to the model.
     "tool.execute.after": async (
       input: { tool: string; args?: Record<string, unknown> },
       output: { output?: string }
@@ -154,8 +165,10 @@ export default (async () => {
         const filePath = (input.args?.filePath as string) || ""
         if (filePath) targets.push(filePath)
       } else if (input.tool === "apply_patch") {
-        // 与 before 同一套目标抽取（含 *** Move to: 的目的地——搬进 正文/ 的章节要被扫的是
-        // 目的地，源已不存在）：gpt-5 系模型只有 apply_patch，不接就等于整场没有落盘兜底。
+        // Same target extraction as before (including the *** Move to: destination —
+        // a chapter moved into prose/ must scan the destination, the source no
+        // longer exists): gpt-5-family models only have apply_patch, so skipping
+        // this would leave no landing backstop at all.
         const patchText = (input.args?.patchText as string) || ""
         for (const t of extractPatchTargets(patchText)) targets.push(t)
       } else {
@@ -174,7 +187,7 @@ export default (async () => {
           output.output += `\n\n${notes.join("\n\n")}`
         }
       } catch {
-        // 兜底不能反过来卡流程：解析失败一律放行
+        // A backstop must not bite the flow: parse failures always pass
       }
     },
   }
