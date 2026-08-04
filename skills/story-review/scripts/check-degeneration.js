@@ -7,48 +7,57 @@ const path = require('path');
 const USAGE = `Usage: node check-degeneration.js [--check] [--json] [--fail-on=blocking|all] <file...>
 
 Detect model-degeneration fingerprints that a degrading model cannot self-report:
-  - verbatim repetition (复读/打转): a long sentence repeated, or back-to-back identical lines
-  - mid-sentence truncation (截断): file ends without terminal/closing punctuation
-  - placeholder / refusal / meta leakage (元信息泄漏): 作为AI / 我无法继续 / 此处省略 / 乱码
-  - engineering-word leakage (工程词泄漏): 细纲 / 情节点 / 本章 / 下一章 / 任务描述 漏进正文
+  - verbatim repetition (looping): a long sentence repeated, or back-to-back identical lines
+  - mid-sentence truncation: file ends without terminal/closing punctuation
+  - placeholder / refusal / meta leakage: "as an AI", "I cannot continue",
+    "[INSERT ...]", "to be continued", mojibake
+  - engineering-word leakage: "chapter outline", "plot point", "this chapter",
+    "the reader", "foreshadowing" leaking into prose
 
-Each finding carries severity: blocking (复读/截断/占位拒绝语/tier1 纯工程词，正文里永不合法，
-命中即重写) 或 advisory (tier2 章节/歧义词、对话行里的工程词，只提示、交人/LLM 判)。
---fail-on=blocking 只在出现 blocking finding 时退出 1；默认 --fail-on=all 有任何 finding 即退出 1。
+Each finding carries severity: blocking (repetition / truncation / placeholder /
+refusal / tier1 pure pipeline terms — never legal in prose, hit means rewrite) or
+advisory (tier2 chapter/ambiguous words and dialogue-line pipeline words — report
+only, human/LLM decides).
+--fail-on=blocking exits 1 only when a blocking finding appears; default
+--fail-on=all exits 1 on any finding.
 
 Report-only. The script never rewrites — the safe response is to regenerate the
-affected unit (chapter / 摘要) with the finding fed back as a constraint, cap retries,
-then surface the evidence to the user. Conservative by design: 通俗网文 deliberately
-uses 排比/复沓/弹幕刷屏/重复台词 for rhythm, so short and dialogue repetition is exempt.`;
+affected unit (chapter / summary) with the finding fed back as a constraint, cap
+retries, then surface the evidence to the user. Conservative by design: fiction
+deliberately uses anaphora, refrain, and repeated dialogue for rhythm, so short and
+dialogue repetition is exempt.`;
 
-// 复读：长句（可见字数 ≥ REPEAT_MIN_LEN）出现 ≥ REPEAT_MIN_COUNT 次判为打转；
-// 紧邻整行重复（可见字数 ≥ ADJACENT_MIN_LEN）判为即时循环。短句/弹幕/对话刷屏豁免。
-const REPEAT_MIN_LEN = 12;
+// Repetition: a long sentence (visible words >= REPEAT_MIN_WORDS) appearing >=
+// REPEAT_MIN_COUNT times is a loop; adjacent identical full lines (visible words >=
+// ADJACENT_MIN_WORDS) are an immediate cycle. Short lines / dialogue spam are exempt.
+const REPEAT_MIN_WORDS = 8;
 const REPEAT_MIN_COUNT = 3;
-const ADJACENT_MIN_LEN = 8;
+const ADJACENT_MIN_WORDS = 6;
 
-// hard = 任何行都判（正文里永不合法）；soft = 只在「非对话」叙述行判（角色台词里可能合法，
-// 如「对不起，我无法答应你」是正常对话，不是模型拒绝语）。
+// hard = flags on any line (never legal in prose); soft = only flags on
+// non-dialogue narrative lines (a character saying "I can't do this" is normal
+// dialogue, not a model refusal).
 const PLACEHOLDER_PATTERNS = [
-  // 「作为AI」需在自指位置（其后是断句/我/无法… 或句末），避免误报「人工智能时代的产物」这类
-  // 复合名词；并对对话行豁免（系统流/AI 伴侣题材里 AI 角色台词「作为AI，我会保护你」是合法对话）。
-  // 型号后缀（AI语言模型/AI助手/人工智能语言模型/AI模型/AI大模型）必须可选吃掉：否则前视断言紧跟
-  // 在「AI」后面看到的是「语」/「助」/「模」，最典型的退化开场整类漏检（与写后网 story_hook_core.js
-  // SOFT_PATTERNS / story_codex_hook.py _NET_SOFT_PATTERNS 同语义）。
-  { re: /作为(一个)?(AI|人工智能|大?语言模型|智能助手|聊天助手)(?:语言模型|大?模型|助手|机器人)?(?=[，,。、；;：:！!？?\s）)」』"】]|我|无法|不能|没法|$)/, label: '元信息泄漏（AI 自指）', hard: false },
-  { re: /�/, label: '乱码（替换字符 �）', hard: true },
-  { re: /^(Sure|Certainly|Here'?s|As an AI|I (?:cannot|can't|am unable|apologize))/, label: '元信息泄漏（英文 AI 腔）', hard: true },
-  { re: /[（(](此处|以下|这里|下文|后续)?\s*(省略|略)(去|过)?[^）)]{0,10}[）)]/, label: '占位符（括号省略）', hard: true },
-  { re: /(未完待续|TODO|占位符|placeholder)/, label: '占位符', hard: true },
-  { re: /我(无法|不能)(继续(写|创作|生成|下去)|生成(内容|文本|正文)?|创作|续写|完成(这个|本)?(章|篇|创作|请求))/, label: '元信息泄漏（生成拒绝语）', hard: false },
+  // "As an AI" must sit at a self-reference position (followed by punctuation,
+  // "I", a modal, or end of line) so compound nouns like "AI-generated art" don't
+  // false-positive; dialogue lines are exempt (an in-story AI character's line
+  // "As an AI, I will protect you" is legal dialogue).
+  { re: /\b(?:as an?|being an?)\s+(?:AI|language model|artificial intelligence|chatbot|assistant)(?=\b|[.,;:!?"')\]]|I(?:'m| am)|can'?t|cannot|won'?t|will not|would|shall|must|$)|\b(?:as an?|being an?)\s+(?:AI|language model)\s+(?:assistant|chatbot|model)?\b/i, label: 'meta leakage (AI self-reference)', hard: false },
+  { re: /�/, label: 'mojibake (replacement char �)', hard: true },
+  { re: /\b(?:I|we)(?:'m|'re| am| are)? (?:sorry|apologize|unable|not able|can'?t|cannot) (?:to )?(?:continue|write|generate|finish|complete|help|assist|provide|produce)\b/i, label: 'meta leakage (generation refusal)', hard: false },
+  { re: /\[(?:INSERT|PLACEHOLDER|TBD|TODO|CONTINUE|MORE TO COME|REMOVE THIS)[^\]]{0,20}\]/, label: 'placeholder (bracketed)', hard: true },
+  { re: /\((?:insert|add|write|describe|elaborate|expand|to be continued|placeholder|scene)[^)]{0,30}\)/, label: 'placeholder (parenthetical)', hard: true },
+  { re: /\b(?:to be continued|TBC|未完待续)\b/i, label: 'placeholder', hard: true },
+  { re: /\bthe (?:story|narrative) (?:will|would|shall) (?:continue|end here|be continued)\b/i, label: 'meta leakage (writer note)', hard: false },
 ];
 
-// 工程词泄漏（正文元信息扫描的确定性版）：弱模型把写作工程词漏进正文，破坏代入感
-// （DeepSeek-v4 这类会在对话里冒「该到下一章了」）。漏词的模型自己发现不了，靠脚本兜。
-// tier1 = 纯写作流水线术语，正文里几乎永不合法；tier2 = 章节结构/歧义词，角色在故事内
-// 真实阅读/讨论「第X章」或故事内系统/界面用语时属例外（report-only，交人/LLM 判）。
-const META_TIER1_RE = /细纲|情节点|卷纲|功能标签|目标情绪|字数目标|章首钩子|章尾钩子/;
-const META_TIER2_RE = /第[一二三四五六七八九十百千万两0-9]+章|本章|这一章|上一章|下一章|上章|下章|前一章|后一章|前文|后文|伏笔|读者|任务描述/;
+// Engineering-word leakage (deterministic version of the prose meta check): a weak
+// model leaks writing-pipeline terms into prose and breaks immersion. tier1 = pure
+// pipeline terms, almost never legal in prose; tier2 = chapter-structure/ambiguous
+// words, legal when a character in-story reads/discusses "Chapter X" text or uses
+// in-story system/UI language (report-only, human/LLM decides).
+const META_TIER1_RE = /\b(?:chapter outline|volume outline|master outline|story unit|plot point|plot points|target words?|word count target|hook note|payoff note|foreshadowing note|deslop skip|细纲|情节点|卷纲|字数目标|章首钩子|章尾钩子)\b/i;
+const META_TIER2_RE = /\b(?:this chapter|next chapter|previous chapter|last chapter|chapter \d+|the chapter|the reader|the author|foreshadow(?:ing)?|cliffhanger|as mentioned|to recap|the plot|the outline)\b/i;
 
 const options = { json: false, files: [], failOn: 'all' };
 
@@ -102,7 +111,8 @@ if (options.json) {
 }
 
 if (failed) process.exit(2);
-// --fail-on=blocking 只在出现 blocking finding 时退出 1（advisory 仅报告）；默认 all 沿用「有任何 finding 即 1」。
+// --fail-on=blocking exits 1 only on blocking findings (advisory reports only);
+// default all keeps "any finding is 1".
 const hasBlocking = allFindings.some((f) => f.severity === 'blocking');
 if (options.failOn === 'blocking' ? hasBlocking : allFindings.length > 0) process.exit(1);
 
@@ -151,16 +161,14 @@ function isContent(trimmed) {
 }
 
 function isDialogueLike(trimmed) {
-  return /[“”"'‘’「」『』【】]/.test(trimmed);
+  return /[“”"'‘’]/.test(trimmed);
 }
 
-// 去掉成对引号内的片段（台词/系统词/引用物件），只留引号外叙述。复读判定用：重复台词是体裁
-// 手法（豁免），但「叙述 + 引号内物件/短台词」混合行里引号外叙述的复读仍是退化，不能整行豁免。
+// Strip paired-quote spans (dialogue/system words), leaving narration only.
+// Repetition judgment: repeated dialogue is a genre device (exempt), but narration
+// outside quotes on a mixed line still counts toward degeneration.
 function stripQuoted(text) {
   return text
-    .replace(/「[^」]*」/g, '')
-    .replace(/『[^』]*』/g, '')
-    .replace(/【[^】]*】/g, '')
     .replace(/“[^”]*”/g, '')
     .replace(/‘[^’]*’/g, '')
     .replace(/"[^"]*"/g, '')
@@ -168,7 +176,7 @@ function stripQuoted(text) {
 }
 
 function visibleLength(text) {
-  const m = text.match(/[一-鿿Ａ-ｚA-Za-z0-9]/g);
+  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?/g);
   return m ? m.length : 0;
 }
 
@@ -176,44 +184,45 @@ function findRepetition(content) {
   const findings = [];
   const body = content.filter((c) => isContent(c.trimmed));
 
-  // (1) back-to-back identical lines (immediate loop). 纯台词/弹幕复沓（引号外叙述很短）豁免；
-  // 「叙述 + 引号内物件」混合行的整行复读仍判（去引号后叙述够长）。
+  // (1) back-to-back identical lines (immediate loop). Pure dialogue/refrain lines
+  // (very short outside-quote narration) are exempt; a mixed "narration + quoted
+  // object" line still counts when its narration is long enough.
   for (let i = 1; i < body.length; i += 1) {
     if (
       body[i].trimmed === body[i - 1].trimmed &&
-      visibleLength(stripQuoted(body[i].trimmed)) >= ADJACENT_MIN_LEN
+      visibleLength(stripQuoted(body[i].trimmed)) >= ADJACENT_MIN_WORDS
     ) {
       findings.push({
         line: body[i].lineNo,
         column: 1,
         type: 'verbatim-repeat',
         severity: 'blocking',
-        message: '逐行复读（紧邻整行重复）：疑似模型打转，重写本段、删掉重复。',
+        message: 'Verbatim repeat (back-to-back identical lines): suspected model loop — rewrite this passage, delete the duplicate.',
         excerpt: compact(body[i].trimmed),
       });
     }
   }
 
   // (2) any long sentence repeated >= REPEAT_MIN_COUNT times across the file.
-  // 只豁免引号内台词（体裁手法），引号外叙述句仍参与复读计数（含「叙述+引号内物件」混合行）。
+  // Only quoted dialogue is exempt (genre device); narrative sentences still count,
+  // including on mixed "narration + quoted object" lines.
   const counts = new Map();
   for (const { trimmed } of body) {
-    for (const sentence of stripQuoted(trimmed).split(/[。！？!?]/)) {
+    for (const sentence of stripQuoted(trimmed).split(/[.!?]+/)) {
       const s = sentence.trim();
-      if (visibleLength(s) < REPEAT_MIN_LEN) continue;
+      if (visibleLength(s) < REPEAT_MIN_WORDS) continue;
       const entry = counts.get(s) || { count: 0, firstLine: null };
       entry.count += 1;
       counts.set(s, entry);
     }
   }
-  // record first line for repeated sentences
   const flagged = new Set();
   for (const [s, entry] of counts) {
     if (entry.count >= REPEAT_MIN_COUNT) flagged.add(s);
   }
   if (flagged.size) {
     for (const { trimmed, lineNo } of body) {
-      for (const sentence of stripQuoted(trimmed).split(/[。！？!?]/)) {
+      for (const sentence of stripQuoted(trimmed).split(/[.!?]+/)) {
         const s = sentence.trim();
         if (flagged.has(s)) {
           findings.push({
@@ -221,7 +230,7 @@ function findRepetition(content) {
             column: 1,
             type: 'verbatim-repeat',
             severity: 'blocking',
-            message: `长句复读（同句出现 ${counts.get(s).count} 次）：疑似模型打转，重写、保留一处。`,
+            message: `Long sentence repeated (${counts.get(s).count} times): suspected model loop — rewrite, keep one.`,
             excerpt: compact(s),
           });
           flagged.delete(s); // report each repeated sentence once, at its first occurrence
@@ -238,14 +247,14 @@ function findTruncation(content) {
   if (body.length === 0) return [];
   const last = body[body.length - 1];
   // a finished chapter ends on terminal/closing punctuation; otherwise it was cut off.
-  if (/[。！？!?…”"』」）)】]$/.test(last.trimmed)) return [];
+  if (/[.!?…”"'’）)】]$/.test(last.trimmed)) return [];
   return [{
     line: last.lineNo,
     column: last.trimmed.length,
     type: 'truncated',
     severity: 'blocking',
-    message: '疑似截断：正文末尾未以句末/收尾标点结束，可能被模型中途切断；补完结尾或重写收尾。',
-    excerpt: compact(last.trimmed.slice(-24)),
+    message: 'Suspected truncation: prose does not end with terminal/closing punctuation — the model may have been cut off mid-sentence; finish or rewrite the ending.',
+    excerpt: compact(last.trimmed.slice(-40)),
   }];
 }
 
@@ -255,7 +264,7 @@ function findPlaceholders(content) {
     if (!isContent(trimmed)) continue;
     const dialogue = isDialogueLike(trimmed);
     for (const { re, label, hard } of PLACEHOLDER_PATTERNS) {
-      if (!hard && dialogue) continue; // soft 拒绝语在对话行里可能是正常台词，豁免
+      if (!hard && dialogue) continue; // soft refusal language may be a legal line in dialogue
       const m = re.exec(trimmed);
       if (m) {
         findings.push({
@@ -263,8 +272,8 @@ function findPlaceholders(content) {
           column: (m.index || 0) + 1,
           type: 'placeholder-leak',
           severity: 'blocking',
-          message: `${label}：正文混入元信息/拒绝语/占位符，重写本段干净落地。`,
-          excerpt: compact(trimmed.slice(Math.max(0, (m.index || 0) - 4), (m.index || 0) + 20)),
+          message: `${label}: prose contains meta/refusal/placeholder text — rewrite this passage to land cleanly.`,
+          excerpt: compact(trimmed.slice(Math.max(0, (m.index || 0) - 20), (m.index || 0) + 40)),
         });
         break; // one finding per line is enough
       }
@@ -280,23 +289,25 @@ function findMetaLeak(content) {
     if (!isContent(trimmed)) continue;
     if (!firstContentSeen) {
       firstContentSeen = true;
-      // 标题行（第N章 章名，无 ## 前缀时也算）属「标题行以外的正文」之外，排除
-      if (/^第[一二三四五六七八九十百千万两0-9]+章/.test(trimmed)) continue;
+      // The title line ("Chapter N: Title", with or without a ## prefix) is not
+      // prose; skip it.
+      if (/^chapter\s+\d+/i.test(trimmed)) continue;
     }
     const dialogue = isDialogueLike(trimmed);
     let m = META_TIER1_RE.exec(trimmed);
     if (m) {
-      // tier1 纯工程词正文里几乎永不合法→blocking；但写手/编剧题材里角色在故事内真讨论创作，
-      // 台词（对话行）里可能合法，降级为 advisory（仍报告，交人/LLM 判，不强制回炉）。
+      // tier1 pure pipeline terms are almost never legal in prose -> blocking; but in
+      // writer/editor fiction where a character genuinely discusses craft in-story,
+      // a dialogue line may be legal — downgrade to advisory (still reported).
       findings.push({
         line: lineNo,
         column: m.index + 1,
         type: 'meta-leak',
         severity: dialogue ? 'advisory' : 'blocking',
-        message: `工程词泄漏：「${m[0]}」是写作流水线术语，正文里不该出现；改成角色/场景内表达。${dialogue ? '例外：角色为作者/编剧、在故事内真实讨论创作时，台词里可能合法。' : ''}`,
-        excerpt: compact(trimmed.slice(Math.max(0, m.index - 6), m.index + 18)),
+        message: `Engineering-word leakage: "${m[0]}" is a writing-pipeline term that must not appear in prose; rewrite in in-scene terms.${dialogue ? ' Exception: a character who is an author/editor genuinely discussing craft in-story may say this in dialogue.' : ''}`,
+        excerpt: compact(trimmed.slice(Math.max(0, m.index - 20), m.index + 30)),
       });
-      continue; // tier1 命中即可，不再叠 tier2
+      continue; // tier1 hit is enough; don't stack tier2
     }
     m = META_TIER2_RE.exec(trimmed);
     if (m) {
@@ -305,8 +316,8 @@ function findMetaLeak(content) {
         column: m.index + 1,
         type: 'meta-leak',
         severity: 'advisory',
-        message: `元信息泄漏：「${m[0]}」疑似工程/章节结构词混入正文；改成角色当下可感知的事件锚点或相对时间。例外：角色在故事内真实阅读/讨论「第X章」、真身为作者/读者、或故事内系统/界面用语。`,
-        excerpt: compact(trimmed.slice(Math.max(0, m.index - 6), m.index + 18)),
+        message: `Meta leakage: "${m[0]}" looks like a chapter-structure/engineering word in prose; rewrite as an event anchor or relative time the character can perceive. Exception: a character in-story reading/discussing "Chapter X" text, a real author/reader identity, or in-story system/UI language.`,
+        excerpt: compact(trimmed.slice(Math.max(0, m.index - 20), m.index + 30)),
       });
     }
   }
