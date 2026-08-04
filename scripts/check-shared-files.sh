@@ -46,8 +46,9 @@ ANALYST_DIVERGENT_NAMES="character-basics.md character-design-methods.md charact
 # from the long-form references/genre-prose-cards/ card of the same basename
 # (story-long-write + its story-setup deployment mirror). Drop the genre-styles copy
 # from the comparison; the prose-card copies must still stay byte-identical. Stricter
-# than a wholesale ignore.
-GENRE_STYLE_DIVERGENT_NAMES="cozy-mystery.md dark-romance.md horror.md"
+# than a wholesale ignore. sports-romance.md is divergent for the same reason
+# (long-form card + short-form pack share the basename).
+GENRE_STYLE_DIVERGENT_NAMES="cozy-mystery.md dark-romance.md horror.md sports-romance.md"
 
 # Form-divergent (basename): in the English edition the long-form and short-form
 # writer skills own form-specific versions of these methodology docs (19 long-form

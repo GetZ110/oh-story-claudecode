@@ -94,6 +94,27 @@
 
 ---
 
+## 2026 short-fiction trend snapshot (initial calibration; re-validate before use)
+
+> Compiled 2026-08-04 from serial-app leaderboards (GoodNovel, Dreame, Inkitt, Wattpad hot lists). A starting heuristic, **not current market fact**.
+
+| Rank | Genre | Where it peaks | Core formula |
+|------|-------|----------------|--------------|
+| 1 | Werewolf / shifter romance | GoodNovel, Dreame, Inkitt | Rejected mate -> second chance; alpha/beta hierarchy; fated bond |
+| 2 | Mafia / billionaire | Dreame, GoodNovel | Forbidden power dynamic; forced proximity; possessive lead |
+| 3 | Dark romance | Inkitt, Wattpad | Taboo-adjacent tension, morally grey lead, hard-earned HEA |
+| 4 | Sports romance | Wattpad, Kindle Unlimited | Rivals-to-lovers; team and contract stakes; public vs private self |
+| 5 | Monster romance | Inkitt, Dreame (rising) | Creature/human pairing; forced proximity; outsider longing |
+| 6 | Domestic thriller | Kindle short serials, Wattpad | Closed-circle family secrets; unreliable narrator; short-burst reveals |
+| 7 | Romantasy (serialized) | Wattpad, Inkitt | High-fantasy world + trope-driven romance; episode mini-payoffs |
+
+Cross-check notes:
+- Radish shut down December 2025; Galatea unreachable at compile time — validate those platforms separately.
+- Serial-app leaderboards are retention-driven; Kindle ranks are sales-driven. Don't mix proxies when comparing.
+- Re-validate every rank against the current live lists before choosing a genre.
+
+---
+
 ## Calibration checklist
 
 - [ ] Numbers above are validated against the latest scan results before use

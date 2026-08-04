@@ -23,6 +23,10 @@
 | The Outsider with a Secret | Formula 8 | 8-11 sections |
 | The Public Reckoning | Formula 9 | 7-10 sections |
 | The Time-Loop / Do-Over | Formula 10 | 8-11 sections |
+| The Rejected Mate | Formula 11 | 8-10 sections |
+| The Creature's Bride | Formula 12 | 8-11 sections |
+| The Perfect Husband | Formula 13 | 8-10 sections |
+| The Championship Confession | Formula 14 | 7-10 sections |
 
 ---
 
@@ -228,6 +232,97 @@ A character repeats a period (the day, the year, the relationship, the moment of
 **Emotion**: shock → confusion → frustration → insight → determination → sacrifice → release → warmth
 **Must-have scenes**: the first pass in full, the rules established, 2-3 differentiated attempts, the flaw recognized, the costed true attempt, the breakthrough, the new period, the kept change.
 **Rules**: each attempt must differ meaningfully (different approach, different information) — repeating the same attempt is padding. The lesson is a flaw (pride, avoidance, control), never the event itself. The exit costs something — a loop escaped for free is a genre violation. High-info-density: 300+ words/section.
+
+---
+
+## Formula 11: The Rejected Mate (8-10 sections)
+
+The werewolf mate bond is destiny — and the rejection is the wound. The story is the second chance: the rejected mate finds a stronger bond, the rejecter's regret surfaces, and the new claim is chosen, never commanded.
+
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The rejection | Public, in front of the pack; the bond's pull vs the alpha's refusal; the wound's specifics (the word, the walk-away) |
+| 2 | The aftermath | The pack's tiers (the smug, the sorry, the silent); the rejection's physical cost (the bond-ache) |
+| 3 | The leaving | The rejected mate leaves or is cast out; the new context (the café, the border town, the human world) |
+| 4 | The new presence | A new wolf enters — a stronger bond's signal (the scent, the pull); the rejected mate's resistance |
+| 5 | The regret | The first alpha's regret surfaces (the eavesdropped truth, the pack gossip, the attempted apology) |
+| 6 | The choice | The rejected mate must choose: the old bond's ghost vs the new claim; the first alpha's true reason surfaces |
+| 7 | The new claim | The new bond claimed — public or private; the bond completed by choice, not by destiny |
+| 8-9 | The confrontation | The first alpha returns; the rejected mate's dignity scene; the pack repositions |
+| 10 | The after | The new pack or the settled bond; the callback to the rejection, revalued |
+
+**Emotion**: humiliation → ache → hope → resistance → regret → choice → claim → vindicated → settled
+**Must-have scenes**: the public rejection, the bond-ache, the leaving, the new bond's first signal, the first alpha's regret, the choice beat, the dignity scene, the settled ending.
+**Rules**: the rejection is public and specific; the rejected mate's dignity is the reader's anchor — no begging scenes, and the rejecter's regret is written in full but never wins; the new bond is chosen (the old pull vs the human's choice), never automatic; consent is explicit in every claim scene — the bond is a pull, never an override; no flip-flop after the claim. Word budget: sections ≥ 400 (default floor).
+
+---
+
+## Formula 12: The Creature's Bride (8-11 sections)
+
+The bride sent to the monster — and the monster is the safe one. The human world's cruelty is the story's actual horror; the creature's otherness is the appeal.
+
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The offering | The village/kingdom/family sends her; the human world's cruelty shown in full (the debt, the sacrifice, the marriage avoided) |
+| 2 | The meeting | The monster's first appearance — otherness detailed with fascination; the courteous register opens |
+| 3 | The misread courtship | His customs misread as threat (the gift, the room, the following); the kindness learned in layers |
+| 4 | The world's threat | The human world comes for her (the father, the hero, the summons); the danger is human, not monstrous |
+| 5 | The courtship | His people's customs rendered with full weight; one acceptance scene advancing the bond |
+| 6 | The fear's return | The old fear resurfaces (the stories, the scars); the monster's reaction proves the safety |
+| 7 | The choice | The lead must choose: return or stay; the monster offers the choice freely, the exit always open |
+| 8 | The confrontation | The human threat arrives; the monster's power shown once, protecting her |
+| 9-10 | The bond | The acceptance completed; the true form or the deeper bond revealed; the world's verdict defied |
+| 11 | The after | The settlement — the village learns, the couple's new shape; the callback to the offering |
+
+**Emotion**: dread → fascination → warmth → threat → safety → choice → protection → acceptance → settled
+**Must-have scenes**: the human cruelty that sends her, the fascinated first meeting, the misread courtship, the human threat, the freely offered choice, the protection scene, the completed bond.
+**Rules**: the monster is a person — speaking, choosing, courteous — in any form; the horror register belongs to the human world only; the heat scenes are acceptance, never coercion; the choice to stay is freely made with the exit open; the monster is never revealed to have been human all along (the appeal is the otherness). Word budget: sections ≥ 400; heat-tier per platform guardrails in the `references/genre-styles/werewolf-shifter-romance.md` / `references/genre-styles/monster-romance.md` packs.
+
+---
+
+## Formula 13: The Perfect Husband (8-10 sections)
+
+The domestic-thriller gaslighting reveal: the perfect marriage is the prison, and the twist re-reads the whole testimony.
+
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The perfection | The ideal marriage shown warm (the house, the ring, the anniversary) — with one wrong detail (the seed) |
+| 2 | The first crack | The gaslight's first move (the misplaced object, the gentle correction, the memory hole) |
+| 3 | The doubting | The lead's self-doubt grows; one planted clue the reader can find (the journal, the camera, the timeline) |
+| 4 | The escalation | The gaslight escalates (the medication, the friends' distance, the new lock); one witness appears |
+| 5 | The evidence | The lead collects proof — and the proof disappears or turns; trust in her own mind breaks |
+| 6 | The ally | The witness confirms the pattern; the ally's reliability itself is questioned |
+| 7 | The confrontation | The lead confronts or is confronted; the husband's mask slips (denial → bluster → silence) |
+| 8 | The reveal | The full truth (the previous wife, the plan, the motive); the twist lands and the re-read begins |
+| 9 | The escape | The lead acts (the evidence secured, the exit, the exposure); the danger resolves |
+| 10 | The after | The new life or the justice; the callback to the opening perfection, revalued |
+
+**Emotion**: warmth → unease → doubt → dread → rupture → clarity → shock → release → settlement
+**Must-have scenes**: the perfect opening with one wrong detail, the gentle correction (the gaslight), the re-readable planted clue, the disappeared evidence, the ally, the mask-slip, the twist reveal, the escape.
+**Rules**: the gaslighting is shown as harm, never romanticized; every clue is re-readable — flipping back finds the seams, never contradictions; the twist lands in the 70-85% window, ≤ 300 words, flat and complete; the ending resolves the abuse (escape, exposure, justice) — never a return; on-page violence minimal, the threat psychological; the husband's motive is real and specific. High-info-density: 300+ words/section permitted.
+
+---
+
+## Formula 14: The Championship Confession (7-10 sections)
+
+Sports romance's rivalry-to-confession: the rivalry was a conversation, and the confession lands at the final whistle, in front of everything.
+
+| Section | Beat | Point |
+|---------|------|-------|
+| 1 | The stakes | The final game/cup/season; the rivalry's origin in one scene (the collision, the trade, the bet) |
+| 2 | The banter | The competitive courtship — trash talk as flirtation; the team chorus opens |
+| 3 | The forced proximity | The bus/hotel/shared stall; the first private scene (the late-night text, the injury) |
+| 4 | The almost | The almost-moment — caught before it completes; the guard goes back up |
+| 5 | The public pressure | The press/trade/contract raises the stakes; a misunderstanding with a real source (the quote, the photo, the leak) |
+| 6 | The low point | The injury or the loss; the rivalry's defense ("we're just competitors") becomes the hurt; the care reveal lands |
+| 7 | The final game | The championship — sport beats mirror relationship beats; the season clock runs out |
+| 8 | The confession | The final whistle; the confession lands — public, short, factual, competitive to the last |
+| 9 | The answer | The response is an action (the kiss in front of everything, the hand, the "your turn") |
+| 10 | The after | The off-season; the bet settled or the trade back; the callback to the rivalry's origin |
+
+**Emotion**: tension → banter → warmth → frustration → ache → care → climax → release → settled
+**Must-have scenes**: the rivalry's origin, the banter volleys, the almost-moment, the real-source misunderstanding, the care reveal, the final game, the confession, the action-answer.
+**Rules**: the rivalry is the attraction, never a wall to dissolve; the confession is short and factual, and it lands only after the final whistle; every sport beat carries relationship meaning — no play-by-play filler; the misunderstanding has a real public source; the ending resolves the professional reality (the contract, the trade, the next season) with the HE. Word budget: sections ≥ 400; final-game sections may run high-density.
 
 ---
 

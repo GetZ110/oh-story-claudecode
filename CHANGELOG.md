@@ -43,6 +43,14 @@ All notable changes to this project will be documented in this file.
   fantasy, LitRPG, cultivation, urban fantasy, thriller, horror, cozy mystery,
   system apocalypse, ...); word-count contracts converted to words (long-form
   2000-3000 words/chapter; short-form 4000-12000 words).
+- **2026 hot-genre expansion**: 4 new long-form prose cards (romantasy, cozy
+  fantasy, isekai, sports romance) and 4 new short-form style packs (werewolf /
+  shifter romance, monster romance, domestic thriller, sports romance) added from a
+  cross-platform heat survey (Kindle / Royal Road / GoodNovel / Dreame / Inkitt /
+  Wattpad, compiled 2026-08-04); long-form genre formulas now 22-25 and short-form
+  reversal formulas 11-14; the werewolf / monster / thriller packs ship explicit
+  platform content-line guardrails; scan references gained a dated 2026 market
+  snapshot section (re-validate before use).
 - **English dashboard**: UI, messages, project markers, and CLI output in English.
 
 ### 维护

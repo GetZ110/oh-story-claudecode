@@ -32,6 +32,10 @@
 | Thriller / detail-clue-driven revenge | Formula 19 | 8-13 chapters |
 | Second-chance anti-pattern / feigned compliance | Formula 20 | 7 chapters |
 | Public-trial comeuppance | Formula 21 | universal scene |
+| Romantasy / fated-bond court intrigue | Formula 22 | 24 chapters |
+| Cozy fantasy / inn-or-shop community arc | Formula 23 | 20 chapters |
+| Isekai / cheats + faction progression | Formula 24 | 30 chapters |
+| Sports romance / rivalry-to-HEA season arc | Formula 25 | 20 chapters |
 
 ---
 
@@ -377,6 +381,72 @@ anomalous object → search to confirm → on-site investigation → systematic 
 | "From today, she can't set one foot inside this building." | permanent expulsion |
 
 The action and line libraries only illustrate the direction of "calm contrast + power declaration" — copying the original lines is banned: high-frequency recycled lines are already searchable template fingerprints; invent per-book lines from the persona.
+
+---
+
+## Formula 22: Romantasy / fated-bond court intrigue (24 chapters)
+
+```
+Early (1-8): the bond or treaty marriage lands mid-ceremony; the world's rule stated in use (the war, the court, the curse)
+→ dual POV established, both leads competent; the first trust tests; courtship duels and banter
+Mid (9-16): the couple mission together; the court's pressure escalates (the forged letter, the intercepted message, the rival house)
+→ one true misunderstanding with a real source; the intimacy scenes advance the plot; the bond's hidden clause discovered
+Late (17-24): the world's final threat (war, court coup, curse deadline); the trust test in public
+→ the public claim; the bond becomes the weapon; the ending settles the couple and opens the series hook (new threat, new generation, new bond)
+```
+
+**Emotion**: tension → banter-warmth → trust → betrayal → sacrifice → public claim → fulfilled
+**Must-have scenes**: the binding/treaty opening, the banter courtship, the trust test in public, the real-source misunderstanding, the intimacy scene that reveals character or plot, the bond's hidden-clause payoff, the public claim, the series hook
+**Rules**: romance is the spine — the world plot serves the couple, never the reverse; dual POV with both leads competent and both keeping secrets; misunderstandings need a real source and a real cost, never miscommunication-only; the fated bond is a pull, not an override — the couple still chooses each other scene by scene; one intimacy scene per 3-5 chapters, each advancing trust, revealing a secret, or changing the power balance
+
+---
+
+## Formula 23: Cozy fantasy / inn-or-shop community arc (20 chapters)
+
+```
+Opening (1-5): the threshold — the inn, bookshop, or café inherited or arrived at; the routines and the regulars established; the personal wound shown as a habit (the unopened letter, the unnamed loss)
+Middle (6-14): one small problem per chapter solved by labor and kindness; the seasonal arc (the fair, the flood, the festival, the road closure)
+→ the found family coheres; the wound touched twice, gently, in quiet scenes
+Close (15-20): the season's grand small event; the wound resolved in a quiet scene; the place is home; one new door left open for the sequel
+```
+
+**Emotion**: quiet → warm → belonging → gentle grief → resolution → home
+**Must-have scenes**: the threshold arrival, the regulars' ritual, the small problem with a human edge, the shared table, the wound scene, the seasonal event, the lit-lamp ending
+**Rules**: stakes stay village-scale — no world-ending threats; obstacles have understandable reasons, never pure evil; warmth is earned by labor and specificity (a shared meal resolves only if we saw it cooked); the place keeps one small flaw the community accepts or fixes together; no cozy-mystery bait — a body on page changes the genre
+
+---
+
+## Formula 24: Isekai / cheats + faction progression (30 chapters)
+
+```
+Opening (1-8): the death and the reincarnation compact rendered fast; the world's rule in one chapter (the panel, the class, the social system)
+→ the cheat granted with a visible cost or limit; the first faction hook; every gain shows in the world
+Middle (9-22): faction arcs (guild, nobles, kingdom); the cheat's modern knowledge gets world-specific adaptation
+→ rivals consolidate; setbacks every 5-8 chapters; resources and allies accumulate and cost trust; the cheat escalates and its cost grows
+Late (23-30): the faction war or final exam; the cheat's true cost revealed; the public payoff
+→ the ending settles the protagonist's place and opens the next arc
+```
+
+**Emotion**: curiosity → escalation → satisfying → setback → vindicated → forward-looking
+**Must-have scenes**: the arrival with the world's rule, the cheat's cost shown, the first unfair advantage applied, the faction's reaction, the rival's frustration, the setback, the final exam, the next-arc hook
+**Rules**: the cheat has a cost or a limit — never a free engine; the protagonist loses sometimes; factions have their own goals, never a world built only to be conquered; modern knowledge needs one world-specific adaptation per fix or it reads as magic; every chapter ends with a progression beat (level, quest, scheme, gain)
+
+---
+
+## Formula 25: Sports romance / rivalry-to-HEA season arc (20 chapters)
+
+```
+Regular season (1-8): the collision (the trade, the draft, the hit that was "legal and personal"); the rivalry's origin
+→ forced proximity (the paired stall, the shared team); banter as courtship; the season's stakes
+Mid-season (9-14): the trade, transfer, or playoff run raises the stakes; one public misunderstanding with a real source (the quote, the photo, the leak)
+→ the first vulnerability scene (the injury, the family, the fear of not making it)
+Playoffs (15-20): the championship run — sport beats mirror relationship beats; the injury's care reveal lands
+→ the final game and the public confession; the HEA with the professional reality resolved (the contract, the trade back, the ring, the next season)
+```
+
+**Emotion**: competitive → tension → vulnerability → conflict → championship → fulfilled
+**Must-have scenes**: the collision opening, the rivalry's origin, the locker-room banter, the injury or trade beat, the press-conference defense, the almost-caught, the final game, the public confession
+**Rules**: the sport beat mirrors the relationship beat every chapter; no game-filler without relationship consequence; the rivalry is the attraction, never a wall to dissolve — the competitive edge survives the HEA; the professional reality (trades, contracts, press) resolves with the romance; dual POV; the confession lands at the final whistle, never before
 
 ---
 

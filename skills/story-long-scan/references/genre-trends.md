@@ -90,6 +90,31 @@ Re-validate any of these against the current scan before treating them as market
 
 ---
 
+## 2026 market snapshot (initial calibration; re-validate before use)
+
+> Compiled 2026-08-04 from public platform data: Amazon Kindle Top-100 (July 2026), Royal Road Rising Stars, GoodNovel / Dreame / Inkitt / Wattpad hot lists. A starting heuristic, **not current market fact**.
+
+| Rank | Genre | Heat | Evidence / driver |
+|------|-------|------|--------------------|
+| 1 | Romantasy | Very high | Kindle romance share ~61% (July 2026); trope-forward titles lead preorders |
+| 2 | LitRPG | Very high | Dungeon Crawler Carl held 6 of Kindle Top-20 slots; Royal Road + Kindle overlap |
+| 3 | Werewolf / shifter romance | High | GoodNovel / Dreame / Inkitt leaderboard mainstay; rejected-mate formula |
+| 4 | Dark romance | High | Inkitt / Wattpad / Kindle momentum; taboo-adjacent tension + guaranteed HEA |
+| 5 | Progression / cultivation | High | Royal Road Rising Stars mainstay; xianxia and western cultivation fusion |
+| 6 | Isekai | High | Royal Road Rising Stars runner-up tag; heavy on Webnovel |
+| 7 | Sports romance | Rising | 2026 surge (Heated Rivalry halo effect); rivals-to-lovers + team dynamics |
+| 8 | Cozy fantasy | Medium-high | Kindle + Inkitt growth; low-stakes charm, found family |
+| 9 | Domestic thriller | Medium-high | 4 of Kindle Top-20 slots (July 2026); closed-circle family secrets |
+| 10 | Mafia / billionaire | Medium-high | Serial-app mainstay (Dreame / GoodNovel); forbidden power dynamic |
+| 11 | Monster romance | Niche-growing | Inkitt / Dreame category growth; creature + human pairing |
+
+Cross-check notes:
+- Radish shut down December 2025; Galatea signals were unreachable at compile time — validate those platforms separately.
+- Kindle ranking proxies sales/KU velocity; Royal Road Rising Stars is reader-voted; serial apps are retention-driven. Don't mix proxies when comparing.
+- Re-validate every rank against the current live lists before choosing a genre.
+
+---
+
 ## Sub-genre craft points
 
 | Sub-genre | Core craft |

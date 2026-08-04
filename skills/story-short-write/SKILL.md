@@ -35,7 +35,7 @@ Detailed rules live in `references/short-format.md`; load it before writing. **T
 Beyond the execution rules above, follow these when planning and writing:
 
 - **Start from a validated pattern**: if a benchmark book exists, deconstruct it first (via `/story-short-analyze`); otherwise pick the matching short-story pattern from `genre-styles/{genre}.md` (core packs) or `genre-writing-formulas.md` (reversal formulas).
-- **Lock the direction, then switch style**: once the genre direction is chosen (e.g., enemies-to-lovers), immediately load `references/genre-styles/{genre}.md` — voice, opening, hooks, emotional intensity, dialogue register, signature moves, and ending all switch to that genre. The core packs (enemies-to-lovers / second-chance / dark-romance / billionaire-romance / small-town-romance / cozy-mystery / psychological-thriller / horror / fantasy-romance / why-choose) each have a dedicated style pack; less common directions use the structural skeletons in `genre-writing-formulas.md`, with the general craft base from `short-craft.md`.
+- **Lock the direction, then switch style**: once the genre direction is chosen (e.g., enemies-to-lovers), immediately load `references/genre-styles/{genre}.md` — voice, opening, hooks, emotional intensity, dialogue register, signature moves, and ending all switch to that genre. The core packs (enemies-to-lovers / second-chance / dark-romance / billionaire-romance / small-town-romance / cozy-mystery / psychological-thriller / horror / fantasy-romance / why-choose / werewolf-shifter-romance / monster-romance / domestic-thriller / sports-romance) each have a dedicated style pack; less common directions use the structural skeletons in `genre-writing-formulas.md`, with the general craft base from `short-craft.md`.
 - **Set the platform tone + polish the blurb + anchor the paywall break**: before submitting, set the tone per platform (Wattpad / Inkitt / Radish / Galatea / Dreame / GoodNovel / Tapas), and let POV, conflict intensity, and chapter-end landing points shift with it; polish the blurb separately as the storefront (a weak blurb gets the story skimmed and rejected no matter how good the body is); anchor the paywall/chapter break at a throat-grabbing cut point. See `references/submission-craft.md`.
 - **Load only what's needed**: before writing each section, name the target emotion and the techniques to use; if you can't answer, re-read the reference first.
 
@@ -113,6 +113,11 @@ If a `benchmark/` directory exists in the working directory, or a `teardown-lib/
    | mystery / suspense / thriller | `references/genre-styles/psychological-thriller.md` or `references/genre-styles/cozy-mystery.md` |
    | sweet romance / forced proximity | `references/genre-styles/small-town-romance.md` / `references/genre-styles/enemies-to-lovers.md` (forced proximity) |
    | dual male leads / bromance | `references/genre-styles/why-choose.md` (broader attachment dynamics) or `references/genre-styles/dark-romance.md` (possessive bond) |
+   | werewolf / shifter / rejected-mate / omega / pack | `references/genre-styles/werewolf-shifter-romance.md` |
+   | monster-romance / creature / non-human love interest | `references/genre-styles/monster-romance.md` |
+   | domestic-thriller / gaslighting / marriage-secrets / wife-in-danger | `references/genre-styles/domestic-thriller.md` |
+   | sports-romance / rivalry / athlete / locker-room | `references/genre-styles/sports-romance.md` |
+   | romantasy / fated-bond / chosen-one / epic-romance | `references/genre-styles/fantasy-romance.md` (short-form romance; long-form romantasy uses the story-long-write `romantasy` prose card) |
    | comedy / premise / system | no dedicated pack → `short-craft.md` base + `genre-writing-formulas.md` fallback |
 
 3. Read the core findings: structure beats, emotion curve, reversal position, setup method, sentence rhythm, borrowable techniques. **Map the concrete moves from the teardown report onto the pack's move library**: the teardown says "how this one book did it", the pack says "how the genre generally does it"; use both — the teardown is the evidence of the current benchmark, the pack is the genre's common law.
@@ -384,7 +389,7 @@ Load as needed. Load ≤ 3 at once while writing:
 | [references/short-format.md](references/short-format.md) | Required before writing (short-story body format, platform templates) |
 | [references/submission-craft.md](references/submission-craft.md) | Required before submitting (platform tone Wattpad/Inkitt/Radish/Galatea/Dreame/GoodNovel/Tapas · blurb storefront · paywall break) |
 | [references/short-craft.md](references/short-craft.md) | Throughout (general short-form base: name emotion + land it on a concrete reaction, present-tense narration, micro-chapter rhythm) |
-| [references/genre-styles/](references/genre-styles/) | **Required once direction is set**: load the matching style pack (enemies-to-lovers / second-chance / dark-romance / billionaire-romance / small-town-romance / cozy-mystery / psychological-thriller / horror / fantasy-romance / why-choose); the body's voice switches to it |
+| [references/genre-styles/](references/genre-styles/) | **Required once direction is set**: load the matching style pack (enemies-to-lovers / second-chance / dark-romance / billionaire-romance / small-town-romance / cozy-mystery / psychological-thriller / horror / fantasy-romance / why-choose / werewolf-shifter-romance / monster-romance / domestic-thriller / sports-romance); the body's voice switches to it |
 | [references/short-deslop.md](references/short-deslop.md) | Required when de-AI-flavoring (short-form specific: kill real AI-flavor only, never the emotional intensity) |
 | [references/writing-workflow.md](references/writing-workflow.md) | Phase 2 design tasks + Phase 4 polish |
 | [references/genre-writing-formulas.md](references/genre-writing-formulas.md) | Reversal-formula skeletons for unusual directions (core packs cover the main 10) |

@@ -42,9 +42,13 @@ Local long-form samples do not support fixed 50-60 character line widths, fixed 
 | [cultivation](genre-prose-cards/cultivation.md) | xianxia / daoist-fantasy / eastern-fantasy | high |
 | [urban-fantasy](genre-prose-cards/urban-fantasy.md) | modern-fantasy / urban-supernatural / hidden-world | medium |
 | [epic-fantasy](genre-prose-cards/epic-fantasy.md) | high-fantasy / secondary-world / quest-fantasy | medium |
+| [cozy-fantasy](genre-prose-cards/cozy-fantasy.md) | slice-of-life-fantasy / inn-or-shop-fantasy / cottagecore-fantasy / low-stakes-fantasy / found-family-fantasy | medium |
+| [isekai](genre-prose-cards/isekai.md) | transported-to-another-world / reincarnation / portal-fantasy / game-world / cheat-fantasy | high |
 | [paranormal-romance](genre-prose-cards/paranormal-romance.md) | shifter-romance / vampire-romance / witch-romance / monster-romance | medium |
+| [romantasy](genre-prose-cards/romantasy.md) | fated-bond / dragon-romance / epic-romance / chosen-one-romance / court-romance-fantasy | high |
 | [dark-romance](genre-prose-cards/dark-romance.md) | possessive-romance / forbidden-love / morally-gray-lead | medium |
 | [mafia-romance](genre-prose-cards/mafia-romance.md) | organized-crime-romance / arranged-marriage-crime | medium |
+| [sports-romance](genre-prose-cards/sports-romance.md) | athlete-romance / hockey-romance / rivals-to-lovers / f1-romance / college-sports-romance | high |
 | [thriller](genre-prose-cards/thriller.md) | suspense / crime-thriller / psychological-thriller / espionage | high |
 | [horror](genre-prose-cards/horror.md) | cosmic-horror / weird-fiction / folk-horror / survival-horror | medium |
 | [cozy-mystery](genre-prose-cards/cozy-mystery.md) | small-town-mystery / amateur-sleuth / culinary-mystery | medium |
