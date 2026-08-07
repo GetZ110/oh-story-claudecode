@@ -1,134 +1,126 @@
-# 篇幅分流判断规则
+# Length-Routing Rules
 
-Phase 1「基本信息确认」环节使用本规则判定导入书是长篇还是短篇，判定结果决定后续走哪条迁移路径。
-
----
-
-## 判定优先级
-
-判定按以下顺序执行，命中即停止，不再向下判断。
-
-| 优先级 | 信号来源 | 判定规则 |
-|--------|---------|---------|
-| 1 | 用户显式声明 | 用户说「这是长篇 / 短篇」→ 以用户为准，直接锁定 |
-| 2 | 结构信号 + 字数校验 | 检测到明确章节分隔符且章节数 ≥ 5 → 长篇；全文无章节分隔、单文件单篇 → 按下方细则表按字数分三档判定（字数阈值沿用优先级 3 的建议值） |
-| 3 | 字数兜底 | 仅在 1、2 均不明确时启用，见下方「字数兜底规则」 |
-| — | 冲突处理 | 信号之间发生矛盾时，不自动决策，回到 Phase 1 向用户复述并请用户拍板 |
+Phase 1's "basic-info confirmation" uses these rules to decide whether the imported book is long-form or short-form; the verdict decides which migration path follows.
 
 ---
 
-## 优先级 1：用户显式声明
+## Verdict priority
 
-Phase 1 信息确认时向用户提问：**「这是长篇还是短篇？」**
+Verdicts run in this order; a hit stops the process, no further checks.
 
-- 用户明确回答 → 锁定类型，跳过后续检测。
-- 用户未回答或说「不确定」→ 进入优先级 2 结构信号检测。
-
----
-
-## 优先级 2：结构信号 + 字数校验
-
-### 章节分隔符识别
-
-复用 `structure-mapping-long.md` 的分隔符识别表：
-
-| 分隔符模式 | 示例 |
-|-----------|------|
-| `第X章` / `第X章 ` / `第X章：` / `第X章 XXX` | 第1章 初入江湖 |
-| `Chapter X` | Chapter 1 |
-| 纯数字编号 + 标题 | 1. 觉醒 |
-
-### 判定规则
-
-| 检测结果 | 判定 |
-|---------|------|
-| 有明确章节分隔符，且识别到章节数 ≥ 5 | 强长篇信号 → 判定为**长篇** |
-| 全文无任何章节分隔符，单文件单篇，且总字数 < 20000 | 强短篇信号 → 判定为**短篇** |
-| 全文无任何章节分隔符，单文件单篇，20000 ≤ 总字数 < 30000 | 判定为**短篇**，但 Phase 1 复述时告知：已超过短篇拆解管道 20000 字的建议上界，请用户确认仍按短篇导入 |
-| 全文无任何章节分隔符，单文件单篇，但总字数 ≥ 30000 | 结构与字数信号相反 → 不自动判定，见下方「冲突处理」请用户拍板 |
-| 有章节分隔符，但章节数 < 5 | 结构信号不明确 → 进入优先级 3 字数兜底 |
-| 分隔符模式模糊（如仅有单个标题行） | 结构信号不明确 → 进入优先级 3 字数兜底 |
+| Priority | Signal source | Verdict rule |
+|----------|---------------|--------------|
+| 1 | user explicit declaration | the user says "this is long-form / short-form" → user wins; locked directly |
+| 2 | structural signals | clear chapter separators detected and chapter count ≥5 → long-form; no chapter separators anywhere, single file single piece → short-form |
+| 3 | word-count fallback | only when 1 and 2 are both unclear; see the "word-count fallback rules" below |
+| — | conflict handling | when signals contradict, don't auto-decide; go back to Phase 1, repeat the findings, and let the user decide |
 
 ---
 
-## 优先级 3：字数兜底
+## Priority 1: user explicit declaration
 
-**仅在优先级 1、2 均无法给出明确判定时使用。** 当前导入契约按短篇通常 8000-20000 字的区间取 30000 字作建议上界，并保留题材差异余量。
+In the Phase 1 info confirmation, ask the user: **"Is this long-form or short-form?"**
 
-| 条件 | 判定 | 备注 |
-|------|------|------|
-| 总字数 < 30000 且无章节结构 | **短篇** | — |
-| 总字数 ≥ 30000 | **长篇** | — |
-| 章节数 ≥ 5（任意字数） | **长篇** | — |
-| 总字数 < 30000 但章节数 ≥ 5 | 初判**长篇**，但须提示用户 | 见下方「分章短篇连载」 |
-
-> **建议值说明**：30000 字阈值是估算值，不同平台和题材的短篇上限有差异。执行时列入 open-questions，建议用户复核是否适用于当前导入书。
-
-### 分章短篇连载
-
-检测到总字数 < 30000 但章节数 ≥ 5 时，在确认环节提示用户：
-
-> 「检测到分章结构（共 {N} 章），但总字数约 {X} 字，低于 30000 字。可能是分章短篇连载。确认按长篇导入，还是按短篇处理？」
-
-用户拍板后锁定类型。
+- Clear answer → lock the type; skip further detection.
+- No answer or "not sure" → proceed to priority 2 structural-signal detection.
 
 ---
 
-## 冲突处理
+## Priority 2: structural signals
 
-当不同信号之间出现矛盾时，**不自动决策**，回到 Phase 1 向用户复述检测结果：
+### Chapter-separator recognition
 
-| 典型冲突场景 | 处理方式 |
-|------------|---------|
-| 用户说「短篇」但检测到 20 章 | 复述：「检测到 20 章章节结构，通常属于长篇。确认按短篇导入？」由用户拍板 |
-| 用户说「长篇」但全文无章节分隔且字数 < 30000 | 复述：「全文无章节分隔，总字数约 {X} 字，通常属于短篇。确认按长篇导入？」由用户拍板 |
-| 用户未声明、全文无章节分隔、单文件单篇，但字数 ≥ 30000 | 复述：「全文无章节分隔，但总字数约 {X} 字，已超过短篇常见上界。按长篇导入建工程，还是仍按短篇处理？」由用户拍板 |
-| 结构信号与字数信号方向相反 | 展示两项信号，请用户决定 |
+Reuses the separator recognition table in `structure-mapping-long.md`:
 
-用户拍板的结果记入 Phase 1 上下文，后续步骤以此为准，不再重新判定。
+| Separator pattern | Example |
+|-------------------|---------|
+| `Chapter X` / `Chapter X ` / `Chapter X:` / `Chapter X XXX` | Chapter 1 Entering the Jianghu |
+| Plain numbered + title | 1. Awakening |
 
----
+### Verdict rules
 
-## 判定结果与后续路径
-
-判定完成后，迁移路径按以下对应关系分流：
-
-| 判定结果 | 迁移路径 | 映射规则参考文件 |
-|---------|---------|----------------|
-| **长篇** | 长篇迁移路径（Phase 3-L） | `structure-mapping-long.md` |
-| **短篇** | 短篇迁移路径（Phase 3-S） | `structure-mapping-short.md` |
-
-> 注：`structure-mapping-long.md` 对应长篇迁移映射规则，`structure-mapping-short.md` 对应短篇迁移映射规则。
+| Detection result | Verdict |
+|------------------|---------|
+| Clear chapter separators and recognized chapter count ≥5 | strong long-form signal → **long-form** |
+| No chapter separators anywhere; single file, single piece | strong short-form signal → **short-form** |
+| Chapter separators exist but count <5 | structural signal unclear → proceed to priority 3 word-count fallback |
+| Separator pattern ambiguous (e.g., only one title line) | structural signal unclear → proceed to priority 3 word-count fallback |
 
 ---
 
-## 快速判定流程图
+## Priority 3: word-count fallback
+
+**Only when priorities 1 and 2 can't give a clear verdict.** The current import contract takes 30,000 words as the suggested upper bound for short-form (typical short-form range 8000-20,000 words), leaving margin for genre differences.
+
+| Condition | Verdict | Notes |
+|-----------|---------|-------|
+| Total words < 30,000 and no chapter structure | **short-form** | — |
+| Total words ≥ 30,000 | **long-form** | — |
+| Chapter count ≥5 (any word count) | **long-form** | — |
+| Total words < 30,000 but chapter count ≥5 | initially **long-form**, but must tell the user | see "chaptered short serials" below |
+
+> **Suggested-value note**: the 30,000-word threshold is an estimate; short-form ceilings differ by platform and genre. When executing, list it in open-questions and suggest the user verify whether it fits the book being imported.
+
+### Chaptered short serials
+
+When total words < 30,000 but chapter count ≥5, prompt the user in the confirmation step:
+
+> "Detected a chaptered structure ({N} chapters total), but the total is about {X} words — under 30,000. This may be a chaptered short serial. Confirm: import as long-form, or treat it as short-form?"
+
+The user's decision locks the type.
+
+---
+
+## Conflict handling
+
+When signals contradict, **don't auto-decide**; go back to Phase 1 and repeat the detection results:
+
+| Typical conflict | Handling |
+|------------------|----------|
+| User says "short-form" but 20 chapters detected | repeat: "20 chapters of chapter structure detected, usually long-form. Confirm import as short-form?" — user decides |
+| User says "long-form" but no chapter separators and words < 30,000 | repeat: "No chapter separators; about {X} words total, usually short-form. Confirm import as long-form?" — user decides |
+| Structural signal and word-count signal point opposite ways | show both signals; user decides |
+
+The user's decision is recorded in the Phase 1 context; subsequent steps follow it without re-judging.
+
+---
+
+## Verdict and the following path
+
+After the verdict, route the migration path by the mapping:
+
+| Verdict | Migration path | Mapping-rules reference |
+|---------|----------------|------------------------|
+| **long-form** | long-form migration path (Phase 3-L) | `structure-mapping-long.md` |
+| **short-form** | short-form migration path (Phase 3-S) | `structure-mapping-short.md` |
+
+> Note: `structure-mapping-long.md` is the long-form migration mapping rules; `structure-mapping-short.md` is the short-form migration mapping rules.
+
+---
+
+## Verdict flowchart
 
 ```
-Phase 1 问用户：「长篇还是短篇？」
+Phase 1 asks the user: "Long-form or short-form?"
          │
-         ├─ 用户明确回答 ──────────────────────────► 锁定类型
+         ├─ clear answer ─────────────────────────────► lock the type
          │
-         └─ 未回答 / 不确定
+         └─ no answer / not sure
                   │
                   ▼
-         检测章节分隔符
+          detect chapter separators
                   │
-                  ├─ 有分隔符且章节数 ≥ 5 ──────────► 长篇
+                  ├─ separators + count ≥ 5 ───────────► long-form
                   │
-                  ├─ 无分隔符，单文件单篇，< 20000 ─► 短篇
+                  ├─ no separators, single piece ──────► short-form
                   │
-                  ├─ 无分隔符，单篇，20000 ≤ 字数 < 30000 ─► 短篇（复述时告知超出建议上界）
-                  │
-                  ├─ 无分隔符，单文件单篇，≥ 30000 ─► 提示用户裁定
-                  │
-                  └─ 信号不明确
+                  └─ signals unclear
                             │
                             ▼
-                   字数兜底判定（30000 字阈值）
+                   word-count fallback (30,000-word threshold)
                             │
-                            ├─ < 30000 且无章节结构 ─► 短篇
-                            ├─ ≥ 30000 ─────────────► 长篇
-                            ├─ 章节数 ≥ 5 ──────────► 长篇
-                            └─ < 30000 但章节数 ≥ 5 ─► 提示用户裁定
+                            ├─ < 30,000 and no chapter structure ─► short-form
+                            ├─ ≥ 30,000 ──────────────────────────► long-form
+                            ├─ chapter count ≥ 5 ─────────────────► long-form
+                            └─ < 30,000 but chapter count ≥ 5 ────► user decides
 ```

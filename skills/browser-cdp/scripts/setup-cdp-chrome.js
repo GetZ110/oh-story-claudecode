@@ -1,39 +1,43 @@
 #!/usr/bin/env node
 // setup-cdp-chrome.js
-// 准备带有 CDP（Chrome DevTools Protocol）调试功能的 Chrome 环境（跨平台）。
-// 通过此脚本，agent-browser 可以复用用户的 Chrome 登录态。
+// Prepare a Chrome environment with CDP (Chrome DevTools Protocol) debugging enabled (cross-platform).
+// Through this script, agent-browser can reuse the user's Chrome login state.
 //
-// 用法:
+// Usage:
 //   node setup-cdp-chrome.js [port] [options]
 //
 // Options:
-//   --detect-only            只探测当前状态（结构化输出），不做任何修改
-//   --yes                    确认杀死现有 Chrome，跳过交互提示
-//   --reset                  清空 ~/chrome-debug-profile 后重新复制
-//   --profile <name>         使用指定 Chrome profile（默认: Default）
-//   --dry-run                打印将执行的操作，不实际执行
+//   --detect-only            Only probe the current state (structured output), make no changes
+//   --yes                    Confirm killing existing Chrome, skip interactive prompts
+//   --reset                  Clear ~/chrome-debug-profile then re-copy
+//   --profile <name>         Use the specified Chrome profile (default: Default)
+//   --dry-run                Print the operations that would be executed without actually running them
 //
-// 说明：CDP 端口已在监听时默认直接复用现有 Chrome 并退出 0；但传了 --reset 或显式
-//       --profile 时不复用——这两个参数就是要重建 debug profile（登录态过期即走这条路），
-//       会先关闭现有 Chrome（非 TTY 下需 --yes，否则 exit 3 报 NEEDS_CONSENT）。
-//       重建路径上有两道硬闸门：关完进程后端口必须真的不再应答（否则在动 profile 之前就
-//       exit 1 中止，绝不删一个还在运行的 Chrome 的 profile）；启动后必须证明「端口上应答的
-//       就是本次启动的实例」——身份取得到且与重建前不同、spawn 出的进程还活着、端口的 LISTEN
-//       持有者全在这棵进程树里、且树里确有一个持有者带着本次的 --remote-debugging-port。
-//       任何一条证不出来（含查不到）都拒绝报成功，避免把别人的会话当新浏览器交出去。
+// Note: When the CDP port is already listening, the default behavior is to reuse the existing Chrome
+//       and exit 0; but with --reset or an explicit --profile it does NOT reuse — those two flags mean
+//       "rebuild the debug profile" (a stale login state takes this path). The script first closes the
+//       existing Chrome (needs --yes when not a TTY, otherwise exit 3 with NEEDS_CONSENT). The rebuild
+//       path has two hard gates: after the processes are closed the port must truly stop responding
+//       (otherwise the script exits 1 before touching the profile — it will never delete the profile
+//       of a still-running Chrome); after launch it must prove that "the endpoint answering on the
+//       port is the instance launched this time" — an identity can be obtained and differs from the
+//       pre-rebuild one, the spawned process is still alive, all LISTEN holders of the port are inside
+//       this process tree, and one holder in the tree actually carries this run's
+//       --remote-debugging-port. If any of these cannot be proven (including being un-queryable),
+//       success is refused, so someone else's session is never handed over as a new browser.
 //
-// 退出码:
-//   0  成功 / detect-only 完成
-//   1  通用错误（环境缺失、超时等）
-//   2  用户拒绝（TTY 模式下回答 N）
-//   3  需要同意但当前为非 TTY 且未传 --yes
+// Exit codes:
+//   0  Success / detect-only completed
+//   1  Generic error (missing environment, timeout, etc.)
+//   2  User declined (answered N in TTY mode)
+//   3  Consent needed but currently not a TTY and --yes not passed
 //
-// detect-only 结构化输出（stdout，每行 KEY=value）:
+// detect-only structured output (stdout, one KEY=value per line):
 //   CDP_STATUS=ready|needs-setup
-//   CDP_URL=...                    (仅当 ready)
-//   BROWSER=...                    (仅当 ready)
+//   CDP_URL=...                    (only when ready)
+//   BROWSER=...                    (only when ready)
 //   CHROME_RUNNING=yes|no
-//   CHROME_PID_COUNT=N             (仅当 CHROME_RUNNING=yes)
+//   CHROME_PID_COUNT=N             (only when CHROME_RUNNING=yes)
 
 "use strict";
 
@@ -46,14 +50,15 @@ const path = require("path");
 const readline = require("readline");
 
 // ---------------------------------------------------------------------------
-// 参数解析
+// Argument parsing
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
   const flags = { dryRun: false, yes: false, detectOnly: false, reset: false };
   let profile = "Default";
-  // 是否显式传了 --profile：默认值 "Default" 无法区分「没传」和「传了 Default」，
-  // 而这两种情况在"CDP 已就绪"分支上的语义不同（复用 vs 按指定 profile 重建）
+  // Whether --profile was explicitly passed: the default "Default" cannot distinguish
+  // "not passed" from "passed Default", and the two cases differ semantically in the
+  // "CDP already ready" branch (reuse vs. rebuild with the specified profile)
   let profileExplicit = false;
   let port = null;
 
@@ -67,7 +72,7 @@ function parseArgs(argv) {
       case "--profile":
         profile = argv[++i];
         if (!profile) {
-          console.error("❌ --profile 需要一个参数（例如: --profile \"Profile 1\"）");
+          console.error("❌ --profile requires an argument (e.g. --profile \"Profile 1\")");
           process.exit(1);
         }
         profileExplicit = true;
@@ -76,16 +81,16 @@ function parseArgs(argv) {
         if (/^\d+$/.test(a)) {
           port = parseInt(a, 10);
         } else if (a.startsWith("--")) {
-          console.error(`⚠️  未知参数: ${a}`);
+          console.error(`⚠️  Unknown argument: ${a}`);
         } else {
-          console.error(`⚠️  忽略参数: ${a}`);
+          console.error(`⚠️  Ignoring argument: ${a}`);
         }
     }
   }
 
   if (port === null) port = 9222;
   if (!Number.isInteger(port) || port < 1 || port > 65535) {
-    console.error(`❌ 端口非法: ${port}。必须是 1-65535 的整数。`);
+    console.error(`❌ Invalid port: ${port}. Must be an integer between 1-65535.`);
     process.exit(1);
   }
 
@@ -97,7 +102,7 @@ const CDP_PORT = ARGS.port;
 const PLATFORM = os.platform();
 
 // ---------------------------------------------------------------------------
-// 平台配置映射
+// Platform configuration map
 // ---------------------------------------------------------------------------
 
 const PLATFORM_CONFIG = {
@@ -165,7 +170,7 @@ const PLATFORM_CONFIG = {
       return null;
     },
     listChromePids() {
-      // 覆盖常见的 Chrome 进程命名
+      // Cover common Chrome process naming conventions
       const patterns = ["google-chrome-stable", "google-chrome", "chrome"];
       const pids = new Set();
       for (const pat of patterns) {
@@ -185,7 +190,7 @@ const PLATFORM_CONFIG = {
 };
 
 // ---------------------------------------------------------------------------
-// 工具函数
+// Utility functions
 // ---------------------------------------------------------------------------
 
 function log(msg) { console.log(msg); }
@@ -196,23 +201,25 @@ function err(msg) { console.error("❌ " + msg); }
 function getConfig() {
   const config = PLATFORM_CONFIG[PLATFORM];
   if (!config) {
-    err(`不支持的平台: ${PLATFORM}。支持 darwin/win32/linux。`);
+    err(`Unsupported platform: ${PLATFORM}. Supported: darwin/win32/linux.`);
     process.exit(1);
   }
   return config;
 }
 
-/** 同步等待 ms 毫秒（不依赖 setTimeout / 系统 sleep） */
+/** Synchronously wait ms milliseconds (independent of setTimeout / system sleep) */
 function sleepSync(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
 
 /**
- * HTTP GET 检查 CDP 端点。拒绝 4xx/5xx；自动 drain 掉响应体。
- * agent:false 是必须的——Node 19+ 的 http.globalAgent 默认 keepAlive，探测用过的 socket 会留在
- * 连接池里；而本脚本用 sleepSync 死堵事件循环（等进程退出/等启动），期间服务端按 5s 空闲把这条
- * 连接关掉，客户端来不及处理 FIN。下一次探测复用这条死 socket 就是 ECONNRESET，于是"端口还活着"
- * 被误判成"没人应答"。这种假阴性会直接骗过下面的端口闸门，必须一次一条新连接。
+ * HTTP GET to check the CDP endpoint. Rejects 4xx/5xx; auto-drains the response body.
+ * agent:false is required — Node 19+'s http.globalAgent defaults to keepAlive, so sockets used by
+ * probes would stay in the connection pool; meanwhile this script blocks the event loop with
+ * sleepSync (waiting for process exit / startup), during which the server closes the connection
+ * after 5s of idle and the client never gets to handle the FIN. Reusing that dead socket on the
+ * next probe yields ECONNRESET, so "port still alive" is misjudged as "nothing responding". That
+ * false negative would slip straight past the port gate below, so one fresh connection per try.
  */
 function httpGet(url) {
   return new Promise((resolve, reject) => {
@@ -244,7 +251,7 @@ async function probeCDP(port) {
   }
 }
 
-/** 原始 TCP 探测：HTTP 500/畸形 JSON 仍表示端口被占用，不能据此解锁 profile 破坏操作。 */
+/** Raw TCP probe: HTTP 500/malformed JSON still means the port is occupied; it must not unlock destructive profile operations. */
 function probeTcp(port, timeoutMs = 1000) {
   return new Promise((resolve) => {
     const socket = net.createConnection({ host: "127.0.0.1", port });
@@ -263,9 +270,10 @@ function probeTcp(port, timeoutMs = 1000) {
 }
 
 /**
- * 从 /json/version 响应里取一个能区分「实例」的标识。
- * Chrome 每次启动都会换一个新的 browser GUID（webSocketDebuggerUrl 尾段），最适合做这件事。
- * 取不到就返回 null——调用方必须把 null 当作「无法比对」，绝不能当作「相同」或「不同」。
+ * Extract an identifier from the /json/version response that can distinguish "instances".
+ * Chrome rotates a new browser GUID on every launch (the tail of webSocketDebuggerUrl), which is
+ * perfect for this. Returns null if unavailable — callers must treat null as "cannot compare",
+ * never as "same" or "different".
  */
 function cdpIdentity(version) {
   if (!version) return null;
@@ -277,8 +285,10 @@ function cdpIdentity(version) {
 }
 
 /**
- * 等 TCP 端口真的不再监听；true = 端口已空出来，false = 超时后仍有人监听。
- * 不能用 probeCDP：HTTP 500/畸形响应只说明“不是健康 CDP”，不说明“端口空闲”。
+ * Wait until the TCP port is truly no longer listening; true = the port is free,
+ * false = something is still listening after the timeout.
+ * Cannot use probeCDP: HTTP 500/malformed responses only mean "not healthy CDP",
+ * not "port is free".
  */
 async function waitForPortFree(port, maxMs = 8000, stepMs = 500, needQuiet = 2) {
   const start = Date.now();
@@ -294,7 +304,7 @@ async function waitForPortFree(port, maxMs = 8000, stepMs = 500, needQuiet = 2) 
   }
 }
 
-/** 尽力查出占用端口的进程，只用于诊断（查不到就返回 null，不影响判定） */
+/** Best-effort lookup of the process holding the port, for diagnostics only (returns null if not found; does not affect the decision) */
 function describePortHolder(port) {
   const cmd =
     PLATFORM === "win32"
@@ -315,7 +325,7 @@ function describePortHolder(port) {
   }
 }
 
-/** 跑一条只读的查询命令，拿 stdout；命令不存在/非零退出/超时一律返回 null */
+/** Run a read-only query command and capture stdout; returns null for missing command / non-zero exit / timeout */
 function queryStdout(cmd) {
   try {
     const out = execSync(cmd, {
@@ -331,9 +341,10 @@ function queryStdout(cmd) {
 }
 
 /**
- * 列出正在 LISTEN 指定端口的进程 pid。
- * 只在「已经探到 CDP 应答」之后调用——那一刻端口必然有人在监听，所以空结果只可能是
- * 工具缺失或看不见，一律返回 null 表示「无从判断」，绝不能被当成「没人占用」而放行。
+ * List the pids of processes LISTENing on the given port.
+ * Only called after a CDP response has been detected — at that moment something must be listening,
+ * so an empty result can only mean missing/hidden tooling; always return null meaning
+ * "cannot tell", never treat it as "nobody is using it" and let it pass.
  */
 function listPortListenerPids(port) {
   const queries =
@@ -351,7 +362,7 @@ function listPortListenerPids(port) {
         ]
       : [
           { kind: "pid", cmd: `lsof -nP -iTCP:${port} -sTCP:LISTEN -t` },
-          // Linux 上 lsof 经常不预装，用 ss / fuser 兜底
+          // lsof is often not pre-installed on Linux; fall back to ss / fuser
           { kind: "ss", cmd: `ss -H -ltnp "sport = :${port}"` },
           { kind: "pid", cmd: `fuser -n tcp ${port}` },
         ];
@@ -360,8 +371,9 @@ function listPortListenerPids(port) {
     if (out === null) continue;
     const pids = new Set();
     if (kind === "netstat") {
-      // 不读取本地化的状态文字。监听行的稳定形状是 TCP + 本地目标端口 +
-      // foreign port 0 + 最后一列 Owning PID；已建立连接的 foreign port 非 0。
+      // Do not parse localized state text. A listening line's stable shape is TCP + local
+      // destination port + foreign port 0 + Owning PID in the last column; established
+      // connections have a non-zero foreign port.
       for (const line of out.split("\n")) {
         const fields = line.trim().split(/\s+/);
         if (fields.length < 5 || fields[0].toUpperCase() !== "TCP") continue;
@@ -375,7 +387,7 @@ function listPortListenerPids(port) {
     } else if (kind === "ss") {
       for (const m of out.matchAll(/pid=(\d+)/g)) pids.add(Number(m[1]));
     } else {
-      // PowerShell OwningProcess / lsof -t / fuser：一堆纯数字 pid
+      // PowerShell OwningProcess / lsof -t / fuser: a bunch of pure-numeric pids
       for (const tok of out.split(/\s+/)) {
         const n = Number(tok);
         if (Number.isInteger(n) && n > 0) pids.add(n);
@@ -387,23 +399,23 @@ function listPortListenerPids(port) {
   return null;
 }
 
-/** 全机 pid -> ppid 表；查不到返回 null（无从判断，不是「没有父进程」） */
+/** Machine-wide pid -> ppid table; returns null if unavailable (cannot tell, not "no parent") */
 function listProcessParents() {
   const cmds =
     PLATFORM === "win32"
       ? [
-          // wmic 在新版 Windows 上已被移除，退回 PowerShell CIM（5.1 / 7 都试）
+          // wmic has been removed on newer Windows; fall back to PowerShell CIM (try both 5.1 / 7)
           "wmic process get ProcessId,ParentProcessId /format:csv",
           'powershell -NoProfile -NonInteractive -Command "Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId | ConvertTo-Csv -NoTypeInformation"',
           'pwsh -NoProfile -NonInteractive -Command "Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId | ConvertTo-Csv -NoTypeInformation"',
         ]
-      : ["ps -A -o pid=,ppid="]; // macOS(BSD) 与 Linux(procps) 都认这一条
+      : ["ps -A -o pid=,ppid="]; // recognized by both macOS (BSD) and Linux (procps)
   for (const cmd of cmds) {
     const out = queryStdout(cmd);
     if (out === null) continue;
     const map = new Map();
     if (PLATFORM === "win32") {
-      // 两个来源的列序不一样（wmic 按字母序，PowerShell 按 Select 顺序），按表头定位
+      // The two sources order columns differently (wmic alphabetically, PowerShell by Select order); locate columns by header
       const lines = out.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
       const head = lines.findIndex(
         (l) => /processid/i.test(l) && /parentprocessid/i.test(l)
@@ -432,7 +444,7 @@ function listProcessParents() {
   return null;
 }
 
-/** 取某个 pid 的完整命令行；取不到返回 null */
+/** Get the full command line of a pid; returns null if unavailable */
 function processCommandLine(pid) {
   const cmds =
     PLATFORM === "win32"
@@ -441,7 +453,7 @@ function processCommandLine(pid) {
           `powershell -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter 'ProcessId=${pid}').CommandLine"`,
           `pwsh -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter 'ProcessId=${pid}').CommandLine"`,
         ]
-      : [`ps -ww -o command= -p ${pid}`]; // -ww：不许按终端宽度截断，Chrome 的命令行很长
+      : [`ps -ww -o command= -p ${pid}`]; // -ww: do not truncate to terminal width; Chrome's command line is very long
   for (const cmd of cmds) {
     const out = queryStdout(cmd);
     if (out === null) continue;
@@ -453,7 +465,7 @@ function processCommandLine(pid) {
   return null;
 }
 
-/** pid 是否在 rootPid 的进程树里（含 rootPid 本身）；沿 ppid 往上走 */
+/** Whether pid is inside rootPid's process tree (including rootPid itself); walk up via ppid */
 function isInProcessTree(pid, rootPid, parents) {
   let cur = pid;
   for (let hops = 0; hops < 64; hops++) {
@@ -472,45 +484,49 @@ function commandLineHasArgument(commandLine, argument) {
 }
 
 /**
- * 证明端口上应答的那个端点确实归本次 spawn 出来的进程所有。两件事都要成立：
- *   ① 端口上所有 LISTEN 持有者都在 rootPid 这棵进程树里——Chrome 会另起 browser 进程，
- *      macOS 上启动的二进制还可能 re-exec，所以比的是整棵树而不是直系 pid；反过来，
- *      子进程继承了监听 fd 也会被 lsof 列出来，所以要求「全都在树里」而不是「有一个在」。
- *   ② 树里确实有一个持有者带着本次启动的 --remote-debugging-port=<port>——证明应答的是
- *      我们配出来的那个实例，而不是树里某个别的进程顺手占了这个端口。
- * 任何一步查不出来都返回 unverifiable：宁可硬失败，也不能把「证明不了」当成「证明了」。
+ * Prove that the endpoint answering on the port truly belongs to the process spawned this run.
+ * Both must hold:
+ *   ① All LISTEN holders on the port are inside rootPid's process tree — Chrome spawns a separate
+ *      browser process, and on macOS the launched binary may re-exec, so the comparison is against
+ *      the whole tree, not the direct pid; conversely, child processes that inherited the listening
+ *      fd are also listed by lsof, so the requirement is "all in the tree", not "one in it".
+ *   ② One holder in the tree indeed carries this run's --remote-debugging-port=<port> — proving
+ *      the responder is the instance we configured, not some other process in the tree that
+ *      happened to take the port.
+ * If any step cannot be determined, return unverifiable: rather fail hard than treat
+ * "cannot prove" as "proven".
  */
 function verifyPortOwnedByLaunch(port, rootPid) {
   const fail = (code, lines) => ({ ok: false, code, lines: [`${code}: ${lines[0]}`, ...lines.slice(1)] });
   const unverifiable = (why) =>
     fail("CDP_OWNER_UNVERIFIABLE", [
-      `无法确认端口 ${port} 的 LISTEN 持有者归属（${why}）。`,
-      "拒绝报成功：证明不了这个端点属于本次启动，就不能把它交给后续采集。",
+      `Cannot confirm the ownership of the LISTEN holder on port ${port} (${why}).`,
+      "Refusing to report success: if we cannot prove this endpoint belongs to this launch, it must not be handed to subsequent collection.",
       PLATFORM === "win32"
-        ? "本机需要 netstat 加 wmic 或 PowerShell 才能查进程归属。"
-        : "本机需要 lsof（或 ss / fuser）加 ps 才能查进程归属。",
-      `处理办法：装上上述工具后重跑，或手动确认 ${port} 上跑的确实是刚启动的 Chrome。`,
+        ? "This machine needs netstat plus wmic or PowerShell to resolve process ownership."
+        : "This machine needs lsof (or ss / fuser) plus ps to resolve process ownership.",
+      `How to proceed: install the tools above and rerun, or manually confirm that the process on ${port} is indeed the just-launched Chrome.`,
     ]);
 
-  if (!rootPid) return unverifiable("spawn 没拿到 pid");
+  if (!rootPid) return unverifiable("spawn did not yield a pid");
   const listeners = listPortListenerPids(port);
-  if (!listeners) return unverifiable("查不到监听该端口的进程");
+  if (!listeners) return unverifiable("cannot find a process listening on that port");
 
-  // 持有者就是 spawn 出来的那个 pid 时不必读进程表——最常见的形态（Chrome 的 browser
-  // 进程就是我们启动的那个）因此不依赖 wmic/ps 之外的任何东西
+  // When the holder is exactly the spawned pid, no process table is needed — the most common
+  // shape (Chrome's browser process is the one we launched) thus depends on nothing beyond wmic/ps
   let outside = listeners.filter((pid) => pid !== rootPid);
   if (outside.length > 0) {
     const parents = listProcessParents();
-    if (!parents) return unverifiable("读不到进程表（pid/ppid）");
+    if (!parents) return unverifiable("cannot read the process table (pid/ppid)");
     outside = outside.filter((pid) => !isInProcessTree(pid, rootPid, parents));
   }
   if (outside.length > 0) {
     const holder = describePortHolder(port);
     return fail("CDP_PORT_NOT_OURS", [
-      `端口 ${port} 的 LISTEN 持有者（pid ${outside.join(", ")}）不在本次启动的进程树里（根 pid ${rootPid}）。`,
-      "拒绝报成功：端口被别的进程握着，再往下用，每一次采集读到的都是别人的会话。",
-      ...(holder ? [`占用者：${holder}`] : []),
-      `处理办法：结束占用 ${port} 的进程后重跑，或换一个端口。`,
+      `The LISTEN holder of port ${port} (pid ${outside.join(", ")}) is not inside this launch's process tree (root pid ${rootPid}).`,
+      "Refusing to report success: the port is held by another process; any further use would read someone else's session on every collection.",
+      ...(holder ? [`Holder: ${holder}`] : []),
+      `How to proceed: terminate the process holding ${port} and rerun, or switch to another port.`,
     ]);
   }
 
@@ -522,15 +538,15 @@ function verifyPortOwnedByLaunch(port, rootPid) {
     sawCommandLine = true;
     if (commandLineHasArgument(cmdline, marker)) return { ok: true, pids: listeners, pid };
   }
-  if (!sawCommandLine) return unverifiable("读不到持有者的命令行");
+  if (!sawCommandLine) return unverifiable("cannot read the holder's command line");
   return fail("CDP_OWNER_NOT_LAUNCHED_INSTANCE", [
-    `端口 ${port} 的 LISTEN 持有者（pid ${listeners.join(", ")}）在本次启动的进程树里，但没有一个带着 ${marker}。`,
-    "拒绝报成功：应答的不是本次启动的那个 Chrome，只是同一棵树里另一个占了这个端口的进程。",
-    `处理办法：确认 ${port} 没被别的进程占用，或换一个端口重跑。`,
+    `The LISTEN holder of port ${port} (pid ${listeners.join(", ")}) is inside this launch's process tree, but none of them carries ${marker}.`,
+    "Refusing to report success: the responder is not the Chrome launched this run — just another process in the same tree that took this port.",
+    `How to proceed: confirm ${port} is not occupied by another process, or rerun with a different port.`,
   ]);
 }
 
-/** spawn 出来的 Chrome 是否还活着（exitCode/signalCode 权威，兜底 kill(pid,0)） */
+/** Whether the spawned Chrome is still alive (exitCode/signalCode are authoritative; fall back to kill(pid, 0)) */
 function isChildAlive(child) {
   if (!child || !child.pid) return false;
   if (child.exitCode !== null || child.signalCode !== null) return false;
@@ -552,7 +568,7 @@ function isPidAlive(pid) {
   }
 }
 
-/** 只清理由本次 spawn 拉起的进程树；绝不调用全局 killChrome 连坐用户的其他窗口。 */
+/** Only terminate the process tree raised by this spawn; never call the global killChrome to collateral-kill the user's other windows. */
 function terminateLaunchTree(rootPid) {
   if (!Number.isInteger(rootPid) || rootPid <= 0) return;
   if (PLATFORM === "win32") {
@@ -571,7 +587,8 @@ function terminateLaunchTree(rootPid) {
   }
   if (!tree.includes(rootPid)) tree.push(rootPid);
 
-  // 子孙先停、launcher 最后停，避免 detached listener 在父进程先死后被 reparent 而丢失归属。
+  // Stop descendants first and the launcher last, so a detached listener is not reparented and
+  // loses its ownership when the parent dies first.
   const depth = (pid) => {
     let current = pid;
     for (let hops = 0; hops < 64; hops++) {
@@ -593,33 +610,33 @@ function terminateLaunchTree(rootPid) {
   }
 }
 
-/** 复制文件（吞掉 ENOENT；其他错误打印一次警告供用户排查） */
+/** Copy a file (swallow ENOENT; print one warning for other errors so the user can investigate) */
 function copyFileSafe(src, dest) {
   try {
     fs.copyFileSync(src, dest);
     return true;
   } catch (e) {
     if (e.code !== "ENOENT") {
-      warn(`复制失败: ${src} -> ${dest} (${e.code || e.message})`);
+      warn(`Copy failed: ${src} -> ${dest} (${e.code || e.message})`);
     }
     return false;
   }
 }
 
-/** 递归复制目录 */
+/** Recursively copy a directory */
 function copyDirRecursive(src, dest) {
   fs.cpSync(src, dest, { recursive: true, force: true });
 }
 
-/** 递归删除目录 */
+/** Recursively delete a directory */
 function rmDirSafe(dir) {
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
 /**
- * 刷新登录态相关文件（在 debugProfile 已存在的"增量"路径上使用）。
- * 同时尝试 Chrome 当前可能存在的 Default/Cookies 与 Default/Network/Cookies，
- * 包含各类 -journal / -wal / -shm 旁路文件，以及 Google 账号登录数据。
+ * Refresh login-state related files (used on the "incremental" path where debugProfile already exists).
+ * Also tries both Default/Cookies and Default/Network/Cookies as Chrome may currently use either,
+ * covering -journal / -wal / -shm sidecar files of all kinds, plus Google account login data.
  */
 function refreshAuthFiles(srcDefault, destDefault) {
   const targets = [
@@ -641,7 +658,7 @@ function refreshAuthFiles(srcDefault, destDefault) {
   return copied;
 }
 
-/** 清理 Chrome singleton 锁，避免上次崩溃后下次启动失败 */
+/** Clear Chrome singleton locks to avoid a failed launch after a previous crash */
 function clearSingletonLocks(profileDir) {
   const names = ["SingletonLock", "SingletonCookie", "SingletonSocket"];
   for (const n of names) {
@@ -649,7 +666,7 @@ function clearSingletonLocks(profileDir) {
   }
 }
 
-/** 等待 Chrome PID 列表为空 */
+/** Wait until the Chrome PID list is empty */
 function waitForChromeExit(config, maxMs = 8000, stepMs = 500) {
   const start = Date.now();
   while (Date.now() - start < maxMs) {
@@ -659,7 +676,7 @@ function waitForChromeExit(config, maxMs = 8000, stepMs = 500) {
   return false;
 }
 
-/** TTY 交互式问询 */
+/** Interactive TTY prompt */
 function promptYesNo(question) {
   return new Promise((resolve) => {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -671,7 +688,7 @@ function promptYesNo(question) {
 }
 
 // ---------------------------------------------------------------------------
-// detect-only 模式
+// detect-only mode
 // ---------------------------------------------------------------------------
 
 async function runDetectOnly(config) {
@@ -679,7 +696,7 @@ async function runDetectOnly(config) {
   if (version) {
     log("CDP_STATUS=ready");
     log(`CDP_URL=http://127.0.0.1:${CDP_PORT}/json/version`);
-    // 尝试从 JSON 提取浏览器版本（容错）
+    // Try to extract the browser version from JSON (fault-tolerant)
     try {
       const obj = JSON.parse(version);
       if (obj.Browser) log(`BROWSER=${obj.Browser}`);
@@ -698,38 +715,39 @@ async function runDetectOnly(config) {
 }
 
 // ---------------------------------------------------------------------------
-// 同意流程：返回 true 继续，false 用户拒绝
+// Consent flow: return true to continue, false when the user declined
 // ---------------------------------------------------------------------------
 
 async function ensureConsentToKill(pids) {
   if (pids.length === 0) return true;
   if (ARGS.flags.yes) return true;
 
-  // 非 TTY：拒绝静默杀进程，给调用方（Claude / 上层脚本）一个明确信号
+  // Not a TTY: refuse to silently kill processes; give the caller (Claude / parent scripts)
+  // a clear signal
   if (!process.stdin.isTTY) {
     err(`NEEDS_CONSENT: ${pids.length} running Chrome process(es) will be killed.`);
     err(`Pass --yes to confirm (after asking the user), or stop Chrome manually first.`);
     process.exit(3);
   }
 
-  // TTY：交互问询
-  warn(`检测到 ${pids.length} 个正在运行的 Chrome 进程。`);
-  warn("继续将杀死它们，你在常规 Chrome 中未保存的工作可能丢失。");
-  return promptYesNo("继续？[y/N] ");
+  // TTY: interactive prompt
+  warn(`Detected ${pids.length} running Chrome process(es).`);
+  warn("Continuing will kill them; unsaved work in your regular Chrome may be lost.");
+  return promptYesNo("Continue? [y/N] ");
 }
 
 // ---------------------------------------------------------------------------
-// 主流程
+// Main flow
 // ---------------------------------------------------------------------------
 
 async function main() {
   const config = getConfig();
   const debugProfile = path.join(os.homedir(), "chrome-debug-profile");
 
-  // 1) 检测 Chrome 可执行路径（detect-only 也需要 profileDir）
+  // 1) Locate the Chrome executable (detect-only also needs profileDir)
   const chromePath = config.findChrome();
 
-  // detect-only：不修改任何状态
+  // detect-only: no state is modified
   if (ARGS.flags.detectOnly) {
     if (!chromePath) {
       log("CDP_STATUS=needs-setup");
@@ -739,176 +757,185 @@ async function main() {
     return runDetectOnly(config);
   }
 
-  log("=== CDP Chrome 环境准备 ===");
-  log(`平台: ${PLATFORM} | CDP 端口: ${CDP_PORT} | profile: ${ARGS.profile}`);
+  log("=== CDP Chrome environment setup ===");
+  log(`Platform: ${PLATFORM} | CDP port: ${CDP_PORT} | profile: ${ARGS.profile}`);
 
   if (!chromePath) {
-    err("未找到 Google Chrome。请确保已安装。");
-    err(`搜索路径: ${JSON.stringify(config.chromePaths, null, 2)}`);
+    err("Google Chrome not found. Please make sure it is installed.");
+    err(`Search paths: ${JSON.stringify(config.chromePaths, null, 2)}`);
     process.exit(1);
   }
-  log(`Chrome 路径: ${chromePath}`);
+  log(`Chrome path: ${chromePath}`);
 
-  // 2) dry-run：先于任何副作用（包括"复用现有 CDP"）打印计划，让用户能看到真要执行时的步骤
+  // 2) dry-run: print the plan before any side effects (including "reuse existing CDP") so
+  //    the user can see the steps that would actually run
   const defaultProfile = path.join(config.profileDir, ARGS.profile);
   const hasProfile = fs.existsSync(defaultProfile);
 
   if (ARGS.flags.dryRun) {
     const cdpAlive = !!(await probeCDP(CDP_PORT));
     const tcpOccupied = await probeTcp(CDP_PORT);
-    // --reset / 显式 --profile 会跳过复用（见下方第 3 步），dry-run 必须照实说
+    // --reset / explicit --profile skip reuse (see step 3 below); dry-run must say so truthfully
     const willReuse = cdpAlive && !ARGS.flags.reset && !ARGS.profileExplicit;
     const cdpNote = !tcpOccupied
-      ? "未监听"
+      ? "not listening"
       : !cdpAlive
-        ? "有 TCP 监听，但不是健康 CDP（实际运行会在动 profile 前硬失败）"
+        ? "has a TCP listener but is not healthy CDP (the real run will hard-fail before touching the profile)"
       : willReuse
-        ? "已就绪（实际运行时会直接复用）"
-        : "已就绪（但传了 --reset/--profile，实际运行会重建，不复用）";
-    log(`Chrome profile: ${defaultProfile} (${hasProfile ? "存在" : "不存在"})`);
-    log(`CDP 端口 ${CDP_PORT}: ${cdpNote}`);
+        ? "ready (the real run will reuse it directly)"
+        : "ready (but --reset/--profile was passed; the real run will rebuild, not reuse)";
+    log(`Chrome profile: ${defaultProfile} (${hasProfile ? "exists" : "does not exist"})`);
+    log(`CDP port ${CDP_PORT}: ${cdpNote}`);
     const runningPids = config.listChromePids();
-    log(`检测到 ${runningPids.length} 个 Chrome 进程`);
-    log("\n--- dry-run 模式：只打印操作，不执行 ---");
+    log(`Detected ${runningPids.length} Chrome process(es)`);
+    log("\n--- dry-run mode: only prints operations, executes nothing ---");
     if (willReuse) {
-      log("0. CDP 已就绪，实际运行会直接复用并退出 0（以下步骤仅供参考）");
+      log("0. CDP is ready; the real run will reuse it and exit 0 (the steps below are for reference only)");
     } else if (cdpAlive) {
-      log("0. CDP 已就绪，但传了 --reset/--profile：实际运行不复用，按下列步骤重建");
+      log("0. CDP is ready, but --reset/--profile was passed: the real run will NOT reuse; it will rebuild per the steps below");
     }
-    // 步骤号按真实执行顺序动态编号：先杀进程、再确认端口空了，之后才碰 profile 目录
+    // Step numbers are dynamically numbered in real execution order: kill processes first,
+    // then confirm the port is free, and only then touch the profile directory
     let stepNo = 0;
     const step = (msg) => log(`${++stepNo}. ${msg}`);
     if (runningPids.length > 0) {
-      step(`${ARGS.flags.yes ? "（已同意）" : "请求同意后 "}杀死 ${runningPids.length} 个 Chrome 进程`);
+      step(`${ARGS.flags.yes ? "(consented) " : "after asking for consent, "}kill ${runningPids.length} Chrome process(es)`);
     } else {
-      step("无 Chrome 进程，无需杀死");
+      step("No Chrome processes; nothing to kill");
     }
-    step(`用 TCP 确认端口 ${CDP_PORT} 已释放（任何监听仍在都中止：不删 profile、不启动）`);
-    if (ARGS.flags.reset) step(`删除 ${debugProfile}`);
+    step(`Confirm via TCP that port ${CDP_PORT} is free (any lingering listener aborts: no profile deletion, no launch)`);
+    if (ARGS.flags.reset) step(`delete ${debugProfile}`);
     if (hasProfile) {
-      step(`复制 profile: ${defaultProfile} -> ${debugProfile}/Default`);
+      step(`copy profile: ${defaultProfile} -> ${debugProfile}/Default`);
     } else {
-      step("⚠️ 无用户 profile，将以空 profile 启动");
+      step("⚠️ no user profile; will launch with an empty profile");
     }
-    step("清理 SingletonLock / SingletonCookie / SingletonSocket");
-    step("启动 Chrome（含 --remote-allow-origins=*, --no-first-run 等）");
+    step("clear SingletonLock / SingletonCookie / SingletonSocket");
+    step("launch Chrome (with --remote-allow-origins=*, --no-first-run, etc.)");
     step(
-      `验证 http://127.0.0.1:${CDP_PORT}/json/version 来自本次启动的实例` +
-        "（身份取得到且已变 + 进程存活 + 端口的 LISTEN 持有者就在这棵进程树里）"
+      `verify http://127.0.0.1:${CDP_PORT}/json/version comes from this launch's instance` +
+        " (identity obtainable and changed + process alive + the port's LISTEN holder is inside this process tree)"
     );
-    ok("dry-run 完成。");
+    ok("dry-run completed.");
     process.exit(0);
   }
 
-  // 3) 若 CDP 已就绪 → 复用，直接退出。
-  //    但 --reset / 显式 --profile 的语义就是"重建 debug profile"：登录态过期时文档正是
-  //    让用户跑 --reset，而那时 CDP 恰恰是活着的（过期是从这个会话里发现的）。若照旧复用，
-  //    这两个参数会被静默丢掉，还以 exit 0 报"成功"。因此这两种情况不复用，继续往下重建。
+  // 3) If CDP is ready → reuse and exit directly.
+  //    But --reset / explicit --profile semantically mean "rebuild the debug profile": the docs
+  //    tell users to run --reset when the login state expires, and at that moment CDP is exactly
+  //    alive (the expiry was discovered from this very session). If we reused as usual, both flags
+  //    would be silently dropped while still reporting "success" with exit 0. So these two cases
+  //    do not reuse; they continue into the rebuild below.
   const existing = await probeCDP(CDP_PORT);
   const portWasListening = await probeTcp(CDP_PORT);
   if (existing) {
     if (!ARGS.flags.reset && !ARGS.profileExplicit) {
-      ok("CDP 已就绪，复用现有 Chrome。");
+      ok("CDP is ready; reusing the existing Chrome.");
       log(existing.split("\n").slice(0, 5).join("\n"));
       process.exit(0);
     }
     const requested = ARGS.flags.reset ? "--reset" : `--profile ${ARGS.profile}`;
-    warn(`CDP 端口 ${CDP_PORT} 已在监听，但传了 ${requested}：不复用，将关闭现有 Chrome 后重建 debug profile。`);
+    warn(`CDP port ${CDP_PORT} is already listening, but ${requested} was passed: no reuse; the existing Chrome will be closed and the debug profile rebuilt.`);
   }
-  // 重建前那个实例的身份：第 10 步要靠它证明「应答的是新起的实例」，而不只是「有人应答」
+  // Identity of the pre-rebuild instance: step 10 uses it to prove "the responder is the newly
+  // launched instance", not merely "something answered"
   const staleIdentity = cdpIdentity(existing);
 
   if (!hasProfile) {
-    err(`未找到 Chrome profile: ${defaultProfile}`);
-    err("请确保已安装 Google Chrome 并至少使用过一次，或用 --profile <name> 指定其他 profile。");
+    err(`Chrome profile not found: ${defaultProfile}`);
+    err("Please make sure Google Chrome is installed and has been used at least once, or specify another profile with --profile <name>.");
     process.exit(1);
   }
 
-  // 4) 同意流程：如有 Chrome 进程要杀，先征得同意
+  // 4) Consent flow: if Chrome processes must be killed, ask for consent first
   const runningPids = config.listChromePids();
   const consented = await ensureConsentToKill(runningPids);
   if (!consented) {
-    err("用户拒绝，已中止。");
+    err("User declined; aborted.");
     process.exit(2);
   }
 
-  // 5) 杀死现有 Chrome 进程，等待退出
+  // 5) Kill the existing Chrome processes and wait for them to exit
   if (runningPids.length > 0) {
-    log(`正在停止 ${runningPids.length} 个 Chrome 进程...`);
+    log(`Stopping ${runningPids.length} Chrome process(es)...`);
     config.killChrome();
     if (!waitForChromeExit(config, 6000)) {
-      warn("首轮 kill 后仍有 Chrome 进程，再试一次...");
+      warn("Chrome processes still remain after the first kill; trying again...");
       config.killChrome();
       waitForChromeExit(config, 4000);
     }
     const remain = config.listChromePids();
     if (remain.length > 0) {
-      err(`仍有 ${remain.length} 个 Chrome 进程未退出，已中止。`);
-      err("未删除、未改动 debug profile，也未启动新 Chrome——状态保持原样。");
+      err(`${remain.length} Chrome process(es) have not exited; aborted.`);
+      err("No debug profile was deleted or modified, and no new Chrome was launched — state is unchanged.");
       process.exit(1);
     } else {
-      ok("Chrome 已退出。");
+      ok("Chrome has exited.");
     }
   }
 
-  // 5.5) 硬闸门：端口必须真的空出来，才允许动 profile 目录、才允许启动新实例。
-  //      顺序是刻意的——闸门在删 profile 之前。旧实例还活着就往下走会撞上最坏的一种结果：
-  //      先删掉一个正在运行的 Chrome 的 profile（本身就是破坏性的），新进程又因端口被占起不来，
-  //      而第 10 步的 probeCDP 恰好被旧端点答上，于是 exit 0 报「重建成功」——调用方以为拿到了
-  //      新浏览器，之后每一次采集读的都是旧会话/别人的会话。这里只能硬失败。
-  //      无论 /json/version 是否健康都执行：HTTP 500 也可能正占着端口。
-  // 杀过进程才值得给宽限期；没有已识别 Chrome 时，占用者不会自己退出，快速确认后失败。
+  // 5.5) Hard gate: the port must be truly free before the profile directory may be touched
+  //      or a new instance launched. The order is deliberate — the gate comes before deleting
+  //      the profile. Continuing while the old instance is alive hits the worst outcome:
+  //      the profile of a still-running Chrome gets deleted first (destructive on its own),
+  //      the new process cannot start because the port is taken, and step 10's probeCDP happens
+  //      to be answered by the stale endpoint, so exit 0 reports "rebuild succeeded" — the caller
+  //      believes it has a new browser while every collection afterwards reads the old/other
+  //      session. Here the only option is a hard failure.
+  //      Runs regardless of whether /json/version is healthy: HTTP 500 may also be holding the port.
+  // Only give a grace period after processes were killed; when no Chrome was identified, the holder
+  // won't exit on its own — confirm quickly and fail.
   const graceMs = runningPids.length > 0 ? 8000 : 1000;
   if (!(await waitForPortFree(CDP_PORT, graceMs))) {
     const remain = config.listChromePids();
     err(
       existing
-        ? `CDP 端口 ${CDP_PORT} 上的旧实例仍在应答，已中止。`
-        : `CDP 端口 ${CDP_PORT} 仍被占用、未释放，已中止。`
+        ? `The old instance on CDP port ${CDP_PORT} is still responding; aborted.`
+        : `CDP port ${CDP_PORT} is still occupied and not released; aborted.`
     );
     if (remain.length > 0) {
-      err(`原因：${remain.length} 个 Chrome 进程没能退出（kill 无效，可能权限不足或进程卡死）。`);
+      err(`Reason: ${remain.length} Chrome process(es) could not exit (kill ineffective — possibly insufficient privileges or a stuck process).`);
     } else if (runningPids.length === 0) {
-      err("原因：端口被无法识别的进程占用——没找到任何 Chrome 进程，脚本无从关闭它。");
+      err("Reason: the port is held by an unrecognized process — no Chrome process was found, so the script cannot close it.");
     } else {
-      err("原因：Chrome 进程已退出，但另有进程仍守着这个端口。");
+      err("Reason: Chrome processes have exited, but another process is still holding the port.");
     }
     const holder = describePortHolder(CDP_PORT);
-    if (holder) err(`占用者：${holder}`);
-    err("未删除、未改动 debug profile，也未启动新 Chrome——状态保持原样。");
-    err(`处理办法：手动结束占用 ${CDP_PORT} 的进程后重跑，或换一个端口（node setup-cdp-chrome.js <其他端口> ...）。`);
+    if (holder) err(`Holder: ${holder}`);
+    err("No debug profile was deleted or modified, and no new Chrome was launched — state is unchanged.");
+    err(`How to proceed: manually terminate the process holding ${CDP_PORT} and rerun, or switch to another port (node setup-cdp-chrome.js <other-port> ...).`);
     process.exit(1);
   }
   if (portWasListening) {
-    ok(`CDP 端口 ${CDP_PORT} 已释放。`);
+    ok(`CDP port ${CDP_PORT} has been released.`);
   }
 
-  // 6) --reset：清空 debug profile
+  // 6) --reset: wipe the debug profile
   if (ARGS.flags.reset) {
-    log(`正在删除 debug profile: ${debugProfile}`);
+    log(`Deleting debug profile: ${debugProfile}`);
     rmDirSafe(debugProfile);
   }
 
-  // 7) 复制 / 刷新 profile（此时 Chrome 已关闭，SQLite 一致）
+  // 7) Copy / refresh the profile (Chrome is closed by now, so SQLite is consistent)
   const debugDefault = path.join(debugProfile, "Default");
   if (!fs.existsSync(debugDefault)) {
-    log("正在复制 Chrome profile 到 debug 目录...");
+    log("Copying Chrome profile to the debug directory...");
     fs.mkdirSync(debugProfile, { recursive: true });
     try { fs.chmodSync(debugProfile, 0o700); } catch {}
     copyDirRecursive(defaultProfile, debugDefault);
-    ok(`Profile 已复制到: ${debugProfile}`);
+    ok(`Profile copied to: ${debugProfile}`);
   } else {
-    log("debug profile 已存在，刷新登录态相关文件...");
+    log("debug profile already exists; refreshing login-state related files...");
     try { fs.chmodSync(debugProfile, 0o700); } catch {}
     const n = refreshAuthFiles(defaultProfile, debugDefault);
-    ok(`已刷新 ${n} 个登录态文件`);
+    ok(`Refreshed ${n} login-state file(s)`);
   }
 
-  // 8) 清理 singleton 锁
+  // 8) Clear singleton locks
   clearSingletonLocks(debugProfile);
 
-  // 9) 以 CDP 模式启动 Chrome
-  log(`正在以 CDP 模式启动 Chrome（端口 ${CDP_PORT}）...`);
+  // 9) Launch Chrome in CDP mode
+  log(`Launching Chrome in CDP mode (port ${CDP_PORT})...`);
   const chromeArgs = [
     `--remote-debugging-port=${CDP_PORT}`,
     `--user-data-dir=${debugProfile}`,
@@ -923,80 +950,85 @@ async function main() {
   child.on("error", (e) => { spawnError = e; });
   child.unref();
 
-  /** 启动后验证没过：只清掉自己刚起的进程（端口上那个不是我们的，不该连坐杀别人的 Chrome） */
+  /** Post-launch verification failed: only clean up the processes we just started (the one on the port is not ours — other people's Chrome must not be collateral-killed) */
   function abortAfterLaunch(reasons) {
     for (const line of reasons) err(line);
-    err("正在清理刚启动的 Chrome 进程...");
+    err("Cleaning up the just-launched Chrome processes...");
     terminateLaunchTree(childPid);
     process.exit(1);
   }
 
-  // 10) 等待启动并验证。光有人应答不算成功——那可能是没被关掉的旧实例，也可能是别的进程
-  //     顺手占了这个端口。四条全过才算：
-  //     ① 新端点的 browser GUID 取得到（取不到＝无法比对，按合约不能当作相同或不同）；
-  //     ② 这个 GUID 与重建前不同（配合第 5.5 步已确认旧端点消失过）；
-  //     ③ 刚 spawn 的进程还活着（它死了，端口上应答的就一定不是本次启动的实例）；
-  //     ④ 端口的 LISTEN 持有者确实在这棵 spawn 出来的进程树里，且带着本次的
-  //        --remote-debugging-port。前三条都是间接证据——「旧端点消失过 + 身份变了 +
-  //        launcher 还活着」推不出「端口归它」，只有第 ④ 条才真的把端口和进程绑上。
-  log("等待 Chrome 启动...");
+  // 10) Wait for launch and verify. A mere response is not success — it could be an old instance
+  //     that was not shut down, or another process that happened to take the port. All four must pass:
+  //     ① The new endpoint's browser GUID is obtainable (unobtainable = cannot compare; by contract
+  //        it counts as neither same nor different);
+  //     ② This GUID differs from the pre-rebuild one (combined with step 5.5 confirming the old
+  //        endpoint disappeared);
+  //     ③ The just-spawned process is still alive (if it died, the responder on the port cannot be
+  //        this launch's instance);
+  //     ④ The port's LISTEN holders are indeed inside this spawned process tree and carry this run's
+  //        --remote-debugging-port. The first three are only circumstantial — "old endpoint gone +
+  //        identity changed + launcher alive" does not imply "the port belongs to it"; only ④ truly
+  //        binds the port to the process.
+  log("Waiting for Chrome to launch...");
   let identityMisses = 0;
   for (let i = 1; i <= 15; i++) {
     sleepSync(2000);
     if (spawnError) {
-      abortAfterLaunch([`启动 Chrome 失败: ${spawnError.message}`]);
+      abortAfterLaunch([`Failed to launch Chrome: ${spawnError.message}`]);
     }
     const version = await probeCDP(CDP_PORT);
     if (version) {
       const identity = cdpIdentity(version);
       if (identity === null) {
-        // 端点刚起来时理论上可能先答上 HTTP，给两轮宽限；之后仍取不到就硬失败。
+        // A freshly started endpoint may theoretically answer HTTP first; grant two rounds of
+        // grace; hard-fail if the identity is still unobtainable after that.
         if (++identityMisses < 3) {
-          log(`   端口有应答但取不到实例身份，重试 ${identityMisses}/3...`);
+          log(`   Port responds but the instance identity cannot be obtained; retrying ${identityMisses}/3...`);
           continue;
         }
         abortAfterLaunch([
-          `CDP_IDENTITY_UNVERIFIABLE: 端口 ${CDP_PORT} 有 HTTP 应答，但 /json/version 里取不到实例身份（webSocketDebuggerUrl）。`,
-          "拒绝报成功：身份取不到就无法证明这是新起的实例——按合约它既不算相同也不算不同，只能当作没证出来。",
-          `处理办法：确认 ${CDP_PORT} 上跑的是 Chrome 的 CDP 端点（而不是别的 HTTP 服务），或换一个端口重跑。`,
+          `CDP_IDENTITY_UNVERIFIABLE: port ${CDP_PORT} answers HTTP, but the instance identity (webSocketDebuggerUrl) cannot be obtained from /json/version.`,
+          "Refusing to report success: without an identity there is no way to prove this is a newly launched instance — by contract it is neither same nor different, only unproven.",
+          `How to proceed: confirm that a Chrome CDP endpoint (not some other HTTP service) is running on ${CDP_PORT}, or rerun with a different port.`,
         ]);
       }
       if (staleIdentity && identity === staleIdentity) {
         abortAfterLaunch([
-          `端口 ${CDP_PORT} 应答的仍是重建前那个实例（${identity}），不是新启动的 Chrome。`,
-          "拒绝报成功：再往下用，每一次采集读到的都会是旧会话。",
+          `Port ${CDP_PORT} is still answered by the pre-rebuild instance (${identity}), not the newly launched Chrome.`,
+          "Refusing to report success: any further use would read the old session on every collection.",
         ]);
       }
       if (!isChildAlive(child)) {
         const holder = describePortHolder(CDP_PORT);
         abortAfterLaunch([
-          `端口 ${CDP_PORT} 上有 CDP 应答，但刚启动的 Chrome（pid ${childPid}）已经退出。`,
-          "拒绝报成功：这个端点不属于本次启动的实例。",
-          ...(holder ? [`占用者：${holder}`] : []),
-          `处理办法：确认 ${CDP_PORT} 没被别的进程占用，或换一个端口重跑。`,
+          `Port ${CDP_PORT} answers CDP, but the just-launched Chrome (pid ${childPid}) has already exited.`,
+          "Refusing to report success: this endpoint does not belong to this launch's instance.",
+          ...(holder ? [`Holder: ${holder}`] : []),
+          `How to proceed: confirm ${CDP_PORT} is not occupied by another process, or rerun with a different port.`,
         ]);
       }
       const owner = verifyPortOwnedByLaunch(CDP_PORT, childPid);
       if (!owner.ok) abortAfterLaunch(owner.lines);
-      ok(`Chrome 已成功以 CDP 模式启动（端口 ${CDP_PORT}）`);
+      ok(`Chrome launched successfully in CDP mode (port ${CDP_PORT})`);
       log(version.split("\n").slice(0, 5).join("\n"));
       process.exit(0);
     }
-    log(`   尝试 ${i}/15...`);
+    log(`   Attempt ${i}/15...`);
   }
 
-  // 11) 失败清理：杀死刚才启动的孤儿 Chrome
-  err("30 秒内未能启动 Chrome CDP 环境。");
-  err("正在清理刚启动的 Chrome 进程...");
+  // 11) Failure cleanup: kill the orphan Chrome launched above
+  err("Failed to bring up the Chrome CDP environment within 30 seconds.");
+  err("Cleaning up the just-launched Chrome processes...");
   terminateLaunchTree(childPid);
-  err("可能原因：");
-  err("  - Chrome 不支持 --remote-debugging-port");
-  err(`  - 端口 ${CDP_PORT} 已被其他进程占用`);
-  err("  - debug profile 目录已损坏（试试 --reset）");
+  err("Possible causes:");
+  err("  - Chrome does not support --remote-debugging-port");
+  err(`  - port ${CDP_PORT} is already occupied by another process`);
+  err("  - the debug profile directory is corrupted (try --reset)");
   process.exit(1);
 }
 
 main().catch((e) => {
-  err(`启动失败: ${e.message}`);
+  err(`Startup failed: ${e.message}`);
   process.exit(1);
 });

@@ -1,428 +1,428 @@
-# 角色设计操作手册
+# Character Design Operations Manual
 
-> 用途：角色设计的方法指令集。按决策路由找到对应方法，按步骤执行。
+> Use: an instruction set for character design. Find the method in the decision routing and execute step by step.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在做什么 | 用什么方法 |
+| What you're doing | Method |
 |-----------|-----------|
-| 设计角色反差 | 三层标签反差法 + 行为反差进阶 |
-| 设计配角 | 配角功能化 + 群像写作法 |
-| 凸显人设 | 凸显人设速查表 |
-| 设计感情桥段 | 高情商桥段模板 |
-| 深化角色立体感 | 向人设深化法 + 九维人设框架 |
-| 建立代入感 | 代入感构建法 |
-| 管理角色关系 | 人设关系四阶段 + 职场思维结构 |
-| 设计主角特质 | 金手指绑架人设 + 以梗为中心塑造 |
+| Design character contrast | three-layer tag contrast + advanced behavior contrast |
+| Design supporting characters | supporting-character functionalization + ensemble writing |
+| Make a persona pop | persona-highlight quick reference |
+| Design emotional scenes | high-EQ scene templates |
+| Deepen character roundness | persona-deepening + nine-dimension persona framework |
+| Build immersion | immersion-building method |
+| Manage character relationships | persona-relationship four stages + workplace-thinking structure |
+| Design the protagonist's traits | cheat-kidnapped persona + meme-centered building |
 
 ---
 
-## 三层标签反差人设法
+## The three-layer tag contrast persona method
 
-### 三层结构
+### The three layers
 
-| 层级 | 名称 | 含义 | 示例 |
+| Layer | Name | Meaning | Example |
 |------|------|------|------|
-| 第一层 | 身份标签 | 外界看到的身份 | 豪门弃妇 |
-| 第二层 | 表现标签 | 角色展现给外界的行为 | 隐忍不发、逆来顺受 |
-| 第三层 | 内核标签 | 角色真正的内心 | 冷静、有计划、步步为营 |
+| Layer 1 | identity tag | the identity the outside sees | the discarded daughter-in-law of a rich family |
+| Layer 2 | display tag | the behavior shown to the outside | endurance, taking everything lying down |
+| Layer 3 | core tag | the true interior | calm, methodical, step-by-step |
 
-### 执行指令
+### Execution instructions
 
-1. 为角色填写三层标签，三层之间必须制造反差——反差 = 立体感
-2. 身份标签和表现标签可以相似（强化刻板印象），但内核标签必须反转
-3. 反差越大，角色的"亮牌时刻"越震撼
-4. 每个重要角色都应至少有一层反差
-5. 用行为对比来体现反差，不要直接描述：
+1. Fill the three layers for the character; the layers must create contrast — contrast = roundness
+2. Identity and display tags may be similar (reinforcing the stereotype), but the core tag must invert
+3. The bigger the contrast, the more stunning the "card-reveal moment"
+4. Every important character should have at least one layer of contrast
+5. Show contrast through behavioral comparison, not direct description:
 
 ```
-身份标签：豪门弃妇
-表现行为：被骂不还口，被赶不反抗
-内核行为：悄悄录音、收集证据、提前转移财产
+Identity tag: discarded daughter-in-law of a rich family
+Display behavior: doesn't talk back when yelled at, doesn't resist when thrown out
+Core behavior: secretly records, collects evidence, quietly transfers assets
 ```
 
 ---
 
-## 三层标签行为反差进阶
+## Advanced three-layer behavior contrast
 
-当关系进入第三层（亲密关系）后，角色在第一、二层关系中能做出的行为反而做不出来了。
+After a relationship reaches layer 3 (intimacy), the behaviors the character could perform in layers 1-2 become impossible.
 
-| 关系阶段 | 可做行为 | 不可做行为 |
+| Relationship stage | Doable behaviors | Impossible behaviors |
 |----------|---------|-----------|
-| 身份标签期（陌生） | 调戏、冷漠、保持距离 | — |
-| 表现标签期（熟悉） | 继续之前的行为模式 | — |
-| 内核标签期（亲密） | 展露真实自我 | 之前的调戏/冷漠反而做不出来了 |
+| Identity-tag stage (strangers) | teasing, cold distance, keeping space | — |
+| Display-tag stage (acquainted) | continue the previous behavior pattern | — |
+| Core-tag stage (intimate) | reveal the true self | the earlier teasing/coldness becomes impossible |
 
-### 执行指令
+### Execution instructions
 
-1. 检查角色当前处于哪个关系阶段
-2. 行为反差本身是人设的一部分，必须写进剧情
-3. 用"行为退化 = 感情深化"制造张力——身份标签期爱调戏主角的辣妹，进入亲密关系后反而不敢表白
-4. 不要让角色在亲密阶段仍然维持早期行为，否则反差失效
+1. Check which relationship stage the character is at
+2. Behavior contrast is itself part of the persona and must be written into the plot
+3. Use "behavior regression = deepening emotion" for tension — the flirty girl who teases the protagonist at the identity stage can't confess when intimate
+4. Don't let the character maintain early behaviors in the intimate stage, or the contrast fails
 
 ---
 
-## 人设关联分层（强/中/弱关联）
+## Persona relevance tiers (strong/mid/weak)
 
-| 层级 | 定义 | 功能 | 数量要求 |
+| Tier | Definition | Function | Quantity |
 |------|------|------|---------|
-| 强关联 | 直接影响剧情走向和核心梗装逼爽点的设定 | 推动人物碰撞、剧情推进 | 每个角色至少 3 个 |
-| 中关联 | 配角的强关联设定，不能抢主角风头 | 为配角提供功能性和辨识度 | 适量 |
-| 弱关联 | 丰富人物厚度的个人偏好设定 | 增加角色真实感和记忆点 | 不限 |
+| Strong | settings that directly affect plot direction and the core-hook flex payoffs | drives character collision, plot advancement | ≥3 per character |
+| Mid | strong-tier settings for supporting characters, must not steal the protagonist's spotlight | gives supporting characters function and distinctiveness | moderate |
+| Weak | personal preferences enriching character depth | adds realism and memory points | unlimited |
 
-### 执行指令
+### Execution instructions
 
-1. 把主角的实力、钱财、人脉、背景等影响剧情走向的属性归为强关联
-2. 检查强关联是否达到每个角色至少 3 个
-3. 把"喜欢吃蛋糕""爱好看美女"等归为弱关联，仅用于丰富人设
-4. 确保弱关联不喧宾夺主——强关联才是延伸剧情的核心
-
----
-
-## 人设执行规则
-
-人设 ≠ 人物设定表。
-
-- 人物设定表 = 身高、外貌、家庭背景等信息堆砌（外在信息）
-- 人设 = 围绕角色"灵魂/特殊人格"展开的功能性设计
-- 人设的使命：服务戏剧张力与情绪拉扯，以人格驱动行为，而非被剧情硬推
-
-**检查**：如果你写的人物设定只有身高体重爱好，没有"灵魂/特殊人格"的功能性设计，重做。
+1. Classify the protagonist's power, wealth, connections, and background as strong-tier
+2. Check strong-tier count ≥3 per character
+3. Classify "likes cake," "enjoys watching pretty people" as weak-tier, only enriching the persona
+4. Ensure weak-tier doesn't steal the show — strong-tier is the core for extending plot
 
 ---
 
-## 配角功能化设计
+## Persona execution rules
 
-### 核心原则
+Persona ≠ a character setting sheet.
 
-1. 配角的能力和特质必须和剧情紧密相关
-2. 配角是为了展现主角而写——配角的能力为主角所用，配角脱离困境靠主角帮助
+- Character setting sheet = height, appearance, family background piling (external info)
+- Persona = functional design around the character's "soul/special personality"
+- Persona's mission: serve dramatic tension and emotional pull; personality drives behavior, not plot shoving the character
 
-### 复合型配角——白手套角色
+**Check**: if your character setting is only height/weight/hobbies with no "soul/special personality" functional design, redo it.
 
-| 功能 | 说明 |
+---
+
+## Supporting-character functionalization
+
+### Core principles
+
+1. Supporting characters' abilities and traits must closely relate to the plot
+2. Supporting characters exist to showcase the protagonist — their abilities serve the protagonist; they escape traps with the protagonist's help
+
+### The compound supporting character — the "white-glove" role
+
+| Function | Explanation |
 |------|------|
-| 替主角说话 | 凡是主角不适合说的话，他来说 |
-| 替主角发狠 | 凡是主角不应该发的狠，他来发 |
-| 绝对维护 | 对侵犯主角利益的人坚决反击 |
-| 粗中有细 | 将反派密谋录音再播放，取得大众支持 |
-| 适时搞笑 | 不断输出正反馈，缓解紧张情绪 |
+| Speaks for the protagonist | lines the protagonist shouldn't say, they say |
+| Gets ruthless for the protagonist | ruthlessness the protagonist shouldn't display, they display |
+| Absolute defense | firmly counterattacks anyone harming the protagonist's interests |
+| Rough with fine threads | records the antagonist's plotting, replays it, wins public support |
+| Timely comedy | constant positive feedback, easing tension |
 
-**设计原则**：光环比主角弱一点，不抢风头；惊艳出场；对主角的质疑第一时间反驳。
+**Design principles**: halo one notch below the protagonist, no spotlight theft; stunning appearance; first to rebut any doubt of the protagonist.
 
-### 立体人物 vs 扁平人物
+### Round characters vs flat characters
 
-1. 不是所有角色都要立体化，先看功能性
-2. 扁平化角色保持神秘性，反而更恐怖/更强大
-3. "洗白弱三分，黑化强三倍"——高手被立体化就变弱了
-4. 需要什么工具就设计什么工具，不要把所有角色立体化
+1. Not every character needs rounding — look at function first
+2. Flat characters keep mystery; it makes them scarier/stronger
+3. "Washing white weakens three points; turning dark triples strength" — rounding an expert weakens them
+4. Design whatever tool you need; don't round everyone
 
-### 人设反差六维度法
+### The six-dimension persona contrast
 
-| 反差对 | 操作 |
-|--------|------|
-| 表面性格 vs 内在性格 | 笑面虎/刀子嘴豆腐心 |
-| 外表形象 vs 表面性格 | 看着凶实际软 |
-| 外表形象 vs 内在性格 | 看着柔实际狠 |
-| 身份 vs 生活方式 | 豪门子弟住地下室 |
-| 身份 vs 爱好特长 | 杀手擅长插花 |
-| 身份 vs 内在性格 | 军人内心文艺 |
+| Contrast pair | Operation |
+|------|--------|
+| Surface personality vs inner personality | smiling tiger / knife-mouth tofu-heart |
+| Appearance vs surface personality | looks fierce, actually soft |
+| Appearance vs inner personality | looks soft, actually vicious |
+| Identity vs lifestyle | rich kid living in a basement |
+| Identity vs hobby/skill | assassin skilled at flower arrangement |
+| Identity vs inner personality | soldier with a literary soul |
 
-### 执行指令
+### Execution instructions
 
-1. 设计配角时先确定其功能（替主角说话/发狠/搞笑/提供信息）
-2. 从六维度反差中选 1-2 个维度给配角贴标签
-3. 控制配角光环，不超过主角
-4. 功能性配角不要强行立体化
-
----
-
-## 配角人设逻辑
-
-1. "正戏反写"——看似正面的行为背后有反派动机
-2. 配角情感保护壳：看似冷漠无情，实则有深层情感驱动
-3. 避免崩人设：角色的行为选择必须符合已建立的人设逻辑
-4. 先从题材的"标签人物"直接用——成熟题材里的人设角色都是经受过市场考验的
+1. When designing a supporting character, fix the function first (speaks for the protagonist / gets ruthless / comedy / provides info)
+2. Pick 1-2 dimensions from the six for labels
+3. Control supporting-character halo, never exceeding the protagonist
+4. Don't force-round functional supporting characters
 
 ---
 
-## 凸显人设的方法
+## Supporting-character persona logic
 
-### 执行指令
-
-1. 抓亮点——找到角色最突出的那个特质，集中火力展现
-2. 用行动展现人设，不要用旁白描述（如出狱后不卑不亢、争取利益、展现老练）
-3. 用反差碰撞制造张力
-4. 反差拉张力会筛读者，控制尺度——反差太大会劝退部分读者
+1. "Right play, wrong write" — seemingly positive behavior with an antagonist motive behind it
+2. The supporting character's emotional shell: seemingly cold and indifferent, actually deep emotion-driven
+3. Avoid persona collapse: the character's behavior choices must fit the established persona logic
+4. Start with the genre's "labeled characters" directly — mature genres' persona characters are market-tested
 
 ---
 
-## 高情商/聪明人桥段写法
+## Making a persona pop
 
-### 执行指令
+### Execution instructions
 
-1. 高情商通过具体剧情中的表现来体现，不要旁白夸赞
-2. 写察言观色、临场应变、控场接话的具体场景
-3. 高情商表现应参考经典网文中的成功案例模式，每个桥段至少包含一个"读者预期尴尬但主角化解"的反转
-4. 每个桥段至少有一个"反转"——读者以为会尴尬，结果主角完美化解
-
----
-
-## 用配角做期待枢纽（人物扣）
-
-### 执行指令
-
-1. 选一个配角做"任务基地"——一个人物同时承载多个短期和长期期待
-2. 主角每次解决事件装完逼后去找该人物，开始新一轮装逼
-3. 每个剧情单元结束后利用同一人物展开新剧情
-4. 人物下线时带来更大的好处，用"歪打误撞收获更多"转变读者"损失厌恶"心理
+1. Grab the highlight — find the character's most prominent trait and focus fire
+2. Show the persona with actions, not narration (e.g. unservile after prison, fighting for interests, showing veteran savvy)
+3. Use contrast collisions for tension
+4. Contrast pulls tension but filters readers — control the scale; too much contrast drives some readers away
 
 ---
 
-## 群像写作法
+## High-EQ / smart-character scenes
 
-### 执行指令
+### Execution instructions
 
-1. 每个角色出场都要有功能，没有水分——功能不明确的角色不要出场
-2. 角色间的关系要有层次（引路人、对手、伙伴、障碍）
-3. 不同角色要有不同的说话风格和行为特征
-4. 通过行为而非旁白来展示角色特点
-
-### 配角脸谱化描写
-
-1. 抓住 1-2 个突出特点做鲜明标签（口头禅/标志性动作/极端性格）
-2. 标签化让读者迅速记住，不过多占用笔墨
-3. 功能性配角要有明确功能：推动剧情、衬托主角、提供信息
-
-### 角色使用的节奏
-
-1. 高人气角色的出场频率应控制在每3-5章一次，保持期待感而不审美疲劳。每次出场必须有新信息或新功能
-2. 读者不感兴趣的角色该舍弃就舍弃，自然"下线"
-3. 用"以角色带角色"引入新角色——喜爱延续
-
-### 角色池编织法
-
-1. 以角色带角色：女主讨喜 → 写女主爸妈/姐姐/闺蜜 → 喜爱延续到新角色
-2. 像网一样编织下去 → 很快就有取之不尽的角色池
-3. 每个新角色贴一个标签，个个鲜明
+1. High EQ is shown through concrete plot scenes, not narration praise
+2. Write concrete scenes of reading faces, on-the-spot adaptability, controlling the room
+3. Reference successful case patterns in classic web fiction; each scene should contain at least one "reader expects embarrassment but the protagonist dissolves it" reversal
+4. Every scene has at least one reversal — the reader expects awkwardness, the protagonist handles it perfectly
 
 ---
 
-## 向人设深化法
+## Supporting characters as anticipation hubs (character buckles)
 
-### 执行规则
+### Execution instructions
 
-先判断当前项目适合“故事深化”还是“人设深化”：
+1. Pick one supporting character as a "mission base" — one person carrying multiple short- and long-term anticipations
+2. After each solved event and flex, the protagonist returns to this character to start the next flex round
+3. After each story unit ends, use the same character to open new plot
+4. When the character goes offline, bring greater benefits — using "accidentally gained more" to flip the reader's loss-aversion
 
-| 条件 | 优先方向 | 执行动作 |
+---
+
+## Ensemble writing
+
+### Execution instructions
+
+1. Every character's appearance has a function, no water — characters without clear function don't appear
+2. Character relationships have layers (guide, opponent, partner, obstacle)
+3. Different characters have different speech styles and behavior traits
+4. Show character traits through behavior, not narration
+
+### Supporting-character labeling
+
+1. Grab 1-2 prominent traits as sharp labels (catchphrase / signature action / extreme personality)
+2. Labels make readers remember fast, without spending too much ink
+3. Functional supporting characters have clear functions: advance plot, prop the protagonist, provide info
+
+### Character-use rhythm
+
+1. Popular characters appear about once every 3-5 chapters — anticipation without aesthetic fatigue. Every appearance must have new info or new function
+2. Characters readers don't care about should be cut; let them "go offline" naturally
+3. Use "character brings character" to introduce new ones — affection carries over
+
+### The character-pool weaving method
+
+1. Character brings character: the heroine is likable → write her parents/sister/best friend → affection carries to the new characters
+2. Weave like a net → a nearly inexhaustible character pool
+3. Label every new character; each one vivid
+
+---
+
+## Persona deepening
+
+### Execution rules
+
+First judge whether the current project suits "story deepening" or "persona deepening":
+
+| Condition | Priority | Action |
 |------|------|------|
-| 主线已经复杂、多势力、多反转 | 向人设深化 | 保持故事结构简单，在人物欲望、反差、关系互动上制造新鲜感 |
-| 主线过直、人物已经鲜明但事件不足 | 向故事深化 | 增加阻碍、目标变化、信息差或代价，不新增无功能角色 |
-| 短篇/轻量篇幅 | 向人设深化 | 用 1-2 个强人设标签驱动冲突，不铺大世界观 |
-| 长篇关键卷/高潮卷 | 两者结合 | 故事升级一个维度，同时让关键人物关系发生可见变化 |
+| Main line already complex, multi-faction, multi-reversal | persona deepening | keep the story structure simple; create freshness in desires, contrasts, and relationship interaction |
+| Main line too straight; characters vivid but events scarce | story deepening | add obstacles, goal changes, info gaps, or costs; no new functionless characters |
+| Short-form / lightweight | persona deepening | drive conflict with 1-2 strong persona labels; no big worldview |
+| Long-form key/climax volumes | both | upgrade the story one dimension while visibly changing key character relationships |
 
-### 执行步骤
+### Execution steps
 
-1. 拿一个简单甚至老套的故事结构
-2. 在人物身上加"戏剧性"——能让目标读者找到乐子的设定
-3. 通过几个人物的互动循环产生持续剧情
+1. Take a simple or even clichéd story structure
+2. Add "drama" to the characters — settings the target reader can enjoy
+3. Generate continuous plot through a few characters' interaction loops
 
-### 循环写法（一个简单情节可写5章以上）
+### The loop writing (one simple plot can run 5+ chapters)
 
-- 第1章：主角装逼 → 师叔更迫切
-- 第2章：师叔逼女生 → 恋人帮着威逼利诱
-- 第3章：女生靠近主角 → 恋人在暗地暗爽
-- 第4章：女生回去哭诉 → 恋人假意安慰一边暗爽
-- 第5章：复命领赏 → 女生发现恋人对奖赏没那么高兴
+- Chapter 1: the protagonist flexes → the uncle grows more eager
+- Chapter 2: the uncle pressures the girl → her lover helps with carrot-and-stick
+- Chapter 3: the girl approaches the protagonist → the lover secretly gloats
+- Chapter 4: the girl goes back crying → the lover fake-comforts while gloating
+- Chapter 5: reporting for the reward → the girl notices the lover isn't that happy about the reward
 
 ---
 
-## 人物塑造技巧
+## Character-building techniques
 
-### 女性角色塑造（男频）
+### Female character building (male-audience)
 
-1. 读者喜欢的是女主的标签（高贵优雅、肤白大长腿），不是外貌描写
-2. 利用刻板印象：吸血鬼=高贵优雅+外貌出众，不用特意描述读者就知道
-3. 网文里美貌是最廉价的资源——不要花大量笔墨写外貌
-4. 性格设定可极端化：傲娇到极致、对主角爱得深沉、不考虑自身利益
-5. 保持性格一致性：设定后言行始终符合
+1. Readers like the heroine's labels (elegant, pale, long-legged), not appearance descriptions
+2. Use stereotypes: vampire = elegant + striking looks; readers know without describing
+3. In web fiction, beauty is the cheapest resource — don't spend heavy ink on appearance
+4. Personalities may be extreme: tsundere to the max, deeply loving the protagonist, ignoring self-interest
+5. Keep personality consistency: once set, words and deeds always match
 
-### 主角可以犯错但需把握尺度
+### The protagonist may err, but watch the scale
 
-| 可原谅 | 不可原谅 |
+| Forgiveable | Unforgivable |
 |--------|---------|
-| 因不可抗力或信息差导致的错误 | 因蠢、因圣母心泛滥导致的错误 |
-| — | 与实力不匹配的错误（斗帝强者因小人物犯蠢） |
+| errors from force majeure or info gaps | errors from stupidity or overflowing saintliness |
+| — | errors mismatched with power (a top expert being dumb around small fry) |
 
-### 主角人设内外反差
+### Protagonist inner-outer contrast
 
-1. 可设计表面与内心的反差（如表面色牛实际内心孤僻）
-2. 反差感增加角色深度和趣味，提供丰富的情节冲突可能性
+1. Surface/inner contrast is allowed (e.g. lecherous surface, loner inside)
+2. Contrast adds depth and fun, providing rich plot-conflict possibilities
 
-### 反派的本质
+### The nature of antagonists
 
-反派 = 与主角立场不同、利益相悖的人。赋予反派自己的想法和追求，不要写纯粹的恶。
+Antagonist = someone with a different stance and opposing interests. Give the antagonist their own thoughts and pursuits; never write pure evil.
 
-### 渣人设写法
+### The scumbag-persona writing
 
-1. 开头就清晰传达主角人设，穿越前后保持一致
-2. 避免"又当又立"——前面没描写主角是老色皮后面突然追女读者反感
-3. 明确人设 = 筛选接受这种人的读者 = 预期管理
-
----
-
-## 人物记忆点法
-
-1. 每个人物至少有一个性格方面特别突出
-2. 只有让某一特征特别突出，才有记忆点
-3. 目标：哪怕剧情不推进，几个人物坐一起聊天，读者都看得津津有味
+1. Communicate the protagonist persona clearly at the opening; keep it consistent before/after transmigration
+2. Avoid "having it both ways" — if the opening never established the protagonist as a pervert, suddenly chasing girls repels readers
+3. A clear persona = filtering readers who accept this type = expectation management
 
 ---
 
-## 金手指绑架人设法
+## Character memory points
 
-### 执行指令
-
-1. 金手指不只是给主角超能力，目的是让主角的性格合理化
-2. 用金手指规则绑架行为 → 配角反应自然塑造形象 → 不需要直接描写主角品格
-3. 追求道德爽感（最高级爽感）：让主角成为行为层面让读者心服口服的"活圣人"
+1. Every character has at least one extremely prominent personality aspect
+2. Only by making one trait prominent is there a memory point
+3. Goal: even with no plot advancing, several characters sitting and chatting is a delight to read
 
 ---
 
-## 以梗为中心塑造人设
+## The cheat-kidnapped persona method
 
-### 执行指令
+### Execution instructions
 
-1. 单一标签"杀伐果断""热血"太模糊 → 用具体梗来建设角色 → 读者产生强记忆点
-2. 例：配角每次看到主角成功 → 羡慕嫉妒恨 → "你真该死啊" → 强记忆点+趣味性
-3. 好人设+平平无奇的金手指+俗套套路 → 也能发挥意想不到的吸引力
+1. The cheat doesn't just give superpowers; its purpose is to rationalize the protagonist's personality
+2. Cheat rules kidnap behavior → side-character reactions naturally shape the image → no direct protagonist-virtue description needed
+3. Chase moral payoff (the highest payoff): make the protagonist a "living saint" readers respect at the behavior level
 
 ---
 
-## 九维人设框架
+## Meme-centered persona building
 
-| 维度 | 内容 | 要点 |
+### Execution instructions
+
+1. A single label like "decisive" or "hot-blooded" is too vague → build the character with a concrete meme → strong reader memory
+2. Example: every time a supporting character sees the protagonist succeed → envy/jealousy → "you should burn for this" → memory point + fun
+3. Good persona + unremarkable cheat + clichéd patterns → can still exert surprising appeal
+
+---
+
+## The nine-dimension persona framework
+
+| Dimension | Content | Key point |
 |------|------|------|
-| 基本信息 | 前身今世/外貌特征 | 从人物下手建立长期期待感 |
-| 性格 | 反差人设 | 为成长弧线铺垫 |
-| 爱好习惯 | 贪财/好色/杀人后超度 | 做强烈记忆点反复强调 |
-| 人际关系 | 关系网越复杂越能制造冲突 | 牵扯的重要人物个个有实力有背景 |
-| 背景 | 家族/出身/成长环境 | — |
-| 成长弧线 | 见下方三阶段 | — |
-| 对比反差 | 恶人vs好人/医生救死扶伤→扛起枪杀人 | — |
-| 价值观态度 | 不同身份地位看法不同 | 态度=行动目标 |
-| 人物小传 | 典型重要故事 | 浓缩的生平经历 |
+| Basic info | past life/current life, appearance traits | start long-term anticipation from the person |
+| Personality | contrast persona | pave the growth arc |
+| Hobbies/habits | money-grubbing, lecherous, chanting sutras after killing | strong memory points, repeatedly emphasized |
+| Relationships | the more complex the web, the more conflicts | every important person has power and background |
+| Background | family/origins/upbringing | — |
+| Growth arc | see the three stages below | — |
+| Contrast | villain vs hero / doctor saving lives → picking up a gun to kill | — |
+| Values/attitudes | different identities see differently | attitude = action goal |
+| Character bio | the typical important story | a condensed life |
 
-### 人物成长弧线（三阶段）
+### The three-stage character growth arc
 
-| 阶段 | 核心 | 对应 |
+| Stage | Core | Corresponds to |
 |------|------|------|
-| 小我（幼年） | 虚构自己，想要成为他人眼中的我 | 动机 |
-| 自我（青年） | 真实自己，夹在两者之间痛苦 | 态度 |
-| 他我（成熟） | 别人眼中的自己就是追求的目标 | 价值观 |
+| The false self (childhood) | fabricating the self, wanting to be who others see | motivation |
+| The real self (youth) | the true self, torn between the two | attitude |
+| The completed self (maturity) | the self others see becomes the pursued goal | values |
 
-情绪公式：满足（认同）→ 打击（同情）→ 怀疑（共鸣）→ 心痛（共情）
+Emotion formula: satisfaction (identification) → blow (sympathy) → doubt (resonance) → heartache (empathy)
 
 ---
 
-## 人设关系四阶段标签
+## The four-stage persona-relationship labels
 
-| 阶段 | 了解程度 | 表现 |
+| Stage | Familiarity | Display |
 |------|---------|------|
-| 相遇（陌生人） | 只知道外表 | 警惕/保持距离/设防 |
-| 相识（过客） | 初步了解不知底线 | 察言观色/阿谀奉承 |
-| 相知（好哥们/闺蜜） | 知道秉性和底线 | 聊骚话/吐露心声/倾诉烦恼 |
-| 相恋（爱人） | 了解内心伤疤 | 占有欲强/喋喋不休/任劳任怨 |
+| Meeting (strangers) | only the appearance | vigilance / distance / defenses |
+| Acquaintance (passersby) | initial understanding, boundaries unknown | face-reading / flattery |
+| Knowing (close friends) | knows temperament and boundaries | dirty jokes / confessions / venting |
+| Loving (partners) | knows the inner scars | possessiveness / endless chatter / taking anything |
 
 ---
 
-## 用职场思维理解网文关系结构
+## Workplace thinking for web-fiction relationship structures
 
-### 执行规则
+### Execution rules
 
-网文本质：在一个"职场"爽透，然后再到另一个"职场"爽。
+Web-fiction essence: get satisfied inside one "workplace," then go to the next "workplace" and get satisfied.
 
-### 共性与差异
+### Commonality and difference
 
-| 共性维度 | 说明 |
+| Common dimension | Explanation |
 |---------|------|
-| 层级 | 任何环境中都有上下级关系 |
-| 互助 | 同级之间的合作和互利 |
-| 互害 | 同级之间的竞争和倾轧 |
+| Hierarchy | every environment has superior-subordinate relations |
+| Mutual help | cooperation and mutual benefit among peers |
+| Mutual harm | competition and infighting among peers |
 
-| 差异维度 | 说明 |
+| Difference dimension | Explanation |
 |---------|------|
-| 合作方式 | 不同环境合作模式不同 |
-| 资源类型 | 不同环境争夺的资源不同 |
-| 个体能力 | 主角的独特优势 |
+| Cooperation style | different environments cooperate differently |
+| Resource types | different environments fight over different resources |
+| Individual ability | the protagonist's unique edge |
 
-### 执行步骤
+### Execution steps
 
-1. 为主角设计一个"职场环境"（学校/宗门/公司/军队）
-2. 设置层级关系（上级/同级/下级/对手）
-3. 利用层级关系自然产生矛盾和冲突
-4. 主角在这个环境中爽透后，换到更大的"职场"
+1. Design a "workplace" for the protagonist (school / sect / company / army)
+2. Set the hierarchy (superior / peer / subordinate / opponent)
+3. Let the hierarchy naturally generate conflicts
+4. After getting satisfied in this environment, move to a bigger "workplace"
 
 ---
 
-## 代入感构建法
+## Immersion building
 
-### 执行规则
+### Execution rules
 
-- 代入感维护规则：节奏和情感链条不断裂。断裂标志=读者开始用现实逻辑评判情节
-- 一旦读者开始用现实逻辑评判 = 节奏出了问题
-- 核心是情感链条不断
+- Immersion maintenance: the rhythm and emotion chain never break. Break signal = the reader starts judging the plot with real-world logic
+- Once readers start judging with real-world logic, the rhythm is wrong
+- The core is the emotion chain never breaking
 
-### 执行方法
+### Execution methods
 
-| 方法 | 做法 | 效果 |
+| Method | Approach | Effect |
 |------|------|------|
-| 共情切入点 | 用日常生活常见事件 | 瞬间拉近距离 |
-| 细节真实性 | 填充生活化细节 | 强化世界真实性 |
-| 救猫咪情节 | 开头一个情节强调主角人设某方面 | 读者快速熟悉并代入 |
-| 共情前提 | 让角色暴露真实一面（弱点/困境） | 读者产生保护欲 |
-| 合理化虑点 | "缺钱"这类人人都懂的困境 | 天然共情 |
+| Empathy entry | everyday common events | instant closeness |
+| Detail realism | fill in life-like details | strengthens world realism |
+| Save-the-cat scene | one opening scene emphasizing a persona aspect | readers quickly familiarize and project |
+| Empathy premise | let the character expose the real side (weakness/trap) | readers feel protective |
+| Rationalized worry | universal traps like "no money" | natural empathy |
 
-### 共情三层次
+### The three empathy levels
 
-1. **表层共情**：经历类似
-2. **深层共情**：情感类似
-3. **认同感**：价值观一致
+1. **Surface empathy**: similar experiences
+2. **Deep empathy**: similar emotions
+3. **Identification**: aligned values
 
-### 破坏代入感的行为（避免）
+### Immersion-breaking behaviors (avoid)
 
-- 角色做出读者无法理解的选择
-- 大段设定说明打断叙事
-- 节奏拖沓导致情感链条断裂
-- 主角三观与目标读者严重偏离
-
----
-
-## 安全感与核心情绪把控
-
-1. 不同题材的读者对安全感需求不同，先确认题材
-2. 极道流等紧张感题材：安全感拉爆 = 危机感消失 = 核心情绪偏移——不要给主角找过强的靠山
-3. 禁止为主角设置可随时解决危机的强力靠山——靠山的存在必须不削弱紧迫感。违反此规则时标记为"靠山过度"
-4. 精力有限时，情节始终是第一位的，世界观只是加分项
+- Characters making choices the reader cannot understand
+- Long setting-exposition passages interrupting narration
+- Rhythm dragging breaking the emotion chain
+- Protagonist values severely diverging from the target reader
 
 ---
 
-## 质量检查清单
+## Safety & core emotion control
 
-完成角色设计后，逐项检查：
+1. Different genres' readers have different safety needs; confirm the genre first
+2. High-pressure genres like extreme-path fiction: maxed safety = crisis gone = core emotion drifting — don't give the protagonist too strong a backer
+3. Banned: strong backers who can solve crises anytime; a backer's existence must not weaken urgency. Violations are marked "backer overreach"
+4. With limited energy, plot always comes first; worldview is only a bonus
 
-- [ ] 角色是否有三层标签（身份/表现/内核），且至少有一层反差
-- [ ] 强关联设定是否达到 3 个以上
-- [ ] 人设是功能性设计还是只有外貌信息堆砌
-- [ ] 配角是否有明确功能，是否抢了主角风头
-- [ ] 每个角色是否有至少一个记忆点
-- [ ] 配角出场是否都有功能，没有无用水分
-- [ ] 不同角色是否有不同的说话风格和行为特征
-- [ ] 主角的错误是否在可原谅范围内
-- [ ] 反派是否有自己的逻辑和追求，不是纯粹的恶
-- [ ] 人设言行是否前后一致，有没有崩人设
-- [ ] 代入感情感链条是否连续，有没有被设定说明打断
-- [ ] 安全感是否匹配题材要求（紧张题材不能给主角太强靠山）
-- [ ] 高情商桥段是否通过具体剧情展现，而非旁白夸赞
+---
+
+## Quality checklist
+
+After character design, verify:
+
+- [ ] Does the character have three-layer tags (identity/display/core) with at least one layer of contrast
+- [ ] Strong-tier settings ≥3
+- [ ] Is the persona a functional design or just appearance info piling
+- [ ] Do supporting characters have clear functions; do they steal the protagonist's spotlight
+- [ ] Does every character have at least one memory point
+- [ ] Does every supporting appearance have a function, no useless water
+- [ ] Do different characters have different speech styles and behavior traits
+- [ ] Are the protagonist's errors within the forgivable range
+- [ ] Does the antagonist have their own logic and pursuits, not pure evil
+- [ ] Are persona words and deeds consistent; no persona collapse
+- [ ] Is the immersion emotion chain continuous, not broken by setting exposition
+- [ ] Does safety match the genre (tense genres can't give too strong a backer)
+- [ ] Are high-EQ scenes shown through concrete plot, not narration praise

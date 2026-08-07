@@ -1,341 +1,324 @@
 ---
 name: story-long-scan
 version: 1.0.0
-description: "长篇网文扫榜。分析起点、番茄、晋江等平台排行榜数据，提炼市场趋势与热门题材。触发方式：/story-long-scan、/长篇扫榜、「长篇什么火」「起点排行」。"
+description: "Long-form web fiction market scanning. Analyzes ranking data from Royal Road, Webnovel, Wattpad, Amazon Kindle and other English platforms to surface market trends and hot genres. Trigger phrases: /story-long-scan, long-form market scan, what's hot in long-form fiction, scan Royal Road rankings, what to write next."
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
-# story-long-scan：长篇网文扫榜
+# story-long-scan: Long-form market scanning
 
-你是网络小说市场分析师。你的任务是基于榜单样本识别长篇网文市场格局，并输出可执行的题材候选、风险阈值和验证动作。
+You are a web fiction market analyst. Your job is to read ranking samples, identify the shape of the long-form market, and output actionable genre candidates, risk thresholds, and verification actions.
 
-**核心信念：单本排名只提供线索；跨样本重复模式才算信号。** 排行榜只能证明样本存在；必须通过多榜单、多作品和近期数据判断需求强度。
-
----
-
-## 核心哲学
-
-### 原则 1：扫榜看模式，别只看排名
-
-排名会波动，模式必须用重复样本验证。扫榜要提取：反复出现的题材、设定、套路、书名词和开篇卖点。单本上榜只能记为个例；同类样本达到可比数量后，才能标记为趋势候选。
-
-### 原则 2：流量型平台和付费型平台看的东西不同
-
-番茄看的是流量和完读率，起点看的是订阅和追读，晋江看的是收藏和积分。不同平台的成功标准不同，扫榜方法也不同。
-
-### 原则 3：扫榜的目的是找到你能写的爆款题材
-
-不按热度直接给结论。每个方向都要做项目可行性判断：素材储备、题材边界、篇幅承载、目标平台样本是否足够。
+**Core belief: a single ranked book is only a clue; a pattern repeated across samples is a signal.** A ranking only proves a sample exists. Demand strength must be judged across multiple rankings, multiple books, and recent data.
 
 ---
 
-## 扫榜流程
+## Core philosophy
 
-### Phase 1：确认平台和方向
+### Principle 1: Scan for patterns, not just positions
 
-问用户：**「你想看哪个平台？（起点/番茄/晋江/其他）有没有关注的题材方向？」**
+Ranks fluctuate; patterns must be validated with repeated samples. When scanning, extract: genres, setups, tropes, title conventions, and opening hooks that recur. A single book on a list is an anecdote; once comparable samples reach a meaningful count, it becomes a trend candidate.
 
-关键判断：
-- 用户已有方向 → 针对该方向做深度扫榜
-- 用户没有方向 → 做全榜概览 + 找趋势
-- 用户想跨平台比较 → 做平台对比分析
+### Principle 2: Traffic platforms and paid platforms reward different things
 
----
+Royal Road and Webnovel reward follows, ratings, and follow-through on new chapters; Kindle rewards Kindle Unlimited page reads and bingeability; Wattpad rewards reads, votes, and comments. Each platform has different success criteria, so the scan method differs per platform.
 
-### Phase 2：确定数据来源
+### Principle 3: The point of a scan is to find a genre you can actually write
 
-**扫榜需要真实数据支撑。** 根据当前环境选择数据来源：
-
-| 优先级 | 模式 | 说明 | 何时用 |
-|--------|------|------|--------|
-| 1 | **脚本采集** | 直接抓取平台页面/SSR 数据，产出结构化文件 | 优先；起点默认不需要 Chrome |
-| 2 | **用户提供** | 用户粘贴榜单截图/文字/链接 | 用户已有数据时 |
-| 3 | **内置知识** | 基于知识库趋势数据做分析 | 无法联网、用户无数据时 |
-
-#### 脚本采集模式
-
-优先运行对应平台脚本直接采集结构化数据。起点使用移动端 SSR pageContext，默认不需要 Chrome/CDP；番茄等需要浏览器态的平台再使用 `/browser-cdp` 启动 Chrome。
-
-**采集流程**：
-1. 选择平台脚本；起点直接运行 `scripts/qidian-rank-scraper.js`，番茄/七猫/晋江等按需启动 browser-cdp
-2. 等待列表元素或 SSR 数据加载，逐条提取字段（排名、书名、作者、题材、字数、推荐/在读数等），判断翻页（起点通常单页50-100条，番茄按题材逐页cap≈20）
-3. 需要补充数据时（标签、简介、最新更新），进入详情页提取
-4. 按规范格式写入 Markdown 文件
-5. 多榜单/多题材时，逐组采集并保存
-
-**输出规范**：详见 [references/scan-output-format.md](references/scan-output-format.md)，包含各平台字段定义、输出模板。
-
-**起点采集目标**（优先运行 `node scripts/qidian-rank-scraper.js --type {榜单} --outdir {输出目录}`；默认 `--mode auto` 会先用 `https://m.qidian.com` 移动端 SSR，PC/CDP 只作回退）：
-
-| 榜单 | URL | 核心字段 |
-|------|-----|----------|
-| 新人签约新书榜 | qidian.com/rank/newsign/ | 作者·题材·签约·免费/VIP·字数·总推荐·标签·简介 |
-| 签约作者新书榜 | qidian.com/rank/signnewbook/ | 已签约作者新书，新风向信号 |
-| 公众作者新书榜 | qidian.com/rank/pubnewbook/ | 公众作者新书，发现潜力作者 |
-| 新人作者新书榜 | qidian.com/rank/newauthor/ | 新人作品，新人赛道风向 |
-| 三江推荐 | qidian.com/sanjiang/ | 编辑推荐，按周分组（注意：非 /rank/ 路径） |
-| 月票榜 | qidian.com/rank/yuepiao/ | 付费认可度最高指标 |
-| 畅销榜 | qidian.com/rank/hotsales/ | 真金白银投票 |
-| 阅读指数榜 | qidian.com/rank/readindex/ | 阅读量综合指标 |
-| 收藏榜 | qidian.com/rank/collect/ | 读者关注热度 |
-| 原创推荐榜 | qidian.com/rank/recom/ | |
-
-**番茄采集目标**：
-
-| 榜单 | URL格式 | 核心字段 |
-|------|---------|----------|
-| 男频阅读榜 | fanqienovel.com/rank/1_2_{cat_id} | 按题材逐页采集，在读数为核心指标 |
-| 女频阅读榜 | fanqienovel.com/rank/0_2_{cat_id} | 按题材逐页采集 |
-| 男频新书榜 | fanqienovel.com/rank/1_1_{cat_id} | 新风向信号 |
-| 女频新书榜 | fanqienovel.com/rank/0_1_{cat_id} | 新风向信号 |
-
-URL 参数：`/rank/{channel}_{type}_{cat_id}`，channel 0=女频/1=男频，type 1=新书榜/2=阅读榜。番茄列表页有字体反爬，须用 `scripts/fanqie-rank-scraper.js` 从详情页多策略解码书名/作者/题材/评分/标签/简介，配合 browser-cdp 使用：
-
-```bash
-node scripts/fanqie-rank-scraper.js --channel 1 --type 2 --outdir {输出目录}   # 男频阅读榜
-node scripts/fanqie-rank-scraper.js --channel all --top 15 --outdir {输出目录}   # 男女频，每题材前 15 本
-```
-
-> **番茄采集后必查文件头 `数据质量`**，异常排查步骤见 [references/scan-output-format.md](references/scan-output-format.md)。
-
-**七猫采集目标**：
-
-| 榜单 | URL | 核心字段 |
-|------|-----|----------|
-| 排行榜总入口 | qimao.com/paihang | 大热榜/新书榜/完结榜，热度为核心指标 |
-
-榜单类型：大热榜（日榜/月榜）、新书榜、完结榜、收藏榜、更新榜，支持男生榜/女生榜切换。
-
-**晋江采集目标**（`scripts/jjwxc-rank-scraper.js`，默认列表 + 详情两步走）：
-
-| 榜单 | URL | 核心字段 |
-|------|-----|----------|
-| 收入金榜 | jjwxc.net/topten.php?orderstr=12&t=0 | 收藏数、营养液、积分、字数、状态（详情页 `onebook.php` 补采） |
-
-```bash
-node scripts/jjwxc-rank-scraper.js --type 12 --outdir {输出目录}        # 列表+详情（默认每频道前10，详情上限100）
-node scripts/jjwxc-rank-scraper.js --type 12 --top 15 --detail-limit 60  # 调整每频道本数/详情总量
-node scripts/jjwxc-rank-scraper.js --type 12 --list-only                 # 只采列表（快，无核心指标）
-```
-
-> **晋江硬性要求**：必须有详情页核心指标（收藏数/营养液/积分/字数），脚本默认已补采；采集要点见 [references/scan-output-format.md](references/scan-output-format.md)。
-
-**文件命名**：`{平台}{榜单名称}_{YYYYMMDD}.md`，例：`起点新人签约新书榜_20260425.md`
-
-#### 采集质量检查（「确定数据来源」完成后必须执行）
-
-每完成一个榜单的采集，立即执行以下检查。发现问题当场修复，不留给后续分析。详细规则见 [references/scan-output-format.md](references/scan-output-format.md)「数据清洗与字段约束」。
-
-**1. 数据完整性**
-
-| 检查项 | 标准 | 处理 |
-|--------|------|------|
-| 条目数量 | >= 15 条有效数据（小平台 >= 10） | 不足则在文件头注明 `[数据稀疏] 实际采集 N 条` |
-| 必填字段 | 排名、书名、作者（缺任一项视为无效） | 无效条目移除，条目数重新计算 |
-| 字段一致性 | 同一榜单内所有条目字段集必须一致 | 不一致条目标记 `[字段缺失: {字段名}]` |
-
-**2. 数据清洗**
-
-| 污染类型 | 处理 |
-|----------|------|
-| 平台模板文本（番茄「提供XXX完整版在线免费阅读」、七猫「上一页」等） | 删除模板文本，保留正文 |
-| 解析串行（同一条目出现两个不同作品的数据） | 标记 `[解析异常]`，删除并重新采集 |
-| 空字段（空白、`--`、`未知`） | 标记 `[待补]`，优先通过详情页补采 |
-
-**3. 简介截断**
-
-- 清洗后超过 100 字的简介，在最近的句号/问号/感叹号处截断，加 `...`
-- 平台模板文本不计入 100 字限制（先删除模板，再截断）
-
-**4. 文件头质量状态**
-
-每个采集文件头部必须包含：
-
-```
-- 数据质量：[OK / 存在问题]
-- 有效条目：{N} / {总数}
-- 问题摘要：{无 / 具体问题描述}
-```
-
-#### 其他数据来源
-
-**用户提供操作指引：**
-- 用户提供已有的扫描结果文件路径 → 直接加载进入「数据分析」
-- 用户提供链接 → 用 WebFetch 抓取
-- 用户粘贴/截图 → 手动解析进入分析
-
-**内置知识操作指引：**
-- 加载 `references/genre-trends.md`
-- 明确标注：「以下分析基于历史趋势数据；未完成实时榜单校验前只能作为候选假设。」并列出需要复扫的榜单。
+Never conclude from raw popularity alone. Every direction gets a feasibility pass: material you can draw on, genre boundaries, how long the premise can sustain, and whether the target platform has enough samples.
 
 ---
 
-### Phase 3：数据分析
+## Scan workflow
 
-根据用户选择的平台，结合已获取的数据做以下分析：
+### Phase 1: Confirm platform and direction
 
-#### 起点中文网分析维度
+Ask the user: **"Which platform do you want to look at (Royal Road / Webnovel / Wattpad / Amazon Kindle / Inkitt / other)? Any genre direction in mind?"**
 
-| 维度 | 看什么 |
+Key judgment calls:
+- User has a direction -> deep-scan that direction
+- User has no direction -> full-list overview + trend spotting
+- User wants cross-platform comparison -> platform comparison analysis
+
+---
+
+### Phase 2: Determine data sources
+
+**A scan needs real data.** Pick the data source based on the current environment:
+
+| Priority | Mode | Description | When to use |
+|----------|------|-------------|-------------|
+| 1 | **WebSearch + browser research** | Search current rankings and pages; use `/browser-cdp` + CDP helpers to pull structured data from pages that need browsing | Preferred; no hardcoded scrapers |
+| 2 | **User-provided** | User pastes ranking screenshots, text, or links | User already has data |
+| 3 | **Built-in knowledge** | Trend data and methodology from the knowledge base | No network access and no user data |
+
+#### WebSearch + browser research mode
+
+There are no hardcoded platform scrapers in this skill. Instead, research the live rankings with WebSearch, then use `/browser-cdp` (Chrome over CDP) plus the shared helper `scripts/cdp-utils.js` when a page needs real browsing (pagination, logged-in state, dynamic content).
+
+**Research workflow**:
+1. WebSearch for the platform's current ranking pages (queries like `site:royalroad.com rankings`, `webnovel.com power rankings`, `amazon best sellers kindle store top 100`).
+2. Open the ranking URLs with `agent-browser --cdp 9222 open "<URL>"` (see `/browser-cdp`), wait for load, then extract rows with `eval` / `evalJSON` from `cdp-utils.js`.
+3. Extract per entry: rank, title, author, genre, length, and the platform's core metrics (below). Paginate when the list spans pages.
+4. For extra fields (tags, blurb, latest update), open the fiction detail page and extract.
+5. Write one Markdown file per ranking following [references/scan-output-format.md](references/scan-output-format.md).
+6. For multiple rankings/genres, collect and save each group separately.
+
+**Royal Road research targets** (royalroad.com/rankings/):
+
+| Ranking | What it measures |
+|---------|------------------|
+| Popular This Week | Current engagement; strong traffic signal |
+| Rising Stars | Fast-rising new fictions; new-talent and new-genre signal |
+| Follows | Cumulative reader commitment |
+| Rating | Vote-weighted quality signal; use with sample size |
+| Best Completed | Finished work with staying power; long-tail study |
+
+Core fields on a fiction page: follows, rating + votes, views, pages/chapters, length (words), tags, update schedule.
+
+**Webnovel research targets** (webnovel.com):
+
+| Ranking | What it measures |
+|---------|------------------|
+| Power Rankings (genre tabs) | Power-stone + paid-reader engagement |
+| New Books | New-genre and new-trope early signals |
+| Favorites/Views lists | Free-traffic scale |
+
+Core fields: power stones, views, favorites, rating, chapters, latest update.
+
+**Wattpad research targets** (wattpad.com):
+
+| List | What it measures |
+|------|------------------|
+| Genre/tag rankings | Engagement within a community |
+| Hot Lists (per tag) | Rising stories by tag |
+
+Core fields: reads, votes, comments, parts, last update.
+
+**Amazon Kindle research targets** (amazon.com Kindle Store):
+
+| List | What it measures |
+|------|------------------|
+| Top 100 Free | Free funnel; what hooks new readers |
+| Top 100 Paid | What readers pay for |
+| Kindle Unlimited | What KU binge-readers consume |
+
+Core fields: ranking, price/KU badge, rating + reviews, page count, publication date, series position.
+
+**Inkitt research targets** (inkitt.com):
+
+| List | What it measures |
+|------|------------------|
+| Rankings / genre lists | Indie romance and speculative fiction appetite |
+
+Core fields: reads, votes, chapters, genre tags.
+
+**File naming**: `{platform}_{ranking}_{YYYYMMDD}.md`, e.g. `royal-road_rising-stars_20260425.md`, `kindle_top-100-paid_20260425.md`.
+
+#### Collection quality check (mandatory after each ranking)
+
+After each ranking collection, immediately run these checks. Fix problems on the spot; do not leave them for analysis. Detailed rules live in [references/scan-output-format.md](references/scan-output-format.md).
+
+**1. Data completeness**
+
+| Check | Standard | Handling |
+|-------|----------|----------|
+| Entry count | >= 15 valid entries (small platforms >= 10) | If short, mark `[data sparse] collected N entries` in the file header |
+| Required fields | rank, title, author (missing any = invalid) | Drop invalid entries and recount |
+| Field consistency | all entries in one ranking have the same field set | Mark inconsistent entries `[field missing: {field}]` |
+
+**2. Data cleaning**
+
+| Pollution type | Handling |
+|----------------|----------|
+| Platform boilerplate text (cookies banners, "next page", footer links) | Delete template text, keep the data |
+| Parsed interleaving (two different works mixed in one entry) | Mark `[parse error]`, delete and re-collect |
+| Empty fields (blank, `--`, `unknown`) | Mark `[needs fill]`; backfill from the detail page first |
+
+**3. Blurb truncation**
+
+- Blurbs longer than ~150 words are truncated at the nearest sentence end, with `...`
+- Platform boilerplate does not count toward the limit (delete template text first, then truncate)
+
+**4. Header quality status**
+
+Every collected file header must include:
+
+```
+- Data quality: [OK / issues found]
+- Valid entries: {N} / {total}
+- Issue summary: {none / description}
+```
+
+#### Other data sources
+
+**User-provided:**
+- User gives an existing scan report path -> load it straight into analysis
+- User gives links -> fetch with WebFetch
+- User pastes/screenshots -> parse manually into the analysis
+
+**Built-in knowledge:**
+- Load `references/genre-trends.md`
+- State clearly: "The following analysis is based on historical trend data; until validated against live rankings it is only a candidate hypothesis." List the rankings that still need a live re-scan.
+
+---
+
+### Phase 3: Data analysis
+
+Analyze the collected data for the chosen platform:
+
+#### Royal Road analysis dimensions
+
+| Dimension | What to look at |
 |---|---|
-| 月票榜/推荐票榜 | 付费用户认可度高、持续追读强 |
-| 畅销榜 | 真金白银投票，最硬核的指标 |
-| 签约作者新书榜 | 已签约作者的新作风向 |
-| 公众作者新书榜 | 公众作者的新作，发现潜力股 |
-| 新人作者新书榜 | 新作者作品与新题材信号 |
-| 三江推荐 | 编辑精选推荐，按周分组，发现平台力推作品 |
-| 分类榜单 | 各垂直题材的竞争格局 |
-| 追读率 | 核心指标，决定推荐位分配 |
+| Popular This Week / Rising Stars | Current engagement and new-talent signals |
+| Follows / ratings | Reader commitment and vote-weighted quality |
+| Follow-through | Core metric; decides visibility and reader retention |
+| Genre tabs | Competition within each vertical |
+| Tags | Sub-genre signals (litRPG, progression, cozy, grimdark) |
 
-#### 番茄小说分析维度
+#### Webnovel analysis dimensions
 
-| 维度 | 看什么 |
+| Dimension | What to look at |
 |---|---|
-| 阅读榜 | 流量与读者规模，在读数为核心指标 |
-| 新书榜 | 新题材、新风向的早期信号 |
-| 题材分布 | 各品类在读数集中度 |
-| 在读数趋势 | 同题材不同作品的流量差距 |
-| 标签热词 | 简介开头【】内的标签组合，揭示题材细分卖点（如「种田+慢热+西幻」） |
+| Power Rankings | Paid-reader engagement (power stones, coins) |
+| New Books | Early signals for new genres/tropes |
+| Views/favorites | Free-traffic scale |
+| Genre distribution | Where reading counts concentrate |
 
-#### 七猫小说分析维度
+#### Wattpad analysis dimensions
 
-| 维度 | 看什么 |
+| Dimension | What to look at |
 |---|---|
-| 大热榜 | 热度排名，反映流量集中度 |
-| 新书榜 | 新流量风口 |
-| 完结榜 | 长尾价值作品 |
-| 热度指标 | 七猫核心指标，反映读者活跃度 |
+| Reads/votes/comments | Community engagement scale |
+| Hot Lists by tag | Rising stories within a niche |
+| Part count + update rhythm | Serialization cadence readers accept |
 
-#### 晋江文学城分析维度
+#### Amazon Kindle analysis dimensions
 
-> **采集硬性要求**：必须有详情页核心指标（收藏数/营养液/积分/字数）。`jjwxc-rank-scraper.js` 默认已补采（top 本）；若用了 `--list-only` 或文件头标 `[仅列表-无核心指标]`，则该数据不足以支撑以下分析维度，视为不合格。
-
-| 维度 | 看什么 |
+| Dimension | What to look at |
 |---|---|
-| 金榜 | 综合热度最高 |
-| 季度榜 | 中期趋势 |
-| 红字/黑字 | 积分与负面评价 |
-| 收藏/营养液 | 女频市场的核心指标 |
+| Top 100 Free vs Paid | What hooks readers vs what they pay for |
+| KU page reads | Binge-readability; page-turn rate |
+| Review count + rating | Trust signal; compare to category norms |
+| Series position | Whether the market rewards series openers |
 
-#### 通用分析维度
+#### Generic analysis dimensions
 
-对每个平台的榜单数据，提取：
+For every platform's ranking data, extract:
 
-1. **题材分布**：当前榜上哪些题材最多
-2. **新题材信号**：最近新出现的题材类型
-3. **经典题材变化**：老牌题材的走势（上升/稳定/下降）
-4. **字数与更新**：上榜作品的字数区间和更新频率
-5. **书名模式**：上榜作品的命名规律
-6. **开头卖点**：简介/标签中反复出现的关键词
-7. **新元素对比**：与上期/同类榜单对比，标注新出现的人物设定、开篇切入点、桥段套路
+1. **Genre distribution**: which genres dominate the list right now
+2. **New-genre signals**: genres that recently appeared
+3. **Established-genre movement**: rise / flat / decline
+4. **Length and cadence**: word-count range and update frequency of ranked works
+5. **Title patterns**: naming conventions of ranked works
+6. **Opening hooks**: keywords that recur in blurbs/tags
+7. **New elements vs last period**: new protagonist setups, opening angles, and set pieces compared with the previous scan or comparable lists
 
 ---
 
-### Phase 4：输出扫榜报告
+### Phase 4: Output the scan report
 
 ```
-# 长篇网文扫榜报告：{平台名称}
+# Long-form scan report: {platform}
 
-## 市场概况
-- 扫榜时间：{日期}
-- 核心发现：{一句话总结}
+## Market overview
+- Scan date: {date}
+- Key finding: {one-sentence summary}
 
-## 题材热度排行
-| 排名 | 题材 | 榜上数量 | 趋势 | 代表作 |
-|------|------|----------|------|--------|
-| 1 | {题材} | {N本} | ↑/→/↓ | {书名} |
+## Genre heat ranking
+| Rank | Genre | Entries on list | Trend | Representative |
+|------|-------|-----------------|-------|----------------|
+| 1 | {genre} | {N} | up/->/down | {title} |
 
-## 新题材信号
-- {新出现或正在上升的题材，附依据}
+## New-genre signals
+- {new or rising genres, with evidence}
 
-## 经典题材动态
-- {老牌题材的现状，附依据}
+## Established-genre movement
+- {current state of legacy genres, with evidence}
 
-## 新元素提取
-### 新人物设定模式
-- {新模式描述 + 代表作}
+## New elements
+### New protagonist setups
+- {pattern + representative}
 
-### 新开篇切入点
-- {新切入点描述 + 代表作}
+### New opening angles
+- {angle + representative}
 
-### 新桥段/套路
-- {新桥段描述 + 代表作}
+### New set pieces / tropes
+- {beat + representative}
 
-## 关键数据洞察
-- 字数区间：上榜作品集中在 {X}-{Y} 万字
-- 更新频率：日均 {X} 字为主流
-- 书名特征：{命名模式总结}
-- 标签热词：{高频标签词}
+## Key data insights
+- Length range: ranked works cluster at {X}-{Y} words
+- Update cadence: {X} chapters per week is the mainstream
+- Title patterns: {naming conventions}
+- Tag heat: {high-frequency tags}
 
-## 值得关注的方向
-1. {方向 + 为什么值得关注 + 可行性评估}
-2. {方向 + 为什么值得关注 + 可行性评估}
-3. {方向 + 为什么值得关注 + 可行性评估}
+## Directions worth writing
+1. {direction + why it matters + feasibility}
+2. {direction + why it matters + feasibility}
+3. {direction + why it matters + feasibility}
 
-## 一句话
-{犀利的总结}
+## One line
+{sharp summary}
 ```
 
 ---
 
-### Phase 5：选题决策
+### Phase 5: Topic decision
 
-把扫榜结果变成能直接用的选题建议，产出 `选题决策.md`。完整方法（选题四步 + 可行性判断 + 输出模板）见 [references/topic-decision.md](references/topic-decision.md)。
+Turn the scan into directly usable topic recommendations and produce `topic-decision.md`. The full method (four topic steps + feasibility judgment + output template) lives in [references/topic-decision.md](references/topic-decision.md).
 
-**如信息不足，向用户补齐项目条件：**「目标平台、已有素材、擅长题材/写作约束、计划篇幅是什么？」
+**If information is missing, ask the user for the project conditions:** "Target platform, material you already have, genres/constraints you can write, and planned length?"
 
-按 `topic-decision.md` 的选题四步产出 2-3 个推荐选题（能爆的原因 → 市场验证 → 差异化定位 → 可行性+失败风险+验证动作），写入**本次扫榜输出目录** `{outdir}/选题决策.md`——扫榜常在还没有小说项目的目录下跑，所以产物落在扫榜输出目录，不直接写进项目。告知用户路径与下一步：「开书时如果小说项目就建在这个目录里、或和这个目录同级（共用一个上级目录），`/story-long-write` 会自动找到并让你确认；隔得更远就把 `选题决策.md` 复制到小说项目根目录，或开书时把路径粘给它。想确认"能爆的原因"先 `/story-long-analyze` 拆对标书。」
+Following the four topic steps in `topic-decision.md`, produce 2-3 recommended topics (why it could hit -> market validation -> differentiated positioning -> feasibility + failure risk + verification actions) and write them to this scan's output directory `{outdir}/topic-decision.md`. Tell the user the path and the next step: "When you open a book, put `topic-decision.md` in the project root and writing will read it automatically; to confirm the 'why it could hit' claims, run `/story-long-analyze` on benchmark books first." The topic-decision artifact is produced by `story-long-scan` Phase 5; references to it elsewhere must use `story-long-scan` Phase 5 as the canonical form.
 
-**硬规则：**
-- 可行性上限：背靠榜单标了 `[数据稀疏]` 或同方向样本 <15（小平台<10）⇒ 不许给"高"，强制降到"中" + 写明先验证；内置知识模式一律给"中"。
-- "能爆的原因"只记为假设（`待拆文验证`）——单本上榜是个例，多本重复才算信号；要坐实靠拆文回填，本阶段不拆文。
-- 不输出项目素材无法支撑的题材；不只看热度，必须给可行性和失败风险；不忽略平台调性差异（起点男频和晋江女频审美完全不同）。
-
----
-
-## 平台特性速查
-
-| 平台 | 调性 | 核心指标 | 主力读者 | 适合类型 |
-|------|------|----------|----------|----------|
-| 起点中文网 | 男频为主，硬核爽文 | 追读率、月票 | 18-35 男性 | 玄幻、都市、科幻、游戏 |
-| 番茄小说 | 下沉市场，免费阅读 | 在读数、阅读榜排名 | 大众读者 | 脑洞、快节奏、强爽感 |
-| 晋江文学城 | 女频为主，精品路线 | 收藏、营养液、积分 | 16-30 女性 | 言情、纯爱、衍生 |
-| 七猫小说 | 下沉市场，免费阅读 | 热度、大热榜排名 | 大众读者 | 快节奏爽文 |
-| 刺猬猫 | 二次元、轻小说 | 追读 | 15-25 ACG | 同人、二次元、轻小说 |
+**Hard rules:**
+- Feasibility ceiling: if the backing list is marked `[data sparse]` or the direction has <15 samples (small platforms <10), you may not rate it "high" — force it to "medium" and state what must be verified first; built-in-knowledge mode always rates "medium".
+- "Why it could hit" is recorded only as a hypothesis (marked `needs teardown verification`) — one book on a list is an anecdote; repetition across books is the signal. Confirmation comes from teardown backfill (story-long-analyze), which is not done in this phase.
+- Do not recommend genres the user's material cannot support; do not look only at popularity — feasibility and failure risk are mandatory; do not ignore platform differences (Royal Road progression readers and Wattpad romance communities want completely different things).
 
 ---
 
-## 流程衔接
+## Platform cheat sheet
 
-**流水线：** 长篇
-**位置：** 扫榜（第 1/3 步）
-
-| 时机 | 跳转到 | 命令 |
-|---|---|---|
-| 找到方向 | story-long-analyze | `/story-long-analyze` |
-| 直接开写 | story-long-write | `/story-long-write` |
-| 更适合短篇 | story-short-scan | `/story-short-scan` |
-
-## 参考资料
-
-按需加载以下文件：
-
-| 文件 | 何时加载 |
-|------|----------|
-| [references/topic-decision.md](references/topic-decision.md) | 「选题决策」：选题四步 + 可行性判断 + 选题决策.md 模板 |
-| [references/reader-profiling.md](references/reader-profiling.md) | 需要分析目标读者画像时 |
-| [references/genre-trends.md](references/genre-trends.md) | 查看题材趋势候选、切入约束和样本校验规则时 |
-| [references/publishing-guide.md](references/publishing-guide.md) | 平台适配+推荐机制校验+数据指标+简介设计 |
-| [references/scan-output-format.md](references/scan-output-format.md) | 脚本/CDP 采集字段定义+输出模板 |
-| [scripts/cdp-utils.js](scripts/cdp-utils.js) | CDP 公共工具函数（ab/sleep/evalJSON/safeStr/scrollLoad/getArg），各采集脚本共用 |
-| [scripts/fanqie-rank-scraper.js](scripts/fanqie-rank-scraper.js) | 番茄榜单采集，详情页多策略解码（书名/作者/题材/评分/标签/简介）绕过字体反爬，分批请求防超时，带连通性自检+标题解析率质量标注，配合 browser-cdp 使用 |
-| [scripts/qidian-rank-scraper.js](scripts/qidian-rank-scraper.js) | 起点榜单采集（畅销/月票/新书等），默认移动端 SSR 提取，PC/CDP 回退 |
-| [scripts/qimao-rank-scraper.js](scripts/qimao-rank-scraper.js) | 七猫榜单采集（大热/新书/完结等），tab 切换（失败重试）+滚动加载，按 bookId 取书名回填作品页链接，带连通性自检+链接/热度命中率标注 |
-| [scripts/jjwxc-rank-scraper.js](scripts/jjwxc-rank-scraper.js) | 晋江榜单采集（收入金榜/月榜等），按频道分组；列表取书名/作者/novelid，再进 onebook.php 详情页（gb18030 解码 itemprop）补采收藏/营养液/积分/字数/状态，受 --top/--detail-limit 约束，--list-only 可跳过 |
-| [scripts/ciweimao-rank-scraper.js](scripts/ciweimao-rank-scraper.js) | 刺猬猫榜单采集（点击/收藏/月票等），单页 9 榜提取，按 bookId 归一书名回填作品页链接，带连通性自检+空结果重试+链接命中率标注 |
+| Platform | Character | Core metrics | Core readers | Suits |
+|----------|-----------|--------------|--------------|-------|
+| Royal Road | Progression-driven, series-minded | follows, ratings, follow-through | 18-40 genre-fiction readers | progression fantasy, litRPG, xianxia-inspired, sci-fi |
+| Webnovel | Free-to-read mobile traffic | views, power stones, favorites | young mobile readers | fast-paced, high-gratification, translated-style genre fiction |
+| Wattpad | Community, serialized | reads, votes, comments | teens and young adults | romance, fanfiction-adjacent, contemporary |
+| Amazon Kindle | Paid, KU binge | page reads, reviews, rank | KU binge-readers, commuters | bingeable series, clean/sweet romance, thriller |
+| Inkitt | Indie, data-driven romance | reads, votes | romance community | romance, dark romance, speculative |
 
 ---
 
-## 语言
+## Pipeline handoff
 
-- 跟随用户的语言回复，用户用什么语言就用什么语言回复
-- 中文回复遵循《中文文案排版指北》
+**Pipeline:** long-form
+**Position:** scan (step 1/3)
+
+| When | Jump to | Command |
+|------|---------|---------|
+| Direction found | story-long-analyze | `/story-long-analyze` |
+| Ready to write | story-long-write | `/story-long-write` |
+| Better suited to short fiction | story-short-scan | `/story-short-scan` |
+
+## Reference materials
+
+Load on demand:
+
+| File | When to load |
+|------|--------------|
+| [references/topic-decision.md](references/topic-decision.md) | Topic decision: four steps + feasibility judgment + topic-decision.md template |
+| [references/reader-profiling.md](references/reader-profiling.md) | When you need a target-reader profile |
+| [references/genre-trends.md](references/genre-trends.md) | Genre trend candidates, entry constraints, and sample validation rules |
+| [references/publishing-guide.md](references/publishing-guide.md) | Platform fit + recommendation mechanics + metric reading + blurb design |
+| [references/scan-output-format.md](references/scan-output-format.md) | Field definitions per platform + output templates |
+| [scripts/cdp-utils.js](scripts/cdp-utils.js) | Shared CDP helpers (ab/sleep/evalJSON/safeStr/scrollLoad/getArg/localDateStamp), used with `/browser-cdp` during browser-assisted collection |
+
+---
+
+## Language
+
+- Follow the user's language.
+- English prose follows the house style rules in the skill's `references/` files
+  (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
+  and free of AI-flavor patterns.

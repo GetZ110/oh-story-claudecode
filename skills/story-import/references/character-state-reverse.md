@@ -1,82 +1,141 @@
-# 核心角色当前快照反推规则（长篇导入）
+# Character-State Back-Derivation Rules (Long-Form Only)
 
-> 仅用于 `story-import` 导入长篇。输出不是一份不断追加的角色历史，而是初始化事务里的 `character_snapshots`；`tracking_commit.py init` 会为每个核心角色生成 `追踪/角色状态/{角色名}.md`。
+> Scope: long-form import only. Short-form does not produce `tracking/character-state.md` (per `state-tracking.md`: "this section applies to long-form writing only; short-form usually doesn't need a standalone character-state tracking file").
+>
+> Generation-order constraint: the back-derivation described in this file depends on `tracking/foreshadowing.md` already existing (step 6 "pending foreshadowing" consults the foreshadowing status). The correct Phase 3-L order is: **generate `foreshadowing.md` and `timeline.md` first → then `character-state.md` (these rules) → finally `context.md`** (context.md's "character state: recent changes" field depends on this file).
 
-## 一、输入来源
+---
 
-只从已经落盘的拆书产物反推，不重读 `原文/`：
+## I. Input sources
 
-| 输入 | 用途 |
-|---|---|
-| `拆文库/{书名}/角色/{角色名}.md` | 身份、能力、目标、成长弧线、出场记录 |
-| `拆文库/{书名}/角色/角色关系.md` | 截至最后完整章的关键关系 |
-| `拆文库/{书名}/章节/第N章_摘要.md` | 最后位置、最新状态、已知信息与未结事项 |
-| `拆文库/{书名}/剧情/*.md` | 阵营/身份转折、阶段目标和长期冲突 |
-| 初始化事务中的伏笔与时间线候选 | 核对角色未结事项及其可知范围 |
+Back-derive from the already-on-disk teardown artifacts; **do not re-read the `source/` directory**. The teardown artifacts are already structured distillations; re-reading the source is duplicate work and violates the "analyze first, then migrate" principle.
 
-## 二、追踪对象
+| Input file | Use |
+|------------|-----|
+| `teardown-lib/{Book Title}/characters/{Character Name}.md` | basic file (identity, ability, motive, appearance log, growth arc) |
+| `teardown-lib/{Book Title}/characters/relationships.md` | key relationships' current/final states and evolution trajectories |
+| `teardown-lib/{Book Title}/chapters/chapter_N_summary.md` | per-chapter plot points (chronological evidence of character-state changes) |
+| `teardown-lib/{Book Title}/plot/*.md` | character arcs, faction/identity turns, storyline summaries |
+| `tracking/foreshadowing.md` (already generated) | query the foreshadowing related to this character with status "planted" |
 
-只为主角、反派、核心配角建立独立快照。临时路人和只承担一次功能的角色不建文件。边界不清时优先不建，后续角色真正进入复用状态时再由逐章事务创建。
+---
 
-## 三、反推方法
+## II. Selecting the tracking targets
 
-对每个核心角色，以最后完整导入章 N 为截面，分别确定：
+Reuse the `state-tracking.md` rule: **only track characters appearing ≥3 times or with an independent plot line**.
 
-1. `identity`：截至 N 章实际成立的身份/职业，不写未来晋升计划。
-2. `location`：最后落点或下一章开始前可确定的位置。
-3. `goal`：角色当前正在追求的具体目标。
-4. `state`：身体、情绪、名望、立场中会影响续写的当前状态；只写必要信息。
-5. `abilities_resources`：当前确实掌握的能力、物品、权限、作品或人脉，最多 8 条。
-6. `relationships`：与后续会复用角色的当前关系，最多 8 条。
-7. `knowledge`：角色本人已经知道、且会影响其行为的信息，最多 8 条。作者真相不能误写成角色已知。
-8. `open_threads`：角色相关的未结事项，最多 8 条；必须有已写正文证据，纯未来设计留在大纲。
+Cross-referencing the story-import character-tier table:
 
-若同一字段有多次变化，只取截至 N 章的当前值，不把变化史塞进快照。历史变化由后续 `逐章记录/第NNN章.md` 承担；导入旧章不补造这些记录。
+| Tier | In character-state.md? |
+|------|------------------------|
+| Protagonist | yes (full entry) |
+| Antagonist | yes (full entry) |
+| Core supporting | yes (full entry) |
+| Functional | no (not tracked; appears in <20% of chapters and has limited function) |
 
-## 四、初始化 JSON 形状
+Ambiguous boundaries default to the lower tier (not tracked).
 
-以下示例来自 demo《让你管账号，你高燃混剪炸全网》第 10 章：
+---
 
-```json
-{
-  "江晨": {
-    "identity": "火箭军文工团宣传兵；军宣爆款创作者",
-    "location": "火箭军文工团高层看片会",
-    "goal": "完成五天百万粉任务，继续做出真正能打的军宣内容",
-    "state": "专业团队重拍版反向坐实手机原版的价值，军内认可继续抬升",
-    "abilities_resources": [
-      "前世 MCN 爆款运营经验",
-      "《中国军魂》伴奏",
-      "大师级导演能力"
-    ],
-    "relationships": [
-      "钟嘉嘉持续提供军报资源",
-      "周薄森和张耀祖已明确认可其创作能力"
-    ],
-    "knowledge": [
-      "《军报》采访稿已经过审",
-      "高层决定继续采用《诸君，且听龙吟》手机原版"
-    ],
-    "open_threads": [
-      "五天百万粉任务尚未结算",
-      "钟嘉嘉所谓只猜对一半仍未解释"
-    ]
-  }
-}
+## III. The back-derivation algorithm (one entry per major character, 6 steps)
+
+For every character to track, execute in this order:
+
+### Step 1 — current identity
+
+From `characters/{Character Name}.md`'s appearance log or growth arc, take the **chronologically latest** (final-chapter) identity/profession description. If `teardown-report.md` has a later summarizing identity label, the report wins.
+
+### Step 2 — current ability
+
+Same approach: take the latest ability-level description in the character's appearance log. The ability system's background comes from `setting/worldview/` (power-system.md / background.md); ability details read from the character file.
+
+### Step 3 — key relationships
+
+From `relationships.md`, take the "current/final state" field of every relationship entry involving this character (A↔B format: relationship type | emotion | current state). Write the evolution-trajectory summary into the relationship description's parentheses ("changed in Chapter N").
+
+### Step 4 — public image
+
+Scan each chapter's `chapters/chapter_N_summary.md` plot points for the latest (chronologically) one whose type involves "outside assessment / reputation / identity exposure / social-status change". No matching plot point → fill `[TBD]`.
+
+### Step 5 — pending foreshadowing
+
+Query `tracking/foreshadowing.md` and filter for foreshadowing meeting both conditions:
+1. The characters-involved field contains this character's name;
+2. The status field is "planted" (not yet recovered).
+
+List the foreshadowing titles (multiple → one per line). No related planted foreshadowing → fill "none".
+
+> Note: this step depends on `tracking/foreshadowing.md` already existing. If the foreshadowing file isn't generated yet, finish `foreshadowing.md` first, then come back to this step.
+
+### Step 6 — state-change log
+
+Scan `characters/{Character Name}.md`'s appearance-log column, extract the chapters with clearly labeled state changes (identity/ability/relationship/image), convert each into a log line in chapter order:
+
+```
+Chapter {N}: {change description (one sentence, incl. the change type)}
 ```
 
-工具据此生成的文件固定包含：截至章节、身份、位置、当前目标、身心状态、能力与资源、关键关系、已知信息、未结事项。模型不得另写一套 Markdown 模板。
+**Over 10 entries, compress per these rules** (reusing `state-tracking.md` rules):
+- Merge the earliest entries' summary into the corresponding field (e.g., "Current identity: Chapters 1-20, from student to singer");
+- Delete the merged old log lines;
+- Keep the most recent 10 detailed change records.
 
-## 五、残稿与分批导入
+---
 
-- 最后一章是残稿：所有快照截至残稿之前的最后完整章；残稿中的动作、获得物、关系变化不得提前生效。
-- 分批导入：快照只表示本次已导入范围的当前状态；扩大导入范围时重新执行一次完整导入，不在旧快照上追加历史段落。
+## IV. Output format
 
-## 六、质量检查
+This section is the standard template for `character-state.md` (field-aligned with the same-named artifact in story-long-write); every field maps one-to-one — no added fields, no removed fields.
 
-- [ ] 每个文件对应一个核心角色，无功能角色堆积
-- [ ] 所有字段都是截至最后完整章的当前值
-- [ ] 角色已知信息没有混入作者真相
-- [ ] 未结事项都有正文证据，未来设计仍在大纲
-- [ ] 单角色快照目标不超过 4096 字节；确有必要可放宽，但不得超过 8192 字节硬上限
-- [ ] `tracking_commit.py check` 通过
+```markdown
+# Character State Tracking
+
+## {Character Name}
+- **Current identity**: {latest identity/profession}
+- **Current ability**: {latest ability level}
+- **Key relationships**:
+  - With {Character B}: {current relationship state} (changed in Chapter {N})
+  - With {Character C}: {current relationship state}
+- **Public image**: {how the outside world views this character}
+- **Pending foreshadowing**: {unrecovered foreshadowing related to this character; "none" when absent}
+- **State-change log**:
+  - Chapter {N}: {change description}
+```
+
+Each tracked character gets its own `## {Character Name}` section, ordered protagonist → antagonist → core supporting.
+
+---
+
+## V. Partial-book handling
+
+When the last chapter is a draft (half-written, visibly truncated):
+- Character state reflects **the last complete chapter before the draft**; the draft's content is excluded.
+- Note in the `>` quote block at the top of the file:
+
+```
+> Partial-book note: based on the Chapter N state; the draft Chapter N+1 content is not included.
+```
+
+"Whether the last chapter is complete" is explicitly confirmed in Phase 1's basic-info step; the verdict carries into this step.
+
+---
+
+## VI. Large works (>200 chapters) incremental import
+
+When incremental import only imports the first N chapters, character state covers only the imported chapters; note it at the top of the file:
+
+```
+> Incremental note: based on the imported first N chapters; this file updates on later incremental imports.
+```
+
+---
+
+## VII. Quality self-check
+
+After `character-state.md` is generated, confirm against this checklist:
+
+- [ ] Tracking targets are only protagonist/antagonist/core supporting; functional characters stayed out
+- [ ] Every field maps one-to-one with this file's "output format" template; no missing fields
+- [ ] Uncertain fields marked `[TBD]`
+- [ ] "Pending foreshadowing" references actual entries in `tracking/foreshadowing.md` (or "none")
+- [ ] Change logs over 10 entries compressed per the rules
+- [ ] Partial books note their baseline chapter

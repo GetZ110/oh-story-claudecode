@@ -4,12 +4,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const USAGE = `Usage: node normalize-punctuation.js [--check] [--quote-mode keep|ascii|yan] <file...>
+const USAGE = `Usage: node normalize-punctuation.js [--check] [--quote-mode keep|curly|ascii] <file...>
 
-Normalize正文 punctuation deterministically:
-  - replace ellipses, em dashes, and double hyphens with Chinese punctuation
-  - remove markdown divider lines (---) from正文
+Normalize prose punctuation deterministically:
+  - collapse "...", "....", "…" runs to a single ellipsis character (…)
+  - convert double hyphens (--) to an em dash (—); never inside HTML comments
+  - collapse double spaces; drop space before sentence punctuation ( , . ! ? ; : )
+  - remove markdown divider lines (---) from prose
   - keep quote style by default; convert quotes only when explicitly requested
+    (curly: straight quotes to typographic quotes; ascii: typographic to straight)
 `;
 
 const options = {
@@ -24,7 +27,7 @@ for (let i = 2; i < process.argv.length; i += 1) {
     options.check = true;
   } else if (arg === '--quote-mode') {
     const value = process.argv[i + 1];
-    if (!value) die('--quote-mode requires keep, ascii, or yan');
+    if (!value) die('--quote-mode requires keep, curly, or ascii');
     options.quoteMode = value;
     i += 1;
   } else if (arg.startsWith('--quote-mode=')) {
@@ -39,7 +42,7 @@ for (let i = 2; i < process.argv.length; i += 1) {
   }
 }
 
-if (!['keep', 'ascii', 'yan'].includes(options.quoteMode)) {
+if (!['keep', 'curly', 'ascii'].includes(options.quoteMode)) {
   die(`Invalid --quote-mode: ${options.quoteMode}`);
 }
 if (options.files.length === 0) {
@@ -115,14 +118,15 @@ function normalizeDocument(input, quoteMode) {
     let line = lines[index];
     const trimmed = line.trim();
 
-    // 未闭合的 `<!--` 不能把余下整篇伪装成注释。确认 EOF 前已无 `-->` 时，
-    // 在起始位置具名报错，并从当前行恢复正文扫描；起始符所在行仍原样保护。
+    // An unclosed `<!--` must not mask the rest of the document as a comment. If there
+    // is no `-->` before EOF, report it at the start position and resume prose scanning
+    // from the current line; the line containing the opener stays protected.
     if (commentOpen && !commentCloseAhead[index]) {
       findings.push({
         line: commentStart?.line || lineNo,
         column: commentStart?.column || 1,
         type: 'html-comment-unclosed',
-        message: 'HTML 注释未闭合；后续内容仍按正文检查。',
+        message: 'HTML comment is not closed; the rest of the content is still checked as prose.',
       });
       commentOpen = false;
       commentStart = null;
@@ -147,13 +151,13 @@ function normalizeDocument(input, quoteMode) {
       continue;
     }
 
-    // 跨行 HTML 注释里的 `---` 是注释内容，不是正文分隔线。
+    // A `---` inside a multi-line HTML comment is comment content, not a prose divider.
     if (trimmed === '---' && !commentOpen) {
       findings.push({
         line: lineNo,
         column: line.indexOf('-') + 1,
         type: 'markdown-divider',
-        message: '正文中不要使用 markdown 分隔线；建议移除该行。',
+        message: 'Do not use markdown divider lines in prose; remove this line.',
       });
       continue;
     }
@@ -182,7 +186,7 @@ function normalizeDocument(input, quoteMode) {
       line: commentStart?.line || lines.length,
       column: commentStart?.column || 1,
       type: 'html-comment-unclosed',
-      message: 'HTML 注释未闭合；后续内容仍按正文检查。',
+      message: 'HTML comment is not closed; the rest of the content is still checked as prose.',
     });
   }
 
@@ -192,9 +196,10 @@ function normalizeDocument(input, quoteMode) {
   };
 }
 
-// 逐行记住原始行尾。整篇按「文件里出现过 \r\n」统一行尾会让一个孤立 CRLF 把全文
-// 行尾都翻成 CRLF——那是一次没人要求的全文件 diff，而 --check 对行尾一个 finding
-// 都不报，只改标点的这一步不该动它。
+// Remember each line's original ending. Normalizing the whole file to one ending
+// because a single stray CRLF appears would flip every line — an unrequested full-file
+// diff; --check reports nothing about endings, and this punctuation-only step must not
+// touch them.
 function splitLinesKeepingEndings(input) {
   const lines = [];
   const endings = [];
@@ -233,10 +238,10 @@ function isClosingFence(line, fence) {
   return Boolean(match && match[1].length >= fence.minimumLength);
 }
 
-// 删空停顿符会把两侧的半角点/连字符粘成新的 `...`/`--`（`他.……..说` → `他...说`），
-// 一遍归一化留不干净，再跑一遍还会改已定稿的正文；所以反复归一化到不动点。
-// 每遍至少把一个 `…/./—/-` 换成非停顿字符，字符数严格递减，必然收敛。
-// findings 只留第一遍：同一处不重复计数，column 也仍然是原行的偏移。
+// Deleting empty pause tokens can glue neighboring dots/hyphens into new "..."/"--"
+// sequences (e.g. ".. -- ." -> "--"), so one pass never cleans up fully and a second
+// run would re-edit settled prose. Iterate to a fixed point: each pass replaces at
+// least one token with a non-pause character, so it strictly converges.
 function normalizePausePunctuation(line, lineNo, commentOpen) {
   let current = line;
   let findings = null;
@@ -257,15 +262,16 @@ function normalizePausePunctuation(line, lineNo, commentOpen) {
 function normalizePausePunctuationPass(line, lineNo, commentSpans) {
   const findings = [];
   const original = line;
-  const pattern = /…+|\.{3,}|——|—|--+/g;
+  const pattern = /\.{3,}|(?:…){2,}|--+/g;
   let output = '';
   let lastIndex = 0;
   let match;
 
   while ((match = pattern.exec(original)) !== null) {
     const token = match[0];
-    // HTML 注释是正文里的元信息（如 `<!-- 去味:跳过 -->` 豁免标记）：`<!--`/`-->` 里的
-    // `--` 不是停顿标点，改掉它注释就散了，标记会变成读者看得见的正文。
+    // HTML comments are prose meta (such as the `<!-- deslop:skip -->` exemption
+    // marker): the `--` inside `<!--`/`-->` is not pause punctuation. Rewriting it
+    // would dissolve the comment and the marker would become visible prose.
     if (insideSpans(match.index, match.index + token.length, commentSpans)) continue;
     output += original.slice(lastIndex, match.index);
     const replacement = choosePauseReplacement(original, match.index, token.length);
@@ -274,16 +280,31 @@ function normalizePausePunctuationPass(line, lineNo, commentSpans) {
       line: lineNo,
       column: match.index + 1,
       type: getPauseType(token),
-      message: replacement ? `替换为「${replacement}」。` : '移除重复标点。',
+      message: replacement ? `Replaced with ${replacement}.` : 'Removed duplicate punctuation.',
     });
     lastIndex = match.index + token.length;
   }
 
   output += original.slice(lastIndex);
+
+  // Collapse double spaces and drop space before sentence punctuation. HTML comment
+  // spans were already protected by the token pass; whitespace edits inside comments
+  // are harmless here because the marker words stay intact.
+  const collapsed = output.replace(/ {2,}/g, ' ').replace(/ +([,.;:!?])/g, '$1');
+  if (collapsed !== output) {
+    findings.push({
+      line: lineNo,
+      column: 1,
+      type: 'spacing',
+      message: 'Collapsed double spaces / removed space before punctuation.',
+    });
+    output = collapsed;
+  }
   return { line: output, findings };
 }
 
-// 行内 HTML 注释区间（含 `<!--`、`-->` 本身）；注释可跨行，未闭合时把状态交给下一行。
+// In-line HTML comment spans (including `<!--`/`-->` themselves); comments may span
+// lines, and an unclosed state is handed to the next line.
 function htmlCommentSpans(line, openBefore) {
   const spans = [];
   let open = openBefore;
@@ -328,27 +349,23 @@ function hasYamlFrontMatter(lines) {
 
 function getPauseType(token) {
   if (token.startsWith('-')) return 'double-hyphen';
-  if (token.includes('—')) return 'em-dash';
   return 'ellipsis';
 }
 
+// English house style: ellipsis is a single … character; -- becomes an em dash (—).
+// Both rewrites are deterministic and safe for prose (an em dash is standard English
+// punctuation; the style gate handles overuse, this normalizer only repairs the form).
 function choosePauseReplacement(text, start, length) {
   const before = previousNonSpace(text, start - 1);
   const after = nextNonSpace(text, start + length);
-  const rest = text.slice(start + length).trimStart();
 
-  // 正文产物不保留 `……`、`——`、`—` 或 `--`；对话打断和数字区间不设例外。
-  if (before === '') return '';
-  // 紧跟开引号/开括号的停顿符号属于句首边界，删空即可，避免产出 `「，…」` 或 `「。」`。
-  if (isOpeningDelimiter(before)) return '';
-  if (/\d/.test(before) && /\d/.test(after)) return '到';
-  if (isClosingQuote(after)) return isSentencePunctuation(before) ? '' : '。';
-
-  if (!after) return isSentencePunctuation(before) ? '' : '。';
-  if (isSentencePunctuation(before) || isPunctuation(after)) return '';
-  if (/^(因为|原来|这是|那是|也就是|换句话|说白了|所谓|答案|原因|结果|真相|问题在于)/.test(rest)) return '：';
-  if (/(原因|答案|真相|结果|结论|问题|选择|意思)$/.test(text.slice(0, start).trim())) return '：';
-  return '，';
+  if (getPauseType(text.slice(start, start + length)) === 'double-hyphen') {
+    // "--" between two digits is a range in some house styles ("pages 3--4");
+    // normal prose has no such use, but don't corrupt one.
+    if (/\d/.test(before) && /\d/.test(after)) return '–';
+    return '—';
+  }
+  return '…';
 }
 
 function previousNonSpace(text, index) {
@@ -365,22 +382,6 @@ function nextNonSpace(text, index) {
   return '';
 }
 
-function isSentencePunctuation(ch) {
-  return /[，,。.!！?？;；:：…]$/.test(ch || '');
-}
-
-function isPunctuation(ch) {
-  return /[，,。.!！?？;；:：、…"“”'‘’」』）)]/.test(ch || '');
-}
-
-function isClosingQuote(ch) {
-  return /["”」』]/.test(ch || '');
-}
-
-function isOpeningDelimiter(ch) {
-  return /[「『（(“‘]/.test(ch || '');
-}
-
 function normalizeQuotes(line, quoteMode, quoteOpen, lineNo) {
   if (quoteMode === 'keep') {
     return { line, findings: [], quoteOpen };
@@ -391,16 +392,25 @@ function normalizeQuotes(line, quoteMode, quoteOpen, lineNo) {
 
   for (let i = 0; i < line.length; i += 1) {
     const ch = line[i];
-    if (quoteMode === 'ascii' && /[「」『』“”]/.test(ch)) {
+    if (quoteMode === 'ascii' && /[“”‘’]/.test(ch)) {
       output += '"';
-      findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: '按显式 quote-mode 转为半角双引号。' });
+      findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: 'Converted to straight quotes per explicit quote-mode.' });
       continue;
     }
-    if (quoteMode === 'yan' && (ch === '"' || ch === '“' || ch === '”')) {
-      const replacement = quoteOpen || ch === '”' ? '」' : '「';
-      output += replacement;
-      quoteOpen = replacement === '「';
-      findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: '按显式 quote-mode 转为盐言引号。' });
+    if (quoteMode === 'curly' && (ch === '"' || ch === "'")) {
+      // Straight single quotes in prose are overwhelmingly apostrophes
+      // (contractions/possessives) — their typographic form is the right single
+      // quote, and they never flip the double-quote pairing state.
+      if (ch === "'") {
+        output += '’';
+        findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: 'Converted to typographic apostrophe per explicit quote-mode.' });
+        continue;
+      }
+      // Alternate open/close within a line; track state across lines so an unclosed
+      // opening quote on one line still pairs with the next line's closing quote.
+      output += quoteOpen ? '”' : '“';
+      quoteOpen = !quoteOpen;
+      findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: 'Converted to typographic quotes per explicit quote-mode.' });
       continue;
     }
     output += ch;

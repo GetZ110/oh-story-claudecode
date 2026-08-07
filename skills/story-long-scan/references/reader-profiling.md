@@ -1,105 +1,105 @@
-# 读者画像系统
+# Reader Profiling System
 
-## 9 维画像
+## The 9-dimension profile
 
-| 维度 | 包含什么 | 示例 |
-|------|----------|------|
-| 平台 | 起点/番茄/晋江/知乎/七猫 | 起点=付费硬核，番茄=免费下沉 |
-| 标签 | 题材标签决定读者预期 | 看到「系统文」期待升级节奏 |
-| 阅读量 | 低阅读量 vs 高阅读量读者，耐受度不同 | 高阅读量读者能识别套路模式，低阅读量读者对套路更敏感 |
-| 性别 | 男频女频审美差异巨大 | 男频重爽，女频重情感 |
-| 年龄 | 16-25 vs 25-35，代入角色不同 | 05后大学生 vs 90后打工人 |
-| 地域 | 一线城市 vs 下沉市场 | 北上广深 vs 三四线城市 |
-| 学历 | 影响对文笔和逻辑的要求 | 大学生 vs 初中辍学 |
-| 阶层 | 底层/中产/富人 | 决定什么样的逆袭有共鸣 |
-| 社会角色 | 学生/宝妈/打工者/自由职业 | 决定什么样的日常有代入感 |
+| Dimension | What it covers | Example |
+|-----------|----------------|---------|
+| Platform | Royal Road / Webnovel / Wattpad / Kindle / Inkitt | Royal Road = genre-hardcore serial readers; Wattpad = community romance readers |
+| Tags/genre | Genre tags set expectations | Seeing "litRPG" sets expectations of numbers, levels, progression |
+| Reading volume | Heavy readers vs light readers tolerate different things | Heavy readers recognize tropes and want execution; light readers are more sensitive to formula |
+| Age | 16-25 vs 25-40, different self-inserts | College students vs working professionals |
+| Geography | US/EU/SEA/India etc. | Urban commuters (KU audiobook/Kindle) vs global mobile free readers |
+| Education | Affects tolerance for prose and logic demands | University grads vs younger mobile readers |
+| Class/income | Working-class / middle / affluent | Determines which power fantasies resonate |
+| Life stage | Student / commuter / parent / retiree | Determines which daily lives feel relatable |
+| Media diet | KU binge-reader / audiobook listener / serial follower | Determines format expectations (chapters, episodes, page counts) |
 
-画像组合示例：「起点+古代官场+夺嫡+文抄+高阅读量+女+05后+二线城市+大学生+中产」-> 节奏快、权谋爽、感情线甜但不傻白甜、文化梗要新
-
----
-
-## 画像关联元素法（70/20/10）
-
-构建读者共鸣的三层比例：
-
-- **70% 怀旧元素**：读者有过类似经历的场景
-- **20% 当前生活**：读者正在面对的压力
-- **10% 热点话题**：当下流行的梗和话题
-
-### 70% 怀旧元素来源
-
-| 来源 | 内容 | 适用题材 |
-|------|------|----------|
-| 共同代际记忆 | 90后的网吧/MP3/非主流 | 都市重生、年代文 |
-| 流行文化 | 经典影视剧、游戏、音乐 | 同人、穿越 |
-| 校园生活 | 高考、宿舍、社团 | 校园文 |
-| 童年回忆 | 村里/小区里的事 | 乡村、都市日常 |
-
-### 20% 当前生活来源
-
-| 来源 | 内容 | 适用题材 |
-|------|------|----------|
-| 工作压力 | 996、内卷、副业 | 都市、职场 |
-| 感情状态 | 相亲、催婚、丁克 | 言情、世情 |
-| 经济压力 | 房贷、消费降级 | 都市、种田 |
-| 社交焦虑 | 社恐、独居、社交恐惧 | 治愈、日常 |
-
-### 10% 热点话题来源
-
-| 来源 | 内容 | 适用题材 |
-|------|------|----------|
-| 社会热点 | 新闻事件、社会议题 | 都市、现实 |
-| 网络热梗 | 梗、表情包、流行语 | 轻松向 |
-| 影视联动 | 热门影视带动题材 | 蹭热度 |
+Profile combination example: "Royal Road + progression fantasy + heavy reader + male + 18-30 + US + college + gamer" -> fast progression math, clean systems, no padding, romance light.
 
 ---
 
-## 平台读者画像速查
+## The 70/20/10 resonance method
 
-### 起点男频读者
+Build reader resonance in three layers:
 
-- 核心需求：爽感、升级、碾压
-- 容忍度：开头慢可以，但不能超过5章
-- 爽点偏好：实力碾压 > 智谋取胜 > 运气好
-- 雷区：绿帽、憋屈、女主太强压过男主
-- 黄金标准：三章一爽点，十章一大高潮
+- **70% nostalgia/recognition**: situations the reader has lived through
+- **20% current life**: pressure the reader faces right now
+- **10% hot topics**: what's trending today
 
-### 番茄读者
+### 70% recognition sources
 
-- 核心需求：快节奏、强爽感、不费脑
-- 容忍度：3章不爽就走
-- 爽点偏好：打脸 > 装逼 > 获得机缘
-- 雷区：慢热、虐主、需要思考的剧情
-- 黄金标准：每章都有爽点，3000字内必须爆
+| Source | Content | Fits |
+|--------|---------|------|
+| Shared generational memory | school, LAN cafés, first job, hometown streets | urban fantasy, do-over/reincarnation |
+| Pop culture | movies, games, music, memes | fanfiction-adjacent, transmigration |
+| School life | exams, dorms, clubs, bullies | academy settings |
+| Family life | parents, siblings, holiday dinners | contemporary, slice-of-life |
 
-### 晋江女频读者
+### 20% current-life sources
 
-- 核心需求：情感细腻、人设好、有共鸣
-- 容忍度：开头可以慢，但人设必须立住
-- 爽点偏好：虐完后的甜 > 反转打脸 > 身份翻盘
-- 雷区：女主傻白甜、男主渣且不追妻、三观不正
-- 黄金标准：人物有弧光，情感有层次
+| Source | Content | Fits |
+|--------|---------|------|
+| Work pressure | 9-to-5, layoffs, side hustles, burnout | urban fantasy, workplace |
+| Relationship state | dating apps, breakups, marriage pressure | romance, women's fiction |
+| Money pressure | rent, debt, inflation, commuting | cozy, progression |
+| Social anxiety | loneliness, being seen, online-only life | healing, slice-of-life |
 
-### 知乎盐言读者
+### 10% hot-topic sources
 
-- 核心需求：情绪冲击、反转、代入感
-- 容忍度：前500字决定生死
-- 爽点偏好：反转震撼 > 虐后治愈 > 现实共鸣
-- 雷区：说教、道德绑架、结局强行HE
-- 黄金标准：情绪拉扯 + 一个炸裂反转
+| Source | Content | Fits |
+|--------|---------|------|
+| Social topics | news events, debates | contemporary, realistic |
+| Internet culture | memes, trends, viral formats | comedy, lighthearted |
+| Media tie-ins | hit shows/movies boosting a genre | capitalizing on a wave |
 
-### 七猫读者
+---
 
-- 核心需求：快节奏、强剧情、不拖沓
-- 容忍度：3章定生死
-- 爽点偏好：逆袭 > 打脸 > 获得认可
-- 雷区：文艺腔、节奏慢、不爽
-- 黄金标准：开篇即冲突，绝不平淡
+## Platform reader profile quick reference
 
-### 刺猬猫读者
+### Royal Road readers
 
-- 核心需求：二次元、轻小说、有趣
-- 容忍度：开头必须有趣
-- 爽点偏好：有趣 > 有梗 > 有梗但意想不到
-- 雷区：太严肃、太现实、没有二次元元素
-- 黄金标准：有梗有笑点，偶尔有深度
+- Core needs: progression, numbers going up, competent protagonists, system depth
+- Tolerance: a slow first chapter is survivable, but a premise must land within the first 3-5 chapters
+- Payoff preferences: clear power gains > clever victories > luck
+- Landmines: no visible progression, protagonist stupidity, romance bait with no payoff
+- Bar: a clear hook by chapter 1, a progression beat every few chapters, a big payoff arc per volume
+
+### Webnovel readers
+
+- Core needs: fast pacing, high gratification, low friction
+- Tolerance: three chapters without a hook and they leave
+- Payoff preferences: comeuppance > flex > lucky gains
+- Landmines: slow burn, suffering protagonists, plots that need effort
+- Bar: a gratification beat per chapter; a visible payoff inside the first few thousand words
+
+### Kindle (KU) readers
+
+- Core needs: bingeable chapters, clear series arc, page-turn endings
+- Tolerance: short attention; each chapter should end on a reason to continue
+- Payoff preferences: suspense + emotional payoff + progress
+- Landmines: cliffhangers that never resolve, info dumps, genre drift
+- Bar: chapter-end hooks, strong book 1 -> book 2 read-through, trope clarity
+
+### Wattpad readers
+
+- Core needs: emotional connection, character voice, community ritual
+- Tolerance: slow build if the characters are beloved
+- Payoff preferences: emotional payoff > reversal > status flex
+- Landmines: preachy narration, flat protagonists, endings that betray the mood
+- Bar: a voice that hooks in the first paragraph, emotional push-pull, satisfying ending
+
+### Inkitt readers
+
+- Core needs: immersive single-sitting reads, romance beats, emotional payoff
+- Tolerance: formula is fine when execution is emotionally sharp
+- Payoff preferences: dark romance tension > angst-with-payoff > slow-burn resolution
+- Landmines: unresolved threads, flat villains, rushed endings
+- Bar: hook in the first paragraphs, escalating emotional stakes, complete arc
+
+### Audiobook listeners (PocketFM / Audible)
+
+- Core needs: dialogue-driven scenes, clear voices, chapters that work as listening units
+- Tolerance: low tolerance for wall-of-text narration and confusing pronoun-heavy action
+- Payoff preferences: scene-level hooks, verbal set pieces
+- Landmines: long descriptive passages, name-heavy casts
+- Bar: scene-open hooks, distinct character voices, audio-friendly pacing

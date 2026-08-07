@@ -1,91 +1,70 @@
-# 题材正文提示词卡索引
+# Genre Prose Card Index
 
-> 本文只做**索引与召回规范**，每个题材的正文提示词已拆到同目录的 `genre-prose-cards/` 下。
-
----
-
-## 使用原则
-
-正文写作采用三件套：**通用正文要求 + 单题材正文提示卡 + 本书文风**。
-
-- 通用正文要求只维护一份：严格消费细纲，按情节点预算写，缓慢推进，严禁提前写后续剧情，写完做字数、钩子、禁用词、退化校验。
-- 题材卡只管题材层稳定核心：世界观/生活逻辑、读者期待、核心爽点/情绪、常见场面、常见钩子和禁止漂移。
-- 本书文风只管句长、标点、潜台词、锚点片段和笔调；它不覆盖题材卡，也不覆盖 `剧情/情绪模块.md` / `剧情/节奏.md`。
-- 三者冲突时：章节细纲与连续性 > 情绪/节奏权威召回 > 题材卡 > 本书文风 > 通用技巧。
-
-## 召回规则
-
-1. 先读 `设定/题材定位.md`，确认主题材、目标平台、性向频道、主对标书和核心梗。
-2. 先查本索引匹配题材，再只读取同目录的 `genre-prose-cards/{题材}.md` 这一张卡；不要把整套题材卡全部加载进 prompt。
-3. 跨题材时，主题材读取 1 张完整卡，辅题材读取 1 张并只摘 1-2 条“常见场面/禁止漂移”；不要把两套节奏并行堆满。
-4. 高置信卡可直接用于 Phase 2 `设定/题材正文提示卡.md`；中置信卡需结合本书对标/细纲对照；低置信卡只能兜底，必须标注低置信并优先补同题材对标。
-5. 每章传给 narrative-writer 的 `genre_prose_card` 只保留本章相关条目，推荐 120-300 字；包含：题材限制、核心逻辑、读者期待、核心爽点/情绪、正文落点、前中后期打法、场景颗粒、禁止漂移、本章取舍、卡片置信度。
-6. **题材卡只在写手内部校准题材味，绝不出现在正文里**：正文不得写卡名、题材标签、置信度、条目编号或“证据摘要”数据，也不得写“已按题材卡/满足字数/零违规”一类合规自评或写作过程说明——只输出故事本身。
-
-## 题材卡写法原则
-
-每张题材卡必须回答九件事：题材核心、主线目标、冲突发动机、爽点定位、常见情绪转化、场景颗粒、正文落点、前中后期打法和禁止漂移。可参考“都市日常”式写法：先给清晰生活目标，再说明低烈度冲突如何产生真实结果，然后把开场/冲突/结尾分别落到具体物件和场面，最后写哪些爽点是微小但可见的改变。不要把通用方法论硬套进所有题材。
-
-## 不要把这些写成硬规则
-
-本地长篇样本不支持固定 50-60 字行宽、固定 50%-60% 对话占比、全局替换“地/得/很/像/顿号”、随机倒装、三胺八情或三翻四震等机械模板。题材卡只给“该题材更常用的场面和情绪落点”，具体段落仍按细纲、文风和当前场景处理。
+> This file is only the **index and recall rules**; each genre's prose card lives in the same directory under `genre-prose-cards/`.
 
 ---
 
-## 高置信题材卡
+## Usage principles
 
-| 题材卡 | 常见别名/匹配词 | 置信度 |
+Prose writing uses the three-piece set: **generic prose requirements + single-genre prose card + this book's style**.
+
+- Generic prose requirements are maintained once: strictly consume the chapter outline, write per plot-point budgets, advance slowly, no early later-plot writing, and after writing run word-count, hook, banned-word, and degeneration validation.
+- The genre card governs the genre layer's stable core: worldview/life logic, reader expectations, core payoff/emotion, common scenes, common hooks, and drift bans.
+- This book's style governs sentence length, punctuation, subtext, anchor excerpts, and tone; it does not override the genre card or `plot/emotional-beats.md` / `plot/pacing.md`.
+- On conflict between the three: chapter outline & continuity > emotion/rhythm authoritative recall > genre card > this book's style > generic techniques.
+
+## Recall rules
+
+1. First read `setting/genre-positioning.md`; confirm the primary genre, target platform, audience channel, primary benchmark book, and core hook.
+2. First match the genre against this index, then read only that one card `genre-prose-cards/{genre}.md` in the same directory; never load the whole card set into the prompt.
+3. Cross-genre: read 1 full card of the primary genre; for the secondary genre, read 1 card and extract only 1-2 items of "common scenes / drift bans"; never run two rhythm sets in parallel.
+4. High-confidence cards may be used directly for the Phase 2 `setting/genre-prose-card.md`; medium-confidence cards need cross-checking against this book's benchmark/outlines; low-confidence cards are fallback only — must be flagged low-confidence and supplemented with a same-genre benchmark first.
+5. Per chapter, the `genre_prose_card` passed to narrative-writer keeps only this-chapter-relevant items, recommended 120-300 words: genre limits, core logic, reader expectations, core payoff/emotion, prose landing points, early/mid/late play, scene granularity, drift bans, this-chapter tradeoffs, card confidence.
+6. **The genre card only calibrates genre flavor inside the writer's head; it never appears in the prose**: prose must not write the card name, genre labels, confidence, item numbers, or "evidence summary" data, and must not write compliance self-assessments like "per the genre card / word count met / zero violations" or writing-process notes — output the story only.
+
+## Genre card writing principles
+
+Every genre card must answer nine things: genre core, main-line goal, conflict engine, payoff positioning, common emotion conversions, scene granularity, prose landing points, early/mid/late play, and drift bans. Follow the "contemporary-romance"-style approach: first give a clear life/relationship goal, then explain how low-intensity conflicts produce real results, then land the opening/conflict/ending on concrete objects and scenes, and finally state which payoffs are small-but-visible changes. Don't force generic methodology onto every genre.
+
+## Don't turn these into hard rules
+
+Local long-form samples do not support fixed 50-60 character line widths, fixed 50%-60% dialogue shares, global function-word replacements, random inversions, or mechanical template stacks. Genre cards only give "the scenes and emotion landings this genre uses more often"; concrete paragraphs still follow the chapter outline, the style, and the current scene.
+
+---
+
+## High-confidence genre cards
+
+| Card | Common aliases / match words | Confidence |
 |---|---|---|
-| [都市脑洞](genre-prose-cards/都市脑洞.md) | 都市系统 / 听劝文 / 规则奖励 / 生活脑洞 | 高 |
-| [豪门总裁](genre-prose-cards/豪门总裁.md) | 霸总 / 京圈 / 先婚后爱 / 契约婚姻 | 高 |
-| [双男主](genre-prose-cards/双男主.md) | 纯爱 / BL / 耽美 | 高 |
-| [都市日常](genre-prose-cards/都市日常.md) | 日常文 / 都市生活 / 温馨日常 | 高 |
-| [都市高武](genre-prose-cards/都市高武.md) | 高武 / 灵气复苏 / 序列 / 异能都市 | 高 |
-| [年代](genre-prose-cards/年代.md) | 年代文 / 七零 / 八零 / 随军 / 重生年代 | 高 |
-| [玄幻脑洞](genre-prose-cards/玄幻脑洞.md) | 玄幻系统 / 反套路玄幻 / 多子多福 / 词条玄幻 | 高 |
-| [战神赘婿](genre-prose-cards/战神赘婿.md) | 赘婿 / 战神回归 / 隐藏身份 | 高 |
-| [传统玄幻](genre-prose-cards/传统玄幻.md) | 玄幻 / 东方玄幻 / 仙侠玄幻通用 | 高 |
-| [古风世情](genre-prose-cards/古风世情.md) | 古代世情 / 古风家宅 / 古代婚恋世情 | 高 |
-| [女频种田](genre-prose-cards/女频种田.md) | 古代种田 / 种田经商 / 带崽种田 | 高 |
-| [职场婚恋](genre-prose-cards/职场婚恋.md) | 职场言情 / 都市婚恋 / 熟男熟女 | 高 |
-| [科幻末世](genre-prose-cards/科幻末世.md) | 末世 / 灾变 / 废土 / 囤货末世 | 高 |
-| [都市修真](genre-prose-cards/都市修真.md) | 都市修仙 / 都市仙尊 / 现代修真 | 高 |
-| [历史古代](genre-prose-cards/历史古代.md) | 历史架空 / 古代权谋 / 朝堂 | 高 |
-| [古言脑洞](genre-prose-cards/古言脑洞.md) | 古代言情脑洞 / 穿书古言 / 系统古言 | 高 |
-| [女频悬疑](genre-prose-cards/女频悬疑.md) | 女性悬疑 / 悬疑言情 / 女主破案 | 高 |
-| [宫斗宅斗](genre-prose-cards/宫斗宅斗.md) | 宫斗 / 宅斗 / 后宅 / 权谋古言 | 高 |
-| [悬疑灵异](genre-prose-cards/悬疑灵异.md) | 灵异 / 惊悚 / 怪谈 / 民俗悬疑 | 高 |
-| [抗战谍战](genre-prose-cards/抗战谍战.md) | 谍战 / 民国谍战 / 特工 | 高 |
-| [星光璀璨](genre-prose-cards/星光璀璨.md) | 娱乐圈 / 文娱 / 影后 / 综艺 | 高 |
-| [玄幻言情](genre-prose-cards/玄幻言情.md) | 女频玄幻 / 仙侠言情 / 神女 | 高 |
-| [都市种田](genre-prose-cards/都市种田.md) | 经营日常 / 重生经营 / 乡村都市 | 高 |
+| [contemporary-romance](genre-prose-cards/contemporary-romance.md) | billionaire-romance / marriage-first / second-chance-romance / sports-romance | high |
+| [progression-fantasy](genre-prose-cards/progression-fantasy.md) | power-fantasy / cultivation-adjacent / wuxia-adjacent | high |
+| [litrpg](genre-prose-cards/litrpg.md) | system-apocalypse / game-lit / rpg-isekai | medium |
+| [cultivation](genre-prose-cards/cultivation.md) | xianxia / daoist-fantasy / eastern-fantasy | high |
+| [urban-fantasy](genre-prose-cards/urban-fantasy.md) | modern-fantasy / urban-supernatural / hidden-world | medium |
+| [epic-fantasy](genre-prose-cards/epic-fantasy.md) | high-fantasy / secondary-world / quest-fantasy | medium |
+| [cozy-fantasy](genre-prose-cards/cozy-fantasy.md) | slice-of-life-fantasy / inn-or-shop-fantasy / cottagecore-fantasy / low-stakes-fantasy / found-family-fantasy | medium |
+| [isekai](genre-prose-cards/isekai.md) | transported-to-another-world / reincarnation / portal-fantasy / game-world / cheat-fantasy | high |
+| [paranormal-romance](genre-prose-cards/paranormal-romance.md) | shifter-romance / vampire-romance / witch-romance / monster-romance | medium |
+| [romantasy](genre-prose-cards/romantasy.md) | fated-bond / dragon-romance / epic-romance / chosen-one-romance / court-romance-fantasy | high |
+| [dark-romance](genre-prose-cards/dark-romance.md) | possessive-romance / forbidden-love / morally-gray-lead | medium |
+| [mafia-romance](genre-prose-cards/mafia-romance.md) | organized-crime-romance / arranged-marriage-crime | medium |
+| [sports-romance](genre-prose-cards/sports-romance.md) | athlete-romance / hockey-romance / rivals-to-lovers / f1-romance / college-sports-romance | high |
+| [thriller](genre-prose-cards/thriller.md) | suspense / crime-thriller / psychological-thriller / espionage | high |
+| [horror](genre-prose-cards/horror.md) | cosmic-horror / weird-fiction / folk-horror / survival-horror | medium |
+| [cozy-mystery](genre-prose-cards/cozy-mystery.md) | small-town-mystery / amateur-sleuth / culinary-mystery | medium |
 
-## 中置信题材卡
+## Low-confidence cards
 
-| 题材卡 | 常见别名/匹配词 | 置信度 |
-|---|---|---|
-| [历史脑洞](genre-prose-cards/历史脑洞.md) | 历史天幕 / 历史系统 / 古代直播 / 工业历史 | 中 |
-| [快穿](genre-prose-cards/快穿.md) | 快穿系统 / 炮灰逆袭 / 万人迷快穿 | 中 |
-| [游戏体育](genre-prose-cards/游戏体育.md) | 网游 / 电竞 / 体育竞技 / 游戏文 | 中 |
-| [青春甜宠](genre-prose-cards/青春甜宠.md) | 校园甜宠 / 校园恋爱 / 青春校园 | 中 |
-| [现言脑洞](genre-prose-cards/现言脑洞.md) | 现代言情脑洞 / 女频系统 / 贵族学院脑洞 | 中 |
-| [东方仙侠](genre-prose-cards/东方仙侠.md) | 仙侠 / 修仙 / 古典仙侠 | 中 |
-| [悬疑脑洞](genre-prose-cards/悬疑脑洞.md) | 规则悬疑 / 系统悬疑 / 怪谈脑洞 | 中 |
-| [西方奇幻](genre-prose-cards/西方奇幻.md) | 西幻 / 魔法 / 魔物 / 模拟器西幻 | 中 |
-| [民国言情](genre-prose-cards/民国言情.md) | 民国虐恋 / 民国婚恋 / 军阀言情 | 中 |
-
-## 低置信题材卡
-
-当前无低置信单卡。新增低置信卡时，只能作为初稿方向；写作前必须优先读取同题材对标书、用户设定和最新扫榜结果。
+No low-confidence single cards currently exist. When adding a new low-confidence card, treat it as a first-draft direction only; before writing, must first read the same-genre benchmark book, the user's setting, and the latest scan results.
 
 ---
 
-## 低置信题材使用提示
+## Low-confidence card usage notes
 
-低置信卡不能单独决定正文。写作前补三件事：
+A low-confidence card cannot decide the prose alone. Before writing, supplement three things:
 
-1. 同题材对标书的 `剧情/情绪模块.md` 与 `剧情/节奏.md`。
-2. `设定/文风.md` 或对标 `文风.md`，确认句长、声线和段落节奏。
-3. 本章细纲里的目标情绪、出场顺序、信息差和章尾钩子。
+1. The same-genre benchmark book's `plot/emotional-beats.md` and `plot/pacing.md`.
+2. `setting/style.md` or the benchmark `style.md`, confirming sentence length, voice, and paragraph rhythm.
+3. This chapter's outline: target emotion, appearance order, info gaps, and chapter-end hook.
 
-若三件事缺两件以上，只生成临时 `genre_prose_card` 并标注“低置信”，不要让题材卡压过细纲。
+If two of the three are missing, only generate a temporary `genre_prose_card` flagged "low-confidence" — never let the genre card override the chapter outline.

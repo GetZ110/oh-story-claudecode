@@ -1,347 +1,347 @@
-# 写作技法
+# Writing Craft
 
-> 镜头式写作、白描、视角、文笔、毒点规避、开篇定调。用于正文写作和行文质量提升时查阅。
+> Camera-style writing, plain description, POV, prose, poison-point avoidance, opening tone-setting. Consult for prose writing and line-level quality improvement.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在做什么 | 查阅哪个模块 |
+| What you're doing | Which module |
 |-----------|-------------|
-| 写正文、润色文笔 | 写作四要点 -> 写作基础技巧 -> 镜头式写作法 |
-| 控制文字情绪密度 | 行文验收两字诀 -> 文笔三要素与水分控制 |
-| 选择视角和叙事方式 | 视角选择与叙事 |
-| 避开读者反感点 | 毒点解析与规避 |
-| 设计开篇三章 | 黄金三章=定调与预期管理 |
-| 优化段落画面感 | 文本构成要素 -> 文笔全面解析 |
+| Write prose, polish the lines | the four writing points -> basic writing techniques -> camera-style writing |
+| Control text emotion density | two-character line acceptance -> the three prose elements & water control |
+| Choose POV and narration | POV selection & narration |
+| Avoid reader-repulsion points | poison-point analysis & avoidance |
+| Design the opening three chapters | golden three chapters = tone-setting & expectation management |
+| Optimize paragraph imagery | text elements -> full prose analysis |
 
-## 指令语气
+## Directive tone
 
-本文件以"操作指令"语气书写。所有规则都是**必须遵守**的写作约束。遇到冲突时：镜头式写作法的规则 > 基础技巧 > 认知类参考。
-
----
-
-## 写作四要点
-
-### 要点一："然后呢"基点法
-每一段文字都要回答读者心中的"然后呢"。写完一个信息点，立刻用下一个信息点接上。
-
-### 要点二：间接描写法
-正面描写只是铺垫，侧面反应才是爽点。写配角嚼饼的吃相、哄抢的情形，比干巴巴说"这饼宇宙第一"有效百倍。
-
-### 要点三：围绕核心情绪设计全部情节
-动笔前确定目标读者的核心情绪需求（被认可/复仇/恋爱/升级），所有情节、人设、冲突都围绕这根弦演奏。
-
-### 要点四：宏观微观一体把控
-宏观把控整体节奏和情绪走向，微观把控每段文字的细节和张力。
+This file is written in "operating directive" tone. All rules are **must-follow** writing constraints. On conflict: camera-style writing rules > basic techniques > cognitive references.
 
 ---
 
-## 写作基础技巧
+## The four writing points
 
-### 白描
-白描 = 最少的字 + 最准确的信息和情绪。用精准的动词和名词直接勾勒画面，给读者留白想象空间。
+### Point 1: the "and then?" anchor method
+Every passage must answer the reader's inner "and then?" Finish one information point and immediately connect the next.
 
-### 五感描写法
-- 至少调动两到三种感官（视觉/听觉/触觉/嗅觉/味觉）
-- 写"感受到什么"而非只写"看到什么"
-- 五感必须服务情绪——恐惧时写冷、暗、静；兴奋时写亮、快、响
+### Point 2: the indirect-description method
+Direct description is only setup; side reactions are the payoff. Writing a side character's wolfing-down eating, the crowd grabbing — a hundred times more effective than flatly saying "this pastry is the best in the universe."
 
-### 动态描写优于静态描写
-- 人物特征用动作和反应展现，不用形容词堆
-- 示范：众人看到她时，说话的声音不自觉地放轻了
-- 环境不要大段铺陈，在角色行动中穿插点染
+### Point 3: design all plot around the core emotion
+Before writing, determine the target reader's core emotional need (recognition / revenge / romance / progression); every plot, persona, and conflict plays on this string.
 
-### 对话描写要点
-- 每句话至少满足一项：推进剧情 / 展示人设 / 制造冲突
-- 用语气、动作、省略来暗示潜台词
-- 日常用语，不要书面腔
-
-### 场景切换与转场
-- 用相似物/相似五感/相似情绪做转场
-- 时间跳转：动作或物件衔接
-- 空间跳转：声音或光影衔接
-
-### 镜头与分镜思维
-- 每个段落 = 一个镜头，有明确的"拍摄对象"
-- 镜头类型：远景（环境/氛围）-> 中景（人物关系）-> 近景（表情/细节）-> 特写（关键物品/情绪）
-- 快节奏：短句、短段、密集动作、快速切换
-- 慢节奏：长句、环境描写、心理活动、静止镜头
-
-### 代入感建立
-- 主角的目标清晰且让读者认同
-- 主角的行为读者能理解动机
-- 叙事立场必须站在主角一侧
-
-### 向人设深化 vs 向故事深化
-- 向故事深化：复杂阴谋、多层推理——上限高但难度大
-- 向人设深化：人物关系和互动中找戏剧性——更容易上手
-- 核心让读者觉得"来看热闹"——人物化学反应本身就足够有趣
-
-### 高情商/聪明人角色塑造
-- 通过行为展现聪明，不靠旁白说他聪明
-- 将真实案例的核心逻辑提取后适配到网文语境（保留逻辑骨架，替换具体细节）
+### Point 4: macro-micro control as one
+Macro controls the overall rhythm and emotion direction; micro controls every passage's detail and tension.
 
 ---
 
-## 行文验收两字诀
+## Basic writing techniques
 
-### 第一字：顺
+### Plain description (baimiao)
+Plain description = fewest words + the most accurate information and emotion. Sketch the picture directly with precise verbs and nouns, leaving white space for the reader's imagination.
 
-| 卡顿类型 | 解法 |
+### Five-sense description
+- Mobilize at least two or three senses (sight/hearing/touch/smell/taste)
+- Write "what is felt" not just "what is seen"
+- The five senses must serve emotion — fear writes cold, dark, silent; excitement writes bright, fast, loud
+
+### Dynamic description beats static
+- Character traits shown through action and reaction, not adjective piles
+- Demo: when people saw her, they instinctively lowered their voices
+- Environment: no long set-pieces; dot it in through character action
+
+### Dialogue description points
+- Every line satisfies at least one: advance plot / show persona / create conflict
+- Use tone, action, omission to imply subtext
+- Everyday speech, no bookish register
+
+### Scene switching & transitions
+- Transition via similar objects / similar five senses / similar emotions
+- Time jumps: connect with action or objects
+- Space jumps: connect with sound or light
+
+### Camera & shot thinking
+- Every paragraph = one shot with a clear "filmed object"
+- Shot types: long shot (environment/atmosphere) -> medium shot (character relationships) -> close-up (expressions/details) -> insert (key objects/emotions)
+- Fast rhythm: short sentences, short paragraphs, dense action, fast cuts
+- Slow rhythm: long sentences, environment description, inner activity, still shots
+
+### Immersion building
+- The protagonist's goal is clear and the reader identifies with it
+- The reader can understand the protagonist's behavior's motivation
+- The narrative stance stands on the protagonist's side
+
+### Character deepening vs story deepening
+- Story deepening: complex conspiracies, multi-layer reasoning — high ceiling but hard
+- Character deepening: find drama in relationships and interaction — easier
+- The core is making the reader feel "here for the show" — character chemistry is interesting enough on its own
+
+### High-EQ / smart-character crafting
+- Show smartness through behavior, not narration calling them smart
+- Extract the core logic of real cases and adapt it to the web-fiction context (keep the logic skeleton, replace concrete details)
+
+---
+
+## The two-character line acceptance
+
+### First character: smooth
+
+| Stumble type | Fix |
 |----------|------|
-| "了"字卡顿 | 控制不必要的"了"字使用频率 |
-| 玩梗卡顿 | 只用目标读者群体熟悉的梗 |
-| 信息缺失卡顿 | 适时补上必要信息 |
-| 伏笔过远卡顿 | 揭示前简短提示前文 |
+| Function-word stumbles | control unnecessary function-word frequency |
+| Meme stumbles | only use memes the target reader group knows |
+| Missing-information stumbles | add the necessary information at the right moment |
+| Too-far foreshadowing stumbles | brief reminder of the earlier text before the reveal |
 
-### 第二字：准
-什么情绪写什么味——该热血热血，该温暖温暖，该恐怖恐怖。
+### Second character: precise
+What emotion, what flavor — hype when hyped, warmth when warm, horror when horror.
 
-| 情绪 | 关键 | 反面信号 |
+| Emotion | Key | Reverse signal |
 |------|------|----------|
-| 悲壮 | 牺牲要有分量，代价要真实 | 角色死了读者无感 |
-| 温暖 | 日常细节中的关心 | 刻意煽情 |
-| 恐怖 | 未知和失控感 | 靠血腥描写堆砌 |
-| 热血 | 宣言感 | 口号空洞无铺垫 |
+| Tragic grandeur | sacrifice must have weight, costs real | a character dies and the reader feels nothing |
+| Warmth | care in daily details | forced sentimentalism |
+| Horror | unknown and loss of control | piling gore descriptions |
+| Hype | declaration feeling | hollow slogans without setup |
 
 ---
 
-## 镜头式写作法
+## Camera-style writing
 
-忘掉全知视角，你是跟在主角身后的摄像机。读者只能看到主角看到的东西。
+Forget omniscience; you are the camera trailing the protagonist. The reader can only see what the protagonist sees.
 
-### 核心原则
-1. 只写能看到/听到/闻到/摸到的，不写"他心里想""他感到"
-2. 每句对话都要推进剧情、塑造人物、或传递信息
-3. 动作代替描述："他很紧张" -> "他的手在抖"
-4. 手机屏幕优先：按动作/信息变化换行，读起来卡时拆段；拆的是段落，叙述句仍以逗号长句为主（句长标准见 anti-ai-writing.md 规则 3）
+### Core principles
+1. Write only what can be seen/heard/smelled/touched; not "he thought" / "he felt"
+2. Every dialogue line advances plot, shapes characters, or delivers information
+3. Action replaces description: "he was nervous" -> "his hands were shaking"
+4. Phone-screen first: break lines by action/information change; break paragraphs when it stumbles; what breaks is paragraphs — narration sentences stay comma-linked mid-length (sentence-length standard in anti-ai-writing.md Rule 3)
 
-### 高危清单
+### High-risk list
 
-**高危视角**
-- 全知叙述："此时的他还不知道，三天后..."
-- 上帝视角："如果她知道真相..."
-- 心理分析："他内心深处其实..."
+**High-risk POVs**
+- Omniscient narration: "What he didn't know at this moment was that three days later..."
+- God-view: "If she knew the truth..."
+- Psychological analysis: "Deep inside, he actually..."
 
-**高危词汇**
-仿佛、犹如、一丝、一抹、深吸一口气、不禁、眼中闪过、嘴角勾起、眉头微皱、不容置疑、不易察觉（“好像”按语境判断，不机械替换；缓缓、微微、轻轻、淡淡走密度控制，每千字合计 ≤3，孤立自然使用可保留）
+**High-risk words**
+like / as if / a trace of / a hint of / took a deep breath / couldn't help / flashed through his eyes / the corner of his mouth curled / brows slightly furrowed / unquestionable / imperceptible ("seemed like" judged by context, no mechanical replacement; "slightly/gently/softly/quietly" go through density control, ≤3 per 1000 words combined, isolated natural use may stay)
 
-**高危句式**
-- "...，带着..."（如：他说，带着一丝无奈）
-- 对话标签密度过高/公式化标签 -> 高频时用动作神态替代，普通“说”可保留
-- "他/她知道..." -> 直接展示，不告诉
-- 陈词滥调/万能比喻 -> 改成生活化比喻或白描
+**High-risk sentence patterns**
+- ", with a trace of..." (e.g. he said, with a trace of helplessness)
+- Dialogue-tag density too high / formulaic tags -> replace with action/expression at high frequency; plain "said" may stay
+- "He/she knew..." -> show directly, don't tell
+- Cliche / universal metaphors -> replace with everyday metaphors or plain description
 
-### 替代技巧
+### Replacement techniques
 
-| 禁用 | 替代 |
+| Banned | Replacement |
 |------|------|
-| 他感到紧张 | 他的手在抖 |
-| 她很伤心 | 她转过身，肩膀微微颤动 |
-| 高频公式化对话标签 | 用动作、语气或上下文承接；普通“说”可保留 |
-| 他深吸一口气 | 他把烟摁灭在烟灰缸里 |
-| 她眼中闪过一丝惊讶 | 她的手停在了半空 |
+| He felt nervous | his hands were shaking |
+| She was very sad | she turned away, shoulders trembling slightly |
+| High-frequency formulaic dialogue tags | use action, tone, or context; plain "said" may stay |
+| He took a deep breath | he stubbed his cigarette out in the ashtray |
+| A flicker of surprise crossed her eyes | her hand froze mid-air |
 
-### 对话写作规范
-每句对话必须满足至少一个：推进剧情 / 塑造人物 / 制造张力
+### Dialogue writing norms
+Every line must satisfy at least one: advance plot / shape character / create tension
 
-**对话格式**
-- 用动作打断长对话
-- 每次说话不超过3句
-- 避免高频/公式化对话标签；普通“说”可保留，仅在机械重复或语气单一时用动作/上下文替代
+**Dialogue format**
+- Break long dialogue with action
+- No more than 3 sentences per turn
+- Avoid high-frequency/formulaic dialogue tags; plain "said" may stay — use action/context only when mechanical repetition or flat tone appears
 
-**对话情绪五级递增**
-1. 客观陈述事实
-2. 客观陈述 + 提出建议
-3. 主观指责
-4. 主观指责 + 强制命令
-5. 主观指责 + PUA抬升自己（最强）
+**Five-level dialogue emotion escalation**
+1. Objective statement of facts
+2. Objective statement + suggestion
+3. Subjective accusation
+4. Subjective accusation + command
+5. Subjective accusation + self-elevation (PUA-style) (strongest)
 
-### 三机位法
+### The three-camera method
 
-| 机位 | 视角 | 内容 | 功能 |
+| Camera | POV | Content | Function |
 |------|------|------|------|
-| 机位1 | 近景 | 主角动作、表情、心理 | 推进主线，读者代入 |
-| 机位2 | 远景 | 配角反应、环境变化、围观者 | 扩展信息面，制造反差 |
-| 机位3 | 旁白 | 设定补充、背景交代 | 适时补充必要信息 |
+| Camera 1 | close-up | protagonist action, expression, inner state | advances the main line; reader projection |
+| Camera 2 | long shot | side-character reactions, environment changes, bystanders | widens the information surface, creates contrast |
+| Camera 3 | narration | setting supplements, background delivery | supplements necessary info when timely |
 
-机位交替原则：核心1和2，机位3穿插。设定都由冲突引出。
-
----
-
-## 文本构成要素
-
-### 核心分类
-- **画面感**：人+环境（静/动），如高清摄像机忠实记录
-- **思想**：计划/目标/吐槽/揣测/分析等内心活动
-- **情绪**：藏在画面感与思想之中，不直接写出来
-- **旁白**：身世背景/设定/人物关系/回忆，尽可能简洁
-
-### 情绪表达层级（由低到高）
-1. 最低：直接写"xx愤怒/伤心/快乐"——告诉情绪，读者感受不到
-2. 低：用思想"xx暗骂"
-3. 中：用神态"xx脸色铁青"
-4. 高：用动作"xx猛地攥紧拳头，指甲掐进肉里"
-
-核心：离底层情绪越远的表达越高级 = 侧面描写。
-
-### 环境交互（环境描写核心）
-没有交互的环境描写不值得写。
-- 物理交互：梨花飘到鼻尖打喷嚏 / 雪山瑟瑟发抖 / 河水洗脸
-- 精神交互：食物比喻人物关系 / 喂饭=暧昧 / 餐刀切鱼=威胁
-- 题材交互：仙侠写遮天蔽日鲲鹏 / 武侠写匹夫一怒血溅五步
+Camera alternation: cores are 1 and 2; camera 3 interleaves. Setting is always introduced through conflict.
 
 ---
 
-## 文笔三要素与水分控制
+## Text elements
 
-### 文笔三要素
-- **精准**：一个词能说清的不用一句话，动词选择决定画面感
-- **节奏**：叙述默认用逗号长句，短句只作偶尔的孤立重拍、用完回到逗号长句；忌通篇同长度，也忌一长一短机械交替（句长标准见 anti-ai-writing.md 规则 3）
-- **画面感**：调动五感，不只写"看到"
+### Core categories
+- **Imagery**: people + environment (static/dynamic), like a high-definition camera recording faithfully
+- **Thought**: plans/goals/banter/guesses/analysis — inner activity
+- **Emotion**: hidden inside imagery and thought, not written directly
+- **Narration**: background/setting/relationships/memories — as compact as possible
 
-### 水分控制
-- 水分 = 不推动剧情也不塑造人物的内容
-- 合理的"水"：伏笔铺垫/氛围营造/角色互动——暗流涌动
-- 有害的水：重复已知信息/无意义环境描写/角色自言自语
-- 检验法：删掉这段后读者会不会困惑 -> 不会 = 水
+### Emotion expression hierarchy (low to high)
+1. Lowest: write "X was angry/sad/happy" directly — telling emotion, the reader doesn't feel it
+2. Low: thought, "X cursed inwardly"
+3. Mid: expression, "X's face turned iron-gray"
+4. High: action, "X's fist clenched so hard the nails bit into his palm"
 
-### 长篇网文的文笔取舍
-长篇不需要精致文笔，需要可读性和流畅度。文笔的目标：让读者忘记在看字，直接看到画面。
+Core: the farther from the bottom-layer emotion the expression, the higher the craft = indirect description.
 
----
-
-## 文笔全面解析与环境交互法
-
-### 文笔重要性的阶段差异
-
-| 阶段 | 重要性 | 说明 |
-|------|--------|------|
-| 小学生文笔 | 10分 | 基础不过关，什么都谈不上 |
-| 基础达标 | 5分 | 达标后短板在结构和选材 |
-| 精品级别 | 7分 | 精品之间文笔开始拉开差距 |
-| 万订 | 10分 | 顶级作品的文笔是核心竞争力 |
-
-判断：成绩好但文笔差 -> 提升文笔性价比极高；成绩差但文笔好 -> 补选材和剧情。
-
-### 一笔多用
-一段文字同时承担多种功能：
-- 环境交互 + 人设 + 感情线 = 一笔三用
-- 设定融入情节：世界观通过小故事穿插
-- 埋伏笔：表面信息之下藏隐藏信息
-- 紧凑节奏：枯燥背景设定藏在有趣小情节中
-
-### 结构简化
-"x级结构"核心是"细化"：一句话主线 -> 细化 -> 卷纲 -> 细化 -> 章纲 -> 细化 -> 正文。逆推比顺推效率更高。
+### Environment interaction (the core of environment description)
+Environment description without interaction is not worth writing.
+- Physical interaction: pear petals drifting onto the nose make you sneeze / the snowy mountain shivers / washing your face in the river
+- Spiritual interaction: food metaphors for relationships / feeding = intimacy / cutting fish with a dinner knife = threat
+- Genre interaction: fantasy writes a roc blocking out the sky / wuxia writes a commoner's rage spilling blood five steps away
 
 ---
 
-## 文笔的本质与层级
+## The three prose elements & water control
 
-### 三项输出检查
-- **选材**：目标读者、题材边界、核心卖点是否清楚。
-- **剧情设计**：大纲/卷纲/章纲是否能持续制造目标情绪。
-- **文笔**：正文是否用具体动作、对话、物件和节奏交付情绪。
+### The three prose elements
+- **Precision**: one word beats one sentence; verb choice decides imagery
+- **Rhythm**: narration defaults to comma-linked long sentences; short sentences are occasional isolated heavy beats, then return to comma-linked long sentences; avoid uniform length throughout and mechanical long-short alternation (sentence-length standard in anti-ai-writing.md Rule 3)
+- **Imagery**: mobilize the five senses, not just "seeing"
 
-如果正文问题来自选材或剧情设计，不要只润色句子；回到对应 artifact 修正。
+### Water control
+- Water = content that neither advances plot nor shapes characters
+- Acceptable water: foreshadowing setup / atmosphere building / character interaction — undercurrents
+- Harmful water: repeating known information / meaningless environment description / characters talking to themselves
+- Test: delete this passage — would the reader be confused? No = water
 
-### 表达情绪的层级（由低到高）
-
-| 层级 | 写法 |
-|------|------|
-| 最低 | 直接写"xx愤怒" |
-| 低 | 用思想"xx暗骂" |
-| 中 | 用神态"脸色铁青" |
-| 高 | 用动作"猛地攥紧拳头，指甲掐进肉里" |
-
-核心：不写情绪本身，写情绪引发的外在表现。
+### Long-form prose tradeoffs
+Long form does not need refined prose; it needs readability and flow. The prose goal: make the reader forget they're reading words and see the picture directly.
 
 ---
 
-## 视角选择与叙事
+## Full prose analysis & environment interaction
 
-### 网文常用视角
+### Prose importance by stage
 
-| 视角 | 特点 | 适用 |
+| Stage | Importance | Notes |
 |------|------|------|
-| 第三人称有限 | 跟随主角视角 | 最常用，代入感最强 |
-| 第一人称 | "我"叙述 | 悬疑、日常文 |
-| 第三人称客观 | 只写外部行为 | 群像 |
-| 跳跃视角 | 不同角色间切换 | 制造信息差 |
-| 上帝视角 | 全知全能 | 传统文学，网文少用 |
+| Elementary-level prose | 10 points | foundation failing; nothing else matters |
+| Basic pass | 5 points | after passing, the short board is structure and topic |
+| Premium tier | 7 points | among premium works, prose starts separating |
+| Ten-thousand-subscription | 10 points | top works' prose is a core competitive edge |
 
-### 使用要点
-- 网文最推荐第三人称有限视角
-- 跳跃视角主要用于制造"读者知道而主角不知道"的信息差
-- 切换视角要有明确分隔标志
-- 第一人称慎用——限制信息量，后期展开困难
+Judgment: strong performance but weak prose -> improving prose has extreme ROI; weak performance but good prose -> fix topic and plot.
 
-### 抽象与具体的平衡
-- 套路是共性，每本书的个性才是读者留下来的理由
-- 好网文文笔=大白话能读懂，但删到只剩推动情绪的动作和对话
-- 好的网文文笔：粗看大白话，细看有水平
+### One stroke, many uses
+One passage carries multiple functions:
+- Environment interaction + persona + romance line = one stroke, three uses
+- Setting fused into plot: worldview delivered through small stories
+- Foreshadowing planted: hidden info under surface info
+- Tight rhythm: dry background setting hidden inside fun small plots
+
+### Structure simplification
+The "x-level structure" core is "refinement": one-sentence main line -> refine -> volume outline -> refine -> chapter outline -> refine -> prose. Back-derivation is more efficient than forward derivation.
 
 ---
 
-## 毒点解析与规避
+## The nature and tiers of prose
 
-### 五大毒点方向
+### The three-output check
+- **Topic**: target reader, genre boundary, core selling point — clear?
+- **Plot design**: do the master/volume/chapter outlines keep generating the target emotion?
+- **Prose**: does the text deliver emotion with concrete action, dialogue, objects, and rhythm?
 
-| 方向 | 规避方法 |
+If the prose problem comes from topic or plot design, don't just polish sentences; return to the corresponding artifact.
+
+### Emotion expression tiers (low to high)
+
+| Tier | Writing |
+|------|------|
+| Lowest | write "X was angry" directly |
+| Low | thought, "X cursed inwardly" |
+| Mid | expression, "face iron-gray" |
+| High | action, "fist clenched so hard nails bit into the palm" |
+
+Core: don't write the emotion itself; write the emotion's external manifestation.
+
+---
+
+## POV selection & narration
+
+### Common web-fiction POVs
+
+| POV | Traits | Use |
+|------|------|------|
+| Third-person limited | follows the protagonist's POV | most common, strongest immersion |
+| First person | "I" narration | mystery, daily fiction |
+| Third-person objective | external behavior only | ensemble |
+| Jumping POV | switches between characters | creates info gaps |
+| God-view | omniscient | traditional literature; web fiction rarely |
+
+### Usage points
+- Web fiction most recommends third-person limited
+- Jumping POV mainly creates "the reader knows what the protagonist doesn't" info gaps
+- POV switches need clear separation markers
+- First person with caution — it restricts information and makes late expansion hard
+
+### Abstract vs concrete balance
+- Patterns are commonality; each book's individuality is why readers stay
+- Good web-fiction prose = plain language anyone can read, but stripped to only the action and dialogue driving emotion
+- Good web-fiction prose: rough reading looks plain, careful reading shows craft
+
+---
+
+## Poison-point analysis & avoidance
+
+### Five poison-point directions
+
+| Direction | Avoidance |
 |------|----------|
-| 主角塑造 | 叙事立场站在主角一侧；主角做事必有正反馈 |
-| 题材雷点 | 了解目标读者群体，避开敏感话题 |
-| 氛围代入感 | 氛围感比梗重要一百倍（乐子文除外） |
-| 期待破坏 | 把握节奏，适时满足或引入新期待 |
-| 题材选择 | 参考三五千均订的作品而非顶流 |
+| Protagonist crafting | narrative stance on the protagonist's side; the protagonist's actions always get positive feedback |
+| Genre minefields | know the target reader group; avoid sensitive topics |
+| Atmosphere immersion | atmosphere matters a hundred times more than memes (except chaos fiction) |
+| Expectation destruction | control rhythm; satisfy or introduce new anticipation in time |
+| Genre selection | reference three-to-five-thousand-subscription works, not the top hits |
 
-### 核心原则
-- 主角是心头爱：叙事立场必须站在主角一侧
-- 明确读点：毒点随题材变化，讨好目标受众而非所有读者
-- 期待管理：连续多次破坏读者期待会引发信任危机
-- 开头简洁：第一章就展现关键要素
-
----
-
-## 黄金三章=定调与预期管理
-
-黄金三章 = 验证"实物是否与图片一致"，快速回应读者期待。
-
-### 公式
-令人不安的处境 + 亟待提升的地位 + 充满希望的外挂 + 能被展望的美好未来
-
-### 定调三层次
-1. 情绪氛围
-2. 故事走向
-3. 价值观倾向
-
-### 两种写法
-- 代入感路线：快速代入主角
-- 期待感路线：开头创造危机
-
-规则：刻意黄金三章对基调破坏大，不可强求。
-
-### 留住读者的核心：不间断的期待
-- 主角即将得到但还没得到 -> 期待感最高 -> 追读最多
-- 得到之后追读立刻下降 -> 解法：得到之前套上另一个钩子 -> 循环
-- 一本书随时保持两条以上期待线
+### Core principles
+- The protagonist is the darling: the narrative stance must stand on the protagonist's side
+- Clear read-point: poison points vary by genre; court the target audience, not all readers
+- Expectation management: repeatedly breaking reader expectations triggers a trust crisis
+- Compact opening: chapter 1 shows key elements
 
 ---
 
-## 质量检查清单
+## Golden three chapters = tone-setting & expectation management
 
-写完每段/每章后，逐项检查：
+Golden three chapters = verifying "does the product match the picture," quickly answering reader expectations.
 
-- [ ] **段落控制**：按动作/信息变化断段，读起来不卡
-- [ ] **高危词扫描**：少用"仿佛/犹如/一丝/不禁/眼中闪过/嘴角勾起"等模板化表达
-- [ ] **高危句式扫描**：公式化对话标签/"他感到"/"带着一丝XX"等不要过量
-- [ ] **情绪展示**：关键情绪节点没有直接写"他愤怒/伤心/紧张"，用动作/神态替代；低强度过场情绪允许一笔直写，不必处处外化
-- [ ] **对话有效性**：每句对话至少推进剧情/塑造人物/制造张力之一
-- [ ] **五感调动**：每个场景至少调动2种以上感官
-- [ ] **环境交互**：环境描写有角色交互，不是空镜头
-- [ ] **镜头感**：每段有明确拍摄对象，远景/中景/近景/特写交替
-- [ ] **水分检查**：删掉任意一段后读者是否困惑——不困惑则该段多余
-- [ ] **视角一致**：没有全知叙述/上帝视角/心理分析混入
-- [ ] **节奏交替**：叙述默认是逗号长句（句长标准见 anti-ai-writing.md 规则 3），短句只作偶尔的孤立重拍、用完回到逗号长句；忌通篇同长度，也忌机械长短交替；快慢场景交替
-- [ ] **代入感**：主角目标清晰、行为可理解、叙事立场站在主角一侧
+### Formula
+an unsettling situation + a status crying out for elevation + a hopeful cheat + a future worth anticipating
+
+### Tone-setting three layers
+1. Emotional atmosphere
+2. Story direction
+3. Value inclination
+
+### Two openings
+- Immersion route: quickly project into the protagonist
+- Anticipation route: create crisis at the opening
+
+Rule: forcing golden-three-chapter structure damages the established tone badly; don't force it.
+
+### Holding readers: uninterrupted anticipation
+- The protagonist about to get something but hasn't -> anticipation peaks -> most follow-through
+- Follow-through drops the moment it's gotten -> fix: attach another hook before it's gotten -> loop
+- A book always keeps two-plus anticipation lines
+
+---
+
+## Quality checklist
+
+After each passage/chapter, verify:
+
+- [ ] **Paragraph control**: break by action/information change; reads without stumbles
+- [ ] **High-risk word scan**: minimize "like / as if / a trace of / couldn't help / flashed through his eyes / corner of the mouth curled" template expressions
+- [ ] **High-risk pattern scan**: formulaic dialogue tags / "he felt" / "with a trace of" not overused
+- [ ] **Emotion shown**: key emotion nodes don't write "he was angry/sad/nervous" directly; use action/expression; low-intensity transition emotions may be written straight in one line, no forced externalization
+- [ ] **Dialogue effectiveness**: every line advances plot / shapes character / creates tension, at least one
+- [ ] **Five senses**: every scene mobilizes 2+ senses
+- [ ] **Environment interaction**: environment description has character interaction, no empty shots
+- [ ] **Camera feel**: every paragraph has a clear filmed object; long/medium/close-up/insert alternate
+- [ ] **Water check**: delete any passage — is the reader confused? Not confused = redundant
+- [ ] **POV consistency**: no omniscient narration / god-view / psychological analysis mixed in
+- [ ] **Rhythm alternation**: narration defaults to comma-linked long sentences (sentence-length standard in anti-ai-writing.md Rule 3); short sentences only as occasional isolated heavy beats, then return; avoid uniform length and mechanical long-short alternation; fast/slow scenes alternate
+- [ ] **Immersion**: protagonist goal clear, behavior understandable, narrative stance on the protagonist's side

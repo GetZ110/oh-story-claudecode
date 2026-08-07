@@ -1,426 +1,426 @@
-# 情绪弧线操作手册
-> 写故事时选弧线、控制节奏、调动情绪的速查操作手册。
+# Emotion Arc Handbook
+> A quick-reference operating manual for picking arcs, controlling rhythm, and mobilizing emotion when writing a story.
 
-## 决策路由表
+## Decision routing table
 
-| 你想写的情绪效果 | 选哪个弧线 | 关键要点 |
+| The emotional effect you want | Pick this arc | Key points |
 |------------------|-----------|----------|
-| 虐完翻盘 | V 形 | 谷底 60-70%，治愈急速回升 |
-| 甜完刀死（BE） | 倒 V 形 | 高点 40-50%，坠落比上升快 |
-| 多反转猜不到 | W 形 | 每峰比前高，上限 3 起伏 |
-| 层层打脸升级 | 递进形 | 无回落，像台阶往上 |
-| 隐忍后大爆发 | 延迟满足 | 前 70-80% 铺垫，最后集中爆发 |
-| 结尾颠覆 | 急转形 | 70-80% 处急转弯，前面线索要能回看说通 |
+| Anguish then turnaround | V-shape | bottom at 60-70%, healing rebounds fast |
+| Sweet then fatal fall (bad ending) | inverted V | peak at 40-50%, the fall faster than the rise |
+| Multiple unpredictable reversals | W-shape | each peak higher than the last, max 3 undulations |
+| Layer-by-layer comeuppance escalation | progressive | no dips; stairs going up |
+| Restraint then massive burst | delayed gratification | 70-80% setup, concentrated burst at the end |
+| Ending subversion | sharp turn | sharp turn at 70-80%; earlier clues must hold on reread |
 
-可叠加两种弧线（如"延迟满足 + 急转"），不超过两种。
+Two arcs may stack (e.g. "delayed gratification + sharp turn"), no more than two.
 
 ---
 
-## 六种弧线速查
+## The six arcs, quick reference
 
-### 一、V 形弧线（虐 -> 治愈）
+### 1. V-shape arc (anguish → healing)
 
 ```
-情绪
+Emotion
 10 |          *
  9 |         / \
  7 |        /   \
- 6 |       /     *  治愈高点
- 1 |  *  虐谷底
-   +------------------> 进度
+ 6 |       /     *  healing peak
+ 1 |  *  anguish bottom
+   +------------------> progress
      0%  40%  70%  100%
 ```
 
-操作要点：
-- 谷底放在 60-70%，治愈急速回升，结尾情绪必须高于起点
-- 谷底要够深，转折要突然，治愈不拖，谷底停留 1-2 场景即转折
+Operation:
+- Bottom at 60-70%; healing rebounds fast; the ending emotion must exceed the start
+- The bottom must be deep, the turn sudden, the healing non-dragging; 1-2 scenes at the bottom then turn
 
-| 题材 | 虐的部分 | 治愈的部分 |
+| Genre | The anguish | The healing |
 |------|----------|------------|
-| 重生复仇 | 前世被虐 | 重来后翻盘 |
-| 破镜重圆 | 分开的痛苦 | 重新在一起 |
-| 亲情催泪 | 误解/亏欠 | 和解/明白真相 |
-| 成长治愈 | 低谷遭遇 | 重新站起来 |
+| Second-chance revenge | past-life abuse | turnaround after the do-over |
+| Reunion romance | the pain of separation | getting back together |
+| Family tearjerker | misunderstanding/owing | reconciliation/truth |
+| Growth healing | the low valley | standing back up |
 
-字数分配（12000 字）：起始 10% -> 下沉 30% -> 谷底 15% -> 转折 10% -> 治愈上升 25% -> 高点收束 10%
+Word allocation (12000 words): start 10% → descend 30% → bottom 15% → turn 10% → healing rise 25% → peak close 10%
 
-### 二、倒 V 形弧线（爽 -> 反转 -> 低谷）
+### 2. Inverted V arc (satisfying → reversal → low valley)
 
 ```
-情绪
+Emotion
 10 |     *
  5 | *     \
- 1 |        *  BE 落点
-   +------------------> 进度
+ 1 |        *  bad-ending landing
+   +------------------> progress
      0%  30%  60%  100%
 ```
 
-操作要点：
-- 高点放在 40-50%，反转后急速下坠
-- 坠落速度必须快于上升，BE 结尾不加糖
+Operation:
+- Peak at 40-50%; sharp plunge after the reversal
+- The fall must outpace the rise; no sugar added to bad endings
 
-| 题材 | 爽的部分 | 坠落的部分 |
+| Genre | The satisfying part | The falling part |
 |------|----------|------------|
-| BE 虐恋 | 甜蜜/幸福 | 真相/分离 |
-| 职场翻车 | 升职/成功 | 发现是陷阱 |
-| 友情背叛 | 亲密无间 | 背后的算计 |
-| 信任崩塌 | 深信不疑 | 被欺骗的真相 |
+| Bad-ending romance | sweetness/happiness | truth/separation |
+| Career crash | promotion/success | discovering it was a trap |
+| Friendship betrayal | closeness | the scheming behind |
+| Trust collapse | total faith | the truth of being deceived |
 
-字数分配（12000 字）：起步 10% -> 上升 35% -> 顶点 10% -> 反转 5% -> 坠落 30% -> 低谷收束 10%
+Word allocation (12000 words): start 10% → rise 35% → peak 10% → reversal 5% → fall 30% → low-valley close 10%
 
-### 三、W 形弧线（多起伏）
+### 3. W-shape arc (multi-undulation)
 
 ```
-情绪
+Emotion
 10 |       *           *
  5 |  *         \ /
  4 |             *
-   +--------------------> 进度
+   +--------------------> progress
      0%  20%  40%  60%  80%  100%
 ```
 
-操作要点：
-- 至少两个波峰一个波谷，通常三个起伏
-- 每个峰必须比前一个高，最终峰在 80-90%
-- 起伏之间必须有喘息空间，上限 3 个起伏
+Operation:
+- At least two peaks and one valley; usually three undulations
+- Each peak higher than the last; the final peak at 80-90%
+- Breathing room between undulations; max 3
 
-| 题材 | 说明 |
+| Genre | Notes |
 |------|------|
-| 多反转悬疑 | 每次以为猜到了就再来一个反转 |
-| 追妻火葬场 | 反复拉扯，每次以为和好了又出问题 |
-| 商战博弈 | 你来我往，每次以为赢了又翻盘 |
+| Multi-reversal mystery | every time you think you've got it, another reversal |
+| Second-chance romance (comeback) | repeated pulling; every time it seems patched, another problem |
+| Business warfare | back and forth; every time it seems won, it flips |
 
-字数分配（15000 字，3 起伏）：起步+第1峰 25% -> 第1谷 10% -> 第2峰 25% -> 第2谷 10% -> 第3峰 20% -> 收束 10%
+Word allocation (15000 words, 3 undulations): start + peak 1 25% → valley 1 10% → peak 2 25% → valley 2 10% → peak 3 20% → close 10%
 
-### 四、递进弧线（逐步升级）
+### 4. Progressive arc (step-by-step escalation)
 
 ```
-情绪
+Emotion
 10 |                     *
  7 |             * /
  5 |       * /
  3 | * /
-   +--------------------> 进度
+   +--------------------> progress
      0%  25%  50%  75%  100%
 ```
 
-操作要点：
-- 不能有回落，像台阶一阶一阶往上
-- 最高点在 85-95%，中间只给小胜利，不提前释放
+Operation:
+- No dips; stairs going up
+- Highest point at 85-95%; middle only small wins, nothing released early
 
-| 题材 | 递进方式 |
+| Genre | Progression |
 |------|----------|
-| 打脸爽文 | 一个一个打，每个比上一个狠 |
-| 层层揭秘 | 真相一层比一层震撼 |
-| 逆袭翻盘 | 每一步翻盘都比上一步大 |
+| Comeuppance payoff fiction | one slap after another, each harder |
+| Layer-by-layer reveal | each truth layer more shocking |
+| Turnaround | each turnaround bigger than the last |
 
-字数分配（10000 字）：压迫 20% -> 第1阶反击 20% -> 第2阶反击 25% -> 第3阶反击 25% -> 收束 10%
+Word allocation (10000 words): pressure 20% → counter 1 20% → counter 2 25% → counter 3 25% → close 10%
 
-### 五、延迟满足弧线（长铺垫 -> 爆发）
+### 5. Delayed-gratification arc (long setup → burst)
 
 ```
-情绪
+Emotion
 10 |                       *
  5 |              *--------|
  3 |       *------         |
  1 | *------                |
-   +-------------------------> 进度
+   +-------------------------> progress
      0%  20%  40%  60%  80%  100%
 ```
 
-操作要点：
-- 前 70-80% 压制/铺垫，最后 20-30% 集中爆发
-- 铺垫阶段每段必须有信息量和张力，不能无聊
-- 压的方式要多样，爆发要密集，爆发后快收
+Operation:
+- First 70-80% suppressed/setup, last 20-30% concentrated burst
+- Every setup passage must carry information and tension — no boredom
+- Pressurize in varied ways; burst densely; close fast after the burst
 
-| 题材 | 压的部分 | 爆发的部分 |
+| Genre | The pressing | The bursting |
 |------|----------|------------|
-| 复仇爽文 | 隐忍、装弱、被欺压 | 一朝翻盘、全面清算 |
-| 身份揭秘 | 隐藏实力/身份 | 真实身份曝光，全场震惊 |
-| 长线布局 | 主角暗中操作 | 所有棋子同时落位 |
+| Revenge payoff fiction | restraint, feigning weakness, being oppressed | one-day turnaround, full settlement |
+| Identity reveal | hidden power/identity | real identity exposed, universal shock |
+| Long-line scheming | the protagonist works in the dark | all pieces land at once |
 
-字数分配（12000 字）：初始压制 20% -> 深层铺垫 25% -> 压力最大 15% -> 爆发触发 5% -> 集中爆发 25% -> 收束 10%
+Word allocation (12000 words): initial pressure 20% → deep setup 25% → max pressure 15% → burst trigger 5% → concentrated burst 25% → close 10%
 
-### 六、急转弧线（70-80% 处急转弯）
+### 6. Sharp-turn arc (sharp turn at 70-80%)
 
 ```
-情绪
-10 |                *  急转后的新高/低点
+Emotion
+10 |                *  new high/low after the turn
  8 |           *--/
  3 |      /
-   +-------------------------> 进度
+   +-------------------------> progress
      0%   30%   70%  80%  100%
 ```
 
-操作要点：
-- 前 70-80% 正常弧线，70-80% 处突然转向
-- 急转只占 1-2 段，前面埋的线索回看时必须说得通
+Operation:
+- First 70-80% a normal arc; sudden turn at 70-80%
+- The sharp turn occupies 1-2 passages; earlier planted clues must hold on reread
 
-| 题材 | 前半段 | 急转后 |
+| Genre | First half | After the turn |
 |------|--------|--------|
-| 细思极恐 | 温馨日常 | 恐怖真相浮现 |
-| 身份错位 | A 视角叙事 | 其实是 B |
-| 动机反转 | 以为是爱 | 其实是恨/利用 |
+| Deeply unsettling | warm daily life | the horror truth surfaces |
+| Identity displacement | narrated from A's POV | it was actually B |
+| Motive reversal | thought it was love | it was hate/use |
 
-字数分配（10000 字）：建立假象 35% -> 推高假象 30% -> 假象高点 10% -> 急转 5% -> 真相展开 15% -> 新情绪收束 5%
-
----
-
-## 中段加压四手段
-
-1. **公开升级**：把私下伤害搬到公开场合（家宴、公司会议、直播、典礼）
-2. **双重背叛**：已知一层背叛后再加一层（经济背叛、名誉背叛、立场反转、证据篡改）
-3. **代价加速**：不行动的代价不断升高（失去机会、当众羞辱、连累他人）
-4. **战略性沉默**：主角暂不反击，沉默本身持续加压（他人误读、反派更放肆）
+Word allocation (10000 words): build the illusion 35% → raise the illusion 30% → illusion peak 10% → sharp turn 5% → truth expansion 15% → new-emotion close 5%
 
 ---
 
-## 题材赛道策略
+## Four mid-section pressurizers
 
-| 赛道 | 最佳爽点 | 中段重点 | 结尾偏好 |
+1. **Public escalation**: move private harm to public venues (family dinners, company meetings, live streams, ceremonies)
+2. **Double betrayal**: after one known betrayal layer, add another (financial betrayal, reputational betrayal, stance reversal, evidence tampering)
+3. **Cost acceleration**: the cost of inaction keeps rising (lost opportunities, public humiliation, dragging others down)
+4. **Strategic silence**: the protagonist temporarily does not counterattack; the silence itself keeps pressurizing (others misread, the antagonist grows bolder)
+
+---
+
+## Genre track strategies
+
+| Track | Best payoff | Mid-section focus | Ending preference |
 |------|----------|----------|----------|
-| 婚恋/追妻火葬场 | 开篇羞辱->公开反杀->渣男后悔->身份翻盘 | 公开/私下反差、代价升级、至少一个 mini-payoff | 静默优越、社会地位反转 |
-| 家庭伦理/亲情 | 高压现实场景、家人背叛断裂感 | 层层施压、道德绑架、一次拒绝兜底 | 边界清晰、脱离旧结构 |
-| 都市逆袭/职场 | 被轻视->展现实力->身份揭露 | 能力被低估但持续展示、关键场合意外表现 | 身份真相大白、对手代价可视 |
-| 悬疑反转 | 反常事实->层层剥开->颠覆认知 | 每层揭露引发新问题、至少一次"以为找到了但不是" | 真相一击（最后一句话重构全篇） |
+| Marriage / comeback romance | opening humiliation → public counter-kill → the ex's regret → identity turnaround | public/private contrast, cost escalation, at least one mini-payoff | quiet superiority, social-position reversal |
+| Family ethics / bonds | high-pressure real scenes, family betrayal and rupture | layer-by-layer pressure, moral coercion, one refused backstop | clear boundaries, exit from the old structure |
+| Urban turnaround / workplace | dismissed → show power → identity reveal | ability consistently underestimated but displayed, unexpected performance at key venues | identity truth exposed, opponent's costs visible |
+| Mystery reversal | anomalous facts → layer-by-layer peeling → cognition overturn | every layer reveals new questions; at least one "thought we found it but no" | truth one-strike (one last sentence reframes the whole piece) |
 
 ---
 
-## 期待感管理六法则
+## Six laws of anticipation management
 
-1. **期待最大化定律**：爽点到来前那一刻是全篇张力最高位置。将满足而未满足时，读者需求最大。
-2. **信息顺序操纵**：先植入什么信息，读者就先入为主往哪个方向想。控制信息顺序 = 控制读者预期。
-3. **期待递增法**：在基底期待上不断添加细节，注入更具体化的需求缺口。添加的细节必须与核心梗一致。
-4. **断期待禁止**：下一个期待立起来之前，绝不能结束当前期待。旧期待即将兑现时，新期待的种子必须已种下。
-5. **下行情节安全原则**：写情绪下行时，锅都是别人的，功都是主角的。下行中必须给读者安全感（可能的解法/潜在收获）。
-6. **爽点递增对比**：连续爽点逐级递增。维度：影响范围（个人->群体->社会）、揭示深度（表象->本质->颠覆）、身份落差（路人->大佬->全场震惊）。
-
----
-
-## 情绪核心公式
-
-写每个场景时分离三层情绪：
-1. 角色自己的情绪（角色感受到的）
-2. 文本传递的情绪（文本要让读者感受的）
-3. 读者实际感受的情绪（读者真正的体验）
-
-同一场景三层可以完全不同：角色在哭，文本在撩，读者在爽。
-
-例：女主当众被退婚，强忍着没掉泪——角色：屈辱；文本写她嘴角还挂着笑（角色：撑）；读者替她憋着、等后面打脸（读者：爽前蓄力）。
+1. **Anticipation-max law**: the instant before the payoff is the text's highest-tension position. When about-to-be-satisfied-but-not-yet, reader need peaks.
+2. **Information-order manipulation**: plant a piece of information first and the reader thinks in that direction first. Controlling information order = controlling reader expectations.
+3. **Anticipation escalation**: keep adding details onto the base anticipation, injecting more specific need gaps. The added details must align with the core hook.
+4. **No anticipation breaks**: before the next anticipation stands up, the current one must not end. When the old anticipation is about to pay off, the new one's seed must already be planted.
+5. **Down-plot safety principle**: when writing emotion down, the blame is always others', the credit always the protagonist's. Down passages must give the reader safety (possible solutions/potential gains).
+6. **Payoff escalation comparison**: consecutive payoffs escalate. Dimensions: impact scope (individual → group → society), reveal depth (surface → essence → subversion), identity gap (passerby → big shot → universal shock).
 
 ---
 
-## 前反应-复现-后反应情绪结构
+## The core emotion formula
 
-用于虐/悲壮/遗憾类场景。按顺序执行三步：
+Separate three emotion layers when writing every scene:
+1. The character's own emotion (what the character feels)
+2. The text-delivered emotion (what the text wants the reader to feel)
+3. The reader's actual emotion (the reader's true experience)
 
-1. **前反应**：让读者提前知道坏结果，然后描写美好事物（读者预知法）
-2. **复现**：让坏结果真的发生
-3. **后反应**：主角真情流露，作出改变（愤怒/拼命/振作）
+The three layers in one scene can be entirely different: the character cries, the text teases, the reader is thrilled.
 
-操作示例：知道某人一天后要死 -> 让她经历美好（逛街、看烟花） -> 她真的死了 -> 主角愤怒拼命
-
----
-
-## 以小搏大情绪结构
-
-用于热血/逆袭类场景。按顺序执行四步：
-
-1. **前反应**：铺垫弱者的苦，用对比强化（现在的弱 vs 以前的强）
-2. **复现**：强者到来，"我知道你们苦，我来了"
-3. **后反应**：弱势方被拯救
-4. **士气如虹**：整体气势转变
+Example: the female lead is publicly dumped at her engagement and holds back tears — character: humiliation; text: writes her still smiling at the corner of her mouth (character: holding up); reader: holding it in for her, waiting for the later comeuppance (reader: charging up before the payoff).
 
 ---
 
-## 冲突中的情绪层次与死亡赌注
+## Pre-reaction / recurrence / post-reaction emotion structure
 
-### 选择死亡赌注
+For anguish / tragic-glorious / regret scenes. Execute the three steps in order:
 
-| 赌注类型 | 适用场景 | 操作要点 |
+1. **Pre-reaction**: let the reader know the bad result in advance, then describe beautiful things (reader-foreknowledge method)
+2. **Recurrence**: the bad result really happens
+3. **Post-reaction**: the protagonist shows true feeling and changes (rage/desperation/rallying)
+
+Example: knowing someone will die in a day → let her experience beauty (shopping, watching fireworks) → she really dies → the protagonist rages and fights.
+
+---
+
+## Small-to-big emotion structure
+
+For hype/turnaround scenes. Execute the four steps in order:
+
+1. **Pre-reaction**: set up the weak one's suffering, reinforced with contrast (weak now vs strong before)
+2. **Recurrence**: the strong one arrives — "I know you've suffered. I'm here."
+3. **Post-reaction**: the weak side is saved
+4. **Morale surge**: the whole atmosphere turns
+
+---
+
+## Emotion layers in conflict & death stakes
+
+### Choosing the death stake
+
+| Stake type | Scenes | Operation |
 |----------|----------|----------|
-| 肉体死亡 | 恐怖诡异文 | 主角过强时赌注必须转为事业死亡，否则全书崩溃 |
-| 事业死亡 | 职场竞争、修仙门派争斗 | 失败 = 一切归零 |
-| 心理死亡 | 感情崩塌、信念毁灭 | 情绪冲击最深，优先用于感情线 |
+| Physical death | horror/strange fiction | when the protagonist is too strong, the stake must shift to career death or the whole book collapses |
+| Career death | workplace competition, sect struggles | failure = everything resets to zero |
+| Psychological death | emotional collapse, belief destruction | deepest emotional impact; prefer for romance lines |
 
-选一种作为主要赌注贯穿全书，其他辅助推动情节。
+Pick one as the main stake running through the book; the others assist.
 
-### 用黏结剂维持张力
+### Keeping tension with adhesives
 
-对立双方必须无法轻易脱身。四种黏结剂：杀人理由（序列唯一性必然冲突）、工作职责、道德责任（亲人遇险）、实体场所（副本密室）。
+Opposing parties must not escape easily. Four adhesives: killing reasons (uniqueness of sequence creates inevitable conflict), job duties, moral responsibility (family in danger), physical venues (dungeons, locked rooms).
 
-### 长线维护规则
+### Long-line maintenance rules
 
-- 第一卷结局不能太圆满——完美解决会杀死后续追读动力
-- 解决一个麻烦的同时必须埋下下一个麻烦
-- 越到后期，情绪张力必须越大
-
----
-
-## 基于不该如此的情绪驱动
-
-- "不该如此"是最根本的情绪驱动力——写诬告、不公、恃强凌弱，读者天生生出"不该如此"的念头
-- 核心情绪逻辑：想要爽，必先不爽；想要公平，必先不公平；想要强大，必先不强大
-- "悬而未决"也是强驱动力
-- 好的题材必须具备勾起人们惋惜、渴望改变的特质
+- Volume 1's ending must not be too complete — a perfect solve kills follow-through motivation
+- Solving one trouble must simultaneously plant the next
+- The later the book, the bigger the emotional tension must be
 
 ---
 
-## 理念矛盾的情感爆发力
+## "It shouldn't be like this" emotion driving
 
-- 理念之争比利益之争更能引发读者深层共鸣
-- 少量关键场景即可，不需要大量笔墨
-- 理想主义与现实的冲突是塑造配角封神级人设的手法
-- 理念认同 = 人设认同 = 读者情感投入
-- 在主线中穿插理念型角色，用他们的追求和牺牲拔高全书情绪上限
-
----
-
-## 情绪调动的三层方法
-
-三层：**长期感情投入**、**短期事件冲突**、**场景描绘**。三者可叠加，核心是前两层。
-
-### 长期引导三步骤
-
-1. **抛出共鸣炸弹**：找到角色最易引发共鸣的情感锚点（梦想、仇恨、恐惧）
-2. **让读者变见证者**：展示角色付出和挣扎，每一步伴随收获
-3. **让读者变参与者**：通过足够铺垫和细节，产生命运共同体感
-
-### 短期情绪引导
-
-短期靠独立事件冲突。**直白冲突比繁杂情节更容易引起共鸣**。
-
-两种事件类型：
-- **推动情节发展的事件**：让读者对角色处境产生认同
-- **塑造人物性格的事件**：让读者对角色思想性格产生认同
-
-开篇必须选择塑造人物性格的事件——先认同角色这个人才关心角色的事。
-
-### 情绪代入的陷阱
-
-读者未代入主角前：主角弱势可以引起同情，但**敌人弱势也同样引起同情**。读者还没建立认同时，不要把对手写得可怜。
-
-### 情绪文笔技法
-
-- **句长跟着情绪和节奏走**：紧张、决断处用短句提速，铺垫、沉淀处用长句蓄势；短句是提速工具，不是默认底色，别通篇拆短
-- **情绪词**：骤然、猛然、刺眼——制造紧迫感
-- **动作词**：抽、划、留下——画面感强，情绪外化
-- **修饰词**：精准克制地使用形容词，不堆砌
-- **进阶规则**：优先通过角色行为暗示情绪，而非直接描写（非硬性，必要的内心可以直写，别为外化堆无功能的小动作）。**以乐写悲**：角色在最悲伤时表现开心，情绪张力更强（赴死的人很开心，往往比哭更悲）
+- "It shouldn't be like this" is the most fundamental emotional driver — write false accusations, injustice, bullying, and the reader naturally generates "it shouldn't be like this"
+- Core emotional logic: to want satisfying, first not-satisfying; to want fairness, first unfairness; to want strong, first not-strong
+- "Left hanging" is also a strong driver
+- Good genres carry the quality of evoking regret and the desire for change
 
 ---
 
-## 男频恋爱文情绪设计
+## The emotional explosive power of ideological conflict
 
-### 两大核心需求
-
-- **情绪价值**：读者缺爱，小说中漂亮优秀女生欣赏自己，填补情感空缺
-- **自尊价值**：带校花/女总裁出场，旁人羡慕嫉妒恨
-
-### 恋爱当升级文写
-
-- 设定"好感度进度条"（路人->好人->朋友->喜欢不自知->...）
-- 暧昧拉扯的过程通常比在一起的结果更吸引读者
-- 制造内外部阻碍阻拦两人走到一起，通过克服阻碍加深感情
-
-### 感情升级的不对称性
-
-两条进度线不能齐头并进：
-- **情感快于社会关系**：双方好感早已拉满但嘴硬不表白
-- **社会关系快于情感**：穿越自带老婆/未婚妻，好感为零需逐步提升
-
-### 关键禁忌与技巧
-
-- 男主不要主动追求，不要舔狗——用自身优秀品质吸引女主注意
-- 事业线不可或缺，女主对主角事业起积极作用
-- 要写女主对主角好，根据人设设计付出方式（自卑型偷偷塞丹药、傲娇型嘴硬做便当、直率型大方送礼物）
-- **对比法**：时间线对比（前后态度变化）+ 双标（对别人 vs 对主角）
-- **信息差拉期待**：双重身份（网络身份 vs 现实身份），读者期待揭穿马甲时的反应
+- Ideological conflict resonates deeper than interest conflict
+- A few key scenes suffice; no heavy ink needed
+- Idealism vs reality is the technique for forging god-tier side characters
+- Ideological identification = persona identification = reader emotional investment
+- Weave ideological characters into the main line; their pursuits and sacrifices raise the book's emotional ceiling
 
 ---
 
-## 情绪调动统一视角
+## The three-layer method of emotion mobilization
 
-> 写完一段觉得不到位 / 读者反馈平淡时使用。
+Three layers: **long-term emotional investment**, **short-term event conflict**, **scene description**. They stack; the core is the first two.
 
-### 终极公式
+### Long-term guidance in three steps
 
-**平静 -> 调动 -> 释放 -> 爽**
+1. **Throw the resonance bomb**: find the character's most resonance-prone emotional anchor (dreams, hatred, fear)
+2. **Make the reader a witness**: show the character's giving and struggle; every step accompanied by gains
+3. **Make the reader a participant**: through enough setup and detail, create a shared-fate feeling
 
-| 技法 | 调动 | 释放 | 结果 |
+### Short-term emotion guidance
+
+Short-term rides on independent event conflicts. **Blunt conflict resonates more easily than convoluted plotting.**
+
+Two event types:
+- **Events advancing the plot**: make the reader identify with the character's situation
+- **Events shaping personality**: make the reader identify with the character's mind and character
+
+The opening must choose personality-shaping events — identify with the person first, then care about the person's affairs.
+
+### The pitfall of emotional projection
+
+Before the reader identifies with the protagonist: the protagonist's weakness can evoke sympathy, but **the enemy's weakness evokes sympathy too**. Do not write the opponent as pitiable before identification is established.
+
+### Emotion prose techniques
+
+- **Sentence length follows emotion and rhythm**: short sentences speed up tension/decision spots; long sentences build setup/settling; short sentences are an accelerator, not the default texture — do not chop everything short
+- **Emotion words**: sudden, sharp, dazzling — create urgency
+- **Action words**: yank, slash, leave — strong imagery, externalized emotion
+- **Modifiers**: use adjectives precisely and sparingly, no piling
+- **Advanced rule**: prefer implying emotion through character behavior over direct description (not a hard rule — necessary interiority may be written directly; do not pile functionless micro-actions for externalization). **Joy to write grief**: a character happiest at the saddest moment is stronger tension (someone going to die being cheerful is often sadder than crying)
+
+---
+
+## Male-audience romance emotion design
+
+### Two core needs
+
+- **Emotional value**: readers starved for love; beautiful, accomplished women appreciating the protagonist fills the emotional gap
+- **Self-esteem value**: bringing the campus queen/CEO girlfriend out, everyone envies and grudges
+
+### Treat romance as an upgrade novel
+
+- Set an "affinity progress bar" (stranger → good person → friend → likes without knowing → ...)
+- The ambiguous pull process usually attracts readers more than the being-together result
+- Create internal/external obstacles keeping them apart; deepen the relationship by overcoming them
+
+### Asymmetry of emotional escalation
+
+Two progress lines cannot advance in lockstep:
+- **Emotion faster than social relationship**: mutual affinity already maxed but both too stubborn to confess
+- **Social relationship faster than emotion**: transmigration comes with a spouse/fiancée, affinity zero needing gradual increase
+
+### Key taboos & techniques
+
+- The male lead does not actively pursue; no simping — attract the female lead's attention with his own qualities
+- The career line is indispensable; the female lead plays a positive role in his career
+- Write the female lead being good to the protagonist, designed by persona (the insecure type secretly stuffs medicine in his bag, the tsundere makes bento boxes while insisting they're extra, the straightforward type gives gifts openly)
+- **Contrast method**: timeline contrast (attitude before/after) + double standards (others vs the protagonist)
+- **Info gap pulls anticipation**: dual identity (online vs offline), the reader waits for the reaction when the mask drops
+
+---
+
+## Unified emotion-mobilization view
+
+> Use when a passage feels off after writing / reader feedback says it's flat.
+
+### The ultimate formula
+
+**calm → mobilize → release → satisfying**
+
+| Technique | Mobilize | Release | Result |
 |------|------|------|------|
-| 装逼打脸 | 反派嚣张 | 主角碾压 | 爽 |
-| 拉仇恨 | 负面情绪 | 恶人受罚 | 爽 |
-| 先抑后扬 | 打压 | 爆发 | 爽 |
-| 期待感 | 制造鸿沟 | 弥合鸿沟 | 爽 |
+| Status flex / comeuppance | antagonist arrogance | protagonist crush | satisfying |
+| Hatred accumulation | negative emotion | the evil punished | satisfying |
+| Rise after fall | suppression | burst | satisfying |
+| Anticipation | create the gap | bridge the gap | satisfying |
 
-### 实操要点
+### Practice points
 
-- 每个场景标注：读者当前情绪在哪个阶段；下一步是调动还是释放。
-- 只有调动没有释放 = 读者憋屈弃书
-- 只有释放没有调动 = 爽感平淡无力
-- 调动程度决定释放爽度：仇恨拉多满，打脸就多爽
-
----
-
-## 期待感维持的底层机制
-
-> 写了目标但读者不关心 / 六法则用了但效果不好时使用。
-
-### 期待感 vs 目标
-
-- **目标** = 角色要做什么（找到宝物、打败魔王）
-- **期待感** = 读者对目标达成后会怎样的预期
-- 有目标无期待 = 读者不在乎结果，必须把目标转化为期待
-
-### 确定型 vs 不确定型期待
-
-- **确定型**（爽文）：读者知道主角会赢，写"怎么赢"（过程创意 > 结果悬念）
-- **不确定型**（悬疑）：读者不知道结果（结果悬念 > 过程体验）
-- 爽文不怕"剧透"——因为期待在过程不在结果
-
-### 悬念的开环与闭环
-
-- **开环** = 制造鸿沟（提出问题/悬念）
-- **闭环** = 弥合鸿沟（回答问题/揭晓）
-- **嵌套开环** = 闭环一个期待的同时开启新的（维持阅读连续性）
-- 规则：闭环一个期待时，必须已有下一个开环在运行
-
-### 感情线的鸿沟
-
-感情线没有阻碍 = 没有期待 = 白给 = 无意义。必须设置鸿沟。
-
-鸿沟来源：身份差距、家族反对、误会、使命冲突。
+- Mark every scene: which stage is the reader's emotion at; is the next step mobilize or release?
+- Only mobilize, never release = the reader chokes and quits
+- Only release, never mobilize = the payoff feels flat and weak
+- The mobilize degree decides the release payoff: the fuller the hatred, the better the comeuppance
 
 ---
 
-## 质量检查清单
+## The underlying mechanism of anticipation maintenance
 
-写完情绪弧线后逐项检查：
+> Use when a goal is written but the reader doesn't care / the six laws aren't working.
 
-### 弧线选择与节奏
-- [ ] 弧线类型是否匹配你想写的情绪效果？（对照决策路由表）
-- [ ] 关键转折点是否在正确的进度位置？（V形谷底60-70%、倒V高点40-50%、急转70-80%）
-- [ ] 字数分配是否符合所选弧线的比例要求？
+### Anticipation vs goal
 
-### 调动与释放
-- [ ] 每个场景是否清楚当前是"调动"还是"释放"阶段？
-- [ ] 是否存在只有调动没有释放的段落？（会憋屈弃书）
-- [ ] 是否存在只有释放没有调动的段落？（爽感平淡）
-- [ ] 连续爽点是否逐级递增？（影响范围/揭示深度/身份落差）
+- **Goal** = what the character must do (find the treasure, defeat the demon king)
+- **Anticipation** = what the reader expects after the goal is achieved
+- A goal without anticipation = the reader doesn't care about the outcome; goals must be converted into anticipation
 
-### 期待感
-- [ ] 每个目标是否已转化为读者期待？
-- [ ] 闭环一个期待时，下一个开环是否已在运行？（断期待禁止）
-- [ ] 感情线是否设置了阻碍？（无阻碍 = 无期待）
+### Deterministic vs uncertain anticipation
 
-### 情绪代入
-- [ ] 开篇是否用了塑造人物性格的事件？（先认同人，再关心事）
-- [ ] 读者未代入主角前，是否避免了把对手写得可怜？
-- [ ] 下行情节中是否给了读者安全感？（锅是别人的，功是主角的）
+- **Deterministic** (payoff fiction): the reader knows the protagonist will win; write "how the win happens" (process creativity > outcome suspense)
+- **Uncertain** (mystery): the reader doesn't know the outcome (outcome suspense > process experience)
+- Payoff fiction doesn't fear "spoilers" — the anticipation is in the process, not the result
 
-### 长线维护
-- [ ] 解决一个麻烦时是否同时埋下了下一个麻烦？
-- [ ] 越到后期情绪张力是否越大？
-- [ ] 死亡赌注是否选了一种贯穿全书？
-- [ ] 对立双方是否有黏结剂无法轻易脱身？
+### Open loops and closed loops of suspense
+
+- **Open loop** = create the gap (raise a question/suspense)
+- **Closed loop** = bridge the gap (answer the question/reveal)
+- **Nested open loop** = closing one anticipation while opening a new one (maintains reading continuity)
+- Rule: when closing one anticipation, the next open loop must already be running
+
+### The romance line's gap
+
+No obstacle in the romance line = no anticipation = freebie = meaningless. A gap is mandatory.
+
+Gap sources: status gap, family opposition, misunderstanding, mission conflict.
+
+---
+
+## Quality checklist
+
+After writing an emotion arc, verify:
+
+### Arc selection & rhythm
+- [ ] Does the arc type match the emotional effect you want? (see the decision routing table)
+- [ ] Are the key turn points at the right progress positions? (V bottom 60-70%, inverted-V peak 40-50%, sharp turn 70-80%)
+- [ ] Does word allocation match the chosen arc's ratio requirements?
+
+### Mobilize & release
+- [ ] Is every scene clear on whether it is "mobilize" or "release"?
+- [ ] Any passages with only mobilize and no release? (will choke and quit)
+- [ ] Any passages with only release and no mobilize? (payoff flat)
+- [ ] Do consecutive payoffs escalate? (impact scope / reveal depth / identity gap)
+
+### Anticipation
+- [ ] Has every goal been converted into reader anticipation?
+- [ ] When closing one anticipation, is the next open loop already running? (no anticipation breaks)
+- [ ] Does the romance line have obstacles? (no obstacle = no anticipation)
+
+### Emotional projection
+- [ ] Does the opening use personality-shaping events? (identify with the person first, then care about the affairs)
+- [ ] Before the reader identifies with the protagonist, did you avoid writing the opponent as pitiable?
+- [ ] Do down passages give the reader safety? (blame is others', credit is the protagonist's)
+
+### Long-line maintenance
+- [ ] Does solving one trouble simultaneously plant the next?
+- [ ] Does emotional tension grow later in the book?
+- [ ] Was one death stake chosen to run through the book?
+- [ ] Do opposing parties have adhesives preventing easy escape?

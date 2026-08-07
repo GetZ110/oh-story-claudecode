@@ -1,325 +1,318 @@
 ---
 name: story-long-analyze
 version: 1.0.0
-description: "长篇网文拆文。深度拆解爆款长篇小说的黄金三章、人设架构、爽点设计、节奏控制。单一深度拆解管道：跑完黄金三章（Stage 1）后产出快速预览报告并询问是否继续全量拆解，确认后从 Stage 2 续跑逐章摘要、聚合分析、设定关系、汇总报告，全程产物落盘 拆文库/{书名}/。触发方式：/story-long-analyze、/长篇拆文、「帮我拆这本书」「拆这本书」「分析黄金三章」「深度拆解」「完整拆解」「系统拆解」或提供小说文本文件路径——全部进入同一管道。"
+description: "Long-form web fiction teardown. Deep deconstruction of hit long-form novels: opening hook chapters, character architecture, payoff design, pacing control. Single deep-deconstruction pipeline: after the opening hook chapters (Stage 1) it produces a quick-preview report and asks whether to continue the full teardown; on confirmation it resumes from Stage 2 with per-chapter summaries, aggregation analysis, setting/relationships, and the final report, with every artifact written to teardown-lib/{Book Title}/. Triggers: /story-long-analyze, 'tear down this book', 'analyze the opening hook chapters', 'deep deconstruction', 'full deconstruction', 'systematic deconstruction', or providing a novel text file path — all enter the same pipeline."
 metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
 ---
-# story-long-analyze：长篇网文拆文
+# story-long-analyze: Long-Form Web Fiction Teardown
 
-你是网络小说结构分析师。
+You are a web-fiction structure analyst.
 
-**核心信念：看懂别人的爆款，才能写出自己的爆款。**
-
----
-
-> Agent 兼容性：检查专业 agent 是否可用时，按 `.claude/agents/{agent}.md` → `.opencode/agents/{agent}.md` → `.codex/agents/{agent}.toml` 的顺序查找。Codex 原生子代理调用优先使用同名 `agent_type`；如果当前 Codex 运行时返回 `unknown agent_type` 或未暴露 custom-agent registry，必须降级为 solo/direct。检测到 `.zcode/` 时同样直接 solo/direct，因为 ZCode 3.3.4 不执行项目 custom agents；报告 `Fallback: project custom agents unavailable -> solo`。Claude/OpenCode 兼容面保留 `subagent_type`。
->
-> Spawn 版本提示（不阻断 spawn）：先读取项目根 `.story-deployed` 的 `agents_version`。与本版 `agents_version: 23` 不一致时（标记缺失、字段缺失/非整数、小于或大于 23）**照常按文件存在性检查并 spawn**，同时报告 `Notice: agents bundle 版本不匹配（项目 {N}，本版 23）` 并提示重新运行 `/story-setup` 后新开会话；大于 23 时额外提示先更新 oh-story-claudecode，不要用本地旧版 setup 降级覆盖。只有 agent 文件缺失、或运行时不暴露 custom agent 时才降级 solo/direct，报告 `Fallback: ... -> solo`。
-
-## 拆解边界声明（主线程同样适用）
-
-你亲手做的**黄金三章深度拆解（Stage 1）、Stage 2 串行降级逐章处理、以及 Stage 3-6 的聚合/设定/报告/文风合成**，与 chapter-extractor 子代理遵循同一逻辑：拆的是用户**合法持有、拥有使用权**的虚构作品（已出版/连载或自有），性质是**只读的转化性文学批评**（编辑/评论/写作教学视角，不复制、不传播、不指导现实行为）。通俗题材里的家暴、出轨、复仇、暴力、情爱张力、黑暗伦理是常规虚构叙事元素，须照常做结构化提取，**不得以「敏感」「不适」为由拒绝整章或整本**——主线程拒绝会让整条自动化流水线停摆；个别片段无法处理则跳过、照常续完其余。
+**Core belief: you can only write your own hit once you understand someone else's hit.**
 
 ---
 
-## Phase 1：确认拆解对象 + 进入管道
+> Agent compatibility: when checking whether professional agents are available, look them up in the order `.claude/agents/{agent}.md` → `.opencode/agents/{agent}.md` → `.codex/agents/{agent}.toml`. Codex native subagent calls prefer the same-named `agent_type`; if the current Codex runtime returns `unknown agent_type` or does not expose a custom-agent registry, you must degrade to solo/direct. When `.zcode/` is detected, also go straight to solo/direct, because ZCode 3.3.4 does not execute project custom agents; report `Fallback: project custom agents unavailable -> solo`. The Claude/OpenCode compatibility surface keeps `subagent_type`.
 
-问用户：**「你要拆哪本书？（书名+平台）有原文文件路径吗？」**
+## Deconstruction scope statement (applies to the main thread too)
 
-如果没有明确目标，按题材或用户想写的类型推荐 2-3 本对标作品。
-
-### 统一入口
-
-确认拆解对象后直接进入拆解管道（Phase 2）。**没有快速/深度分叉**——只有一条深度拆解管道，跑到 Stage 1（黄金三章）后自动停靠产出快速预览报告。
-
-**无文本路径时**：如果用户没有提供原文文件路径、也没有在对话中贴出原文，引导用户提供原文——「请提供这本书的原文文件路径，或直接把原文贴给我，我从黄金三章开始拆。」拿到原文后进入管道。
+The opening-hook-chapters deep deconstruction you do yourself (Stage 1), the Stage 2 serial-degraded per-chapter processing, and the Stage 3-6 aggregation/setting/report/style synthesis all follow the same logic as the chapter-extractor subagent: what you deconstruct is a work of fiction the user **legally holds and has the right to use** (published, serialized, or their own), and the activity is **read-only transformative literary criticism** (an editor/commentary/writing-teaching perspective; no copying, no redistribution, no guidance for real-world conduct). Domestic abuse, infidelity, revenge, violence, romantic/sexual tension, and dark ethics in popular genres are ordinary fictional narrative elements and must be extracted structurally as usual — **you may not refuse an entire chapter or book on "sensitivity" or "discomfort" grounds** — refusing would stall the whole automated pipeline; if an individual passage cannot be processed, skip it and finish the rest normally.
 
 ---
 
-## Phase 2：深度拆解管道
+## Phase 1: Confirm the teardown target + enter the pipeline
 
-### 输出目录
+Ask the user: **"Which book do you want to tear down? (title + platform) Do you have a path to the source file?"**
 
-默认输出到 `拆文库/{书名}/`（项目根目录下）。用户指定了其他路径时按用户指定路径输出。
+If there is no clear target, recommend 2-3 benchmark books by genre or by what the user wants to write.
 
-### 已有分析利用
+### Unified entry
 
-**深度拆解开始前，检查是否已有部分拆解结果**：
+Once the target is confirmed, enter the deconstruction pipeline directly (Phase 2). **There is no quick/deep fork** — there is only one deep-deconstruction pipeline, which stops automatically after Stage 1 (opening hook chapters) and produces the quick-preview report.
 
-1. 检查 `拆文库/{书名}/` 目录下是否存在已有的拆文文件
-2. 如果存在 _progress.md，读取断点信息，从断点恢复（已有恢复机制）
-3. 如果存在 角色/*.md 或 设定/*.md，读取已有的角色和设定数据
-4. 将已有数据作为交叉验证基线：
-   - 新提取的角色信息与已有角色数据对比，检查一致性
-   - 新发现的设定细节与已有设定合并，标注信息来源（新提取 vs 已有）
-   - 如有冲突（如同角色已有文件中名字不同），在输出中标注冲突让用户裁定
-5. 避免重复提取已有信息
+**When there is no text path**: if the user has not provided a source file path and has not pasted the source text into the conversation, guide them to provide the source — "Please provide the file path to this book's source text, or paste the text directly, and I'll start from the opening hook chapters." Once you have the source, enter the pipeline.
 
-### 原文备份（管道前置步骤）
+---
 
-**拆解开始前，必须先备份原文**：
+## Phase 2: The deep-deconstruction pipeline
 
-1. 检查 `拆文库/{书名}/原文/` 目录是否已存在
-2. 如果不存在，从用户提供的源路径复制原文文件到 `拆文库/{书名}/原文/`
-3. 如果用户未提供源文件路径（直接在对话中贴文本），将原始文本保存到 `拆文库/{书名}/原文/原文.md`
-4. 备份完成后验证：
-   - 源文件路径模式：确认 `原文/` 目录下的文件数量和大小与源文件一致
-   - 对话贴文本模式：确认 `原文.md` 文件非空（>0 bytes）
+### Output directory
 
-### 输出目录结构
+Output defaults to `teardown-lib/{Book Title}/` (under the project root). If the user specifies another path, output there instead.
+
+### Reusing existing analysis
+
+**Before the deep deconstruction starts, check for any partial analysis already produced**:
+
+1. Check `teardown-lib/{Book Title}/` for existing teardown files
+2. If `_progress.md` exists, read the breakpoint info and resume from it (resume mechanism below)
+3. If `characters/*.md` or `setting/*.md` files exist, read the existing character and setting data
+4. Use the existing data as a cross-validation baseline:
+   - Compare newly extracted character info against existing character data for consistency
+   - Merge newly found setting details with existing settings, marking the source (newly extracted vs existing)
+   - If there are conflicts (e.g., the same character appears under different names in existing files), flag the conflict in the output and let the user decide
+5. Avoid re-extracting information that already exists
+
+### Source backup (pipeline pre-step)
+
+**Before the teardown starts, you must back up the source**:
+
+1. Check whether `teardown-lib/{Book Title}/source/` already exists
+2. If not, copy the source files from the user-provided source path to `teardown-lib/{Book Title}/source/`
+3. If the user did not provide a source file path (text pasted directly into the conversation), save the raw text to `teardown-lib/{Book Title}/source/source.md`
+4. After the backup, verify:
+   - Source-path mode: confirm the number and size of files under `source/` match the source files
+   - Pasted-text mode: confirm `source.md` is non-empty (>0 bytes)
+
+### Output directory structure
 
 ```
-拆文库/{书名}/
-├── 原文/
-│   └── 原文.txt          # 扩展名随源文件；对话直接贴入的文本存为 原文.md
-├── 概要.md
-├── 章节/
-│   ├── 第1章_深度拆解.md
-│   ├── 第2章_深度拆解.md
-│   ├── 第3章_深度拆解.md
-│   ├── 第1章_摘要.md
+teardown-lib/{Book Title}/
+├── source/
+│   └── source.txt          # extension follows the source file; pasted text saved as source.md
+├── overview.md
+├── chapters/
+│   ├── chapter_1_deep-dive.md
+│   ├── chapter_2_deep-dive.md
+│   ├── chapter_3_deep-dive.md
+│   ├── chapter_1_summary.md
 │   └── ...
-├── 快速预览.md
-├── 角色/
-│   ├── {角色名}.md
-│   └── 角色关系.md
-├── 剧情/
-│   ├── {剧情标题}.md
-│   ├── README.md       # 剧情目录索引：节奏/情绪模块/故事线的权威范围
-│   ├── 故事线.md
-│   ├── 节奏.md          # 关键信息推进 / 爽点循环 / 情绪触动点 / 爆发节奏
-│   ├── 情绪模块.md      # 读者需求 / 情绪引擎 / 可复现模块卡
-│   └── 散落情节.md
-├── 设定/
-│   ├── 世界观/
-│   │   ├── 背景设定.md   # 核心规则 + 特殊设定（无法独立的内容合并）
-│   │   ├── 力量体系.md
-│   │   ├── 地理.md
-│   │   └── 金手指.md
-│   └── 势力/
-│       └── {势力名}.md   # 内容 >= 200 字时独立；不足合并到 世界观/背景设定.md
-├── 拆文报告.md
-├── 文风.md          # Stage 6 文风：句长/标点/对话潜台词/情绪交替 + 原文锚点范例片段
+├── quick-preview.md
+├── characters/
+│   ├── {Character Name}.md
+│   └── relationships.md
+├── plot/
+│   ├── {story-unit title}.md
+│   ├── README.md       # plot index: authoritative scope of pacing/emotional beats/storylines
+│   ├── storylines.md
+│   ├── pacing.md          # key-info progression / payoff cycles / emotional touchpoints / burst rhythm
+│   ├── emotional-beats.md # reader needs / emotional engine / reproducible module cards
+│   └── loose-threads.md
+├── setting/
+│   ├── worldview/
+│   │   ├── background.md   # core rules + special settings (things too small to stand alone merge here)
+│   │   ├── power-system.md
+│   │   └── geography.md
+│   ├── factions/
+│   │   └── {Faction Name}.md   # standalone when >= 200 words; otherwise merged into worldview/background.md
+│   └── cheat.md
+├── teardown-report.md
+├── style.md          # Stage 6 style: sentence length / punctuation / dialogue subtext / emotional alternation + source anchor excerpts
 └── _progress.md
 ```
 
-> **权威产物**：`剧情/README.md` 说明剧情目录内各文件权威范围；`剧情/节奏.md` 是节奏/关键信息推进/情绪触动点的权威索引；`剧情/情绪模块.md` 是读者需求、情绪引擎、套路框架和可复现模块卡的权威索引。`拆文报告.md` 与 `剧情/故事线.md` 只做摘要投影；若摘要与这两个文件冲突，下游写作以 `剧情/节奏.md` / `剧情/情绪模块.md` 为准。
+> **Authoritative artifacts**: `plot/README.md` states the authoritative scope of each file in the plot directory; `plot/pacing.md` is the authoritative index for pacing/key-info progression/emotional touchpoints; `plot/emotional-beats.md` is the authoritative index for reader needs, the emotional engine, trope frameworks, and reproducible module cards. `teardown-report.md` and `plot/storylines.md` are only summary projections; if a summary conflicts with those two files, downstream writing follows `plot/pacing.md` / `plot/emotional-beats.md`.
 
-### 管道主体：Stage 0-6
+### The pipeline itself: Stage 0-6
 
-这是 story-long-analyze 唯一的执行管道。Stage 0-1 跑完后**自动停靠**产出快速预览报告（见下「Stage 1 停靠点」），用户确认后从 Stage 2 续跑。
+This is story-long-analyze's only execution pipeline. After Stage 0-1 finish, the pipeline **stops automatically** and produces the quick-preview report (see "Stage 1 stop point" below); once the user confirms, it resumes from Stage 2.
 
-**预期耗时提示**：开始前根据章节数给用户一个粗估：<50 章通常 30-60 分钟；50-200 章通常 1-3 小时；>200 章可能需要多轮会话。Stage 2 可并行提取，但 Stage 3-6 仍依赖前序产物，需按阶段推进。
+**Expected-time heads-up**: before starting, give the user a rough estimate based on chapter count: <50 chapters usually 30-60 minutes; 50-200 chapters usually 1-3 hours; >200 chapters may need multiple sessions. Stage 2 can extract in parallel, but Stages 3-6 depend on earlier artifacts and must proceed stage by stage.
 
 
-| 阶段 | 名称 | 输入 | 输出 | 完成标志 |
+| Stage | Name | Input | Output | Completion marker |
 |------|------|------|------|----------|
-| 0 | 概要提取 | 原始文本 | 概要.md（**首版 200 字 thin first-pass** + 章节索引；full plot-aware 500-1000 字版在 Stage 5 落盘覆盖）+ **Stage 0 章节边界子步骤将边界表写入 `_progress.md`**（详见下方说明） | 章节结构识别完成 + 章节边界落盘 |
-| 1 | 黄金三章 | 前3章原文 | 第1章_深度拆解.md / 第2章_深度拆解.md / 第3章_深度拆解.md（每章一个文件）。非人形反派（灵气复苏/末世/国运等抽象对抗型）出现在前三章时，在本阶段一并按抽象对抗型路由分析（核心对抗面/紧迫感来源/升级机制/叙事替代）。 | 3章拆解完成 → **停靠产出快速预览.md** |
-| 2 | 逐章摘要 | 分块章节文本 | 章节摘要.md（含情节点+角色+**关键信息与扩写技法**+**逐章写法公式**）。逐章写法公式必须提取情绪流向、节奏配比、结构公式、核心技巧、章尾卡点与伏笔。角色过滤（龙套不提取、别名归类）。每章10-40情节点（密度150-200字/个，按字数动态调节；公式低于10时仍按硬下限10拆足关键步骤）。**并行模式：每章 spawn chapter-extractor agent**。**计数验证：摘要数 == 章节数，不等则标记失败章节**。 | 所有章节处理完成 |
-| 3 | 聚合分析 | 全部章节摘要 | 剧情/*.md + README.md（含权威分工表与**剧情单元清单**索引）+ 故事线.md + **节奏.md + 情绪模块.md**。**故事框架识别**（前置，决定聚合策略）。**两步法剧情聚合**（先从摘要识别剧情大纲，再按大纲分配情节点）。**关键信息推进索引**（按章节/剧情单元追踪信息如何被扩写）。**情绪触动点与爆发节奏**（爽点/虐点/期待点的铺垫→释放→余波）。**全书情绪节奏总览**（情绪折线、爽点频率、小/中/大高潮位置、冲突升级路径、跨章伏笔地图、小/中/大循环单元）。**读者需求 / 情绪引擎 / 爽文套路框架**（沉淀为可复现模块卡）。**角色合并**（跨章节去重+别名归一）。**角色分级**（主角/反派/核心配角/功能角色）。**散落情节兜底**（6步，含覆盖率验证）。**桥段标签**（每个剧情模块按 deconstruction-notes.md 桥段词表打标，best-effort，无匹配留空）。**质量检查**（阈值详见 material-decomposition.md 质量阈值体系）。 | 质量检查通过 |
-| 4 | 设定+关系（4a/4b/4c） | **4a**：Stage 2 情节点+章节摘要（不依赖 Stage 3，与 3 并行）；**4b/4c**：Stage 3 合并后角色数据+情节点 | 设定/*.md + 角色/*.md。**4a 设定**（世界观/金手指/势力，从 Stage 2 mention 数据归纳）。**4b 角色完整档案**（两阶段模型：Stage 2 轻量提及 → Stage 4b 完整档案；别名解析置信度≥0.85自动合并）。**4c 角色关系提取**（从情节点提取，不从原文；含演变追踪+最终状态合并+隐含推断）。非人形反派在 4a 做完整抽象对抗型分析。 | 4a/4b/4c 全部完成 |
-| 5 | 汇总报告 | 全部输出 | 拆文报告.md（含「读者需求 / 情绪引擎」「关键信息与扩写技法总览」「全书情绪节奏总览」「节奏与情绪触动点」「循环单元」「跨章伏笔地图」「冲突升级路径」「可复现模块」摘要，并指向 `剧情/节奏.md` / `剧情/情绪模块.md`；含「写法技巧」清单，覆盖一笔两用/延迟揭示/视角欺骗/对比锚点/行为循环/身体反应替代心理描写/**跨章回扣**——物品/意象在不同章节承担不同功能）+ **概要.md 全书 500-1000 字版**（plot-aware，覆盖 Stage 0 的 200 字 thin first-pass） | 报告 + 全书概要生成完成 |
-| 6 | 文风 | 拆文报告.md + 章节/第1-3章_深度拆解.md + 章节/*_摘要.md + 原文/原文.txt | 文风.md（整书级写作技法视图：句长/标点/对话潜台词/情绪交替周期 + 4-6 段原文锚点范例片段 + 分层模仿建议，硬上限 ~4000 字。详见 [style-profile-protocol.md](references/style-profile-protocol.md) + [style-profile-generator.md](references/style-profile-generator.md)） | 文风落盘 `拆文库/{书名}/文风.md` |
+| 0 | Overview extraction | raw text | overview.md (**thin first-pass ~200 words** + chapter index; the full plot-aware 500-1000-word version is written over it at Stage 5) + **the Stage 0 chapter-boundary substep writes the boundary table into `_progress.md`** (see below) | chapter structure recognized + chapter boundaries on disk |
+| 1 | Opening hook chapters | source of first 3 chapters | chapters/chapter_1_deep-dive.md / chapter_2_deep-dive.md / chapter_3_deep-dive.md (one file per chapter). Non-human antagonists (abstract-adversary types such as qi-revival, apocalypse, national-fate) appearing in the first three chapters are routed through the abstract-adversary analysis at this stage as well (core adversarial front / source of urgency / escalation mechanic / narrative substitute). | 3 chapters done → **stop and produce quick-preview.md** |
+| 2 | Per-chapter summary | chunked chapter text | chapters/chapter_N_summary.md (plot points + characters + **key info and expansion techniques** + **per-chapter writing formula**). The per-chapter formula must extract the emotional flow, pacing mix, structure formula, core technique, chapter-end hook, and foreshadowing. Character filtering (walk-ons not extracted, aliases merged). 10-40 plot points per chapter (density 150-200 words/point, adjusted by word count; when the formula drops below 10, still split the full minimum of 10 key steps). **Parallel mode: spawn a chapter-extractor agent per chapter**. **Count validation: summary count == chapter count, mark failed chapters otherwise** | all chapters processed |
+| 3 | Aggregation analysis | all chapter summaries | plot/*.md + plot/README.md (with the authority table and the **story-unit list** index) + plot/storylines.md + **plot/pacing.md + plot/emotional-beats.md**. **Story-framework recognition** (first; it decides the aggregation strategy). **Two-step plot aggregation** (first identify the plot outline from the summaries, then assign plot points by that outline). **Key-info progression index** (track how info is expanded per chapter/story unit). **Emotional touchpoints and burst rhythm** (payoff/misery/anticipation points: setup → release → aftershock). **Whole-book emotional rhythm overview** (emotion polyline, payoff frequency, small/medium/large climax positions, conflict escalation path, cross-chapter foreshadowing map, small/medium/large loop units). **Reader needs / emotional engine / gratification-trope frameworks** (distilled into reproducible module cards). **Character merge** (cross-chapter dedup + alias normalization). **Character tiering** (protagonist/antagonist/core supporting/functional). **Loose-thread safety net** (6 steps, incl. coverage validation). **Trope labels** (each plot module tagged against the deconstruction-notes.md trope list, best-effort, empty when no match). **Quality checks** (thresholds per the material-decomposition.md quality-threshold system) | quality checks passed |
+| 4 | Setting + relationships (4a/4b/4c) | **4a**: Stage 2 plot points + chapter summaries (does not depend on Stage 3; runs in parallel with it); **4b/4c**: Stage 3 merged character data + plot points | setting/*.md + characters/*.md. **4a settings** (worldview/cheat/factions, generalized from Stage 2 mention data). **4b full character files** (two-stage model: Stage 2 lightweight mentions → Stage 4b full files; alias resolution merges at confidence ≥0.85). **4c relationship extraction** (extracted from plot points, not from the source; includes evolution tracking + final-state merge + implied inferences). Non-human antagonists get full abstract-adversary analysis in 4a | 4a/4b/4c all complete |
+| 5 | Final report | all outputs | teardown-report.md (includes "Reader needs / emotional engine", "Key info and expansion techniques overview", "Whole-book emotional rhythm overview", "Rhythm and emotional touchpoints", "Loop units", "Cross-chapter foreshadowing map", "Conflict escalation path", "Reproducible modules" summaries, pointing to `plot/pacing.md` / `plot/emotional-beats.md`; includes a "Writing techniques" list covering one-stroke-two-uses / delayed reveal / POV deception / contrast anchors / behavior loops / body reactions replacing inner monologue / **cross-chapter callbacks** — objects/imagery serving different functions in different chapters) + **overview.md full 500-1000-word version** (plot-aware, replacing the Stage 0 thin first-pass) | report + full overview generated |
+| 6 | Style | teardown-report.md + chapters/chapter_1-3_deep-dive.md + chapters/*_summary.md + source/source.txt | style.md (whole-book writing-technique view: sentence length / punctuation / dialogue subtext / emotional alternation cycles + 4-6 source anchor excerpts + tiered imitation advice, hard cap ~4000 words. See [style-profile-protocol.md](references/style-profile-protocol.md) + [style-profile-generator.md](references/style-profile-generator.md)) | style.md written to `teardown-lib/{Book Title}/style.md` |
 
-### Stage 0 章节边界子步骤
+### Stage 0 chapter-boundary substep
 
-Stage 0 完成概要 + 章节索引之后、转入 Stage 1 之前，**必须**额外产出一份「章节边界」表写入 `_progress.md`。这是后续 Stage 1（黄金三章原文切片）/ Stage 2（每章传给 chapter-extractor agent）/ Stage 6（文风采样）共用的**唯一切片来源**——避免每个阶段各跑一次 regex 切片，结果可能不一致。
+After Stage 0 produces the overview + chapter index, and **before** moving to Stage 1, you **must** additionally produce a "chapter boundary" table written into `_progress.md`. This is the **single slicing source** shared by Stage 1 (opening-chapter source slicing) / Stage 2 (each chapter passed to the chapter-extractor agent) / Stage 6 (style sampling) — so each stage doesn't run its own regex slicing with potentially inconsistent results.
 
-操作：
-- 用 `style-profile-generator.md` Step 4 的章节正则（含 千/两，覆盖 1000+ 章）grep 出全部章节行号
-- **先剔掉目录块**：不少原文开头带一段目录，目录里的 `第N章` 同样顶行，会和正文章节行重复命中，不处理就会切出两个「第一章」。判据是行距——目录块内相邻命中只隔一两行，正文章节之间隔着整章篇幅。算相邻命中的行号差，把文件开头那段「行距持续远小于全体中位数」的连续命中整块丢弃
-- **剔完仍有重复章号时不要自行取其一**：多卷书每卷从「第一章」重起是合法结构。这种情况在标题列保留卷号消歧（如 `卷二 第一章`），章号列按全书连续序号重编
-- 按 `| 章号 | 标题 | 起始行 | 字数 |` 四列写入 `_progress.md` 的「章节边界」section（见 [pipeline-ops.md](references/pipeline-ops.md) 模板）
-- 落表前校验章号连续、无重复、无跳号；不满足就停下报告，不要带着错表进 Stage 1——Stage 1/2/6 都以这张表为唯一切片真值，错一次会一路错到底
-- `_progress.md` 顶部 `schema_version: 2` 同时落盘
+Procedure:
+- Use the chapter regex from Step 4 of `style-profile-generator.md` (covers Arabic numerals + digit-string chapters, incl. 1000+ chapter books) to grep all chapter line numbers
+- Write the four-column table `| chapter | title | start line | word count |` into the "chapter boundary" section of `_progress.md` (template in [pipeline-ops.md](references/pipeline-ops.md))
+- Also write `schema_version: 2` at the top of `_progress.md`
 
-**恢复前置条件**：续跑只接受 `schema_version: 2` 且包含「章节边界」表的 `_progress.md`。缺失或结构不完整时停止续跑，提示从 Stage 0 章节边界子步骤重建进度文件，避免不同阶段使用不同切片真值。
+**Resume precondition**: resuming only accepts a `_progress.md` with `schema_version: 2` and the "chapter boundary" table. If either is missing or the structure is incomplete, stop resuming and ask the user to rebuild the progress file from the Stage 0 chapter-boundary substep, so different stages don't use different slicing truths.
 
-### Stage 1 停靠点
+### Stage 1 stop point
 
-Stage 0+1 完成后，管道**自动停靠**，产出快速预览报告并询问用户是否继续全量拆解：
+After Stage 0+1 complete, the pipeline **stops automatically**, produces the quick-preview report, and asks the user whether to continue the full teardown:
 
-1. **生成停靠交付物**：写 `拆文库/{书名}/快速预览.md`（模板见 [output-templates.md](references/output-templates.md) 的「快速预览报告」）。此时 `概要.md`、`章节/第1章_深度拆解.md`、`章节/第2章_深度拆解.md`、`章节/第3章_深度拆解.md`、`原文/` 均已落盘。
-2. **写停靠状态**：`_progress.md` 的「最终状态」字段写 `paused_after_stage1`，「断点」段记录「下一操作：Stage 2 逐章摘要」。
-3. **询问用户**（用 AskUserQuestion 风格的明确二选一）：
-   > 「黄金三章已拆完，快速预览报告见 `快速预览.md`。是否继续全量拆解（Stage 2-6：逐章摘要 / 聚合分析（含 `剧情/节奏.md`、`剧情/情绪模块.md`）/ 设定关系 / 汇总报告 / 文风）？预计耗时 {基于章节数粗估}。」
-   - 选「继续全量拆解」→ 读 `_progress.md`，从 **Stage 2** 续跑，**不重跑 Stage 0/1**。
-   - 选「就到这里」→ 管道结束，`_progress.md` 状态保持 `paused_after_stage1`，告知用户「之后可随时 `/story-long-analyze` 同一本书，会自动从 Stage 2 续跑」。
-4. **跳过询问的情形**：用户在一开始就明确说「完整拆解 / 一次跑完 / 系统拆解 / 别问」时，仍生成 `快速预览.md`（保留早期判断快照），但**不停下询问**，直接从 Stage 2 续跑到 Stage 6。
+1. **Produce the stop deliverable**: write `teardown-lib/{Book Title}/quick-preview.md` (template: "Quick preview report" in [output-templates.md](references/output-templates.md)). At this point `overview.md`, `chapters/chapter_1_deep-dive.md`, `chapters/chapter_2_deep-dive.md`, `chapters/chapter_3_deep-dive.md`, and `source/` are all on disk.
+2. **Write the stop state**: set the "Final status" field in `_progress.md` to `paused_after_stage1`, and record "Next operation: Stage 2 per-chapter summaries" in the breakpoint section.
+3. **Ask the user** (an AskUserQuestion-style explicit either/or):
+   > "The opening hook chapters are done; the quick-preview report is at `quick-preview.md`. Continue the full teardown (Stage 2-6: per-chapter summaries / aggregation analysis (incl. `plot/pacing.md`, `plot/emotional-beats.md`) / settings & relationships / final report / style)? Estimated time {rough estimate based on chapter count}."
+   - Choose "Continue full teardown" → read `_progress.md` and resume from **Stage 2**, **without re-running Stage 0/1**.
+   - Choose "Stop here" → the pipeline ends, `_progress.md` stays at `paused_after_stage1`, and tell the user "you can run `/story-long-analyze` on the same book later, and it will resume automatically from Stage 2".
+4. **When to skip the question**: if the user said up front "full teardown / run it all in one go / systematic teardown / don't ask", still generate `quick-preview.md` (keep the early-judgment snapshot), but **do not stop to ask** — continue straight from Stage 2 through Stage 6.
 
-### Stage 5 后：选题决策回填（可选）
+### After Stage 5: topic-decision backfill (optional)
 
-`拆文报告.md` 出来后（Stage 5 跑完）执行——和 Stage 6 无关，Stage 6 失败也不影响这步。
+Runs after `teardown-report.md` exists (Stage 5 done) — independent of Stage 6; Stage 6 failing doesn't affect this step.
 
-先定位 `选题决策.md`：项目根有就用它。项目根没有 → 从项目根及其上一级目录起、向下最多 3 层按文件名搜（跳过隐藏目录），按 mtime 由新到旧取最新 3 份。回填是写文件，项目根之外的文件写之前必须先确认：搜到 1 份 → 报出路径问「把本书的拆解支撑回填进这份吗？」；搜到多份 → 用 AskUserQuestion 列候选（路径 + `扫榜日期` + 「都不回填」）。用户不选 → 记「未回填」跳过，不动任何文件。
+**Only when** the project root has `topic-decision.md`: find the recommended topic in it whose **genre keywords match** this book's genre —
+- Exactly one match → change that topic's "why it can hit" from `pending-teardown-validation` to sourced support: "Teardown support for this book: {Reader needs / emotional engine from `teardown-report.md` + Top reproducible modules from `plot/emotional-beats.md` + payoff/touchpoint rhythm summary from `plot/pacing.md`} (`teardown-lib/{Book Title}/teardown-report.md`, `plot/emotional-beats.md`, `plot/pacing.md`)". Note this is still a hypothesis (only one book torn down — not confirmed).
+- Multiple / unsure matches → ask the user "Which direction in the topic decision does {Book Title} correspond to?"
+- No match → record "no matching topic, no backfill" and don't modify files.
+- `topic-decision.md` is missing the "why it can hit" field the current contract requires → report `invalid_topic_decision_contract` and tell the user to re-run `story-long-scan` Phase 5 to regenerate the current file; do not guess, do not silently backfill — the teardown main flow can still complete.
+- Re-teardowns don't overwrite: only backfill topics still marked `pending-teardown-validation`; leave already-backfilled ones alone.
 
-**仅当**定位到 `选题决策.md`（项目根那份直接用；项目根之外的那份须经上面的确认）时：按本书题材，在它的推荐选题里找**题材关键词对得上**的那个——
-- 正好对上一个 → 把该选题的"能爆的原因"从 `待拆文验证` 改成带出处的支撑：「本书拆解支撑：{`拆文报告.md` 的 读者需求/情绪引擎 + `剧情/情绪模块.md` 的可复现模块 Top + `剧情/节奏.md` 的爽点/触动点节奏摘要}（`拆文库/{书名}/拆文报告.md`、`剧情/情绪模块.md`、`剧情/节奏.md`）」。注意还只是假设（只拆了一本，不算坐实）。
-- 对上多个 / 拿不准 → 问用户「《{书名}》对应选题决策里的哪个方向？」
-- 一个都对不上 → 记录「无匹配选题，未回填」，不改文件。
-- `选题决策.md` 缺少当前契约必需的「能爆的原因」字段 → 报告 `invalid_topic_decision_contract`，提示重跑 `story-long-scan` Phase 5 生成当前文件；不猜测、不静默回填，拆文主流程仍可完成。
-- 重复拆文不覆盖：只回填还标着 `待拆文验证` 的；已经填过的不动。
+No `topic-decision.md` → skip this step entirely; it doesn't affect the teardown.
 
-工作区里搜不到 `选题决策.md` → 直接跳过，不影响拆文。
+### Stage 6 style
 
-### Stage 6 文风
+`style.md` only covers the expressive layer; emotional/rhythm intent still follows `plot/emotional-beats.md` and `plot/pacing.md` as the authorities.
+If the source is missing or the chapter separators can't be recognized → write `Style usable: no: {reason}` in the "Generation record" section of `style.md`. Stage 6 failing does not block the pipeline.
 
-`文风.md` 只负责表达层风格；情绪/节奏意图仍以 `剧情/情绪模块.md` 与 `剧情/节奏.md` 为权威。
-原文缺失或章节分隔符识别不出 → 在 `文风.md` 的「生成记录」写明 `文风可用：否：{原因}`。Stage 6 失败不阻断管道。
+### Stage 3-4 parallel execution
 
-### Stage 3-4 并行执行
-
-**并行执行图**：
+**Parallel execution graph**:
 ```
-Stage 3（剧情聚合 + 角色合并）       ──┐
-                                       ├── 4a 与 Stage 3 可并行
-Stage 4a（设定：世界观/金手指/势力）  ──┘
+Stage 3 (plot aggregation + character merge)      ──┐
+                                                      ├── 4a can run in parallel with Stage 3
+Stage 4a (settings: worldview/cheat/factions)      ──┘
               │
-              ▼（Stage 3 + 4a 都完成后）
-Stage 4b（角色完整档案）— 串行，依赖 Stage 3 合并后的角色实体
+              ▼ (after both Stage 3 and 4a finish)
+Stage 4b (full character files) — serial, depends on Stage 3's merged character entities
               │
               ▼
-Stage 4c（角色关系提取）— 串行，依赖 4b 角色实体存在
+Stage 4c (relationship extraction) — serial, depends on 4b's character entities
 ```
 
-4a 数据源是 Stage 2 摘要故可与 3 并行；4b/4c 依赖 Stage 3 角色合并故串行。
+4a's data source is Stage 2 summaries, so it can run in parallel with 3; 4b/4c depend on Stage 3's character merge, so they run serially.
 
-### 部分失败容忍
+### Partial-failure tolerance
 
-单章/单阶段失败不阻断管道。失败记录到 `_progress.md` 的「失败记录」表（`| 类型 | 章节/阶段 | 错误信息 | 重试状态 |`）。最终状态可为 `completed_with_errors`（在拆文报告中注明失败详情）。
+A single chapter/stage failing does not block the pipeline. Record the failure in the "Failure log" table of `_progress.md` (`| type | chapter/stage | error message | retry status |`). The final status may be `completed_with_errors` (note the failure details in the teardown report).
 
-> 与 material-decomposition.md 的对应关系：Stage 0 含 Material 阶段1（章节解析）；Stage 1、5 为新增；Stage 2 = Material 阶段2；Stage 3 = Material 阶段3；Stage 4 合并 Material 阶段4+5。
+> Correspondence with material-decomposition.md: Stage 0 includes Material phase 1 (chapter parsing); Stages 1 and 5 are additions; Stage 2 = Material phase 2; Stage 3 = Material phase 3; Stage 4 merges Material phases 4+5.
 
-详细模板见 [output-templates.md](references/output-templates.md)，方法论见 [material-decomposition.md](references/material-decomposition.md)。
-
----
-
-## 质量检查概要
-
-Stage 3-4 完成前需通过质量检查（置信度、覆盖率、重叠率）。阈值、计算方式与自检清单的唯一权威定义见 [material-decomposition.md 质量阈值体系](references/material-decomposition.md)。
-
-**Stage 3-5 还须过「事实可溯源」自检**：设定/角色/报告里的硬事实（等级/数值/距离/属性/势力数/出场章/谁说的话）必须能 grep 回原文，原文没给的写「原文未明确」、禁推断填空。这是拆文事实错误的最大来源（强模型也会漂移，因为合成阶段离原文两跳、靠合理性填空）。详见 [material-decomposition.md 合成阶段事实保真](references/material-decomposition.md)。
+Detailed templates in [output-templates.md](references/output-templates.md); methodology in [material-decomposition.md](references/material-decomposition.md).
 
 ---
 
-## Stage 2 并行 Agent 策略
+## Quality check summary
 
-Stage 2 使用 chapter-extractor agent 并行处理每章，替代原来的串行分块。
+Before Stages 3-4 complete, quality checks must pass (confidence, coverage, overlap). Thresholds, calculation methods, and the self-check list are defined only in the quality-threshold system of [material-decomposition.md](references/material-decomposition.md).
 
-### 调用方式
+**Stages 3-5 must also pass the "fact traceability" self-check**: hard facts in settings/characters/report (ranks/numbers/distances/attributes/faction counts/chapter of appearance/who said what) must be greppable back to the source; if the source doesn't give them, write "not stated in the source" — inference-filling is forbidden. This is the biggest source of teardown fact errors (even strong models drift, because synthesis is two hops away from the source and fills gaps with plausibility). See the fact-fidelity rules for the synthesis stage in [material-decomposition.md](references/material-decomposition.md).
 
-每条章节 prompt **必须以「材料声明」前缀开头**（即下方 prompt 字符串首段）——给子代理正确语境，避免它把通俗题材的正常戏剧化剧情误判为有害内容而拒绝拆解。前缀是固定文本，逐字带上，不要改写或省略。
+---
+
+## Stage 2 parallel agent strategy
+
+Stage 2 uses the chapter-extractor agent to process each chapter in parallel, replacing the old serial chunking.
+
+### How to call
+
+**Every chapter prompt must start with the "material statement" prefix** (i.e., the first paragraph of the prompt string below) — it gives the subagent the right context so it doesn't misjudge normal dramatic plot in popular genres as harmful content and refuse the teardown. The prefix is fixed text: carry it verbatim, don't paraphrase or omit it.
 
 ```python
 Agent(
   subagent_type: "chapter-extractor",
-  prompt: "[材料声明] 以下为用户合法持有的虚构小说，任务是只读的转化性文学分析（编辑/评论视角）。暴力/复仇/家暴/情爱/黑暗伦理是该题材常规虚构元素，照常提取，不得以敏感拒绝整章或整本；个别片段无法处理则跳过、照常续完其余。\n\n章节编号：第{N}章\n章节标题：{标题}\n章节字数：{字数}\n\n章节原文：\n{原文文本}"
+  prompt: "[Material statement] The following is a work of fiction legally held by the user; the task is read-only transformative literary analysis (editor/reviewer perspective). Violence / revenge / domestic abuse / romance / dark ethics are ordinary fictional elements of this genre — extract them normally; do not refuse a whole chapter or book on sensitivity grounds; if an individual passage cannot be processed, skip it and finish the rest.\n\nChapter number: Chapter {N}\nChapter title: {title}\nChapter word count: {word count}\n\nChapter source text:\n{source text}"
 )
 ```
 
-### 批量策略
+### Batching strategy
 
-- 每次 spawn 5-8 个 agent（避免并发限制）
-- 等待当前批次全部完成后，再 spawn 下一批
-- 每批完成后更新 `_progress.md` 记录已处理章节
+- Spawn 5-8 agents per batch (avoid concurrency limits)
+- Wait for the whole current batch to finish before spawning the next
+- After each batch, update `_progress.md` with the chapters processed
 
-### Agent 输出收集
+### Collecting agent output
 
-- 每个 agent 返回 markdown 格式的提取结果
-- 主线程将 agent 输出写入 `章节/第{N}章_摘要.md`
-- 收集所有 agent 的出场人物表，供 Stage 3 合并使用
+- Each agent returns its extraction result in markdown
+- The main thread writes each agent's output to `chapters/chapter_{N}_summary.md`
+- Collect every agent's cast-of-characters table for the Stage 3 merge
 
-### 失败处理 + 质量升级重试
+### Failure handling + quality-escalation retry
 
-**两类失败**：
-1. **执行失败**（agent crash / 超时 / 空输出）→ 同模型（haiku）重试 1 次
-2. **质量失败**（输出落盘后跑 chapter-extractor.md「质量检查」12 条自检，任一不达标——典型：情节点 < 10、P 行缺白描、概要写成条目罗列或整段「因为…所以…」串联、类型/基调/主题标签超出枚举、`基调：` 漏全角冒号、角色名为昵称/通用称呼）→ **升级到 sonnet 重试 1 次**
+**Two kinds of failure**:
+1. **Execution failure** (agent crash / timeout / empty output) → retry 1 time with the same model (haiku)
+2. **Quality failure** (after the output is on disk, run the 12-point "quality check" self-check in chapter-extractor.md; any miss — typical: plot points < 10, P line lacks the plain description, the summary is written as a bulleted list or chained with "because…so…", type/tone/theme tags outside the enums, `Tone:` missing its colon, character names are nicknames/generic titles) → **escalate to sonnet and retry 1 time**
 
-**可机械校验的硬检查**（主线程落盘后直接 grep，命中即判质量失败，不依赖 agent 自报）：
-- 情节点数 `N = grep -cE '^P[0-9]+ '`；`grep -c '基调：'` 必须 == N（少于 N = 有情节点漏 `基调：` 或漏全角冒号 → 下游 Stage 6 文风采样按全角 `基调：` grep，会静默漏章）
-- 白描段有内容：`grep -cE '^P[0-9]+ [^|]+\|[^|]*[^|[:space:]][^|]*\|[^|]*涉及'` 必须 == N（`涉及` 段前要有两个 `|`，即 类型段与白描段各占一段，且白描段不能只有空白；少于 N = 有情节点缺白描，或字段顺序/分隔符不对。白描是情节点的主要证据，引用改为精选后由它承担事实回查）
-- `grep -hoE '基调：[^ |]+'` 去重后 ⊆ {紧张, 轻松, 悲伤, 热血, 爽, 甜, 温馨, 恐怖, 压抑, 其他}
-- `grep -hoE '主题标签[：]?[^ |]+'` 去重（去 `主题标签`/冒号前缀后）⊆ {爱情, 亲情, 友情, 权力, 金钱, 成长, 复仇, 悬念, 搞笑, 热血, 日常, 其他}（出现 `主题标签：` 带冒号、或值为基调词均判失败）
+**Hard checks that are mechanically verifiable** (the main thread greps directly after the file lands; a hit counts as a quality failure without relying on agent self-reporting):
+- Plot-point count `N = grep -cE '^P[0-9]+ '`; `grep -c 'Tone:'` must == N (fewer than N = some plot point is missing `Tone:` or its colon → downstream Stage 6 style sampling greps `Tone:` and would silently skip the chapter)
+- The plain-description field has content: `grep -cE '^P[0-9]+ [^|]+\|[^|]*[^|[:space:]][^|]*\|[^|]*involves'` must == N (there must be two `|` before the `involves` field, i.e. a type field and a plain-description field each occupying its own slot, and the plain description can't be only whitespace; fewer than N = some plot point lacks the plain description, or the field order/separators are wrong. The plain description is the plot point's primary evidence; when quotes are trimmed down, it carries the fact-checking load)
+- `grep -hoE 'Tone:[^ |]+'` dedup ⊆ {tense, light, sad, hot, sweet, warm, horror, oppressive, other}
+- `grep -hoE 'Theme tags[:]?[^ |]+'` dedup (after stripping the `Theme tags`/colon prefix) ⊆ {romance, family, friendship, growth, mystery, adventure, revenge, redemption, survival, identity, other} (`Theme tags:` with a colon, or a tone word used as a value, both count as failures)
 
-**升级重试调用方式**（主线程在校验失败后执行）：
+**Escalation-retry call** (the main thread runs it after a validation failure):
 
 ```python
 Agent(
   subagent_type: "chapter-extractor",
-  model: "sonnet",            # 显式覆盖 frontmatter 的 haiku
-  prompt: "章节编号：第{N}章\n...（同首次 prompt，含开头的「材料声明」前缀，可追加：'上次校验失败原因：{自检失败项}'）"
+  model: "sonnet",            # explicitly overrides haiku from the frontmatter
+  prompt: "Chapter number: Chapter {N}\n...(same as the first prompt, including the opening material-statement prefix; may append: 'Last validation failure reason: {failed self-check items}')"
 )
 ```
 
-**最终落盘规则**：
-- haiku 首次通过 → 写入 `章节/第{N}章_摘要.md`，`_progress.md` 标记 `success`
-- haiku 失败 + 同模型 retry 通过 → 同上，备注 `retry_same_model`
-- 质量失败 + sonnet retry 通过 → 同上，备注 `retry_sonnet`
-- sonnet retry 仍失败 → 章节标记 `⚠️ 跳过`，失败原因写入 `_progress.md` 「失败记录」表，拆文报告中注明
-- 单章失败不阻断管道；批次全部 spawn 完成后才决定是否进入 Stage 3
+**Final on-disk rules**:
+- haiku passes first try → write `chapters/chapter_{N}_summary.md`, mark `success` in `_progress.md`
+- haiku fails + same-model retry passes → same as above, note `retry_same_model`
+- quality failure + sonnet retry passes → same as above, note `retry_sonnet`
+- sonnet retry still fails → mark the chapter `⚠️ skipped`, write the failure reason into the "Failure log" table of `_progress.md`, and note it in the teardown report
+- A single chapter failing doesn't block the pipeline; only after all batches have been spawned do you decide whether to enter Stage 3
 
-### Agent 不可用降级
+### Agent-unavailable degradation
 
-以下任一情况，Stage 2 自动退回串行模式，由主线程逐章处理（质量不受影响，只是改为串行、速度略慢）。**两条路径的要求是同一份**：串行时概要写法、情节点白描、原文引用精选规则和输出自检都按 [output-templates.md](references/output-templates.md)「Stage 2 章节摘要+情节点」执行；上面的机械硬检查串行同样要跑。串行没有 sonnet 升级重试这条路——硬检查命中时由主线程按失败项重写本章摘要 1 次，仍不过按 `⚠️ 跳过` 记入 `_progress.md` 「失败记录」表。
+In either of the following cases, Stage 2 automatically falls back to serial mode, with the main thread processing each chapter (quality unaffected — just serial and a bit slower). **Both paths have the same requirements**: in serial mode, the summary writing, plot-point plain descriptions, source-quote selection rules, and output self-checks all follow the "Stage 2 chapter summary + plot points" section of [output-templates.md](references/output-templates.md); the mechanical hard checks above run in serial mode too. Serial mode has no sonnet-escalation retry path — on a hard-check hit the main thread rewrites the chapter summary once per failed item, and if it still fails, record `⚠️ skipped` in the "Failure log" table of `_progress.md`.
 
-- **agent 未部署**：agent 目录（优先 `.claude/agents/`，其次 `.opencode/agents/`，再检查 `.codex/agents/`）下的 `chapter-extractor.md` 或 `.codex/agents/chapter-extractor.toml` 不存在。`.claude/agents/` 通常不随仓库提交，应重新运行 `/story-setup` 完成当前适配器部署，不跨 Skill 读取模板源。
-- **环境不支持 spawn 子代理**：本 skill 正运行在某个子代理上下文中，无法再起下一层 agent。
+- **agent not deployed**: `chapter-extractor.md` (or `.codex/agents/chapter-extractor.toml`) doesn't exist under the agent directory (prefer `.claude/agents/`, then `.opencode/agents/`, then `.codex/agents/`). `.claude/agents/` is usually not committed with the repo — re-run `/story-setup` to complete the current adapter deployment; don't read template sources across skills.
+- **environment can't spawn subagents**: this skill is currently running inside a subagent context and can't spawn another layer of agents.
 
-### Stage 2 收尾：合并章节摘要（_章节摘要汇总.md）
+### Stage 2 wrap-up: merging chapter summaries (_merged-summaries.md)
 
-Stage 2 所有 `章节/*_摘要.md` 落盘后、进入 Stage 3 前，主线程把它们按章号顺序**无损拼接**成 `拆文库/{书名}/_章节摘要汇总.md`（只拼接、不压缩、不改写）：
+After all `chapters/*_summary.md` files are on disk, before entering Stage 3, the main thread concatenates them **losslessly in chapter-number order** into `teardown-lib/{Book Title}/_merged-summaries.md` (concatenate only — no compression, no rewriting):
 
 ```bash
-ls 章节/*_摘要.md | sed -E 's/.*第([0-9]+)章.*/\1 &/' | sort -n | cut -d' ' -f2- | while read -r f; do cat "$f"; echo; done > _章节摘要汇总.md
+ls chapters/*_summary.md | sed -E 's/.*chapter_([0-9]+)_.*/\1 &/' | sort -n | cut -d' ' -f2- | while read -r f; do cat "$f"; echo; done > _merged-summaries.md
 ```
 
-**无损检查**（拼接后校验，任一不过即删除 `_章节摘要汇总.md`、回退逐文件扫描，行为不变）：
-- `grep -cE '^P[0-9]+ ' _章节摘要汇总.md` == 各摘要 `^P` 行数之和
-- `grep -cE '^\*\*概要\*\*' _章节摘要汇总.md` == 摘要文件数（`**概要**` 每章一行，chapter-extractor 并行输出与串行摘要模板都有；不用 `## 第N章` 头——串行摘要模板没有章节头，会误判）
+**Lossless checks** (validate after merging; if any fails, delete `_merged-summaries.md` and fall back to per-file scanning — behavior unchanged):
+- `grep -cE '^P[0-9]+ ' _merged-summaries.md` == sum of `^P` lines across the individual summaries
+- `grep -cE '^\*\*Summary\*\*' _merged-summaries.md` == number of summary files (`**Summary**` appears once per chapter in both the chapter-extractor parallel output and the serial summary template; don't use a `## Chapter N` header — the serial summary template has no chapter header and would misjudge)
 
-Stage 3 / 4a / 4c / 散落情节兜底改为**只读一次 `_章节摘要汇总.md`** 并在上下文中复用，替代每阶段 `glob 章节/*_摘要.md` 重扫（同一份语料的 4-5 次冷读降为 1 次）。
+Stages 3 / 4a / 4c / loose-thread safety net now **read `_merged-summaries.md` once and reuse it in context**, replacing the per-stage `glob chapters/*_summary.md` rescan (4-5 cold reads of the same corpus become 1).
 
-**仅当语料能放进上下文时才生成汇总文件**：>500 章、或合并后 `_章节摘要汇总.md` 过大放不进上下文时**跳过本步骤**，走 [material-decomposition.md](references/material-decomposition.md) 分块策略。`_章节摘要汇总.md` 不替代 `章节/*_摘要.md`——单章文件仍是落盘真源，Stage 6 文风采样、人工复核照用单章文件。管道结束（Stage 6 后）删除 `_章节摘要汇总.md`——它是派生临时文件，不随 `拆文库/` 交付（`拆文库/` 会被 story-import 保留为写作工程）。
+**Only generate the merged file when the corpus fits in context**: with >500 chapters, or when the merged `_merged-summaries.md` is too big for context, **skip this step** and use the chunking strategy in [material-decomposition.md](references/material-decomposition.md). `_merged-summaries.md` does not replace `chapters/*_summary.md` — the per-chapter files remain the on-disk source of truth, and Stage 6 style sampling and human review use the per-chapter files. Delete `_merged-summaries.md` when the pipeline ends (after Stage 6) — it is a derived temp file and is not shipped with `teardown-lib/` (which story-import keeps as a writing project).
 
-Stage 3-5 分块见 [material-decomposition.md](references/material-decomposition.md)（唯一权威）。
-
----
-
-## 恢复机制
-
-启动时检查 _progress.md；`paused_after_stage1` → 直接从 Stage 2 续跑。
-操作步骤见 [pipeline-ops.md](references/pipeline-ops.md)。
+Stage 3-5 chunking follows [material-decomposition.md](references/material-decomposition.md) (sole authority).
 
 ---
 
-## 流程衔接
+## Resume mechanism
 
-**流水线：** 长篇
-**位置：** 拆文（长篇流水线第 2 步，在 story-long-scan 之后、story-long-write 之前）
+On startup, check `_progress.md`; `paused_after_stage1` → resume straight from Stage 2.
+Steps in [pipeline-ops.md](references/pipeline-ops.md).
 
-| 时机 | 跳转到 | 命令 |
+---
+
+## Flow handoffs
+
+**Pipeline:** long-form
+**Position:** teardown (long-form pipeline step 2, after story-long-scan, before story-long-write)
+
+| When | Jump to | Command |
 |---|---|---|
-| 准备开写 | story-long-write | `/story-long-write` |
-| 需要市场数据 | story-long-scan | `/story-long-scan` |
-| 更适合短篇 | story-short-scan → story-short-analyze | `/story-short-scan` |
+| Ready to write | story-long-write | `/story-long-write` |
+| Need market data | story-long-scan | `/story-long-scan` |
+| Better suited to short-form | story-short-scan → story-short-analyze | `/story-short-scan` |
 
 ---
 
-## 参考资料
+## References
 
-| 文件 | 何时加载 |
+| File | When to load |
 |------|----------|
-| [references/output-templates.md](references/output-templates.md) | 管道全程：各 Stage 输出模板 + 快速预览报告模板 + `剧情/节奏.md` / `剧情/情绪模块.md` 模板 + 通用速查表 |
-| [references/material-decomposition.md](references/material-decomposition.md) | Stage 2-5：素材拆解方法论 + 质量阈值 + 分块策略；Stage 6 另见文风资料 |
-| [references/pipeline-ops.md](references/pipeline-ops.md) | 管道运维：_progress.md 模板、错误处理、恢复机制操作步骤 |
-| [references/deconstruction-notes.md](references/deconstruction-notes.md) | 拆书方法+影视拆解+抽象拆解法+题材实战 |
-| [references/style-profile-protocol.md](references/style-profile-protocol.md) | Stage 6：文风模板 + 可信度/可用性说明 |
-| [references/style-profile-generator.md](references/style-profile-generator.md) | Stage 6：文风生成 SOP（6 步，含中文数字章节识别 + 全角冒号基调 grep） |
+| [references/output-templates.md](references/output-templates.md) | Throughout the pipeline: per-stage output templates + quick-preview report template + `plot/pacing.md` / `plot/emotional-beats.md` templates + general quick-reference tables |
+| [references/material-decomposition.md](references/material-decomposition.md) | Stages 2-5: material-decomposition methodology + quality thresholds + chunking strategy; Stage 6 also see the style references |
+| [references/pipeline-ops.md](references/pipeline-ops.md) | Pipeline operations: `_progress.md` template, error handling, resume procedure |
+| [references/deconstruction-notes.md](references/deconstruction-notes.md) | Teardown method + film-scene teardown + abstract teardown method + genre practice |
+| [references/style-profile-protocol.md](references/style-profile-protocol.md) | Stage 6: style template + confidence/usability notes |
+| [references/style-profile-generator.md](references/style-profile-generator.md) | Stage 6: style-generation SOP (6 steps, incl. chapter recognition and the Tone grep) |
 
 ---
 
-## 语言
+## Language
 
-- 跟随用户的语言回复，用户用什么语言就用什么语言回复
-- 中文回复遵循《中文文案排版指北》
+> - Follow the user's language.
+> - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

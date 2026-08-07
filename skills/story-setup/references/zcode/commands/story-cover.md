@@ -1,8 +1,8 @@
 ---
-description: 小说封面生成。根据书名、作者名和题材生成专业网文封面。
+description: Web-novel cover generation. Produces a professional web-novel cover from the book title, author name, and genre.
 skills: story-cover
 ---
 
-调用 `$story-cover` 生成或迭代小说封面。
+Invoke `$story-cover` to generate or iterate on a novel cover.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

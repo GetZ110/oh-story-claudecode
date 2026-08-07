@@ -1,35 +1,38 @@
-# 投稿范式：平台基调 · 导语 · 付费点
+# Submission Craft: Platform Tone · Blurb · Paywall Break
 
-> 短篇是投出去过稿的，不是写完就算。这份文件管三件投稿层的事：按平台定基调、单独打磨导语、把付费点卡在断点上。题材招式仍按 `genre-styles/{题材}.md`，本文只叠加"投稿怎么写才收得掉"这一层。
+> A short story is written to be submitted, not just finished. This file governs the three submission-layer things: fixing the platform tone, polishing the blurb as a separate artifact, and anchoring the paywall break at a throat-grabbing cut. Genre moves still follow `genre-styles/{genre}.md`; this file adds the "how to make it get bought/read" layer.
 
-## 一、先定平台基调
+## 1. Fix the platform tone first
 
-动笔前先确认投稿平台，正文的视角、矛盾烈度、章末钩子、结局质感随之切换。三大主流基调：
+Before writing, confirm the target platform; POV, conflict intensity, chapter-end hooks, and ending texture shift with it. The main English-platform tones:
 
-| 平台 | 视角 | 矛盾演进 | 章末钩子 | 结局质感 |
+| Platform | POV | Conflict progression | Chapter-end hook | Ending texture |
 |---|---|---|---|---|
-| 知乎盐选 | 第一人称沉浸，生活化违和感切入（"老公副驾驶有根红头发"） | 心理战、信息差，靠细节拼图"细思极恐"，情绪层层剥洋葱 | 发现一个颠覆前文认知的炸裂细节，悬念内敛后劲大 | 极致反转 / 因果轮回 / 高智商收尾，留白多、重余韵 |
-| 小程序 | 上帝视角或强情绪第一人称，开局即地狱 | 冲突全外化到对白和动作，走"被羞辱→亮底牌→当众打脸→夺实利"快循环 | 卡脖子断点（巴掌将落、协议撕一半、话说一半） | 直白粗暴的爽，反派付实质代价（破产/入狱/众叛亲离），主角高位不留遗憾 |
-| 番茄短篇 | 流畅第一/第三人称，目标清晰、金手指直白 | 顺滑无毒点，反派挑衅一两节内转成主角升级/发财的垫脚石 | 开新地图 / 拿到新底牌 / 新人物带资源登场 | 圆满畅快，事业感情双收，坏人受罚 |
+| Wattpad | First person default (YA romance especially); close third for fantasy/action serials | Community-driven: slow-burn relationship + chaptered arcs, comments fuel the read | Emotional cliff: an almost-moment, a revealed secret, a relationship flip | Long-form serial shape; HE for romance, hopeful for fantasy; chapter comments matter |
+| Inkitt | First or third per subgenre; multi-POV normal | Subgenre-driven (romance push-pull; thriller information-gap); reader feedback loop | Scene-level hook: new info, danger tick, relationship crack | Genre-faithful; darker tones allowed; openers and blurbs heavily tested |
+| Radish | First person, app-first drama | Fast episode escalation: one beat per episode, high emotion density | Episode-end cut points: throat-grabbing cliff every episode (1500-3000 words) | Emotional punch per episode; serialized paywalls after free episodes |
+| Galatea | First person, app-first, dramatic | Chaptered drama: strong chapter-end hooks, fast pacing | Chapter-end cliff, cliff-hanger or emotional spike | App-native serialization; voice-heavy narration |
+| Dreame / GoodNovel | First person (market default), high-intensity | Translation-market tropes: contract marriage, revenge, billionaire; rapid escalation | Chapter-end hooks every chapter (1000-1500 words) | Strong payoff density, clear HE/comeuppance, tropes executed cleanly |
+| Tapas | First person for romance; episodic | Episode-based: one hook per episode, comic/light tone allowed | Episode-end tease | Episodic, binge-friendly; one-shots and serials both |
 
-- 小程序收稿量最大，打脸爽文是主力盘；同一个脑洞可以分别按知乎/小程序/番茄各跑一版，挑最顺的投。
-- 基调只调"声音和落点"，不覆盖题材招式和本篇情绪目标。基调是投放渠道的声音，与 `short-format.md` 的排版模板是两个轴——小程序基调的稿，排版仍按 short-format 选一套 app 模板。
-- **调基调不松去 AI 底线**：强情绪靠具体动作和对白落地，别把话硬拆成三字碎句成片排列；前情背景靠场景带出，别整段插叙成"来龙去脉"说明书；对仗句式（"上辈子…这辈子…"）别高频复用。去 AI 味仍按本套件既有规则。
+- Wattpad/Tapas reward community texture (comments, in-fiction jokes, serial arcs); Dreame/GoodNovel reward trope execution speed; Inkitt/Radish/Galatea reward emotional precision per episode. The same concept can be run once per platform tone and the smoothest version submitted.
+- Tone only adjusts "voice and landing"; it doesn't override genre moves or this story's emotion goal. Tone is the channel's voice; the layout templates in `short-format.md` are a separate axis — a Galatea-tone piece still uses one of the short-format app templates.
+- **Tuning tone doesn't loosen the de-AI floor**: strong emotion lands through concrete action and dialogue, not chopped three-word fragments in sheets; backstory arrives through scenes, not whole inserted "how we got here" lectures; antithesis pairings ("last life… this life…") don't recur at high frequency. De-AI-flavoring still follows this suite's existing rules.
 
-## 二、导语（投稿门面，单独打磨）
+## 2. The blurb (the storefront; polish it separately)
 
-导语是正文最前面的引子，也是编辑第一眼看的东西。编辑一天审几百篇，**导语不行，正文再好也被一眼刷掉**。所以导语要单独当一件作品来打磨，别指望编辑往下翻。
+The blurb is the first thing at the top of the body — and the first thing an editor/reader sees. Editors skim hundreds; **if the blurb fails, no body quality saves it**. So polish the blurb like its own artifact; don't expect anyone to scroll past it.
 
-- **长度与形态**：约 150-220 字（题材包如写 150-300，投稿时按此收紧），就是正文开头那几段。一句一段指完整句各自独立成段，不是把整句拆成三字碎句；这是黑岩/盐言导语的形态，番茄导语按 `short-format.md` 该平台的短段叙织即可。导语写完即接正文（内容本身就是第一章开头，不重写）。
-- **四维骨架**：起因（悲剧源头或荒诞开端）+ 核心冲突（被凝视、被剥削、被算计的绝境）+ 人设底色（清醒、有底牌，不是纯惨）+ 情绪反转（钩子卡在最后半句，戛然而止）。
-- **黄金三角**：一个有冲击力的具体物件（撕碎的 B 超单、代持协议、落灰的旧相机）+ 一个信息差（主角藏在暗处的底牌，读者知道、施害者不知道）+ 一个留白的致命钩子。
-- **反面**：别用导语平铺背景或抒情；别把底牌全亮完（留给正文兑现）；别只写惨不写"她有后手"。
+- **Length and shape**: ~120-220 words; it doubles as the body's opening paragraphs (it is chapter one's opening, so it must obey the opening rules: first-100-words event density ≥ 3, no environment-only opening). One complete sentence per paragraph — full sentences each on their own line, not chopped into three-word shards. Write it well and flow straight into the body; don't rewrite the body's start.
+- **Four-part skeleton**: inciting cause (the tragic source or absurd beginning) + core conflict (the cornered, exploited, schemed-against predicament) + character base (clear-eyed, has cards, not pure victim) + emotional turn (hook parked in the last half-sentence, stopping cold).
+- **Golden triangle**: one concrete object with punch (the torn ultrasound, the contract, the dusty camera) + one information gap (the protagonist's hidden card — reader knows, the abuser doesn't) + one gaping, white-space hook.
+- **Anti-patterns**: don't spread background or lyricism across the blurb; don't flash all the cards (leave them for the body to cash); don't write only suffering without "she has a counter."
 
-## 三、付费点（投稿结构）
+## 3. The paywall break (submission structure)
 
-短篇按"免费试读 + 付费点 + 付费正文"投稿（投稿语境的"章"即本 skill 的"节"）。付费点是免费段和付费段的分界，卡不好读者不付费，卡对了转化高。
+Short stories submit as "free preview + paywall + paid body" on paywalled platforms (Radish/Galatea/Dreame/GoodNovel); on free platforms (Wattpad/Tapas/Inkitt) the equivalent is the **episode/chapter break** — the cut point that decides whether the reader taps to the next episode. The paywall/cut point is the boundary between the free segment and the paid segment; a bad cut means no conversion, a good cut converts.
 
-- **断点位置**：付费点卡在一个章末的卡脖子断点上——一个即将揭晓、读者必须付费才能看到的反转或对决瞬间（亲子鉴定撕开一半、底牌刚要拍上桌、名字念到一半）。别把核心大爽点在免费段全放完。
-- **剧情点密度**：付费点前每章 2-3 个剧情点（快速立处境、埋钩、层层加压）；付费点后每章比之前多 1-2 个（集中兑现打脸/反转/爽点）。剧情点适度加，太多会乱。
-- **反推法排细纲**：先定付费点卡在第几节章末，先把那一节的剧情想透（如复仇虐爽：前几节情绪递进越来越虐，付费点节章末预示反击），再倒推安排前面各节"情绪冲突逐渐递进"，最后排付费点之后的兑现段。
-- **投稿成品形态**：标题 + 导语（不写"导语"二字，只留那几句）+ 数字分节的正文（含付费点断点）。投稿建议区间比 SKILL 框架（8000-20000）更收敛：整篇约 8000-12000 字，每章约 1000-1300 字，章数据此约 7-12 章。
+- **Cut-point position**: anchor the paywall at a chapter-end throat-grabbing break — a reveal about to drop that the reader must pay/advance to see (the paternity test half-torn, the card about to hit the table, the name half-spoken). Don't spend the core payoff in the free segment.
+- **Plot-point density**: 2-3 plot points per chapter before the break (fast situation-setup, hook-planting, layered pressure); 1-2 more per chapter after (concentrated payoff/reversal cashing). Add points moderately; too many get messy.
+- **Backward planning**: fix which section's end carries the paywall first; think that section through completely (e.g., revenge hurt-satisfaction: the earlier sections escalate the pain, the paywall section's end previews the counterattack), then back-fill the earlier sections' "emotion-conflict escalating progressively," then schedule the post-paywall payoff segment.
+- **Submission artifact shape**: title + blurb (don't write the word "blurb" — just those paragraphs) + numbered-section body (including the paywall break). For paywalled platforms the recommended whole is tighter than the general range: ~4000-8000 words, episodes 1500-3000 words each, ~3-6 episodes.

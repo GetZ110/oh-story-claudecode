@@ -1,622 +1,620 @@
-# 特殊题材操作手册
+# Special-Topic Handbook
 
-> 金手指设计、同人vs原创、都市高武模板、题材边界、扫榜方法、脑洞文框架、对标书选择、爱情线、身份行为论、阵营剧情、改编三步法。
+> Cheat design, fanfic vs original, urban-martial templates, genre boundaries, market scanning, wild-idea frameworks, benchmark selection, romance lines, identity-behavior theory, faction plots, three-step adaptation.
 >
-> 本手册是指令格式：读到哪里就照做。按决策路由表定位你需要的章节，执行对应操作。
+> This handbook is in directive format: read and follow. Locate your section via the decision routing table and execute the operations.
 
 ---
 
-## 决策路由表
+## Decision routing table
 
-**使用方法**：根据你当前面对的写作场景，在左侧找到匹配项，跳转到右侧对应章节。
+**Use**: find your current writing scenario in the left column, jump to the corresponding section on the right.
 
-| 你的场景 | 跳转到 |
+| Your scenario | Jump to |
 |----------|--------|
-| 设计金手指 / 担心战力崩坏 | [金手指拆分理解与战力防崩](#金手指拆分理解与战力防崩) |
-| 金手指要做得更有趣（错位、反套路、极道流） | [金手指进阶设计](#金手指进阶设计) |
-| 有脑洞但不知怎么铺成完整故事 | [脑洞文完整写作框架](#脑洞文完整写作框架) |
-| 不确定题材边界在哪 / 担心写偏 | [题材边界感](#题材边界感) |
-| 需要研究市场 / 拆解竞品 | [扫榜与拆书方法](#扫榜与拆书方法) |
-| 要选对标书但不知道怎么选 | [对标书选择法则](#对标书选择法则) |
-| 写同人或原创，把握不好节奏差异 | [同人vs原创的节奏差异与核心框架](#同人vs原创的节奏差异与核心框架) |
-| 写都市高武，需要情节素材 | [都市高武情节模板](#都市高武情节模板) |
-| 不清楚不同题材写法差异 / 主角行为出戏 | [不同题材不同写法与身份行为论](#不同题材不同写法与身份行为论) |
-| 写爱情线 / 后宫文 | [爱情线提纯策略](#爱情线提纯策略) |
-| 故事不知道往人设还是往剧情深化 | [向人设深化vs向故事深化](#向人设深化vs向故事深化) |
-| 要改编已有剧情为自用 | [剧情改编三步法](#剧情改编三步法) |
-| 开头上架三万字卡点 / 中后期写法 | [三万字卡点倒推法与中后期写法](#三万字卡点倒推法与中后期写法) |
-| 设计阵营冲突 / 完善角色动机 | [阵营剧情安排与动机完善法](#阵营剧情安排与动机完善法) |
-| 用卡牌思维设计主线节奏 | [阵营手牌法——用卡牌思维设计主线剧情](#阵营手牌法用卡牌思维设计主线剧情) |
-| 写作遇到常见问题不知哪里出错 | [四类常见问题诊断](#四类常见问题诊断) |
-| 想融合多本书创出新故事 | [三本书融合为新故事](#三本书融合为新故事) |
+| Design the cheat / fear power collapse | [cheat decomposition & power-collapse prevention](#cheat-decomposition--power-collapse-prevention) |
+| Make the cheat more fun (displacement, anti-pattern, extreme-path) | [advanced cheat design](#advanced-cheat-design) |
+| Have a wild idea but don't know how to build a full story | [the complete wild-idea fiction framework](#the-complete-wild-idea-fiction-framework) |
+| Unsure where the genre boundary is / fear drifting | [genre boundary feel](#genre-boundary-feel) |
+| Need market research / competitor teardown | [market scanning & teardown methods](#market-scanning--teardown-methods) |
+| Choosing a benchmark book | [benchmark selection rules](#benchmark-selection-rules) |
+| Writing fanfic or original, unsure of rhythm differences | [fanfic vs original rhythm differences & core frameworks](#fanfic-vs-original-rhythm-differences--core-frameworks) |
+| Writing urban martial, need plot material | [urban-martial plot templates](#urban-martial-plot-templates) |
+| Unsure of genre writing differences / protagonist behavior breaking immersion | [genre writing differences & identity-behavior theory](#genre-writing-differences--identity-behavior-theory) |
+| Writing the romance line / harem | [romance-line purification strategy](#romance-line-purification-strategy) |
+| Deepen toward persona or plot | [persona deepening vs story deepening](#persona-deepening-vs-story-deepening) |
+| Adapt existing plots for your use | [the three-step plot adaptation](#the-three-step-plot-adaptation) |
+| 30k-word paywall-node stuck / mid-late writing | [the 30k-word node back-derivation & mid-late writing](#the-30k-word-node-back-derivation--mid-late-writing) |
+| Faction conflict / motivation completion | [faction-plot arrangement & motivation completion](#faction-plot-arrangement--motivation-completion) |
+| Card-game thinking for main-line rhythm | [the faction-card method — card-game main-line design](#the-faction-card-method--card-game-main-line-design) |
+| Common problems, unsure where the error is | [four common problem diagnoses](#four-common-problem-diagnoses) |
+| Fuse three books into a new story | [three books fused into a new story](#three-books-fused-into-a-new-story) |
 
 ---
 
-## 金手指拆分理解与战力防崩
+## Cheat decomposition & power-collapse prevention
 
-### 金手指本质拆分
+### Cheat essence decomposition
 
-**操作**：把金手指拆成以下元素再重新拼接，不要把金手指当成一个不可拆的整体。
+**Operation**: decompose the cheat into the elements below and re-assemble; don't treat the cheat as an indivisible whole.
 
-| 元素 | 作用 | 示例 |
+| Element | Function | Example |
 |------|------|------|
-| 面板 | 目标感明确，最直观的收获感来源 | 数值/等级/进度条 |
-| 不倒退 | 重复行动获得的提升永续 | 熟练度不会衰减 |
-| 重复提升 | 核心循环机制 | 做A->获得B->继续做A |
+| Panel | clear goal feel; the most intuitive gain source | numbers/levels/progress bars |
+| No regression | gains from repeated action are permanent | proficiency never decays |
+| Repeated growth | the core loop mechanism | do A → get B → keep doing A |
 
-**拼接操作**：拆分后自由组合。例如"杀怪+熟练度"=斩妖除魔流，"收集+提升品质"=焚决异火流。
+**Assembly**: freely combine after decomposition. E.g. "kill + proficiency" = demon-slaying style; "collect + quality-up" = flame-refining style.
 
-**核心警示**：如果金手指后期只剩"品质提升"一个维度，提升感会消失。必须保持多个维度同时成长（词条、功能、品质）。
+**Core warning**: if the cheat late-run only has the "quality-up" dimension, the growth feel dies. Multiple dimensions must grow at once (affixes, functions, quality).
 
-### 战力崩坏三原因
+### The three power-collapse causes
 
-**操作**：逐项检查你的设定是否踩中以下三雷，踩中就按解法修正。
+**Operation**: check item by item whether your setting hits these three mines; fix per the solutions.
 
-| 原因 | 解法 |
+| Cause | Fix |
 |------|------|
-| 没写升级线 | 用经典境界体系提供升级框架 |
-| 金手指设计缺陷 | 金手指提升要有多维度，不能只靠单一维度 |
-| 社会环境太简单 | 设计正经社会关系：酒馆、师门、朋友、情报组织 |
+| No upgrade line written | use a classic realm system to provide the upgrade framework |
+| Cheat design flaw | cheat growth must be multi-dimensional, not one dimension |
+| Social environment too simple | design real social relationships: taverns, sects, friends, info organizations |
 
 ---
 
-## 金手指进阶设计
+## Advanced cheat design
 
-### 错位系统设计
+### Displacement system design
 
-**操作**：让系统没有正确生效，利用系统与主角人设的反差产生戏剧性。
+**Operation**: let the system fail to trigger correctly; use the system/persona contrast for drama.
 
-| 错位类型 | 示例 |
+| Displacement type | Example |
 |----------|------|
-| 时间错位 | 主角已经无敌了，逆袭系统才来；都上大学了，幼儿园攻略系统才来 |
-| 空间错位 | 主角在正常世界，觉醒的是末世系统 |
-| 对象错位 | 本应寄生在皇帝身上的系统寄生在皇后身上 |
+| Time displacement | the protagonist already invincible when the turnaround system arrives; a kindergarten-strategy system arrives at college |
+| Space displacement | the protagonist in a normal world awakens an apocalypse system |
+| Object displacement | a system meant to parasitize the emperor parasitizes the empress instead |
 
-**原则**：错位产生的落差要大，且戏剧性必须是目标读者期待的。
+**Principle**: the displacement gap must be large, and the drama must be what the target reader anticipates.
 
-### 系统反套路写法
+### Anti-pattern system writing
 
-- 书名要直接点明系统的"反套路"作为最大噱头
-- 简介要说清楚系统运行一次的爽感
-- 不要只展示"反"的噱头，要展示反了之后主角怎么用
+- The title must name the system's "anti-pattern" as the biggest hook
+- The blurb must explain the satisfaction of one system run
+- Don't just show the "anti" hook; show how the protagonist uses it after the inversion
 
-### 常见系统类型
+### Common system types
 
-**操作**：根据你的故事需求，从下表选择匹配的系统类型。
+**Operation**: pick the matching system type per your story's needs.
 
-| 类型 | 特点 |
+| Type | Traits |
 |------|------|
-| 加点系统 | 简单直观但单一，适合强压迫世界观 |
-| 熟练度系统 | 能延伸情绪和普适性，底层机制可做变种 |
-| 抽卡系统 | 读者熟悉又新鲜的包装 |
-| 商城/兑换系统 | 资源获取型，适合种田经营类 |
+| Stat-point system | simple and intuitive but one-dimensional; suits oppressive worldviews |
+| Proficiency system | extends emotion and universality; bottom mechanism makes variants |
+| Gacha system | a familiar yet fresh package |
+| Shop/exchange system | resource-acquisition type; suits homestead-management genres |
 
-### 极道流金手指的特殊考量
+### Extreme-path cheat special considerations
 
-- 极道流世界观特点：绝对的阶级固化，按部就班修炼不可能跨越阶级
-- 极道流的进化方向：单一极道加点已过时，需要元素融合（极道+恐怖+探索、极道+末日+苟道）
+- Extreme-path worldview traits: absolute class rigidity; step-by-step cultivation can't cross classes
+- Extreme-path evolution: single stat-point adding is outdated; needs element fusion (extreme + horror + exploration, extreme + apocalypse + lying-low)
 
 ---
 
-## 脑洞文完整写作框架
+## The complete wild-idea fiction framework
 
-### 从灵感到成书的四步流程
+### Four steps from inspiration to book
 
-**操作**：严格按顺序执行这四步，不要跳步。
+**Operation**: strictly in order; no skipped steps.
 
-1. **得到点子**：一个金手指雏形/画面/切入点
-2. **匹配题材**：思考点子能融合进什么题材
-3. **构建框架**：围绕升级体系、金手指、框架三要素搭建
-4. **设计剧情**：在框架内用小剧情循环填充
+1. **Get the idea**: a cheat prototype / image / entry point
+2. **Match the genre**: what genre the idea can fuse into
+3. **Build the framework**: around the three elements of upgrade system, cheat, framework
+4. **Design the plot**: fill the framework with small-plot loops
 
-### 金手指设计：条件-反馈模型
+### Cheat design: the condition-feedback model
 
-**操作**：从下表选择一种模型作为金手指核心机制。
+**Operation**: pick one model as the cheat's core mechanism.
 
-| 变体 | 设计 | 示例 |
+| Variant | Design | Example |
 |------|------|------|
-| 单条件单反馈 | 摸尸体->得宝物 | 最基础形式 |
-| 单条件阶段反馈 | 摸尸->得摸尸点->升级解锁新功能 | 保留机制，丰富表现形式 |
-| 条件升级反馈 | 击杀->掠夺词条->词条可融合 | 后期天花板更高 |
+| Single condition, single feedback | loot corpses → get treasure | the most basic form |
+| Single condition, staged feedback | loot corpses → get loot points → level up to unlock new functions | keep the mechanism, enrich the presentation |
+| Condition-upgrade feedback | kill → plunder affixes → affixes fuse | higher late ceiling |
 
-**创新手法**（任选叠加）：
-- 设置多个条件对应一个反馈
-- 一个条件对应概率性反馈
-- 反馈产生新的子能力
+**Innovation techniques** (stackable):
+- Multiple conditions for one feedback
+- One condition with probabilistic feedback
+- Feedback produces new sub-abilities
 
-### 主线与过渡的框架设计
+### Main-line & transition framework design
 
-**操作**：框架 = 主线 + 剧情间的过渡。回答核心问题：每个剧情存在的目的是什么？
+**Operation**: framework = main line + transitions between plots. Answer the core question: what is every plot's purpose?
 
-设计步骤：
-1. 确定主角初始状态
-2. 确定每个剧情的功能并向前衔接
-3. 后续剧情渗透到前一个剧情
-4. 根据框架穿插嵌套小剧情循环
+Design steps:
+1. Fix the protagonist's initial state
+2. Fix every plot's function and connect forward
+3. Later plots seep into the previous one
+4. Interleave small-plot loops per the framework
 
-框架内的具体素材可以灵活替换，但核心功能不变。
+Concrete material inside the framework is flexibly replaceable; core functions stay.
 
-### 小剧情循环构思法
+### Small-plot loop conception
 
-**操作**：每个小剧情严格按四步走。
+**Operation**: every small plot strictly walks four steps.
 
-| 循环步骤 | 内容 |
-|----------|------|
-| a1 | 铺垫起点（主角处境+目标） |
-| a2 | 困难出现（引入具体矛盾） |
-| a3 | 金手指/实力发挥作用 |
-| a4 | 爽点释放（震惊/收获/关系突破） |
+| Loop step | Content |
+|------|----------|
+| a1 | setup the start (protagonist situation + goal) |
+| a2 | difficulty appears (introduce a concrete conflict) |
+| a3 | the cheat/power takes effect |
+| a4 | payoff release (shock/gains/relationship breakthrough) |
 
-**升级流的小循环节奏**：遭遇困境 -> 金手指提升 -> 剧情展开 -> 收获和日常 -> 大目标铺垫、世界观扩展
+**Progression-fiction small-loop rhythm**: trap → cheat upgrade → plot expansion → gains and daily → big-goal setup, worldview expansion
 
-**多级嵌套**：小循环 -> 中循环（次级目标）-> 大循环（卷目标）。小循环中必须铺垫大循环的期待。
+**Multi-level nesting**: small loop → mid loop (secondary goal) → big loop (volume goal). Small loops must set up the big loop's anticipation.
 
-### 脑洞文写长三关键
+### Three keys to writing wild-idea fiction long
 
-1. 在重复中变化：同一核心卖点的不同角度/不同矛盾
-2. 扩展世界观：新的地图/势力/设定逐步展开
-3. 核心卖点抓准市场：覆盖足够多的读者需求
+1. Vary within repetition: different angles/different conflicts of the same core selling point
+2. Expand the worldview: new maps/factions/setting unfolding gradually
+3. Aim the selling point at the market: cover enough reader needs
 
-### 多套路交织循环模式
+### Multi-pattern interleaving loops
 
-**操作**：从下表选择一种循环模式。
+**Operation**: pick one loop mode.
 
-| 模式 | 效果 |
+| Mode | Effect |
 |------|------|
-| 多角度循环 | 从核心卖点找出若干角度，每个角度写1-2卷 |
-| 设定扩展循环 | 从脑洞设定角度扩展多种套路，比第一种简单 |
-| 核心不扩展（反面） | 只反复用同一个梗换对象（一直打脸不同反派、收不同小弟），写到二十万字读者就腻 -- 本质没新东西，别这么干 |
-| 强情绪事件循环（反面） | 靠不断制造惨/虐来刺激（主角一次比一次惨、反派一次比一次坏），情绪阈值越拉越高，后面写啥都满足不了读者 |
+| Multi-angle loop | find several angles from the core selling point; write 1-2 volumes each |
+| Setting-expansion loop | expand multiple patterns from the wild-idea setting angle; simpler than the first |
+| Core-nonexpansion (negative) | reuse the same hook with swapped targets (always slapping different antagonists, recruiting different underlings) — readers tire by 200k words; nothing genuinely new; don't do this |
+| Strong-emotion-event loop (negative) | keep stimulating with manufactured tragedy/anguish (the protagonist ever worse, the antagonist ever worse) — emotion thresholds keep rising; nothing later satisfies readers |
 
 ---
 
-## 题材边界感
+## Genre boundary feel
 
-### 执行规则
+### Execution rules
 
-- 每个题材都有明确的读者期待边界，超出边界读者不买账
-- 选错题材方向 = 正文再顺也无法兑现目标读者期待
-- 边界感用于瞄准 -- 在边界内做到极致就是爆款
+- Every genre has clear reader-expectation boundaries; beyond them readers don't buy
+- Wrong genre direction = even smooth prose can't deliver target-reader expectations
+- Boundary feel is for aiming — being extreme inside the boundary is a hit
 
-### 边界感的判断方法
+### Judging the boundary
 
-**操作**：按以下步骤判断题材边界。
+**Operation**: judge per the steps.
 
-- 看同题材精品到万订之间的书，它们的共同元素就是边界
-- 超出边界的"创新"大概率是毒点
-- 上下文不足或题材资产不足时，不突破题材边界；先在边界内交付核心期待，再做微创新
+- Look at the same-genre books between "quality" and "ten-thousand subscriptions"; their common elements are the boundary
+- "Innovation" beyond the boundary is mostly poison
+- With insufficient context or genre assets, don't break the genre boundary; deliver core expectations inside the boundary first, then micro-innovate
 
-### 题材边界与金手指的关系
+### Genre boundary & the cheat
 
-- 金手指必须配合题材边界
-- 金手指的核心卖点循环不能偏离题材
-- 判断标准：读者冲着什么进来的，后续就必须持续给什么
-
----
-
-## 扫榜与拆书方法
-
-### 扫榜原则
-
-**操作**：按平台看不同榜单。
-
-- 番茄看阅读榜和新书榜，起点看三江推荐和各类推荐
-- 夹子上的文看的是热点元素 -- 为什么能上夹子
-- 金榜是成熟作品，适合抽取结构标准
-- 市场扫描时优先看同平台、同题材、非头部光环作品，以获得更可复用的结构样本
-
-### 拆书正确姿势
-
-**操作**：拆书前先明确你要拆的维度，不要泛读。
-
-- 不以个人喜好判断对标价值；只判断该书是否能提供可复用的结构/情绪/节奏模块
-- 带着具体问题去拆：怎么冲突拉扯情绪？找十段冲突情节分析
-- 优先拆中层样本；排除强品牌、强粉丝基础、不可复用的头部样本
-- 每次只拆一个维度：人设/节奏/对比手法/悬念等
-
-### 拆书素材提取要点
-
-- 扫榜时以写作功能位提取：热点元素、冲突结构、情绪链条、节奏编排
-- 拆书记录应标注具体维度，而非笼统读后感
-- 针对性拆解比泛读更有价值
-- 不要脱离题材拆书
+- The cheat must cooperate with the genre boundary
+- The cheat's core-selling-point loop can't drift from the genre
+- Judgment standard: whatever readers came in for, that's what the book must keep delivering
 
 ---
 
-## 对标书选择法则
+## Market scanning & teardown methods
 
-### 核心原则
+### Scanning principles
 
-**操作**：对标书选精品到万订之间、套路框架易懂、题材经过市场验证的书。
+**Operation**: watch different leaderboards per platform.
 
-### 三不选
+- Webnovel: watch the reading list and new-book list; Royal Road: watch rising/trending lists; Amazon Kindle: watch Top 100
+- Featured books: look at the hot elements — why they got featured
+- Gold-standard lists are mature works, good for extracting structural standards
+- Market scans prefer same-platform, same-genre, non-headline books for more reusable structural samples
 
-**操作**：以下三类书排除，不要作为对标书。
+### Correct teardown posture
 
-| 不选类型 | 原因 |
+**Operation**: fix the dimension to tear down before tearing; no broad reading.
+
+- Don't judge benchmark value by personal taste; only judge whether the book provides reusable structure/emotion/rhythm modules
+- Tear down with specific questions: how to pull emotion with conflict? Find ten conflict scenes and analyze
+- Prefer mid-tier samples; exclude strong-brand, strong-fanbase, non-reusable headline samples
+- Tear down one dimension at a time: persona/rhythm/comparison/suspense
+
+### Teardown material extraction points
+
+- Scanning extracts writing function slots: hot elements, conflict structures, emotion chains, rhythm arrangement
+- Teardown notes must mark the concrete dimension, not vague reading impressions
+- Targeted teardown beats broad reading
+- Don't tear down detached from genre
+
+---
+
+## Benchmark selection rules
+
+### Core principle
+
+**Operation**: pick books between "quality" and "ten-thousand subscriptions," with comprehensible pattern frameworks and market-validated genres.
+
+### Three exclusions
+
+**Operation**: exclude these three types; do not use them as benchmarks.
+
+| Type | Reason |
 |----------|------|
-| 强品牌/强粉丝基础的头部作品 | 品牌势能和笔力遮蔽结构，功能位不可直接复用 |
-| 刚火的题材跟风书 | 流量已被火书吸光，粗制滥造必死 |
-| 个人风格极强的好书 | 独特世界观和风格无法复制 |
+| Headline works with strong brands/fanbases | brand momentum and craft obscure the structure; function slots aren't directly reusable |
+| Bandwagon books from just-hot genres | traffic already drained by the hot book; shoddy copies die |
+| Excellent books with extremely strong personal style | unique worldviews and styles can't be copied |
 
-### 完整流程
+### The full flow
 
-**操作**：按以下顺序执行。
+**Operation**: execute in order.
 
 ```
-检索同题材TOP 20作品的核心卖点与读者评论，提取高频剧情模式
-  -> 确定题材内有哪些方向 -> 确定自己要写的方向
-  -> 选5-10本参考书（读2-3遍到基本记下）
-  -> 从参考书里选1本对标书
+Search the TOP 20 same-genre works' core selling points and reader comments; extract high-frequency plot patterns
+  -> determine the directions inside the genre -> determine your direction
+  -> pick 5-10 reference books (read 2-3 times until basically memorized)
+  -> pick 1 benchmark book from the references
 ```
 
-| 思考方向 | 问题 |
+| Thinking direction | Questions |
 |----------|------|
-| 好看的书 | 哪些书最好看？读者评论和自己的想法一样吗？ |
-| 方向共性 | 最好看的书大概怎么写？有哪些相似性？ |
-| 不好看的书 | 不好看的根因：自己不是受众 vs 写得不好？ |
+| Good books | which books are best? do reader comments match your own views? |
+| Direction commonality | how do the best books roughly write? what similarities? |
+| Bad books | root causes of bad books: not being the audience vs bad writing? |
 
 ---
 
-## 同人vs原创的节奏差异与核心框架
+## Fanfic vs original rhythm differences & core frameworks
 
-### 同人vs原创的节奏本质差异
+### Fanfic vs original rhythm essence
 
-- 同人不用铺垫，直接拿过来就自带期待感和爽感
-- 同样的字数，同人文比原创爽——铺垫快
+- Fanfic needs no setup; built-in anticipation and payoff come free
+- Same word count, fanfic satisfies more than original — setup is fast
 
-### 原创破解节奏问题的方法
+### Original rhythm solutions
 
-**操作**：写原创时按此节奏递进。
+**Operation**: progress per this rhythm when writing original.
 
-- 前期牺牲部分爽感（小爽就够了），快速重复核心套路
-- 拉住读者后再做详细铺垫
-- 节奏递进模式：开头1万字一个剧情x3 -> 2万字一个剧情x2 -> 3万字一个剧情x2 -> 8万字xN
+- Early: sacrifice some payoff (small payoffs suffice), quickly repeat the core pattern
+- After hooking readers, do detailed setup
+- Rhythm progression: opening 10k words one plot ×3 → 20k words one plot ×2 → 30k words one plot ×2 → 80k ×N
 
-### 一级结构 vs 二级结构
+### Level-1 vs level-2 structure
 
-**操作**：根据平台特性选择结构。
+**Operation**: choose per platform traits.
 
-| 结构 | 特点 | 订阅表现 |
+| Structure | Traits | Subscription performance |
 |------|------|----------|
-| 一级结构（单元剧） | 爽点分布均匀，每天有小高潮 | 追读稳定 |
-| 二级结构（铺垫->反转->大高潮） | 大高潮后有平缓期 | 订阅波动，阶梯型流失 |
+| Level-1 (unit stories) | payoffs evenly spread; a small climax daily | stable follow-through |
+| Level-2 (setup→reversal→big climax) | a flat period after the big climax | subscription fluctuation, staircase attrition |
 
+### Wordiness self-check
 
-### 行文啰嗦自检
+**Operation**: check line by line; any hit → go delete.
 
-**操作**：逐条对照，中了任何一条就回去删。
+- If one sentence can state it exactly, never over-explain
+- Minimize plots unrelated to the main line
+- Reduce adverb frequency
+- Re-describing the same thing = the chapter loses focus
 
-- 一句话能准确表达的，绝不过多解释
-- 与主线无关的剧情尽量少写
-- 减少副词出现频率
-- 反复描述同一件事 = 让章节失去重点
+### Fanfic writing points
 
-### 同人写作要点
-
-- 标题要吸引人：从讨论度最高的剧情切入
-- 支线人物压缩：标题对准某个经典人物时，支线人物不超过2章
-- 命名贴合原著世界：原著角色沿用官方本名/译名不自造；新角色顺着原著对应地域的文化命名和译名风格，同一地域不混语系，别用与设定不符的现代化或政治化名字
+- Titles must attract: cut in from the most-discussed plot
+- Compress sub-line characters: when the title targets one classic character, sub-line characters ≤2 chapters
+- Naming follows the original world: original characters keep their official names/translations; new characters follow the region's cultural naming and translation style; no mixing language families in the same region; no modern or political names clashing with the setting
 
 ---
 
-## 都市高武情节模板
+## Urban-martial plot templates
 
-### 通用目标池
+### The universal goal pool
 
-**操作**：从下表选择目标组合，所有目标必须和钱挂钩。
+**Operation**: pick goal combinations; all goals must link to money.
 
-| 目标类型 | 具体选项 |
+| Goal type | Concrete options |
 |----------|----------|
-| 物质 | 换房子、拿必要资源、挣更多钱 |
-| 学业 | 考大学、考军校、打各种考试 |
-| 职业发展 | 进武道厅、进治安局、进军部 |
-| 亲情 | 治母亲、救父亲、治自己、帮亲戚 |
-| 感情 | 青梅竹马好感、天降校花好感 |
-| 激励 | 每天看世界第一天骄的画像打鸡血 |
+| Material | a new apartment, necessary resources, more money |
+| Academic | college entrance, military academy, various exams |
+| Career | martial-arts bureau, security bureau, military |
+| Family | curing mother/father/self, helping relatives |
+| Romance | childhood-sweetheart affinity, campus-queen affinity |
+| Motivation | daily inspiration from the world's top genius's portrait |
 
-**核心原则**：所有目标都必须和钱挂上钩，反复挂钩。没钱寸步难行，有钱打遍天下。
+**Core principle**: every goal links to money, repeatedly. No money, nothing moves; money, you can fight the world.
 
-### 可用剧情事件（按场景）
+### Usable plot events (by scene)
 
-**操作**：根据当前场景从下表选取事件。
+**Operation**: pick events per the current scene.
 
-| 场景 | 可用事件 |
+| Scene | Usable events |
 |------|----------|
-| 学校 | 进天才班、获奖励、打虚拟比赛、月考、打校霸、多校联考、全国高考 |
-| 武馆 | 获馆主赏识、获传承武学、打武馆师兄、市内/省级/国级武馆联赛 |
-| 警局 | 配合打劫匪、打邪魔、打邪恶副本、打动乱boss |
-| 竞争 | 武馆/学校/武道厅/军部/国安局/虚拟网/明星赛事合约 |
+| School | genius class, rewards, virtual tournaments, monthly exams, school-bully fights, multi-school joint exams, national college exams |
+| Gym | owner's appreciation, inherited martial arts, senior apprentices, city/province/national gym leagues |
+| Police | cooperating against robbers, demon cults, evil dungeons, riot bosses |
+| Competition | gym/school/bureau/military/national-security/virtual-net/celebrity tournament contracts |
 
-### 换地图公式
+### Map-change formula
 
-**操作**：当地图用尽时，按此公式换地图。
+**Operation**: when a map is exhausted, change per this formula.
 
-高中->大学，武馆->天下第一武道会，武道厅->中央武道厅，蓝星->其他星域。周而复始。
+high school → college; gym → national tournament; municipal bureau → central bureau; Earth → other star systems. Round and round.
 
-火箭跳法：打大学老师->打校长->打财阀->打仿美国->打中boss->打大boss->打邪神。
+Rocket-jump method: beat the professor → beat the dean → beat the tycoon → beat the national champion → beat the mid-boss → beat the big boss → beat the evil god.
 
 ---
 
-## 不同题材不同写法与身份行为论
+## Genre writing differences & identity-behavior theory
 
-### 收放压起节奏论
+### The tighten-loosen-press-rise rhythm theory
 
-**操作**：写任何章节前先确认收放压起。
+**Operation**: confirm tighten/loosen/press/rise before writing any chapter.
 
-- 写小说要讲究：收、放、压、起
-- 高潮结束后的第二章怎么处理，才是见功底的时候
-- 写任何高潮剧情前先问：主角目前的等级够不够格？
+- Writing novels requires: tighten, loosen, press, rise
+- How the second chapter after a climax is handled shows the craft
+- Before any climax plot, ask: is the protagonist's current level qualified?
 
-### 身份行为边界
+### Identity-behavior boundaries
 
-**操作**：主角确定身份后，严格按身份限制行为。
+**Operation**: once the protagonist's identity is fixed, strictly constrain behavior by it.
 
-- 主角确定身份后，什么样的身份做什么样的事情
-- 越级行动 = 结构性破坏，代入感直接出戏
-- 步子太大的后果：剧情变成跳跃式，高潮多但没连成一条线
+- Fixed identity does what that identity does
+- Overstepping = structural damage; immersion breaks on the spot
+- Overstepping consequences: the plot becomes jumpy; many climaxes but no connected line
 
-### 不同题材的写法差异
+### Genre writing differences
 
-**操作**：对照你的题材，按对应要点写。
+**Operation**: match your genre and write per its points.
 
-| 题材 | 写法要点 |
+| Genre | Writing points |
 |------|----------|
-| 西幻低位背景 | 不写冲突，写环境；不需要反转和拉扯，最重要的是流畅 |
-| 东方玄幻 | 不写多余角色，第一章只出现主角，靠独白和心理推进 |
-| 带冲突的开篇 | 需要不断拉扯空间，节奏会越来越快，容易崩 |
-| 带环境的开篇 | 慢节奏推进，信息密集但阅读体验流畅，更容易写长 |
+| Western fantasy low-position | no conflict, write environment; no reversals or pulls needed; flow matters most |
+| Eastern fantasy | no extra characters; chapter 1 has only the protagonist; advance via monologue and psychology |
+| Conflict-opening | needs constant pulling room; rhythm accelerates; easy to collapse |
+| Environment-opening | slow-rhythm advancement, dense info but smooth reading; easier to write long |
 
-### 强情绪开局的陷阱
+### Strong-emotion opening trap
 
-**警告**：强情绪开局需要后续升级能力支撑。
+**Warning**: strong-emotion openings need later upgrade ability to support.
 
-- 如果卷纲无法给出更高代价、更强对手或更深情绪反转，不要用强情绪开局。
-- 强情绪开局后，后续每个大节点必须至少在代价、范围、真相或关系破裂上升级一个维度。
+- If the volume outline can't provide higher costs, stronger opponents, or deeper emotional reversals, don't use a strong-emotion opening
+- After a strong-emotion opening, every later big node must upgrade at least one dimension: cost, scope, truth, or relationship rupture
 
-### 流派要素合成法
+### School-element synthesis
 
-**操作**：把流派A的要素提炼出来，把流派B的要素提炼出来，两个要素合成一个新点子 -> 创作出一本新书。换皮法：把背景一换，思路套用不同题材。
-
----
-
-## 爱情线提纯策略
-
-> 相关：感情线整体框架（好感度体系/四阶段/男女频差异）以 [character-relations.md](character-relations.md)「好感度体系」为准；本文只覆盖"两种核心梗支撑"的提纯选择。
-
-### 爱情线的两种核心梗支撑
-
-**操作**：从两种模式中选择一种作为爱情线核心。
-
-1. **特定的有戏剧性的爱情过程**（如禁忌之恋、追妻后悔流）-- 不同阶段有不同核心情绪链
-2. **特定的有戏剧性的人设/人设组合/两人关系** -- 整本书的观感主要由两人互动模式带来
-
-### 互动模式不变的铁律
-
-**操作**：男女主角的互动模式一旦建立，持续到全文最后。改变互动模式 = 改变读者追这本书的核心观感。
-
-### 事业线为爱情线服务
-
-**操作**：以爱情线为主时，所有事业线情节都必须为爱情线服务。
-
-- 事业线功能：导致相识 / 引发关系改变 / 情敌/长辈考验
-- 装逼可以写，但装逼后要引出爱情线内容
-
-### 后宫文角色设计原则
-
-- 女主外表要有相似性 -- 萝莉就全部萝莉，御姐就全部御姐
-- 如果近期目标平台样本中“男主好基友”明显削弱吸引力，改用“欢喜冤家青梅竹马妹子”等能制造关系戏的角色位
+**Operation**: distill school A's elements and school B's elements; fuse the two into a new idea → write a new book. Reskin: swap the background and apply the approach to a different genre.
 
 ---
 
-## 向人设深化vs向故事深化
+## Romance-line purification strategy
 
-### 两种深化路径
+> Related: the romance-line overall framework (affinity system / four stages / male-female differences) is governed by [character-relations.md](character-relations.md) "affinity system"; this only covers the purification choice of "two core-hook supports."
 
-**操作**：根据项目复杂度、已有素材和目标情绪选择深化路径。
+### The romance line's two core-hook supports
 
-| 路径 | 特点 |
+**Operation**: pick one of the two modes as the romance-line core.
+
+1. **A specific dramatic romance process** (forbidden love, comeback-regret) — different stages have different core emotion chains
+2. **A specific dramatic persona / persona combination / two-person dynamic** — the whole book's feel mainly comes from the interaction mode
+
+### The interaction-mode iron law
+
+**Operation**: once the leads' interaction mode is established, hold it to the book's end. Changing the interaction mode = changing the core feel readers follow this book for.
+
+### The career line serving the romance line
+
+**Operation**: when the romance line is primary, every career-line plot must serve it.
+
+- Career-line functions: causing the meeting / triggering relationship changes / rival-or-elder tests
+- Flex may be written, but must lead into romance-line content after
+
+### Harem character design principles
+
+- The heroines' appearances should share a type (all loli or all mature)
+- If recent target-platform samples show the "best-buddy" role weakening appeal, switch to "childhood-friend bickering love-interest" type role slots that create relationship drama
+
+---
+
+## Persona deepening vs story deepening
+
+### Two deepening paths
+
+**Operation**: pick by project complexity, existing material, and target emotion.
+
+| Path | Traits |
 |------|------|
-| 向故事深化 | 构思复杂阴谋、多层推理、智斗 -- 上限高但难度大 |
-| 向人设深化 | 在人物关系和互动中找戏剧性 -- 适合主线已清楚、需要持续新鲜感的项目 |
+| Story deepening | conceive complex conspiracies, multi-layer reasoning, mental duels — high ceiling but hard |
+| Persona deepening | find drama in relationships and interaction — suits projects with clear main lines needing sustained freshness |
 
-向人设深化的核心：在简单、读者熟悉的故事框架中，通过人物互动制造"乐子"。先列出几个人物的相处关系、欲望差异和互动模式，再把互动模式映射成可重复的情节点。
-
----
-
-## 剧情改编三步法
-
-### 核心原则：好剧情是改出来的
-
-**操作**：严格按三步执行。
-
-1. **通过矛盾找目标**：确定主角当前面临什么矛盾 -> 在"内容库"里搜索类似剧情 -> 找到源头作品
-2. **对照法**：将原型作品拆成细纲，纵向罗列桥段放左边 -> 右边放自己的书的情况 -> 逐桥段改编
-3. **调整优化**：改编后的故事已和原型不同 -> 按节奏、情绪、悬念、人物动机逐项验收
-
-**改到不一样就是原创**。两本书基础不一样：世界观不同、人物关系不同、金手指境况全不同，想照抄也做不到。
+Persona deepening's core: inside a simple, reader-familiar story framework, make "fun" through character interaction. First list several characters' relationships, desire differences, and interaction modes; then map the interaction modes into repeatable plot points.
 
 ---
 
-## 三万字卡点倒推法与中后期写法
+## The three-step plot adaptation
 
-### 三万字卡点倒推
+### Core principle: good plots are adapted
 
-**操作**：按此顺序倒推。
+**Operation**: strictly in three steps.
 
-- 先确定卡点（上架高潮场景）
-- 从卡点倒推开头剧情 -> 一步步严丝合缝推导
-- 三万字内无关卡点的装逼打脸一个字不要写
-- 核心反派要围绕卡点设计
+1. **Find the goal through conflict**: fix the conflict the protagonist currently faces → search similar plots in the "content library" → find the source work
+2. **Comparison method**: tear the prototype into a chapter outline; list scenes vertically on the left → your book's situation on the right → adapt scene by scene
+3. **Adjust & optimize**: the adapted story already differs from the prototype → accept by rhythm, emotion, suspense, and character motivation item by item
 
-### 中后期写法两大原则
-
-**原则一**：啥也没干 -> 一年推进一次主线
-- 女主能不改观就不改观，能找个由头圆回去就圆回去
-- 主线偶尔推进一次 -> 像柯南 -> 日常破案+偶尔推进暗线
-- 咬死硬撑撑满80万字再破坏基本元素 -> 基本就大火了
-
-**原则二**：着眼于一天后的事
-- 剧情围绕眼前事件展开 -> 岳父即将回来、老太君大寿
-- 而非从头就散线
+**Adapted until different = original.** Two books have different foundations: different worldviews, different relationships, entirely different cheat situations — copying outright is impossible.
 
 ---
 
-## 阵营剧情安排与动机完善法
+## The 30k-word node back-derivation & mid-late writing
 
-### 阵营剧情的四种基本模式
+### The 30k-word node back-derivation
 
-**操作**：从四种模式中选择适合当前剧情的。
+**Operation**: back-derive in this order.
 
-1. 主角->敌方：最常见，敌人直接找主角麻烦
-2. 友军->敌方->（动机转换）主角->敌方：友军被针对->主角挺身而出
-3. 主角->敌方a->（动机延伸）主角->敌方bcd：打小子来老子
-4. 主角->友军：误会/理念分歧/证明实力->调剂剧情+丰富人设
+- Fix the node first (the paywall climax scene)
+- Back-derive the opening plot from the node → derive step by step, tightly sealed
+- Inside the first 30k words: not one word of flex-comeuppance unrelated to the node
+- The core antagonist is designed around the node
 
-### 第三方阵营的关键作用
+### Two mid-late principles
 
-不只是吃瓜群众用来围观震惊，更重要的是"完善逻辑" -- 衡量反派有没有脑子、主角方高人是不是因主角光环强行帮忙。
+**Principle one**: nothing done → advance the main line once a year
+- The heroine doesn't change her view unless she must; when possible, find an excuse to patch it back
+- The main line advances occasionally → like a detective series: daily cases + occasional hidden-line advancement
+- Hold the basic elements until 800k words before breaking them → roughly a big hit
 
-### 动机完善的核心
-
-- 情绪是动机的助燃器 -> 情绪越足 -> 读者与角色越能感同身受
-- 转移仇恨时动机必须强烈+符合逻辑
-- 动机要从人设为锚点
-
-### 多层铺垫法（动机完善案例）
-
-**操作**：按此模式层层递进铺垫动机。
-
-层层递进：
-1. 穿越发现原身被毒死 -> 复仇动机
-2. 受原主记忆影响 -> 与家人感情深厚
-3. 家人担忧之色未褪 -> 情绪铺垫
-4. 晚餐好吃好喝补身子 -> 亲情体现
-5. 家境贫寒父母日夜劳作 -> 家庭困境
-6. 为凑药费欠债 -> 经济压力
-7. 妹妹想从了纨绔帮家 -> 终极情感引爆
-
-**规则**：情绪别一直压 -> 爽文情绪是波浪式 -> 压太低要介绍金手指回升。
-
-### 强主角方（种田/领主/门派建设文）
-
-弱主角方 = 配角独立装逼与主角无关 = 读者不爽
-强主角方 = 领民/弟子/学生装逼 = 主角装逼 = 扩充爽点
+**Principle two**: focus on what happens in a day
+- Plot around the immediate events — the father-in-law coming back, the matriarch's birthday
+- Not scattering lines from the start
 
 ---
 
-## 阵营手牌法——用卡牌思维设计主线剧情
+## Faction-plot arrangement & motivation completion
 
-### 核心概念
+### The four basic faction modes
 
-框架 = 主线 + 支线 + 日常的比重与排列组合顺序。
+**Operation**: pick the mode fitting the current plot.
 
-| 类型 | 定义 |
+1. Protagonist → enemy: most common; the enemy troubles the protagonist directly
+2. Ally → enemy → (motive shift) protagonist → enemy: allies targeted → the protagonist steps up
+3. Protagonist → enemy a → (motive extension) protagonist → enemy b/c/d: hit the kid, the dad comes
+4. Protagonist → ally: misunderstanding/ideological difference/proving strength → rhythm seasoning + persona enrichment
+
+### The third-party faction's key role
+
+Not just bystanders watching shock — more importantly "completing logic": measuring whether the antagonist has a brain and whether the protagonist's side's experts help only through protagonist-halo forced help.
+
+### Motivation completion core
+
+- Emotion is the motivation's booster: the fuller the emotion, the more readers empathize
+- When shifting hatred, the motive must be strong + logical
+- Motives anchor on personas
+
+### The multi-layer setup method (motivation completion case)
+
+**Operation**: escalate the motive setup layer by layer.
+
+1. Transmigrating, discovering the original body was poisoned → revenge motive
+2. Affected by the original owner's memories → deep feelings for family
+3. Family's worry not yet faded → emotion setup
+4. A good dinner to nourish the body → family love shown
+5. Poor family, parents working day and night → family trap
+6. Debts for medical bills → financial pressure
+7. The sister about to sell herself to a rich brat to help the family → the ultimate emotional detonation
+
+**Rules**: don't keep emotion pressed forever — payoff-fiction emotion is wave-like; when pressed too low, introduce the cheat to rebound.
+
+### Strong protagonist sides (homestead/lord/sect-building fiction)
+
+Weak protagonist side = supporting characters flexing independently, unrelated to the protagonist = unsatisfying
+Strong protagonist side = subjects/disciple/students flexing = the protagonist flexing = expanded payoffs
+
+---
+
+## The faction-card method — card-game main-line design
+
+### Core concept
+
+Framework = the proportion and arrangement of main line + sub-lines + daily.
+
+| Type | Definition |
 |------|------|
-| 主线 | 推进故事直到完成最终期待的过程 |
-| 支线 | 获得辅助道具/能力的任务 |
-| 日常 | 与角色互动的温情填充 |
+| Main line | the process advancing the story to complete the final anticipation |
+| Sub-line | tasks gaining auxiliary items/abilities |
+| Daily | warm filler interacting with characters |
 
-### 阵营手牌法操作
+### The faction-card method in operation
 
-**操作**：像卡牌游戏一样，不同阵营按回合出牌。
+**Operation**: like a card game, different factions play cards by turn.
 
-- 站在主角角度思考应对方法（功法/法宝/知识点）
-- 站在敌人和观众阵营角度出牌和讨论
-- 核心要点：按实力高低排序各阵营角色 -> 逐级递进 -> 主角最后出手碾压
+- Think the counter from the protagonist's angle (techniques/treasures/knowledge)
+- Play cards and discuss from the enemy and audience factions' angles
+- Core point: sort each faction's characters by power tier → escalate step by step → the protagonist moves last and crushes
 
-### 三版本
+### Three versions
 
-**操作**：根据项目复杂度和可用上下文选择版本。
+**Operation**: pick by project complexity and available context.
 
-| 版本 | 结构 |
+| Version | Structure |
 |------|------|
-| 基础版 | 不同立场角色针对同一事件有不同态度 -> 加先抑后扬 |
-| 进阶版 | 经典结构：观众->配角A->配角B->敌人C->主角碾压->引出大BOSS |
-| 高阶版 | 主角不下场，教下属关键知识 -> 敌人历经千辛万苦来到面前 -> 一败涂地 |
+| Basic | different-stance characters hold different attitudes to the same event + rise-after-fall |
+| Advanced | classic: audience → supporting A → supporting B → enemy C → protagonist crushes → lead out the big boss |
+| High-tier | the protagonist never takes the field; teaches subordinates key knowledge → the enemy struggles through hardship to arrive → total defeat |
 
-### 各类型通用
+### Universal across types
 
-升级文 = 功法/法宝替代知识/科技 = 手牌 -> 战斗特点替代台词 -> 登台替代开会。无论升级文还是非升级文，剧情设计原理相同，一通百通。
+Progression fiction = techniques/treasures replacing knowledge/tech = cards; combat traits replacing dialogue; taking the stage replacing meetings. Whether progression or not, plot-design principles are the same; once you get one, you get all.
 
 ---
 
-## 四类常见问题诊断
+## Four common problem diagnoses
 
-**操作**：遇到写作问题时，从下表定位问题类型，按修正方向执行。
+**Operation**: when hitting writing problems, locate the problem type and execute the fix direction.
 
-| 问题 | 外在表现 | 修正方向 |
+| Problem | Symptoms | Fix direction |
 |------|----------|----------|
-| 选错题材 | 题材缝合/难度过高/不适配 | 扫榜分析题材门槛，选择适配的题材 |
-| 不知好坏 | 自嗨/忐忑/无法判断质量 | 建立具体评判维度（节奏/情绪/悬念）逐项对照 |
-| 不研究市场 | 写源于自我认知的内容 | 扫同题材榜上书，提取读者评论中的需求关键词 |
-| 不用套路 | 一拍脑袋全凭感觉写 | 拆书总结题材通用套路，建立可复用的结构模板 |
+| Wrong genre | genre stitching / too hard / mismatched | scan-analyze the genre threshold; pick an adaptable genre |
+| Can't tell good from bad | self-indulgence / anxiety / can't judge quality | build concrete judgment dimensions (rhythm/emotion/suspense) and check item by item |
+| No market research | writing content from self-cognition | scan same-genre leaderboard books; extract need keywords from reader comments |
+| No patterns | all gut feeling | tear down books to summarize genre patterns; build reusable structure templates |
 
 ---
 
-## 三本书融合为新故事
+## Three books fused into a new story
 
-### 操作步骤
+### Steps
 
-**操作**：严格按顺序执行。
+**Operation**: strictly in order.
 
-1. 选取 3 本同平台、同题材、同类型且近期数据/评论可验证的对标书。
-2. 为每本书提取 300-500 字故事梗概、核心梗、卖点结构和读者评论关键词。
-3. 三层拆解：(1) 故事梗概提炼——核心梗和卖点结构 (2) 叙事手法分析——节奏编排和情绪触发机制 (3) 读者吸引力归因——评论中的高频正面关键词。
-4. 融合时只复用功能位：核心梗、节奏、情绪触发、人物关系，不复用具体桥段。
-5. 输出新故事核心后，先用 200 字概括验证，再进入大纲。
+1. Pick 3 benchmark books: same platform, same genre, same type, with recently verifiable data/comments.
+2. Extract per book: 300-500 words of story synopsis, core hook, selling-point structure, and reader-comment keywords.
+3. Three-layer teardown: (1) synopsis distillation — core hook and selling-point structure (2) narrative-technique analysis — rhythm arrangement and emotion-trigger mechanisms (3) reader-attraction attribution — high-frequency positive keywords in comments.
+4. On fusion, reuse only function slots: core hook, rhythm, emotion triggers, character relationships — never concrete scenes.
+5. After outputting the new story core, validate with a 200-word summary first, then enter the outline.
 
-### 检验方法
+### Validation
 
-**操作**：先把想写的东西用200字概括故事核心，逐项检查：核心矛盾是否明确、情绪钩子是否到位、金手指展示是否充分。三项至少满足两项为合格，否则说明故事核心不够清晰。
+**Operation**: summarize the story core in 200 words and check item by item: is the core conflict clear, is the emotion hook in place, is the cheat display sufficient. Two of three = pass; otherwise the story core isn't clear enough.
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-**使用方法**：完成特殊题材写作后，逐项对照检查。任何一项不通过，回到对应章节修正。
+**Use**: after special-topic writing, check item by item. Any failure → return to the corresponding section and fix.
 
-### 金手指与战力
+### Cheat & power
 
-- [ ] 金手指是否拆分成多个元素（面板/不倒退/重复提升），而非单一维度？
-- [ ] 后期金手指是否仍有多维度成长（词条+功能+品质），不会只剩品质提升？
-- [ ] 升级线是否已建立（境界体系或等效框架）？
-- [ ] 社会环境是否有足够的社会关系支撑（不只是主角+敌人）？
+- [ ] Cheat decomposed into multiple elements (panel/no-regression/repeated growth), not one dimension?
+- [ ] Late-run cheat still multi-dimensional (affixes + function + quality), not quality-only?
+- [ ] Upgrade line established (realm system or equivalent)?
+- [ ] Social environment has enough social relationships (not just protagonist + enemies)?
 
-### 题材与边界
+### Genre & boundaries
 
-- [ ] 是否已确认题材边界（通过同题材精品到万订之间的共同元素）？
-- [ ] 金手指核心卖点循环是否在题材边界内，未偏离？
-- [ ] 读者冲什么进来的，后续是否持续给什么？
+- [ ] Genre boundary confirmed (via same-genre quality-to-ten-thousand common elements)?
+- [ ] Cheat core-selling-point loop inside the genre boundary, no drift?
+- [ ] Whatever readers came in for keeps being delivered?
 
-### 框架与节奏
+### Framework & rhythm
 
-- [ ] 每个剧情存在的目的是否明确（主线/过渡/小循环）？
-- [ ] 小循环是否严格按 铺垫->困难->金手指发挥作用->爽点释放 四步走？
-- [ ] 小循环中是否铺垫了大循环的期待？
-- [ ] 同人是否用一级结构（单元剧），原创是否按节奏递进模式？
+- [ ] Every plot's purpose clear (main line/transition/small loop)?
+- [ ] Small loops strictly walk setup → difficulty → cheat takes effect → payoff release?
+- [ ] Small loops set up the big loop's anticipation?
+- [ ] Fanfic uses level-1 structure (unit stories); original uses the rhythm-progression mode?
 
-### 阵营与动机
+### Factions & motives
 
-- [ ] 阵营冲突模式是否明确（四种基本模式之一）？
-- [ ] 第三方阵营是否完善逻辑（不只是围观震惊）？
-- [ ] 动机是否从人设锚点出发，且层层铺垫？
-- [ ] 情绪是否波浪式推进（避免一路压抑或一路爽到底）？
+- [ ] Faction-conflict mode explicit (one of the four basic modes)?
+- [ ] Third-party factions complete logic (not just watching shock)?
+- [ ] Motives anchored on personas, set up layer by layer?
+- [ ] Emotion wave-like (no all-repressed or all-satisfying straight line)?
 
-### 爱情线（如涉及）
+### Romance line (if involved)
 
-- [ ] 爱情线核心梗是"过程型"还是"人设互动型"，是否二选一明确？
-- [ ] 男女主互动模式是否全文一致，未中途改变？
-- [ ] 事业线情节是否服务于爱情线？
+- [ ] Romance-line core hook is "process-type" or "persona-interaction-type," clearly one of the two?
+- [ ] Leads' interaction mode consistent to the book's end, no mid-change?
+- [ ] Career-line plots serving the romance line?
 
-### 市场与改编
+### Market & adaptation
 
-- [ ] 对标书是否为同平台、同题材、同类型的可复用样本（排除强品牌、跟风粗制、强风格书）？
-- [ ] 拆书是否每次只拆一个维度（人设/节奏/对比/悬念）？
-- [ ] 改编后的剧情是否与原型已有本质差异（世界观/人物/金手指不同）？
+- [ ] Benchmark book is a reusable sample: same platform + same genre + same type (excluding strong-brand, shoddy bandwagon, strong-style books)?
+- [ ] Teardowns one dimension at a time (persona/rhythm/comparison/suspense)?
+- [ ] Adapted plot essentially differs from the prototype (worldview/characters/cheat all different)?
 
-### 三万字卡点（如涉及）
+### The 30k-word node (if involved)
 
-- [ ] 是否已确定上架高潮场景（卡点）并从卡点倒推开头？
-- [ ] 三万字内是否有与卡点无关的装逼打脸（有则删除）？
-- [ ] 核心反派是否围绕卡点设计？
+- [ ] Paywall climax scene fixed (the node) and the opening back-derived from it?
+- [ ] Inside the first 30k words, no flex-comeuppance unrelated to the node (delete any)?
+- [ ] Core antagonist designed around the node?

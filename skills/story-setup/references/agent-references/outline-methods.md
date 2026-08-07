@@ -1,287 +1,287 @@
-# 大纲核心方法
+# Core Outline Methods
 
-Phase 3 建大纲时加载。包含大纲创建法、结构分级、节点设计、细纲实操。
+Load when building outlines in Phase 3. Contains outline creation methods, structure tiers, node design, and chapter-outline practice.
 
-## 决策路由：你现在该用什么方法
+## Decision routing: which method now
 
-| 你在大纲的哪个阶段 | 用什么方法 |
+| Your outline stage | Method |
 |--------------------|------------|
-| 刚开始建大纲 | 五步大纲创建法 |
-| 已经有框架要细化 | 节点设计法 + 三层结构法 |
-| 设计单卷结构 | 八节点故事结构 |
-| 做细纲/章纲 | 细纲与章纲节 |
-| 卡文/逆推 | 推演与逆推方法 |
+| Just starting the outline | the five-step outline creation method |
+| Have a framework, need detail | node design + three-layer structure method |
+| Design a single volume | eight-node story structure |
+| Chapter outline / mini-outline | the chapter-outline & mini-outline section |
+| Stuck / back-derivation | derivation & back-derivation methods |
 
-## 故事结构分级
+## Story structure tiers
 
-| 级别 | 特征 | 适用 |
+| Tier | Traits | Use |
 |------|------|------|
-| 一级 | 单元剧松散连接，靠时间串联，最后大高潮 | 入门 |
-| 1.5 级 | 单元剧间有逻辑线索串联，指向核心目标 | 进阶 |
-| 二级 | 小高潮→意外下行→上行转折→大高潮链 | 高阶 |
+| 1 | unit-stories loosely connected, linked by time, one final big climax | entry |
+| 1.5 | units connected by logic threads pointing at a core goal | advanced |
+| 2 | small climax → unexpected down → up turn → big climax chain | high tier |
 
-## 五步大纲创建法
+## The five-step outline creation method
 
-### 第1步：确定高潮剧情
+### Step 1: fix the climax plot
 
-高潮有绝对优先级：最大冲突规模、最多出场人物、最强情绪波动。
+The climax has absolute priority: biggest conflict scale, most characters, strongest emotion swings.
 
-检查清单：
-- [ ] 是否本卷最大冲突？
-- [ ] 出场人物是否最多？
-- [ ] 是否与阶段目标高度一致？
-- [ ] 读者情绪波动是否最大？
+Checklist:
+- [ ] Is it this volume's biggest conflict?
+- [ ] Most characters appearing?
+- [ ] Highly aligned with stage goals?
+- [ ] Strongest reader emotion swing?
 
-### 第2步：确定单元剧
+### Step 2: fix the unit stories
 
-每个单元剧 = 主角用金手指优势获得爽点。同类型重复 = 剧情套路，有逻辑关系的成组出现 = 剧情套路链路。
+Each unit story = the protagonist gaining a payoff with a cheat advantage. Same-type repetition = plot pattern; logically related groups = pattern chains.
 
-操作要求：
-- 每个单元剧必须展示金手指不同用法
-- 相邻单元剧禁止使用相同金手指逻辑
-- 单元剧之间必须建立因果关系
+Requirements:
+- Each unit must show a different cheat use
+- Adjacent units forbid the same cheat logic
+- Units must establish causal relationships
 
-### 第3步：故事线组织与信息点预埋
+### Step 3: storyline organization & info-point pre-planting
 
-同时管理 8 条故事线，每条必须标注预埋时机：
+Manage 8 storylines simultaneously; each must mark its planting timing:
 
-| 故事线 | 内容 | 预埋什么 |
+| Storyline | Content | What to plant |
 |--------|------|----------|
-| 地图线 | 层级地点 | 新地图解锁时机 |
-| 阵营线 | 势力与地图匹配 | 阵营冲突爆发点 |
-| 人物线 | 角色按类型分组 | 新角色登场时机 |
-| 金手指线 | 获得的物品/技能 | 能力升级节点 |
-| 世界观线 | 世界设定规则 | 设定揭示时机 |
-| 矛盾线 | 冲突放入矛盾网络 | 矛盾升级链 |
-| 收集线 | 材料/线索收集 | 渐进式收集层级 |
-| 感情线 | 感情关系进展 | 亲密度升级节点 |
+| Map line | tiered locations | new-map unlock timing |
+| Faction line | factions matched to maps | faction-conflict burst points |
+| Character line | characters grouped by type | new-character entry timing |
+| Cheat line | items/skills acquired | ability-upgrade nodes |
+| Worldview line | world rules | setting-reveal timing |
+| Conflict line | conflicts woven into a web | conflict escalation chain |
+| Collection line | material/clue collection | progressive collection tiers |
+| Romance line | romance progress | affinity-upgrade nodes |
 
-### 第4步：确定开篇舞台
+### Step 4: fix the opening stage
 
-按此顺序构建开篇：
+Build the opening in this order:
 
 ```
-情节钩子 → 迅速陷入异常状态 → 获得/介绍金手指 → 矛盾/欲望出现，主角运转金手指 → 目标建立
+plot hook → quickly into an abnormal state → gain/introduce the cheat → conflict/desire appears, the protagonist runs the cheat → goal established
 ```
 
-开篇必须预埋的期待感：新目标/冲突升级方向、实力升级暗示、资源升级暗示、感情线升级暗示、人际网络扩展暗示、混乱程度升级暗示、新线索/新设定暗示。
+The opening must pre-plant anticipation for: new goals/conflict-escalation directions, power-upgrade hints, resource-upgrade hints, romance-upgrade hints, network-expansion hints, chaos-escalation hints, new-clue/new-setting hints.
 
-### 第5步：确定收尾
+### Step 5: fix the ending
 
-检查清单：
-- [ ] 解决主线/副线高潮，展示后续影响
-- [ ] 主角获得足够奖励 + 额外奖励（用于下一阶段）
-- [ ] 给本卷角色合适的结局
-- [ ] 节奏放缓
-- [ ] 为下一卷内容做铺垫
+Checklist:
+- [ ] Solve main/sub-line climaxes, show downstream effects
+- [ ] The protagonist gains enough rewards + extra rewards (for the next stage)
+- [ ] Give this volume's characters fitting endings
+- [ ] Rhythm slows
+- [ ] Set up the next volume
 
-## 剧情质量控制
+## Plot quality control
 
-### 剧情相似度检查
+### Plot-similarity check
 
-比较两个剧情是否过于相似，检查维度：冲突/矛盾类型、金手指使用方式、剧情链路段落、剧情结局。
+Compare two plots for excessive similarity across: conflict type, cheat-use method, pattern-chain passages, plot endings.
 
-### 剧情匹配度检查
+### Plot-match check
 
-| 维度 | 检查内容 |
+| Dimension | Check content |
 |------|----------|
-| 阶段匹配 | 剧情/感情线进度是否匹配本卷阶段 |
-| 场景匹配 | 场景是否在本卷场景列表内 |
-| 人物匹配 | 出场人物组合、关系、行为是否一致 |
+| Stage match | does the plot/romance-line progress match this volume's stage |
+| Scene match | is the scene inside this volume's scene list |
+| Character match | do the cast, relationships, and behavior stay consistent |
 
-### 约束规则（必须遵守）
+### Constraint rules (must follow)
 
-- 时空关联:逻辑关联 >= 1:3（每1个因果推进，至少3个场景推进）
-- 后续剧情情绪值不能显著低于前序
-- 相同金手指逻辑禁止连续使用
-- 同类剧情套路间隔 >= 3个不同类型剧情
+- Time-space association : logic association ≥ 1:3 (per causal advance, at least 3 scene advances)
+- Later plots' emotion value cannot be significantly lower than the prior
+- The same cheat logic forbids consecutive use
+- Same-type plot patterns spaced ≥3 different-type plots apart
 
-## 节点设计法
+## Node design
 
-### 核心框架（起始→终点→关键节点）
+### Core framework (start → end → key nodes)
 
-- **起始状态**：主角初始状态（废材/穷困/弱小）
-- **终末状态**：主角最终状态（无敌/首富/最强）
-- **节点**：保证故事不偏离终点的关键成长点
+- **Start state**: the protagonist's initial state (useless/poor/weak)
+- **End state**: the protagonist's final state (invincible/richest/strongest)
+- **Nodes**: key growth points keeping the story from veering off the endpoint
 
-### 设计原则
+### Design principles
 
-- 开始与终末越有戏剧性越好
-- 限定词：一个向上，一个向下（好的越好，坏的越坏）
-- 流派 = 主角从开始走向终末的手段
-- 节点确定后，大纲就是这些节点的排列
+- The more dramatic the start and end, the better
+- Qualifiers: one up, one down (the good better, the bad worse)
+- Genre = the means by which the protagonist travels from start to end
+- Once nodes are fixed, the outline is their arrangement
 
-### 节点设计实操步骤
+### Node design practice
 
-1. 确定主角起始状态和最终状态
-2. 拆解达到终末需要的路径（提升境界线/提升实力线/收集线等）
-3. 每条线设定子节点
-4. 在节点间填充故事
+1. Fix the protagonist's start and end states
+2. Break the path to the end into lines (realm-up line / power-up line / collection line, etc.)
+3. Set sub-nodes per line
+4. Fill stories between nodes
 
-## 大纲体系
+## The outline system
 
-### 大纲三层结构法
+### The three-layer outline structure
 
-| 层级 | 内容 | 自由度 |
+| Layer | Content | Freedom |
 |------|------|--------|
-| 大纲 | 主体发展方向，几百字 | 必须坚守 |
-| 剧情纲 | 完整故事线，相对细腻 | 可适度变化 |
-| 细节纲 | 创意爆发点、对话、小场景 | 完全灵活 |
+| Master outline | main development direction, a few hundred words | must hold |
+| Plot outline | full storylines, relatively detailed | moderate changes |
+| Detail outline | creative bursts, dialogue, small scenes | fully flexible |
 
-剧情偏离大纲时必须能拉回来。限制越多，想出来的故事反而越好。
+Plot that drifts from the master outline must be pullable back. More constraints = better stories come out.
 
-### 三种大纲写法
+### Three outline styles
 
-| 方法 | 适用场景 | 核心操作 |
+| Method | Use | Core operation |
 |------|----------|----------|
-| 地图式 | 玄幻 | 按地图更换写进度，标注实力变更/配角/大事件/爽点 |
-| 分卷式 | 进阶 | 按主干剧情节点分卷，设起始点+终点+重大节点 |
-| 填鸭式 | 创作初期 | 先建框架，再往里填内容 |
+| Map-style | fantasy | write progress by map change; mark power changes/supporting characters/big events/payoffs |
+| Volume-style | advanced | split volumes by main plot nodes; set start + end + major nodes |
+| Stuffing-style | early creation | build the framework first, then stuff content |
 
-### 大纲设计优先顺序
+### Outline design priority
 
-1. 先确定核心创意点→挖掘核心卖点
-2. 根据核心卖点定主线，金手指配合主线衍生
-3. 金手指必须具备两个功能：给主角开挂 + 不断拉出目标推进主线
-4. 金手指脱离核心卖点 = 整本书偏了，必须回正
+1. Fix the core creative point → dig the core selling point
+2. Fix the main line by the selling point; the cheat derives from it
+3. The cheat needs two functions: boosting the protagonist + continuously pulling goals to advance the main line
+4. The cheat leaving the selling point = the whole book veered; must correct
 
-## 细纲与章纲
+## Chapter outlines & mini-outlines
 
-### 细纲
+### Chapter outlines
 
-- 细纲:正文 = 1:2.5~1:3
-- 不展开具体情节，只关注目的和效果
-- 每个节点标注"详写"还是"略写"
-- 核心目的：让后续写作能快速定位要交付的目的和效果
+- Chapter outline : prose = 1:2.5 ~ 1:3
+- Don't expand concrete plot; only purposes and effects
+- Mark each node "expand" or "skim"
+- Core purpose: later writing can quickly locate the purpose and effect to deliver
 
-### 章纲
+### Mini-outlines
 
-- 直接看大纲和细纲够用就不必写章纲
-- 按关键事件写粗纲（一个关键事件约3-5章）
-- 标记钩子、伏笔、写作目的
+- If the master and chapter outlines suffice by direct reading, no mini-outlines needed
+- Rough outlines by key events (one key event ≈ 3-5 chapters)
+- Mark hooks, foreshadowing, writing purposes
 
-### 即兴写作注意事项
+### Improvisational writing notes
 
-- 滚动续写时细纲不要写太细，保留可调整空间
-- 大纲是动态的，关键节点围绕核心梗发展即可
-- 写完检查：主角当前行动是否和目标有关；新章节是否建立了后续期待？
+- Rolling continuation: don't over-detail the chapter outline; keep adjustment room
+- The outline is dynamic; key nodes develop around the core hook
+- After writing, check: does the protagonist's current action relate to the goal; did the new chapter establish later anticipation?
 
-### 高潮式大纲写作法
+### Climax-style outline writing
 
-- 每10万字设计一个大高潮
-- 大高潮提前确定（200-300字写清楚），前面5-6万字用小剧情填充
-- 小剧情必须能推进感情线或与大高潮有关
-- 极限约40-50万字
+- Design one big climax per 100k words
+- Fix the big climax in advance (200-300 words), fill the preceding 50-60k words with small plots
+- Small plots must advance the romance line or relate to the big climax
+- Practical limit ~400-500k words
 
-## 八节点故事结构
+## The eight-node story structure
 
-长篇网文通用结构，每卷/每大弧线均可套用。每个节点可跨越多章。
+The universal long-form structure; every volume / big arc may use it. Each node may span multiple chapters.
 
-### 节点速查
+### Node quick reference
 
-| 节点 | 核心任务 | 占比 | 章数 | 节奏 |
+| Node | Core task | Share | Chapters | Rhythm |
 |------|---------|------|------|------|
-| 1.开篇 | 抓住读者，建立期待 | 5-10% | 1-2章 | 快 |
-| 2.发展 | 递进事件推进情节，铺设伏笔 | 30-40% | 5-15章 | 中 |
-| 3.转折一 | 打破预期，拉升张力 | 5-10% | 1-3章 | 快 |
-| 4.转折二 | 升级赌注，更深困境 | 5-10% | 1-2章 | 快 |
-| 5.高潮 | 核心冲突正面对决 | 10-15% | 2-4章 | 极快 |
-| 6.矛盾结果 | 解决矛盾，给读者喘息 | 10-15% | 2-3章 | 慢 |
-| 7.转折三 | 最终转折，投最后一弹 | 5-10% | 1-2章 | 快 |
-| 8.结局 | 收束情感，留有余韵 | 10-15% | 2-5章 | 慢 |
+| 1. Opening | grab the reader, establish anticipation | 5-10% | 1-2 | fast |
+| 2. Development | escalating events advance the plot, plant foreshadowing | 30-40% | 5-15 | mid |
+| 3. Turn 1 | break expectations, raise tension | 5-10% | 1-3 | fast |
+| 4. Turn 2 | raise the stakes, deeper trap | 5-10% | 1-2 | fast |
+| 5. Climax | core conflict face-off | 10-15% | 2-4 | very fast |
+| 6. Conflict result | solve the conflict, let the reader breathe | 10-15% | 2-3 | slow |
+| 7. Turn 3 | the final turn, the last shot | 5-10% | 1-2 | fast |
+| 8. Ending | close emotions, leave afterglow | 10-15% | 2-5 | slow |
 
-### 各节点关键规则
+### Key rules per node
 
-**开篇**：必须 in media res，前500字有钩子。禁止从背景介绍/天气/风景开始。
+**Opening**: must be in media res; first 500 words have a hook. Banned: starting from background intro/weather/scenery.
 
-**发展**：3-5个递进事件，每个推动主线。每3000-5000字一个爽点。至少埋2条伏笔。
+**Development**: 3-5 escalating events, each advancing the main line. One payoff per 3000-5000 words. Plant ≥2 foreshadowing threads.
 
-**转折一**：改变格局的信息/事件。三要素：意外性+合理性+推动力。
+**Turn 1**: information/event that changes the landscape. Three elements: unexpectedness + plausibility + driving force.
 
-**转折二**：升级版转折，赌注比转折一更高，类型与转折一不同。
+**Turn 2**: an upgraded turn; stakes higher than turn 1; type different from turn 1.
 
-**高潮**：快节奏，不留水。主角必须展现成长。
+**Climax**: fast rhythm, no filler. The protagonist must show growth.
 
-**矛盾结果**：主要矛盾解决，战利品通过情节展现（非罗列），为下弧线埋钩子。
+**Conflict result**: main conflict solved; loot displayed through plot (not list-style); plant hooks for the next arc.
 
-**转折三**：颠覆读者对"结局"的预判。必须有前期铺垫。
+**Turn 3**: overturn the reader's prediction of the "ending." Must have prior setup.
 
-**结局**：核心悬念解决，情感收束。不要所有伏笔都回收，留白更有余味。
+**Ending**: core suspense solved, emotions closed. Don't collect every foreshadowing; blank space leaves more aftertaste.
 
-### 爽点节奏公式
+### Payoff rhythm formula
 
-- 每章至少1个微爽点（按章节定位：高压/推进章必达；低压/关系/修炼/信息整理章不强求，但每章仍要给读者一个往下看的理由——微好奇/阶段目标/暧昧期待）
-- 每3章解决1个冲突
-- 每7章1个大爽点
+- At least 1 micro-payoff per chapter (by positioning: mandatory for high-pressure/advancement; low-pressure/relationship/training/info-assembly chapters not required, but every chapter still needs a reason to keep reading — micro-curiosity / stage goal / ambiguity anticipation)
+- 1 conflict solved per 3 chapters
+- 1 big payoff per 7 chapters
 
-### 五项驱动检查（每3-5章必查）
+### The five-driver check (every 3-5 chapters)
 
-1. **压力来源**：主角面临什么具体威胁？
-2. **实力展示**：用什么能力解决？方式是否有新意？
-3. **认知颠覆**：哪个认知被打破？反转是否合理？
-4. **资源增值**：获得了什么？
-5. **悬念增殖**：解决后引出什么新疑问？
+1. **Pressure source**: what concrete threat does the protagonist face?
+2. **Power display**: what ability solves it? Is the method novel?
+3. **Cognition overturn**: which belief got broken? Is the reversal reasonable?
+4. **Resource growth**: what was gained?
+5. **Suspense multiplication**: what new question does the solution raise?
 
-## 爽文五阶段小循环
+## The five-stage payoff mini-loop
 
-| 阶段 | 定义 | 要点 |
+| Stage | Definition | Key points |
 |------|------|------|
-| 稳定态/危机潜伏 | 主角相对稳定，潜在危机存在 | 不一定是好状态 |
-| 危机触发 | 外部创造危机 | 必须抓人眼球 |
-| 破局行动 | 利用金手指挫败阴谋 | 爽点爆发，可大量铺垫拉期待 |
-| 收益结算 | 明确有价值的回报 | 资源/权力/声望/人脉/能力 |
-| 新平衡与预埋 | 达到更高稳定态，新挑战出现 | 连接下一个循环 |
+| Stable state / lurking crisis | the protagonist relatively stable, latent crisis exists | not necessarily a good state |
+| Crisis trigger | external crisis | must catch the eye |
+| Break-the-game action | thwart the conspiracy with the cheat | payoff burst; heavy setup allowed to raise anticipation |
+| Gain settlement | clear valuable returns | resources/power/prestige/connections/abilities |
+| New balance & pre-planting | a higher stable state, new challenges appear | connects the next loop |
 
-## 情绪拉扯五折线结构
+## The five-fold emotion-pull structure
 
-| 段落 | 方向 | 内容 |
+| Segment | Direction | Content |
 |------|------|------|
-| 第1段 | 上行 | 铺垫/主角获得有利条件 |
-| 第2段 | 拐点+下行 | 不利转折（不能是主角的错）|
-| 第3段 | 上行 | 主角采取行动/出现转机 |
-| 第4段 | 拐点+下行 | "虚晃一枪"——先放松后意外发生 |
-| 第5段 | 爽点爆发 | 金手指发威，目标达成 |
+| Segment 1 | up | setup / protagonist gains favorable conditions |
+| Segment 2 | turning point + down | adverse turn (can't be the protagonist's fault) |
+| Segment 3 | up | protagonist acts / a turnaround appears |
+| Segment 4 | turning point + down | "feint" — relax first, then the unexpected |
+| Segment 5 | payoff burst | cheat shows power, goal achieved |
 
-10万字尺度用五折线规划，每段可继续套娃。卡文时靠结构推出方向。
+At the 100k-word scale, plan with the five-fold; each segment may nest further. When stuck, the structure pushes the direction.
 
-### 情节下行原则（必须遵守）
+### The down-plot principle (must follow)
 
-- "功都是主角的，锅都是别人的"
-- 情绪下行原因绝不能是主角的失误
-- 虐主受1点憋屈，报复10倍起步
-- 下行后用歪打正着、贵人扶持、好人好报补充情绪缺口
+- "All credit to the protagonist, all blame to others"
+- Emotional downs can never stem from the protagonist's errors
+- 1 point of protagonist suppression → 10x revenge minimum
+- After downs, fill the emotional gap with lucky accidents, noble help, good-begets-good
 
-## 推演与逆推方法
+## Derivation & back-derivation
 
-### 推演式大纲设计
+### Derived outline design
 
-从核心设定出发逐步推演：主角起点状态→家庭条件→金手指合理性→冲突来源。每一步推演都可能发现新剧情点。
+Derive step by step from the core setting: protagonist start state → family conditions → cheat plausibility → conflict sources. Each step may discover new plot points.
 
-### 倒推法设计章纲
+### Back-derivation for chapter outlines
 
-设计顺序：爽点→期待点→铺垫。先清楚想通过什么方式让读者满足，再倒推如何铺垫。
+Design order: payoff → anticipation point → setup. First be clear how the reader gets satisfied, then back-derive the setup.
 
-六种爽点类型：能力碾压、目标达成、收获盘点、态度转变、隐藏身份/掉马甲、情感圆满度。
+Six payoff types: ability crush, goal achievement, gain inventory, attitude change, hidden identity/mask-drop, emotional completion.
 
-### 真相逆推法
+### Truth back-derivation
 
-1. 确定核心真相
-2. 将真相拆成碎片分散埋在不同章节
-3. 每个碎片揭示时触发角色行动或转折
-4. 高级变体：叙述性诡计——用信息误导读者
+1. Fix the core truth
+2. Break the truth into fragments scattered across chapters
+3. Each fragment's reveal triggers character action or a turn
+4. Advanced variant: narrative deception — mislead the reader with information
 
-适用：悬疑线、身份线、前世今生线、伏笔密集型故事。
+Applies to: suspense lines, identity lines, past-life lines, foreshadowing-dense stories.
 
-### 逆推锚点法
+### Anchor back-derivation
 
-将书分为【世界观】和【剧情】两部分。先定开头和结局锚点，以锚点为中心提问，每个问题衍生一条线。
+Split the book into [worldview] and [plot]. Fix the opening and ending anchors first; ask questions around the anchors; each question spawns a line.
 
-分卷逆推：先想高潮点→以高潮为锚点逆推→提问→逆推得出铺垫和主线→细纲便出。
+Volume back-derivation: think of the climax first → back-derive from the climax as the anchor → ask questions → back-derive setup and main line → chapter outlines emerge.
 
-## 章节名策略
+## Chapter title strategy
 
-1. 禁止用干瘪概括（"开始""觉醒""升级"）
-2. 用最有梗的一句话或最冲突的信息
-3. 铺垫章标题也要有噱头
-4. 选择章节中最装x的一句话做标题
-5. 避免"分析""局势""博弈"等字眼
+1. Banned: dry summaries ("start" / "awakening" / "upgrade")
+2. Use the most meme-worthy line or the most conflicted information
+3. Setup-chapter titles need hooks too
+4. Pick the most flex-worthy line in the chapter as the title
+5. Avoid words like "analysis" / "situation" / "gambit"

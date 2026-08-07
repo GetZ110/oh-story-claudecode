@@ -15,40 +15,42 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# agent 正文里表达 shell 步骤的写法：「执行 / 运行 / 跑 `<命令>`」。只认「执行」会漏——
-# #283 给只读 agent 写的越权指令用的正是「运行 `tracking_commit.py check`」，两层守卫都没拦住。
-# 只读 agent 若出现这种指令，生成直接失败：OpenCode shell.ts 只检查 command 的直接父节点，
-# 即使“完整命令字面量”白名单也会被 `( command ) > 正文.md` 的 subshell 外层重定向绕过。
-BODY_COMMAND_RE = re.compile(r"(?:执行|运行|跑) `([^`]+)`")
-# 委派给别人跑的不算本 agent 的 shell 步骤（「由父流程提示重新运行 X」「提示调用方在主会话跑 X」）。
-# 只在同一行出现委派主语时豁免，避免把「自己跑」写成委派句式蒙混过关。
-BODY_DELEGATION_RE = re.compile(r"(调用方|父流程|主会话|用户|由.{0,6}提示)")
+# The only way an agent body expresses a shell step: "Run `<command>`" (the sole
+# form used across the template repo). A read-only agent with such an instruction
+# fails generation outright: OpenCode's shell.ts only checks the command's direct
+# parent, so even a full-command-literal allowlist can be bypassed by the outer
+# redirection of `( command ) > prose.md` in a subshell.
+# `(?<![\w-])` excludes "re-run `/story-setup`": the read-only template only
+# tells the agent to have the PARENT flow re-run setup, which is not a shell step
+# of the agent itself.
+BODY_COMMAND_RE = re.compile(r"(?<![\w-])[Rr]un\s*`([^`]+)`")
 
 
 def body_bash_commands(body: str) -> list[str]:
-    """从 agent 正文抽出它明确要求执行的命令（按出现顺序去重）。
+    """Extract the commands an agent body explicitly requires running (deduped by
+    appearance order).
 
-    刻意不用「agent 名字硬编码集合」——那正是早前审计在 generate-codex-agents.py 里点名的
-    反模式：名单与正文各自漂移，新加了指令的 agent 拿不到权限、删了指令的 agent 白留着权限。
-    这里以正文为唯一事实来源；只读 agent 抽到任何命令都会在转换阶段中断。
+    Deliberately no hardcoded "agent name set" — that is exactly the anti-pattern
+    called out by an earlier audit in generate-codex-agents.py: the list and the
+    bodies drift apart, agents that gained an instruction lose their permission and
+    agents that lost one keep it. The body is the single source of truth; a
+    read-only agent with any extracted command fails the conversion stage.
     """
     commands: list[str] = []
-    for line in body.splitlines():
-        if BODY_DELEGATION_RE.search(line):
-            continue
-        for match in BODY_COMMAND_RE.finditer(line):
-            command = match.group(1).strip()
-            if command and command not in commands:
-                commands.append(command)
+    for match in BODY_COMMAND_RE.finditer(body):
+        command = match.group(1).strip()
+        if command and command not in commands:
+            commands.append(command)
     return commands
 
 
 def parse_frontmatter(content: str) -> tuple[dict, str]:
     """Extract YAML-like frontmatter and body from markdown content."""
-    # 结束分隔符必须是独占一行的 `---`（锚定 "\n---\n"），不能用 content.split("---", 2)：
-    # 后者会被 frontmatter 值里的三连字符（描述里的 `---`、注释里的 `---`）当成结束标记，
-    # 把剩余键连同 permission/steps 一起截断进正文，且静默 exit 0。
-    # 与同源生成器 generate-codex-agents.py 的解析口径保持一致。
+    # The closing separator must be a `---` on its own line (anchored "\n---\n");
+    # content.split("---", 2) would treat a triple-hyphen inside a frontmatter value
+    # (a description's `---`, a comment's `---`) as the terminator, truncating the
+    # remaining keys with permission/steps into the body while silently exit 0.
+    # Same parsing stance as the sibling generator generate-codex-agents.py.
     if not content.startswith("---\n"):
         return {}, content
     end = content.find("\n---\n", len("---"))
@@ -97,8 +99,9 @@ def parse_frontmatter(content: str) -> tuple[dict, str]:
 def convert_claude_to_opencode(fm: dict, body: str) -> dict:
     """Convert Claude Code agent frontmatter to OpenCode format.
 
-    `body` 不是可选的：bash 白名单按「正文是否真的要求执行该命令」逐个 agent 授权，
-    少传一个正文就等于凭空收紧/放宽权限，所以这里强制调用方交出正文。
+    `body` is not optional: the bash rules are granted per agent based on
+    whether the body actually requires the command, so omitting the body would
+    silently tighten or loosen permissions. The caller must always hand it over.
     """
     result = {}
     name = fm.get("name", "")
@@ -128,18 +131,21 @@ def convert_claude_to_opencode(fm: dict, body: str) -> dict:
     elif has_write:
         perm["edit"] = "allow"
 
-    # bash 同样走 "disallowedTools 优先"。OpenCode 未声明 bash 权限时默认为 ask；只读 agent
-    # 必须写成标量 deny，让上游 disabled() 直接摘掉 bash 工具。不要加“只读命令”白名单：
-    # shell.ts 只鉴权 command 的直接父节点，`( allowlisted-command ) > 正文.md` 会把外层重定向
-    # 藏在 subshell 外，字面量白名单也守不住文件系统边界。
+    # Bash follows the same "disallowedTools wins" rule. OpenCode defaults to ask
+    # when bash permission is undeclared; a read-only agent must carry a scalar
+    # deny so upstream disabled() removes the bash tool entirely.
+    # No "read-only command" allowlist: shell.ts only authorizes the command's
+    # direct parent, and `( allowlisted-command ) > prose.md` hides the outer
+    # redirection in a subshell — a literal allowlist can't hold the filesystem
+    # boundary either.
     mentioned_bash = body_bash_commands(body)
     restricted_bash = "Bash" in disallowed
     if restricted_bash:
         if mentioned_bash:
             raise ValueError(
-                f"{name or '<unnamed>'}: 只读 agent 禁止 Bash，但正文要求执行 "
-                + "、".join(f"`{command}`" for command in mentioned_bash)
-                + "；改写正文以使用宿主已提供的工作区和 Read/Glob/Grep，不得开放 shell 例外。"
+                f"{name or '<unnamed>'}: read-only agent forbids Bash but the body requires running "
+                + ", ".join(f"`{command}`" for command in mentioned_bash)
+                + "; rewrite the body to use the host-provided workspace and Read/Glob/Grep — no shell exceptions."
             )
         perm["bash"] = "deny"
     elif "Bash" in tools:
@@ -173,9 +179,11 @@ def format_frontmatter(fm: dict) -> str:
             lines.append("permission:")
             for pk, pv in value.items():
                 if isinstance(pv, dict):
-                    # 命令 glob 形式（如 bash）：glob 键必须加引号，裸 `*` 在 YAML 里是别名标记。
-                    # 严禁对这里的键排序：OpenCode 用 findLast 解析，后写的规则覆盖先写的，
-                    # 键顺序即优先级。必须按 dict 的插入顺序原样输出。
+                    # Command glob form (e.g. bash): glob keys must be quoted — a
+                    # bare `*` is an alias marker in YAML.
+                    # Never reorder these keys: OpenCode resolves with findLast,
+                    # later rules override earlier ones, so key order is priority.
+                    # Must be emitted exactly in dict insertion order.
                     lines.append(f"  {pk}:")
                     for glob, action in pv.items():
                         lines.append(f'    "{glob}": {action}')
@@ -194,7 +202,8 @@ def format_frontmatter(fm: dict) -> str:
 def replace_claude_paths(body: str) -> str:
     """Replace .claude/ path references with .opencode/ equivalents.
 
-    路径规则段由 fix_path_rules_section() 幂等处理，无需手动修复。
+    The path-rules section is handled idempotently by fix_path_rules_section();
+    no manual fix needed.
     """
     replacements = [
         (".claude/skills/", ".opencode/skills/"),
@@ -211,34 +220,40 @@ def replace_claude_paths(body: str) -> str:
 
 
 def fix_path_rules_section(body: str) -> str:
-    """Replace the reference file path rules section with correct opencode paths.
+    """Normalize the reference file path rules section for the OpenCode deployment.
 
-    Detects the "参考文件路径规则" section and replaces it with the one
-    canonical path that story-setup deploys for OpenCode.
+    Detects the "## Reference File Path Rules" section and swaps the deployment
+    literal (`.claude/skills/` from the source template, already rewritten to
+    `.opencode/skills/` by replace_claude_paths) for the canonical prefix-less
+    form `{项目根}/skills/...` that story-setup deploys for OpenCode — generated
+    agents must not carry either CLI's literal path.
     This is idempotent — running multiple times produces the same output.
     """
     # Some agents do not read reference files and intentionally have no such
     # section. Only warn when the section marker exists but its shape drifted.
-    if "参考文件路径规则" not in body:
+    if "## Reference File Path Rules" not in body:
         return body
 
-    pattern = r"(## 参考文件路径规则\s*\*\*确定项目根目录：\*\*.*?\s*)读取参考文件时.*?(?=\s*禁止只读|\r?\n## )"
-
-    replacement = (
-        r"\1"
-        r"读取参考文件时，直接 Read 当前 OpenCode 部署的 canonical 路径，禁止先用 Glob/Grep 搜索：\n"
-        r"1. `{项目根}/skills/story-setup/references/agent-references/{文件名}`\n"
-        r"\n"
-        r"文件不存在时返回缺失事实，由父流程提示重新运行 `/story-setup`；不要探测其他 CLI 的目录。"
+    fixed = body
+    for prefix in (".claude/skills/", ".opencode/skills/"):
+        for root, name in (("{project root}", "{fileName}"), ("{项目根}", "{文件名}")):
+            fixed = fixed.replace(
+                root + "/" + prefix + "story-setup/references/agent-references/" + name,
+                root + "/skills/story-setup/references/agent-references/" + name,
+            )
+    fixed = fixed.replace(
+        "the canonical path of the current Claude deployment",
+        "the canonical path of the current OpenCode deployment",
     )
 
-    new_body, count = re.subn(pattern, replacement, body, flags=re.DOTALL)
-    if count == 0:
+    if fixed == body:
         print(
-            "  [WARN] fix_path_rules_section: 未检测到路径规则段，可能源模板格式已变更",
+            "  [WARN] fix_path_rules_section: path rules section found but the "
+            "canonical path line was not rewritten; the source template may have "
+            "changed shape",
             file=sys.stderr,
         )
-    return new_body
+    return fixed
 
 
 def file_status(dst: Path, output: str) -> tuple[str, bool]:
@@ -273,13 +288,15 @@ def render_agents() -> dict[str, str]:
             )
         if not description:
             raise ValueError(f"{md_file}: missing agent description")
-        # 用**源模板正文**（未做 .claude→.opencode 路径替换）推导 bash 白名单：
-        # 授权依据是源定义里写没写这条命令，不是生成产物的措辞。
+        # Derive the bash rules from the **source template body** (before the
+        # .claude -> .opencode path replacement): the grant authority is whether
+        # the source definition mentions the command, not the wording of the
+        # generated artifact.
         new_fm = convert_claude_to_opencode(fm, body)
         new_body = replace_claude_paths(body)
-        new_body = fix_path_rules_section(new_body)  # 覆盖路径规则段的错误替换
+        new_body = fix_path_rules_section(new_body)  # undo wrong path replacements in the rules section
         output = format_frontmatter(new_fm) + new_body
-        output = output.rstrip("\n") + "\n"  # 规范行尾为单个换行，避免 EOF 空行
+        output = output.rstrip("\n") + "\n"  # canonical single trailing newline; avoid an EOF blank line
         if md_file.name in rendered:
             raise ValueError(f"duplicate generated agent filename: {md_file.name}")
         rendered[md_file.name] = output
@@ -325,7 +342,7 @@ def render_agents_md() -> str:
 
     content = src.read_text(encoding="utf-8")
     new_content = replace_claude_paths(content)
-    return new_content.rstrip("\n") + "\n"  # 规范行尾为单个换行，避免 EOF 空行
+    return new_content.rstrip("\n") + "\n"  # canonical single trailing newline; avoid an EOF blank line
 
 
 def publish_tree(rendered: dict[str, str], agents_md: str, dst_root: Path) -> None:

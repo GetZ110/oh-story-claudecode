@@ -1,8 +1,8 @@
 ---
-description: 网文工具箱路由入口。根据模糊意图分发到合适的网文 Skill。
+description: Web-novel toolkit routing entry point. Routes ambiguous intent to the appropriate web-novel Skill.
 skills: story
 ---
 
-调用 `$story`，根据用户需求路由到合适的网文写作工具。
+Invoke `$story` to route to the appropriate web-novel writing tool for the user's need.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

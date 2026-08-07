@@ -1,186 +1,185 @@
-# 正文格式与小节结构
+# Format & Structure
 
-> 写作前必读。以下格式是当前仓库约定的默认正文交付格式；用户或目标平台有明确要求时，以用户/平台要求覆盖。
+> Read before writing. The formats below are the repo's default prose delivery format; when the user or the target platform has explicit requirements, the user/platform requirement wins.
 >
-> **适用范围**：段落格式（戏剧单元/镜头优先，短段为底色，长段用于完整推理、氛围和情绪链）和对话格式适用于所有体裁。小节(beat)结构和字数标准仅适用于短篇。长篇小说字数以本章细纲的 `字数目标` 与统一 90% 放行下限为准。
+> **Scope**: paragraph formatting (dramatic-unit/shot priority, short paragraphs as the base texture, long paragraphs for complete reasoning, atmosphere, and emotion chains) and dialogue formatting apply to all formats. Beat structure and word-count standards apply only to short-form; long-form chapter word counts follow the current skill's word-count hard constraints.
 
 ---
 
-## 章节标记
+## Chapter markers
 
-默认格式（按灵活度排序）：
+Default formats (by flexibility):
 
-| 格式 | 平台适用 | 示例 |
+| Format | Platform use | Example |
 |------|----------|------|
-| `###1.` | 短篇默认 | `###1.` `###2.` `###3.` |
-| `###第一章` | 部分平台 | `###第一章` `###第二章` |
-| `1.`（纯数字） | 知乎 | `1.` `2.` `3.`（无 ### 前缀） |
+| `###1.` | short-form default | `###1.` `###2.` `###3.` |
+| `###Chapter 1` | some platforms | `###Chapter 1` `###Chapter 2` |
+| `1.` (bare number) | Zhihu | `1.` `2.` `3.` (no `###` prefix) |
 
-**规则**：全文统一一种格式，不要混用。短篇推荐 `###1.` 或纯数字，简洁高效。
-
----
-
-## 段落格式
-
-### 核心规则：戏剧单元优先
-
-默认交付排版是**按戏剧单元/镜头自然断段，段落紧密排列**。不要把固定字数当成强制切刀；先判断“一件事/一个推理链/一个情绪变化”是否完成。
-
-- 一段承载一个戏剧单元：一个动作链、一个线索发现、一次视线切换、一轮心理判断，或一条连续的氛围/推理/情绪链。
-- 场景结束、一件事结束、新动作、新物件、新信息、新对话另起一段；同一瞬间的发生、感知、反应应织在一起，不拆成动作层/感知层/反应层。
-- 正文相邻段落之间**只允许一个换行符 `\n`**；不得出现空行或连续换行 `\n\n`（紧密排列）。
-- 无缩进（平台渲染器自行处理，不需要 `　　` 或空格）。
-- 长度只作诊断：读起来拥挤、混入多个拍点、或手机屏上难以跟读时才拆；完整推理、氛围铺陈、情绪递进未结束时，允许稍长段保留连贯性。
-
-### 段落节奏（长短交错 + 疏密有别）
-
-短段快读，是网文手机阅读的底色；长段负责承载完整推理、氛围和情绪沉淀。**忌通篇同长度**，也忌把每段按同一字数阈值切开：
-
-- **长短交错**：高潮、打脸、反转压到最短（单句成段）；推理链、环境压迫、情绪沉淀、章节收束可保留较长段，让读者读完一个完整变化。
-- **疏密有别（详略）**：爽点、转折 beat 写密（感知、动作、细节铺满）；过场、连接 beat 写疏（1-2 句带过，不平均用力）。每个 beat 一样长、一样细，正是 AI 腔的来源。
-- **不过度碎片化**：连续多个极短段若仍属于同一镜头/同一件事，应合并成自然段，避免像提纲或诗行。
-
-### 主语与角色名节奏
-
-角色名不宜一味省略，也别每句都点名。按“主语重置”使用：
-
-- 段首、场景切换、多人同场、或主语可能混淆时，用主角名/角色名建立视角。
-- 同一段或同一动作链内，优先混用代词、动作承接和合理省略，避免每句都以同一角色名开头。
-- 关键转折、情绪爆点、身份反差或读者需要重新盯住主角时，可以再次点名强化。
-- 审查主语节奏看“读起来是否打磕巴”，不按全章出现次数一刀切；只有连续句/连续段无主语重置却反复点名，才算主语过密。
+**Rule**: one format for the whole text, no mixing. Short-form prefers `###1.` or bare numbers — simple and efficient.
 
 ---
 
-## 对话格式
+## Paragraph formatting
 
-### 对话标记
+### Core rule: dramatic unit first
 
-按目标平台/用户要求选择；未指定时使用默认格式：
+Default delivery layout is **breaking paragraphs by dramatic unit/shot, tightly packed**. Do not treat a fixed word count as a forced cutting knife; first judge whether "one thing / one reasoning chain / one emotion change" is complete.
 
-| 优先级 | 格式 | 适用平台 |
+- One paragraph carries one dramatic unit: an action chain, a clue discovery, a gaze shift, a round of judgment, or one continuous atmosphere/reasoning/emotion chain.
+- Scene end, one thing finished, a new action, a new object, new information, or new dialogue starts a new paragraph; the happening, perception, and reaction of the same instant weave together — do not split into action layer / perception layer / reaction layer.
+- Adjacent prose paragraphs allow **only one newline `\n`**; no blank lines or consecutive newlines `\n\n` (tight packing).
+- No indentation (platform renderers handle it; no full-width spaces).
+- Length is diagnostic only: break when it feels crowded, mixes multiple beats, or is hard to follow on a phone screen; longer paragraphs may stay when a complete reasoning chain, atmosphere build, or emotion progression is unfinished.
+
+### Paragraph rhythm (long-short alternation + dense/light spread)
+
+Short paragraphs read fast and are the base texture of phone reading; long paragraphs carry complete reasoning, atmosphere, and emotion settling. **Avoid uniform length throughout**, and avoid cutting every paragraph at the same word threshold:
+
+- **Long-short alternation**: climaxes, comeuppance, and reversals compress to shortest (single-sentence paragraphs); reasoning chains, environmental pressure, emotion settling, and chapter closes may keep longer paragraphs so the reader finishes one complete change.
+- **Dense/light spread (detail allocation)**: payoff/turn beats written dense (perception, action, detail filled in); transition/connection beats written light (1-2 sentences, not evenly weighted). Every beat the same length and same detail is exactly the AI voice.
+- **No over-fragmentation**: if several consecutive ultra-short paragraphs still belong to the same shot / the same thing, merge them into a natural paragraph — avoid reading like an outline or poetry lines.
+
+### Subject & character-name rhythm
+
+Do not endlessly omit names, but do not name-drop every sentence either. Use by "subject reset":
+
+- At paragraph heads, scene switches, multi-character scenes, or when the subject could confuse, use the protagonist name / character name to establish the POV.
+- Inside the same paragraph or action chain, prefer mixing pronouns, action continuation, and reasonable omission — avoid starting every sentence with the same character name.
+- At key turns, emotion bursts, identity contrasts, or when the reader needs to re-focus on the protagonist, re-name for emphasis.
+- Review subject rhythm by "does it stumble when read aloud", not by a whole-chapter occurrence count; subject density is only a problem when consecutive sentences/paragraphs have no subject reset yet repeatedly name-drop.
+
+---
+
+## Dialogue formatting
+
+### Dialogue markers
+
+Choose per the target platform/user requirement; default format when unspecified:
+
+| Priority | Format | Platforms |
 |--------|------|----------|
-| 首选 | `"说话内容"` | 短篇默认、番茄 |
-| 平台/项目指定 | `「说话内容」` | 知乎盐言短篇、部分古言、日式或用户指定 |
+| First choice | `"speech"` | short-form default, Webnovel |
+| Platform/project specified | `「speech」` | Zhihu Yan short-form, some historical, Japanese-style, or user-specified |
 
-**默认用 `""`**；用户或平台指定盐言风格时改为 `「」`，不要把 `「」` 视为错误。
+**Default `""`**; switch to `「」` when the user or platform specifies the Zhihu Yan style — never treat `「」` as an error.
 
-### 对话规则
+### Dialogue rules
 
-1. 对话**独立成行**，不嵌在叙述段落中
-2. 对话标签按需：高频或公式化的「他说」「她道」「他笑了笑说」用动作描写替代；普通「说」低频使用可保留（与「8 条绝对禁止」中「避免对话标签机械化」一条一致）
-3. 两人对话连续出现时，省略标签，靠内容区分说话人
+1. Dialogue stands on its own line, not embedded inside narration paragraphs
+2. Dialogue tags on demand: high-frequency or formulaic tags ("he said" / "she said" / "he said with a smile") are replaced by action description; plain "said" used at low frequency may stay (consistent with "avoid mechanical dialogue tags" in the absolute bans below)
+3. In two-person exchanges, omit tags and let the content distinguish the speakers
 
-**正确示例**：
+**Correct example**:
 ```
-她把杯子放下。
-"你走吧。"
-他没有动。
-"我说，你走吧。"
-```
-
-**也合法（普通「说」低频使用）**：
-```
-她把杯子放下。
-"你走吧。"她说。
-他没有动。
-"我说，你走吧。"
+She set the cup down.
+"You should leave."
+He didn't move.
+"I said, you should leave."
 ```
 
-**错误示例**：
+**Also legal (plain "said" at low frequency)**:
 ```
-她把杯子放下，说道："你走吧。"他没有动，她又说："我说，你走吧。"
+She set the cup down.
+"You should leave," she said.
+He didn't move.
+"I said, you should leave."
+```
+
+**Wrong example**:
+```
+She set the cup down and said: "You should leave." He didn't move, so she said again: "I said, you should leave."
 ```
 
 ---
 
-## 语气标点谱系
+## Punctuation tone spectrum
 
-标点服务语气、人物声线和情绪节奏，不能通篇句号化，也不能为了“丰富”随机堆砌符号。先判断当前句子的功能，再选择标点：
+Punctuation serves tone, character voice, and emotion rhythm: it cannot be all periods, but cannot be randomly stacked symbols for "richness" either. First judge the sentence's function, then pick the punctuation:
 
-| 语气 / 功能 | 标点策略 | 防线 |
+| Tone / function | Punctuation strategy | Guardrail |
 |---|---|---|
-| 压迫 / 冷静 / 克制 | 短句、逗号、句号，必要时用冒号压出判断落点 | 不人工加感叹号；克制不是每句都平铺句号 |
-| 质问 / 试探 / 反问 | 问号 + 短促追问片段，配合动作停顿 | 避免每句话都以 `？` 结尾 |
-| 惊讶 / 爆发 / 打脸 | 真正爆点可用 1 个感叹号，连续爆发最多 1-2 处 | 禁止 `!!!`、整段喊叫式感叹 |
-| 犹豫 / 吞咽 / 未说完 | 逗号、句号、短句断开、动作 beat | 不用 `……` 制造停顿；优先用动作和句长变化 |
-| 被打断 / 拖长音 | 不使用 `——`；改用动作打断、换行、短句或未完成动作 | 正文和对话都禁止 `——` / `—` / `--` |
-| 信息揭示 / 判断落点 | 冒号、分号或单句成段制造落点 | 保持手机阅读友好，不写论文式分号串 |
+| Pressure / calm / restraint | short sentences, commas, periods; colons to land a judgment when needed | no artificial exclamation marks; restraint is not period-flattening every sentence |
+| Accusation / testing / rhetorical | question marks + short follow-up fragments, with action pauses | avoid ending every line with `?` |
+| Surprise / burst / comeuppance | 1 exclamation mark at the true burst; at most 1-2 in a continuous burst | no `!!!`, no whole-paragraph shouting |
+| Hesitation / swallowing / unfinished | commas, periods, short-sentence breaks, action beats | no `……` to manufacture pauses; prefer actions and sentence-length change |
+| Interrupted / dragged-out | no `——`; use action interruption, line breaks, short sentences, or unfinished actions | `——` / `—` / `--` banned in prose and dialogue |
+| Info reveal / judgment landing | colons, semicolons, or single-sentence paragraphs to make the landing | keep phone-friendly; no essay-style semicolon chains |
 
-执行规则：
-- 写对话时先看角色关系和权力位置：强势角色常短句收束，试探角色多问号和半句，崩溃角色才允许少量感叹/省略。
-- 写叙述时用句长、逗号停顿和单句成段制造节奏；不要把破折号当节奏工具，对话里也不要用。
-- 精修时检查两类问题：**通篇句号化**（语气全被压平）与**随机标点堆砌**（问号/感叹号不承载情绪功能，或用省略号/破折号硬造停顿）。
-- 引号风格按项目/平台约定；知乎盐言的 `「」` 是合法对话格式，`quote-mode keep` 时不得擅自改掉。
-
----
-
-## 小节（beat）结构
-
-### 基本规则
-
-- 用数字编号（`1` `2` `3`）分割小节，每个小节是一个完整的叙事 beat
-- 每小节 800-1500 字（爽文可压缩至 500-800 字/节，见 genre-writing-formulas.md）
-- 8-15 个小节覆盖全文（按目标字数反推；8000÷1000≈8节，12000÷800≈15节）
-- 每小节推进一个明确的情节点
-
-### 小节内部结构
-
-每个小节应该有：
-
-1. **一个主事件** + **3-5 个子事件**（主事件推进核心情节，子事件丰富层次；初稿偏短时先回到小节/细纲补足计划内子事件、对话或冲突，再写正文；去AI味已有正文时不得新增剧情）
-2. **一个情绪变化**（读者的感受如何变化）
-3. **一条读者新获知的信息**
-4. **3-5 轮对话交锋**（揭示关系/升级冲突，参考 writing-craft.md 对话权力博弈。特定场景如独自发现/翻阅日记可标零，按当前 skill 的细纲/设计任务要求执行）
-5. **每个子事件三维度揉进**：发生+感知+反应揉进同一段正文（参考 writing-craft.md 场景写法）
-
-
-### 小节之间的衔接
-
-- 小节结尾留一个钩子（悬念/未解决的情绪/新问题）
-- 下一节开头快速接续，不要重新铺垫
-- 情绪跨节递进：每一节的情绪强度 ≥ 上一节。例外：峰值情绪（反转节）后允许维持 1 节不降，但不允许骤降
+Execution rules:
+- When writing dialogue, first look at the characters' relationship and power positions: dominant characters often close with short sentences; testing characters use more question marks and half-sentences; only collapsing characters get a few exclamation marks/ellipses.
+- When writing narration, use sentence length, comma pauses, and single-sentence paragraphs for rhythm; never treat dashes as a rhythm tool, and do not use them in dialogue either.
+- At polish time check two problem classes: **whole-text period flattening** (tone pressed flat) and **random punctuation stacking** (question/exclamation marks carrying no emotional function, or ellipses/dashes forcing pauses).
+- Quote style follows the project/platform convention; Zhihu Yan's `「」` is a legal dialogue format — do not silently change it under `quote-mode keep`.
 
 ---
 
-## 平台对话格式覆盖表
+## Beat structure
 
-| 平台 | 章节标记 | 对话格式 | 特殊要求 |
+### Basic rules
+
+- Split beats with numbers (`1` `2` `3`); each beat is a complete narrative beat
+- 800-1500 words per beat (payoff fiction may compress to 500-800/beat, see genre-writing-formulas.md)
+- 8-15 beats cover the whole piece (derive by target words; 8000÷1000≈8 beats, 12000÷800≈15 beats)
+- Each beat advances one clear plot point
+
+### Inside a beat
+
+Each beat should have:
+
+1. **One main event** + **3-5 sub-events** (the main event advances the core plot, sub-events add layers; when a first draft is short, return to the beat/chapter outline and fill in planned sub-events, dialogue, or conflict before writing prose; never add plot when de-AI-ing existing prose)
+2. **One emotion change** (how the reader's feeling changes)
+3. **One piece of new reader information**
+4. **3-5 rounds of dialogue exchange** (revealing relationships / escalating conflict; see writing-craft.md dialogue power games. Specific scenes like solitary discovery or diary reading may mark zero, per the current skill's outline/design task requirements)
+5. **Each sub-event weaves all three dimensions**: happening + perception + reaction woven into the same paragraph (see writing-craft.md scene writing)
+
+### Between beats
+
+- Leave a hook at the beat end (suspense / unresolved emotion / new question)
+- The next beat opens fast, no re-setup
+- Emotion progresses across beats: each beat's intensity ≥ the previous. Exception: after a peak emotion (reversal beat), one beat may hold without dropping, but no sudden drops
+
+---
+
+## Platform dialogue-format override table
+
+| Platform | Chapter marker | Dialogue | Special requirements |
 |------|----------|----------|----------|
-| 知乎盐言 | `1.` | `「」` | 导语需单独标注 |
-| 番茄 | `###第一章` | `""` | 首段需有吸引力 |
-| 红果 | `###1.` | `""` | 无 |
+| Zhihu Yan | `1.` | `「」` | lead-in marked separately |
+| Webnovel | `###Chapter 1` | `""` | first paragraph needs pull |
+| Redguo | `###1.` | `""` | none |
 
-**通用原则**：用户未指定平台时，默认使用短篇通用格式（`###1.` + `""`）；用户或平台指定盐言风格时，`「」` 是允许的。
-
----
-
-## 8 条绝对禁止
-
-以下规则在写作全程执行，不因题材或风格而变：
-
-1. **禁止机械按字数分段**：不要因为超过某个字数就强拆；先判断段落是否仍是一个完整戏剧单元。若混入多个动作/信息/视线切换才拆，完整推理、氛围、情绪链可保留稍长段
-2. **禁止段间空行**：正文相邻段落之间只允许一个换行符 `\n`，不得出现空行或连续换行 `\n\n`
-3. **避免对话标签机械化**：高频或公式化的「他说」「她道」「他笑了笑说」用动作/上下文替代；普通“说”可保留
-4. **禁止缩进**：不使用 `　　`（全角空格）或半角空格缩进
-5. **禁止正文段落 Markdown 渲染**：除统一的小节/章节标记（如 `###1.`）外，正文段落中不使用加粗 `**`、斜体 `*`、标题 `#`、分隔线 `---` 等 Markdown 语法
-6. **正文不使用破折号**：正文（含叙述、对话、心理描写）不使用破折号 `——`/`—` 或双连字符 `--`，改用句号、逗号、换行、动作 beat 或短句断开；不再设置“对话例外”
-7. **禁止通篇句号化或随机标点堆砌**：标点必须跟语气/人物声线/情绪功能匹配；该质问时用问号，该爆发时少量感叹；犹豫、吞咽、未说完用动作或句长变化表达，不用 `……` / `——` 硬造停顿，也不得无功能地乱撒 `？`/`！`
-8. **禁止正文混入章节元信息**：章节号只允许出现在标题/小节标记/文件名/追踪记录中。正文叙述、对话、心理描写里不得出现 `第[一二三四五六七八九十百千万两0-9]+章|上一章|上章|前一章|本章|这一章|前文|后文|伏笔|细纲|读者` 这类写作工程词；要改成角色能感知的事件锚点或相对时间，例如把“比第一章那三秒开火更疼”改成“比那三秒开火更疼”。例外：角色在故事世界内真实阅读/讨论“第X章”文本，或真实身为作者/读者并谈论读者身份时，可保留相应词。
+**General principle**: when the user does not specify a platform, default to the generic short-form format (`###1.` + `""`); when the user or platform specifies the Yan style, `「」` is allowed.
 
 ---
 
-## 快速检查
+## Absolute bans
 
-写完每一段后，用这个清单自查：
+The following rules run through all writing; they do not change by genre or style:
 
-- [ ] 段落按戏剧单元/镜头断开，而不是机械按字数切开？
-- [ ] 三维度揉进段是否按镜头/信息变化断开，完整推理/氛围/情绪链是否保留连贯？
-- [ ] 主语/角色名节奏是否自然：段首能建立主语，段中有代词/省略，关键转折再点名，避免无必要连续重复？
-- [ ] 正文相邻段落之间是否只有一个 `\n`，没有空行/`\n\n`？
-- [ ] 对话独立成行，且引号风格符合项目/平台约定（盐言 `「」` 合法）？
-- [ ] 标点节奏是否匹配语气/人物声线，避免通篇句号化，也没有随机堆砌 `？`/`！` 或用 `……`/`——` 硬造停顿？
-- [ ] 正文（含对话）里的 `——`/`—`/`--` 是否已改为逗号、句号、动作 beat 或短句断开？
-- [ ] 对话标签是否避免高频/公式化，普通“说”是否按语境保留？
-- [ ] 无缩进？
-- [ ] 每个小节有事件+情绪+信息？
-- [ ] 标题/小节标记之外，无 `第[一二三四五六七八九十百千万两0-9]+章|上一章|上章|前一章|本章|这一章|前文|后文|伏笔|细纲|读者` 这类元信息词；故事内真实阅读/讨论“第X章”或真实读者身份语境除外？
+1. **No mechanical word-count paragraph breaking**: do not force a break just because a word count is passed; first judge whether the paragraph is still one complete dramatic unit. Break when it mixes multiple actions/info/gaze shifts; complete reasoning, atmosphere, and emotion chains may keep longer paragraphs
+2. **No blank lines between paragraphs**: adjacent prose paragraphs allow only one `\n`; no blank lines or `\n\n`
+3. **Avoid mechanical dialogue tags**: high-frequency or formulaic "he said" / "she said" / "he said with a smile" are replaced by action/context; plain "said" may stay
+4. **No indentation**: no full-width or half-width space indentation
+5. **No Markdown rendering inside prose paragraphs**: apart from unified beat/chapter markers (like `###1.`), no bold `**`, italics `*`, headings `#`, or separators `---` inside prose paragraphs
+6. **No dashes in prose**: prose (narration, dialogue, interiority) uses no dashes `——`/`—` or double hyphens `--`; use periods, commas, line breaks, action beats, or short-sentence breaks instead; no "dialogue exception"
+7. **No whole-text period flattening or random punctuation stacking**: punctuation must match tone/character voice/emotional function; question marks for accusation, a few exclamation marks for bursts; hesitation, swallowing, unfinished speech expressed by action or sentence-length change, not `……` / `——` forced pauses, and no functionless `?`/`!` sprinkling
+8. **No chapter meta-information in prose**: chapter numbers appear only in titles/beat markers/filenames/tracking records. Narration, dialogue, and interiority must not contain `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` or variants (last chapter / previous chapter / next chapter / earlier text / later text); rewrite into event anchors or relative time the character can perceive — e.g. "more painful than those three seconds of gunfire in chapter one" becomes "more painful than those three seconds of gunfire". Exceptions: a character genuinely reads/discusses "chapter X" text inside the story world, or is truly an author/reader talking about being a reader.
+
+---
+
+## Quick check
+
+After every paragraph, self-check with this list:
+
+- [ ] Paragraphs break by dramatic unit/shot, not mechanically by word count?
+- [ ] Three-dimension woven paragraphs break by shot/information change, with complete reasoning/atmosphere/emotion chains kept continuous?
+- [ ] Subject/name rhythm natural: paragraph head establishes the subject, mid-paragraph pronouns/omission, re-name at key turns, no unnecessary consecutive repetition?
+- [ ] Adjacent prose paragraphs have only one `\n`, no blank lines / `\n\n`?
+- [ ] Dialogue on its own lines, quote style per project/platform convention (Zhihu Yan `「」` legal)?
+- [ ] Punctuation rhythm matches tone/voice, no whole-text period flattening, no random `?`/`!` stacking or `……`/`——` forced pauses?
+- [ ] All `——`/`—`/`--` in prose (including dialogue) converted to commas, periods, action beats, or short-sentence breaks?
+- [ ] Dialogue tags avoid high frequency/formula, plain "said" kept per context?
+- [ ] No indentation?
+- [ ] Every beat has event + emotion + information?
+- [ ] Outside titles/beat markers, no `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` meta words; in-story reading/discussion of "chapter X" or genuine reader-identity contexts excepted?

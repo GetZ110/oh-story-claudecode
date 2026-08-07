@@ -13,8 +13,18 @@ fail() { echo "FAIL: $*" >&2; exit 1; }
 echo "Claude Code adapter check"
 echo "========================="
 echo "Repo: $REPO_ROOT"
+# Locate a working Python interpreter: python3 may be a Windows Store stub that
+# exits without running anything, so probe python3 -> python -> py.
+PYBIN=""
+for cand in python3 python py; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" -c 'import sys' >/dev/null 2>&1; then
+    PYBIN="$cand"
+    break
+  fi
+done
+[ -n "$PYBIN" ] || fail "no usable Python interpreter (tried python3, python, py)"
 
-python3 - "$MARKETPLACE" "$REPO_ROOT" "$EXPECTED_COUNT" <<'PY'
+"$PYBIN" - "$MARKETPLACE" "$REPO_ROOT" "$EXPECTED_COUNT" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -77,7 +87,7 @@ if [ "${CLAUDE_REAL_CHECK:-0}" = "1" ]; then
   # 13 SKILL.md files in a single strict validation pass.
   mkdir -p "$TMP_DIR/plugin/.claude-plugin" "$TMP_DIR/home" "$TMP_DIR/config"
   cp -R "$REPO_ROOT/skills" "$TMP_DIR/plugin/skills"
-  python3 - "$TMP_DIR/plugin" <<'PY'
+  "$PYBIN" - "$TMP_DIR/plugin" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -109,7 +119,7 @@ PY
   while IFS= read -r name; do
     CLAUDE_CONFIG_DIR="$TMP_DIR/config" HOME="$TMP_DIR/home" \
       claude plugin install "$name@oh-story-skills" --scope user >/dev/null
-  done < <(python3 - "$MARKETPLACE" <<'PY'
+  done < <("$PYBIN" - "$MARKETPLACE" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -120,7 +130,7 @@ PY
 )
   CLAUDE_CONFIG_DIR="$TMP_DIR/config" HOME="$TMP_DIR/home" \
     claude plugin list --json >"$TMP_DIR/installed.json"
-  python3 - "$TMP_DIR/installed.json" "$MARKETPLACE" "$EXPECTED_COUNT" <<'PY'
+  "$PYBIN" - "$TMP_DIR/installed.json" "$MARKETPLACE" "$EXPECTED_COUNT" <<'PY'
 import json
 import sys
 from pathlib import Path

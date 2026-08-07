@@ -3,8 +3,10 @@
 
 set -euo pipefail
 
-# `set -e` 下裸赋值会继承命令替换的退出码：git 失败（非仓库/无 git）时脚本会直接中断，
-# 下面的诊断分支永远走不到。用 `|| true` 兜住，把判定交给 -z 检查。
+# Under `set -e` a bare assignment inherits the exit code of the command
+# substitution: when git fails (not a repository / no git), the script would die
+# before reaching the diagnostic branch below. `|| true` absorbs it and the -z
+# check below makes the call.
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 if [ -z "$REPO_ROOT" ]; then
   echo "Error: not in a git repository" >&2

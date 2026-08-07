@@ -29,13 +29,19 @@ ATX_HEADING_RE = re.compile(
     r"^[ ]{0,3}(#{1,6})[ \t]+(.*?)(?:[ \t]+#+[ \t]*)?$"
 )
 FENCE_OPEN_RE = re.compile(r"^[ ]{0,3}(`{3,}|~{3,})")
-# 编号标签的统一收尾条件，替代原来枚举 `:：.、)]—–-` 的终止符白名单：
-#   * `(?!\.?[0-9])` 禁止标签被回溯截断，`Step 1.5甲` 不会退化成 `Step 1`；
-#   * `(?!\w)` 与 STEP_LABEL_RE 原有的 `\b` 语义一致（数字后的 `\b` 就是它）。
-# 白名单会让 `### Step 6（校对）` 只对引用绑定器可见、对重编号器不可见，
-# fix --write 于是绕开该标题重排兄弟标题，写出重复/乱序编号还自称 PASS。
+# Unified end condition for numbered labels, replacing the original enumerative
+# terminator allowlist `:：.、)]—–-`:
+#   * `(?!\.?[0-9])` stops the label from being truncated by backtracking — "Step
+#     1.5x" cannot degrade into "Step 1";
+#   * `(?!\w)` matches STEP_LABEL_RE's original `\b` semantics (the `\b` after a
+#     digit is exactly this).
+# An enumerative allowlist would make `### Step 6（proofread）` visible only to the
+# reference binder and invisible to the renumberer, so fix --write would renumber
+# its siblings around it and still self-report PASS with duplicate/out-of-order
+# numbers.
 LABEL_END = r"(?!\.?[0-9])(?!\w)"
-# 长得像 Step 标题但标签无法解析时用它兜底报错，任何未预料的分隔符都 fail closed。
+# Fallback fail-closed error for headings that look like Step headings but carry
+# an unparsable label: any unexpected separator fails closed.
 LOOSE_STEP_HEADING_RE = re.compile(r"^Step[ \t]+[0-9]")
 STEP_HEADING_RE = re.compile(
     r"^Step(?P<space>[ \t]+)(?P<label>[0-9]+(?:\.[0-9]+)*)" + LABEL_END
@@ -650,9 +656,11 @@ def check_label_policy(document: Document, root: Path) -> list[Issue]:
 def unparsable_step_heading_issues(document: Document) -> list[Issue]:
     """Fail closed on headings that start like a Step but carry no usable label.
 
-    这类标题只对引用绑定器（STEP_LABEL_RE）可见、对重编号器（STEP_HEADING_RE）
-    不可见时，fix --write 会跳过它并重排兄弟标题，写出重复或乱序的编号，
-    而事后自检仍然报告 PASS。宁可拦住写入，也不静默漏过。
+    When a heading like this is visible only to the reference binder
+    (STEP_LABEL_RE) and not to the renumberer (STEP_HEADING_RE), fix --write skips
+    it and renumbers the siblings, producing duplicate or out-of-order numbers
+    that the post-run self-check still reports as PASS. Better to block the write
+    than to let the breakage pass silently.
     """
 
     parsed_lines = {step.line_index for step in document.steps}
@@ -859,16 +867,18 @@ def transactional_write(changes: dict[Path, str]) -> None:
             replaced.append(path)
 
     except BaseException as exc:
-        # 必须是 BaseException：Ctrl-C 抛出的 KeyboardInterrupt 不是 Exception，
-        # 而下面的 finally 无条件删掉所有备份，只捕获 Exception 会让提交循环中途
-        # 被打断的那次改写永久半落盘且无从恢复。与 sync-opencode.py 的提交循环一致。
+        # Must be BaseException: KeyboardInterrupt from Ctrl-C is not an Exception,
+        # and the finally below deletes all backups unconditionally — catching only
+        # Exception would leave the interrupted rewrite permanently half-committed
+        # with nothing left to restore. Consistent with sync-opencode.py's commit loop.
         rollback_errors: list[str] = []
         for path in reversed(replaced):
             try:
                 os.replace(backups[path], path)
             except BaseException as rollback_exc:  # pragma: no cover - catastrophic I/O
-                # 单个文件回滚失败（或第二次 Ctrl-C）不得中断剩余文件的还原，
-                # 否则同样会留下半提交的工作树。
+                # A single failed rollback (or a second Ctrl-C) must not abort the
+                # restore of the remaining files, or the tree is left half-committed
+                # all the same.
                 rollback_errors.append(f"{path}: {rollback_exc}")
         if rollback_errors:
             details = "; ".join(rollback_errors)

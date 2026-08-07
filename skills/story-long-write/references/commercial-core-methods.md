@@ -1,502 +1,501 @@
-# 商业创作核心方法
+# Core Commercial Creation Methods
 
-> 卖点设计、情绪调动、节奏控制、金手指原理、期待感管理、全流程创作方法。用于大纲设计、选题定位、商业化策略时查阅。
+> Selling-point design, emotion mobilization, rhythm control, cheat principles, anticipation management, whole-process creation methods. Consult for outline design, topic positioning, and commercialization strategy.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在做什么 | 查阅哪个模块 |
+| What you're doing | Which module |
 |-----------|-------------|
-| 确定选题/卖点 | 卖点论与实操法 -> 情绪缺口分析与用户画像法 |
-| 设计金手指 | 金手指的核心原理与系统流演变 |
-| 控制节奏/防崩盘 | 创作节奏法 -> 三种期待感与崩盘原因分析 |
-| 设计开篇 | 从选材到留存的创作流程 -> 开篇设计 |
-| 分析读者需求 | 情绪缺口分析与用户画像法 -> 核心卖点偏移诊断与修正 |
-| 规划大纲结构 | 创作思路普适法 -> 从选材到留存的创作流程 |
-| 设计留存/追读 | 核心卖点偏移诊断 -> 三种期待感与崩盘原因分析 |
-| 检查商业化情绪交付 | 情绪调动与商业化执行规则 |
-| 检查创作质量 | 质量检查清单（底部） |
+| Fix the topic/selling point | selling-point theory & practice -> emotion-gap analysis & user profiling |
+| Design the cheat | cheat core principles & system-fiction evolution |
+| Control rhythm / prevent collapse | creation rhythm -> three anticipation types & collapse-cause analysis |
+| Design the opening | from topic to retention -> opening design |
+| Analyze reader needs | emotion-gap analysis & user profiling -> core-selling-point drift diagnosis & correction |
+| Plan the outline structure | universal creation thinking -> from topic to retention |
+| Design retention/follow-through | core-selling-point drift diagnosis -> three anticipation types & collapse causes |
+| Check commercial emotion delivery | emotion mobilization & commercialization execution rules |
+| Check creation quality | quality checklist (bottom) |
 
-## 指令语气
+## Directive tone
 
-本文件以"创作策略"语气书写。所有公式和原则都要转化为选题、卖点、节奏、情绪或开篇的可执行约束。遇到冲突时：当前样本/用户要求 > 读者情绪 > 个人表达。
-
----
-
-## 千均写作指南核心要点
-
-- 金手指决定本书基调，崩追定大概率是偏离了核心梗
-- 升级不能太快（失去期待）也不能太慢（失去耐心）
-- 升级后展示新能力威力（爽点释放），同时引入更大危机（期待重建）
-- 主角行动要推动剧情，不能漫无目的地闲逛
-- 基础三幕式：建置 -> 对抗 -> 解决
-- 每一幕之间要有"鸿沟"——主角计划和实际结果的落差 -> 意外 -> 悬念 -> 追读
+This file is written in "creation strategy" tone. All formulas and principles convert into executable constraints on topic, selling point, rhythm, emotion, or opening. On conflict: current samples/user requirements > reader emotion > personal expression.
 
 ---
 
-## 传统文与脑洞文的留存技巧
+## Core points from the guide to writing with momentum
 
-### 留存四大支柱
-- **升级**：实力/地位/金钱/资源
-- **资源困境**：修炼需要资源 -> 引导期待感
-- **设置目标**：大目标 + 小目标 + 假目标（目标失败但合情合理，反而眼前一亮）
-- **解密**：冰山一角 -> 层层解密 -> 拨开迷雾
-
-### 换地图框架设计（目的+高潮）
-每到一个新地方两件事：
-1. 来到新地方的目的 -> 要得到什么/查清什么真相
-2. 大高潮结尾 -> 让人意犹未尽
-
-### 快速过渡平淡剧情
-- 设置激烈目标 -> 往大高潮过渡
-- 直接设置激烈冲突 -> 先把剧情变激动人心
-- 参考同题材高节奏作品的开头结构，将当前段落的目标冲突密度提升至每500字至少一个转折点
+- The cheat decides the book's tone; follow-through collapse is usually drifting from the core hook
+- Upgrades can't be too fast (loses anticipation) or too slow (loses patience)
+- After upgrading, display the new ability's power (payoff release) while introducing a bigger crisis (anticipation rebuild)
+- Protagonist actions must push the plot; no aimless wandering
+- The basic three acts: setup -> confrontation -> resolution
+- Between acts there must be a "chasm" — the gap between the protagonist's plan and the actual result -> surprise -> suspense -> follow-through
 
 ---
 
-## 写作三要素——用梗、节奏、情绪
+## Retention techniques for traditional & wild-idea fiction
 
-**用梗**：优先复用当前样本或对标书已验证的结构功能位；梗是否仍有效必须用目标平台样本验证。
+### The four retention pillars
+- **Upgrades**: power/status/money/resources
+- **Resource traps**: cultivation needs resources; pursuing resources retains readers
+- **Goal-setting**: big goals + small goals + fake goals (fake goals fail plausibly, a pleasant surprise)
+- **Decryption**: iceberg tip -> layer-by-layer decryption -> parting the fog
 
-**节奏**：常见问题是加无用对话/自以为牛的细节/大段铺垫。解决：砍，一句话能说清别用两句。
+### Map-change framework design (purpose + climax)
+Two things at every new place:
+1. The purpose of arriving -> what to gain / what truth to investigate
+2. A big-climax ending -> leaving them wanting more
 
-**情绪**：爽文核心就是这个"爽"字，情绪的塑造是起起伏伏关联性非常强的。
-
----
-
-## 写作中的核心梗与结构思维
-
-- 核心梗 = 一套固定的剧情发展模式，以核心卖点为支撑，不断换花样循环
-- 绝大部分排行榜的书都有自己的核心梗
-- "细化"替代"x级结构"：一句话主线 -> 卷纲 -> 章纲 -> 正文
-- 优先选套路重复凝聚主线，开一些支线放松
-
----
-
-## 写作中的情绪处理与认知技巧
-
-### 先入为主与峰终定律
-- 塑造认知时先呈现的信息影响力更大
-- 否定提前：把否定元素放前面，否定感更强
-- 标题/简介/品牌口碑 = 给读者的第一印象，极其重要
-
-### 情绪增强技巧
-- 构建知识最好通过例子
-- 用技巧前想想为什么，不要为用而用
+### Speeding past flat plots
+- Set fierce goals -> transition toward the big climax
+- Directly set fierce conflicts -> make the plot exciting first
+- Reference same-genre high-rhythm works' opening structures; raise the current segment's target-conflict density to at least one turning point per 500 words
 
 ---
 
-## 写作技巧分类与常见误用
+## The three writing elements — memes, rhythm, emotion
 
-### 两种类型
-1. 吸引读者来看：书名/简介/开局/爽点/噱头/爆梗
-2. 吸引读者一直看：世界观/角色/升级感/节奏感/期待感/代入感
+**Memes**: prefer reusing the current samples' or benchmark books' validated structural function slots; whether a meme still works must be validated with target-platform samples.
 
-### 常见误用
-- 拿"教人持续期待感"的技巧去写开头——目标不同
-- 不分网站适用性——不同平台技巧需举一反三
+**Rhythm**: common problems are useless dialogue, self-impressed details, and long setups. Fix: cut. If one sentence says it, don't use two.
 
-### 写作三要素
-选材（目标读者与题材边界）+ 剧情设计（大纲/卷纲/章纲）+ 文笔（行文交付），三项都要在 artifact 中落地。
+**Emotion**: payoff fiction's core is that "satisfying" word; emotion building is deeply interconnected ups and downs.
 
 ---
 
-## 创作中的反套路与重复认知
+## Core hooks & structural thinking in writing
 
-### 看点不等于噱头
-- 有些核心卖点梗只具备一次吸引力 -> 只能当噱头引入
-- 很少有一个卖点能完美撑到几百万字 -> 要剧情世界观和人物撑住
-
-### 重复点的数据化判断
-- 重复包括：人物重复点/套路重复点/剧情重复点 -> 含金量依次递增
-- 核心看点抓不住 -> 数据没了 -> 换看点 -> 成绩也没了 -> 说明读者要的就是那个重复点
-- 当核心看点在当前样本/读者反馈中表现稳定时保持重复策略；反馈下降时分析是否需要升级重复方式
+- Core hook = a fixed plot-development mode supported by the core selling point, looped with variations
+- Most leaderboard books have core hooks
+- "Refinement" replaces "x-level structure": one-sentence main line -> volume outline -> chapter outline -> prose
+- Prefer pattern repetition to condense the main line; open sub-lines for relief
 
 ---
 
-## 创作节奏法
+## Emotion handling & cognition techniques
 
-### 日常文执行规则
-日常不等于平淡——修罗场就是日常但充满冲突，关键在于设置矛盾冲突 + 巧玩梗。
+### Primacy & peak-end law
+- In shaping cognition, the first-presented information influences more
+- Negation-first: put the negative element first; the negation feels stronger
+- Title/blurb/brand reputation = the reader's first impression; extremely important
 
-### 节奏自检法
-每章写作前读状态摘要 `追踪/上下文.md`，按其 `## 近三章速记` 判断当前节奏：
-- 拖沓信号：连续 2 章没有目标推进、阻碍升级或新信息 -> 下一章提高冲突密度。
-- 过快信号：连续 2 章只爆点不留反应余波 -> 插入 1-2 个承接场景，但必须推进关系/伏笔。
-
-### 高潮节奏标准
-- 大高潮：7-10天完成，超过10天追读下滑
-- 小高潮：3天左右完成
-- 高潮结束后 -> 添加1-2章日常过渡
-
-### 中后期追订下降两大原因
-1. 爽点重复 -> 读者审美疲劳
-2. 长远期待感缺失
-- 解决：大纲阶段先定结局 -> 围绕结局设计中后期爆点
-
-### 伏笔vs谜语人
-- 谜语人：故意不说明原因，暗示有玄机 -> 激发好奇心
-- 伏笔：巧妙融入剧情 -> 后续揭示惊喜
+### Emotion-enhancing techniques
+- Build knowledge best through examples
+- Ask why before using a technique; no use-for-use's-sake
 
 ---
 
-## 核心卖点偏移诊断与修正
+## Technique classification & common misuse
 
-### 卖点偏移
-- 卖点偏移 = 核心吸引元素被稀释或替换
-- 常见：爽文写着写着变成种田文 -> 核心读者流失
-- 自检：每隔十章问"当初吸引读者的卖点还在吗？"
-- 根源：核心卖点被写作过程替换，但读者期待没有同步改变
+### Two types
+1. Attracting readers to look: title/blurb/opening/payoffs/hooks/viral memes
+2. Attracting readers to keep looking: worldview/characters/progression feel/rhythm/anticipation/immersion
 
-### 读者需求与网文类型对应
+### Common misuse
+- Using "sustained-anticipation" techniques to write the opening — different goals
+- Ignoring site applicability — different platforms need adaptation
 
-| 需求层次 | 网文类型 |
+### The three writing elements
+Topic selection (target readers & genre boundary) + plot design (master/volume/chapter outlines) + prose (delivery) — all three must land in artifacts.
+
+---
+
+## Anti-patterns & repetition cognition in creation
+
+### Draw ≠ hook
+- Some core-selling-point memes have one-time appeal -> use only as entry hooks
+- Rarely does one selling point perfectly carry millions of words -> plot, worldview, and characters must hold
+- Data-driven repetition judgment:
+- Repetition includes: character repetition / pattern repetition / plot repetition — value rises in that order
+- Core draw failing -> data dies -> switch draws -> performance dies too -> readers wanted that repetition point
+- Keep the repetition strategy while the core draw performs stably in current samples/reader feedback; when feedback drops, analyze whether the repetition mode needs upgrading
+
+---
+
+## Creation rhythm
+
+### Daily-fiction execution rules
+Daily ≠ flat — the chaos-scene is daily yet full of conflict; the key is setting conflicts + playing memes cleverly.
+
+### Rhythm self-check
+Before each chapter, read `tracking/context.md` and the last 3 chapters' summaries; judge the current rhythm:
+- Dragging signal: 2 consecutive chapters without goal advancement, obstacle escalation, or new info -> raise conflict density next chapter
+- Rushing signal: 2 consecutive chapters with only bursts and no reaction aftermath -> insert 1-2 handoff scenes, but they must advance relationships/foreshadowing
+
+### Climax rhythm standards
+- Big climax: complete in 7-10 days; past 10 days follow-through drops
+- Small climax: ~3 days
+- After the climax: add 1-2 daily transition chapters
+
+### Two mid-late follow-through drop causes
+1. Payoff repetition -> aesthetic fatigue
+2. Missing long-term anticipation
+- Fix: fix the ending at the outline stage -> design mid-late bursts around it
+
+### Foreshadowing vs riddle-mongering
+- Riddle-mongering: deliberately not explaining the reason, hinting at hidden mystery -> sparks curiosity
+- Foreshadowing: cleverly fused into the plot -> surprise on later reveal
+
+---
+
+## Core-selling-point drift diagnosis & correction
+
+### Selling-point drift
+- Drift = the core attractive element diluted or replaced
+- Common: payoff fiction slowly becoming homestead fiction -> core readers lost
+- Self-check: every 10 chapters ask "is the selling point that attracted readers still here?"
+- Root: the selling point was replaced by the writing process, but reader expectations didn't change
+
+### Reader needs & web-fiction types
+
+| Need tier | Web-fiction type |
 |----------|----------|
-| 生理需求 | 肉文/后宫文 |
-| 安全需求 | 无敌流/系统流 |
-| 社交需求 | 后宫/团队文 |
-| 尊重需求 | 爽文/打脸文 |
-| 自我实现 | 升级流/探索流 |
+| Physiological | explicit/harem fiction |
+| Safety | invincible/system fiction |
+| Social | harem/team fiction |
+| Esteem | payoff/comeuppance fiction |
+| Self-actualization | progression/exploration fiction |
 
-跨层满足 = 爆款潜力。创作前明确满足哪层需求，所有设计围绕展开。
+Cross-tier satisfaction = hit potential. Fix which tier the book serves before creation; all design orbits it.
 
-### 金手指+矛盾=剧情
-- 金手指太强 + 矛盾不够 = 无聊
-- 金手指太弱 + 矛盾太强 = 读者焦虑
-- 最佳：金手指刚好解决当前矛盾 -> 暴露更大矛盾 -> 层层递进
+### Cheat + conflict = plot
+- Cheat too strong + conflict insufficient = boring
+- Cheat too weak + conflict too strong = reader anxiety
+- Best: the cheat just solves the current conflict -> exposes a bigger conflict -> layer by layer
 
-### 主题统一性
-- 一本书从头到尾要有统一的核心情绪
-- 小情绪服从大情绪
-- 检验：随机翻开一章 -> 情绪是否指向全书核心
-
----
-
-## 可读性提升的矛盾性技巧
-
-### 矛盾三层次
-- 一般故事 -> 矛盾停留在角色之间
-- 好故事 -> 矛盾放置在大背景中
-- 巧妙故事 -> 矛盾放在作品与读者之间 -> 观念错位
-
-### 观念错位
-- 让主角的常识跟世界常识对着干 -> 读者边看边想"这也行？"
-- 例：穿越古代主角当众算账揭穿伪善 -> 读者认同主角的现代价值观、配角震惊 -> 把主角"异类反应"和配角"正常反应"并置成反差
-- 两种模式：
-  - 同认知背景+不同认知主角：主角特立独行吸引眼球
-  - 同认知主角+不同认知背景：穿越/末世/中世纪 -> 读者参照主角视角对抗世界
+### Theme unity
+- A book needs one unified core emotion from start to end
+- Small emotions obey the big emotion
+- Test: open a random chapter — does its emotion point at the book's core?
 
 ---
 
-## 向精品冲击的攻略
+## Readability-boosting conflict techniques
 
-### 黄金三章
-前三章必须承担定调与留存功能。若项目已有强势作者品牌/IP 基础或用户另有要求，可降低套路化程度；否则按“核心冲突、金手指/优势、长期期待”三项检查。刻意套模板破坏既定基调时，以当前作品基调为准。
+### Three conflict layers
+- Ordinary story -> conflict stays between characters
+- Good story -> conflict placed in the big background
+- Clever story -> conflict between the work and the reader -> conceptual displacement
 
-### 留住读者的核心：不间断的期待
-- 即将得到但还没得到 -> 期待感最高
-- 得到之前套上另一个钩子 -> 循环
-- 一本书随时保持两条以上期待线 -> 大期待 + 小支线穿插
-
----
-
-## 商业网文六大核心模块
-
-### 一、定调——黄金三章的核心是回应期待
-- 公式：令人不安的处境 + 亟待提升的地位 + 充满希望的外挂 + 能被展望的美好未来
-- 定调三层次：情绪氛围 -> 故事走向 -> 价值观倾向
-
-### 二、金手指——简单是核心
-- 内核归类：信息挂（最优，不易失控）、加速升级挂、物体调用挂
-- 最核心要素：简单。游戏化面板一眼就懂最好
-
-### 三、角色——脸谱化不是坏事
-- 为所有角色打下标签，越重要标签越多，行为基于标签
-- 构建角色充满算计——送资源/被打脸/当小弟/当向导，分工明确
-
-### 四、节奏——循环嵌套
-- 本质循环：确立目标 -> 做出行动 -> 完成目标 -> 获得提升 -> 确立新目标
-- 对抗审美疲劳：从数值对抗转为机制对抗
-
-### 五、爽点——先不爽再拿掉不爽
-> 相关：爽点的本质/六种类型/倒推设计法以 [plot-emotion-system.md](plot-emotion-system.md)「爽点设计体系」为准；本文只覆盖商业留存视角的爽点处理。
-- 公式：生产诉求 -> 给予希望 -> 努力解决 -> 得偿所愿
-- 无敌文本质是"人前显圣"
-
-### 六、冲突与悬念
-- 冲突简单直接可套路化；悬念需精巧构思
-- 悬念信息释放梯度：每章末尾营造"即将达成"的临界状态
-
-### 题材微创新三套路
-- 热门设定+套路化流派写法
-- 热门分类体系+热门噱头
-- 成熟世界观的不同视角
+### Conceptual displacement
+- Set the protagonist's common sense against the world's -> readers think "that works?"
+- Example: the transmigrator settling accounts publicly and exposing hypocrisy -> readers identify with the protagonist's modern values, supporting characters shocked -> juxtaposing the protagonist's "alien reaction" with supporting characters' "normal reaction"
+- Two modes:
+  - Same cognitive background, different-cognition protagonist: the protagonist's iconoclasm attracts
+  - Same-cognition protagonist, different background: transmigration/apocalypse/medieval -> readers view the world through the protagonist
 
 ---
 
-## 情绪缺口分析与用户画像法
+## The strategy for striking premium
 
-- 爆款书情绪一以贯之源出一孔 -> 非爆款书情绪散乱多头并行
-- 升级/复仇/寻宝等小情绪应统一到主情绪之下
-- **用户画像法**：从爆款网文提炼剧情元素 -> 框定读者画像 -> 推测心理需求 -> 对照分析
-- 深层挖掘：不止分析读者需求，更要挖掘读者自己都不知道的情结
-- 从读者评论中提取高频情绪关键词（爱/恨/渴望/逃避），与当前设计的情绪卖点逐一比对，识别未满足的需求
+### Golden three chapters
+The first three chapters must carry tone-setting and retention. If the project has a strong author brand/IP base or the user requires otherwise, formulaic degree may lower; otherwise check the three items: "core conflict, cheat/edge, long-term anticipation." When deliberately applying templates breaks the established tone, defer to the current work's tone.
 
-### 分析实例
-
-**末日重生文**：
-- 末日 = 颠覆社会秩序 -> 渴望高位者跌落底层草根爬上
-- 囤货 = 巨大不安全感 -> 坐拥百亿物资 -> 安全感爆棚
-- 重生 = 捡漏 -> 一分投入万倍收获
-
-**新媒体战神赘婿文**：
-- 核心痛苦：无能 -> 无法赡养父母照护孩子
-- 第二层：家人否定 -> 百般付出不被认可
-- 第三层：自卑 -> 不敢面对无能
-- 战神归来 -> 一切反转 -> 暴爽
+### Holding readers: uninterrupted anticipation
+- About to get but not yet -> anticipation peaks
+- Before getting it, attach another hook -> loop
+- A book keeps two-plus anticipation lines at all times -> big anticipation + small sub-line interleaving
 
 ---
 
-## 情绪调动与商业化执行规则
+## The six core commercial modules
 
-### 模仿的正确方向
-- 应该模仿：故事套路/戏剧手法/叙事结构/角色类型
-- 不应该模仿：文辞/经典桥段/语言风格
+### 1. Tone-setting — the golden three chapters are answering anticipation
+- Formula: an unsettling situation + a status crying out for elevation + a hopeful cheat + a future worth anticipating
+- Three tone layers: emotional atmosphere -> story direction -> value inclination
 
-### 商业化的本质
-- 网文本质是商品，商业化 = 尊重目标读者的阅读预期
-- 网文的本质 = 持续调度读者情绪 -> 每章都要有明确情绪交付
+### 2. The cheat — simplicity is the core
+- Inner classification: info cheats (best, hard to lose control), speed-up cheats, object-summoning cheats
+- The most core element: simplicity. A game-like panel understood at a glance is best
 
-### 情绪调动的终极认知
-- 成功作品需要多重因素共同作用，不只使用单一技巧
-- 读者期待感大部分来自长期对角色的感情投入，不来自表层文本
+### 3. Characters — labels aren't bad
+- Tag every character; the more important, the more tags; behavior follows tags
+- Build characters with calculation — giving resources / getting slapped / serving as underlings / serving as guides, clear division of labor
+
+### 4. Rhythm — nested loops
+- Essential loop: set a goal -> take action -> complete -> upgrade -> set a new goal
+- Against aesthetic fatigue: mechanics replace numbers
+
+### 5. Payoffs — first not-satisfying, then remove it
+> Related: payoff essence/six types/back-derivation are governed by [plot-emotion-system.md](plot-emotion-system.md) "payoff design system"; this only covers the commercial-retention view of payoffs.
+- Formula: create the need -> give hope -> strive -> get what is deserved
+- Invincible fiction's essence is "showing off in public"
+
+### 6. Conflict & suspense
+- Conflicts simple, direct, patternable; suspense needs delicate construction
+- Suspense info release gradient: create the "about to achieve" threshold state at each chapter end
+
+### The three genre micro-innovation patterns
+- Hot setting + formulaic genre writing
+- Hot classification system + hot hooks
+- A mature worldview from a different angle
 
 ---
 
-## 套路的多维度运用
+## Emotion-gap analysis & user profiling
 
-- 一个套路爽点至少能用五六种方式写 -> 正着写/反套路写/再反/持续反/反了再正
-- 拿"打脸装逼者"示范五种：
-  - 正 = 对方刚嘲讽完，主角当场亮身份打脸
-  - 反 = 主角故意装弱，让对方蹦达得更欢再翻盘
-  - 再反 = 对方以为主角在装弱，结果主角是真强，没装
-  - 持续反 = 对方连环误判，每次以为看穿主角又被反打
-  - 反了再正 = 兜一圈玩各种花活，最后还是靠硬实力碾压
-- 高阶：用套路的基础逻辑 -> 换壳换场景换人物 -> 看似不同实则内核一致
+- Hit books have one consistent emotion source; non-hits scatter emotions across multiple heads
+- Upgrade/revenge/treasure-hunt small emotions unify under the main emotion
+- **User profiling**: extract plot elements from hit books -> frame the reader profile -> infer psychological needs -> cross-validate
+- Deep digging: not just reader needs, but the complexes readers don't know they have
+- Extract high-frequency emotion keywords from reader comments (love/hate/desire/escape) and compare with the designed emotion selling points one by one; identify unmet needs
+
+### Analysis examples
+
+**Apocalypse second-chance fiction**:
+- Apocalypse = social order overturned -> the desire for the high-born falling and the grass-roots rising
+- Hoarding = huge insecurity -> owning billions in supplies -> safety overflow
+- Second chance = bargain-hunting -> one unit of input, ten thousand units of return
+
+**Downstream war-god son-in-law fiction**:
+- Core pain: incompetence -> can't support parents or protect the child
+- Second layer: family denial -> a hundred efforts unacknowledged
+- Third layer: inferiority -> not daring to face incompetence
+- The war god returns -> everything reverses -> maximum payoff
 
 ---
 
-## 章纲细化层级选择
+## Emotion mobilization & commercialization execution rules
 
-| 项目复杂度 | 章纲粒度 | 使用条件 |
+### The right imitation direction
+- Imitate: story patterns / dramatic techniques / narrative structures / character types
+- Don't imitate: diction / classic scenes / language style
+
+### The essence of commercialization
+- Web fiction is a product; commercialization = respecting the target reader's reading expectations
+- Web fiction's essence = continuously directing reader emotion -> every chapter has a clear emotional delivery
+
+### The ultimate cognition of emotion mobilization
+- Successful works need multiple factors working together, not a single technique
+- Reader anticipation mostly comes from long-term emotional investment in characters, not surface text
+
+---
+
+## Multi-dimensional pattern use
+
+- One pattern payoff can be written in five or six ways — straight / anti-pattern / counter-anti / sustained-anti / anti-then-straight
+- Demo with "slapping down the flexer":
+  - Straight = the other just mocked; the protagonist reveals identity on the spot
+  - Anti = the protagonist deliberately feigns weakness, letting the other bounce higher before the turnaround
+  - Counter-anti = the other thinks the protagonist is feigning; the protagonist is actually strong, not feigning
+  - Sustained-anti = the other misjudges in a chain; every time they think they've seen through it, they get counter-hit
+  - Anti-then-straight = all kinds of tricks, finally still crushing with raw power
+- Advanced: use the pattern's base logic -> swap the shell, scene, and characters -> seemingly different, same core
+
+---
+
+## Chapter-outline detail-tier selection
+
+| Project complexity | Chapter-outline granularity | Use |
 |------|------|------|
-| 高复杂度 | 二级结构/起承转合逐条推演 | 多线、强反转、复杂世界观 |
-| 标准长篇 | 每章300-400字章纲 | 首卷、关键卷、高潮卷 |
-| 低复杂度/滚动续写 | 十几字目的句 + 关键情绪/钩子 | 已有卷纲和追踪文件支撑 |
+| High complexity | level-2 structure / four-stage line-by-line derivation | multi-line, strong reversals, complex worldviews |
+| Standard long-form | 300-400 words per chapter outline | first volumes, key volumes, climax volumes |
+| Low complexity / rolling continuation | a dozen-word purpose sentence + key emotion/hook | supported by existing volume outlines and tracking files |
 
-选择规则：上下文越少、反转越强、人物线越多，章纲越细；已有稳定结构和追踪文件时可简化。
-
----
-
-## 卖点论与实操法
-
-### 卖点四步法
-1. **思考**：想清楚整本书卖点、书名卖点、简介卖点、每段剧情卖点
-2. **设计**：围绕卖点做扩散设计
-3. **细化**：卖点面对什么读者群？什么风格合适？
-4. **表现**：每章一个目的词，盯紧章纲和目的来写
-
-### 卖点的表达技巧
-- 让读者在阅读中自己发现 -> 发现比告知爽十倍
-- 隐性展示：通过剧情/对话/反应来展示
-- 三层递进：开头暗示 -> 中间深化 -> 高潮爆发
-
-### 书名简介卖点
-- 书名=第一道门，简介=第二道门，开篇=第三道门，层层传递并兑现核心卖点
-- 不要使用无法传递核心卖点的文青书名
-
-### 章纲目的法
-- 每章一句话概括内容 + 标注"目的"词（铺垫/高潮/爽点/打脸/人物塑造/设定）
-- 盯紧章纲和目的来写 -> 不容易跑偏
+Selection rule: less context, stronger reversals, more character lines -> finer chapter outlines; with a stable structure and tracking files, simplify.
 
 ---
 
-## 金手指的核心原理与系统流演变
+## Selling-point theory & practice
 
-故事流程：激励事件 -> 产生欲望 -> 建立目标 -> 开始行动 -> 遭遇阻碍 -> 克服困难 -> 收获奖励
+### The four-step selling-point method
+1. **Think**: clarify the whole book's selling point, the title's selling point, the blurb's selling point, and each plot segment's selling point
+2. **Design**: diffuse design around the selling point
+3. **Detail**: which reader group does the selling point face? what style fits?
+4. **Perform**: one purpose word per chapter; watch the chapter outline and purpose while writing
 
-**金手指可替换流程中的任一环节**：
-- 替换"建立目标"：系统发任务
-- 替换"克服困难"：按一下解决问题但要承受代价
-- 替换"准备环节"：跳过准备直接快进到遭遇阻碍
-- 替换"激励事件"：穿越到千年后
-- 替换"收获奖励"：系统使主角做公益获利
+### Selling-point expression techniques
+- Let readers discover it themselves in reading — discovery is ten times better than being told
+- Hidden display: through plot/dialogue/reactions
+- Three-layer progression: hint at the opening -> deepen mid-way -> burst at the climax
 
-**金手指为什么包装成系统**：系统的限制保证故事结构完整 -> 有限制的系统 = 主角必须一步步行动。
+### Title/blurb selling points
+- Title = the first door, blurb = the second door, opening = the third door; each layer delivers the core selling point
+- No pretentious titles that can't deliver the core selling point
 
----
-
-## 需求驱动与节奏的本质
-
-### 消遣之物的本质逻辑
-为读者创造某种需求，然后满足。
-- 公式：生产诉求 -> 给予希望 -> 努力解决 -> 得偿所愿
-- "不该如此"是根本冲动 -> 读者看到不公/遗憾 -> 天生想看改变
-- 好题材具备勾起惋惜/渴望改变的特质
-
-### 题材的核心不在表面设定
-- 只写设定有趣的作品往往成绩差 -> 抓住核心矛盾的作品才好
-
-### 节奏的本质
-- 不断解决现有矛盾 -> 不断制造新的矛盾
-- 好节奏：困境层级层层提高 + 难度逐步提升 + 困境种类不尽相同
+### The chapter-outline purpose method
+- One sentence summarizing each chapter + marking the "purpose" word (setup/climax/payoff/comeuppance/characterization/setting)
+- Watching the chapter outline and purpose while writing prevents drifting
 
 ---
 
-## 创作理念：地图切换与节奏
+## Cheat core principles & system-fiction evolution
 
-### 换地图时的读者过渡设计
-都市到仙界订阅直线下降。解决：建立缓冲区 -> 将读者慢慢引导到新题材。
+Story flow: inciting event -> desire -> goal -> action -> obstacles -> overcoming -> rewards
 
-### 大纲哲学
-- 只列主线 -> 分支在写作中慢慢完善
-- 大纲必须可修改 -> 太严谨缺少灵性
+**The cheat may replace any link in the flow**:
+- Replace "goal-setting": the system issues tasks
+- Replace "overcoming": press a button to solve, but bear a cost
+- Replace "preparation": skip straight to obstacles
+- Replace "the inciting event": transmigrate a thousand years forward
+- Replace "rewards": the system makes the protagonist do public service for profit
 
-### 节奏与情绪
-- 节奏 = 让读者有愉悦的阅读感觉 -> 打脸不在多而在经典
-- 爽文不等于打脸 -> 爽文意义是读得轻松+有期待感
+**Why the cheat is packaged as a system**: the system's limits guarantee complete story structure -> a limited system forces the protagonist to act step by step.
 
 ---
 
-## 三种期待感与崩盘原因分析
+## Need-driven & the essence of rhythm
 
-### 三种期待感
-1. **剧情期待**：大目标 + 过程中挖的坑 + 立起来的妹子 -> 吊胃口
-2. **主题**：每章给读者甜头的东西 -> 主题不偏，大多数章节读者想看
-3. **新鲜感**：世界观矛盾的新鲜 + 剧情形式的多样
+### The essence of pastime logic
+Create a need for the reader, then satisfy it.
+- Formula: create the need -> give hope -> strive -> get what is deserved
+- "It shouldn't be like this" is the root impulse -> readers see injustice/regret -> naturally want to see change
+- Good genres evoke regret/desire-for-change traits
 
-| 类型 | 定位 | 节奏 |
+### Genre core isn't the surface setting
+- Books with only interesting settings often perform poorly -> books grabbing the core conflict perform
+
+### The essence of rhythm
+- Keep solving existing conflicts -> keep creating new ones
+- Good rhythm: trap tiers rise + difficulty rises + trap kinds vary
+
+---
+
+## Creation philosophy: map switching & rhythm
+
+### Reader transition design on map changes
+Subscriptions drop straight down from city to immortal world. Fix: build a buffer -> guide readers gradually into the new genre.
+
+### Outline philosophy
+- List only the main line -> branches completed gradually during writing
+- Outlines must be modifiable -> too rigorous loses spirit
+
+### Rhythm & emotion
+- Rhythm = giving readers a pleasant reading feel -> comeuppance isn't about quantity but classics
+- Payoff fiction ≠ comeuppance; payoff fiction means easy reading + anticipation
+
+---
+
+## Three anticipation types & collapse-cause analysis
+
+### The three anticipation types
+1. **Plot anticipation**: the big goal + dug holes + raised heroines -> dangling
+2. **Theme**: the daily treat each chapter -> theme on-track, most chapters readable
+3. **Novelty**: worldview-conflict freshness + plot-form variety
+
+| Type | Positioning | Rhythm |
 |------|------|------|
-| 剧情期待 | 吊胃口 | 偶尔满足 |
-| 主题 | 每天的甜头 | 持续满足 |
-| 新鲜感 | 放下还愿意捡起来 | 间歇刺激 |
+| Plot anticipation | dangling | occasionally satisfied |
+| Theme | the daily treat | continuously satisfied |
+| Novelty | put it down and still want to pick it up | intermittent stimulation |
 
-三者合一 = 不崩之书。
+All three combined = a book that doesn't collapse.
 
-### 崩盘根因：偏离卖点
-- 套路循环类：同一卖点重复角度不足 -> 读者审美疲劳
-- 技术到位但仍然崩 -> 优先检查核心卖点是否仍在、期待线是否仍有兑现空间
+### Collapse root: selling-point drift
+- Pattern-loop type: the same selling point repeated from too few angles -> aesthetic fatigue
+- Technique sound but still collapsed -> first check whether the core selling point still exists and the anticipation lines still have delivery room
 
-### 拉长板vs补短板
-- 优先强化题材长板：核心卖点、目标情绪、最高频爽点。
-- 不为补短板引入会稀释核心卖点的支线。
-- 开书前检查：(1)核心卖点背后的情绪清晰 (2)同一卖点能延展出至少 3 个角度 (3)题材长板与现有素材/对标资产匹配。
-
----
-
-## 创作思路普适法
-
-### 创作思路三步法
-确定主角身份 -> 匹配金手指类型 -> 设定开局环境
-
-### 开篇压力的两种类型
-- 冲突型压力：指向性明确，节奏快但后期容易崩
-- 环境型压力：生活上的小压力，更容易写长
-- 推荐：优先用环境型压力开局
-
-### 金手指反馈法
-- 给出金手指后必须有即时变化
-- 把金手指带来变化的过程掺杂在故事里
-- 金手指契合主角当前职业，或作为打开困境的钥匙
-
-### 不同题材不同写法
-- 东方玄幻：快节奏，第一章只出现主角一人，迅速切入
-- 西幻低位背景：慢节奏，多人物对话营造氛围，逐步带出世界设定
-- 不能公式化，要根据题材和金手指调整
+### Lengthen the strong board vs patch the short board
+- Prioritize the genre's strong board: core selling point, target emotion, highest-frequency payoffs
+- Never introduce sub-lines diluting the core selling point to patch short boards
+- Before opening the book, check: (1) the emotion behind the core selling point is clear (2) the same selling point extends at least 3 angles (3) the genre strong board matches existing material/benchmark assets
 
 ---
 
-## 梗收集与阶级跃迁爽点
+## Universal creation thinking
 
-### 梗收集方式
-- 从目标平台的近期评论、弹幕高频词中提取可用梗元素，建立梗-场景映射表
-- 梗是创作灵感源泉，不是简单堆积
-- 经典梗读者仍会期待 -> 巧妙运用满足期待
+### Three-step creation thinking
+Fix the protagonist's identity -> match the cheat type -> set the opening environment
 
-### 阶级跃迁爽点
-- 描写赚第一桶金实现阶级跃迁 -> 爽感最强
-- 从贫穷到有点小钱更容易引起大众读者共鸣
+### Two opening pressure types
+- Conflict-type pressure: clear direction, fast rhythm but easy to collapse late
+- Environment-type pressure: small life pressures, easier to write long
+- Recommendation: prefer environment-type pressure openings
 
-### 过渡避免流水账
-- 每个副本结束必须留一条矛盾线 -> 串联到下一个副本
+### Cheat-feedback method
+- The cheat must produce an immediate change
+- Mix the cheat's change process into the story
+- The cheat matches the protagonist's current occupation, or serves as the key to the trap
 
-### 设置钩子拉期待
-- 提前透露人物特殊技能/背景 -> 读者期待后续运用
-- 设置阶段性钩子 -> 高潮时完整呈现
-
----
-
-## 从选材到留存的创作流程
-
-### 题材定位与读者筛选
-- 题材关键词能否作为目标读者筛选信号 -> 快速触发读者自动解压信息
-- 微创新 = 在经典题材上套皮新噱头
-- 题材组合公式：新东西+旧东西+热门载体 = 新题材
-- 代偿 = 给主角现实里缺的东西（赘婿其实是隐藏战神，弥补"被人看不起"）
-- 捷径 = 金手指让主角跳过苦熬（签到系统/一夜暴富），开局就给"不用努力也能赢"的解压感
-
-### 吸量要素
-- 书名构建：冲突报复+人无我有+槽点句子
-- 简介最高标准：有趣+有槽点+悬念
-- 简介不能依赖作者品牌，必须直接交付卖点
-
-### 留存=情绪+饥饿
-- 情绪：快速代入 -> 快速沉浸 -> 与角色共鸣
-- 饥饿：利用信息差在读者视角植入问号
-- 剥洋葱技法：简介植入核心悬念 -> 章节开头植入小问号 -> 章节末尾卡住关键信息
-
-### 开篇设计
-- 开篇两万字只需解决一件事：活下去
-- 轻松向开篇：主角一无所有 + 金手指一眼就知道怎么用
-- 300-500字内交代：处境+危险来源+破局希望
-- 开篇主角的所有都不能是完美的 -> 否极泰来的开端
-
-### 大纲与细纲
-- 随笔 = 表达库；大纲 = 核心骨架+人物+背景
-- 细纲 = 舞台上人与人发生的故事
-- 章纲 = 对细纲进行易读性/可读性/节奏调整
-- 核心梗 = 一套固定的剧情发展模式 -> 不断换花样循环
+### Different genres write differently
+- Eastern fantasy: fast rhythm; chapter 1 has only the protagonist, quick cut-in
+- Western fantasy low-position: slow rhythm, multi-character dialogue for atmosphere, world setting emerges gradually
+- No formulas; adjust by genre and cheat
 
 ---
 
-## 卖点原理补充：核心情绪的艺术化
+## Meme collection & class-jump payoffs
 
-卖点不能按"卖的人多"粗暴判定。核心情绪是凡人都会遇见、感同身受的东西。
+### Meme collection
+- Extract usable meme elements from the target platform's recent comments and barrage high-frequency words; build a meme-scene mapping table
+- Memes are creative inspiration, not simple stacking
+- Classic memes still get anticipated -> use them cleverly to satisfy
 
-小说的本质：把平凡的、每个人都有的情感，抽取其中一样，进行艺术化、抽象化、极端化。
+### Class-jump payoffs
+- Describing the first pot of gold achieving class-jump -> the strongest payoff feel
+- From poor to slightly-well-off resonates with mass readers most easily
 
-| 处理方式 | 操作 | 例子 |
+### Transitions without play-by-play
+- Every dungeon ends keeping one conflict line -> stringing to the next dungeon
+
+### Hooks raising anticipation
+- Hint a character's special skills/background early -> readers anticipate later use
+- Set stage hooks -> fully displayed at the climax
+
+---
+
+## From topic to retention: the creation flow
+
+### Genre positioning & reader filtering
+- Do genre keywords act as target-reader filtering signals -> quickly trigger readers' automatic decompression
+- Micro-innovation = new hooks on classic genres
+- Genre combination formula: new thing + old thing + hot carrier = new genre
+- Substitution = giving the protagonist what reality lacks (the son-in-law is actually a hidden war god, compensating "being looked down on")
+- Shortcut = the cheat skipping the grind (sign-in systems / overnight wealth), giving the "win without effort" relief from the opening
+
+### Traffic elements
+- Title construction: conflict-revenge + unique + meme-worthy lines
+- Blurb top standard: fun + meme-worthy + suspense
+- The blurb can't rely on the author's brand; it must directly deliver the selling point
+
+### Retention = emotion + hunger
+- Emotion: fast projection -> fast immersion -> resonance with characters
+- Hunger: use info gaps to plant question marks in the reader's POV
+- Onion-peeling: blurb plants the core suspense -> chapter openings plant small question marks -> chapter ends block key information
+
+### Opening design
+- The opening 20k words solve one thing only: survival
+- Light openings: the protagonist owns nothing + the cheat's use clear at a glance
+- Within 300-500 words: situation + danger source + a hope of breaking the game
+- Nothing about the opening protagonist can be perfect -> a start of "extremes turn around"
+
+### Master & chapter outlines
+- Free writing = expression library; master outline = core skeleton + characters + background
+- Chapter outline = the stories people tell on stage
+- Chapter outline revision = readability/rhythm adjustments to the chapter outline
+- Core hook = a fixed plot-development mode -> looped with variations
+
+---
+
+## Selling-point principle supplement: the art of core emotion
+
+Selling points can't be judged crudely by "what sells the most." Core emotions are things everyone meets and feels themselves.
+
+The novel's essence: take one of the ordinary emotions everyone has, and artisticize, abstract, and extreme-ize it.
+
+| Treatment | Operation | Example |
 |----------|------|------|
-| 极端化 | 把日常委屈推到生死/巨额对赌 | 赘婿被瞧不起 -> 战神归来当众甩出百亿 |
-| 艺术化 | 别写"他很委屈"，用动作演 | 他默默把工资卡推过去，转身就走 |
-| 抽象化 | 只抓一种情感贯穿全书，砍掉旁枝情绪线 | 全书只咬住"不被认可"，亲情爱情都为它服务 |
+| Extreme-ize | push daily grievance to life-death/huge stakes | the son-in-law looked down on -> the war god returns and publicly flashes a billion |
+| Artisticize | don't write "he was wronged"; play it with actions | he silently slid his salary card across the table and walked away |
+| Abstract | grab one emotion through the whole book, cut side emotion lines | the whole book bites "not being recognized"; family and romance both serve it |
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-完成大纲/选题/卖点设计后，逐项检查：
+After outline/topic/selling-point design, verify:
 
-- [ ] **核心卖点明确**：一句话能说清这本书卖什么情绪
-- [ ] **卖点无偏移**：每十章自检"当初吸引读者的卖点还在吗？"
-- [ ] **金手指简单**：读者一眼就懂怎么用，功能与升级规则清晰
-- [ ] **金手指+矛盾匹配**：金手指刚好解决当前矛盾，暴露更大矛盾
-- [ ] **三种期待线并存**：剧情期待 + 主题甜头 + 新鲜感
-- [ ] **节奏有标尺**：大高潮7-10天，小高潮3天，高潮后1-2章过渡
-- [ ] **升级节奏合理**：不太快（失去期待）也不太慢（失去耐心）
-- [ ] **主题统一**：随机翻开一章，情绪指向全书核心
-- [ ] **书名简介开篇三道门**：层层过滤，不使用无法传递核心卖点的文青书名
-- [ ] **章纲有目的词**：每章标注铺垫/高潮/爽点/打脸/人物塑造/设定
-- [ ] **留存双引擎**：情绪（快速代入）+ 饥饿（信息差植入问号）
-- [ ] **拉长板而非补短板**：题材长板与能力长板吻合
+- [ ] **Core selling point clear**: one sentence states what emotion this book sells
+- [ ] **No selling-point drift**: every 10 chapters self-check "is the selling point that attracted readers still here?"
+- [ ] **Cheat simple**: readers understand the use at a glance; function and upgrade rules clear
+- [ ] **Cheat + conflict matched**: the cheat just solves the current conflict and exposes a bigger one
+- [ ] **Three anticipation lines coexisting**: plot anticipation + theme treats + novelty
+- [ ] **Rhythm has rulers**: big climax 7-10 days, small climax 3 days, 1-2 transition chapters after the climax
+- [ ] **Upgrade rhythm reasonable**: not too fast (loses anticipation) or too slow (loses patience)
+- [ ] **Theme unified**: open a random chapter; the emotion points at the book's core
+- [ ] **Title/blurb/opening three doors**: layer-by-layer filtering; no pretentious titles failing to deliver the selling point
+- [ ] **Chapter outlines have purpose words**: setup/climax/payoff/comeuppance/characterization/setting marked per chapter
+- [ ] **Retention dual engines**: emotion (fast projection) + hunger (info-gap question marks)
+- [ ] **Lengthen the strong board, not patch the short**: genre strong board matches ability strong board

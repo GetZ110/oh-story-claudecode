@@ -1,90 +1,123 @@
-# 短篇网文跨平台写作参考
+# Cross-Platform Writing Reference: English Short-Fiction Market
 
-> 选平台/写简介/定题材时加载。先看决策路由选操作区域。
+> Load when picking a platform / writing an opening / choosing a genre. First check the routing table to pick the operating area.
 
-## 决策路由
+## Decision routing
 
-| 你需要什么 | 查看哪个部分 | 核心操作 |
-|------------|-------------|---------|
-| 对比各平台差异 | 跨平台差异对照表 | 按维度横向对比选平台 |
-| 写平台简介/导语 | 各平台简介写作公式 | 套对应平台公式 |
-| 找爆款题材组合 | 题材爆款公式 | 按题材找公式 + 目标平台 |
-| 了解平台独特规则 | 平台独特特征 | 七猫/知乎/点众各有要点 |
-
----
-
-基于四大平台（七猫、黑岩、知乎、点众）历史热门样本整理。使用前必须用当前 scan 结果校验；未校验时只作为候选规则，不作为当前市场事实。
+| What you need | Look at which section | Core action |
+|---------------|-----------------------|-------------|
+| Compare platform differences | cross-platform difference table | compare dimension by dimension, pick the platform |
+| Write the opening/blurb | opening-hook conventions per platform | apply the matching platform's opening formula |
+| Find hot genre combos | genre bestseller formulas | find the formula by genre + target platform |
+| Understand platform-specific rules | platform-specific traits | each platform has its own points |
 
 ---
 
-## 跨平台短篇写作差异对照表
-
-| 维度 | 七猫 | 黑岩 | 点众 | 知乎 |
-|------|------|------|------|------|
-| 主力字数 | 1-2万字 | 8千-4万字 | 1-2万字(10章x1000字) | 5千-1.5万字(中位1.2万) |
-| 章节数 | 7-19 | 4-14段(或1章4万字) | 5-10(标准10章) | 6-10 |
-| 人称 | 第一人称95%+ | 第一人称85%(女)/50%(男) | 第一人称95%+ | 混合(古言用第三人称) |
-| 章节字数 | 1000-1500 | 2000-5000 | 800-1500 | 800-1500 |
-| 对话占比 | 20-38%(均值27.7%) | 30-50% | 9%平均(功能化) | 20-40%(金句多) |
-| 段落结构 | 1-3句/段 | 1-3句/段 | 1-2句/段(16-37字) | 1-3句/段(30-60字) |
-| 导语/简介 | 必须(100-200字) | 必须(100-363字) | 必须(150-300字) | 简介即作品(200-500字) |
-| 开头模式 | 重生回溯/冲突前置 | 极端冲击/道德踩踏 | 标题即剧情/极端事件 | 一句话炸弹/金句开场 |
-| 结尾模式 | HE为主(50%+新恋情) | HE/BE各半 | HE为主(悔恨/打脸) | 多样化(开放式多) |
-| 独特元素 | 重生、穿书、心声流 | 灵魂视角、虐恋极致 | 弹幕流、读心、系统流 | 专业细节、脑洞、BL |
-| 反转手法 | 态度反转(重生后180度转变) | 道德反转+恐怖反转 | 身份反转+死亡反转 | 信息差+情感深层揭露 |
-| 爽点节奏 | 虐30%->觉醒15%->爽35%->治愈20% | 女:300-500字小反转/男:1000-2000字大爆发 | 每3章小转折/第10章大爆发 | 层层揭露/慢节奏但后劲大 |
-| 情绪密度 | 中-高 | 最高(女频3.23次/千字) | 极高(短句占比33-66%) | 中(克制但有力) |
-| 对话引号 | 「」或"" | 「」或"" | ""为主 | 「」为主 |
-| 核心定位 | 重生幻想 | 极致刺激 | 情绪快餐 | 情感精品 |
+> **Calibration status**: this table is an **initial calibration** distilled from a small sample of English-market short fiction and public platform norms (Wattpad, Inkitt, Radish, Galatea, Dreame, GoodNovel, Tapas). It is a starting heuristic, **not current market fact**. Before relying on it, validate against the latest scan results (current `story-short-scan` run or user-provided samples); unvalidated numbers are candidate rules only.
 
 ---
 
-## 各平台简介写作公式
+## Cross-platform short-fiction differences
 
-| 平台 | 简介公式 | 字数 | 核心特征 |
-|------|---------|------|---------|
-| 七猫总裁 | 正常生活->伤害事件->最残忍对话->女主反转->悬念钩子 | 133-322字 | 70%含对话，对话选最伤人那句 |
-| 黑岩女频 | 递进式控诉/心声揭穿/绝症倒计时/重生对比/公开羞辱+底牌 | 103-363字 | 核心是"这一次我..." |
-| 黑岩男频 | 极简对白+信息炸弹/前世被害+重生/职场压榨+超自然 | 109-401字 | 第一段直接上最炸裂的场景或对白 |
-| 点众 | 场景设定+信任陷阱+致命真相+反击暗示 | 150-300字 | 简介浓缩前1/3精华 |
-| 知乎 | 人物关系+核心冲突+2-3转折+金句/留白 | 200-500字 | 简介即独立微小说，有金句收尾 |
-
----
-
-## 题材爆款公式
-
-| 题材 | 爆款公式 | 核心情绪 | 目标平台 |
-|------|----------|----------|----------|
-| 总裁豪门 | 契约婚姻+白月光+觉醒离开 | 虐->爽 | 七猫/黑岩 |
-| 现实生活 | 家庭不公+重生/觉醒+反杀 | 愤怒->解气 | 七猫 |
-| 宫闱宅斗 | 被害+隐忍布局+反攻称帝 | 压抑->极致释放 | 七猫 |
-| 年代重生 | 替罪冤屈+重生+选不同路 | 憋屈->痛快 | 七猫 |
-| 现代悬疑 | 超自然设定+犯罪+反转 | 紧张->震撼 | 七猫/知乎 |
-| 玄幻仙侠 | 重生+反常行为+对手自乱 | 爽->更爽 | 七猫 |
-| 灵魂虐文 | 极致虐待+灵魂旁观+悔恨 | 愤怒->意难平 | 点众/黑岩 |
-| 职场逆袭 | 重生/穿越+投资+前夫后悔 | 憋屈->极爽 | 点众 |
-| 架空历史 | 性别反转/身份错位+离开+后悔 | 憋屈->释然 | 七猫 |
-| 家庭复仇 | 出轨/背叛+收集证据+当众打脸 | 愤怒->痛快 | 七猫/黑岩 |
+| Dimension | Paid episodic (Radish / Dreame / GoodNovel / Galatea) | Wattpad | Inkitt | Tapas |
+|-----------|------------------------------------------------------|---------|--------|-------|
+| Typical episode length | 1500-3000 words (standard 2000-2500) | 1500-3000 per chapter | 1000-3000 | 800-2000 (scroll-optimized) |
+| Episode count | 8-15 (standard 10-12) | flexible (10-40) | flexible | 8-30 (shorter episodes) |
+| Person | first-person 90%+ | first-person heavy | mixed, voice-driven | mixed |
+| Dialogue share | 40-60% | 35-55% | 40-60% | 40-65% |
+| Paragraph structure | 1-3 sentences/paragraph | 1-3 sentences/paragraph | 1-3 sentences/paragraph | 1-2 sentences/paragraph |
+| Opening convention | conflict in the first 150 words; the premise situation stated inside the first episode | hook in the first 200 words; voice and relationship front-loaded | twist or premise reveal up front; the "what if" in the first 100 words | episode title + first-scene hook; visual immediacy |
+| Episode ending | cliffhanger every episode; the strongest break at the paywall/unlock | emotional cliffhanger or slow-burn pause | reveal or question; end on the itch | hard cliffhanger per episode |
+| Ending mode | satisfying majority (HE + new relationship) | varied (HE dominant) | twist-forward; HE or open | varied |
+| Distinctive elements | unlock engineering, cover-driven clicks, chapter-end paywalls | comments, fan dynamics, slow-burn community | contests, discovery via writing community | vertical scroll, premium episodes, fandom adjacency |
+| Reversal style | identity + comeuppance reversal | emotional reveal | premise/cognitive reversal | scene-level twist |
+| Payoff rhythm | every 2-3 episodes a comeuppance/break | slow burn with periodic payoffs | twist every few episodes | mini-payoff per episode |
+| Core positioning | emotion fast-food with structure | emotional home | idea-driven hits | episodic wonder |
 
 ---
 
-## 平台独特特征
+## Opening-hook conventions per platform
 
-### 七猫
+| Platform type | Opening formula | Length | Core trait |
+|---------------|-----------------|--------|------------|
+| Paid episodic | situation → conflict flash → the wrong done → the resolve → the cliffhanger question | 150-300 words | first lines carry the conflict; the unlock question hangs at the episode end |
+| Wattpad | voice → the meet → the tension note | 200-350 words | the narrator's voice is the hook; relationship front-loaded |
+| Inkitt | the premise twist → the ordinary before it → the "what if" | 150-250 words | the reveal or the question comes early; curiosity-driven |
+| Tapas | scene → the visual hook → the episode title payoff | 100-250 words | the first scene must read like a panel; immediate stakes |
 
-- 第一人称95%+，女性主角80%+
-- 每章1000-1500字，7-10章为主力区间
-- 几乎都有明确导语（前言概括全文核心冲突）
+---
 
-### 知乎
+## Genre bestseller formulas (initial calibration)
 
-- 专业细节丰富（医疗有医学知识，法律有法律细节）
-- 社会议题导向（婆媳、重男轻女、医疗纠纷）
-- 情绪更克制但后劲更大，对话更真实
-- 简介即作品：200-500字微小说，有金句收尾
+| Genre | Formula | Core emotion | Target platforms |
+|-------|---------|--------------|------------------|
+| Enemies-to-lovers | the clash → forced proximity → the crack → the choice | friction → release | Wattpad, Dreame, GoodNovel |
+| Billionaire romance | the contract → the imbalance → the public rescue → the choice | lack → gratification | Dreame, GoodNovel, Radish |
+| Second chance | the wound → the reunion → the argument → the owned confession | ache → healing | Wattpad, Inkitt |
+| Dark romance | the dangerous meet → the possessive act → the vulnerability → the vow | fear → devotion | Radish, Galatea, Dreame |
+| Small-town romance | the newcomer → the town's eyes → the shared event → the public stand | belonging | Wattpad, Tapas |
+| Cozy mystery | the body → the closed community → the quiet investigation → the gathering reveal | curiosity → restoration | Inkitt, Tapas |
+| Whodunit | the murder → the suspects → the fair-play clues → the reconstruction | puzzle → satisfaction | Inkitt |
+| Psychological thriller | the premise unease → the doubt escalates → the re-frame reveal | dread → shock | Inkitt, Tapas |
+| Romantasy | the magic meet → the quest → the forbidden bond → the choice | wonder + love | Tapas, Dreame |
+| Sci-fi twist | the anomaly → the false world's evidence → the reveal | unease → re-frame | Inkitt, Tapas |
+| Found family | the loner → the accidental meeting → the shared crisis → the choice to stay | loneliness → belonging | Wattpad, Tapas |
 
-### 点众标题公式
+---
 
-- `白眼狼妹妹把家产送人，我让她净身出户` = 人物+行为+反杀
-- `愚人节死在棺材里后，三个哥哥都悔疯了` = 事件+后果+情绪
-- `春节返程，老公一家把我女儿挂车外狗笼子里` = 场景+冲突+愤怒
+## Platform-specific traits
+
+### Paid episodic (Radish / Dreame / GoodNovel / Galatea)
+
+- First-person 90%+, protagonist-first conflict inside the first 150 words
+- Every episode ends on an unresolved beat; the paywall sits at the strongest break
+- Hook density steps up around the unlock point
+- Comeuppance/gratification beats land publicly; the "small person wins" arc is the backbone
+
+### Wattpad
+
+- Voice is the product: the narrator's register sells the story before the plot does
+- Reader comments are part of the loop — slow-burn scenes are where the community lives
+- Blurbs function as the first page: the relationship promise must be visible
+
+### Inkitt
+
+- Hook culture: the "what if" premise must be in the first 100 words
+- Twists and reveals are the currency; the ending re-frames the reading
+- Contest-driven discovery means the opening must win in the first paragraph
+
+### Tapas
+
+- Vertical-scroll format: episodes are shorter, scenes more visual
+- Episode titles are hooks; each episode should deliver a mini-payoff
+- Fandom-adjacent and comic-adjacent readers: immediacy over prose polish
+
+---
+
+## 2026 short-fiction trend snapshot (initial calibration; re-validate before use)
+
+> Compiled 2026-08-04 from serial-app leaderboards (GoodNovel, Dreame, Inkitt, Wattpad hot lists). A starting heuristic, **not current market fact**.
+
+| Rank | Genre | Where it peaks | Core formula |
+|------|-------|----------------|--------------|
+| 1 | Werewolf / shifter romance | GoodNovel, Dreame, Inkitt | Rejected mate -> second chance; alpha/beta hierarchy; fated bond |
+| 2 | Mafia / billionaire | Dreame, GoodNovel | Forbidden power dynamic; forced proximity; possessive lead |
+| 3 | Dark romance | Inkitt, Wattpad | Taboo-adjacent tension, morally grey lead, hard-earned HEA |
+| 4 | Sports romance | Wattpad, Kindle Unlimited | Rivals-to-lovers; team and contract stakes; public vs private self |
+| 5 | Monster romance | Inkitt, Dreame (rising) | Creature/human pairing; forced proximity; outsider longing |
+| 6 | Domestic thriller | Kindle short serials, Wattpad | Closed-circle family secrets; unreliable narrator; short-burst reveals |
+| 7 | Romantasy (serialized) | Wattpad, Inkitt | High-fantasy world + trope-driven romance; episode mini-payoffs |
+
+Cross-check notes:
+- Radish shut down December 2025; Galatea unreachable at compile time — validate those platforms separately.
+- Serial-app leaderboards are retention-driven; Kindle ranks are sales-driven. Don't mix proxies when comparing.
+- Re-validate every rank against the current live lists before choosing a genre.
+
+---
+
+## Calibration checklist
+
+- [ ] Numbers above are validated against the latest scan results before use
+- [ ] The target platform's episode-length and dialogue-share norms confirmed from recent samples
+- [ ] Opening conventions cross-checked against the current top-50 of the target platform
+- [ ] Unvalidated numbers treated as candidate rules, not market fact

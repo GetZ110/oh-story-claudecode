@@ -1,133 +1,133 @@
-# 文风协议
+# Style Profile Protocol
 
-> **何时加载**：story-long-analyze Stage 6 执行前。下游写作 skill 直接读 `文风.md`，不加载本协议。
+> **When to load**: before story-long-analyze Stage 6 runs. Downstream writing skills read `style.md` directly; they don't load this protocol.
 
-## 产物定义
+## Artifact definition
 
-`拆文库/{书名}/文风.md` 是整书级写作技法视图，聚合：
+`teardown-lib/{Book Title}/style.md` is a whole-book writing-technique view that aggregates:
 
-- 句长 / 标点 / 段落节奏（从原文采样统计）
-- 对话潜台词模式 + 角色语气区分
-- 章内 + 跨章情绪交替周期（看每章基调如何变化）
-- `拆文报告.md` 已有的「写法技巧」「可借鉴套路」
-- 分层模仿建议（基础层 / 进阶层 / 适配层，强调学手法不搬桥段）
-- 4-6 段 300-500 字原文锚点片段（范例片段用）
+- Sentence length / punctuation / paragraph rhythm (measured from source samples)
+- Dialogue subtext patterns + character voice differentiation
+- In-chapter and cross-chapter emotional alternation cycles (how each chapter's tone changes)
+- The "writing techniques" and "borrowable tropes" already in `teardown-report.md`
+- Tiered imitation advice (base tier / advanced tier / adaptation tier; learn the technique, don't copy the scenes)
+- 4-6 source anchor excerpts of 300-500 words (example passages)
 
-## 文件路径
+## File paths
 
-- **写**：`拆文库/{书名}/文风.md`（analyze 独占）
-- **读**：该书被显式选为另一项目的外部对标时，由 story-import 或 story-long-write 首次引用同步到 `{项目}/对标/{书名}/文风.md`；story-long-write 读项目对标视图（回退拆文库）。story-import 正在重建的本书不走这条同步。
+- **Write**: `teardown-lib/{Book Title}/style.md` (analyze's exclusive output)
+- **Read**: story-import syncs it to `{project}/benchmark/{Book Title}/style.md`; story-long-write reads the project benchmark view (falling back to the teardown library)
 
-## 字数预算
+## Word budget
 
-- **硬上限 ~4000 字**
-- 描述部分（整体语感 + 对话技法 + 情绪交替模式 + 可借鉴技巧 + 分层模仿建议）≤ 1800 字
-- 原文锚点片段 4-6 段 × 300-500 字 ≈ 1600-2400 字
-- 不可模仿 + 生成记录 ≤ 100 字
+- **Hard cap ~4000 words**
+- Description sections (overall voice + dialogue technique + emotional alternation pattern + borrowable techniques + tiered imitation advice) ≤ 1800 words
+- Source anchors 4-6 × 300-500 words ≈ 1600-2400 words
+- Do-not-imitate + generation record ≤ 100 words
 
-## 模板
+## Template
 
 ```markdown
-# {书名} 文风
+# {Book Title} Style Profile
 
-## 生成记录
-- 参考资料：拆文报告.md、黄金三章深度拆解、章节摘要
-- 抽样章节：第 {K1}/{K10}/{K20} 章（每章约 1000 字）
-- 生成时间：{date}
-- 适用对标书路径：拆文库/{书名}/
-- 文风可用：是  # 若原文缺失或锚点不足，写“否：原因”
+## Generation record
+- Materials consulted: teardown-report.md, opening-hook-chapters deep dives, chapter summaries
+- Sampled chapters: {K1}/{K10}/{K20} (about 1000 words each)
+- Generated: {date}
+- Benchmark path: teardown-lib/{Book Title}/
+- Style usable: yes  # if the source is missing or anchors are insufficient, write "no: reason"
 
-## 整体语感
-- 句长分布：{由 `style-profile-generator.md` Step 4 的跨平台 Python 1-liner 在 3 章拼接样本上确定性测量——短句(<15字)占比 X%、中句(15-30)Y%、长句(>30)Z%、平均句长 N 字、标点密度 M%。一句概括语感。`confidence: high`（数据由脚本算出，不是抽样估计）。}
+## Overall voice
+- Sentence-length distribution: {measured deterministically by the cross-platform Python one-liner in `style-profile-generator.md` Step 4 on the 3-chapter concatenated sample — short(<15 words) X%, mid(15-30) Y%, long(>30) Z%, average sentence length N words, punctuation density M%. One sentence summarizing the feel. `confidence: high` (computed by script, not a sampling estimate).}
   - confidence: high | med | low
-- 标点习惯：{破折号/省略号/句号/感叹号/分号 的高频用法。附 2-3 个原文短片段示例。}
+- Punctuation habits: {high-frequency uses of dashes/ellipses/periods/exclamation marks/semicolons. Include 2-3 short source examples.}
   - confidence: high | med | low
-- 段落节奏：{平均段长、单段单动作 vs 多动作堆叠、断行习惯。}
+- Paragraph rhythm: {average paragraph length, one-action-per-paragraph vs stacked actions, line-break habits.}
   - confidence: high | med | low
 
-## 对话技法
-- 潜台词模式：{2-3 种典型潜台词手法（问非所答 / 语气反差 / 信息隐瞒等），每种附 1 段原文示例。}
+## Dialogue technique
+- Subtext patterns: {2-3 typical subtext techniques (answering a different question / tone contrast / withholding information, etc.), each with 1 source example.}
   - confidence: high | med | low
-- 对话标签习惯：{说话动词多样性、动作替代说话标签的频率、对话与动作的穿插比例。}
-- 角色语气区分：{主角和 1-2 个核心配角的口头禅/句式差异，引用原文样本句。}
+- Dialogue tag habits: {speech-verb variety, how often action replaces speech tags, the mix ratio of dialogue to action.}
+- Character voice differentiation: {catchphrases/sentence-pattern differences between the protagonist and 1-2 core supporting characters, with source sample lines.}
 
-## 情绪交替模式
-- 章内基调切换：{统计章节内情节点基调序列——典型章节是否在 紧张↔轻松 或 热血↔温馨 之间切换、切换频率（每章 N 次）。}
+## Emotional alternation pattern
+- In-chapter tone switching: {statistics of the in-chapter plot-point tone sequence — whether typical chapters switch between tense↔light or hot↔warm, switching frequency (N times per chapter).}
   - confidence: high | med | low
-- 跨章基调周期：{前 20 章「章基调」序列，识别“虐 3 章爽 1 章”之类周期。}
-- 喜剧↔重击的转场手法：{对标书在 轻松→悲伤 锐角转场时用了什么手法，举 1-2 个原文锚点。}
+- Cross-chapter tone cycle: {the first 20 chapters' "chapter tone" sequence, recognizing cycles like "3 chapters of misery, 1 chapter of payoff".}
+- Comedy↔heavy-beat transition technique: {what technique the benchmark book uses for sharp light→sad transitions, with 1-2 source anchors.}
 
-## 可借鉴技巧（从 拆文报告.md 直接引用）
-- 写法技巧 Top 5：
-  1. {技巧名}：{一句话用法说明}
+## Borrowable techniques (quoted from teardown-report.md)
+- Top 5 writing techniques:
+  1. {technique}: {one-line usage note}
   2. ...
-- 可借鉴套路 Top 3：
-  1. {套路名}：{适用场景}
+- Top 3 borrowable tropes:
+  1. {trope}: {applicable scenario}
   2. ...
 
-## 分层模仿建议
-- 基础层（必学）：{词汇偏好、句式节奏、对话标签、描写重心中最容易迁移的 3-5 条；只学表达习惯，不复制原句}
-- 进阶层（结构）：{节奏推进、伏笔埋回、视角切换、场景衔接中最值得复用的 3-5 条；替换人物/场景/道具后再使用}
-- 适配层（本书化）：{哪些技法适合当前项目，哪些会导致人设/题材错位；明确不要搬运专名、标志性台词、独特桥段和事件顺序}
+## Tiered imitation advice
+- Base tier (must-learn): {the 3-5 most transferable items among vocabulary preferences, sentence rhythm, dialogue tags, and description focus; learn expression habits only, don't copy original sentences}
+- Advanced tier (structure): {the 3-5 most reusable items among rhythm progression, foreshadowing plant-and-payoff, POV switches, scene transitions; replace characters/scenes/props before using}
+- Adaptation tier (make it this book): {which techniques fit the current project and which would misalign its characters/genre; explicitly state not to carry over proper nouns, signature lines, unique scenes, or event order}
 
-## 原文锚点片段
+## Source anchor excerpts
 
-> 每片段 300-500 字，**用于 narrative-writer 写作时的范例片段**。从 `原文/原文.txt` 按章节分隔符切片。模仿手法、不抄字句。
+> Each excerpt is 300-500 words, **used as example passages for the narrative-writer**. Cut from `source/source.txt` by chapter separator. Imitate the technique, don't copy the wording.
 
-### 片段 A — 基调：紧张
-**出处**：第 {K} 章 第 {段号} 段（行 {L1}-{L2}）
-**示范点**：{句长节奏（该处长短如何分布） / 标点位置 / 一笔两用 等}
-
-```
-{300-500 字原文}
-```
-
-### 片段 B — 基调：悲伤/压抑
-**出处**：第 {K} 章 第 {段号} 段（行 {L1}-{L2}）
-**示范点**：{对话潜台词手法}
+### Excerpt A — Tone: tense
+**Source**: Chapter {K}, paragraph {N} (lines {L1}-{L2})
+**Demonstrates**: {sentence-length rhythm here (how long and short distribute) / punctuation placement / one-stroke-two-uses, etc.}
 
 ```
-{300-500 字原文}
+{300-500 words of source}
 ```
 
-### 片段 C — 基调：轻松/搞笑
-**出处**：第 {K} 章 第 {段号} 段（行 {L1}-{L2}）
-**示范点**：{句子节奏 / 角色语气区分}
+### Excerpt B — Tone: sad/oppressive
+**Source**: Chapter {K}, paragraph {N} (lines {L1}-{L2})
+**Demonstrates**: {dialogue-subtext technique}
 
 ```
-{300-500 字原文}
+{300-500 words of source}
 ```
 
-### 片段 D — 基调：热血/爽点
-**出处**：第 {K} 章 第 {段号} 段（行 {L1}-{L2}）
-**示范点**：{爽点铺放比 / 动作描写句长}
+### Excerpt C — Tone: light/funny
+**Source**: Chapter {K}, paragraph {N} (lines {L1}-{L2})
+**Demonstrates**: {sentence rhythm / character voice differentiation}
 
 ```
-{300-500 字原文}
+{300-500 words of source}
 ```
 
-> 优先覆盖项目可能用到、且对标书中样本充足的基调：紧张、悲伤/压抑、轻松/温馨、热血。按拆文里实际分布挑 4-6 段；缺哪个基调就写“本书该基调样本不足，跳过”，不要编造。
+### Excerpt D — Tone: hot/payoff
+**Source**: Chapter {K}, paragraph {N} (lines {L1}-{L2})
+**Demonstrates**: {payoff setup/release ratio / fight-scene sentence length}
 
-## 不可模仿
-- {对标书的明显缺陷或不适合当前项目的技法。可选段落，可空。}
+```
+{300-500 words of source}
 ```
 
-## confidence 字段语义
+> Prioritize covering tones the project may use and that have enough samples in the benchmark book: tense, sad/oppressive, light/warm, hot. Pick 4-6 excerpts by the actual distribution in the teardown; whichever tone is short on samples, write "this tone has too few samples in this book, skipping" — don't fabricate.
 
-| 值 | 触发条件 | 下游处理 |
+## Do not imitate
+- {the benchmark book's clear weaknesses or techniques that don't fit the current project. Optional section; may be empty.}
+```
+
+## confidence field semantics
+
+| Value | Trigger condition | Downstream handling |
 |---|---|---|
-| `high` | 数据直接可读（如基调序列从摘要 grep 得出） | narrative-writer 优先采纳，覆盖默认 Gate |
-| `med` | 从样本归纳且样本充足（如看章节基调走向、对话潜台词整理） | narrative-writer 参考，与默认 Gate 协商 |
-| `low` | 样本不足/原文缺失 | narrative-writer 让位回默认 Gate（不强制采纳） |
+| `high` | Data directly readable (e.g., tone sequence grepped from summaries) | narrative-writer adopts it first, overriding default Gates |
+| `med` | Generalized from samples with adequate sample size (e.g., reading chapter-tone trends, organizing dialogue subtext) | narrative-writer consults it, negotiates with default Gates |
+| `low` | Insufficient samples / source missing | narrative-writer falls back to default Gates (doesn't force adoption) |
 
-## 可用性语义
+## Usability semantics
 
-- `文风可用：是` → 文风可用于写作，narrative-writer 按 confidence 分级使用。
-- `文风可用：否：{原因}` → 文风质量不足（例如原文缺失、锚点全是占位符）。story-explorer 读取时返回 `gaps.profile_degenerate: true`，narrative-writer 跳过文风，按默认 Gates 写作，避免被误导。
+- `Style usable: yes` → the style can be used for writing; narrative-writer uses it by confidence tier.
+- `Style usable: no: {reason}` → the style is too low quality (e.g., source missing, anchors all placeholders). story-explorer returns `gaps.profile_degenerate: true` when reading it; narrative-writer skips the style and writes by default Gates to avoid being misled.
 
-## 覆盖与不可模仿原则
+## Override and do-not-imitate principles
 
-- **覆盖**：文风优先级排在 Gate D（节奏调整）、Gate B（句式去套路）、标点默认习惯之上——这些 Gate 是去 AI 味的**默认值**，文风有更具体的指令时文风赢。
-- **不可覆盖（硬约束）**：banned-words / Gate F 章末禁升华 / 禁止万能/堆叠比喻 / 禁止章末预告 / 字数下限——这些硬约束永远赢，即使文风示范了相反的用法。
+- **Override**: the style outranks Gate D (rhythm adjustment), Gate B (sentence-pattern de-templating), and default punctuation habits — those Gates are the de-AI-flavor **defaults**; when the style gives more specific instructions, the style wins.
+- **Cannot override (hard constraints)**: banned-words / Gate F no-end-of-chapter-elevation / no universal or stacked metaphors / no chapter-end previews / word-count floors — these hard constraints always win, even if the style demonstrates the opposite.
 
-精确决议表见 `.claude/agents/narrative-writer.md` 的“被调用协议”段。
+The precise resolution table lives in the "called-protocol" section of `.claude/agents/narrative-writer.md`.

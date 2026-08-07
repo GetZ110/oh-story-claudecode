@@ -1,90 +1,90 @@
 ---
 paths:
-  - "**/大纲/**"
+  - "**/outline/**"
 ---
 
 # Story Outline Rules
 
-大纲文件的规范。
+Rules for outline files.
 
 ## Rules
 
-1. **卷纲必填项**：每个卷纲（卷纲_*.md）必须包含以下部分（字段模板见 story-long-write 技能的卷纲模板与「剧情单元卡」字段模板，契约/推进规则见其读者契约与推进参考；旧版卷纲的缺项处理见规则 8）：
-   - 核心信息（章节范围 / 字数目标 / 本卷定位）
-   - 卷契约与终局储备（卷契约 / 本卷主推线 / 本卷战果 / 本卷解锁的终局里程碑 / 本卷禁碰的终局底牌 / 契约风险）
-   - 剧情单元卡（1–3 万字为可调经验值，写在卷纲内，不另建单独文件；爽感节奏由剧情单元卡管理，不设「每 N 章一个大爽点」的固定周期；章级下限按平台/题材分档：快节奏平台保留「每章要有可见事件或爽点推进」的下限）
-   - 核心矛盾（一句话：本卷要解决什么问题或达到什么目标）
-   - 情绪弧线（本卷整体情绪走向）
-   - 人物弧线（主要角色在本卷的成长/变化）
-   - 本卷伏笔（本卷埋设的伏笔及计划回收时间）
-   - 本卷反转（如有：类型 / 涉及角色 / 误导路径 / 揭示章节）
+1. **Required volume-outline fields**: every volume outline (`volume_outline_*.md`) must include the following sections (field templates: see the volume-outline template and the "story unit card" field template in the story-long-write skill; contract/progression rules: see its reader-contract and progression references; legacy outlines with missing fields: see rule 8):
+   - Core information (chapter range / target words / volume positioning)
+   - Volume contract & endgame reserve (volume contract / main push line of this volume / wins of this volume / endgame milestones unlocked this volume / endgame trump cards off-limits this volume / contract risk)
+   - Story unit card (10,000-30,000 words per unit is an adjustable rule-of-thumb; units live inside the volume outline, not in separate files; payoff pacing is managed by the story unit card — no fixed "one big payoff every N chapters" cycle; the per-chapter floor is tiered by platform/genre: fast-paced platforms keep the floor "each chapter needs visible event or payoff advancement")
+   - Core conflict (one sentence: what problem this volume solves or what goal it reaches)
+   - Emotional arc (the volume's overall emotional trajectory)
+   - Character arc (major characters' growth/change in this volume)
+   - Foreshadowing this volume (foreshadowing planted in this volume and its planned recovery time)
+   - Reversals this volume (if any: type / characters involved / misdirection path / reveal chapter)
 
-2. **细纲必填项**：每个细纲（细纲_*.md）必须包含当前“章节蓝图”：
-   - 阶段位置：所处卷/阶段、阶段目标、本章推进与前后承接
-   - 本章结构公式：本章采用的情绪与冲突展开公式
-   - 本章禁止提前释放：本章不得提前揭示的真相、底牌、关系结论或终局矛盾
-   - 基础执行字段：本章核心事件、字数目标、目标情绪、单元ID/位置、主角目标/关键选择、章首钩子、本章爽点、章尾钩子、契约风险（逐章按大纲安全七检⑥⑦复核后填写）
-   - 内容概括（五段式）：起因 / 发展 / 转折 / 高潮 / 结尾——结尾写本章最后落在什么动作或画面上，不写状态判词
-   - 情节安排（多线）：主线推进 / 辅线推进 / 事件线或任务线 / 感情线或关系线 / 逻辑线
-   - 人物关系和出场顺序：按实际出现顺序列角色/势力/关键物件，并写人物关系变化
-   - 情节细化：情节点序列写“谁做了什么 + 功能标签”，并标 行动成本（可无）/收益归属——行动成本可无，不硬造代价；旧版细纲只有 代价兑现 / 收益兑现 时回退按该字段核对，不阻塞
-   - 结尾设定和钩子：收束状态（写成具体的落幕动作或画面）、未解决问题、下一章推动力、章尾钩子
+2. **Required chapter-outline fields**: every chapter outline (`outline_chapter_*.md`) must contain the current "chapter blueprint":
+   - Stage position: the volume/stage it sits in, the stage goal, this chapter's advancement and what it picks up from / hands to
+   - Chapter structure formula: the emotion-and-conflict formula this chapter uses
+   - Forbidden early release: truths, trump cards, relationship conclusions, or endgame contradictions this chapter must not unveil early
+   - Base execution fields: core event, target words, target emotion, unit ID/position, protagonist goal/key choice, opening hook, payoff, chapter-end hook, contract risk (filled after re-verifying against outline safety checks ⑥ and ⑦ per chapter)
+   - Content summary (five-part): cause / development / turn / climax / ending — the ending writes the concrete action or image the chapter lands on, not a state verdict
+   - Plot arrangement (multi-line): main line progress / sub-line progress / event & task line / relationship line / logic line
+   - Characters and appearance order: list characters/factions/key objects in actual appearance order, and note relationship changes
+   - Plot detail: the plot-point sequence written as "who did what + function tag", with action cost (optional) / benefit recipient marked — action cost may be None; do not manufacture a price; when a legacy outline only has cost delivery / benefit delivery, fall back to those fields for the check and do not block
+   - Ending and hook: closing state (written as a concrete landing action or image), open problems, next chapter's driving force, chapter-end hook
 
-3. **增量写入**：大纲必须增量写入——先写骨架（关键事件和爽点），再逐节填充细节。不要一次性写出所有细节。
+3. **Incremental writing**: outlines must be written incrementally — skeleton first (key events and payoffs), then fill in details section by section. Do not write all details in one pass.
 
-4. **与正文同步**：写完一章正文后，回头更新细纲中"实际完成情况"部分。
+4. **Sync with prose**: after finishing a chapter of prose, go back and update the "actual completion" part of the chapter outline.
 
-5. **章首钩子必须从以下类型选择**（完整技法见 `story-setup/references/agent-references/hooks-chapter.md`）：
-   悬念对话开局 | 闪前碎片 | 倒计时开局 | 神秘独白 | 反差场景 | 未完成动作开局 | 意象预示
+5. **Opening hooks must be chosen from these types** (full techniques: `story-setup/references/agent-references/hooks-chapter.md`):
+   suspenseful-dialogue opener | flash-forward fragment | countdown opener | mysterious monologue | contrast scene | unfinished-action opener | image portent
 
-6. **章尾钩子必须从以下类型选择**（完整技法见 `story-setup/references/agent-references/hooks-chapter.md`）：
-   突然揭示 | 紧急危机 | 未完成动作 | 身份反转 | 两难抉择 | 神秘物品/线索 | 倒计时 | 承诺/威胁 | 离奇消失 | 隐藏含义 | 意象钩子 | 回声钩子 | 留白钩子
+6. **Chapter-end hooks must be chosen from these types** (full techniques: `story-setup/references/agent-references/hooks-chapter.md`):
+   sudden reveal | urgent crisis | unfinished action | identity reversal | dilemma | mysterious object/clue | countdown | promise/threat | eerie disappearance | hidden meaning | image hook | echo hook | blank-space hook
 
-7. **每章必须有情绪变化**：细纲必须标注情绪起点→终点（如"平静→震惊→愤怒"），连续 2 章情绪无变化 = 需调整。
+7. **Every chapter needs emotional change**: the chapter outline must mark emotion start → end (e.g. "calm → shocked → furious"); 2 consecutive chapters without emotional change = needs adjustment.
 
-8. **缺项处理**：旧版细纲缺章节蓝图字段不阻止续写——回退消费旧字段（核心事件、情节点序列、目标情绪、章首/章尾钩子、字数目标），本轮内存推断、仅在明确补纲/改纲时回写；新建、补建、改纲的细纲必须按当前章节蓝图模板补齐后再进入正文。旧版卷纲同样不阻塞——缺规则 1 的部分分节（如只有 本卷目标/爽点节奏）或用旧字段名（循环ID 等）时按字段结构回退读取，仅在用户明确补纲/改纲时升级为当前结构；已写区间锁定的卷纲不自动改写。无法从材料确认的辅线、关系变化或代价收益写 `[待补充]`，不得编造。
+8. **Missing-field handling**: a legacy chapter outline missing blueprint fields does not block continuation — fall back to the old fields (core event, plot-point sequence, target emotion, opening/end hooks, target words), infer in memory for this round, and only write back when the outline is explicitly backfilled/revised. Newly created, backfilled, or revised chapter outlines must be completed to the current chapter-blueprint template before entering prose. Legacy volume outlines likewise do not block — when parts of rule 1's sections are missing (e.g. only volume goal / payoff pacing) or old field names are used (e.g. Loop ID), read them back per field structure; only upgrade to the current structure when the user explicitly backfills/revises. Volume outlines locked for already-written ranges are not auto-rewritten. Sub-lines, relationship changes, or cost/benefit that cannot be confirmed from the material go as `[TBD]` — never invented.
 
 ## Examples
 
-### Correct — 完整的卷纲
+### Correct — a complete volume outline
 ```
-# 卷纲_第一卷.md
-## 核心信息
-- 章节范围：第1-30章
-- 字数目标：9万字
-- 本卷定位：铺垫
-## 卷契约与终局储备
-- 卷契约：沈栀从被欺压到进入暗卫的逆袭爽感；期待债：身世之谜
-- 本卷主推线：战力线（灵力第三层→第五层）
-- 本卷战果：身份线（拿到暗卫编制）、关系线（与师父建立信任）
-- 本卷解锁的终局里程碑：接触暗卫体系
-- 本卷禁碰的终局底牌：师父真实身份、古镜完整体
-- 契约风险：契约安全
-## 剧情单元卡
-### 剧情单元 L1-1
-- 单元ID：L1-1
-- 章节范围：第1-12章
-- （其余字段按 story-long-write 技能的「剧情单元卡」字段模板填写）
-## 核心矛盾
-沈栀要在家族清洗前拿到进入暗卫的资格。
-## 情绪弧线
-压抑→低谷→觉醒→爆发→余韵
-## 人物弧线
-沈栀：从隐忍到主动反击
-## 本卷伏笔
-- F003：古镜碎片（第8章埋，第二卷回收）
-- F007：师父真实身份（第12章埋，第三卷回收）
-## 本卷反转
-第18章：暗卫首领竟是沈栀失散多年的兄长（身份反转，误导路径：首领屡次针对沈栀）
+# Volume Outline: Volume 1
+## Core Information
+- Chapter range: Chapters 1-30
+- Target words: 90,000
+- Volume positioning: setup
+## Volume Contract & Endgame Reserve
+- Volume contract: Shen Zhi's come-from-behind gratification, from being crushed to joining the Shadow Guard; promise debt: the mystery of her origins
+- Main push line: strength line (spirit power third layer → fifth layer)
+- Wins this volume: identity line (a formal Shadow Guard post), relationship line (building trust with the master)
+- Endgame milestones unlocked: reaching the Shadow Guard system
+- Endgame trump cards off-limits: the master's true identity, the intact ancient mirror
+- Contract risk: safe
+## Story Unit Card
+### Story Unit L1-1
+- Unit ID: L1-1
+- Chapter range: Chapters 1-12
+- (remaining fields per the "story unit card" field template in the story-long-write skill)
+## Core Conflict
+Shen Zhi must earn entry into the Shadow Guard before the clan purge.
+## Emotional Arc
+oppression → rock bottom → awakening → eruption → lingering resonance
+## Character Arc
+Shen Zhi: from silent endurance to active counterattack
+## Foreshadowing This Volume
+- Foreshadowing#3: ancient-mirror shard (planted chapter 8, recovered volume 2)
+- Foreshadowing#7: the master's true identity (planted chapter 12, recovered volume 3)
+## Reversals This Volume
+Chapter 18: the Shadow Guard captain turns out to be Shen Zhi's long-lost brother (identity reversal; misdirection path: the captain repeatedly targets Shen Zhi)
 ```
-所有必填项齐全，终局底牌有明确边界，伏笔有明确回收计划。
+All required fields present, endgame trump cards clearly bounded, foreshadowing with clear recovery plans.
 
-### Wrong — 缺少必填项的卷纲
+### Wrong — a volume outline missing required fields
 ```
-# 卷纲_第一卷.md
-## 本卷目标
-沈栀加入暗卫。
-## 爽点节奏
-每5章一个大爽点。
+# Volume Outline: Volume 1
+## Volume Goal
+Shen Zhi joins the Shadow Guard.
+## Payoff Pacing
+One big payoff every 5 chapters.
 ```
-缺少卷契约与终局储备、剧情单元卡等必填项；爽感节奏由剧情单元卡管理，不设「每 N 章一个大爽点」的固定周期，快节奏平台只保留「每章要有可见事件或爽点推进」的章级下限。存量项目里长这样的旧版卷纲按规则 8 回退读取，不阻塞、不自动改写。
+Missing the required volume contract & endgame reserve, story unit card, etc.; payoff pacing is managed by the story unit card — no fixed "one big payoff every N chapters" cycle; for fast-paced platforms only the per-chapter floor "each chapter needs visible event or payoff advancement" remains. Legacy volume outlines in existing projects that look like this are read back per rule 8 — not blocked, not auto-rewritten.

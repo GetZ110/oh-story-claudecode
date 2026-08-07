@@ -1,5 +1,5 @@
 ---
-description: 网文封面生成。分析书名题材，生成专业封面图。
+description: Web-novel cover generation. Analyzes the title and genre, then generates a professional cover image.
 ---
 
-请使用 story-cover skill，帮助我分析和生成网文封面图。
+Use the story-cover skill to help me analyze and generate a web-novel cover image.

@@ -1,188 +1,188 @@
-# 女频写作操作手册（长篇）
+# Romance-Focused Writing Handbook (Long-Form)
 
-> 写长篇女频（番茄女生/起点女生/晋江/七猫）时加载。先看决策路由，再按对应节执行。
-> 简介五种基本类型、书名命名技法见 [genre-readers.md](genre-readers.md)，本文不重复；平台定位本文按女频频道特化补充。
-> 感情线总框架（好感度体系/CP行为门槛/男女频爱情线底层逻辑）以 [character-relations.md](character-relations.md)「好感度体系」为准，本文只补女频长线节奏。
+> Load when writing long-form romance-focused fiction (Webnovel female channel / Wattpad / Kindle romance / GoodNovel, etc.). First look at the decision routing, then execute the corresponding section.
+> The five basic blurb types and title-naming techniques live in [genre-readers.md](genre-readers.md); not repeated here. Platform positioning here is specialized for the romance-focused channel.
+> The overall romance-line framework (affinity system / CP behavior thresholds / male- vs female-audience romance logic) is governed by [character-relations.md](character-relations.md) "affinity system"; this file only adds the romance-focused long-line rhythm.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在做什么 | 查看这个部分 | 核心操作 |
+| What you're doing | Section | Core operation |
 |-----------|-------------|---------|
-| 定女频核心方向 | 女频核心原则 | 安全感/代入感/主动性/情绪即产品四条全过一遍 |
-| 写长篇简介/开篇文案 | 女频文案结构体系 | 用安全感导向四段组合，必含女主成功暗示 |
-| 判断目标读者要什么 | 读者群体与深层需求 | 先定读者画像，再定情绪方向 |
-| 选长篇题材/找梗 | 长篇热门题材与梗 | 选有长线骨架的题材，叠梗组合，scan 验证热度 |
-| 排感情线长线节奏 | 感情线长线深化 | 按卷级节奏排暧昧→确认→危机→升华 |
-| 对比男女频底层逻辑 | 女频 vs 男频底层差异 | 核心驱动/虐的目的/反转类型全不同 |
-| 选平台/调篇幅节奏 | 多平台女频写法定位 | 按目标平台调文风、安全感密度、篇幅节奏 |
-| 收尾质检 | 质量检查清单 | 逐项核对 |
+| Set the romance-focused core direction | core principles | run all four: safety / immersion / agency / emotion-as-product |
+| Write a long-form blurb/opening copy | blurb structure system | use the safety-oriented four-part combination, must include the heroine's success hint |
+| Judge what the target reader wants | reader groups & deep needs | profile the reader first, then set the emotion direction |
+| Pick long-form genres/find hooks | popular long-form genres & hook combos | pick genres with a long-line skeleton, stack hooks, validate heat with scan |
+| Lay out the romance long-line rhythm | long-line deepening | by volume rhythm: ambiguity → confirmation → crisis → elevation |
+| Compare male vs female audience underlying logic | the underlying differences | core drive / purpose of anguish / reversal type all differ |
+| Pick a platform / adjust pacing | multi-platform romance positioning | adjust style, safety density, and pacing per target platform |
+| Final quality check | quality checklist | verify item by item |
 
 ---
 
-## 女频核心原则（长篇框架）
+## Romance-focused core principles (long-form framework)
 
-长篇连载比短篇更吃这四条，因为读者要追几十万字，安全感断一次就掉追读。
+Long-form serialization needs these four even more than short-form, because readers chase tens of thousands of words and one broken safety check drops follow-through.
 
-- **安全感优先**：女频读者要明确知道女主不会一直被虐。长篇尤其要在卷与卷之间给安全感锚点——每卷收尾女主必须有可见的成长或翻盘，不能整卷只铺虐。简介和开篇必须暗示结局会赢。
-- **代入感优先**：女主的处境要让目标读者能投射进去。代入感低，女主做什么读者都不觉得爽。长篇里女主的每一次选择都在累积或消耗代入感。
-- **女主主动性**：女主被动、被安排、无选择权 → 留存掉。长篇里"金手指/外挂帮她赢"不等于主动性，关键是女主自己做决定、自己推进。被宠也要是她选择被宠。
-- **情绪即产品**：不论甜/虐/沙雕/正剧，本质都是情绪产品。长篇的核心是一条主情绪贯穿到底（追妻=从被虐到被深爱），小情绪都收编到主情绪之下。情绪散乱 = 长篇崩盘第一死因。
+- **Safety first**: romance-focused readers must know clearly the heroine will not be tormented forever. In long form especially, give safety anchors between volumes — every volume ending must show the heroine's visible growth or turnaround; no volume may be pure torment. The blurb and opening must hint the ending is a win.
+- **Immersion first**: the heroine's situation must let the target reader project into it. With low immersion, nothing the heroine does feels satisfying. In long form, every heroine choice accumulates or spends immersion.
+- **Heroine agency**: a passive, arranged, choiceless heroine → retention dies. In long form, "the cheat/outsider won it for her" is not agency; the key is the heroine deciding and advancing herself. Even being spoiled must be her choice to be spoiled.
+- **Emotion is the product**: sweet/anguish/absurd/dramatic — all are emotion products. The long-form core is one main emotion running through (comeback romance = from being tormented to being deeply loved); small emotions are absorbed under it. Scattered emotions = the number-one cause of long-form collapse.
 
 ---
 
-## 女频文案结构体系（长篇简介）
+## Romance-focused blurb structure system (long-form blurb)
 
-长篇简介比短篇多一个任务：除了抓人，还要让读者相信这本能追下去。基本五种类型见 [genre-readers.md](genre-readers.md)，本节是女频专用的**安全感导向组合**。
+A long-form blurb has one more job than a short-form one: besides grabbing, it must convince the reader this book can be followed. The five basic types are in [genre-readers.md](genre-readers.md); this section is the romance-specific **safety-oriented combination**.
 
-文案由**状态、困境/意外、行动、成功/暗示**四段组合，长篇至少要让读者看到女主的"成功暗示"或"翻盘方向"。
+The copy is built from four parts — **state, trap/incident, action, success/hint** — and a long-form blurb must at least let the reader see the heroine's "success hint" or "turnaround direction".
 
-| 组合 | 结构 | 适用长篇场景 |
+| Combination | Structure | Long-form scenes |
 |------|------|-------------|
-| 安全感四段式 | 状态 → 困境 → 行动 → 成功 | 最主流，甜宠/事业/重生复仇通用 |
-| 复仇预告式 | 状态 → 不公伤害 → 反杀宣言(截止) | 重生复仇/宅斗，留长线悬念 |
-| 虐后翻盘式 | 状态 → 被虐 → 转身离开/翻盘 | 追妻火葬场，女主先走才有安全感 |
-| 悬疑+成功叠加 | 悬疑钩 → 状态 → 困境 → 成功 | 开头一句悬念抓人，后面给安全感 |
+| Safety four-part | state → trap → action → success | most mainstream; sweet-spoil / career / second-chance revenge all work |
+| Revenge teaser | state → unjust harm → counter-kill declaration (cut) | second-chance revenge / household scheming; keeps a long-line suspense |
+| Turnaround after anguish | state → tormented → turns and leaves / turnarounds | comeback romance; the heroine leaves first so safety exists |
+| Suspense + success stacked | suspense hook → state → trap → success | one suspense line to grab, safety after |
 
-长篇文案安全法则：
-- 只铺虐、不给女主翻盘方向 → 读者怕入坑被虐 → 不点进
-- 简介把几十万字主线写成流水账 → 信息过载劝退，只写第一卷钩子+全书承诺
-- 货不对板（甜宠简介里正文全是虐）→ 长篇尤其致命，掉追读+差评
-- 事业线突出的文，简介必须给事业成功暗示，不能只写感情
+Long-form blurb safety laws:
+- Only torment, no turnaround direction → readers fear entering the pit → no clicks
+- Writing the tens-of-thousands-of-words main line as a ledger in the blurb → info overload drives away; only volume-1 hook + whole-book promise
+- Goods not matching the label (sweet-spoil blurb, prose full of torment) → fatal in long form; drops follow-through and earns bad reviews
+- For career-line-heavy books, the blurb must give a career-success hint, not romance only
 
 ---
 
-## 读者群体与深层需求
+## Reader groups & deep needs
 
-| 读者画像 | 深层需求 | 偏好长篇题材 |
+| Reader profile | Deep need | Preferred long-form genres |
 |----------|----------|-------------|
-| 家庭主妇型 | "有资格抱怨"+物质保障幻想 | 强取豪夺、先婚后爱、追妻火葬场、豪门 |
-| 事业型女性 | 要情绪价值+自我实现 | 独立女主、事业线+感情线并重、种田经商 |
-| 学生群体 | 相信爱情战胜一切 | 纯爱、校园、双向奔赴 |
-| 中年下沉读者 | 改命+扬眉吐气 | 年代重生、极品家人打脸、重生复仇 |
+| Homemaker type | "entitled to complain" + material-security fantasy | possessive romance, marriage-first, comeback romance, billionaire romance |
+| Career women | want emotional value + self-actualization | independent heroine, career + romance lines equal, homestead/business |
+| Students | believe love conquers all | pure romance, campus, mutual pursuit |
+| Middle-aged downstream readers | change fate + vindication | era second-chance, toxic-family comeuppance, second-chance revenge |
 
-女频长篇常用情绪方向（是否流行需 scan/analyze 验证）：
+Common romance-focused emotion directions (validity must be checked with scan/analyze):
 
-| 情绪类型 | 代表题材 | 核心爽点 |
+| Emotion type | Represented genres | Core payoff |
 |----------|----------|----------|
-| 反抗命运 | 年代重生、穿书觉醒 | 改变悲惨命运，打脸极品家人 |
-| 事业独立 | 穿越经商、种田、娱乐圈 | 靠自己能力一步步做大 |
-| 被宠爱 | 团宠、萌宝、先婚后爱 | 不用费力就被珍视 |
-| 虐恋反转 | 追妻火葬场、强取豪夺 | 从被虐到被深爱 |
-| 反差萌 | 沙雕修真、系统文 | 轻松里的意外爽感 |
+| Fighting fate | era second-chance, transmigration awakening | changing a miserable fate, slapping down toxic family |
+| Career independence | transmigration business, homestead, entertainment | building up step by step with your own ability |
+| Being cherished | group favorite, cute baby, marriage-first | valued without effort |
+| Anguish reversal | comeback romance, possessive romance | from tormented to deeply loved |
+| Contrast cuteness | goofy cultivation, system novels | unexpected payoff inside lightness |
 
-深层需求落点：女频读者表面要"打脸/被宠"，深层要的是**被认可、被珍视、被尊重**。长篇要一直抓着这个深层需求不偏移。
+Deep-need landing: romance-focused readers superficially want "comeuppance / being spoiled"; deep down they want **being recognized, cherished, respected**. Long form must hold this deep need without drifting.
 
 ---
 
-## 长篇热门题材与梗
+## Popular long-form genres & hooks
 
-长篇选题第一关：题材要有**长线骨架**——能撑几十万字的主线，不是一个梗写完就没了。短篇梗（一个反转、一次打脸）不够撑长篇。
+The first gate of long-form topic selection: the genre must have a **long-line skeleton** — a main line that supports tens of thousands of words, not a hook that ends when written. Short-form hooks (one reversal, one comeuppance) cannot support long form.
 
-### 主流长篇女频题材（需 scan 验证热度）
+### Mainstream romance long-form genres (heat needs scan validation)
 
-| 题材 | 长线骨架 | 主情绪 |
+| Genre | Long-line skeleton | Main emotion |
 |------|----------|--------|
-| 追妻火葬场 | 婚后受冷→女主离开/重生→男主追悔→拉扯→重新接受或彻底放下 | 虐恋反转 |
-| 先婚后爱 | 联姻/换亲/契约婚→相处磨合→日久生情→外部危机→深爱 | 被宠爱 |
-| 强取豪夺 | 身份压制下被掠夺→抗拒→博弈→反向掌控关系 | 虐恋反转 |
-| 重生复仇 | 重生回到伤害前→步步布局→逐个清算→改命扬眉 | 反抗命运 |
-| 种田/经商 | 起点低→发现机会→一步步做大→对照组打脸 | 事业独立 |
-| 宅斗/宫斗 | 庶女/低位→识破阴谋→步步上位→掌权 | 反抗命运+事业 |
-| 年代文 | 穿/重生到年代→搞钱+治极品家人+感情 | 反抗命运 |
-| 团宠/萌宝 | 身份被错认→真相揭开→全员宠 | 被宠爱 |
+| Comeback romance | cold marriage → she leaves/second-chance → he regrets → pull and pull → re-accept or let go completely | anguish reversal |
+| Marriage-first | arranged/contract marriage → cohabitation adaptation → feelings over time → external crisis → deep love | being cherished |
+| Possessive romance | looted under status pressure → resistance → games → reverse control of the relationship | anguish reversal |
+| Second-chance revenge | return before the harm → step-by-step scheming → settle one by one → change fate | fighting fate |
+| Homestead/business | low start → find opportunities → build up step by step → comparison comeuppance | career independence |
+| Household scheming | low-rank daughter → see through conspiracies → rise step by step → hold power | fighting fate + career |
+| Era fiction | transmigrate/second-chance to an era → make money + fix toxic family + romance | fighting fate |
+| Group favorite / cute baby | identity mistaken → truth revealed → everyone spoils | being cherished |
 
-### 长篇梗组合（需验证后用）
+### Long-form hook combos (validate before use)
 
-- 穿书 + 年代 + 八零 + 换亲 + 先婚后爱
-- 重生 + 复仇 + 宅斗 + 伪血缘揭穿
-- 种田 + 经商 + 萌宝 + 先婚后爱
-- 强取豪夺 + 追妻火葬场 + 萌宝（带球跑）
-- 重生 + 娱乐圈 + 打脸渣男渣女 + 事业封顶
+- Transmigration into the story + era + eighties + arranged swap + marriage-first
+- Second-chance + revenge + household scheming + fake-bloodline expose
+- Homestead + business + cute baby + marriage-first
+- Possessive + comeback + cute baby (pregnant and running)
+- Second-chance + entertainment + slapping toxic exes + career peak
 
-### 长篇组合规则
+### Long-form combo rules
 
-- 一本长篇最多叠 2-3 个核心梗，再多读者记不住、主线散
-- 事业线必须搭感情线，纯事业女频长篇出成绩难
-- 复仇/宅斗类，仇恨对象要分梯度（小喽啰→中层→终极反派），对应卷级节奏逐个清算
+- At most 2-3 core hooks stacked per long-form book; more and readers can't remember, the main line scatters
+- The career line must pair with a romance line; pure-career romance long-form rarely performs
+- For revenge/scheming genres, the hatred targets tier up (small fry → mid-tier → ultimate antagonist), settled volume by volume
 
 ---
 
-## 感情线长线深化
+## Romance long-line deepening
 
-只补**女频长篇感情线的卷级节奏**（总框架见 [character-relations.md](character-relations.md)「好感度体系」）。
+Only the **volume-level rhythm of the romance-focused long-form line** is added here (overall framework in [character-relations.md](character-relations.md) "affinity system").
 
-### 卷级感情节奏（标准四段）
+### Volume-level romance rhythm (standard four stages)
 
-| 卷段 | 感情状态 | 操作要点 |
+| Volume segment | Romance state | Operation |
 |------|----------|----------|
-| 暧昧拉扯 | 萍水相逢→试探 | 制造缓冲区，多用反差萌、信息差、双标，慢推好感 |
-| 确认 | 暧昧→在一起 | 一个剧情高潮兑现关系质变，匹配盛大节点 |
-| 危机 | 确认后的考验 | 外部阻碍/误会/身份揭穿，不要为虐而虐，虐完必有反转 |
-| 升华 | 共度危机→深爱 | 危机解决后只发糖，用实在 CP 行为，不再设新矛盾 |
+| Ambiguity pull | passing acquaintance → testing | build buffer; use contrast cuteness, info gaps, double standards; push affinity slowly |
+| Confirmation | ambiguity → together | one plot climax cashes the relationship transformation; match a grand node |
+| Crisis | post-confirmation test | external obstacles / misunderstanding / identity exposure; no anguish for anguish's sake; every anguish gets a reversal after |
+| Elevation | through the crisis → deep love | after the crisis, only sweetness; use real CP behavior; no new conflicts |
 
-### 女频长篇感情线规则
+### Romance-focused long-form romance-line rules
 
-- **好感度绑事业/成长**：每一次感情升级最好踩在女主的一次事业进展或成长节点上，两条线咬合推进，避免"全书只谈恋爱"的单薄感
-- **感情先慢后快**：前期慢铺积累好感，后期集中爆发，配盛大仪式
-- **长篇虐的剂量控制**：长篇虐戏要分散、每段虐后必给反转或糖，连续整卷只虐 = 掉追读
-- **双视角增张力**：男女主各自视角交替，长篇里尤其能放大拉扯感
+- **Affinity tied to career/growth**: every romance upgrade should ride on a heroine career progress or growth node; the two lines interlock so the book isn't "romance-only" thinness
+- **Slow first, fast later**: accumulate affinity slowly early, burst late, matched with a grand ceremony
+- **Long-form anguish dosing**: long-form anguish must be dispersed; every anguish segment gets a reversal or sweetness after; a whole volume of pure anguish = follow-through drops
+- **Dual POV increases tension**: alternating the hero and heroine's POVs amplifies the pull especially in long form
 
-### 感情线变体速查（按题材取）
+### Romance-line variant quick reference (by genre)
 
-| 题材 | 常用变体 |
+| Genre | Common variants |
 |------|----------|
-| 追妻火葬场 | 标准版/带球跑版/重生退婚版/反转暗恋版 |
-| 强取豪夺 | 身份差版/抢婚版/伪亲属版/反向（男主当替身）版 |
-| 先婚后爱 | 换亲版/契约版/年代联姻版/保姆日久生情版 |
-| 暗恋/觊觎 | 阴湿暗恋/伪姐弟叔侄/双向暗恋/日记暴露 |
+| Comeback romance | standard / pregnant-and-running / second-chance-with-dumped-engagement / reversed-secret-crush |
+| Possessive romance | status-gap / wedding-grab / fake-relative / reversed (hero as stand-in) |
+| Marriage-first | swap / contract / era arranged marriage / nanny-long-time-fall-in-love |
+| Secret crush | obsessive secret crush / fake sibling-uncle / mutual secret crush / diary exposure |
 
 ---
 
-## 女频 vs 男频底层差异（长篇视角）
+## Romance-focused vs male-audience underlying differences (long-form view)
 
-| 维度 | 女频 | 男频 |
+| Dimension | Romance-focused | Male-audience |
 |------|------|------|
-| 核心驱动 | 情绪产品，几乎都含感情线 | 剧情爽感，纯感情线罕见 |
-| 感情线本质 | "连接"——你爱我因为我是我 | "外在展示"——优秀的人是我的了 |
-| 异性角色重视度 | 极高，男主人设决定留存 | 较低，女主功能性更强 |
-| 虐的目的 | 制造情绪波动，虐完必有反转 | 升级打怪的前置铺垫 |
-| 复仇方式 | 信息差式（真相揭露打脸） | 力量式（实力/身份碾压） |
-| 长线主轴 | 感情线+成长线双轴咬合 | 实力升级单轴为主 |
-| 情绪触发密度 | 约 3.23 次/千字 | 约 2.50 次/千字 |
-| 反转类型 | 信息差型（心声/真相） | 力量型（身份/实力） |
+| Core drive | emotion product; almost always includes a romance line | plot payoff; pure romance lines rare |
+| Romance-line nature | "connection" — you love me because I am me | "external display" — the excellent person is mine |
+| Importance of the opposite-gender character | extremely high; the hero's persona decides retention | lower; the heroine is more functional |
+| Purpose of anguish | create emotional fluctuation; every anguish gets a reversal | prelude to leveling and fighting |
+| Revenge method | information-gap style (truth reveal comeuppance) | power style (strength/identity crush) |
+| Long-line spine | romance + growth dual-axis interlock | power upgrade single-axis main |
+| Emotion trigger density | ~3.23 per 1000 words | ~2.50 per 1000 words |
+| Reversal type | information-gap type (inner voice/truth) | power type (identity/strength) |
 
-跨频铁律：女频读者更在意角色间的情感张力和互动细节；女频长篇事业线必须搭感情线才容易出成绩。
+Cross-channel iron law: romance-focused readers care more about emotional tension and interaction details between characters; the romance-focused long-form career line must pair with a romance line to perform.
 
 ---
 
-## 多平台女频写法定位（需 scan 验证）
+## Multi-platform romance-focused positioning (scan validation needed)
 
-| 平台 | 定位 | 文风/安全感 | 篇幅与节奏 |
+| Platform | Positioning | Style/safety | Length & rhythm |
 |------|------|------------|-----------|
-| 番茄女生 | 下沉吸量 | 强钩子、强情绪、爽感直给，安全感要早给 | 章节短、节奏快，开篇 3 章必须立住钩子 |
-| 起点女生 | 长线稳定 | 人设细、文风稳，可慢热 | 篇幅长、容忍铺垫，靠长线追读 |
-| 晋江 | 高质量女频 | 主体性、人设细节、文案安全感要求最高 | 中长篇，重人物关系细密度 |
-| 七猫 | 强情绪女频 | 甜虐交替、极限推拉、情绪钩子密集 | 章节密集钩子，推拉节奏快 |
+| Webnovel female | downstream traffic-grab | strong hooks, strong emotion, direct payoff; safety early | short chapters, fast rhythm; opening 3 chapters must hold the hook |
+| Wattpad | long-line stable | fine personas, stable style; slow burn acceptable | long length, tolerates setup; relies on long-line follow-through |
+| Kindle romance | high-quality romance | agency, persona detail, highest blurb-safety requirements | mid-long; dense relationship detail |
+| Inkitt/Radish/Dreame/GoodNovel | strong-emotion romance | sweet/anguish alternation, extreme push-pull, dense emotion hooks | dense chapter hooks, fast push-pull rhythm |
 
-平台选择规则：
-- 强梗、快反馈、下沉读者 → 番茄女生/七猫，章节短、钩子密、安全感早给
-- 人物细腻、文风稳、长线慢热 → 起点女生/晋江，可铺垫，但开篇仍要有钩子
-- 同一题材不同平台写法不同，必须用目标平台样本校准节奏和雷点
+Platform selection rules:
+- Strong hooks, fast feedback, downstream readers → Webnovel female / Inkitt-class, short chapters, dense hooks, safety early
+- Fine personas, stable style, long-line slow burn → Wattpad / Kindle romance, setup allowed, but the opening still needs a hook
+- The same genre writes differently per platform; always calibrate rhythm and pitfalls with target-platform samples
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-写女频长篇时逐项核对（§女频核心原则 安全感/代入感/主动性/情绪即产品 四条默认必过，以下查执行项）：
+When writing romance-focused long form, verify item by item (the four core principles — safety/immersion/agency/emotion-as-product — default to pass, below checks execution items):
 
-- [ ] **感情线双轴**：感情升级踩在事业/成长节点上，不是全书只谈恋爱？
-- [ ] **卷级感情节奏**：暧昧→确认→危机→升华节奏清晰，每段虐后有反转或糖？
-- [ ] **虐戏剂量**：没有连续整卷只虐，虐的剂量分散可控？
-- [ ] **题材有长线骨架**：选的题材能撑几十万字主线，不是一个梗写完就没了？
-- [ ] **梗组合不超载**：核心梗不超过 2-3 个，主线没被叠梗冲散？
-- [ ] **男主人设**：用细节描写加分（不只形容词），决定留存？
-- [ ] **平台对位**：文风、安全感密度、篇幅节奏匹配目标平台？
-- [ ] **货板一致**：书名=简介承诺=正文交付三位一体，没有货不对板？
-- [ ] **热度已验证**：题材组合热度已用最新 scan/analyze 或用户指定平台信息验证？
+- [ ] **Romance dual-axis**: does romance upgrade ride on career/growth nodes, not romance-only whole book?
+- [ ] **Volume-level romance rhythm**: ambiguity → confirmation → crisis → elevation clear; every anguish gets a reversal or sweetness after?
+- [ ] **Anguish dosing**: no full volume of pure anguish; anguish dispersed and controlled?
+- [ ] **Long-line skeleton**: does the chosen genre support a tens-of-thousands-of-words main line, not a one-hook wonder?
+- [ ] **Hook combo not overloaded**: core hooks ≤2-3; main line not scattered by stacking?
+- [ ] **Hero persona**: built with concrete details (not just adjectives); decides retention?
+- [ ] **Platform alignment**: style, safety density, and pacing match the target platform?
+- [ ] **Label-goods consistency**: title = blurb promise = prose delivery, no mismatch?
+- [ ] **Heat validated**: genre combo heat validated with the latest scan/analyze or user-specified platform info?

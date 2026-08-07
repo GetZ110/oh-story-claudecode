@@ -1,5 +1,5 @@
 #!/bin/bash
-# validate-story-commit.sh — 在 git commit 时检查格式问题（WARNING only, no BLOCKING）
+# validate-story-commit.sh — check format issues at git commit time (WARNING only, no BLOCKING)
 set -euo pipefail
 
 source "$(dirname "$0")/lib/common.sh"
@@ -8,43 +8,50 @@ HOOK_INPUT="${CLAUDE_TOOL_INPUT:-}"
 if [ -z "$HOOK_INPUT" ] && [ ! -t 0 ]; then
   HOOK_INPUT="$(cat)"
 fi
-# 故意不 export：export 会把负载塞进本脚本每个子进程的 envp（git/grep/basename 全算上），
-# 负载一大 execve 就 E2BIG（Linux 单个环境变量上限 128 KiB）。只在真正读它的那一次 node 调用上
-# 做单命令赋值（is-git-commit 只认 HOOK_INPUT 环境变量，不读 stdin），把暴露面收到一处。
-# 本 hook 挂 Bash 工具，负载只是命令串，实际都很小；收紧是为了对齐另两个 hook 的同一约定。
+# Deliberately not exported: exporting stuffs the payload into every child
+# process's envp (git/grep/basename all count), and a big payload hits E2BIG on
+# execve. Only the one node call that truly reads it gets a single-command
+# assignment (is-git-commit only reads the HOOK_INPUT env var, not stdin), keeping
+# the exposure to one spot. This hook hangs on the Bash tool, so payloads are just
+# command strings and actually small; tightened to match the other hooks' convention.
 
 is_git_commit_command() {
-  # 走 node 共享核 isGitCommitCommand：命令优先取 STORY_COMMIT_COMMAND，缺省从 HOOK_INPUT
-  # 挖 command/cmd/script。js 分词语义，与 OpenCode/ZCode 一致；对「引号内分隔符」这类边界
-  # 与旧 python shlex 有已文档化、仅 advisory 的差异（不影响本 hook 的 exit 0 非阻塞语义）。
-  # node 探测不到就当「非 commit」，让下方静默放行（兜底不反噬提交流程；native 安装可能
-  # 无 node，此时 commit 格式提示停用，session-start.sh 会在会话起点提示一次）。
+  # The node shared core isGitCommitCommand: the command prefers
+  # STORY_COMMIT_COMMAND and digs command/cmd/script out of HOOK_INPUT otherwise.
+  # js word-splitting semantics, consistent with OpenCode/ZCode; the documented
+  # advisory-only differences from the old python shlex on "in-quote separators"
+  # don't affect this hook's exit-0 non-blocking semantics. When node is not
+  # detected, treat as "not a commit" and pass silently below (the backstop must
+  # not bite the commit flow; a native install may have no node, session-start.sh
+  # reminds once).
   node -e "" >/dev/null 2>&1 || return 1
   local CLI; CLI="$(dirname "$0")/story_hook_cli.js"
   [ -f "$CLI" ] || return 1
   HOOK_INPUT="$HOOK_INPUT" node "$CLI" is-git-commit >/dev/null 2>&1
 }
 
-# PreToolUse matcher 可能过宽或目标 CLI 不支持 if 字段；脚本必须内部自检。
-# 没有明确 git commit 命令时完全静默退出，避免 echo/grep 等命令误触发。
+# The PreToolUse matcher may be too wide or the target CLI may not support the if
+# field; the script must self-check. Exit fully silently when there is no explicit
+# git commit command, so echo/grep invocations never false-trigger.
 if ! is_git_commit_command; then
   exit 0
 fi
 
-# 后续 case + grep 在中文路径/正文内容上做匹配。Windows 中文系统若导出 GBK 区域设置，
-# grep 按 GBK 多字节解码 UTF-8 内容会乱。强制 C 区域走字节匹配才稳定（issue #164 同类）。
-# 放在 is_git_commit_command（内嵌 python）之后，避免影响其输入解码。
+# Byte-stable zone for the case + grep matching below (issue #164 class).
+# Placed after is_git_commit_command (which has its own decoding) so it can't
+# affect the input decoding.
 export LC_ALL=C
 
 ROOT=$(project_root)
 GIT_ROOT=$(git -C "$ROOT" rev-parse --show-toplevel 2>/dev/null || printf '%s\n' "$ROOT")
-# 警告串用真实换行拼接（NL），不用字面 `\n` 占位：输出端必须 printf '%s'，见文末注释。
+# Join warning strings with real newlines (NL), not literal `\n` placeholders:
+# the output end must use printf '%s' (see the trailing comment).
 NL=$'\n'
 WARNINGS=""
 
-# 获取即将 commit 的文件列表（使用 -z null 分隔避免空格路径问题）
+# Get the files about to be committed (-z null separator avoids space-in-path issues)
 while IFS= read -r -d '' file; do
-  # 跳过非 md 文件
+  # Skip non-md files
   case "$file" in
     *.md) ;;
     *) continue ;;
@@ -55,64 +62,68 @@ while IFS= read -r -d '' file; do
     FULL_PATH="$GIT_ROOT/$file"
   fi
 
-  # 检查正文文件是否包含硬编码的情节值
-  # 匹配语义与警告文案对齐 JS core（story_hook_core.js stagedMarkdownWarnings，跨 CLI 的
-  # 权威实现；py↔js 由 scripts/test-prose-net-parity.sh Part E 锁 parity）。
-  # 冒号/空白都用交替而不是把全角字符塞进方括号字符组：含全角字符的字符组在 C 区域会被
-  # 拆成单字节、漏匹配；(：|:) 同时命中全角「：」和半角「:」，([[:space:]]|　) 在 LC_ALL=C 下
-  # 也认全角空格 U+3000（否则全角空格分隔的写法会漏检/误判）。
+  # Check prose files for hardcoded character attributes
+  # Match semantics and warning copy aligned with the JS core (story_hook_core.js
+  # stagedMarkdownWarnings, the cross-CLI authoritative implementation; py↔js
+  # locked by scripts/test-prose-net-parity.sh Part E).
   case "$file" in
-    正文.md|*/正文.md|正文/*|*/正文/*)
-      HARDCODED=$(grep -nE "(身高|体重|年龄)([[:space:]]|　)*(：|:)([[:space:]]|　)*[0-9]+" "$FULL_PATH" 2>/dev/null || true)
+    prose.md|*/prose.md|prose/*|*/prose/*)
+      HARDCODED=$(grep -nEi "\b(height|weight|age)\b([[:space:]]|　)*(:)([[:space:]]|　)*[0-9]+" "$FULL_PATH" 2>/dev/null || true)
       if [ -n "$HARDCODED" ]; then
-        WARNINGS="$WARNINGS${NL}⚠ $file: 正文硬编码角色属性，应引用设定文件：${NL}$HARDCODED"
+        WARNINGS="$WARNINGS${NL}⚠ $file: prose hardcodes character attributes; reference the setting file instead:${NL}$HARDCODED"
       fi
       ;;
   esac
 
-  # 检查角色卡的必填字段（结构化匹配：key:value 格式）。grep -i 对齐 JS core 的 /i：
-  # 大小写不敏感命中 name/NAME/Name（LC_ALL=C 下 -i 只折叠 ASCII，中文字节不受影响）。
+  # Check the required field of character sheets (structured match: key:value).
+  # grep -i aligns with the JS core's /i: case-insensitive name/NAME/Name.
   #
-  # 只查角色卡：设定/ 下还住着一批项目级设定件——artifact-protocols.md 规定的 关系.md
-  # （正文是「# 角色关系图」）、题材定位.md（「# 题材定位」），以及 文风.md、题材正文提示卡.md、
-  # 世界观/*、势力/* 等，它们本来就没有 名字/姓名 字段。整棵 设定/ 一刀切会让每次碰设定的提交
-  # 都刷一屏假警告，把同框的「正文硬编码角色属性」真警告埋掉。判定：设定/角色|人物 子目录内的
-  # 文件 + 设定/ 直属的扁平角色卡（角色.md/主角.md/配角.md/反派.md 等自定义命名）才查；
-  # 其余子目录与已知项目级文件跳过。
-  # 四端同口径：本脚本（Claude）、OpenCode 的 .git/hooks/pre-commit、JS core 的
-  # isCharacterSheetPath / stagedMarkdownWarnings、codex 的 _is_character_sheet_path /
-  # staged_markdown_warnings 已全部收窄到同一判定。改任一端都要四端一起改，否则
-  # 同一次提交在不同 CLI 上会给出不同警告（parity 测试 Part E 锁 py↔js 两端）。
-  # 别为了「对齐权威实现」把这段改回去——那会把假警告一起改回来。
+  # Only character sheets are checked: setting/ also hosts project-level setting
+  # files — artifact-protocols.md defines relationships.md (body is
+  # "# Character Relationship Map"), genre-positioning.md, plus style.md,
+  # genre-prose-card.md, worldview/*, factions/* etc., which have no name field by
+  # design. Scanning the whole setting/ tree would flood every commit touching
+  # setting/ with false warnings and bury the real "hardcoded attributes" warnings.
+  # Judgment: files inside setting/characters|people subdirectories + flat
+  # character sheets directly under setting/ (character.md/protagonist.md/
+  # side-character.md/villain.md etc. custom names) are checked; other
+  # subdirectories and known project-level files are skipped.
+  # Four-end same scope: this script (Claude), OpenCode's .git/hooks/pre-commit,
+  # the JS core's isCharacterSheetPath / stagedMarkdownWarnings, and codex's
+  # _is_character_sheet_path / staged_markdown_warnings are all narrowed to the
+  # same judgment. Change all four ends together, otherwise the same commit warns
+  # differently across CLIs (parity test Part E locks py↔js).
   IS_CHARACTER_SHEET=false
   case "$file" in
-    设定/角色/*|*/设定/角色/*|设定/人物/*|*/设定/人物/*)
+    setting/characters/*|*/setting/characters/*|setting/people/*|*/setting/people/*)
       IS_CHARACTER_SHEET=true
       ;;
-    设定/*/*|*/设定/*/*)
-      # 世界观/势力/报告/原理/人物关系 等非角色子目录：整目录跳过
+    setting/*/*|*/setting/*/*)
+      # Non-character subdirectories (worldview/factions/reports/principles/
+      # relationships etc.): skip the whole directory
       ;;
-    设定/*|*/设定/*)
+    setting/*|*/setting/*)
       case "${file##*/}" in
-        关系.md|题材定位.md|题材正文提示卡.md|文风.md|世界规则.md|世界观.md|金手指.md|背景设定.md) ;;
+        relationships.md|genre-positioning.md|genre-prose-card.md|style.md|world-rules.md|worldview.md|cheat.md|background.md) ;;
         *) IS_CHARACTER_SHEET=true ;;
       esac
       ;;
   esac
   if [ "$IS_CHARACTER_SHEET" = true ] \
-    && ! grep -qiE "^([[:space:]]|　)*(名字|姓名|名称|name)([[:space:]]|　)*(：|:)" "$FULL_PATH" 2>/dev/null; then
-    WARNINGS="$WARNINGS${NL}⚠ $file: 设定文件缺少 name/名字 必填字段。"
+    && ! grep -qiE "^([[:space:]]|　)*(name)([[:space:]]|　)*(：|:)" "$FULL_PATH" 2>/dev/null; then
+    WARNINGS="$WARNINGS${NL}⚠ $file: setting file is missing the required name field."
   fi
 done < <(git -C "$ROOT" -c core.quotepath=false diff --cached --relative --name-only --diff-filter=ACM -z -- . 2>/dev/null || true)
 
 if [ -n "$WARNINGS" ]; then
   echo "=== Story Commit Warnings（advisory only）==="
-  # 必须 %s 不能 %b：$WARNINGS 里嵌着 grep -n 抓出的作者正文原文。%b 会把正文里的 `\n`、`\b`
-  # 当转义展开，`\c`（Windows 路径 C:\code 就带）更会直接终止 printf，把后面所有文件的警告
-  # 连同收尾框线一起吞掉。分隔换行由上面拼接时的 ${NL} 真实换行承担。
+  # Must be %s not %b: $WARNINGS embeds grep -n excerpts of the author's prose. %b
+  # would expand `\n`/`\b` as escapes and `\c` (Windows paths like C:\code) would
+  # terminate printf, swallowing every file's warning together with the closing
+  # frame. Separator newlines are carried by the real ${NL} joined above.
   printf '%s\n' "$WARNINGS"
   echo "=== End Warnings ==="
 fi
 
-# Always exit 0 — 写作流程不能被 hook 卡住
+# Always exit 0 — the writing flow must never be blocked by this hook
 exit 0

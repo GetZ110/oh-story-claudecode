@@ -2,72 +2,69 @@
 
 All notable changes to this project will be documented in this file.
 
-## v0.7.4
+## v0.8.0 (English Edition)
 
-> 这版全是修问题，没有新功能。最影响使用的是三件事：导入自己的书以后，「对标」目录里装的是自己的设定；多端部署的项目每次开会话都被告知参考资料包缺了；拆文跑到文风统计那一步，Windows 上直接报错退出。另外把 spawn 的版本检查从硬门禁改成提示，版本对不上不再整体退回单线程。**本版 `agents_version` 为 23**（v0.7.3 是 22），已部署的项目要重新跑 `/story-setup` 并新开会话。
-
-### 修复
-
-- **导入的书不再被登记成自己的对标（#294）**。`story-import` 早先把「导入的书」和「对标的书」都写作 `{书名}`，本书的拆文结果就跟着被复制进 `对标/`，用户看到的就是「对标内容和自己设定一模一样」。现在两者彻底分开：本书拆文只用来重建正文、设定、大纲和追踪；只有明确指定的外部作品才进 `对标/`，没指定就不建这个目录。写作和跨书召回也会跳过历史上误建的 `对标/{当前书名}/`，老项目不会继续被污染。短篇里的本书分析改叫「本书续写基线」。
-
-- **版本对不上只提示，不再阻断多 agent（#294）**。以前 `agents_version` 与当前包不一致，就整体退回 solo。但 bump 往往是别的部署物变了、agent 模板根本没动，为此牺牲并行不划算。现在照常 spawn，只在报告里提一句版本不匹配、建议重跑 `/story-setup`。真正退回 solo 的只剩两种情况：agent 文件确实缺失，或运行时不支持自定义 agent。
-
-- **长篇字数只认细纲目标（#295）**。此前静态下限表（2000／3000 字每章）和 hook 的「细纲目标 × 90%」并存，是两套标准。删掉静态表，只留细纲目标这一条；细纲没写字数目标时按 3000 字每章兜底，同时提示补纲。
-
-- **browser-cdp 不再教你批量关 Chrome（#295）**。原来的清理命令按可执行文件名杀进程，会把用户自己开着的浏览器一起关掉。改成先查出确属调试 profile 的 PID 再结束，macOS／Linux 和 Windows 各给了一条可以直接跑的命令。
-
-- **黑岩扫榜同日不同频道不再互相覆盖（#295）**。male、female、all 三个频道当天共用一个文件名，跑完第二个就把第一个盖掉。文件名加上频道，非法的 `--channel` 直接报错退出。
-
-- **重新部署不再认错平台（#297）**。story-setup 判断 OpenClaw 的依据之一是 skill 带没带 `metadata.openclaw`，可 13 个 skill 全都带，而 OpenClaw、Reasonix、通用三条路径部署出来的 `skills/` 长得一模一样。等于拿自己部署的东西当判据，把 Reasonix 和通用项目统统认成 OpenClaw。Reasonix 那头恰好相反：判据找的几个文件，它的部署压根不生成，已经装好的项目反而认不出来。现在三端各按自己 `AGENTS.md` 的标题行区分，这是唯一互不重叠的标记；已部署的项目还会优先读 `.story-deployed` 里记着的 `target_cli`，不再每次重新猜。
-
-- **多端部署不再每次开会话喊缺文件（#299）**。多端的 `references_dir` 是用逗号连起来的几条路径，会话起点却当成一条路径去找，于是装得好好的项目每次都被告知资料包缺失，真缺了哪条反而看不出来。改成逐条查，只报确实缺的那条。
-
-- **Windows 上文风统计不再必挂（#300）**。这一步会先找可用的 Python，找到的可能是 Windows 原生版本，而样本路径写的是 `/tmp/...`。原生 Python 把它当成 `C:\tmp\...`，和 Git Bash 写文件的地方不是一处，自然就找不到。改成项目内的相对路径。同一处原先要求全程追加写，重跑时上一轮的样本会留在文件里，统计出来的是两轮混在一起的结果；现在第一段覆盖写。
-
-- **目录不再被当成章节（#301）**。不少原文开头带一份目录，里面的「第N章」和正文里的一样顶格，建章节边界表时每一章会被数两遍。这张表是后面几个阶段唯一的切分依据，错一次会一路错下去。现在按行距把开头的目录整块剔掉：目录里相邻两条只隔一两行，正文章节之间隔着整章的篇幅。落表前还会检查章号连不连得上。多卷书每卷都从第一章重起是正常写法，这种重复不会被自动合并。
-
-- **审查的两份评分标准重新对齐（#307）**。story-review 有一份内置标准，读不到文件时用；另有一份 `quality-rubric.md`。两边各自长歪了：文件那份多「任务卡点」，内置那份多「标点节奏」和「具体字数表达校验」，还有三个维度叫法不一样。方向也别扭，读得到文件时用的反而是少两条的旧版。现在补齐成同样 18 项，并加了断言，再分叉会被 CI 拦下。
-
-### 维护
-
-- 补上 `tracking_commit.py` 的 `context` 字段说明：`init` 收六项，`commit` 只收四项，`recent_chapters` 和 `next_chapter_commitments` 提交时由工具自己算。以前只能从示例里猜，照 `init` 的样子写 `commit` 会被直接拒掉（#306）。
-- OpenCode 的 agent 模型要在覆盖前先缓存，这句话原本写在后面的小节里，照顺序执行就晚了。在覆盖那一步就地加了提示（#298）。
-- `format-and-structure.md` 标题写「5 条绝对禁止」，底下列了 8 条，三份副本一起改（#306）。
-
-## v0.7.3
-
-> 长篇追踪改单一权威事务模型：`追踪/_tracking-state.json` 是唯一结构化状态，所有追踪写入走 `tracking_commit.py`，续写状态卡与伏笔/时间线/角色快照都是工具整份生成的派生视图，日更每章必读从五个文件收缩到三项。Dashboard 目录树改按需加载；章节概要改叙事化、原文引用改精选。**v0.7.2 及更早的长篇项目必须先迁移 `追踪/` 才能继续写**，见下方升级须知。**本版 `agents_version` 为 22**（v0.7.2 发的是 21），已部署项目需重新运行 `/story-setup` 并新开会话。
-
-### 升级须知（长篇在写项目必读）
-
-重跑 `/story-setup` 后，检查每本书是否有 `追踪/_tracking-state.json`。没有就是旧追踪结构：日更会停下，OpenCode / ZCode / Codex 上写正文会被 hook 拦。
-
-迁移**不需要重跑全书拆解**，正文、`设定/`、`大纲/`、`拆文库/` 都不受影响，只重建 `追踪/`：走 `/story-import` 的「旧追踪项目迁移」——数出最后完整章号 N，从旧追踪文件与最近几章正文反推当前状态，构造 `last_chapter=N` 的初始化事务跑一次 `init`。旧结构会被按原样整体移入 `追踪/_旧追踪存档/`，不删除、不参与解析。完整说明见 `skills/story-setup/UPGRADING.md`。
+> Full English conversion of the toolkit: all 13 skills, hooks, agents, references,
+> the dashboard, and the project structure are now English. English market scanning
+> (Royal Road, Webnovel, Wattpad, Amazon Kindle, Inkitt, Radish, Galatea) replaces
+> the Chinese platform scrapers; the de-AI-flavor engine was re-derived for English
+> AI fingerprints; the project structure is now `teardown-lib/` / `tracking/` /
+> `prose/` / `outline/` / `setting/` with `outline_chapter_N.md` and `Chapter N`
+> chapter files. **This release ships `agents_version` 23 and `setup_skill_version`
+> 1.3.0 — deployed projects must re-run `/story-setup` and start a new session,
+> otherwise neither this release's prose rules nor its hooks take effect.** Chinese
+> editions before v0.8.0 are historical (see the git history and the Chinese entries
+> below).
 
 ### 新增
 
-- **Dashboard 按需加载目录树（#273）**：目录树改为展开时才拉取子节点，大工程首屏不再一次性扫全树；顺带修短篇标准工程识别与懒加载回归，搜索读取失败改为显式标记而不是静默吞掉。
-
-### 修复
-
-- **长篇追踪改单一权威事务模型（#269 #290 #289）**：`追踪/上下文.md` 成为固定 7 栏、硬上限 12288 字节的续写状态卡，每章由工具整份重建；全书历史移到 `追踪/逐章记录/第NNN章.md`（日更不读）；伏笔、时间线双视图、角色快照降为派生视图，检索走 story-explorer 按需查询。日更每章必读从五个文件收缩为三项，读取成本 O(N²)→O(N)。`narrative-writer` 不再写 `追踪/`；`/story-review` 新增追踪文件维护；SessionStart 加状态卡体积告警，四端同步。旧结构与 `_tracking-meta.json`、`时间线/事件库.json` 一并退役，不提供兼容层。
-- **修上条留下的主流程断链**（发版前主流程审查，逐条实测复现）：
-  - 回炉备份被守卫打死——守卫把「文件不存在」当成「首建新章」，于是 `workflow-revision` 规定的 `正文/第X章_..._原稿_{日期}.md` 备份必然撞上顺序校验，报「首建第5章前必须先提交第4章事务」，而回炉章号恒小于已提交章号，无解。章号已在追踪范围内时跳过顺序校验，跳章写作仍拦。
-  - 旧项目没有迁移路径——日更让去 `story-import`，`story-import` 看到 `.active-book` 就答「别重跑、回去日更」，用户在两条命令之间来回弹。判据改用 `_tracking-state.json` 是否存在，并给出只重建 `追踪/` 的迁移步骤；`UPGRADING.md` 此前全文没提过本次追踪变更，补了完整一节。
-  - 恢复指令不收敛——「任何失败都重跑同一 commit」只对写入失败成立；校验失败重跑结果不变，派生视图被改后重跑会撞 stale 而工具无 rebuild 子命令。按失败类型分开写，补上 `mode=revision` 整份重建这条实测可行的出路。`check` 失败时只往 stderr 打 ERROR、不输出 JSON，所以当前修订号改为直接读 `_tracking-state.json` 的 `state_revision`。
-  - `story-explorer` 与 `consistency-checker` 被要求运行 `tracking_commit.py check`，但这两个只读 agent 按设计禁 Bash。改为消费调用方在主会话跑 `check` 后传入的值，权限边界不动，也不把随章数增长的完整 state 读进 prompt。
-  - 部署的 `story-narrative` 规则教 agent 手写 `逐章记录/`、`上下文.md` 与伏笔「真实答案」，与同目录 `story-consistency` 规则正面冲突，且改设定就会触发；`伏笔.md` 是派生视图、没有该列，手写即让 `check` 报不一致。改成登记进事务。
-  - Claude Code 的 bash 守卫与 JS 核在 `拆文库/` 豁免上漂移，同步收紧；欠账门取「上一章」用 readdir 原始顺序，回炉备份放行后会在哈希序文件系统上挑中未清洗的备份，四端统一排除并排序。
-  - 五份平台 AGENTS 模板与三份 narrative-writer 仍把 `追踪/` 描述成含「时间线事件库」，而该文件是工具退役黑名单，建出来会让 commit/check 永久失败。
-  - 守卫层：只读 agent 的 Bash 检测式只认「执行 \`cmd\`」，「运行 / 跑」完全绕过——上条的越权指令正是这样溜过全套 CI 的；正则补齐并按行豁免委派句式。一条断言禁止 story-import 描述旧追踪迁移，与本版行为相反，改为钉「迁移必须走存档重建」。回炉放行分支补了 parity 回归用例。
-- **章节概要改叙事化、原文引用改精选（#275 #276）**：概要不再要求用「因为…所以…」串联，改为按时序讲清事件、原因、结果，优先保留改变走向的动作与结果、反常信息、跨章伏笔线索。原文引用只留关键转折、关键台词、写法样本，每章至多 8 条——实测引用占章节摘要 45.5%，而下游 Stage 3 事实溯源回原文、Stage 6 文风锚点从原文切片，均不消费逐节点引用。并行 chapter-extractor 与串行两条路径的要求收敛到一份模板。
-- **Dashboard 隔离项目与拆文库节点预算（#268）**：两类目录不再共用同一份节点预算。此前超大项目先扫描耗尽预算后，拆文库即使真实存在也返回空数组，界面把「预算被另一类耗尽」显示成「拆文库为空」。现在各自持有扫描状态与预算，任一类触顶只截断自身。
-- **短篇导入与篇幅分流（#285 #286 #287 #288）**：story-import 调用短篇拆解管道时不再声称对方「无停靠点」——它的 Phase 1 有字数路由和续跑三选一两个提问点，现改为四个 Step 逐条给导入场景取值，题材识别照跑（`genre_detected` 是阻断级必填）。篇幅分流补字数上界，此前「无章节分隔即短篇」不看字数，十万字裸文本会被建成单文件短篇工程。`选题决策.md` 补自动发现（写作与拆文此前都只看项目根，回填功能长期空转）。story-setup 加参考目录自检，检出 Windows 下 `npx skills add` 偶发的部分安装。
+- **English edition**: every skill body, reference, hook message, agent prompt,
+  command, and dashboard string is now English; the router, scan, analyze, write,
+  review, deslop, import, and cover skills use English trigger phrases and English
+  platform data.
+- **English project structure** (naming contract in `docs/english-naming-contract.md`):
+  `teardown-lib/`, `tracking/`, `prose/`, `outline/`, `setting/`, `benchmark/`;
+  `outline_chapter_NNN.md`, `tracking/context.md`, `tracking/foreshadowing.md`,
+  `tracking/timeline.md`, `tracking/character-state.md`, `Chapter N` chapter files,
+  and the `<!-- deslop:skip -->` exemption marker.
+- **English de-AI-flavor engine**: `check-ai-patterns.js` re-derived for English AI
+  fingerprints (voice-contrast, negation parades, "the kind of X that Y",
+  trailer endings, chapter-end state verdicts, em-dash clusters, cliche/metaphor/
+  reasoning-chain densities, system-notice formality) with word-based metrics
+  (per 1000 words) and an initial calibration baseline; `banned-words.md` and
+  `anti-ai-writing.md` rewritten for English AI-isms; the write-time hooks and the
+  JS↔Python parity locks follow the same English patterns.
+- **English market scanning**: story-long-scan / story-short-scan target Royal Road,
+  Webnovel, Wattpad, Amazon Kindle, Inkitt, Radish, Galatea, Dreame, GoodNovel, and
+  Tapas through WebSearch + CDP-assisted research instead of hardcoded Chinese
+  scrapers (the qidian/fanqie/jjwxc/qimao/ciweimao/heiyan scrapers were removed).
+- **English genre content**: long-form genre prose cards and short-form genre style
+  packs rebuilt for English web-fiction genres (romance subgenres, progression
+  fantasy, LitRPG, cultivation, urban fantasy, thriller, horror, cozy mystery,
+  system apocalypse, ...); word-count contracts converted to words (long-form
+  2000-3000 words/chapter; short-form 4000-12000 words).
+- **2026 hot-genre expansion**: 4 new long-form prose cards (romantasy, cozy
+  fantasy, isekai, sports romance) and 4 new short-form style packs (werewolf /
+  shifter romance, monster romance, domestic thriller, sports romance) added from a
+  cross-platform heat survey (Kindle / Royal Road / GoodNovel / Dreame / Inkitt /
+  Wattpad, compiled 2026-08-04); long-form genre formulas now 22-25 and short-form
+  reversal formulas 11-14; the werewolf / monster / thriller packs ship explicit
+  platform content-line guardrails; scan references gained a dated 2026 market
+  snapshot section (re-validate before use).
+- **English dashboard**: UI, messages, project markers, and CLI output in English.
 
 ### 维护
 
-- 参考资料解析顺序补 `.agents/skills`（Codex / Reasonix 实际扫描的 skill root），末层改写成「当前运行时加载本 skill 的目录」；story-setup Phase 2 写明部署幂等（#282）。
-- README / README_EN 补方式一的升级说明与 Windows 部分安装的表现和修复方式。
+- Guard/test scripts rewritten for the English behavior (AI-pattern fixtures,
+  js↔py parity fixtures, hook-contract fixtures, deployment regression);
+  `static-check.py` and `check-current-skill-contracts.py` accept English section
+  markers and artifact names; demo rebuilt with English sample novels
+  (The Last Knight teardown, The Secret Keeper short teardown, The Shattered Throne
+  continuation project) and the e2e/dashboard tests updated to the English UI.
+- Repository docs are now English-first: README.md is the English canonical
+  document (README_EN.md removed), CONTRIBUTING.md translated, plugin/marketplace
+  manifests and issue templates in English. Old Chinese entries below are
+  historical records.
 
 ## v0.7.2
 

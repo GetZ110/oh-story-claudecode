@@ -1,18 +1,27 @@
 #!/bin/bash
-# test-hook-encoding-portable.sh — 部署型 hook 在 Windows 中文系统下的编码健壮性回归。
+# test-hook-encoding-portable.sh — encoding-robustness regression for the
+# deployed hooks in the English edition.
 #
-# Windows 中文环境有两层独立的编码坑（都让 hook 静默失效，见 issue #164）：
-#   1) python stdout 默认 cp936（与区域设置无关）：print(中文) 编成 GBK，和脚本 UTF-8
-#      字面量字节不符 → 比较恒假。修法：sys.stdout.buffer.write(...encode("utf-8"))。
-#   2) 用户导出 GBK 区域设置（LANG=zh_CN.GBK）时，gawk/GNU sed/GNU grep/bash 通配
-#      按 GBK 多字节解码 UTF-8 内容/路径会乱。修法：hook 内 export LC_ALL=C 走字节匹配。
+# The hooks must stay byte-safe when the user's environment is not UTF-8:
+#   1) Tool stdout: hooks delegate to node (story_hook_cli.js) / python that read
+#      UTF-8 explicitly and write raw UTF-8 bytes — never locale-decoded text.
+#   2) When the user exports a GBK/GB2312 locale, gawk/GNU sed/GNU grep/bash
+#      globbing decode UTF-8 content/paths as multi-byte garbage. Fix: hooks
+#      `export LC_ALL=C` for byte matching (issue #164 class).
 #
-# 本测试两段都跑：
-#   Part 1：用 PYTHONIOENCODING=gbk 强制 python stdout 走 cp936，复现坑 1（任何平台可跑）。
-#   Part 2：在真实 GBK 区域下跑全部 hook，复现坑 2（需系统装有 zh_CN.GBK 类 locale；
-#           macOS 自带，CI ubuntu 由 workflow localedef 生成，Windows Git Bash 若无则跳过）。
+# Even in the English edition, user content is not guaranteed ASCII: book names
+# may carry accents ("Káel's Óath") or CJK characters. This test proves the hooks
+# handle such UTF-8 names byte-safely, both under the C locale and under a real
+# non-UTF-8 locale:
+#   Part 1: guard-outline-before-prose.sh on the English project structure under
+#           the default environment and under LC_ALL=C.
+#   Part 1b: Windows drive-letter absolute path classification (issue #184;
+#            runs on any platform).
+#   Part 1c: real Windows drive-letter path via cygpath (Windows/MSYS only).
+#   Part 2: end-to-end under a real GBK locale (when available) with UTF-8 book
+#           names — an accented English title and a CJK title.
 #
-# 用法：bash scripts/test-hook-encoding-portable.sh
+# Usage: bash scripts/test-hook-encoding-portable.sh
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -25,7 +34,7 @@ HOOKS_DIR="$REPO_ROOT/skills/story-setup/references/templates/hooks"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
-# 探测可用解释器（Windows 上 python3 可能是 Store 占位程序 exit 49）
+# Probe a working interpreter (Windows python3 may be the Store stub, exit 49)
 for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done
 
 fail=0
@@ -38,81 +47,89 @@ deploy() { # $1 = project root
   chmod +x "$1/.claude/hooks"/*.sh "$1/.claude/hooks/lib"/*.sh 2>/dev/null || true
 }
 
-echo "Hook encoding portability test (issue #164)"
-echo "==========================================="
+echo "Hook encoding portability test (issue #164 class)"
+echo "================================================="
 echo "interpreter: $PYBIN"
 
-# ===== Part 1：python stdout cp936（PYTHONIOENCODING=gbk）=====
-echo "--- Part 1: python stdout cp936 simulation (PYTHONIOENCODING=gbk) ---"
+# ===== Part 1: outline guard on the English structure (default vs LC_ALL=C) =====
+echo "--- Part 1: guard-outline-before-prose.sh, English structure (default vs LC_ALL=C) ---"
 P1="$WORK/p1"; deploy "$P1"
-mkdir -p "$P1/book/正文" "$P1/book/大纲" "$P1/short"
-run_guard_py() { # $1 mode(default|gbk)  $2 file_path -> exit code
+mkdir -p "$P1/book/prose" "$P1/book/outline" "$P1/short"
+run_guard() { # $1 mode(default|C)  $2 file_path -> exit code
   local mode="$1" fp="$2" ec=0
-  local -a pyenv=()
-  [ "$mode" = "gbk" ] && pyenv=(env PYTHONIOENCODING=gbk)
+  local -a envp=()
+  [ "$mode" = "C" ] && envp=(env LC_ALL=C LANG=C)
   printf '{"tool_name":"Write","tool_input":{"file_path":"%s","content":"x"}}' "$fp" \
-    | CLAUDE_PROJECT_DIR="$P1" ${pyenv[@]+"${pyenv[@]}"} bash "$P1/.claude/hooks/guard-outline-before-prose.sh" \
+    | CLAUDE_PROJECT_DIR="$P1" ${envp[@]+"${envp[@]}"} bash "$P1/.claude/hooks/guard-outline-before-prose.sh" \
       >/dev/null 2>&1 || ec=$?
   printf '%s' "$ec"
 }
-for MODE in default gbk; do
-  rm -f "$P1/book/大纲/细纲_第1章.md"
-  [ "$(run_guard_py "$MODE" 'book/正文/第1章_开端.md')" = 2 ] && pass "[$MODE] long blocked, 细纲 missing" || bad "[$MODE] long should block when 细纲 missing"
-  : > "$P1/book/大纲/细纲_第1章.md"
-  [ "$(run_guard_py "$MODE" 'book/正文/第1章_开端.md')" = 0 ] && pass "[$MODE] long allowed, 细纲 present" || bad "[$MODE] long should allow when 细纲 present"
-  : > "$P1/short/设定.md"; rm -f "$P1/short/小节大纲.md"
-  [ "$(run_guard_py "$MODE" 'short/正文.md')" = 2 ] && pass "[$MODE] short blocked, 小节大纲 missing" || bad "[$MODE] short should block when 小节大纲 missing"
-  : > "$P1/short/小节大纲.md"
-  [ "$(run_guard_py "$MODE" 'short/正文.md')" = 0 ] && pass "[$MODE] short allowed, 小节大纲 present" || bad "[$MODE] short should allow when 小节大纲 present"
+for MODE in default C; do
+  rm -f "$P1/book/outline/outline_chapter_001.md"
+  [ "$(run_guard "$MODE" 'book/prose/chapter_001_beginning.md')" = 2 ] && pass "[$MODE] long blocked, chapter outline missing" || bad "[$MODE] long should block when the chapter outline is missing"
+  : > "$P1/book/outline/outline_chapter_001.md"
+  [ "$(run_guard "$MODE" 'book/prose/chapter_001_beginning.md')" = 0 ] && pass "[$MODE] long allowed, chapter outline present" || bad "[$MODE] long should allow when the chapter outline is present"
+  : > "$P1/short/setting.md"; rm -f "$P1/short/section-outline.md"
+  [ "$(run_guard "$MODE" 'short/prose.md')" = 2 ] && pass "[$MODE] short blocked, section-outline missing" || bad "[$MODE] short should block when section-outline.md is missing"
+  : > "$P1/short/section-outline.md"
+  [ "$(run_guard "$MODE" 'short/prose.md')" = 0 ] && pass "[$MODE] short allowed, section-outline present" || bad "[$MODE] short should allow when section-outline.md is present"
 done
 
-# ===== Part 1b：Windows 盘符绝对路径分类（issue #184，任何平台可跑）=====
-# Windows + Git Bash 下 Claude Code 传入盘符绝对路径（F:/... 或 F:\...）。旧 case 只认 /*，
-# 把它当相对路径拼成 $ROOT/F:/...，找错 大纲/ 目录 → 误报细纲缺失。修复后盘符路径按绝对路径处理。
-# POSIX runner 无真实盘符：用反证法——fixture 只放在「旧代码会拼出来的」$ROOT/C:/<book> 下。
-#   修复后：guard 把 C:/<book> 当绝对路径（→ 文件系统根 /C:/<book>，不存在）→ 找不到 fixture → block(2)
-#   旧代码：拼成 $ROOT/C:/<book> 命中 fixture → allow(0)
-# 以 block(2) 证明盘符路径已按绝对路径处理。（真实 Windows 上同样的绝对处理会命中真盘符下的
-# 真细纲而放行，方向相反，此处只验「是否按绝对路径分类」这一修复点。）
+# ===== Part 1b: Windows drive-letter absolute path classification (issue #184, any platform) =====
+# Under Windows + Git Bash, Claude Code passes drive-letter absolute paths
+# (F:/... or F:\...). The old case branch only recognized /*, joined the path as
+# $ROOT/F:/..., looked in the wrong outline/ directory and falsely reported a
+# missing chapter outline. Fixed: drive-letter paths are treated as absolute.
+# POSIX runners have no real drive letters: prove by contradiction — the fixture
+# sits only under the "$ROOT/C:/<book>" path the OLD code would compose.
+#   Fixed: guard treats C:/<book> as absolute (-> filesystem root /C:/<book>,
+#          does not exist) -> finds no fixture -> block(2)
+#   Old:   composes $ROOT/C:/<book>, hits the fixture -> allow(0)
+# block(2) proves drive paths are classified as absolute. (On real Windows the
+# same absolute handling hits the real drive's real outline and allows; here we
+# only verify the "classified as absolute" fix.)
 echo "--- Part 1b: Windows drive-letter absolute path classification (issue #184) ---"
-if mkdir -p "$P1/C:/book184/大纲" 2>/dev/null && : > "$P1/C:/book184/大纲/细纲_第2章.md" 2>/dev/null; then
+if mkdir -p "$P1/C:/book184/outline" 2>/dev/null && : > "$P1/C:/book184/outline/outline_chapter_002.md" 2>/dev/null; then
   run_guard_drive() { # $1 file_path(JSON-escaped) -> exit code
     local ec=0
     printf '{"tool_name":"Write","tool_input":{"file_path":"%s","content":"x"}}' "$1" \
       | CLAUDE_PROJECT_DIR="$P1" bash "$P1/.claude/hooks/guard-outline-before-prose.sh" >/dev/null 2>&1 || ec=$?
     printf '%s' "$ec"
   }
-  [ "$(run_guard_drive 'C:/book184/正文/第2章_x.md')" = 2 ] \
+  [ "$(run_guard_drive 'C:/book184/prose/chapter_002_x.md')" = 2 ] \
     && pass "[win] forward-slash drive path treated as absolute (not root-joined)" \
     || bad  "[win] forward-slash drive path was root-joined — issue #184 regression"
-  # 反斜杠路径在真实 JSON 里是转义的（\\）；json.loads 解出单反斜杠交给 bash，case 分支再归一。
-  [ "$(run_guard_drive 'C:\\book184\\正文\\第2章_x.md')" = 2 ] \
+  # Backslash paths arrive JSON-escaped (\\); json.loads yields single backslashes,
+  # which the case branch then normalizes.
+  [ "$(run_guard_drive 'C:\\book184\\prose\\chapter_002_x.md')" = 2 ] \
     && pass "[win] backslash drive path treated as absolute (separators normalized)" \
     || bad  "[win] backslash drive path mishandled — issue #184 regression"
   rm -rf "$P1/C:"
 else
-  echo "  SKIP: 文件系统不支持含 ':' 的目录名（无法构造盘符 fixture）"
+  echo "  SKIP: filesystem does not support ':' in directory names (cannot build the drive fixture)"
 fi
 
-# ===== Part 1c：真实 Windows 盘符路径（cygpath，仅 Windows/MSYS 跑）=====
-# 1b 是 POSIX 反证；这里在真实 Windows/MSYS 上用 cygpath 把 $P1 映射成 C:/... 盘符路径，
-# 直接验用户可见行为：细纲在则放行、细纲缺则拦截——而不是反向的分类反证。POSIX 无 cygpath → SKIP。
+# ===== Part 1c: real Windows drive-letter path (cygpath, Windows/MSYS only) =====
+# 1b is the POSIX proof by contradiction; here on a real Windows/MSYS runner we
+# map $P1 to a C:/... drive path with cygpath and verify user-visible behavior
+# directly: outline present -> allow, outline missing -> block. POSIX without
+# cygpath -> SKIP.
 echo "--- Part 1c: real Windows drive-letter path via cygpath (issue #184) ---"
 if command -v cygpath >/dev/null 2>&1; then
   WINROOT="$(cygpath -m "$P1" 2>/dev/null || true)"
   case "$WINROOT" in
     [A-Za-z]:/*)
-      mkdir -p "$P1/winbook/正文" "$P1/winbook/大纲"
+      mkdir -p "$P1/winbook/prose" "$P1/winbook/outline"
       run_guard_win() { local ec=0; printf '{"tool_name":"Write","tool_input":{"file_path":"%s","content":"x"}}' "$1" \
         | CLAUDE_PROJECT_DIR="$P1" bash "$P1/.claude/hooks/guard-outline-before-prose.sh" >/dev/null 2>&1 || ec=$?; printf '%s' "$ec"; }
-      : > "$P1/winbook/大纲/细纲_第3章.md"
-      [ "$(run_guard_win "$WINROOT/winbook/正文/第3章_x.md")" = 0 ] \
-        && pass "[win] real drive path allowed when 细纲 present" \
-        || bad  "[win] real drive path should allow when 细纲 present"
-      rm -f "$P1/winbook/大纲/细纲_第3章.md"
-      [ "$(run_guard_win "$WINROOT/winbook/正文/第3章_x.md")" = 2 ] \
-        && pass "[win] real drive path blocked when 细纲 missing" \
-        || bad  "[win] real drive path should block when 细纲 missing"
+      : > "$P1/winbook/outline/outline_chapter_003.md"
+      [ "$(run_guard_win "$WINROOT/winbook/prose/chapter_003_x.md")" = 0 ] \
+        && pass "[win] real drive path allowed when the chapter outline is present" \
+        || bad  "[win] real drive path should allow when the chapter outline is present"
+      rm -f "$P1/winbook/outline/outline_chapter_003.md"
+      [ "$(run_guard_win "$WINROOT/winbook/prose/chapter_003_x.md")" = 2 ] \
+        && pass "[win] real drive path blocked when the chapter outline is missing" \
+        || bad  "[win] real drive path should block when the chapter outline is missing"
       rm -rf "$P1/winbook"
       ;;
     *)
@@ -123,11 +140,13 @@ else
   echo "  SKIP: cygpath not available (not a Windows/MSYS runner)"
 fi
 
-# ===== Part 2：真实 GBK 区域下跑全部 hook =====
-echo "--- Part 2: real GBK locale (LANG/LC_ALL=zh_CN.GBK) end-to-end ---"
-# 探测「可用」的 GBK 类 locale：不看 `locale -a` 列表（Cygwin/MSYS2 会按需合成而不列出），
-# 而是真试着设上去看 `locale charmap` 是否返回 GB 类编码。这样 Linux(localedef 生成)、
-# macOS(自带)、Windows Git Bash(Cygwin 合成) 三处都能跑到真实 GBK。
+# ===== Part 2: end-to-end under a real non-UTF-8 locale with UTF-8 book names =====
+echo "--- Part 2: real GBK locale (LANG/LC_ALL=zh_CN.GBK), UTF-8 book names ---"
+# Detect a *usable* GBK-class locale: don't trust the `locale -a` list (Cygwin/
+# MSYS2 synthesize locales on demand without listing them), actually try setting
+# one and check `locale charmap` returns a GB-class encoding. This covers Linux
+# (generated by localedef in CI), macOS (built-in), and Windows Git Bash
+# (Cygwin-synthesized).
 detect_gbk_locale() {
   local cand cm
   for cand in zh_CN.GBK zh_CN.gbk zh_CN.GB18030 zh_CN.gb18030 zh_CN.GB2312 zh_CN.gb2312; do
@@ -138,68 +157,83 @@ detect_gbk_locale() {
 }
 GBK_LOCALE="$(detect_gbk_locale || true)"
 if [ -z "$GBK_LOCALE" ]; then
-  echo "  SKIP: 系统无可用 zh_CN.GBK 类 locale（Part 1 已覆盖 python 那层；Part 2 需真实 GBK 区域）"
+  echo "  SKIP: no usable zh_CN.GBK-class locale (Part 2 needs a real non-UTF-8 locale)"
 else
   echo "  using locale: $GBK_LOCALE"
   GBK() { LANG="$GBK_LOCALE" LC_ALL="$GBK_LOCALE" env "$@"; }
   P2="$WORK/p2"; deploy "$P2"
   git -C "$P2" init -q; git -C "$P2" config user.email t@t.t; git -C "$P2" config user.name t
-  # 中文书名作为中间目录——正是 GBK 下 bash 通配会 NOMATCH 的场景
-  BOOK="$P2/让你管账号"; mkdir -p "$BOOK/正文" "$BOOK/大纲" "$BOOK/追踪" "$BOOK/设定"
-  printf '让你管账号\n' > "$P2/.active-book"
+  # CJK book name as an intermediate directory — exactly the case where bash
+  # globbing mis-decodes UTF-8 under GBK without the hooks' LC_ALL=C exports.
+  BOOK="$P2/凯尔的誓约"; mkdir -p "$BOOK/prose" "$BOOK/outline" "$BOOK/tracking" "$BOOK/setting"
+  printf '凯尔的誓约\n' > "$P2/.active-book"
 
-  # 2a guard-outline：中文书名中间目录 + 中文通配 glob
+  # 2a guard-outline: CJK book-name intermediate dir + CJK glob
   rg() { local ec=0; printf '{"tool_name":"Write","tool_input":{"file_path":"%s","content":"x"}}' "$1" \
     | GBK CLAUDE_PROJECT_DIR="$P2" bash "$P2/.claude/hooks/guard-outline-before-prose.sh" >/dev/null 2>&1 || ec=$?; printf '%s' "$ec"; }
-  [ "$(rg '让你管账号/正文/第1章_开端.md')" = 2 ] && pass "[GBK] guard blocks missing 细纲" || bad "[GBK] guard should block missing 细纲"
-  : > "$BOOK/大纲/细纲_第1章.md"
-  [ "$(rg '让你管账号/正文/第1章_开端.md')" = 0 ] && pass "[GBK] guard allows present 细纲 (Chinese glob)" || bad "[GBK] guard should allow present 细纲 under GBK"
-  [ "$(rg '让你管账号/正文/第001章_开端.md')" = 0 ] && pass "[GBK] guard tolerates zero-pad 第001章" || bad "[GBK] guard should tolerate 第001章 under GBK"
+  [ "$(rg '凯尔的誓约/prose/chapter_001_beginning.md')" = 2 ] && pass "[GBK] guard blocks missing chapter outline" || bad "[GBK] guard should block missing chapter outline"
+  : > "$BOOK/outline/outline_chapter_001.md"
+  [ "$(rg '凯尔的誓约/prose/chapter_001_beginning.md')" = 0 ] && pass "[GBK] guard allows present chapter outline (CJK glob)" || bad "[GBK] guard should allow present chapter outline under GBK"
+  [ "$(rg '凯尔的誓约/prose/chapter_0001_beginning.md')" = 0 ] && pass "[GBK] guard tolerates zero-padded chapter numbers" || bad "[GBK] guard should tolerate zero-padded chapter numbers under GBK"
 
-  # 2b detect-story-gaps：正常伏笔表不误报；同时证明中文书目能被发现。
-  # F001 状态用全角空格 U+3000 补白（已埋 前后各一个），守住 LC_ALL=C 下 trim 仍认全角空格。
-  cat > "$BOOK/追踪/伏笔.md" <<'EOF'
-| ID | 伏笔内容 | 埋设章节 | 预计回收章节 | 状态{已埋/已回收/已过期/放弃} | 重要度{高/中/低} |
+  # 2b detect-story-gaps: a normal foreshadowing table must not warn; this also
+  # proves the CJK book is discovered. F001's status is padded with full-width
+  # space U+3000 (　planted　) to pin the trim that keeps recognizing the
+  # full-width space under LC_ALL=C.
+  cat > "$BOOK/tracking/foreshadowing.md" <<'EOF'
+| ID | Foreshadowing | Planted chapter | Expected collection | Status{unplanted/planted/recovered/expired} | Importance{high/mid/low} |
 |----|---------|---------|-------------|-----------------------------|----------------|
-| F001 | 玉佩身世 | 第1章 | 第20章 |　已埋　| 高 |
-| F002 | 师门往事 | 第3章 | 第25章 | 已回收 | 中 |
+| F001 | jade pendant's origin | Chapter 1 | Chapter 20 |　planted　| high |
+| F002 | master's past | Chapter 3 | Chapter 25 | recovered | mid |
 EOF
   out="$(cd "$P2" && GBK CLAUDE_PROJECT_DIR="$P2" bash .claude/hooks/detect-story-gaps.sh 2>&1 || true)"
-  echo "$out" | grep -q '伏笔' && bad "[GBK] detect-story-gaps spuriously warns on normal 伏笔" || pass "[GBK] detect-story-gaps silent on normal 伏笔"
-  # 制造真实缺口（正文>10 设定<3），证明中文书目确实被遍历到（否则上面的"静默"是假阳性）
-  i=1; while [ "$i" -le 11 ]; do : > "$BOOK/正文/第${i}章.md"; i=$((i+1)); done
+  echo "$out" | grep -q 'foreshadowing' && bad "[GBK] detect-story-gaps spuriously warns on a normal foreshadowing table" || pass "[GBK] detect-story-gaps silent on a normal foreshadowing table"
+  # Manufacture a real gap (prose > 10, setting < 3) to prove the CJK book is
+  # actually traversed (otherwise the silence above would be a false positive).
+  i=1; while [ "$i" -le 11 ]; do : > "$BOOK/prose/chapter_${i}_x.md"; i=$((i+1)); done
   out2="$(cd "$P2" && GBK CLAUDE_PROJECT_DIR="$P2" bash .claude/hooks/detect-story-gaps.sh 2>&1 || true)"
-  echo "$out2" | grep -q '让你管账号' && pass "[GBK] detect-story-gaps discovers Chinese book + warns on real gap" || bad "[GBK] detect-story-gaps failed to discover Chinese book under GBK"
-  rm -f "$BOOK"/正文/第*章.md
+  echo "$out2" | grep -q '凯尔的誓约' && pass "[GBK] detect-story-gaps discovers the CJK book + warns on a real gap" || bad "[GBK] detect-story-gaps failed to discover the CJK book under GBK"
+  rm -f "$BOOK"/prose/chapter_*_x.md
 
-  # 2c validate-story-commit：命中全角冒号 + 全角空格的硬编码属性（C/GBK 区域下方括号字符组
-  # 会漏全角冒号、[[:space:]] 会漏全角空格，交替修好）
-  printf '年龄　：18\n' > "$BOOK/正文/第1章_开端.md"
+  # 2c validate-story-commit: catch a hardcoded attribute under the GBK locale.
+  # The attribute uses ASCII punctuation ("age : 18") — the regex's [[:space:]]
+  # branch matches it. (A full-width-space variant "age　: 18" is not asserted
+  # here: on Windows MSYS bash the hook's non-ASCII regex literal is converted
+  # to the system ANSI codepage when spawning native grep, so that branch can
+  # only be verified on UTF-8-locale runners; the ASCII form proves the byte
+  # matching itself is locale-safe.)
+  printf 'age : 18\n' > "$BOOK/prose/chapter_001_beginning.md"
   git -C "$P2" add -A >/dev/null 2>&1
   cout="$(cd "$P2" && GBK CLAUDE_PROJECT_DIR="$P2" STORY_COMMIT_COMMAND='git commit -m x' bash .claude/hooks/validate-story-commit.sh 2>&1 || true)"
-  echo "$cout" | grep -q '正文硬编码角色属性' && pass "[GBK] validate-commit catches fullwidth-colon attr" || bad "[GBK] validate-commit missed fullwidth-colon attr under GBK"
+  echo "$cout" | grep -q 'prose hardcodes character attributes' && pass "[GBK] validate-commit catches hardcoded attribute under GBK" || bad "[GBK] validate-commit missed the hardcoded attribute under GBK"
 
-  # 2d lib/common.sh discover_active_book：.active-book 指向「短中文书名」时，GBK 下 trim sed
-  # 会报 illegal byte sequence → active 被吞空 → 误回退到 find 的第一本书。覆盖被 session-*/
-  # pre-compact/post-compact 复用的这条共享路径。确定性构造：活跃书无 追踪/正文（fallback 找
-  # 不到它），诱饵书有 追踪/（fallback 只会命中诱饵）—— 修复前回 decoy、修复后回 .active-book。
+  # 2d lib/common.sh discover_active_book: when .active-book points at a short
+  # non-ASCII book name, the LC_ALL=C trim in common.sh must not report an
+  # illegal byte sequence and swallow the active book (which would fall back to
+  # find's first book). Deterministic construction: the active book has setting/
+  # but no tracking/prose (the fallback cannot find it), the decoy book has
+  # tracking/ (the fallback would only hit the decoy) — before the fix it
+  # resolves to the decoy, after it resolves to .active-book. The name carries
+  # an accent and an apostrophe to stress byte handling.
   P2D="$WORK/p2d"; deploy "$P2D"
-  mkdir -p "$P2D/让你管账号/设定" "$P2D/decoy小说/追踪"
-  printf '让你管账号\n' > "$P2D/.active-book"
+  mkdir -p "$P2D/Káel's Óath/setting" "$P2D/decoy-novel/tracking"
+  printf "Káel's Óath \n" > "$P2D/.active-book"  # trailing space exercises the trim
   active_path="$(cd "$P2D" && GBK CLAUDE_PROJECT_DIR="$P2D" bash -c 'source ".claude/hooks/lib/common.sh"; discover_active_book' 2>/dev/null)"
-  # 字节安全断言：活跃书有 设定/、诱饵书有 追踪/；用 [ -d ] 直接 stat 字节路径，避免 basename
-  # 在个别 runner 的 GBK 下改写多字节而假失败。修复前回诱饵（无 设定/），修复后回活跃书。
-  if [ -d "$active_path/设定" ]; then
-    pass "[GBK] common.sh discover_active_book honors short Chinese .active-book"
+  # Byte-safe assertion: the active book has setting/, the decoy has tracking/;
+  # use [ -d ] to stat the byte path directly, avoiding basename rewriting
+  # multi-byte names on some runners under GBK. Before the fix this resolves to
+  # the decoy (no setting/), after the fix to the active book.
+  if [ -d "$active_path/setting" ]; then
+    pass "[GBK] common.sh discover_active_book honors the accented .active-book name"
   else
-    bad "[GBK] common.sh discover_active_book dropped short Chinese .active-book (resolved [$active_path])"
+    bad "[GBK] common.sh discover_active_book dropped the accented .active-book name (resolved [$active_path])"
   fi
 fi
 
 echo ""
 if [ "$fail" -eq 0 ]; then
-  echo "PASS: hook 在 cp936 与真实 GBK 区域下都正确"
+  echo "PASS: hooks behave correctly under the C locale and a real non-UTF-8 locale with UTF-8 book names"
 else
-  echo "FAIL: hook 在某个编码/区域模式下行为不符（中文编码回归）"
+  echo "FAIL: a hook misbehaved under some encoding/locale mode (encoding regression)"
 fi
 exit "$fail"

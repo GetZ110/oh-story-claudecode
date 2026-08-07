@@ -1,385 +1,385 @@
-# 角色关系与感情线操作手册
+# Character Relationships & Romance Lines Handbook
 
-## 决策路由
+## Decision routing
 
-| 你在设计什么 | 使用本章方法 |
+| What you're designing | Method in this chapter |
 |-------------|-------------|
-| 角色间关系类型 | 人物关系类型表 |
-| 感情线核心人设 | 感情流人设核心法 |
-| 爱情线底层逻辑 | 男频/女频爱情线差异 |
-| 穿书/穿游戏角色选择 | 穿书角色选择法则 |
-| 多角关系/修罗场 | 修罗场收场策略 |
-| 好感度推进节奏 | 好感度体系 + 男频恋爱文攻略 |
-| 配角态度变化 | 配角攻略缓冲区 |
-| 角色共情写作 | 角色行为自洽检查 |
-| 角色目标与关系线 | 角色目标独立性 + 关系线设计 |
+| Relationship types between characters | the relationship-type table |
+| Romance-line core personas | the romance-persona core method |
+| Romance-line underlying logic | male-/female-audience romance differences |
+| Transmigration/into-game character selection | transmigration character selection rules |
+| Multi-party love / harem chaos scenes | chaos-scene closing strategies |
+| Affinity advancement rhythm | affinity system + male-audience romance guide |
+| Supporting-character attitude changes | supporting-character wooing buffer |
+| Character empathy writing | character behavior consistency check |
+| Character goals & relationship lines | goal independence + relationship-line design |
 
 ---
 
-## 人物关系类型
+## Relationship types
 
-查表确定角色间的关系类型，然后按原则执行。
+Check the table for the relationship type, then execute per the principles.
 
-| 关系类型 | 定义 | 功能 | 示例 |
+| Type | Definition | Function | Example |
 |---------|------|------|------|
-| 冲突型 | 双方利益/理念对立 | 制造张力，推动情节 | 宿敌、竞争对手 |
-| 联盟型 | 双方有共同目标 | 提供助力，制造羁绊 | 战友、师徒 |
-| 亲密型 | 情感纽带连接 | 制造软肋，提供情感支点 | 恋人、家人、兄弟 |
-| 权威型 | 上下级/支配关系 | 制造压力，限制主角行动 | 师父、老板、监管者 |
+| Conflict | opposing interests/ideals | creates tension, drives plot | arch-rivals, competitors |
+| Alliance | shared goals | provides help, builds bonds | comrades, mentor-student |
+| Intimacy | emotional bonds | creates soft spots, emotional anchors | lovers, family, brothers |
+| Authority | superior-subordinate / dominance | creates pressure, constrains the protagonist | mentor, boss, regulator |
 
-**执行规则**：
-- 每个重要关系至少安排一次考验（背叛/牺牲/误解）
-- 关系必须有变化弧线（敌人变盟友、盟友变对手）
-- 禁止所有关系都是"你好我好"的铁板一块
-- 关系的功能必须服务于情节，不能只为甜/虐而存在
-
----
-
-## 感情流人设核心法
-
-感情流中剧情为人设服务——每次剧情都要丰满人物或推动感情发展，否则就是无效剧情。
-
-### 构建步骤
-
-1. **确定人设核心**：写下最初出现在脑海里的角色特征（如"想登上皇位的皇子""病弱皇子"）
-2. **围绕核心发散**：回答——为什么有这个核心？过去经历？环境影响？性格成因？
-3. **延伸剧情线**：核心自带的剧情必须写（有目标→目标线；有伤痛→治愈线）
-
-### 执行规则
-
-- 俗套剧情配上丰满人设也能脱离套路感
-- 两个主角都必须有闪光点和独立变化路线，不能一个人出彩另一个人黯淡
-- 高光不等于装逼——所有让读者对角色印象深刻的时刻都是高光，包括痛彻心扉的时刻
-- 生命不止恋爱——角色心里希望恋爱，但生命里不能只有恋爱，只有恋爱的角色立不住、很单薄
+**Execution rules**:
+- Every important relationship gets at least one test (betrayal / sacrifice / misunderstanding)
+- Relationships must have change arcs (enemy to ally, ally to opponent)
+- Banned: all relationships being one monolithic "everything's fine"
+- Relationship functions must serve the plot, not exist for sweetness/pain alone
 
 ---
 
-## 男频与女频爱情线底层逻辑差异
+## The romance-persona core method
 
-**先确定目标读者群，再选择对应逻辑。两者不可混淆，否则读者会觉得"不对味"。**
+In romance-driven fiction, plot serves the persona — every plot must enrich the character or advance the romance, or it's invalid plot.
 
-### 男频爱情线逻辑
+### Construction steps
 
-| 维度 | 说明 |
+1. **Fix the persona core**: write the character trait that first came to mind (e.g. "a prince who wants the throne" / "a sickly prince")
+2. **Diverge from the core**: answer — why this core? past experiences? environmental influences? personality origins?
+3. **Extend plot lines**: the core's built-in plots must be written (a goal → a goal line; trauma → a healing line)
+
+### Execution rules
+
+- Clichéd plots with full personas escape the cliché feel
+- Both protagonists need shine points and independent change routes; one can't shine while the other dims
+- Highlights ≠ status flex — every moment that makes readers remember the character is a highlight, including heart-rending moments
+- Life is more than romance — the character wants romance but life can't be only romance; romance-only characters don't stand up, too thin
+
+---
+
+## Male- vs female-audience romance-line underlying logic
+
+**Fix the target reader group first, then pick the logic. Mixing the two makes readers feel "off."**
+
+### Male-audience romance logic
+
+| Dimension | Explanation |
 |------|------|
-| 核心 | "外在因素展示"——主角和对象在一起体现两人的外在因素多优秀 |
-| 三种核心逻辑 | "她要是我的该多好" → "这么优秀的人是我的了" → "这么优秀的人都喜欢我，我更优秀" |
-| 围观者想法 | "能得到这么优秀的女人，我好羡慕"（非"恋爱好甜"） |
-| 女主 | 最好有多个女性角色喜欢主角，越多说明主角越优秀 |
-| 对象本质 | "奖杯"——一切动机的根本目的是胜利 |
+| Core | "external-factor display" — being together displays how excellent both sides' external factors are |
+| Three core logics | "If only she were mine" → "This excellent person is mine" → "An excellent person likes me, so I'm more excellent" |
+| Onlookers' thought | "Getting a woman like that, I'm so jealous" (not "how sweet") |
+| Heroine | ideally multiple women like the protagonist; the more, the more excellent he is |
+| The partner's essence | a "trophy" — the root purpose of all motives is victory |
 
-写男频感情线时，围绕"展示优秀"设计事件。
+When writing the male-audience romance line, design events around "displaying excellence."
 
-### 女频爱情线逻辑
+### Female-audience romance logic
 
-| 维度 | 说明 |
+| Dimension | Explanation |
 |------|------|
-| 核心 | "连接"——两人之间唯一、坚不可摧、最优先的情感连接 |
-| 连接要求 | "我爱的是你这个人，外貌、财富、才华都不能替代这份连接" |
-| 纯洁性 | 连接形成后应逐渐舍去外在因素影响 |
-| 双方 | 最好初恋+双洁——保障连接的纯洁性和唯一性 |
-| 围观者想法 | "他们的恋爱好甜，我好羡慕" |
+| Core | "connection" — a unique, unbreakable, highest-priority emotional connection between two people |
+| Connection requirement | "I love the person you are; appearance, wealth, talent cannot replace this connection" |
+| Purity | once formed, the connection gradually sheds external factors' influence |
+| Both parties | ideally first love + mutual single-commitment — guaranteeing purity and uniqueness |
+| Onlookers' thought | "Their romance is so sweet, I'm so jealous" |
 
-写女频感情线时，围绕"深化连接"设计事件。
-
----
-
-## 穿书/穿游戏角色选择法则
-
-### 必须满足的条件
-
-- 叙事主角必须对原世界有相当熟悉度（最核心的期待感来源）
-- 确定穿越进熟悉的世界，一两句话交代清楚，不能超过一章还不知道身处何方
-- 必须选择穿越后有强戏剧性或强矛盾的角色（如穿越成恶毒女配）
-
-### 信息差设计
-
-- 在原世界基础上适当设计信息差，为叙事主角提供探索空间
-- 可以用原世界知识卡bug获取超额收益
+When writing the female-audience romance line, design events around "deepening the connection."
 
 ---
 
-## 修罗场收场策略
+## Transmigration/into-game character selection rules
 
-修罗场本质是一种矛盾，控制对抗烈度，不能让爱情线对象之间出现不可调和的矛盾。
+### Mandatory conditions
 
-| 收场方法 | 操作 |
+- The narrative protagonist must have real familiarity with the original world (the core anticipation source)
+- Confirm the transmigration target world; state it in one or two sentences; the reader must know where they are within one chapter
+- Must choose a character with strong drama or strong conflict after transmigration (e.g. transmigrating into the vicious female villain)
+
+### Information-gap design
+
+- Design appropriate info gaps on top of the original world, giving the narrative protagonist room to explore
+- Original-world knowledge may exploit system loopholes for over-gains
+
+---
+
+## Chaos-scene closing strategies
+
+A chaos scene is a kind of conflict; control the confrontation intensity; no irreconcilable conflicts between romance-line targets.
+
+| Closing method | Operation |
 |---------|------|
-| 关联回事业线 | 让爱情线对象们把争风吃醋转化为"比谁对主角事业线贡献更大" |
-| 插入事业线突发事件 | 对抗进入白热化时，用突发事件让所有人从内斗切换成一致对外 |
-| 一笔带过 | 最多两人互相看不惯、说两句嘲讽话就过去，非常克制 |
+| Route back to the career line | let the romance targets convert jealousy into "who contributes more to the protagonist's career line" |
+| Insert a career-line emergency | when confrontation peaks, an emergency forces everyone from infighting to united external defense |
+| One-line pass | at most two people dislike each other, exchange a mocking line or two, very restrained |
 
 ---
 
-## 傻白甜角色塑造避坑
+## Sweet-dimwit character pitfalls
 
-### 六个必避之坑
+### Six pits to avoid
 
-1. 女主犯错不能是故意的，不能明知不能做偏要做
-2. 女主犯错不能违反道德——傻白甜最重要的是天真小孩子般的高道德感
-3. 不能站在道德高地指责他人（道德婊行为），自己却做不好
-4. 不能因为道德婊行为和队友发生矛盾后还让队友认错赞美她
-5. 正确做法：有更高道德标准 → 所作所为符合 → 为此显得与众不同和有点傻气
-6. 可以写成长线：坐到被她指责的人的位置上后，发现原来那个做法已是最好的选择
+1. The heroine's errors can't be deliberate — can't know it's wrong and do it anyway
+2. The heroine's errors can't violate morality — the sweet dimwit's most important trait is childlike high morality
+3. Can't stand on a moral high ground condemning others (moral-biddy behavior) while failing to do it herself
+4. Can't have a moral-biddy conflict with teammates and then have the teammates apologize and praise her
+5. Correct approach: higher moral standards → deeds matching them → appearing different and a bit silly for it
+6. Growth lines allowed: sitting in the seat of the person she condemned, discovering that original approach was already the best choice
 
-### 反向用法
+### Reverse use
 
-塑造傻白甜反派时，把以上六点全加在她身上，让读者一见就厌恶。
-
----
-
-## 人设改变的双向翻转法
-
-爱情线中关系发生变化时的人设调整方法。
-
-### 核心思路
-
-- 最好的改变是两个人都改变，且改变后恰好与之前两人之间的对应关系相反
-- 改变要基于原人设做局部调整，和原人设保持密切联系，避免随意改造
-
-### 执行规则
-
-- 人设变化发生在爱隔山海阶段之后（尤其是面对最大阻碍之后），不要再设计新的矛盾，只要发糖
-- 真正的阻碍已在前面解决，此时读者最迫切的渴望是多吃糖
-- 发糖要用实在的CP行为和悉心照顾表达爱意，不是"我爱你"式的工业糖精
+To build a sweet-dimwit antagonist, pile all six on her and readers will loathe her at first sight.
 
 ---
 
-## 角色行为自洽检查
+## The two-way flip method for persona changes
 
-### 第一步：排除外部强推
+Persona adjustment when relationships change in the romance line.
 
-检查角色行为是否只是为了让剧情往某方向发展。如果角色"恰好"做了推进剧情的事但没有自身动机，标记为"人设偏移"，必须为该行为补充角色层面的合理理由。
+### Core approach
 
-### 第二步：情绪目标确认
+- The best change is both people changing, and the change inverts their previous correspondence
+- Changes are partial adjustments based on the original persona, staying closely linked; no random remodeling
 
-写每段前明确三个要素：
-1. 本段目标情绪：这段剧情要让读者产生什么情绪？
-2. 角色性格特征是否支持该情绪：角色的设定属性是否自然导向此情绪方向？
-3. 角色行为是否符合使命定位：角色在本段的行为是否与其在故事中的功能定位一致？
+### Execution rules
 
-### 第三步：人设行为推导
-
-从角色已设定属性（经历/性格/目标/当前状态）推导其在场景中的行为：
-- 列出该角色在此场景下的2-3种可能反应
-- 评估每种反应与角色已有行为模式的一致性
-- 选择最符合人设且最有戏剧张力的那一种
-
-### 第四步：情绪一致性校验
-
-检查角色表达的情绪核心与场景目标情绪是否一致。不一致则调整角色行为或场景目标情绪，确保输出内容在情绪维度上自洽。
-
-**两种执行路径**：
-- 路径A：先定目标情绪 → 按人设推导角色行为 → 校验一致性
-- 路径B：先按人设推导角色行为 → 反推场景目标情绪 → 校验一致性
+- Persona changes happen after the "love across mountains" stage (especially after facing the biggest obstacle); no new conflicts after — only sweetness
+- The real obstacles were already solved; readers' most urgent desire now is more sugar
+- Sugar must be real CP behavior and attentive care, not "I love you" industrial sugar
 
 ---
 
-## 配角攻略缓冲区
+## Character behavior consistency check
 
-配角对主角态度的变化过程 = 主角攻略配角的过程，伴随巨大的期待感和爽点。
+### Step 1: rule out external forcing
 
-### 缓冲区类型
+Check whether character behavior exists only to push the plot in a direction. If the character "happens to" advance the plot without their own motivation, mark it "persona drift" and add a character-level reasonable reason for the behavior.
 
-线上线下、背后议论、异地相处、地位差距、亲密度差距、信任程度、信息差等。
+### Step 2: emotion-target confirmation
 
-### 操作步骤
+Before each passage, fix three elements:
+1. Target emotion of this passage: what emotion should this plot make the reader feel?
+2. Does the character's personality support this emotion: does the setting naturally lead here?
+3. Does the character's behavior fit the mission positioning: does the behavior match their functional role in the story?
 
-1. 始终保持缓冲区存在
-2. 在卷纲中挑出事件拐点（5~7个）
-3. 在每个拐点处标注配角状态和对主角的态度变化
-4. 每次攻略到关键点位时，配角的态度变化必须写清楚
-5. 态度变化本身就产生情绪波动和期待感
+### Step 3: persona-behavior derivation
 
-### 执行规则
+Derive the character's in-scene behavior from set attributes (history/personality/goals/current state):
+- List 2-3 possible reactions in this scene
+- Evaluate each against the character's established behavior patterns
+- Pick the most persona-consistent and most dramatically tense one
 
-- 配角不能像NPC一样站着等主角触发
-- 配角要有自己的行动，由配角观点引出事件
-- 正面角色也一样：和主角立场相同的人也应有自己的行动和动机
+### Step 4: emotion-consistency validation
+
+Check whether the emotion core the character expresses matches the scene's target emotion. If not, adjust the character behavior or the scene's target emotion so the output is self-consistent on the emotion dimension.
+
+**Two execution paths**:
+- Path A: fix the target emotion first → derive character behavior per the persona → validate consistency
+- Path B: derive character behavior per the persona first → back-derive the scene's target emotion → validate consistency
 
 ---
 
-## 利用角色身份认知差制造冲突
+## The supporting-character wooing buffer
 
-同一个角色在不同人眼中的"声望"是动态变化的，不是恒定值。
+A supporting character's attitude change toward the protagonist = the process of the protagonist wooing them, carrying huge anticipation and payoff.
 
-| 视角 | 看重什么 | 对男主的评价 |
+### Buffer types
+
+Online/offline, behind-the-back talk, distance, status gap, intimacy gap, trust level, info gaps, etc.
+
+### Operation steps
+
+1. Keep the buffer present at all times
+2. Pick 5-7 event turning points from the volume outline
+3. Mark the supporting character's state and attitude change at each point
+4. Each time the wooing hits a key point, the attitude change must be written clearly
+5. The attitude change itself produces emotional fluctuation and anticipation
+
+### Execution rules
+
+- Supporting characters can't stand like NPCs waiting for the protagonist to trigger
+- Supporting characters have their own actions; events are introduced from their POV
+- Positive characters too: people on the protagonist's side have their own actions and motivations
+
+---
+
+## Using identity-perception gaps to create conflict
+
+The same character's "prestige" in different people's eyes is dynamic, not constant.
+
+| POV | What they value | Their evaluation |
 |------|----------|-------------|
-| 世俗视角 | 家境对等，抗风险能力 | 综合条件匹配度 |
-| 男主自身 | 赚钱养家+感情 | 相对门当户对 |
-| 女主视角 | 感情+专一+爱 | 只要在乎的就门当户对 |
-| 富二代 | 外貌家世匹配度 | 我才更门当户对 |
-| 路人 | 综合条件对比 | 女主该嫁富二代 |
+| Mundane view | family match, risk resistance | overall condition match |
+| The male lead himself | earning + emotion | relatively matched |
+| The heroine's view | emotion + commitment + love | matched if she cares |
+| Rich kid | appearance and family match | "I'm the better match" |
+| Passersby | overall condition comparison | "the heroine should marry the rich kid" |
 
-**操作要点**：
-- 不同人对同一个角色的评价差异 = 天然的矛盾冲突来源
-- 恋爱文的核心爽点之一：不同维度的评价差
-
----
-
-## 亦敌亦友关系
-
-最有魅力的人物关系类型。
-
-### 执行规则
-
-- 前提：两个角色本身都要有魅力，否则只是强行五五开的狗皮膏药
-- 核心：高度认可 + 绝对冲突 → 惺惺相惜 → 缺一魅力全无
-- 真正的宿敌 = 双方相互认可，外人盖章不算
+**Operation points**:
+- Different evaluations of the same character = a natural conflict source
+- One of romance fiction's core payoffs: evaluation differences across dimensions
 
 ---
 
-## 竞争者定位与亲情线用法
+## Frenemies
 
-### 竞争者（鲶鱼效应）
+The most charismatic relationship type.
 
-- 定位：给男主/女主增加紧张感上压力 → 推动攻略进度
-- 剧情设置重点在"高潮节点前" → 属于铺垫环节
-- 对高潮后续写剧情作用不大 → 不是续命手段
+### Execution rules
 
-### 亲情线的四个方向
+- Premise: both characters have charisma; otherwise it's forced fifty-fifty glue
+- Core: high mutual recognition + absolute conflict → mutual respect → missing either, the charm dies
+- True arch-rivals mutually recognize each other; outsiders' stamps don't count
 
-| 方向 | 作用 | 使用时机 |
+---
+
+## Competitors & family-line use
+
+### Competitors (catfish effect)
+
+- Positioning: add tension and pressure for the male/female lead → push the wooing progress
+- Plot placement focuses "before the climax node" → setup-stage material
+- Little use for post-climax plots → not a life-extender
+
+### The four family-line directions
+
+| Direction | Function | Timing |
 |------|------|---------|
-| 男方助力 | 提供金钱地位权力 | 高潮前发挥 |
-| 男方阻力 | 设置障碍让主角得到认可 | 节点前后都能用 |
-| 女方助力 | 温柔乡感情补给站 | 高潮前发挥 |
-| 女方阻力 | 父母不同意→为了认可去努力 | 节点前后都能用 |
+| Male-side help | provides money/status/power | before the climax |
+| Male-side obstacle | sets obstacles so the protagonist earns recognition | before/after nodes both work |
+| Female-side help | the soft-place emotion supply station | before the climax |
+| Female-side obstacle | parents disagree → striving for recognition | before/after nodes both work |
 
-助力主要在高潮前，阻力节点前后都能用，阻力更好发挥。
+Help mainly shines before the climax; obstacles work around nodes; obstacles play better.
 
 ---
 
-## 男频恋爱文写法攻略
+## Male-audience romance writing guide
 
-### 读者为什么看恋爱文
+### Why readers read romance fiction
 
-| 价值 | 来源 |
+| Value | Source |
 |------|------|
-| 情绪价值 | 填补"被需要、被在乎"的情感空缺 |
-| 自尊价值 | 女主条件好→带出去有面子→配角羡慕嫉妒 |
-| 高身份女主原因 | 更强的装逼打脸工具人+更大的自尊满足 |
+| Emotional value | fills the "needed, cared-for" emotional gap |
+| Self-esteem value | the heroine's great conditions → showing off → everyone envies |
+| Why high-status heroines | a stronger flex/comeuppance tool + greater self-esteem satisfaction |
 
-### 核心技法：把恋爱当升级文写
+### Core technique: write romance as an upgrade novel
 
-- 暧昧拉扯的过程才是最有吸引力的
-- 好感度进度条：每一步推进 = 升级文中的一个"等级"
-- 每一个事件是一次"升级"→ 通过冲突、化解、理解和共鸣让好感攀升
+- The ambiguity-pull process is the most attractive part
+- Affinity progress bar: every step = one "level" in an upgrade novel
+- Every event is one "upgrade" → affinity rises through conflict, resolution, understanding, resonance
 
-### 好感度升级路径
+### The affinity upgrade path
 
-路人 → 好人（扶老奶奶过马路） → 正直勇敢的好人（挺身而出） → 不错的朋友（理解原生家庭困境） → 喜欢但不知（特殊契机看到彼此不为人知的一面）
+stranger → good person (helped an old lady cross the street) → upright brave good person (stepped up) → decent friend (understands the family-trap background) → likes without knowing (a special moment seeing each other's hidden side)
 
-### 关键原则：主角不主动追求
+### Key principle: the protagonist doesn't actively pursue
 
-- 当前男频读者普遍反感"舔狗"人设
-- 推动好感靠男主自身优秀品质吸引，不是主动追求
-- 男主帮女主是举手之劳不经意为之 → 女主因此记住他
+- Current male-audience readers broadly hate "simp" personas
+- Affinity rises by the male lead's own excellent qualities attracting, not active pursuit
+- The male lead's help is an effortless incidental → the heroine remembers him for it
 
-### 感情升级的不对称性
+### Emotional escalation asymmetry
 
-- 两条进度线：表面社会关系（路人→朋友→情侣）+ 实际情感好感度
-- 两条线不应齐头并进 → 一条快一条慢 → 带来丰富的矛盾冲突
-- 情感线快于社会线 → 辉夜大小姐模式（双方好感拉满但嘴硬不表白）
-- 社会线快于情感线 → 赘婿/择天记模式（表面夫妻实际好感为零）
+- Two progress lines: surface social relationship (stranger → friends → lovers) + actual emotional affinity
+- The two lines shouldn't run in lockstep → one fast one slow → rich conflicts
+- Emotion faster than social line → the Kaguya model (affinity maxed both ways, mouths too stubborn to confess)
+- Social line faster than emotion → the fake-marriage model (surface spouses, zero actual affinity)
 
-### 写女主对主角好
+### Writing the heroine being good to the protagonist
 
-| 女主类型 | 付出方式 |
+| Heroine type | Giving style |
 |---------|---------|
-| 自卑社恐 | 偷偷帮忙塞东西但害怕被发现 |
-| 傲娇型 | 用心做便当但嘴硬"做多了顺便带的" |
-| 直率泼辣 | 大大方方送礼物或直球表白 |
+| Insecure social-anxiety | secretly slips things into his bag, terrified of being caught |
+| Tsundere | carefully makes bento, mouth insists "made extra anyway" |
+| Blunt outgoing | openly gives gifts or confesses straight |
 
-### 善用对比
+### Use contrast well
 
-| 对比类型 | 操作 |
+| Contrast type | Operation |
 |---------|------|
-| 时间线对比 | 女主刚认识主角时 vs 熟悉后的态度变化 |
-| 双标 | 不允许别人摸头但主角可以 → 凸显特殊地位 |
-| 信息差 | 男女主双重身份（网上vs现实）→ 期待揭穿时反应 |
+| Timeline contrast | the heroine's attitude when they first met vs after getting familiar |
+| Double standards | no head-patting for others, allowed for the protagonist → highlights special status |
+| Info gap | dual identities (online vs offline) → the awaited reaction at the reveal |
 
 ---
 
-## 好感度体系（通用框架）
+## The affinity system (generic framework)
 
-### 四阶段
+### Four stages
 
-萍水相逢 → 爱情喜剧 → 爱隔山海 → 大结局
+passing acquaintance → romantic comedy → love across mountains → finale
 
-### 好感度 × 关系阶段对照表
+### Affinity × relationship stage cross-reference
 
-好感度（负/零/半/满） x 关系阶段（熟悉/试探/暧昧/确认）
+Affinity (negative/zero/half/full) × relationship stage (familiar/testing/ambiguous/confirmed)
 
-阶段匹配原则：**按低的一方计算**。好感度到了但关系阶段没到 = 行为突兀。
+Stage-matching principle: **count by the lower side**. Affinity reached but stage not = abrupt behavior.
 
-### CP行为三类门槛
+### Three CP behavior gates
 
-| 行为类型 | 门槛 | 说明 |
+| Behavior type | Gate | Explanation |
 |---------|------|------|
-| 需容忍行为 | 半好感+ | 主动亲密、妥协，必须给补偿否则变舔狗 |
-| 特殊对待行为 | 半好感+ | 主权、信赖、牺牲、特殊待遇、安抚 |
-| 关联行为 | 双方半好感+ | 默契、分享、陪伴 |
+| Tolerance-required behavior | half-affinity+ | active intimacy, compromise; must compensate or it becomes simping |
+| Special-treatment behavior | half-affinity+ | sovereignty, trust, sacrifice, special treatment, soothing |
+| Association behavior | both half-affinity+ | rapport, sharing, companionship |
 
-好感度不足时写需容忍行为 = 油腻/性骚扰感。
+Writing tolerance-required behavior with insufficient affinity = greasy/harassment feel.
 
-### 5套感情线结构模板
+### Five romance-line structure templates
 
-| 模板 | 核心 |
+| Template | Core |
 |------|------|
-| 好感度变化 | 可能升/降/已降 → 各自处理路径 → 余韵 |
-| 受益 | 享受伴侣带来的好处 = 爱情线装逼核心 |
-| 争风吃醋 | 多角色为主角争风，不是主角吃别人醋 |
-| 发展受阻 | 阻碍→试图解决→解决→余韵 |
-| 狗粮 | CP日常互动 |
+| Affinity change | may rise/fall/already fallen → separate handling paths → afterglow |
+| Benefiting | enjoying the partner's benefits = the romance-line flex core |
+| Jealousy contest | multiple characters compete for the protagonist; not the protagonist envying others |
+| Development blocked | obstacle → trying to solve → solved → afterglow |
+| Sugar | CP daily interaction |
 
 ---
 
-## 角色目标的独立性与关系线设计
+## Goal independence & relationship-line design
 
-### 主角目标独立性原则
+### Goal-independence principle
 
-- 主角的目标必须属于自己的 → 不能是"帮别人实现目标" → 否则主角变成配角/工具人
-- 正确做法：把别人的目标转化为主角自己的（平叛=保护自己的利益/获得认可/获取资源）
-- 自检方法：随机看一章 → 主角在主动追求什么 → 如果没有 → 主角沦为别人的棋子
+- The protagonist's goal must belong to themselves — cannot be "helping others achieve their goals" — or the protagonist becomes a supporting character/tool
+- Correct: convert others' goals into the protagonist's own (quelling a rebellion = protecting own interests / earning recognition / acquiring resources)
+- Self-check: open a random chapter — what is the protagonist actively pursuing? Nothing = the protagonist is someone else's pawn
 
-### 感情线的层次设计
+### Romance-line layering design
 
-- 感情推进不是线性的，应该有升级节点，每个节点对应一个剧情高潮
-- 社会关系线 vs 实质情感线的错位制造张力
-- 最佳节奏：感情先慢后快 → 前期铺垫积累好感 → 后期集中爆发 → 匹配盛大仪式
+- Romance advancement isn't linear; it needs upgrade nodes, each mapped to a plot climax
+- The misalignment between the social-relationship line and the actual-emotion line creates tension
+- Best rhythm: slow first, fast later — early setup accumulates affinity, late concentrated burst, matched with a grand ceremony
 
-### 配角的功能性定位
+### Supporting-character functional positioning
 
-| 类型 | 功能 | 使用时机 |
+| Type | Function | Timing |
 |------|------|---------|
-| 竞争者（鲶鱼型） | 制造压力推动主角行动 | 高潮节点前 |
-| 助力型亲友 | 提供资源/情感支持 | 高潮前发挥 |
-| 阻力型亲友 | 不认可→设置条件→主角克服→获得认可 | 节点前后都能用 |
+| Competitor (catfish) | creates pressure driving the protagonist's action | before climax nodes |
+| Helping family/friends | provides resources/emotional support | before the climax |
+| Obstructing family/friends | no recognition → sets conditions → protagonist overcomes → earns recognition | before/after nodes both work |
 
 ---
 
-## 绿茶/负面角色
+## Toxic/manipulative characters
 
-- 可以推动剧情但要谨慎使用
-- 确认该角色是否有不可替代性
-- 主角强势时任何角色都能变正反馈
-- 主角弱势时负面角色会被读者恨
+- May advance the plot but use with care
+- Confirm whether the character is irreplaceable
+- When the protagonist is strong, any character can become positive feedback
+- When the protagonist is weak, negative characters get hated by readers
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-每次完成角色关系/感情线设计后，逐项核查：
+After each character-relationship/romance-line design, verify:
 
-- [ ] **关系类型明确**：每个重要关系已归类为冲突/联盟/亲密/权威之一
-- [ ] **关系有弧线**：每个重要关系至少经历一次考验或变化
-- [ ] **人设有核心**：主角人设有明确的核心特征和发散依据
-- [ ] **目标独立性**：主角的目标属于自己的，不是帮别人实现目标
-- [ ] **好感度匹配**：CP行为与当前好感度阶段匹配（按低的一方计算）
-- [ ] **读者群对味**：男频围绕"展示优秀"设计事件，女频围绕"深化连接"设计事件
-- [ ] **配角有行动**：配角不是NPC式站桩等待触发，有自己的行动和动机
-- [ ] **缓冲区存在**：配角攻略过程中始终保持缓冲区，拐点处标注态度变化
-- [ ] **修罗场可控**：多角关系中对象之间无不可调和的矛盾
-- [ ] **发糖时机正确**：爱隔山海之后不再设计新矛盾，只发实在的CP行为糖
-- [ ] **角色不止恋爱**：角色生命中有恋爱之外的内容，不是单薄的情感工具人
+- [ ] **Relationship type clear**: every important relationship classified as one of conflict/alliance/intimacy/authority
+- [ ] **Relationships have arcs**: every important relationship goes through at least one test or change
+- [ ] **Persona has a core**: the protagonist's persona has a clear core trait and divergence basis
+- [ ] **Goal independence**: the protagonist's goal belongs to themselves, not helping others achieve theirs
+- [ ] **Affinity match**: CP behavior matches the current affinity stage (count by the lower side)
+- [ ] **Reader-group fit**: male-audience events around "displaying excellence," female-audience events around "deepening connection"
+- [ ] **Supporting characters act**: not NPC standing waiting to be triggered; they have their own actions and motivations
+- [ ] **Buffer exists**: the buffer stays during supporting-character wooing; attitude changes marked at turning points
+- [ ] **Chaos scenes controlled**: no irreconcilable conflicts between romance targets
+- [ ] **Sugar timing right**: after "love across mountains," no new conflicts — only real CP-behavior sugar
+- [ ] **Characters have more than romance**: lives contain non-romance content; not thin emotional tools

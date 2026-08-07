@@ -1,561 +1,557 @@
-# 短篇拆文输出模板
+# Short-Fiction Teardown Output Templates
 
-> 拆文输出时加载。先看决策路由选 Stage，再按模板填写。方法论细节见 material-decomposition.md。
+> Load when producing teardown output. First check the routing table to pick the Stage, then fill in the template. Methodology details in material-decomposition.md.
 >
-> **输出契约 SSOT**：Stage→文件映射、`_meta.json` 字段（含 `structure_counts`）、
-> 下游消费规范、验收检查均在 [output-contract.md](output-contract.md) 中权威定义。
-> 本文件填的模板内容最终落到 `拆文报告.md` 等 markdown 文件，对应去向见每个 Stage
-> 末尾的 HTML 注释标注。质量检查必填字段段末加注 `[BLOCK]` / `[WARN]`：BLOCK
-> 不通过 → 「BLOCK 项扫描」阻断；WARN 不通过 → 写入「待补」清单不阻断。
+> **Output-contract SSOT**: the Stage→file mapping, `_meta.json` fields (incl. `structure_counts`), downstream consumption rules, and acceptance checks are authoritatively defined in [output-contract.md](output-contract.md).
+> The templates in this file eventually land in `teardown-report.md` and the other markdown files; each template's destination is labeled in the HTML comment at the end of each Stage. Quality-check required fields carry `[BLOCK]` / `[WARN]` labels at the end: a BLOCK failure → the "BLOCK item scan" blocks; a WARN failure → written into the "to-do" list, doesn't block.
 
-## 决策路由
+## Decision routing
 
-| 你在执行哪个 Stage | 加载哪个模板 | 必填字段 |
+| Which Stage you're running | Load which template | Required fields |
 |---------------|-------------|---------|
-| Phase 1 确认对象 | 无模板（用户交互，见 SKILL.md） | 用户已提供文本+拆解方向 |
-| Stage 2 结构+情节节点 | Stage 2 全篇结构 + Stage 2B 情节节点 | 故事核 + 至少 4 段结构 + 节点覆盖全文 |
-| Stage 3 情感线+爆点 | Stage 3 情感曲线 + 爆点分析 | 至少 5 节点 + 爆点 6 维度 |
-| Stage 4 反转+写作手法 | Stage 4 反转分析 + 写作手法 | 前置反转检查 + 铺垫线索 ≥2 + 手法 ≥5 项 |
-| Stage 5 人物+开头结尾 | Stage 5 人物 + 开头/结尾 | 所有有名人物 + 前 3 句引用 + 结尾类型 |
-| Stage 6 评估报告 | Stage 6 综合评估 | 五维评分 + 爆点性 + 共鸣 ≥3 层 + 可借鉴结构 ≥3 条 |
-| 同类对比（可选） | 同类对比 | 差异化亮点 |
-| 平台适配（可选） | 平台适配评估 | 三平台适配度 |
-| 详细节奏（可选） | 详细节奏分析 | 节奏指标 + 异常检测 |
+| Phase 1 confirm target | no template (user interaction, see SKILL.md) | user provided text + teardown direction |
+| Stage 2 structure + plot nodes | Stage 2 whole-piece structure + Stage 2B plot nodes | story core + at least 4 structure segments + nodes covering the whole piece |
+| Stage 3 emotional line + eruption points | Stage 3 emotion curve + eruption analysis | at least 5 nodes + eruption 6 dimensions |
+| Stage 4 reversal + writing craft | Stage 4 reversal analysis + writing craft | pre-reversal check + setup clues ≥2 + craft ≥5 items |
+| Stage 5 characters + opening/ending | Stage 5 characters + opening/ending | all named characters + first-3-lines quotes + ending type |
+| Stage 6 assessment report | Stage 6 combined assessment | five-dimension score + eruption potential + resonance ≥3 layers + reusable structures ≥3 |
+| Same-type comparison (optional) | same-type comparison | differentiation highlights |
+| Platform adaptation (optional) | platform-adaptation assessment | three-platform suitability |
+| Detailed rhythm (optional) | detailed rhythm analysis | rhythm metrics + anomaly detection |
 
-## 目录
+## Contents
 
-1. [Stage 2 全篇结构](#stage-2-全篇结构)
-2. [Stage 2B 情节节点提取](#stage-2b-情节节点提取)
-3. [Stage 3 情感线+爆点](#stage-3-情感线爆点)
-4. [Stage 4 反转+写作手法](#stage-4-反转写作手法)
-5. [Stage 5 人物+开头结尾](#stage-5-人物开头结尾)
-6. [Stage 6 综合评估](#stage-6-综合评估)
-7. [详细节奏分析](#详细节奏分析)
-8. [短篇结构速查库](#短篇结构速查库)
-9. [质量检查必填字段](#质量检查必填字段)
-
----
-
-## Stage 2 全篇结构
-
-<!-- output to: 拆文报告.md（故事核 + 故事梗概 + 结构划分 + 叙事时间线 各段） -->
-
-字数{X}字 | 节数{N} | 平台{平台} | 类型{题材/情绪类型} | 结局{HE/BE/开放式} | POV{第一/第三人称}
-
-### 故事核
-
-**设定**：{故事前提/触发条件，如"重生三次被母弟杀害"}
-**主题**：{核心矛盾/价值观冲突，如"极端重男轻女"}
-**核心行动**：{主角做了什么，如"放任母弟自毁"}
-**一句话**：{合并，如"重生三次被母弟杀害的女孩，第四世放任她们自毁"}
-
-### 故事梗概
-
-{200-500字概括全文}
-
-### 结构划分（4-6段，必须含开端/发展/高潮/结局）
-
-| 段落 | 字数范围 | 占比 | 功能 | 对应节 |
-|------|----------|------|------|--------|
-| 开端 | {X}-{Y} | {Z%} | {功能} | {节号} |
-| 发展 | {X}-{Y} | {Z%} | {功能} | {节号} |
-| {转折/过渡（可选）} | {X}-{Y} | {Z%} | {功能} | {节号} |
-| 高潮 | {X}-{Y} | {Z%} | {功能} | {节号} |
-| 结局 | {X}-{Y} | {Z%} | {功能} | {节号} |
-
-### 叙事时间线
-
-| 特征 | 描述 |
-|------|------|
-| 时间线类型 | {线性/插叙/倒叙/双线交叉} |
-| 时间跨度 | {故事内时间跨度} |
-| 关键时间跳跃 | {如有，标注位置和跨度} |
-| 时间操控目的 | {制造信息差/压缩无聊/制造对比} |
+1. [Stage 2 whole-piece structure](#stage-2-whole-piece-structure)
+2. [Stage 2B plot-node extraction](#stage-2b-plot-node-extraction)
+3. [Stage 3 emotional line + eruption points](#stage-3-emotional-line--eruption-points)
+4. [Stage 4 reversal + writing craft](#stage-4-reversal--writing-craft)
+5. [Stage 5 characters + opening/ending](#stage-5-characters--openingending)
+6. [Stage 6 combined assessment](#stage-6-combined-assessment)
+7. [Detailed rhythm analysis](#detailed-rhythm-analysis)
+8. [Short-fiction structure quick library](#short-fiction-structure-quick-library)
+9. [Quality-check required fields](#quality-check-required-fields)
 
 ---
 
-## Stage 2B 情节节点提取
+## Stage 2 whole-piece structure
 
-<!-- output to: 情节节点.md（独立成文）+ 拆文报告.md（情节节点清单段镜像） -->
+<!-- output to: teardown-report.md (story core + story summary + structure split + narrative timeline sections) -->
 
-> 方法论与节点数量字数分档表详见 material-decomposition.md「情节节点提取规则」（唯一权威）。
+{word count} words | {section count} sections | platform{platform} | type{genre/emotion type} | ending{HE/BE/open} | POV{first/third person}
 
-### 节点模板
+### Story core
+
+**Premise**: {the story's precondition / triggering condition, e.g., "killed three times by her mother and brother, reborn each time"}
+**Theme**: {core contradiction / values conflict, e.g., "extreme son-preference in the family"}
+**Core action**: {what the protagonist does, e.g., "lets them destroy themselves this fourth life"}
+**One-liner**: {combined, e.g., "A girl killed three times by her mother and brother lets them destroy themselves in the fourth life"}
+
+### Story summary
+
+{200-500 words covering the whole piece}
+
+### Structure split (4-6 segments; must include opening/development/climax/ending)
+
+| Segment | Word range | Share | Function | Sections |
+|---------|------------|-------|----------|----------|
+| Opening | {X}-{Y} | {Z%} | {function} | {section numbers} |
+| Development | {X}-{Y} | {Z%} | {function} | {section numbers} |
+| {Turn/transition (optional)} | {X}-{Y} | {Z%} | {function} | {section numbers} |
+| Climax | {X}-{Y} | {Z%} | {function} | {section numbers} |
+| Ending | {X}-{Y} | {Z%} | {function} | {section numbers} |
+
+### Narrative timeline
+
+| Trait | Description |
+|-------|-------------|
+| Timeline type | {linear/interleaved/flashback/double-line crossing} |
+| Time span | {in-story time span} |
+| Key time jumps | {if any, mark position and span} |
+| Time-manipulation purpose | {creating information gaps / compressing boredom / creating contrast} |
+
+---
+
+## Stage 2B plot-node extraction
+
+<!-- output to: plot-nodes.md (standalone file) + teardown-report.md (plot-node list section mirror) -->
+
+> Methodology and the word-count tier table for node counts: the "plot-node extraction rules" in material-decomposition.md (sole authority).
+
+### Node template
 
 ```markdown
-N{序号} **{事件概括}**：类型{情绪/信息/冲突/转折/对话/氛围} | 情绪{类型}{强度-9~+9} | 涉及{全名} | 手法{如有时}
+N{index} **{event summary}**: type{emotion/info/conflict/turn/dialogue/atmosphere} | emotion{type}{intensity -9~+9} | involves{full names} | craft{when present}
 
-原文引用（≤300字）
+Source quote (≤300 words)
 ```
 
-### 输出示例
+### Output example
 
 ```markdown
-## 情节节点清单
+## Plot-node list
 
-N1 **偷听到对话**：类型{信息} | 情绪{震惊}{-7} | 涉及{沈暮月} | 手法{信息差}
+N1 **Overheard call**: type{info} | emotion{shock}{-7} | involves{Mara Vance} | craft{information gap}
 
-> "霍总还不打算让沈暮月母子进门吗？"
-> "没必要，私生子而已。"
-> 我正准备推门而入，听到这话，手停在了半空。
+> "Does Hale even plan to let Mara and the kid through the door?"
+> "No need. A by-blow's a by-blow."
+> I was reaching for the handle. My hand stopped mid-air.
 
-N2 **自我认知**：类型{转折} | 情绪{心酸}{-5} | 涉及{沈暮月}
+N2 **Self-recognition**: type{turn} | emotion{heartache}{-5} | involves{Mara Vance}
 
-> 我是沈家的私生女，生了个儿子，也是私生子。
-> 霍庭煜对我没有爱。
-> 我默然抽回了手。
+> I was a Vance bastard, and I'd given him a bastard son.
+> Hale never loved me.
+> I drew my hand back without a sound.
 ```
 
-### 质量自检
+### Quality self-check
 
-- [ ] 节点数量在密度指引范围内
-- [ ] 每个节点有客观白描（无叙事框架词、无主观评价）
-- [ ] 每个节点有情绪标记（类型 + 强度值）
-- [ ] 节点严格按时序排列
-- [ ] 原文引用 ≤300 字且连续
+- [ ] Node count within the density-guide range
+- [ ] Every node has an objective plain description (no narrative-frame words, no subjective judgment)
+- [ ] Every node has an emotion label (type + intensity value)
+- [ ] Nodes strictly chronological
+- [ ] Source quotes ≤300 words and contiguous
 
 ---
 
-## Stage 3 情感线+爆点
+## Stage 3 emotional line + eruption points
 
-<!-- output to: 拆文报告.md（情感曲线 + 爆点分析 + 期待感分析 各段） -->
+<!-- output to: teardown-report.md (emotion curve + eruption analysis + anticipation analysis sections) -->
 
-### A. 情感曲线
+### A. Emotion curve
 
-至少 max(5, 节数) 个节点，含字数位置，每个节点标注钩子类型：
+At least max(5, section count) nodes, with word-count positions; each node labeled with its hook type:
 
-| 位置 | 字数 | 节点序号 | 情绪 | 强度与方向 | 触发事件 | 钩子类型 |
-|------|------|----------|------|------------|----------|----------|
-| 开头 | {X} | N{N} | {好奇/心酸/震惊} | {虐-9~爽+9} | {事件} | {悬念/冲突/反差/代入/信息差/无} |
-| 低谷 | {X} | N{N} | {心疼/绝望/愤怒} | {虐-9~爽+9} | {事件} | {钩子类型} |
-| 反转点 | {X} | N{N} | {震惊/心疼} | {虐-9~爽+9} | {事件} | {钩子类型} |
-| 高潮 | {X} | N{N} | {情绪} | {虐-9~爽+9} | {事件} | {钩子类型} |
-| 结尾 | {X} | N{N} | {满足/意难平/治愈} | {虐-9~爽+9} | {事件} | {钩子类型} |
+| Position | Words | Node index | Emotion | Intensity & direction | Triggering event | Hook type |
+|----------|-------|------------|---------|-----------------------|------------------|-----------|
+| Opening | {X} | N{N} | {curiosity/heartache/shock} | {misery -9 ~ gratification +9} | {event} | {suspense/conflict/contrast/immersion/information gap/none} |
+| Trough | {X} | N{N} | {sympathy/despair/anger} | {misery -9 ~ gratification +9} | {event} | {hook type} |
+| Reversal point | {X} | N{N} | {shock/sympathy} | {misery -9 ~ gratification +9} | {event} | {hook type} |
+| Climax | {X} | N{N} | {emotion} | {misery -9 ~ gratification +9} | {event} | {hook type} |
+| Ending | {X} | N{N} | {satisfaction/bittersweet/healing} | {misery -9 ~ gratification +9} | {event} | {hook type} |
 
-钩子类型速查：悬念（想知道后续）、冲突（矛盾激化）、反差（认知颠覆）、代入（感同身受）、信息差（读者知道角色不知道）
+Hook-type quick reference: suspense (want to know what happens next), conflict (contradiction intensifying), contrast (cognitive overturn), immersion (feeling it with the character), information gap (reader knows what the character doesn't)
 
-曲线特征：起始{...} | 走向{上行/下行/波浪/V形/倒V/阶梯/断崖/压缩弹簧} | 极值{最高%X 最低%Y} | 方向差{从X到Y} | 翻转次数{N}
+Curve traits: start{...} | direction{uphill/downhill/wave/V-shape/inverted-V/staircase/cliff/compressed-spring} | extrema{peak at X% trough at Y%} | net change{from X to Y} | direction flips{N}
 
-### B. 爆点分析
+### B. Eruption-point analysis
 
-| 维度 | 分析 |
-|------|------|
-| 铺垫 | {什么让读者开始在意}，前{X}字完成 |
-| 积累 | {什么在积累情绪势能}，积累{X}字 |
-| 延迟 | {延迟释放机制：信息差/误解/悬念} |
-| 爆发点 | {哪个瞬间释放全部情绪}，精确到句子："{引用}" |
-| 余波 | {释放后的余震：角色反应} |
-| 印象 | {情绪释放后留下什么，读者记住什么} |
+| Dimension | Analysis |
+|-----------|----------|
+| Setup | {what makes the reader start to care}, done by word {X} |
+| Accumulation | {what is building emotional potential}, accumulating {X} words |
+| Delay | {delayed-release mechanism: information gap/misunderstanding/suspense} |
+| Eruption point | {the instant that releases all the emotion}, exact sentence: "{quote}" |
+| Aftershock | {the tremor after release: character reactions} |
+| Impression | {what remains after the release, what the reader remembers} |
 
-**叠加爆点**（如适用）：表层爆点{X}→深层爆点{Y}→叠加效果{1+1>2在哪}
+**Stacked eruption** (when applicable): surface eruption{X} → deep eruption{Y} → stacking effect{where 1+1>2}
 
-**多爆点串联**（如适用）：爆点①{事件+位置} | 爆点②{事件+位置} | 爆点③{事件+位置} → 串联方式{递进/并列}
+**Multi-eruption chain** (when applicable): eruption ①{event + position} | eruption ②{event + position} | eruption ③{event + position} → chain mode{progressive/parallel}
 
-### C. 期待感分析
+### C. Anticipation analysis
 
-逐节追踪读者的期待状态：
+Track the reader's expectation state section by section:
 
-| 节 | 制造的期待 | 满足/升级/悬置 | 剩余期待 |
-|----|-----------|---------------|---------|
-| 1 | {期待A} | {制造} | {A} |
-| 2 | {期待B} | {升级A} | {A+, B} |
+| Section | Expectation created | Fulfilled/escalated/suspended | Remaining expectation |
+|---------|--------------------|------------------------------|-----------------------|
+| 1 | {expectation A} | {created} | {A} |
+| 2 | {expectation B} | {escalated A} | {A+, B} |
 | ... | | | |
 
-期待规则：不超过两节不制造新期待，不超过一节不推进核心期待。
+Anticipation rule: no more than two sections without creating a new expectation; no more than one section without advancing the core expectation.
 
 ---
 
-## Stage 4 反转+写作手法
+## Stage 4 reversal + writing craft
 
-<!-- output to: 拆文报告.md（反转分析段） + 写作手法.md（独立成文：POV/对话/时间/信息/其他/意象） -->
+<!-- output to: teardown-report.md (reversal-analysis section) + craft-methods.md (standalone file: POV/dialogue/time/info/other/imagery) -->
 
-### A. 反转分析
+### A. Reversal analysis
 
-#### 前置反转检查
+#### Pre-reversal check
 
-> 是否有在故事时间线之前就已存在的谎言/误判？
+> Is there a lie / misjudgment that predates the story's timeline?
 
-| 前置反转 | 谁被骗/被蒙蔽 | 何时揭穿 | 揭穿方式 | 对主反转的作用 |
-|----------|--------------|----------|----------|--------------|
-| {如：三年前的"灌醉"事件实为做局} | {霍庭煜} | {第9章} | {沈暮月当面驳斥} | {铺垫：证明判断基于错误前提} |
+| Pre-reversal | Who was deceived/blinded | When exposed | How exposed | Role in the main reversal |
+|--------------|--------------------------|--------------|-------------|---------------------------|
+| {e.g., the "drugged" incident three years ago was actually a setup} | {Dorian Hale} | {episode 9} | {Mara Vance refutes him face to face} | {setup: proves the judgment was built on a false premise} |
 
-若不存在前置反转，注明"无"。
+If none exists, write "none".
 
-#### 报应设计（无反转/报应型故事适用）
+#### Karma design (for no-reversal / karmic-justice stories)
 
-> 当故事无传统反转时，跳过反转机制拆解，改为分析报应设计。
+> When the story has no traditional reversal, skip the reversal-mechanics breakdown and analyze the karma design instead.
 
-| 阶段 | 反派的恶行 | 报应结果 | 爽感来源 |
-|------|-----------|----------|----------|
-| {如：虐待妻女} | {具体行为} | {对应惩罚} | {以彼之道还施彼身/自食恶果} |
+| Stage | The antagonist's misdeeds | Karmic result | Source of gratification |
+|-------|--------------------------|---------------|--------------------------|
+| {e.g., abusing wife and daughter} | {specific behavior} | {corresponding punishment} | {taste-of-their-own-medicine / hoist with their own petard} |
 
-报应链效果：{递进/一一对应/连锁反应}
+Karma-chain effect: {progressive / one-to-one / chain reaction}
 
-#### 反转链（多反转故事适用）
+#### Reversal chain (for multi-reversal stories)
 
-> 如故事包含多个连续反转（舆论反转文、套娃反转文），按顺序列出：
+> If the story contains several consecutive reversals (public-opinion reversal, nested reversal), list them in order:
 
-| 序号 | 反转类型 | 触发事件 | 读者认知变化 | 与前层因果关系 |
-|------|----------|----------|-------------|---------------|
-| 1 | {类型} | {事件} | {从A认知变为B认知} | — |
-| 2 | {类型} | {事件} | {从B认知变为C认知} | {反转1如何解释/加深反转2} |
+| # | Reversal type | Triggering event | Reader cognitive change | Causal link to the previous layer |
+|---|---------------|------------------|-------------------------|-----------------------------------|
+| 1 | {type} | {event} | {from cognition A to cognition B} | — |
+| 2 | {type} | {event} | {from cognition B to cognition C} | {how reversal 1 explains/deepens reversal 2} |
 
-反转链效果：{递进/叠加/出其不意}
-因果链强度：{强/中/弱——删除任一层反转，其他是否仍成立？}
+Reversal-chain effect: {progressive/stacking/out-of-the-blue}
+Causal-chain strength: {strong/medium/weak — if you delete any layer, do the others still hold?}
 
-**伏笔式反转**：如有开头语句在真相揭示后含义完全改变，标注：
-- 回看语句原文 + 位置
-- 初读理解 vs 回看理解
-- 触发认知升级的事件
+**Foreshadowing-style reversal**: if an opening sentence's meaning completely changes after the truth is revealed, note:
+- The sentence + position to look back at
+- First-read understanding vs look-back understanding
+- The event that triggers the cognitive upgrade
 
-单一反转的故事跳过此表，直接用下方主/副反转分析。
+Single-reversal stories skip this table and go straight to the main/side reversal analysis below.
 
-#### 主/副反转分析（单反转故事适用）
+#### Main/side reversal analysis (for single-reversal stories)
 
-**反转类型**：{视角反转/身份反转/动机反转/时间线反转/信息反转/认知反转}
+**Reversal type**: {perspective/identity/motive/timeline/info/cognitive}
 
-> **认知反转**：读者对某个角色/关系的整体理解被颠覆（如"母亲其实一直爱她"）。不同于信息反转（单条信息），认知反转改变的是读者对整个角色/关系的感情色彩。
+> **Cognitive reversal**: the reader's overall understanding of a character/relationship gets overturned (e.g., "the mother actually loved her all along"). Unlike an info reversal (a single piece of information), a cognitive reversal changes the reader's emotional coloring of the whole character/relationship.
 
-**反转机制**：
-- 铺垫线索：{文本埋了哪些线索，含位置}
-- 误导方向：{文本把读者往哪个方向引}
-- 真相揭示：{反转怎么揭开的}
-- 合理性：{反转是否经得起回看}
+**Reversal mechanics**:
+- Setup clues: {which clues the text planted, with positions}
+- Misdirection: {which direction the text steers the reader}
+- Truth reveal: {how the reversal is uncovered}
+- Plausibility: {does the reversal hold up on re-read}
 
-**时机**：全文{X}%位置 | 铺垫:释放 = {X:1}
+**Timing**: at {X}% of the piece | setup:release = {X:1}
 
-**效果**：惊喜度{1-5} | 合理性{1-5} | 情绪冲击{1-5}
+**Effect**: surprise{1-5} | plausibility{1-5} | emotional impact{1-5}
 
-### B. 写作手法
+### B. Writing craft
 
-> 方法论详见 material-decomposition.md「写作手法分析」。
+> Methodology: the "writing-craft analysis" section of material-decomposition.md.
 
-#### POV 策略
+#### POV strategy
 
-| 维度 | 分析 |
-|------|------|
-| POV 类型 | {第一/第三人称/全知/其他} |
-| 选择效果 | {亲密感/信息控制/距离感} |
-| 信息操控 | {不可靠叙述者/选择性回忆/隐瞒} |
-| POV 切换 | {如有：切换位置、切换方式、效果评价。如无：填"无"} |
-| POV 代价 | {丧失了什么视角/信息} |
+| Dimension | Analysis |
+|-----------|----------|
+| POV type | {first/third person/omniscient/other} |
+| Choice effect | {intimacy/info control/distance} |
+| Info manipulation | {unreliable narrator/selective memory/concealment} |
+| POV switch | {if any: switch position, method, effect assessment. If none: "none"} |
+| POV cost | {which perspective/info was lost} |
 
-#### 对话手法
+#### Dialogue craft
 
-> 对话占比的标准范围见 material-decomposition.md「节奏分析」，据此判断偏高/偏低。
+> The standard dialogue-share range is in the "rhythm analysis" section of material-decomposition.md; judge high/low against it.
 
-| 指标 | 数值 | 评价 |
-|------|------|------|
-| 对话占比 | {X%} | {标准/偏高/偏低} |
-| 潜台词率 | {X%} | {高手>60%/中等/偏低} |
-| 对话模式 | {审判式/压制式/信息差式/推拉式/称呼变化} | {具体说明} |
+| Metric | Value | Assessment |
+|--------|-------|------------|
+| Dialogue share | {X%} | {standard/high/low} |
+| Subtext rate | {X%} | {master-level >60%/medium/low} |
+| Dialogue pattern | {interrogation/suppression/information-gap/push-pull/appellation change} | {specific notes} |
 
-#### 时间操控
+#### Time manipulation
 
-| 手法 | 位置 | 效果 |
-|------|------|------|
-| {时间跳跃/场景压缩/倒叙/闪回/实时展开} | {节N} | {具体效果} |
+| Technique | Position | Effect |
+|-----------|----------|--------|
+| {time jump/scene compression/flashback/quick cut/real-time expansion} | {episode N} | {specific effect} |
 
-#### 信息控制
+#### Info control
 
-| 时刻 | 读者知道的 | 主角知道的 | 对手知道的 | 信息差 |
-|------|-----------|-----------|-----------|--------|
-| 开头 | | | | |
-| 中段 | | | | |
-| 结尾 | | | | |
+| Moment | Reader knows | Protagonist knows | Rival knows | Information gap |
+|--------|--------------|-------------------|-------------|-----------------|
+| Opening | | | | |
+| Middle | | | | |
+| Ending | | | | |
 
-#### 其他手法
+#### Other craft
 
-| 手法 | 位置 | 效果 | 可复用度 |
-|------|------|------|----------|
-| {感官锚定/句式节奏/对比设计/意象物件/留白/首尾呼应} | {节N} | {具体效果} | {高/中/低} |
+| Technique | Position | Effect | Reusability |
+|-----------|----------|--------|-------------|
+| {sensory anchoring/sentence rhythm/contrast design/imagery-object/white space/opening-ending echo} | {episode N} | {specific effect} | {high/medium/low} |
 
-#### 意象/物件追踪
+#### Imagery/object tracking
 
-| 物件/意象 | 出现位置 | 每次承载的含义 | 演变轨迹 |
-|-----------|---------|---------------|---------|
-| {物件名} | {节1, 节5, 节9} | {含义变化} | {从A到B} |
+| Object/imagery | Appearances | Meaning carried each time | Evolution trajectory |
+|----------------|-------------|---------------------------|----------------------|
+| {object} | {episode 1, 5, 9} | {meaning change} | {from A to B} |
 
-如无重复物件/意象，注明"无明显意象重复"。
+If no repeated objects/imagery, write "no notable imagery repetition".
 
-**主题意象群**：如多个物件都指向同一主题，标注共同主题、各物件的角度、整体效果。
+**Thematic imagery cluster**: if several objects point to the same theme, note the shared theme, each object's angle, and the overall effect.
 
-**手法总计**：{N} 项 | 核心手法{Top3} | 创新手法{如有}
-
----
-
-## Stage 5 人物+开头结尾
-
-<!-- output to: 拆文报告.md（人物分析 + 开头分析 + 结尾分析 + 首尾呼应 + 钩子回收检查 各段） -->
-
-### A. 人物分析
-
-> 方法论详见 material-decomposition.md「人物提取规则」。
-
-**人物总览**：有名人物{N}人
-
-| 人物 | 叙事角色 | 行动角色 | 功能标签 | 内在矛盾 | 弧线 | 关键台词 |
-|------|----------|----------|----------|----------|------|----------|
-| {主角名} | {主人公/重要配角} | {主动型/被动型/转变型} | {情绪承载者/...} | {核心心理冲突} | {始→转→终} | "{最具代表性的台词}" |
-| {配角名} | {重要配角/功能人物} | {主动型/被动型} | {压迫源/...} | {矛盾} | {弧线/扁平} | "{台词}" |
-
-> 若识别到双主人公结构，人物总览表中两人均标注为"主人公"，并在表下方注明各自主驱动的章节范围。
-
-**人物功能评估**：
-
-| 人物 | 出场效率 | 功能密度 | 可删除性 | 对话贡献 |
-|------|----------|----------|----------|----------|
-| {名} | {高/中/低} | {承担N项功能} | {不可删/可删} | {每句都推动/部分推动} |
-
-**人物关系**：
-
-| 关系对 | 关系本质 | 演变轨迹 | 对情感线的贡献 |
-|--------|----------|----------|---------------|
-| A ↔ B | {如：单向依附→对等拒绝} | {节N:状态A → 节M:状态B} | {制造了什么情绪} |
-
-### B. 开头分析
-
-**前 3 句**：{原文引用}
-
-| 维度 | 分析 |
-|------|------|
-| 钩子类型 | {悬念/冲突/反差/代入/信息差} |
-| 前50字 | {有无冲突/异常？有/无} |
-| 前100字 | {读者是否知道核心矛盾？是/否} |
-| 信息密度 | {高/中/低} |
-| 代入感 | {强/中/弱} |
-| 声音辨识度 | {强/中/弱} |
-| 开头情绪强度 | {1-10，绝对强度量表，非情感曲线的-9~+9} |
-
-### C. 结尾分析
-
-**最后一段**：{原文引用或概括}
-
-| 维度 | 分析 |
-|------|------|
-| 结尾类型 | {HE满足/BE遗憾/开放式/反转余韵/留白} |
-| 情绪落点 | {读者离开时在想什么} |
-| 余韵设计 | {有/无，具体描述} |
-| 传播欲 | {读者是否会推荐，为什么} |
-| 收束完整性 | {所有钩子是否回收，未回收的列出} |
-| 价值观传达 | {这篇故事最终想说什么？} |
-| 结尾情绪强度 | {1-10，绝对强度量表（非情感曲线的-9~+9）。参考标准：虐≥8/爽≥7/治愈≥6/通透满足≥5/震惊反转≥7/BE意难平≥8} |
-
-### D. 首尾呼应分析
-
-| 呼应元素 | 开头位置 | 结尾位置 | 呼应方式 | 效果 |
-|----------|----------|----------|----------|------|
-| {元素} | {如：第1节"私生子而已"} | {如：结尾终身未娶} | {对比/反转/升级} | {形成闭环/制造遗憾} |
-
-**重读发现**：如有开头语句在真相揭示后含义完全改变，列出：语句原文 + 位置 + 初读理解 vs 知道真相后的理解。
-
-### E. 钩子回收检查
-
-| 钩子 | 埋设位置 | 类型 | 回收位置 | 回收方式 | 状态 |
-|------|----------|------|----------|----------|------|
-| {描述} | {节N} | {悬念/冲突/信息差} | {节M} | {如何回收} | {已回收/留白/遗漏} |
+**Craft total**: {N} items | core craft{Top 3} | innovative craft{if any}
 
 ---
 
-## Stage 6 综合评估
+## Stage 5 characters + opening/ending
 
-<!-- output to: 拆文报告.md（综合段：五维评分 + 爆点性 + 话题性 + 共鸣 + 核心手法 + 可复用结构 + 同类型写作动作 + 节奏速报）+ _meta.json.structure_counts（数值计入元数据，详见下方「_meta.json.structure_counts 产出模板」） -->
+<!-- output to: teardown-report.md (character analysis + opening analysis + ending analysis + opening-ending echo + hook-recovery check sections) -->
 
-**一句话评价**：{成功核心原因——具体指出成功机制，避免泛泛赞美}
+### A. Character analysis
 
-### 五维评分
+> Methodology: the "character extraction rules" section of material-decomposition.md.
 
-| 维度 | 评分 | 说明 |
-|------|------|------|
-| 开头吸引力 | 1-5 | {具体说明：钩子类型+效果+改进空间} |
-| 情感拉扯力 | 1-5 | {具体说明：曲线形态+极值+翻转} |
-| 反转设计 | 1-5 | {具体说明：反转类型+铺垫质量+合理性} |
-| 节奏控制 | 1-5 | {具体说明：密度分布+异常检测+节奏匹配} |
-| 结尾余韵 | 1-5 | {具体说明：结尾类型+落点+传播欲} |
+**Character overview**: {N} named characters
 
-### 爆点性
+| Character | Narrative role | Action role | Function labels | Inner contradiction | Arc | Key lines |
+|-----------|----------------|-------------|-----------------|---------------------|-----|-----------|
+| {protagonist name} | {protagonist/major supporting} | {active/passive/transforming} | {emotion carrier/...} | {core psychological conflict} | {start→turn→end} | "{most representative line}" |
+| {supporting name} | {major supporting/functional} | {active/passive} | {pressure source/...} | {contradiction} | {arc/flat} | "{line}" |
 
-{核心爆点是什么？铺垫是否充分？释放是否到位？传播性如何？}
+> If a dual-protagonist structure is recognized, mark both as "protagonist" in the overview table and note each one's driven chapter range below the table.
 
-### 话题性
+**Character function assessment**:
 
-{读者会讨论什么？争议点？代入式自省？"如果是我会怎样"的讨论空间？}
+| Character | Entrance efficiency | Function density | Deletability | Dialogue contribution |
+|-----------|---------------------|------------------|--------------|-----------------------|
+| {name} | {high/medium/low} | {carries N functions} | {undeletable/deletable} | {every line advances/partly advances} |
 
-### 共鸣分析
+**Character relationships**:
 
-| 共鸣层次 | 强度 | 触发点 |
-|----------|------|--------|
-| 情感共鸣 | {强/中/弱/无} | {具体触发点} |
-| 价值观共鸣 | {强/中/弱/无} | {具体触发点} |
-| 经历共鸣 | {强/中/弱/无} | {具体触发点} |
-| 社会现象共鸣 | {强/中/弱/无} | {具体触发点} |
-| 文化共鸣 | {强/中/弱/无} | {具体触发点} |
-| 普世价值共鸣 | {强/中/弱/无} | {具体触发点} |
-| 哲学思考共鸣 | {强/中/弱/无} | {具体触发点} |
-| 情感深度共鸣 | {强/中/弱/无} | {具体触发点} |
-| 人物深度共鸣 | {强/中/弱/无} | {具体触发点} |
+| Pair | Relationship essence | Evolution trajectory | Contribution to the emotional line |
+|------|----------------------|----------------------|------------------------------------|
+| A ↔ B | {e.g., one-way dependence → equal refusal} | {episode N: state A → episode M: state B} | {what emotion it manufactures} |
 
-### 核心手法
+### B. Opening analysis
 
-反转类型{...} | 情感曲线形态{...} | 关键钩子{...} | 核心手法Top3{...}
+**First 3 lines**: {source quote}
 
-### 可复用结构
+| Dimension | Analysis |
+|-----------|----------|
+| Hook type | {suspense/conflict/contrast/immersion/information gap} |
+| First 50 words | {conflict/anomaly present? yes/no} |
+| First 100 words | {does the reader know the core contradiction? yes/no} |
+| Info density | {high/medium/low} |
+| Immersion | {strong/medium/weak} |
+| Voice distinctiveness | {strong/medium/weak} |
+| Opening emotional intensity | {1-10, absolute-intensity scale, not the emotion-curve -9~+9} |
 
-1. **{手法名}**：{用法} — 适用场景：{什么类型的短篇}
-2. **{手法名}**：{用法} — 适用场景：{...}
-3. **{手法名}**：{用法} — 适用场景：{...}
+### C. Ending analysis
 
-### 同类型写作动作
+**Last paragraph**: {source quote or summary}
 
-{具体行动——可直接进入下一份 artifact 的操作，避免只写"多练习"}
+| Dimension | Analysis |
+|-----------|----------|
+| Ending type | {satisfying(HE)/regretful(BE)/open-ended/reversal aftershock/white space} |
+| Emotional landing | {what the reader is thinking when they leave} |
+| Aftershock design | {yes/no, describe} |
+| Shareability | {would the reader recommend it, why} |
+| Closure completeness | {are all hooks recovered; list unrecovered ones} |
+| Values conveyed | {what this story ultimately wants to say?} |
+| Ending emotional intensity | {1-10, absolute-intensity scale (not the emotion-curve -9~+9). Reference standards: misery ≥8 / gratification ≥7 / healing ≥6 / clarity-satisfaction ≥5 / shock-reversal ≥7 / BE bittersweet ≥8} |
 
-### 节奏速报
+### D. Opening-ending echo analysis
 
-| 指标 | 数值 | 判断 |
-|------|------|------|
-| 事件密度 | {X个/千字} | {标准/偏高/偏低} |
-| 对话密度 | {Y%} | {标准/偏高/偏低} |
-| 冲突密度 | {Z%} | {标准/偏高/偏低} |
+| Echo element | Opening position | Ending position | Echo mode | Effect |
+|--------------|------------------|-----------------|-----------|--------|
+| {element} | {e.g., episode 1 "just a by-blow"} | {e.g., ending: never remarried} | {contrast/reversal/escalation} | {closes the loop/creates regret} |
 
-### _meta.json.structure_counts 产出模板
+**Re-read discovery**: if an opening sentence's meaning completely changes after the truth is revealed, list: the sentence + position + first-read understanding vs post-truth understanding.
 
-> Stage 6 完成时，把这一节的结构计数写入 `_meta.json.structure_counts`，作为「structure_counts 数值校验」
-> 数值检查的依据。分析叙事正文写到 `拆文报告.md` 的对应段，不要重复在 JSON 里再讲一遍。
-> 字段定义与阈值见 [output-contract.md](output-contract.md)。
+### E. Hook-recovery check
+
+| Hook | Planted at | Type | Recovered at | How recovered | Status |
+|------|------------|------|--------------|---------------|--------|
+| {description} | {episode N} | {suspense/conflict/information gap} | {episode M} | {how} | {recovered/white space/omitted} |
+
+---
+
+## Stage 6 combined assessment
+
+<!-- output to: teardown-report.md (combined section: five-dimension score + eruption potential + topicality + resonance + core craft + reusable structures + same-type writing actions + rhythm briefing) + _meta.json.structure_counts (numbers into metadata; see the "_meta.json.structure_counts production template" below) -->
+
+**One-sentence assessment**: {the concrete reason it works — point at the actual mechanism, no vague praise}
+
+### Five-dimension score
+
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Opening attraction | 1-5 | {specific: hook type + effect + room to improve} |
+| Emotional pull | 1-5 | {specific: curve shape + extrema + flips} |
+| Reversal design | 1-5 | {specific: reversal type + setup quality + plausibility} |
+| Rhythm control | 1-5 | {specific: density distribution + anomaly detection + rhythm fit} |
+| Ending aftershock | 1-5 | {specific: ending type + landing + shareability} |
+
+### Eruption potential
+
+{What is the core eruption point? Is the setup sufficient? Is the release on point? How shareable?}
+
+### Topicality
+
+{What will readers discuss? Controversy points? Immersion self-reflection? "What would I do" discussion space?}
+
+### Resonance analysis
+
+| Resonance layer | Intensity | Trigger point |
+|-----------------|-----------|---------------|
+| Emotional resonance | {strong/medium/weak/none} | {specific trigger} |
+| Values resonance | {strong/medium/weak/none} | {specific trigger} |
+| Experience resonance | {strong/medium/weak/none} | {specific trigger} |
+| Social-phenomenon resonance | {strong/medium/weak/none} | {specific trigger} |
+| Cultural resonance | {strong/medium/weak/none} | {specific trigger} |
+| Universal-values resonance | {strong/medium/weak/none} | {specific trigger} |
+| Philosophical resonance | {strong/medium/weak/none} | {specific trigger} |
+| Deep emotional resonance | {strong/medium/weak/none} | {specific trigger} |
+| Character-depth resonance | {strong/medium/weak/none} | {specific trigger} |
+
+### Core craft
+
+Reversal type{...} | Emotion-curve shape{...} | Key hook{...} | Core craft Top 3{...}
+
+### Reusable structures
+
+1. **{craft name}**: {usage} — Applicable to: {what kind of short stories}
+2. **{craft name}**: {usage} — Applicable to: {...}
+3. **{craft name}**: {usage} — Applicable to: {...}
+
+### Same-type writing actions
+
+{concrete actions — directly operable in the next artifact; avoid "practice more"}
+
+### Rhythm briefing
+
+| Metric | Value | Judgment |
+|--------|-------|----------|
+| Event density | {X per 1000 words} | {standard/high/low} |
+| Dialogue density | {Y%} | {standard/high/low} |
+| Conflict density | {Z%} | {standard/high/low} |
+
+### `_meta.json.structure_counts` production template
+
+> At Stage 6 completion, write this section's structure counts into `_meta.json.structure_counts` as the basis for the "structure_counts numeric validation" number checks. The analysis narrative body goes into the corresponding sections of `teardown-report.md`; don't re-explain it in the JSON.
+> Field definitions and thresholds in [output-contract.md](output-contract.md).
 
 ```jsonc
 "structure_counts": {
-  "beats": 5,                    // 来自 Stage 2 结构段数（开端/发展/高潮/结局，≥4）
-  "hooks": 4,                    // 来自 Stage 3 钩子数（≥3）
-  "setup_clues": 3,              // 来自 Stage 4 反转铺垫数（≥3；无反转题材填 0 并跳过该阈值）
-  "character_archetypes": 3,     // 来自 Stage 5 有反差人物数（≥2）
-  "reusable_structures": 3,      // 来自 Stage 6 可复用条数（≥3）
-  "reversal_type": "视角反转"     // 枚举: 视角/身份/动机/时间线/信息/认知/无反转
+  "beats": 5,                    // from Stage 2 structure-segment count (opening/development/climax/ending, ≥4)
+  "hooks": 4,                    // from Stage 3 hook count (≥3)
+  "setup_clues": 3,              // from Stage 4 reversal setup-clue count (≥3; no-reversal genres fill 0 and skip this threshold)
+  "character_archetypes": 3,     // from Stage 5 contrast-character count (≥2)
+  "reusable_structures": 3,      // from Stage 6 reusable count (≥3)
+  "reversal_type": "perspective" // enum: perspective/identity/motive/timeline/info/cognitive/none
 }
 ```
 
 ---
 
-## 可选模块：同类对比
+## Optional module: same-type comparison
 
-> 方法论详见 material-decomposition.md「可选模块：同类对比」。
+> Methodology: the "optional module: same-type comparison" section of material-decomposition.md.
 
-| 维度 | 本文 | 对标作品A | 对标作品B |
-|------|------|----------|----------|
-| 情感曲线形态 | {如：压缩弹簧} | {如：V形} | {如：波浪} |
-| 核心手法 | {如：假死+信息差} | {如：时间线反转} | {如：套娃反转} |
-| 开头钩子强度 | {1-5} | {1-5} | {1-5} |
-| 反转惊喜度 | {1-5} | {1-5} | {1-5} |
-| 结尾余韵 | {1-5} | {1-5} | {1-5} |
+| Dimension | This piece | Benchmark A | Benchmark B |
+|-----------|-----------|-------------|-------------|
+| Emotion-curve shape | {e.g., compressed-spring} | {e.g., V-shape} | {e.g., wave} |
+| Core craft | {e.g., faked death + information gap} | {e.g., timeline reversal} | {e.g., nested reversal} |
+| Opening hook strength | {1-5} | {1-5} | {1-5} |
+| Reversal surprise | {1-5} | {1-5} | {1-5} |
+| Ending aftershock | {1-5} | {1-5} | {1-5} |
 
-**差异化亮点**：{本文与同类作品的关键差异，是优势还是劣势}
-
----
-
-## 可选模块：平台适配评估
-
-> 方法论详见 material-decomposition.md「可选模块：平台适配评估」。
-
-| 平台 | 适配度 | 原因 | 调整动作 |
-|------|--------|------|----------|
-| 知乎盐言 | {高/中/低} | {原因} | {如有} |
-| 番茄短篇 | {高/中/低} | {原因} | {如有} |
-| 七猫短篇 | {高/中/低} | {原因} | {如有} |
+**Differentiation highlights**: {this piece's key difference from similar works — advantage or disadvantage}
 
 ---
 
-## 详细节奏分析
+## Optional module: platform-adaptation assessment
 
-> 可选模块。方法论详见 material-decomposition.md「节奏分析」。
+> Methodology: the "optional module: platform-adaptation assessment" section of material-decomposition.md.
 
-### 节奏指标
-
-> 各维度「标准范围」的权威数值见 material-decomposition.md「节奏分析」节奏指标表，填表时据此判断。
-
-| 维度 | 数值 | 判断 |
-|------|------|------|
-| 事件密度 | {N}个/千字 | {标准/偏高/偏低} |
-| 对话密度 | {X%} | {标准/偏高/偏低} |
-| 冲突密度 | {X%} | {标准/偏高/偏低} |
-| 信息密度 | {X%} | {标准/偏高/偏低} |
-
-### 逐节节奏分布
-
-| 节 | 字数 | 事件密度 | 对话占比 | 冲突占比 | 节奏判断 |
-|----|------|----------|----------|----------|----------|
-| 1 | {N} | {X/千字} | {Y%} | {Z%} | {快/中/慢/过渡} |
-
-### 节奏异常
-
-| 异常类型 | 位置 | 说明 |
-|----------|------|------|
-| {节奏塌陷/冲突过载/信息洪峰/对话荒漠/对话泛滥} | {节N} | {具体说明} |
-
-如无异常，注明"节奏无明显异常"。
+| Platform | Suitability | Reason | Adjustment action |
+|----------|-------------|--------|-------------------|
+| Wattpad | {high/medium/low} | {reason} | {if any} |
+| Radish / Dreame / GoodNovel / Galatea | {high/medium/low} | {reason} | {if any} |
+| Inkitt / Tapas | {high/medium/low} | {reason} | {if any} |
 
 ---
 
-## 短篇结构速查库
+## Detailed rhythm analysis
 
-> 完整版见 material-decomposition.md「结构类型速查」（含匹配分析要点）。
+> Optional module. Methodology: the "rhythm analysis" section of material-decomposition.md.
+
+### Rhythm metrics
+
+> The authoritative "standard range" numbers for each dimension are in the rhythm-metrics table of material-decomposition.md; judge against them when filling.
+
+| Dimension | Value | Judgment |
+|-----------|-------|----------|
+| Event density | {N} per 1000 words | {standard/high/low} |
+| Dialogue density | {X%} | {standard/high/low} |
+| Conflict density | {X%} | {standard/high/low} |
+| Info density | {X%} | {standard/high/low} |
+
+### Per-section rhythm distribution
+
+| Section | Words | Event density | Dialogue share | Conflict share | Rhythm judgment |
+|---------|-------|---------------|----------------|----------------|-----------------|
+| 1 | {N} | {X/1000 words} | {Y%} | {Z%} | {fast/medium/slow/transition} |
+
+### Rhythm anomalies
+
+| Anomaly type | Position | Notes |
+|--------------|----------|-------|
+| {rhythm collapse/conflict overload/info flood/dialogue desert/dialogue flood} | {episode N} | {specific notes} |
+
+If none, write "no notable rhythm anomalies".
 
 ---
 
-## 质量检查必填字段
+## Short-fiction structure quick library
 
-Stage 完成前逐项检查，缺一即不完整。**数值阈值（节点密度、对话占比等）的唯一权威定义见 material-decomposition.md「质量标准」，本表只列检查项不复述数值。**
+> Full version: the "structure-type quick reference" of material-decomposition.md (incl. matching-analysis points).
 
-**标注约定**：
+---
 
-- `[BLOCK]`：量化或必备产物，缺失 → 「BLOCK 项扫描」阻断，不写 `_meta.json.stages_completed[6]`，提示用户回到对应 Stage 补足。
-- `[WARN]`：质性或辅助项，缺失 → 写入 `拆文报告.md` 末尾「待补」清单，**不阻断**进入下一阶段。
+## Quality-check required fields
 
-**Stage 2（结构+情节节点）**：
-- [ ] 故事核已提取（一句话核心梗） `[BLOCK]`
-- [ ] 结构划分 4-6 段（必须含开端/发展/高潮/结局），每段有字数范围、占比和功能 `[BLOCK]`
-- [ ] 结局类型已标注 `[WARN]`
-- [ ] POV 已识别 `[WARN]`
-- [ ] 叙事时间线已标注 `[WARN]`
-- [ ] 情节节点数量在密度指引范围内（按字数分档，见 material-decomposition.md「情节节点提取规则」） `[BLOCK]`
-- [ ] 每个节点有情绪标记（类型 + 强度值） `[BLOCK]`
+Check item by item before a Stage completes; a single miss makes it incomplete. **Numeric thresholds (node density, dialogue share, etc.) are authoritatively defined only in the "quality standards" of material-decomposition.md; this table only lists the check items, not the numbers.**
 
-**Stage 3（情感线+爆点）**：
-- [ ] 至少 max(5, 节数) 个情感节点，每个有字数位置、强度值和方向（虐-9~爽+9） `[BLOCK]`
-- [ ] 每个节点标注了钩子类型（含"无"） `[WARN]`
-- [ ] 曲线特征 5 项齐全（起始/走向/极值/方向差/翻转次数） `[BLOCK]`
-- [ ] 爆点分析 6 维度齐全（铺垫/积累/延迟/爆发点/余波/印象） `[BLOCK]`
-- [ ] 期待感表已完成 `[WARN]`
+**Label conventions**:
 
-**Stage 4（反转+写作手法）**：
-- [ ] 前置反转检查已执行（存在/不存在） `[WARN]`
-- [ ] 反转类型已识别 `[BLOCK]`
-- [ ] 铺垫线索至少 2 条，含原文位置 `[BLOCK]`
-- [ ] 误导方向已说明 `[WARN]`
-- [ ] 写作手法分析 ≥5 项维度 `[BLOCK]`
-- [ ] POV 策略已分析（选择效果+代价+切换） `[WARN]`
-- [ ] 对话指标已量化（占比+潜台词率） `[WARN]`
+- `[BLOCK]`: quantified or required output; if missing → the "BLOCK item scan" blocks, `_meta.json.stages_completed[6]` is not written, and the user is asked to go back to the corresponding Stage and complete it.
+- `[WARN]`: qualitative or auxiliary item; if missing → written into the "to-do" list at the end of `teardown-report.md`, **does not block** moving to the next stage.
 
-**Stage 5（人物+开头结尾）**：
-- [ ] 所有有名人物已提取，有二维分类（叙事角色：主人公/重要配角/功能人物 + 行动角色：主动型/被动型/转变型） `[BLOCK]`
-- [ ] 人物功能评估已完成 `[BLOCK]`
-- [ ] 人物关系已标注演变轨迹 `[WARN]`
-- [ ] 前 3 句话原文引用 `[BLOCK]`
-- [ ] 前50字/前100字检查已完成 `[WARN]`
-- [ ] 开头情绪强度已标注（1-10） `[WARN]`
-- [ ] 结尾类型和情绪落点已说明 `[WARN]`
-- [ ] 钩子回收检查已完成 `[WARN]`
-- [ ] 首尾呼应分析已完成 `[WARN]`
-- [ ] 所有钩子已标注回收状态（已回收/留白/遗漏） `[WARN]`
+**Stage 2 (structure + plot nodes)**:
+- [ ] Story core extracted (one-sentence core hook) `[BLOCK]`
+- [ ] Structure split 4-6 segments (must include opening/development/climax/ending), each with word range, share, and function `[BLOCK]`
+- [ ] Ending type labeled `[WARN]`
+- [ ] POV identified `[WARN]`
+- [ ] Narrative timeline labeled `[WARN]`
+- [ ] Plot-node count within the density-guide range (by word-count tier, see "plot-node extraction rules" in material-decomposition.md) `[BLOCK]`
+- [ ] Every node has an emotion label (type + intensity value) `[BLOCK]`
 
-**Stage 6（综合评估）**：
-- [ ] 一句话评价是具体机制（非泛泛赞美） `[WARN]`
-- [ ] 五维评分每项有具体说明（非泛泛而谈） `[BLOCK]`
-- [ ] 爆点性已分析 `[BLOCK]`
-- [ ] 话题性已分析 `[BLOCK]`
-- [ ] 共鸣分析至少 3 层 `[BLOCK]`
-- [ ] 至少 3 条可复用结构，每条含适用场景 `[BLOCK]`
-- [ ] 同类型写作动作是具体行动 `[WARN]`
-- [ ] `_meta.json.structure_counts` 已写入且各字段达「structure_counts 数值校验」阈值（详见 [output-contract.md](output-contract.md) 同名表） `[BLOCK]`
+**Stage 3 (emotional line + eruption points)**:
+- [ ] At least max(5, section count) emotion nodes, each with word position, intensity value, and direction (misery -9 ~ gratification +9) `[BLOCK]`
+- [ ] Every node labeled with a hook type (incl. "none") `[WARN]`
+- [ ] Curve traits 5 items complete (start/direction/extrema/net change/direction flips) `[BLOCK]`
+- [ ] Eruption analysis 6 dimensions complete (setup/accumulation/delay/eruption point/aftershock/impression) `[BLOCK]`
+- [ ] Anticipation table complete `[WARN]`
 
-**验收接入**：以上 `[BLOCK]` 项与 [output-contract.md](output-contract.md) 「字段最小计数」表共同构成「BLOCK 项扫描」的检查清单。SKILL.md「验收」段在 Stage 6 内容写完后、`stages_completed[6]` append 前调用本节。
-- [ ] 节奏速报已包含
+**Stage 4 (reversal + writing craft)**:
+- [ ] Pre-reversal check executed (exists/doesn't) `[WARN]`
+- [ ] Reversal type identified `[BLOCK]`
+- [ ] Setup clues at least 2, with source positions `[BLOCK]`
+- [ ] Misdirection described `[WARN]`
+- [ ] Writing-craft analysis ≥5 dimensions `[BLOCK]`
+- [ ] POV strategy analyzed (choice effect + cost + switch) `[WARN]`
+- [ ] Dialogue metrics quantified (share + subtext rate) `[WARN]`
+
+**Stage 5 (characters + opening/ending)**:
+- [ ] All named characters extracted, with the two-dimension classification (narrative role: protagonist/major supporting/functional + action role: active/passive/transforming) `[BLOCK]`
+- [ ] Character function assessment complete `[BLOCK]`
+- [ ] Character relationships labeled with evolution trajectories `[WARN]`
+- [ ] First-3-lines source quote `[BLOCK]`
+- [ ] First-50-words / first-100-words checks done `[WARN]`
+- [ ] Opening emotional intensity labeled (1-10) `[WARN]`
+- [ ] Ending type and emotional landing described `[WARN]`
+- [ ] Hook-recovery check done `[WARN]`
+- [ ] Opening-ending echo analysis done `[WARN]`
+- [ ] All hooks labeled with recovery status (recovered/white space/omitted) `[WARN]`
+
+**Stage 6 (combined assessment)**:
+- [ ] One-sentence assessment points at a concrete mechanism (not vague praise) `[WARN]`
+- [ ] Five-dimension score with specific notes per item (not vague) `[BLOCK]`
+- [ ] Eruption potential analyzed `[BLOCK]`
+- [ ] Topicality analyzed `[BLOCK]`
+- [ ] Resonance analysis at least 3 layers `[BLOCK]`
+- [ ] At least 3 reusable structures, each with applicable scenarios `[BLOCK]`
+- [ ] Same-type writing actions are concrete actions `[WARN]`
+- [ ] `_meta.json.structure_counts` written, every field meeting the "structure_counts numeric validation" thresholds (see the same-named table in [output-contract.md](output-contract.md)) `[BLOCK]`
+
+**Acceptance hook**: the `[BLOCK]` items above together with the "field minimum counts" table in [output-contract.md](output-contract.md) form the "BLOCK item scan" checklist. The SKILL.md "Acceptance" section calls this section after the Stage 6 content is written and before appending `stages_completed[6]`.
+- [ ] Rhythm briefing included

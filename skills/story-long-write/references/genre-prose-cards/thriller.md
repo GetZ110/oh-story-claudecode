@@ -1,0 +1,63 @@
+---
+genre: thriller
+aliases: [thriller, suspense, crime-thriller, psychological-thriller, espionage]
+platform: long-form general
+confidence: high
+source: english_genre_corpus_derived
+---
+# Thriller Prose Card
+
+## Prose directive
+Thriller prose runs on acceleration and withheld information. Sentences shorten as pressure rises; scene ends cut at the decision, not the explanation. The prose must be clean and concrete — verbs carry the weight, and every detail the narrator points at is either a clue, a threat, or a trap. The genre voice is dry, watchful, and slightly cold: the protagonist counts things (exits, seconds, lies) and the narration counts with them. When information is released, it releases at the worst possible moment for the protagonist.
+
+## Opening hooks
+- Cut in at the anomaly: a body that doesn't fit the scene, a call that shouldn't have come, a door left open by someone who knows the code.
+- First scene establishes the protagonist's professional eye — what they notice that others don't.
+- The protagonist is competent but cornered; the opening raises the timer.
+
+## Conflict engine
+A clock + a conspirator who is always one step ahead + a protagonist whose every tool is compromised. Conflict runs on misdirection: the protagonist's own conclusions are weapons the enemy uses.
+
+## Payoff & emotion release
+Release comes from the reversal that re-frames everything, the trap sprung on its builder, and the truth landing in public. Release on actions: a document produced, a call traced, a door that finally opens the wrong way for the enemy.
+
+## Dialogue & voice
+Dialogue is functional and layered: questions are probes, answers are screens, silences are evidence. No one says what they mean; the reader learns to read the gaps. The protagonist's interiority stays clipped — plans, counts, one-line judgments.
+
+## Chapter-end hooks
+Use a discovery that reframes the case, a witness going silent, a deadline advancing, a trust broken, a location compromised, or the antagonist's quiet action shown once, from a distance. The hook always raises the cost of being wrong.
+
+## Scene granularity
+The texture lands on surveillance footage, phone records, timestamps, hotel registries, forensic reports, floor plans, and the small physical tells (a coffee cup rotated, a pen borrowed, a car parked two spaces away). The genre's realism comes from procedure and detail discipline.
+
+## Prose landing points
+Open on the anomaly; conflict lands on misdirection and the clock; endings land on a re-framing reveal or a trap closing — with the next pressure already visible.
+
+## Early/mid/late play
+- Early: establish the anomaly and the protagonist's compromised position; raise the timer.
+- Mid: alternate investigation and antagonist POV (sparingly); every conclusion the protagonist reaches becomes a weapon.
+- Late: converge the threads at the final reversal; the ending closes the case but leaves one question that re-frames it.
+
+## Pacing density
+One new pressure or discovery per chapter minimum. No chapter of pure investigation with no rising cost; the clock must tick.
+
+## This-chapter tradeoffs
+One clue gained, one cost paid, per chapter. Keep the antagonist's logic visible enough that the reveal feels earned.
+
+## Drift bans
+No coincidences solving the case; no antagonist who monologues the plan; no protagonist who is always right; no explanations that arrive after the reader stopped caring. The reversal must re-frame what came before, never contradict it.
+
+## Sample passages
+
+> 1. The call came in at 2:14 a.m., and the caller ID was her own number. Agent Reyes let it ring three times, counting, before she answered. Static. Then a voice she knew — her sister's, but flattened, the way it sounded after a long cry. "You were right," the voice said. "About what?" "About the door." The line went dead. Reyes checked the timestamp: 2:14:07. Her sister had been dead for eleven months. She pulled the door of her apartment open anyway, because the voice had sounded like it was standing in the hall.
+
+> 2. The surveillance was clean for six days. On the seventh, the man across the street made a mistake so small the machine wouldn't flag it: he rotated his coffee cup a quarter turn every time a blue sedan passed. That was a signal, and signals meant he wasn't watching the building — he was counting the watchers. Holt noted the pattern, filed it, and kept his own routine unchanged. Three days later the man was gone. The blue sedan was parked in the same spot, and Holt understood, one beat too late, that the sedan had never been the target. It had been the delivery.
+
+> 3. The document was eleven years old and the signature was hers, which was impossible, because she'd been in a coma that month and the hospital records proved it. The records were the problem. They were too clean — every stamp, every shift, every attending physician's name in order. A file that neat wasn't generated by a hospital. It was generated by someone who wanted the file found. She photographed the document, drove two hours, and paid a man she trusted to check one thing: whether the coma ward had ever actually existed. He called back in forty minutes. "The ward existed," he said. "You were the only patient. There's no record of you leaving." "There wouldn't be," she said. "I'm not the one who left."
+
+## Corpus notes (initial calibration)
+- Sentence average: 10-15 words; pressure scenes run shorter, 6-10
+- Dialogue share: ~25-35%; interrogation and tradecraft scenes run dense
+- Paragraph length: 1-2 sentences base; action and reveal beats single-sentence
+- Pacing: one new pressure or discovery per chapter; a reversal every 6-10 chapters
+- Marked as initial calibration — re-derive from a clean English thriller corpus before tightening

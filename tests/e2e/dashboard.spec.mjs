@@ -2,7 +2,7 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 
-test("用现有 demo 浏览拆文库、搜索项目并编辑保存", async ({ page, request }) => {
+test("browse teardown-lib, search projects, and edit-save with the real demo", async ({ page, request }) => {
   const consoleErrors = [];
   page.on("console", (message) => {
     if (message.type() === "error") consoleErrors.push(message.text());
@@ -12,7 +12,7 @@ test("用现有 demo 浏览拆文库、搜索项目并编辑保存", async ({ pa
   await page.goto("/");
   await expect(page).toHaveTitle(/OH STORY/);
   await expect(page.getByText("OH STORY", { exact: true })).toBeVisible();
-  await expect(page.locator("#connectionStatus")).toContainText("仅本机");
+  await expect(page.locator("#connectionStatus")).toContainText("Local only");
   await expect(page.locator("#libraryCount")).toHaveText("2");
   await expect(page.locator("#projectCount")).toHaveText("1");
   await expect(page.locator("#fileCount")).not.toHaveText("—");
@@ -23,74 +23,70 @@ test("用现有 demo 浏览拆文库、搜索项目并编辑保存", async ({ pa
   await page.locator("#projectsTab").press("ArrowLeft");
   await expect(page.locator("#librariesTab")).toHaveAttribute("aria-selected", "true");
 
-  await expect(page.locator("#fileTree")).toContainText("盘龙");
-  await expect(page.locator("#fileTree")).toContainText("曾将爱意私藏");
-  await page.locator(".file-row[data-path='拆文库/盘龙/拆文报告.md']").click();
-  await expect(page.locator("#editorTitle")).toHaveText("拆文报告.md");
-  await expect(page.locator("#editorInput")).toHaveValue(/盘龙/);
+  await expect(page.locator("#fileTree")).toContainText("The-Last-Knight");
+  await expect(page.locator("#fileTree")).toContainText("The-Secret-Keeper");
+  await page.locator(".file-row[data-path='teardown-lib/The-Last-Knight/teardown-report.md']").click();
+  await expect(page.locator("#editorTitle")).toHaveText("teardown-report.md");
+  await expect(page.locator("#editorInput")).toHaveValue(/The Last Knight/);
 
   const marker = `\n\n<!-- dashboard-e2e-${Date.now()} -->`;
   await page.locator("#editorInput").fill(
     `${await page.locator("#editorInput").inputValue()}${marker}`,
   );
-  await expect(page.locator("#dirtyStatus")).toContainText("待保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Unsaved");
   await expect(page.locator("#saveButton")).toBeEnabled();
 
   const shortcut = process.platform === "darwin" ? "Meta+s" : "Control+s";
   await page.locator("#editorInput").press(shortcut);
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
-  await expect(page.locator("#toastRegion")).toContainText("已保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
+  await expect(page.locator("#toastRegion")).toContainText("Saved");
 
   const activePath = await page.locator(".file-row[data-active='true']").getAttribute("data-path");
   const persisted = await request.get(`/api/file?path=${encodeURIComponent(activePath)}`);
   expect(persisted.ok()).toBeTruthy();
   expect((await persisted.json()).content).toContain(marker.trim());
 
-  await page.locator("#editorInput").fill("<img src=x onerror=alert('unsafe')>\n\n# 安全预览");
-  await page.getByRole("button", { name: "预览", exact: true }).click();
+  await page.locator("#editorInput").fill("<img src=x onerror=alert('unsafe')>\n\n# Safe Preview");
+  await page.getByRole("button", { name: "Preview", exact: true }).click();
   await expect(page.locator("#previewPane")).toContainText("<img src=x onerror=alert('unsafe')>");
   await expect(page.locator("#previewPane img")).toHaveCount(0);
-  await expect(page.locator("#previewPane h1")).toHaveText("安全预览");
+  await expect(page.locator("#previewPane h1")).toHaveText("Safe Preview");
 
-  await page.getByRole("tab", { name: /写作项目/ }).click();
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
   await expect(page.locator("#treeTruncationNotice")).toHaveCount(0);
-  await expect(page.locator("#fileTree")).not.toContainText("关系.md");
-  await page.locator("summary").filter({ hasText: "设定" }).click();
-  await expect(page.locator("#fileTree")).toContainText("关系.md");
+  await expect(page.locator("#fileTree")).not.toContainText("relationships.md");
+  await page.locator("summary").filter({ hasText: "setting" }).click();
+  await expect(page.locator("#fileTree")).toContainText("relationships.md");
   const unfilteredRows = await page.locator("#fileTree .file-row").count();
   expect(unfilteredRows).toBeGreaterThan(1);
 
-  // 搜索由服务端按需扫描，未展开「角色」目录也必须找到江晨。
-  await page.locator("#treeSearch").fill("江晨");
-  await expect(page.locator("#fileTree")).toContainText("江晨.md");
-  await expect(page.locator("#fileTree")).not.toContainText("关系.md");
-  await expect(page.locator("#fileTree")).not.toContainText("细纲_第003章");
-  await expect(page.locator("#fileTree")).not.toContainText("盘龙");
-  // 断言「树被过滤成命中集」而不是比行数：命中数会随 demo 增加同名文件而变化
-  // （角色既有 设定/角色/{名}.md 又有 追踪/角色状态/{名}.md），行数比较会偶然失效。
-  const filteredPaths = await page
-    .locator("#fileTree .file-row")
-    .evaluateAll((rows) => rows.map((row) => row.dataset.path ?? ""));
-  expect(filteredPaths.length).toBeGreaterThan(0);
-  expect(filteredPaths.every((path) => path.includes("江晨"))).toBe(true);
+  // Search scans server-side on demand; the characters directory has never been
+  // expanded, yet corin.md must be found.
+  await page.locator("#treeSearch").fill("corin");
+  await expect(page.locator("#fileTree")).toContainText("corin.md");
+  await expect(page.locator("#fileTree")).not.toContainText("relationships.md");
+  await expect(page.locator("#fileTree")).not.toContainText("outline_chapter_003.md");
+  await expect(page.locator("#fileTree")).not.toContainText("The-Last-Knight");
+  expect(await page.locator("#fileTree .file-row").count()).toBeLessThan(unfilteredRows);
   await page.locator("#refreshButton").click();
-  await expect(page.locator("#toastRegion")).toContainText("工作区目录已刷新");
-  await expect(page.locator("#fileTree")).toContainText("江晨.md");
+  await expect(page.locator("#toastRegion")).toContainText("Workspace refreshed");
+  await expect(page.locator("#fileTree")).toContainText("corin.md");
 
-  // 清空搜索后回到已加载目录，作者刚展开的「设定」不能被收起。
+  // Clearing the search returns to the loaded directory; the author's expanded
+  // setting directory must not be collapsed.
   await page.locator("#treeSearch").press("Escape");
   await expect(page.locator("#treeSearch")).toHaveValue("");
-  await expect(page.locator("#fileTree")).toContainText("关系.md");
+  await expect(page.locator("#fileTree")).toContainText("relationships.md");
   expect(await page.locator("#fileTree .file-row").count()).toBe(unfilteredRows);
 
   expect(consoleErrors).toEqual([]);
 });
 
-test("从真实 demo 删除文稿前明确确认并刷新文件树", async ({ page, request }, testInfo) => {
+test("confirms before deleting a manuscript from the real demo and refreshes the tree", async ({ page, request }, testInfo) => {
   const retryFiles = [
-    "拆文库/盘龙/_progress.md",
-    "拆文库/盘龙/快速预览.md",
-    "拆文库/盘龙/概要.md",
+    "teardown-lib/The-Last-Knight/_progress.md",
+    "teardown-lib/The-Last-Knight/quick-preview.md",
+    "teardown-lib/The-Last-Knight/overview.md",
   ];
   const filePath = retryFiles[testInfo.retry];
   await page.goto("/");
@@ -104,8 +100,9 @@ test("从真实 demo 删除文稿前明确确认并刷新文件树", async ({ pa
   await page.locator(`.file-row[data-path='${filePath}']`).click();
   await expect(page.locator("#editorTitle")).toHaveText(fileName);
 
-  // 断言写在 dialog 回调里就等于没写：对话框不弹时回调根本不跑。
-  // 先在回调外记录，再在点击之后断言，并且必须先测「取消删除」这条路。
+  // Asserting inside the dialog callback would assert nothing: the callback does
+  // not run when the dialog never opens. Record outside the callback, assert
+  // after the click, and test the cancel path first.
   let dismissed = null;
   page.once("dialog", async (dialog) => {
     dismissed = { type: dialog.type(), message: dialog.message() };
@@ -115,7 +112,7 @@ test("从真实 demo 删除文稿前明确确认并刷新文件树", async ({ pa
   await expect.poll(() => dismissed).not.toBeNull();
   expect(dismissed.type).toBe("confirm");
   expect(dismissed.message).toContain(fileName);
-  expect(dismissed.message).toContain("无法撤销");
+  expect(dismissed.message).toContain("cannot be undone");
 
   await expect(page.locator(`.file-row[data-path='${filePath}']`)).toHaveCount(1);
   await expect(page.locator("#fileCount")).toHaveText(`${initialFileCount}+`);
@@ -132,9 +129,9 @@ test("从真实 demo 删除文稿前明确确认并刷新文件树", async ({ pa
   await expect.poll(() => accepted).not.toBeNull();
   expect(accepted.type).toBe("confirm");
   expect(accepted.message).toContain(fileName);
-  expect(accepted.message).toContain("无法撤销");
+  expect(accepted.message).toContain("cannot be undone");
 
-  await expect(page.locator("#toastRegion")).toContainText("已删除");
+  await expect(page.locator("#toastRegion")).toContainText("Deleted");
   await expect(page.locator("#editorEmpty")).toBeVisible();
   await expect(page.locator(`.file-row[data-path='${filePath}']`)).toHaveCount(0);
   await expect(page.locator("#fileCount")).toHaveText(`${initialFileCount - 1}+`);
@@ -143,13 +140,13 @@ test("从真实 demo 删除文稿前明确确认并刷新文件树", async ({ pa
   expect(deleted.status()).toBe(404);
 });
 
-test("保存途中切走文稿，结果不能落到新打开的那份上", async ({ page, request }) => {
-  const fileA = "拆文库/盘龙/文风.md";
-  const fileB = "拆文库/盘龙/拆文报告.md";
+test("a save finishing after switching files never lands on the newly opened one", async ({ page, request }) => {
+  const fileA = "teardown-lib/The-Last-Knight/style.md";
+  const fileB = "teardown-lib/The-Last-Knight/teardown-report.md";
   await page.goto("/");
   await expect(page.locator("#fileCount")).not.toHaveText("—");
 
-  // 把 PUT 拖慢，模拟网盘目录、杀软扫描导致的慢保存
+  // Slow the PUT down to simulate a sync-folder or antivirus-induced slow save
   await page.route("**/api/file", async (route) => {
     if (route.request().method() === "PUT") {
       await new Promise((accept) => setTimeout(accept, 1500));
@@ -158,27 +155,27 @@ test("保存途中切走文稿，结果不能落到新打开的那份上", async
   });
 
   await page.locator(`.file-row[data-path='${fileA}']`).click();
-  await expect(page.locator("#editorTitle")).toHaveText("文风.md");
+  await expect(page.locator("#editorTitle")).toHaveText("style.md");
   const markerA = `\n<!-- dashboard-race-a-${Date.now()} -->`;
   await page.locator("#editorInput").fill(
     `${await page.locator("#editorInput").inputValue()}${markerA}`,
   );
   await page.locator("#saveButton").click();
-  await expect(page.locator("#dirtyStatus")).toContainText("保存中");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saving");
 
-  // 保存还在飞就切到另一份文稿并继续写
+  // Switch to another manuscript and keep typing while the save is in flight
   page.once("dialog", (dialog) => dialog.accept());
   await page.locator(`.file-row[data-path='${fileB}']`).click();
-  await expect(page.locator("#editorTitle")).toHaveText("拆文报告.md");
+  await expect(page.locator("#editorTitle")).toHaveText("teardown-report.md");
   const markerB = `\n<!-- dashboard-race-b-${Date.now()} -->`;
   await page.locator("#editorInput").fill(
     `${await page.locator("#editorInput").inputValue()}${markerB}`,
   );
-  await expect(page.locator("#dirtyStatus")).toContainText("待保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Unsaved");
 
-  // A 的保存落地时只能提示 A，B 仍是未保存状态，不能被算成已保存
-  await expect(page.locator("#toastRegion")).toContainText("已保存《文风.md》");
-  await expect(page.locator("#dirtyStatus")).toContainText("待保存");
+  // A's save landing may only toast A; B must still be unsaved, never counted as saved
+  await expect(page.locator("#toastRegion")).toContainText('Saved "style.md"');
+  await expect(page.locator("#dirtyStatus")).toContainText("Unsaved");
   await expect(page.locator("#saveButton")).toBeEnabled();
 
   const persistedA = await request.get(`/api/file?path=${encodeURIComponent(fileA)}`);
@@ -186,17 +183,17 @@ test("保存途中切走文稿，结果不能落到新打开的那份上", async
   const staleB = await request.get(`/api/file?path=${encodeURIComponent(fileB)}`);
   expect((await staleB.json()).content).not.toContain(markerB.trim());
 
-  // B 自己保存时必须带 B 的版本号，不能被 A 的版本污染成假冲突
+  // B's own save must carry B's version, not be poisoned into a false conflict by A's
   await page.locator("#saveButton").click();
-  await expect(page.locator("#toastRegion")).toContainText("已保存《拆文报告.md》");
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
+  await expect(page.locator("#toastRegion")).toContainText('Saved "teardown-report.md"');
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
   await expect(page.locator("#conflictDialog")).toBeHidden();
   const savedB = await request.get(`/api/file?path=${encodeURIComponent(fileB)}`);
   expect((await savedB.json()).content).toContain(markerB.trim());
 });
 
-test("保存途中继续敲的字仍算未保存", async ({ page, request }) => {
-  const filePath = "拆文库/盘龙/文风.md";
+test("keystrokes typed while a save is in flight still count as unsaved", async ({ page, request }) => {
+  const filePath = "teardown-lib/The-Last-Knight/style.md";
   await page.goto("/");
   await expect(page.locator("#fileCount")).not.toHaveText("—");
   await page.route("**/api/file", async (route) => {
@@ -207,7 +204,7 @@ test("保存途中继续敲的字仍算未保存", async ({ page, request }) => 
   });
 
   await page.locator(`.file-row[data-path='${filePath}']`).click();
-  await expect(page.locator("#editorTitle")).toHaveText("文风.md");
+  await expect(page.locator("#editorTitle")).toHaveText("style.md");
   const saveMarker = `\n<!-- dashboard-inflight-saved-${Date.now()} -->`;
   await page.locator("#editorInput").fill(
     `${await page.locator("#editorInput").inputValue()}${saveMarker}`,
@@ -215,14 +212,14 @@ test("保存途中继续敲的字仍算未保存", async ({ page, request }) => 
 
   const shortcut = process.platform === "darwin" ? "Meta+s" : "Control+s";
   await page.locator("#editorInput").press(shortcut);
-  await expect(page.locator("#dirtyStatus")).toContainText("保存中");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saving");
   const lateMarker = "\n<!-- dashboard-inflight-late -->";
   await page.locator("#editorInput").fill(
     `${await page.locator("#editorInput").inputValue()}${lateMarker}`,
   );
 
-  await expect(page.locator("#toastRegion")).toContainText("已保存《文风.md》");
-  await expect(page.locator("#dirtyStatus")).toContainText("待保存");
+  await expect(page.locator("#toastRegion")).toContainText('Saved "style.md"');
+  await expect(page.locator("#dirtyStatus")).toContainText("Unsaved");
   await expect(page.locator("#saveButton")).toBeEnabled();
 
   const persisted = await request.get(`/api/file?path=${encodeURIComponent(filePath)}`);
@@ -231,8 +228,8 @@ test("保存途中继续敲的字仍算未保存", async ({ page, request }) => 
   expect(content).not.toContain(lateMarker.trim());
 });
 
-test("CRLF 稿件不会被一次改动重写换行，脏标记也能清干净", async ({ page, request }) => {
-  const filePath = "长篇/让你管账号，你高燃混剪炸全网/设定/文风.md";
+test("a CRLF manuscript keeps its line endings after one edit, and the dirty flag clears", async ({ page, request }) => {
+  const filePath = "long-form/The-Shattered-Throne/setting/style.md";
   const loaded = await request
     .get(`/api/file?path=${encodeURIComponent(filePath)}`)
     .then((response) => response.json());
@@ -244,52 +241,53 @@ test("CRLF 稿件不会被一次改动重写换行，脏标记也能清干净", 
   expect(crlfContent).toContain("\r\n");
 
   await page.goto("/");
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await page.locator("#treeSearch").fill("文风");
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await page.locator("#treeSearch").fill("style.md");
   await page.locator(`.file-row[data-path='${filePath}']`).click();
-  await expect(page.locator("#editorTitle")).toHaveText("文风.md");
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
+  await expect(page.locator("#editorTitle")).toHaveText("style.md");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
 
-  // 敲一个字再删掉就该回到「已保存」；基线留着 CRLF 时这里永远卡在待保存
+  // Type one character and delete it again: the flag must return to Saved; with
+  // a CRLF baseline this would otherwise stick on Unsaved forever.
   await page.locator("#editorInput").press("End");
-  await page.locator("#editorInput").pressSequentially("改");
-  await expect(page.locator("#dirtyStatus")).toContainText("待保存");
+  await page.locator("#editorInput").pressSequentially("x");
+  await expect(page.locator("#dirtyStatus")).toContainText("Unsaved");
   await page.locator("#editorInput").press("Backspace");
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
 
-  await page.locator("#editorInput").pressSequentially("改");
+  await page.locator("#editorInput").pressSequentially("x");
   await page.locator("#saveButton").click();
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
 
   const saved = await request
     .get(`/api/file?path=${encodeURIComponent(filePath)}`)
     .then((response) => response.json());
   expect(saved.content).toContain("\r\n");
   expect(saved.content.replaceAll("\r\n", "")).not.toContain("\n");
-  expect(saved.size).toBe(Buffer.byteLength(crlfContent) + Buffer.byteLength("改"));
+  expect(saved.size).toBe(Buffer.byteLength(crlfContent) + Buffer.byteLength("x"));
 });
 
-test("LF 稿件里的孤立 CR 不会把整篇保存成 CR-only", async ({ page, request }) => {
-  const filePath = "长篇/让你管账号，你高燃混剪炸全网/设定/文风.md";
+test("a stray CR in an LF manuscript does not turn the whole save CR-only", async ({ page, request }) => {
+  const filePath = "long-form/The-Shattered-Throne/setting/style.md";
   const loaded = await request
     .get(`/api/file?path=${encodeURIComponent(filePath)}`)
     .then((response) => response.json());
-  const mixedContent = "# 文风\n第一行。\n第二行前\r第二行后。\n第三行。\n";
+  const mixedContent = "# Style\nFirst line.\nSecond\rThird.\nFourth line.\n";
   const converted = await request.put("/api/file", {
     data: { path: filePath, content: mixedContent, expectedVersion: loaded.version },
   });
   expect(converted.ok()).toBeTruthy();
 
   await page.goto("/");
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await page.locator("#treeSearch").fill("文风");
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await page.locator("#treeSearch").fill("style.md");
   await page.locator(`.file-row[data-path='${filePath}']`).click();
-  await expect(page.locator("#editorTitle")).toHaveText("文风.md");
+  await expect(page.locator("#editorTitle")).toHaveText("style.md");
 
   await page.locator("#editorInput").press("End");
-  await page.locator("#editorInput").pressSequentially("改");
+  await page.locator("#editorInput").pressSequentially("x");
   await page.locator("#saveButton").click();
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
 
   const saved = await request
     .get(`/api/file?path=${encodeURIComponent(filePath)}`)
@@ -299,29 +297,29 @@ test("LF 稿件里的孤立 CR 不会把整篇保存成 CR-only", async ({ page,
   expect(saved.content.split("\n")).toHaveLength(6);
 });
 
-test("CRLF 稿件里的孤立 CR 不会反向触发整篇 LF 重写", async ({ page, request }) => {
-  const filePath = "长篇/让你管账号，你高燃混剪炸全网/设定/文风.md";
+test("a stray CR in a CRLF manuscript does not trigger a whole-file LF rewrite", async ({ page, request }) => {
+  const filePath = "long-form/The-Shattered-Throne/setting/style.md";
   const loaded = await request
     .get(`/api/file?path=${encodeURIComponent(filePath)}`)
     .then((response) => response.json());
   const converted = await request.put("/api/file", {
     data: {
       path: filePath,
-      content: "# 文风\r\n第一行。\r\n第二行前\r第二行后。\r\n第三行。",
+      content: "# Style\r\nFirst line.\r\nSecond\rThird.\r\nFourth line.",
       expectedVersion: loaded.version,
     },
   });
   expect(converted.ok()).toBeTruthy();
 
   await page.goto("/");
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await page.locator("#treeSearch").fill("文风");
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await page.locator("#treeSearch").fill("style.md");
   await page.locator(`.file-row[data-path='${filePath}']`).click();
   const editor = page.locator("#editorInput");
   await editor.press("End");
-  await editor.pressSequentially("\n改");
+  await editor.pressSequentially("\nx");
   await page.locator("#saveButton").click();
-  await expect(page.locator("#dirtyStatus")).toContainText("已保存");
+  await expect(page.locator("#dirtyStatus")).toContainText("Saved");
 
   const saved = await request
     .get(`/api/file?path=${encodeURIComponent(filePath)}`)
@@ -331,62 +329,62 @@ test("CRLF 稿件里的孤立 CR 不会反向触发整篇 LF 重写", async ({ p
   expect(saved.content.split("\r\n")).toHaveLength(6);
 });
 
-test("打开文稿不会收起正在翻的目录", async ({ page }) => {
-  const rowPath = "长篇/让你管账号，你高燃混剪炸全网/大纲/细纲_第002章.md";
+test("opening a file does not collapse the directory being browsed", async ({ page }) => {
+  const rowPath = "long-form/The-Shattered-Throne/outline/outline_chapter_002.md";
   await page.goto("/");
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await expect(page.locator("#fileTree")).toContainText("让你管账号，你高燃混剪炸全网");
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await expect(page.locator("#fileTree")).toContainText("The-Shattered-Throne");
 
-  await page.locator("summary").filter({ hasText: "大纲" }).click();
+  await page.locator("summary").filter({ hasText: "outline" }).click();
   const row = page.locator(`.file-row[data-path='${rowPath}']`);
   await expect(row).toBeVisible();
 
   await row.click();
-  await expect(page.locator("#editorTitle")).toHaveText("细纲_第002章.md");
+  await expect(page.locator("#editorTitle")).toHaveText("outline_chapter_002.md");
   await expect(row).toBeVisible();
   await expect(row).toHaveAttribute("data-active", "true");
 
   await page.locator("#refreshButton").click();
-  await expect(page.locator("#toastRegion")).toContainText("工作区目录已刷新");
+  await expect(page.locator("#toastRegion")).toContainText("Workspace refreshed");
   await expect(row).toBeVisible();
   await expect(row).toHaveAttribute("data-active", "true");
 
-  await page.locator("#treeSearch").fill("细纲_第002章");
-  await expect(page.locator("#fileTree")).not.toContainText("细纲_第003章");
+  await page.locator("#treeSearch").fill("outline_chapter_002");
+  await expect(page.locator("#fileTree")).not.toContainText("outline_chapter_003");
   await page.locator("#treeSearch").fill("");
   await expect(row).toBeVisible();
 });
 
-test("深目录不再被首屏扫描深度剪掉，搜索时仍能按需找到", async ({ page, request }) => {
+test("deep directories are no longer cut by the first-screen scan depth and still resolve on demand", async ({ page, request }) => {
   const workspace = await request.get("/api/workspace").then((response) => response.json());
   const projectPath = workspace.projects[0].path;
-  const nestedRoot = resolve(workspace.workspace.path, projectPath, "正文", "深卷");
+  const nestedRoot = resolve(workspace.workspace.path, projectPath, "prose", "Deep Volume");
   const nestedLeaf = resolve(
     nestedRoot,
-    ...Array.from({ length: 11 }, (_, index) => `第${index + 1}折`),
+    ...Array.from({ length: 11 }, (_, index) => `arc-${index + 1}`),
   );
 
   try {
     await mkdir(nestedLeaf, { recursive: true });
-    await writeFile(resolve(nestedLeaf, "埋掉的一章.md"), "深处的正文", "utf8");
+    await writeFile(resolve(nestedLeaf, "buried-chapter.md"), "Deep draft", "utf8");
 
     await page.goto("/");
-    await page.getByRole("tab", { name: /写作项目/ }).click();
-    await page.locator("#treeSearch").fill("埋掉的一章");
-    await expect(page.locator("#fileTree")).toContainText("埋掉的一章.md");
+    await page.getByRole("tab", { name: /Writing projects/ }).click();
+    await page.locator("#treeSearch").fill("buried");
+    await expect(page.locator("#fileTree")).toContainText("buried-chapter.md");
     await expect(page.locator("#treeTruncationNotice")).toHaveCount(0);
   } finally {
     await rm(nestedRoot, { recursive: true, force: true });
   }
 });
 
-test("目录读取失败时提示权限或挂载问题，而不是伪装成空库", async ({ page }) => {
+test("an unreadable directory shows permission or mount hints instead of faking an empty library", async ({ page }) => {
   await page.route("**/api/workspace", async (route) => {
     const response = await route.fetch();
     const payload = await response.json();
     payload.libraries = [];
     payload.scanErrors = [
-      { path: "拆文库", code: "EACCES", message: "目录无法读取" },
+      { path: "teardown-lib", code: "EACCES", message: "Cannot read directory" },
     ];
     payload.limits = {
       ...payload.limits,
@@ -397,23 +395,23 @@ test("目录读取失败时提示权限或挂载问题，而不是伪装成空�
   });
 
   await page.goto("/");
-  await expect(page.locator("#treeTruncationNotice")).toContainText("拆文库无法读取");
-  await expect(page.locator("#treeTruncationNotice")).toContainText("检查这些目录的访问权限和外挂盘挂载状态");
+  await expect(page.locator("#treeTruncationNotice")).toContainText("teardown-lib could not be read");
+  await expect(page.locator("#treeTruncationNotice")).toContainText("Check directory permissions and external-drive mount state");
   await expect(page.locator("#fileCount")).toHaveAttribute(
     "title",
-    "文稿随目录展开按需加载，不预先遍历整个工作区",
+    "Manuscripts load on demand as directories expand; the whole workspace is not pre-walked",
   );
 });
 
-test("顶层目录自动加载失败后停止重取，只在用户点击时重试", async ({ page }) => {
+test("a top-level directory that fails to auto-load stops refetching; retry only happens on user click", async ({ page }) => {
   let treeRequests = 0;
   await page.route("**/api/workspace", async (route) => {
     const response = await route.fetch();
     const payload = await response.json();
     payload.libraries = [
       {
-        name: "坏档案",
-        path: "拆文库/坏档案",
+        name: "Broken Archive",
+        path: "teardown-lib/Broken Archive",
         type: "directory",
         children: [],
         loaded: false,
@@ -424,7 +422,7 @@ test("顶层目录自动加载失败后停止重取，只在用户点击时重�
   });
   await page.route("**/api/tree?*", async (route) => {
     const url = new URL(route.request().url());
-    if (url.searchParams.get("path") !== "拆文库/坏档案") {
+    if (url.searchParams.get("path") !== "teardown-lib/Broken Archive") {
       await route.continue();
       return;
     }
@@ -435,14 +433,14 @@ test("顶层目录自动加载失败后停止重取，只在用户点击时重�
       body: JSON.stringify({
         error: {
           code: "directory_unreadable",
-          message: "目录无法读取，请检查访问权限或挂载状态：拆文库/坏档案",
+          message: "Cannot read directory, check permissions or mount state: teardown-lib/Broken Archive",
         },
       }),
     });
   });
 
   await page.goto("/");
-  const retry = page.getByRole("button", { name: "目录加载失败，点击重试" });
+  const retry = page.getByRole("button", { name: "Failed to load directory, click to retry" });
   await expect(retry).toBeVisible();
   await page.waitForTimeout(500);
   expect(treeRequests).toBe(1);
@@ -455,13 +453,13 @@ test("顶层目录自动加载失败后停止重取，只在用户点击时重�
   await expect(retry).toBeVisible();
 });
 
-test("搜索零命中时仍按具体原因显示截断警告", async ({ page }) => {
+test("a zero-hit search still shows the truncation warning with its specific cause", async ({ page }) => {
   await page.route("**/api/search?*", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        query: "不存在的文件",
+        query: "nonexistent-file",
         scope: "projects",
         results: [],
         truncated: true,
@@ -482,23 +480,23 @@ test("搜索零命中时仍按具体原因显示截断警告", async ({ page }) 
   });
 
   await page.goto("/");
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await page.locator("#treeSearch").fill("不存在的文件");
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await page.locator("#treeSearch").fill("nonexistent-file");
   await expect(page.locator("#fileTree")).toContainText(
-    "搜索未完成，暂时无法确认是否存在“不存在的文件”",
+    "Search incomplete — cannot confirm whether the query exists",
   );
   await expect(page.locator("#fileTree")).toContainText(
-    "搜索达到 5,000 个节点的扫描上限，后续目录尚未检查",
+    "Search hit the 5,000-node scan limit; deeper directories were not checked — expand the target directory directly",
   );
 });
 
-test("搜索零命中但目录读取失败时显示权限或挂载提示", async ({ page }) => {
+test("a zero-hit search with an unreadable directory shows permission or mount hints", async ({ page }) => {
   await page.route("**/api/search?*", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        query: "目标章",
+        query: "target-chapter",
         scope: "projects",
         results: [],
         truncated: true,
@@ -508,7 +506,7 @@ test("搜索零命中但目录读取失败时显示权限或挂载提示", async
           byDepth: false,
           byReadError: true,
         },
-        scanErrors: [{ path: "示例书/正文/受限卷", code: "EACCES" }],
+        scanErrors: [{ path: "The-Shattered-Throne/prose/Restricted-Volume", code: "EACCES" }],
         limits: {
           maxResults: 100,
           maxNodes: 5000,
@@ -519,20 +517,20 @@ test("搜索零命中但目录读取失败时显示权限或挂载提示", async
   });
 
   await page.goto("/");
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await page.locator("#treeSearch").fill("目标章");
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await page.locator("#treeSearch").fill("target-chapter");
   await expect(page.locator("#fileTree")).toContainText(
-    "搜索未完成，暂时无法确认是否存在“目标章”",
+    "Search incomplete — cannot confirm whether the query exists",
   );
-  await expect(page.locator("#fileTree")).toContainText("示例书/正文/受限卷无法读取");
-  await expect(page.locator("#fileTree")).toContainText("访问权限或外挂盘挂载状态");
-  await expect(page.locator("#fileTree")).not.toContainText("没有找到“目标章”");
+  await expect(page.locator("#fileTree")).toContainText("The-Shattered-Throne/prose/Restricted-Volume could not be read");
+  await expect(page.locator("#fileTree")).toContainText("Check directory permissions or external-drive mount state");
+  await expect(page.locator("#fileTree")).not.toContainText("No results for the query");
 });
 
-test("宽目录按页加载，点击更多后继续追加而不丢失首批文件", async ({ page, request }) => {
+test("wide directories load page by page; Load more appends without dropping the first page", async ({ page, request }) => {
   const workspace = await request.get("/api/workspace").then((response) => response.json());
   const project = resolve(workspace.workspace.path, workspace.projects[0].path);
-  const volume = resolve(project, "批量卷");
+  const volume = resolve(project, "Batch-Volume");
 
   try {
     await mkdir(volume, { recursive: true });
@@ -540,8 +538,8 @@ test("宽目录按页加载，点击更多后继续追加而不丢失首批文�
       await Promise.all(
         Array.from({ length: Math.min(100, 205 - start) }, (_, offset) =>
           writeFile(
-            resolve(volume, `第${String(start + offset + 1).padStart(5, "0")}章.md`),
-            "凑数",
+            resolve(volume, `chapter_${String(start + offset + 1).padStart(5, "0")}.md`),
+            "filler",
             "utf8",
           ),
         ),
@@ -549,38 +547,38 @@ test("宽目录按页加载，点击更多后继续追加而不丢失首批文�
     }
 
     await page.goto("/");
-    await page.getByRole("tab", { name: /写作项目/ }).click();
-    await page.locator("summary").filter({ hasText: "批量卷" }).click();
+    await page.getByRole("tab", { name: /Writing projects/ }).click();
+    await page.locator("summary").filter({ hasText: "Batch-Volume" }).click();
     const first = page.locator(
-      `.file-row[data-path='${workspace.projects[0].path}/批量卷/第00001章.md']`,
+      `.file-row[data-path='${workspace.projects[0].path}/Batch-Volume/chapter_00001.md']`,
     );
     const last = page.locator(
-      `.file-row[data-path='${workspace.projects[0].path}/批量卷/第00205章.md']`,
+      `.file-row[data-path='${workspace.projects[0].path}/Batch-Volume/chapter_00205.md']`,
     );
     await expect(first).toBeVisible();
     await expect(last).toHaveCount(0);
-    await page.getByRole("button", { name: "加载更多" }).click();
+    await page.getByRole("button", { name: "Load more" }).click();
     await expect(first).toBeVisible();
     await expect(last).toBeVisible();
-    await expect(page.getByRole("button", { name: "加载更多" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Load more" })).toHaveCount(0);
   } finally {
     await rm(volume, { recursive: true, force: true });
   }
 });
 
-test("@mobile 手机视口仍可从真实长篇项目打开大纲", async ({ page }) => {
+test("@mobile viewport can still open an outline from the real long-form project", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("OH STORY", { exact: true })).toBeVisible();
   await expect(page.locator(".archive-panel")).toBeVisible();
 
-  await page.getByRole("tab", { name: /写作项目/ }).click();
-  await expect(page.locator("#fileTree")).toContainText("让你管账号，你高燃混剪炸全网");
-  await page.locator("summary").filter({ hasText: "大纲" }).click();
+  await page.getByRole("tab", { name: /Writing projects/ }).click();
+  await expect(page.locator("#fileTree")).toContainText("The-Shattered-Throne");
+  await page.locator("summary").filter({ hasText: "outline" }).click();
   await page
-    .locator(".file-row[data-path='长篇/让你管账号，你高燃混剪炸全网/大纲/大纲.md']")
+    .locator(".file-row[data-path='long-form/The-Shattered-Throne/outline/outline.md']")
     .click();
 
-  await expect(page.locator("#editorTitle")).toHaveText("大纲.md");
+  await expect(page.locator("#editorTitle")).toHaveText("outline.md");
   await expect(page.locator("#editorWorkspace")).toBeVisible();
   await expect(page.locator("#saveButton")).toBeVisible();
   await expect(page.locator("#editorInput")).toBeVisible();

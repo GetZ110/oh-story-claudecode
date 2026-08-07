@@ -1,8 +1,8 @@
 ---
-description: 长篇网文写作，从选题、大纲到逐章正文和持续追踪。
+description: Long-form web-novel writing, from topic selection and outline to chapter-by-chapter prose and ongoing tracking.
 skills: story-long-write
 ---
 
-调用 `$story-long-write` 执行长篇写作任务。
+Invoke `$story-long-write` to carry out the long-form writing task.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

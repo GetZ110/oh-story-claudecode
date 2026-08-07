@@ -32,8 +32,9 @@ class ManifestError(ValueError):
     pass
 
 
-# 递归枚举 skills/*/scripts/ 时要跳过的非运行时目录：开发机上的构建缓存
-# （__pycache__、node_modules）不是需要登记的重复脚本。
+# Non-runtime directories skipped when recursively enumerating skills/*/scripts/:
+# build caches on a developer machine (__pycache__, node_modules) are not managed
+# duplicate scripts.
 IGNORED_SCRIPT_DIRS = frozenset({".git", "__pycache__", "node_modules", ".venv"})
 
 
@@ -175,8 +176,9 @@ def unmanaged_duplicate_scripts(root: Path, groups: list[Group]) -> list[tuple[s
     scripts_by_name: dict[str, list[Path]] = defaultdict(list)
     skills_dir = root / "skills"
     if skills_dir.is_dir():
-        # 必须递归：共享 helper 常放在 skills/<skill>/scripts/lib/ 这类子目录，
-        # 单层 glob 会让这些更深的重复副本绕过守卫、各自漂移后直接发给用户。
+        # Must recurse: shared helpers often live in subdirectories like
+        # skills/<skill>/scripts/lib/, and a single-level glob would let those
+        # deeper duplicates bypass the guard and drift apart before reaching users.
         for scripts_dir in sorted(skills_dir.glob("*/scripts")):
             if not scripts_dir.is_dir():
                 continue

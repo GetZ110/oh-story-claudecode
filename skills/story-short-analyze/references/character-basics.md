@@ -1,453 +1,447 @@
-# 角色基础设计
+# Character Basic Design
 
-> 设计主角/配角/反派时加载。先看决策路由，选对模板，再按步骤操作。character-designer 主输出参考。
+> Load when designing the protagonist/supporting/antagonist. First check the routing table, pick the right template, then follow the steps. Reference for the character-designer's main output.
 
-## 用作拆文标尺时
+## When used as a teardown yardstick
 
-本文件原本是写作侧 playbook，写法是「怎么写」。`story-short-analyze` 在拆文时把它当
-**对照标尺**用 —— 拆文动作是把源文与本文件描述的标准模式做对比，找出该篇用了哪一种、
-做得有多到位，**不是**按本文件去写新作品。
+This file was originally a writing-side playbook — written as "how to write". `story-short-analyze` uses it as a **comparison yardstick** during teardown: the teardown action is comparing the source against the standard patterns described here, finding which one the piece uses and how well it executes — it is **not** a guide for writing new works.
 
-读者视角的判断：本文件描述的是 番茄小说短篇 / 故事会 / 追妻 / 世情 / 重生 / 虐渣
-等通俗短篇圈的工业标准模板，是拆文报告里「可复用结构 / 反转设计 / 题材公式」等段的
-对照来源。
+Reader-perspective note: this file describes the industrial-standard templates of the English popular short-fiction scene; it is the comparison source for the "reusable structures / reversal design / genre formulas" sections of the teardown report.
 
 ---
 
-## 决策路由
+## Decision routing
 
-| 你在设计什么 | 用这个模板 | 见哪个章节 |
-|------------|-----------|-----------|
-| 主角 | 主角卡模板 | 第1节 |
-| 配角 | 配角卡模板 | 第2节 |
-| 反派 | 反派层级表 → 反派建立四要素 → 反派性格四步法 | 第3节 |
-| 角色动机 | 动机链模板 → 动机冲突类型 | 第4节 |
-| 角色塑造/深化 | 塑造方法速查（四层法/执念法/重复点/分层展示等） | 第5节 |
-| 主角特殊问题 | 逼格/成长/红线/调子太高/身份与金手指 | 第6节 |
-| 反派塑造深化 | 反派渲染/人设主角化 | 第7节 |
+| What you're designing | Use this template | See section |
+|-----------------------|-------------------|-------------|
+| Protagonist | protagonist card | §1 |
+| Supporting | supporting card | §2 |
+| Antagonist | antagonist tier table → four establishment elements → four-step personality | §3 |
+| Character motive | motive-chain template → motive-conflict types | §4 |
+| Character building/deepening | building-method quick reference (four-layer/obsession/repetition points/layered display) | §5 |
+| Protagonist special problems | aura/growth/red lines/starting-too-high/identity-and-cheat | §6 |
+| Antagonist deepening | antagonist rendering/protagonist-ization | §7 |
 
 ---
 
-## 第1节：主角卡
+## §1: The protagonist card
 
-### 填空模板
+### Fill-in template
 
 ```
-姓名：
-性别：
-角色定位：（一句话说清主角在故事中的功能）
-身份标签：（如：废柴大学生、前特种兵、落魄皇子）
-外貌特征：（3-5 个关键词，要有记忆点）
-  例：瘦高、总穿旧夹克、左手有疤、眼神懒散
-性格关键词：（3-5 个，必须有矛盾面）
-  例：嘴毒心软、看似冷漠实则护短、冲动但有底线
-核心目标：（全书终点想达成什么）
-核心动机：（必须达成的理由——情感驱动，非理性驱动）
-致命弱点：（让角色犯错的性格缺陷，非能力缺陷）
-口头禅/标志动作：（让读者秒认的标签）
+Name:
+Gender:
+Role positioning: (one sentence on the character's function in the story)
+Identity labels: (e.g., broke college student, ex-special-forces, fallen prince)
+Appearance traits: (3-5 keywords, must be memorable)
+  e.g., tall and lean, always in an old jacket, scar on the left hand, lazy eyes
+Personality keywords: (3-5, must include a contradictory side)
+  e.g., sharp tongue soft heart, cold-looking but protective, impulsive with a bottom line
+Core goal: (what the whole book ends on)
+Core motive: (the reason it must be done — emotion-driven, not reason-driven)
+Fatal flaw: (the character defect that makes them err — not a competence gap)
+Catchphrase/signature move: (the label readers recognize instantly)
 ```
 
-### 设计要点
+### Design points
 
-- 动机必须是情感层面的——"为母亲复仇"优于"要成为最强"
-- 弱点必须会在关键情节导致主角犯错，否则不是弱点
-- 外貌和口头禅是读者记忆锚点，必须写
+- The motive must be emotional — "avenge my mother" beats "become the strongest"
+- A flaw only counts if it makes the protagonist err at a key plot point
+- Appearance and catchphrase are reader memory anchors — they must be written
 
 ---
 
-## 第2节：配角卡
+## §2: The supporting card
 
-### 填空模板
+### Fill-in template
 
 ```
-姓名：
-性别：
-角色功能：（导师/盟友/情报源/牺牲品/镜像对照）
-与主角关系：
-核心特质：（1-2 个关键词）
-标志性特征：（一句话让读者记住）
-退场方式：（何时/如何退出故事）
+Name:
+Gender:
+Role function: (mentor / ally / intel source / sacrifice / mirror)
+Relationship to the protagonist:
+Core traits: (1-2 keywords)
+Signature feature: (one sentence the reader remembers)
+Exit: (when/how they leave the story)
 ```
 
-### 设计要点
+### Design points
 
-- 每个配角必须有明确功能——没有功能的角色不要出场
-- 配角退场要主动规划，不能写着写着忘了
-- 同一场景配角不超过 3 个有台词
+- Every supporting character must have a clear function — no-function characters don't appear
+- Plan exits proactively; don't forget characters mid-book
+- At most 3 supporting characters with lines in one scene
 
 ---
 
-## 第3节：反派设计
+## §3: Antagonist design
 
-### 3.1 反派层级表
+### 3.1 The antagonist tier table
 
-根据反派出场篇幅选对应层级，按表格要求设计。
+Pick the tier by the antagonist's screen time and design per the table.
 
-#### 小反派（1-5 章）
+#### Small antagonist (1-5 chapters)
 
-| 维度 | 要求 |
-|------|------|
-| 功能 | 单个小弧线的障碍 |
-| 设计 | 1-2 个鲜明特征即可（嚣张/贪财/欺软怕硬） |
-| 退场 | 被打败或被揭穿，干脆利落 |
+| Dimension | Requirement |
+|-----------|-------------|
+| Function | the obstacle of one small arc |
+| Design | 1-2 sharp traits suffice (arrogant/greedy/bullies the weak) |
+| Exit | beaten or exposed, cleanly |
 
-#### 中等反派（10-30 章）
+#### Medium antagonist (10-30 chapters)
 
-| 维度 | 要求 |
-|------|------|
-| 功能 | 一卷的主要对手 |
-| 动机 | 为什么跟主角作对（不能是"纯粹的坏"） |
-| 手段 | 武力/权谋/资源 |
-| 逼格 | 至少赢主角一次，让读者恨得牙痒 |
-| 退场 | 被主角正面击败，要有爽感 |
+| Dimension | Requirement |
+|-----------|-------------|
+| Function | the volume's main opponent |
+| Motive | why they oppose the protagonist (not "pure evil") |
+| Means | force / scheming / resources |
+| Aura | must beat the protagonist at least once; make the reader's teeth itch |
+| Exit | defeated by the protagonist head-on; must gratify |
 
-#### 大弧Boss（一卷或数卷）
+#### Big-arc boss (one or several volumes)
 
-| 维度 | 要求 |
-|------|------|
-| 功能 | 代表一个阶段的核心矛盾 |
-| 人弧 | 完整的人物弧线，有自己的目标和逻辑 |
-| 冲突 | 与主角有理念冲突（不只是利益冲突） |
-| 对决 | 至少一场让主角陷入绝境 |
-| 侧面 | 有一个让读者"恨不起来"的侧面 |
-| 退场 | 有仪式感的终战 + 有余味的落幕 |
+| Dimension | Requirement |
+|-----------|-------------|
+| Function | embodies one stage's core contradiction |
+| Arc | a full character arc with their own goals and logic |
+| Conflict | an ideological conflict with the protagonist (not just interests) |
+| Duel | at least one battle that corners the protagonist |
+| Side | one side that makes the reader "can't hate them" |
+| Exit | a ritual final battle + an aftershock-laden curtain call |
 
-#### 最终Boss（全书）
+#### Final boss (whole book)
 
-| 维度 | 要求 |
-|------|------|
-| 功能 | 全书核心矛盾的具象化 |
-| 伏笔 | 从第一章就有 |
-| 对立 | 与主角的目标/动机直接对立，代表故事主题的反面 |
-| 实力 | 碾压主角，主角必须蜕变才能赢 |
-| 信念 | 有信念，不是纯粹的疯子/怪物 |
+| Dimension | Requirement |
+|-----------|-------------|
+| Function | the embodiment of the whole book's core contradiction |
+| Foreshadowing | seeded from chapter one |
+| Opposition | directly opposes the protagonist's goal/motive; represents the theme's negative |
+| Power | overwhelms the protagonist; the protagonist must transform to win |
+| Conviction | has a creed, not a pure madman/monster |
 
-### 3.2 反派设计铁律
+### 3.2 Antagonist iron rules
 
-- 反派的智商/实力决定主角的含金量——反派弱 = 主角赢没意义
-- 反派的行为必须有内在逻辑（从他的视角说得通）
-- 不要让反派降智来给主角送赢
+- The antagonist's IQ/strength decides the protagonist's worth — a weak antagonist makes the win meaningless
+- The antagonist's behavior must have internal logic (sane from their POV)
+- Don't dumb the antagonist down to gift the protagonist a win
 
-### 3.3 反派建立四要素
+### 3.3 The four establishment elements
 
-按顺序操作，缺一不可：
+In order; none may be missing:
 
-1. **实力展示**——出场就展示实力或手段
-2. **动机可信**——从反派视角看行为说得通
-3. **真实威胁**——至少赢主角一次
-4. **终极意图时机**——真实目的留到关键反转点
+1. **Strength display** — show strength or means at the entrance
+2. **Credible motive** — the behavior is sane from the antagonist's POV
+3. **Real threat** — beat the protagonist at least once
+4. **Ultimate-intent timing** — the true purpose held until the key reversal
 
-### 3.4 反派性格确立四步法
+### 3.4 The four-step personality establishment
 
-| 步骤 | 操作 |
-|------|------|
-| 1. 反派也有梦想 | 在反派眼中他是自己故事的主人公 |
-| 2. 挖掘创伤性过去 | 谁抚养他？谁爱他？谁伤害他？他避免什么痛苦？ |
-| 3. 磨练性格缺陷 | 遭遇逆境时不调动积极特质，而是磨练缺陷——"优势"本身就是致命缺陷 |
-| 4. 反派是主角的镜子 | 反派的长处反映主角的弱点，两者完全相反 = 每次相遇必然摩擦 |
+| Step | Action |
+|------|--------|
+| 1. The antagonist has dreams too | in their own eyes, they are their story's protagonist |
+| 2. Mine the traumatic past | who raised them? who loved them? who hurt them? what pain do they avoid? |
+| 3. Grind the character flaw | in adversity, they don't summon positive traits — they grind the flaw; the "strength" itself is the fatal flaw |
+| 4. The antagonist is the protagonist's mirror | the antagonist's strengths reflect the protagonist's weaknesses; total opposites = friction at every meeting |
 
-### 3.5 反派渲染分量的关键
+### 3.5 The key to antagonist rendering weight
 
-- 障碍从反派人设上来，而不是故意给主角制造障碍
-- 反派渲染公式：明确动机 → 动机驱动行为 → 行为形成障碍 → 障碍强度来自反派分量
-- 反派异常强势时，主角要破得"高级""智慧""出乎意料"
+- Obstacles come from the antagonist's persona, not from deliberately manufacturing obstacles for the protagonist
+- Rendering formula: clear motive → motive drives behavior → behavior forms obstacles → obstacle strength comes from the antagonist's weight
+- When the antagonist is exceptionally strong, the protagonist must break through "highly", "wisely", "unexpectedly"
 
 ---
 
-## 第4节：动机设计
+## §4: Motive design
 
-### 4.1 动机链模板
+### 4.1 The motive-chain template
 
 ```
-起因（Cause）    → 角色经历了什么
-意图（Intent）   → 角色想做什么
-约束（Constraint）→ 什么在阻碍他
-风险（Risk）     → 失败的代价是什么
+Cause      → what the character experienced
+Intent     → what the character wants to do
+Constraint → what blocks them
+Risk       → what failure costs
 ```
 
-**示例**：
+**Example**:
 ```
-起因：母亲被仇家杀害
-意图：找到凶手并复仇
-约束：凶手是当朝权臣，主角只是平民
-风险：复仇失败会被灭门，复仇成功会失去所有现有生活
+Cause: the mother was killed by the family's enemies
+Intent: find the killer and take revenge
+Constraint: the killer is a court minister; the protagonist is a commoner
+Risk: failure means the family destroyed; success means losing the life they have
 ```
 
-### 4.2 动机链设计要点
+### 4.2 Motive-chain design points
 
-- 起因必须具体——"被欺负"不够，"在众目睽睽下被打耳光"才行
-- 约束必须有力——否则主角一路碾压没有张力
-- 风险必须真实——读者要相信主角真的可能失去重要的东西
-- 动机可以随剧情演变，但不能说变就变
+- The cause must be concrete — "bullied" isn't enough; "slapped in front of everyone" is
+- The constraint must bite — otherwise the protagonist dominates with no tension
+- The risk must be real — the reader must believe the protagonist can lose something important
+- Motives may evolve with the plot, but not on a whim
 
-### 4.3 动机冲突类型
+### 4.3 Motive-conflict types
 
-遇到角色需要内心挣扎时，从下表选一种冲突类型：
+When a character needs inner struggle, pick one conflict type from the table:
 
-| 类型 | 定义 | 示例 |
-|------|------|------|
-| 目标 vs 道德 | 想做的事和应该做的事冲突 | 复仇但不想伤及无辜 |
-| 情感 vs 利益 | 感性和理性的拉扯 | 知道对方不可靠但放不下 |
-| 短期 vs 长期 | 眼前利益和远大目标的矛盾 | 妥协保命 vs 坚持原则赌未来 |
-| 自我 vs 他人 | 个人需求和他人期望的冲突 | 想过平静生活但背负家族使命 |
-
----
-
-## 第5节：角色塑造方法速查
-
-### 5.1 角色塑造核心原则
-
-**主角行为三必须**：
-1. **必须可理解**——读者必须理解主角为什么这么做
-2. **必须可共鸣**——主角的思考读者必须能代入
-3. **必须可接受**——主角的三观读者必须能接受
-
-**展示优于告知**：
-- 角色的目的 → 通过行为展示，不是旁白解释
-- 角色的行动 → 具体的动作和决定，不是形容词堆砌
-- 角色的态度 → 通过对话和反应体现，不是心理独白
-
-### 5.2 展示人物特质的方法
-
-| 方法 | 操作 | 示例 |
-|------|------|------|
-| 敏感性 | 触碰弱点，看反应方式 | 惊慌失措/匆忙逃跑/转移注意力=不同性格 |
-| 逃避 | 展现回避行为暗示弱点 | 角色的"不做什么"比"做了什么"更揭示深层性格 |
-| 先正后缺 | 先展示吸引人特质，再揭示缺陷 | 读者先喜欢角色，才能容忍缺陷 |
-
-### 5.3 四大性格属性
-
-| 属性类别 | 定义 | 设计要点 |
-|---------|------|---------|
-| 道德属性 | 是非信念 | 影响其他性格形成 |
-| 成就属性 | 推动达成目标 | 与道德属性一致，服务目标 |
-| 互动属性 | 与人交流方式 | 数量最多的积极特质 |
-| 身份属性 | 身份认同感 | 定义个性的基本组成部分 |
-
-选择技巧：以其中一个特质为主要特质，其他为辅。
-
-### 5.4 角色塑造四层法
-
-| 层次 | 方法 |
-|------|------|
-| 移情作用 | 开头不要太多角色，先让读者了解主角并产生期待 |
-| 最小特征（标签） | 主角由内而外塑造，配角由外到内塑造（贴标签） |
-| 角色的不真诚 | 所说≠所想，举动≠态度，日常与便当是深化角色的两极 |
-| 角色的聚光灯 | 配角必须与主角产生强烈联系性，配角压过主角时塑造新配角夺走光环 |
-
-### 5.5 人物塑造与人物真相
-
-| 层面 | 定义 | 示例 |
-|------|------|------|
-| 人物塑造（显型） | 读者第一眼看到的特质 | 外表青春可爱的萝莉 |
-| 人物真相（隐性） | 角色内在的真实面貌 | 实际上是冷血杀手 |
-| 价值取向（内隐） | 关键选择时起决定作用的价值观 | 在道义与野心间选择野心 |
-
-操作要点：价值取向不必一开始揭示，在关键抉择时自然暴露；人物真相的揭示越晚，戏剧张力越强。
-
-### 5.6 人设分层展示法
-
-| 层次 | 操作 |
-|------|------|
-| 第一层 | 告诉读者类型模型（萝莉/御姐/少妇） |
-| 第二层 | 贴特点标签（胸大/腿长/小麦色皮肤） |
-| 第三层 | 为性格找原因（家庭/内在冲动） |
-| 第四层 | 打破——可爱天然呆其实什么都知道，人设立刻升华 |
-
-深化记忆：不要吝啬重复词汇，觉得太小白？其实在深化记忆。
-
-### 5.7 人物经历三线时间法
-
-| 时间线 | 内容 |
-|--------|------|
-| 过去 | 身世背景、遭遇变故、性格成因 |
-| 现在 | 与主角的关系定位、当前互动模式 |
-| 未来 | 制造变强动力或危机（老师被劫/女主被抓/反派揭底） |
-
-### 5.8 配角执念设定法
-
-快速让读者认同支线配角：
-
-- 给角色一个执念 → 所有行为/爱好/性格围绕执念展开
-- 不需要每次贴合执念，只要不写与执念冲突的东西，关键时揭示即可
-- 过于极端的执念 → 加入"亲民"小细节 → 便于读者认同
-- 适用：支线配角，不适合频繁出现的主要配角
-
-### 5.9 人物行为重复点设计
-
-维持长篇不歪的关键手法：
-
-- 抓住一个人物行为特质反复写
-- 构建方法：确定读者喜欢什么类型 → 具体化为行为 → 不同场景重复
-- 人物看点 + 核心看点 = 层次感，两者循环产生差异化
-- 反派/配角也需要重复看点，能让人爱上的反派会增加读者新鲜感
-
-### 5.10 围绕人设写行为
-
-行为、语言、思维都要围绕人格展开。如果为了剧情需要让角色做出不符合人设的行为 → 先修改剧情，不要改人设。
-
-### 5.11 人推事件 vs 事件推人
-
-| 驱动方式 | 特点 |
-|---------|------|
-| 人推事件 | 情节是人物性格/动机/选择的自然结果，深化人物弧光 |
-| 事件推人 | 外部事件打破平衡，迫使暴露真实自我 |
-
-卡文时 → 从人物动机找方向，不要硬编剧情。
+| Type | Definition | Example |
+|------|------------|---------|
+| Goal vs morality | what they want vs what they should | revenge without harming the innocent |
+| Emotion vs interest | heart and head tugging | knowing he's unreliable but can't let go |
+| Short-term vs long-term | now vs the horizon | compromising to survive vs holding the line and betting the future |
+| Self vs others | personal needs vs others' expectations | wanting a quiet life but carrying the family mission |
 
 ---
 
-## 第6节：主角特殊问题
+## §5: Character-building method quick reference
 
-### 6.1 主角逼格
+### 5.1 Core building principles
 
-- 主角必须有逼格——这是读者的代入基础
-- 不要写太多降智的内心戏和爆粗口
-- 主角可以不完美，但不能让人看不起
+**The protagonist's three musts**:
+1. **Must be understandable** — the reader must understand why
+2. **Must be resonant** — the reader must be able to project into their thinking
+3. **Must be acceptable** — the reader must accept their values
 
-### 6.2 主角的成长
+**Show over tell**:
+- Purpose → shown through behavior, not narration
+- Actions → concrete moves and decisions, not adjective piles
+- Attitude → through dialogue and reactions, not inner monologue
 
-- 成长不只体现在实力上，更体现在心智和选择上
-- 每次成长都要有触发事件和内在反思
-- 网文主角成长非必须：开场三观圆满的正常人更容易代入，稳定人设本身就是魅力
+### 5.2 Ways to show traits
 
-### 6.3 主角红线
+| Method | Operation | Example |
+|--------|-----------|---------|
+| Sensitivity | touch the weak spot; watch the reaction | panic/flight/deflection = different personalities |
+| Avoidance | show the avoiding behavior that hints the weakness | what a character *doesn't* do reveals more than what they do |
+| Positive-first | show the attractive trait first, then the flaw | the reader must like the character before tolerating the flaw |
 
-以下类型的主角绝对不要写：
+### 5.3 The four personality attributes
 
-| 禁止 | 原因 |
-|------|------|
-| 圣母型主角 | 读者要痛快而非道德说教 |
-| 无脑战斗机器 | 难以产生情感共鸣 |
-| 内核邪恶 | 读者无法代入 |
-| 因蠢/圣母犯错 | 读者无法原谅 |
-| 自暴自弃 | 比被欺负更让读者厌恶 |
+| Attribute class | Definition | Design points |
+|-----------------|------------|---------------|
+| Moral attribute | right/wrong beliefs | shapes the other attributes |
+| Achievement attribute | drives goal-reaching | aligned with the moral attribute, serving the goal |
+| Interactive attribute | how they relate to people | the most numerous positive traits |
+| Identity attribute | identity recognition | the basic component defining the personality |
 
-### 6.4 主角调子起太高怎么办
+Selection: one trait as primary, the rest auxiliary.
 
-**危害信号**：
-- 失去成长空间——能力/地位/资源触达天花板
-- 剧情缺乏张力——陷入"砍瓜切菜"的重复循环
-- 读者失去追更动力
+### 5.4 The four-layer building method
 
-**化解方法**：
-- **压势不压人**——压低气势和期待，但不打压主角本身的能力和尊严
-- **留出维度差距**——即使某方面很强，总有其他维度是短板
-- **超额收获法**——看似收获很大，经主角盘算后发现更大
+| Layer | Method |
+|-------|--------|
+| Empathy | don't crowd the opening with characters; let the reader know the protagonist and build expectation first |
+| Minimum traits (labels) | the protagonist built inside-out; supporting built outside-in (label-sticking) |
+| The character's insincerity | what they say ≠ what they think, deeds ≠ attitude; daily life and death scenes are the poles that deepen |
+| The character's spotlight | supporting must connect strongly to the protagonist; when a supporting outshines the protagonist, build a new supporting to steal the glow back |
 
-### 6.5 主角开篇立人设
+### 5.5 Character building and character truth
 
-- 人设通过选择建立，开篇必须让主角做出选择
-- 智斗型开局比暴力型开局更容易立人设
-- 读者更容易代入"聪明但普通"的主角，而非"上来就无敌"的主角
+| Layer | Definition | Example |
+|-------|------------|---------|
+| Character building (visible) | what the reader sees first | the cute, youthful-looking girl |
+| Character truth (hidden) | the real inside | actually a cold-blooded killer |
+| Value orientation (implicit) | the values deciding key choices | between righteousness and ambition, choosing ambition |
 
-### 6.6 主角的两个身份与两个金手指
+Points: the value orientation doesn't need early reveal — it surfaces naturally at the key choice; the later the character truth reveals, the stronger the drama.
 
-| 维度 | 定义 | 作用 |
-|------|------|------|
-| 显性身份 | 社会身份/职业+状态 | 汇集前期矛盾，必须不断升级或换 |
-| 隐性身份 | 不凡的身世来历 | 汇集中后期矛盾 |
-| 显性金手指 | 系统/玉坠/重生记忆 | 开局获得贯穿全书 |
-| 隐性金手指 | 主角性格 | 让主角与众不同的就是金手指 |
+### 5.6 The layered persona display
 
-**最佳写法**：前期以金手指装逼 → 剧情推进中逐步把人设清晰
-**人设与全书气质**：主角人设必须与世界基调相符，四点高度统一：社会身份+身世+金手指+性格
+| Layer | Operation |
+|-------|-----------|
+| Layer one | tell the reader the archetype (cute girl / cool woman / housewife) |
+| Layer two | stick trait labels (curvy / long legs / tan skin) |
+| Layer three | find the reason for the personality (family / inner impulse) |
+| Layer four | break it — the cute-naive one actually knows everything; the persona instantly elevates |
 
-### 6.7 性格单一缺陷型主角+动物伙伴体系
+Memory-deepening: don't skimp on repeated words; feels too plain? Repetition is what deepens memory.
 
-如果主角性格故意设为单一 → 降低读者带入排斥感 → 少做少错 → 最大限度提升代入感。
+### 5.7 The three-line time method
 
-**问题**：性格过于单一 → 影响精彩程度 → 难以推进故事
-**解法**：给淡漠型主角配备 3-5 只动物伙伴，每只不同性格。
+| Timeline | Content |
+|----------|---------|
+| Past | origins, the upheaval, personality causes |
+| Present | relationship positioning with the protagonist, current interaction patterns |
+| Future | strength/crisis drivers (mentor kidnapped / heroine captured / antagonist exposed) |
 
-| 伙伴类型 | 功能 |
-|---------|------|
-| 蠢萌犯二型 | 负责搞笑，主角不宜吃瘪但动物可以 |
-| 聪敏嘴贱型 | 负责嘴替，主角不该说的话由它说，保持主角逼格 |
-| 耿直蠢笨型 | 负责反差萌 |
-| 奇特能力胆小型 | 负责能力补充 |
+### 5.8 The supporting obsession method
 
-### 6.8 核心情绪与表达欲平衡
+Fast reader buy-in for subline supporting:
 
-- 需求的内核不变，变的只是形式
-- 写完一段剧情后，站在读者角度审视是否偏离核心梗
-- 主角牛逼了必须有所得，不能光付出没回报
-- 表达欲旺盛时最容易偏离——要主动检查
+- Give the character an obsession → all behavior/hobbies/personality orbit it
+- Not every scene needs to touch it; just don't write against it; reveal at key moments
+- Extreme obsessions → add a "relatable" small detail → easier buy-in
+- Fits subline supporting; not for frequently-appearing main supporting
 
-### 6.9 压势不压人：矛盾的正确来源
+### 5.9 Behavior repetition points
 
-**错误做法**：让反派莫名其妙针对主角，背后逻辑站不住脚。
+The key technique keeping long-form on-persona:
 
-**正确做法**：反派有自己的目的，行动客观上导致主角困境，但并非刻意针对主角本人。
+- Catch one behavioral trait and write it repeatedly
+- Construction: decide what the reader likes → concretize into behavior → repeat across scenes
+- Character appeal + core appeal = layering; the two loop into differentiation
+- Antagonists/supporting need repeated appeal too; a lovable antagonist adds freshness
 
-**矛盾链条**：反派目的 → 压制主角所在群体（压势） → 主角推翻 → 底层依旧麻木 → 主角改变路径 → 新冲突自然产生
+### 5.10 Writing behavior around the persona
 
-核心：所有人被自己想要的利益驱动，背后是三观不同，更深是成长环境，最深层是世界观。
+Behavior, speech, and thought all orbit the personality. If the plot needs out-of-persona behavior → fix the plot first, never the persona.
 
----
+### 5.11 Person-pushes-event vs event-pushes-person
 
-## 第7节：反派塑造深化
+| Driving mode | Traits |
+|--------------|--------|
+| Person-pushes-event | plot is the natural result of personality/motive/choices; deepens the arc |
+| Event-pushes-person | external events break the balance, forcing the true self out |
 
-### 7.1 反派塑造核心原则
-
-- 经典反派一定有完整世界观和逻辑自洽的三观
-- 同样的外部事件发生在不同人身上产生不同变化——外因与内因共振
-- 反派塑造不能只有外部事件，缺乏内在三观和内在逻辑
-
-### 7.2 反派人设主角化写法
-
-**传统问题**：换地图后原反派跟不上节奏 → 引入新反派脸谱化
-
-**解法**：
-- 把反派当主角去写
-- 在"配角衬主角"基础上加"配角衬配角"
-- 换地图的正确处理：用新地图衬托旧角色含金量，而非用旧角色无力衬托新地图难度
+Stuck? Find the direction from the character's motives — don't force the plot.
 
 ---
 
-## 质量检查清单
+## §6: Protagonist special problems
 
-设计完角色后，逐项检查：
+### 6.1 Protagonist aura
 
-### 主角检查
+- The protagonist must have aura — it's the reader's projection base
+- No excess dumbed-down inner drama or profanity
+- The protagonist may be imperfect, but must not be despicable
 
-- [ ] 动机是情感层面的（不是"要成为最强"这种空话）
-- [ ] 有致命弱点，且会在关键情节导致犯错
-- [ ] 外貌有记忆点（3-5 个关键词）
-- [ ] 有口头禅或标志动作
-- [ ] 逼格在线——不会让读者看不起
-- [ ] 没有触碰红线（圣母/无脑战斗机器/内核邪恶/因蠢犯错/自暴自弃）
-- [ ] 核心目标和全书主线对齐
+### 6.2 Protagonist growth
 
-### 配角检查
+- Growth shows in mind and choices, not just power
+- Every growth needs a triggering event and inner reflection
+- Web-fiction growth isn't mandatory: a normal, well-rounded opener is easier to project into; a stable persona is itself the charm
 
-- [ ] 有明确功能（导师/盟友/情报源/牺牲品/镜像对照）
-- [ ] 核心特质 1-2 个关键词能概括
-- [ ] 有标志性特征让读者记住
-- [ ] 退场方式已规划
-- [ ] 同一场景不超过 3 个配角有台词
+### 6.3 Protagonist red lines
 
-### 反派检查
+Never write these:
 
-- [ ] 按层级表设计，篇幅与层级匹配
-- [ ] 出场展示了实力或手段
-- [ ] 动机从反派视角说得通
-- [ ] 至少赢主角一次（中等反派及以上）
-- [ ] 没有降智送赢
-- [ ] 大弧Boss有理念冲突（不只是利益冲突）
-- [ ] 最终Boss从第一章就有伏笔
+| Forbidden | Reason |
+|-----------|--------|
+| The saint/martyr type | readers want vindication, not moral lectures |
+| The mindless combat machine | no emotional resonance |
+| Evil at the core | no projection possible |
+| Errs through stupidity/martyrdom | unforgivable to readers |
+| Self-abandonment | more loathsome than being bullied |
 
-### 动机检查
+### 6.4 Starting too high
 
-- [ ] 起因具体（不是"被欺负"这种模糊说法）
-- [ ] 约束有力（主角不能一路碾压）
-- [ ] 风险真实（读者相信主角可能失去重要东西）
-- [ ] 动机演变有铺垫，没有说变就变
+**Danger signals**:
+- No growth room — ability/status/resources hit the ceiling
+- No plot tension — trapped in a "mowing grass" loop
+- Readers lose the follow motive
 
-### 塑造检查
+**Solutions**:
+- **Press the momentum, not the person** — lower the momentum and expectations, not the protagonist's ability and dignity
+- **Leave dimension gaps** — even strong in one way, always weak in another
+- **The over-gain method** — the gain looks huge; the protagonist's own accounting reveals it's bigger
 
-- [ ] 角色目的通过行为展示，不是旁白解释
-- [ ] 行为/语言/思维围绕人设展开，没有为剧情改人设
-- [ ] 主要角色有行为重复点，维持长篇一致性
-- [ ] 配角与主角有明确联系，不会抢主角风头
-- [ ] 人物真相/价值取向在关键抉择时自然暴露
+### 6.5 Opening persona establishment
+
+- Personas are built by choices — the opening must make the protagonist choose
+- A cunning opening beats a violent one for persona building
+- Readers project more easily into "smart but ordinary" than "instantly invincible"
+
+### 6.6 The two identities and two cheats
+
+| Dimension | Definition | Function |
+|-----------|------------|----------|
+| Visible identity | social identity/profession + state | gathers early contradictions; must keep upgrading or swapping |
+| Hidden identity | the extraordinary origin | gathers mid/late contradictions |
+| Visible cheat | system/jade pendant/rebirth memory | gained at the start, runs through the book |
+| Hidden cheat | the protagonist's personality | what makes them different IS the cheat |
+
+**Best writing**: flex with the cheat early → clarify the persona as the plot advances
+**Persona and the book's temperament**: the protagonist's persona must match the world's tone — social identity + origin + cheat + personality all aligned
+
+### 6.7 The single-flaw protagonist + animal-companion system
+
+Deliberately single-trait protagonists lower projection resistance — less done, less wrong; immersion maxed.
+
+**Problem**: too single-trait → hurts brilliance → hard to advance the story
+**Solution**: give the aloof protagonist 3-5 animal companions, each a different personality.
+
+| Companion type | Function |
+|----------------|----------|
+| Goofy-dumb | the comedy; the protagonist can't take the fall, the animal can |
+| Sharp-mouthed | the mouthpiece; says what the protagonist shouldn't, preserving the aura |
+| Straightforward-dull | the endearing contrast |
+| Strange-ability-cowardly | capability supplement |
+
+### 6.8 Core emotion vs self-expression balance
+
+- The need's core never changes; only the forms do
+- After writing a passage, check from the reader's seat whether it drifts from the core hook
+- The protagonist getting strong must gain something — no paying without receiving
+- Self-expression surges are when drift happens — check proactively
+
+### 6.9 Press the momentum, not the person: the right source of conflict
+
+**Wrong**: the antagonist inexplicably targets the protagonist; the logic doesn't stand.
+**Right**: the antagonist has their own purpose; their action objectively creates the protagonist's dilemma without targeting the person.
+
+**Conflict chain**: antagonist purpose → suppresses the protagonist's group (momentum) → the protagonist overturns it → the bottom stays numb → the protagonist changes paths → new conflict naturally arises
+
+Core: everyone is driven by what they want; the surface is values, deeper is upbringing, deepest is worldview.
+
+---
+
+## §7: Antagonist deepening
+
+### 7.1 Antagonist core principles
+
+- Classic antagonists have complete worldviews and self-consistent values
+- The same external event lands differently on different people — external and internal resonance
+- Antagonist building can't be only external events; inner values and inner logic are required
+
+### 7.2 Antagonist protagonist-ization
+
+**Traditional problem**: after the map-swap the old antagonist can't keep up → new antagonists become cardboard
+**Solution**:
+- Write the antagonist like a protagonist
+- On top of "supporting supports protagonist", add "supporting supports supporting"
+- Correct map-swap handling: use the new map to elevate the old cast's weight, not the old cast's helplessness to sell the new map's difficulty
+
+---
+
+## Quality-check checklist
+
+After designing characters, check item by item:
+
+### Protagonist
+
+- [ ] Motive is emotional (not "become the strongest" empty talk)
+- [ ] Has a fatal flaw that will make them err at a key plot point
+- [ ] Appearance is memorable (3-5 keywords)
+- [ ] Has a catchphrase or signature move
+- [ ] Aura intact — never despicable to the reader
+- [ ] No red lines (martyr/mindless machine/evil core/erring through stupidity/self-abandonment)
+- [ ] Core goal aligned with the whole book's main line
+
+### Supporting
+
+- [ ] Clear function (mentor/ally/intel source/sacrifice/mirror)
+- [ ] Core traits summarized in 1-2 keywords
+- [ ] A signature feature the reader remembers
+- [ ] Exit planned
+- [ ] At most 3 supporting with lines in one scene
+
+### Antagonist
+
+- [ ] Designed by the tier table; screen time matches the tier
+- [ ] Strength or means shown at the entrance
+- [ ] Motive sane from the antagonist's POV
+- [ ] Beat the protagonist at least once (medium tier and above)
+- [ ] No dumbing-down to gift the win
+- [ ] Big-arc boss has an ideological conflict (not just interests)
+- [ ] Final boss foreshadowed from chapter one
+
+### Motive
+
+- [ ] Cause concrete (not "bullied" vagueness)
+- [ ] Constraint bites (no one-sided domination)
+- [ ] Risk real (the reader believes loss is possible)
+- [ ] Motive evolution set up; no on-a-whim changes
+
+### Building
+
+- [ ] Purpose shown through behavior, not narration
+- [ ] Behavior/speech/thought orbit the persona; no persona changes for plot
+- [ ] Main characters have behavior repetition points for long-form consistency
+- [ ] Supporting clearly connected to the protagonist; never stealing the spotlight
+- [ ] Character truth/value orientation surface naturally at key choices

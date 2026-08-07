@@ -1,204 +1,211 @@
-# workflow-daily.md：日更续写工作流
+# workflow-daily.md: Daily Continuation Workflow
 
-本文件为"日更续写"场景的完整指引。SKILL.md 路由到本文件后，按以下流程执行。
+This file is the complete guide for the "daily continuation" scenario. After SKILL.md routes here, execute the flow below.
 
-> **日更准备步骤**：每章写作前 4 步——状态筛选 + 题材正文提示卡召回 + 文风召回 + 意图确认，嵌入 Step 2 逐章循环。读者契约、主角代理权、期待债、终局储备统一参 `reader-contract-and-progression.md`。
+> **Daily pre-writing steps**: 4 steps before each chapter — state filtering + genre prose card recall + style recall + intent confirmation, embedded in the Step 2 per-chapter loop. Reader contract, protagonist agency, promise debt, and endgame reserve uniformly defer to `reader-contract-and-progression.md`.
 >
-> Step 2 必读 / 生成五类写前资料：
-> 1. `{对标书路径}/剧情/情绪模块.md`（读者需求 / 情绪引擎 + 可复现模块；缺失按下方「模块/节奏缺失」规则停下修复）
-> 2. `{对标书路径}/剧情/节奏.md`（关键信息推进 + 情绪触动点 + 爆发节奏；缺失按下方「模块/节奏缺失」规则停下修复）
-> 3. `设定/题材正文提示卡.md`（题材边界 / 核心逻辑 / 读者期待 / 节奏密度；缺失时用 `设定/题材定位.md` + `references/genre-prose-cards.md` 索引匹配并读取 `references/genre-prose-cards/{题材}.md` 单卡优先生成，`references/style-genre-modules.md` 通用流派兜底）
-> 4. `{对标书路径}/文风.md`（整书级 ~4000 字，含原文锚点范例片段）
-> 5. `{对标书路径}/章节/第K章_摘要.md`（按本章情绪/基调挑 1 章）；若同章存在 `第K章_深度拆解.md` 则加读，否则回退黄金三章深度拆解/文风文件里的可借鉴技巧
+> Step 2 must read / generate five kinds of pre-writing material:
+> 1. `{benchmark path}/plot/emotional-beats.md` (reader needs / emotional engine + reproducible modules; if missing, stop and repair per "module/rhythm missing" below)
+> 2. `{benchmark path}/plot/pacing.md` (key info advancement + emotional trigger points + burst pacing; if missing, stop and repair per "module/rhythm missing" below)
+> 3. `setting/genre-prose-card.md` (genre boundaries / core logic / reader expectations / pacing density; if missing, generate by exactly matching the `references/genre-prose-cards.md` index from `setting/genre-positioning.md` and reading the single card `references/genre-prose-cards/{genre}.md` first, with `references/style-genre-modules.md` generic style modules as fallback)
+> 4. `{benchmark path}/style.md` (whole-book level, ~4000 words, with source-anchor example excerpts)
+> 5. `{benchmark path}/chapters/chapter_K_summary.md` (pick 1 chapter by this chapter's emotion/tone); if `chapter_K_deep-dive.md` exists for the same chapter, read it too; otherwise fall back to the golden-three-chapters deep dives / transferable techniques in the style file
 >
-> 对标书路径查找：先 `{项目}/对标/{书名}/`，回退 `拆文库/{书名}/`。
+> Benchmark path lookup: prefer `{project}/benchmark/{Book}/`, fall back to `teardown-lib/{Book}/`.
 >
-> **题材正文提示卡**：优先读 `设定/题材正文提示卡.md`；缺失时不阻塞，先从 `设定/题材定位.md` 精确匹配 `references/genre-prose-cards.md` 索引，并只读取 `references/genre-prose-cards/{题材}.md` 题材单卡（高/中/低置信照原卡标注），无命中再从 `references/style-genre-modules.md` 抽取通用流派短 `genre_prose_card`。题材卡只管题材味和正文取舍，不改细纲、不覆盖情绪/节奏权威文件，也不接管句长/标点等文风细节。题材卡只在写手心里校准取舍，卡名/题材标签/置信度/条目/合规自评一律不写进正文。
+> **Genre prose card**: prefer `setting/genre-prose-card.md`; when missing, non-blocking — first exactly match the `references/genre-prose-cards.md` index from `setting/genre-positioning.md`, read only the single card `references/genre-prose-cards/{genre}.md` (keep the card's high/medium/low confidence labels), and if nothing matches, extract a short `genre_prose_card` from `references/style-genre-modules.md` generic style modules. The genre card only constrains genre flavor and prose tradeoffs: it does not change the outline, does not override the emotion/pacing authoritative files, and does not take over sentence length/punctuation style details. The genre card calibrates tradeoffs inside the writer's head only; card names/genre labels/confidence/items/compliance self-assessments never go into the prose.
 >
-> **自定义文风（`设定/文风.md`，优先级最高）**：主会话每章写作前直接读 `设定/文风.md`（不经 story-explorer——它只看 `对标/文风.md`）。存在且含实质内容（去空白 ≥200 字，或含「句长 / 标点 / 对话 / 锚点 / 笔调」风格小节且小节内有可执行约束：比例 / 例句 / 禁止或偏好描述）即进入「自定义文风模式」：它是本书既定笔调的**权威**风格基，narrative-writer 的句长带 / 标点节奏 / 对话潜台词 / 情绪交替以它为准；对标 / 拆文 `文风.md` 降级为「**参考**」——只供原文锚点范例与句长分布数值兜底，不再是被遵循的最终文风。空 / 仅空白 / 仅标题 / 占位 stub（待办 / 待补充 / ___）视为不存在。仅接管风格，**不覆盖** `剧情/情绪模块.md` / `剧情/节奏.md` 的情绪与节奏意图（同下「冲突规则」）。**硬门禁不让位**：`设定/文风.md` 里命中硬安全线的写法（`……`、破折号 `——`/`—`、段间空行、三五字碎句）仍按 narrative-writer 归一为句号 / 逗号 / 动作节拍 / 单 `\n`；自定义文风只接管句长 / 软标点节奏 / 潜台词 / 情绪交替（要让这些标记原样进正文须放宽题材硬门禁，本期不做）。
+> **Custom style (`setting/style.md`, highest priority)**: the main session reads `setting/style.md` directly before each chapter (not via story-explorer — it only looks at the benchmark `style.md`). If it exists with substantive content (≥200 words after whitespace removal, or containing style subsections for sentence length / punctuation / dialogue / anchors / tone with executable constraints: ratios / examples / bans or preferences), enter "custom-style mode": it is the **authoritative** style base of the book's established voice; narrative-writer's sentence-length band / punctuation rhythm / dialogue subtext / emotional alternation follow it; the benchmark/teardown `style.md` demotes to "**reference**" — source anchor examples and sentence-length distribution numbers only, no longer the final style followed. Empty / whitespace-only / title-only / placeholder stubs (TODO / to be added / ___) count as nonexistent. It takes over style only and does **not** override the emotion/pacing intent of `plot/emotional-beats.md` / `plot/pacing.md` (same as the "conflict rules" below). **Hard gates do not yield**: writing in `setting/style.md` that hits hard safety lines (`……`, em dashes `——`/`—`, blank lines between paragraphs, 3-5-word fragments) still normalizes per narrative-writer to periods / commas / action beats / single `\n`; the custom style only takes over sentence length / soft punctuation rhythm / subtext / emotional alternation.
 >
-> **文风缺失**：**未进入自定义文风模式**时，对标书缺 `文风.md` 则停止本章写作、不 inline 生成，报错：「对标书 X 缺少 文风.md。请用 `/story-long-analyze` 跑 Stage 6 生成文风，再 `/story-import` 同步。」**已进入自定义文风模式则不 fail-fast**，用 `设定/文风.md` 继续。
+> **Style missing**: **not in custom-style mode** and the benchmark book lacks `style.md` → stop this chapter's writing, do not inline-generate, error: 「Benchmark book X is missing style.md. Run `/story-long-analyze` Stage 6 to generate the style profile, then `/story-import` to sync.」 **In custom-style mode, no fail-fast** — continue with `setting/style.md`.
 >
-> **模块/节奏缺失**：对标书缺 `剧情/情绪模块.md` 或 `剧情/节奏.md` 时停止本章准备，设置 `gaps.missing_primary_contract: true`，提示重跑 `/story-long-analyze` Stage 3+ 或重新 `/story-import`；不得用摘要文件拼装低置信替代品。
+> **Module/rhythm missing**: when the benchmark book lacks `plot/emotional-beats.md` or `plot/pacing.md`, stop this chapter's preparation, set `gaps.missing_primary_contract: true`, prompt to re-run `/story-long-analyze` Stage 3+ or re-run `/story-import`; never assemble a low-confidence substitute from summary files.
 >
-> **冲突规则**：`剧情/情绪模块.md` 与 `剧情/节奏.md` 是情绪和节奏的权威来源；`拆文报告.md`、`剧情/故事线.md` 是投影摘要；`文风.md` 只管风格。若摘要或文风与权威模块/节奏冲突，保留 `gaps.conflict`，正文意图跟随权威文件。
+> **Conflict rules**: `plot/emotional-beats.md` and `plot/pacing.md` are authoritative for emotion and pacing; `teardown-report.md` and `plot/storylines.md` are projection summaries; `style.md` governs style only. If a summary or the style conflicts with the authoritative modules/pacing, keep `gaps.conflict` and let the prose intent follow the authoritative files.
 >
-> **无对标项目**：无 `设定/文风.md` 时跳过「对标模块/节奏/文风召回」，在「意图确认」标记"无对标参考"，不读不存在的文风、不阻塞、不警告；题材卡不是对标产物，仍从 `设定/题材正文提示卡.md` 或本书题材信息生成 `genre_prose_card`。**有 `设定/文风.md`（自定义文风模式）则用它写作**——此时无对标可召回，情绪/节奏目标改从本书细纲「目标情绪」、卷纲、`设定/题材定位.md` 等内部材料取，`selected_emotion_module` / `rhythm_reference` 记「无」，不声称从对标召回。
+> **No-benchmark projects**: when there is no `setting/style.md`, skip the "benchmark module/rhythm/genre-card/style recall" and mark "no benchmark reference" in the intent confirmation — do not read nonexistent files, no blocking, no warnings; **with `setting/style.md` (custom-style mode), write with it** — with no benchmark to recall, emotion/pacing targets come from internal material such as this book's chapter outline "Target emotion", volume outlines, and `setting/genre-positioning.md`; `selected_emotion_module` / `rhythm_reference` record "none" and never claim benchmark recall.
 >
-> **多本对标书**：从 `设定/题材定位.md` 读 `主对标书` 字段；字段指向当前作品时按缺失处理（老项目可能把本书自身登记成了主对标）。缺失时用 `对标/` 下字典序第一本并提示用户补字段——先按当前项目目录名、`.active-book` 和 `设定/题材定位.md` 中的本书信息识别当前作品，排除同名或来源指向当前正文的 `对标/{当前书}/`；排除后为空则按无对标处理。
+> **Multiple benchmark books**: read the `Primary benchmark book` field from `setting/genre-positioning.md`; when missing, use the lexicographically first book under `benchmark/` and prompt the user to fill the field.
 >
-> 完整写前准备逻辑见 `SKILL.md` 的 Phase 4。
+> Full pre-writing logic lives in SKILL.md Phase 4.
 
 ---
 
-## 适用条件
+## Applicability
 
-- 项目已有 `正文/` 和 `追踪/` 目录
-- 用户明确说"日更""续写""继续写"，或明确指定"写第 N-M 章"
-- 目标：每次会话写 2-3 章（4000-9000 字）
+- The project already has `prose/` and `tracking/` directories
+- The user explicitly says "daily update" / "continue" / "keep writing", or explicitly specifies "write chapters N-M"
+- Goal: write 2-3 chapters per session (4000-9000 words)
 
-> **裸调用不进日更**：如果用户只是触发 `/story-long-write` / `$story-long-write`，没有说"日更/续写/继续写/写第N章/只写1章/逐章确认"，不得进入本 workflow。回到 `SKILL.md` 的"裸调用与停靠点"，只展示当前进度与可选命令，避免重启会话后自动写 3 章。
+> **Bare invocation does not enter daily**: if the user merely triggers `/story-long-write` / `$story-long-write` without saying "daily update/continue/keep writing/write chapter N/1 chapter only/chapter-by-chapter confirmation", do not enter this workflow. Return to SKILL.md's "bare invocation and stopping points" and only show current progress and available commands, avoiding auto-writing 3 chapters after a session restart.
 
 ---
 
-## Step 1：快速上下文加载
+## Step 1: Quick context load
 
-**可选：使用 story-explorer agent 批量加载上下文**。如果项目已部署 story-explorer agent（检查 `.claude/agents/story-explorer.md` 是否存在），可以用 `Agent(subagent_type: "story-explorer", prompt: "项目目录：{dir}\n查询类型：context_load\n查询参数：准备写第 {N} 章\n追踪状态：last_committed_chapter={上一步 check 的值}，state_revision={上一步 check 的值}")` 执行 `context_load` 查询，一次获取全部写作上下文。spawn 返回后直接使用其 results，跳过下方手动加载步骤。如果 agent 不可用或返回不完整，回退到下方手动加载。
+**Optional: use the story-explorer agent to load context in bulk.** If the project has deployed a story-explorer agent (check whether `.claude/agents/story-explorer.md` exists), you may run `Agent(subagent_type: "story-explorer", prompt: "Project directory: {dir}\nQuery type: context_load\nQuery params: preparing to write chapter {N}")` to fetch all writing context in one `context_load` query. Use its results directly after spawn, skipping the manual loading steps below. If the agent is unavailable or returns incomplete results, fall back to the manual loading below.
 
-手动加载（默认方式）：
+Manual loading (default):
 
-| 序号 | 文件 | 用途 | 如果不存在 |
+| # | File | Use | If missing |
 |------|------|------|-----------|
-| 1 | `tracking_commit.py check` | 校验唯一结构化 state 与全部派生视图，并取得最后提交章和修订号；不把完整 state 加入 prompt | state 缺失且新书尚无正文时执行初始化；已有正文则停止并要求由 `story-import` 重新导入为标准项目 |
-| 2 | `追踪/上下文.md` | 续写状态卡（≤12KB，固定 7 栏，每章整份读） | 不手写；由初始化/逐章事务生成 |
-| 3 | `大纲/细纲_第{N}章.md` | 本章写作计划 | **必须先补建**，不允许跳过 |
-| 4 | `大纲/卷纲_第X卷.md` | 卷契约、当前剧情单元、终局储备与未来揭示计划 | 缺必需字段时先补齐；锁定卷纲绝不自动修改 |
-| 5 | `设定/角色/{角色名}.md` | 本章涉及角色的静态原始人设 | 只为核心复用角色按 Phase 3 规则补建 |
-| 6 | `追踪/角色状态/{角色名}.md` | 久别核心角色的派生当前快照；只按细纲涉及角色加载 | 缺失即视为派生视图损坏：先运行 `tracking_commit.py check`，再重跑产生当前状态的完整事务；已有正文却无 state 时重新 `story-import` |
+| 1 | `tracking/context.md` | last writing progress summary | rebuild from `tracking/foreshadowing.md` + `tracking/timeline.md` |
+| 2 | `tracking/foreshadowing.md` | pending-foreshadowing list | skip |
+| 3 | `tracking/timeline.md` | current event order | skip (infer from prose while writing) |
+| 4 | `outline/outline_chapter_{N}.md` | this chapter's writing plan | **must build first**; skipping is not allowed |
+| 5 | `outline/volume_outline_N.md` | volume contract, current story unit, endgame reserve | legacy outlines missing volume contract/story-unit cards do not block: infer in memory and record in `tracking/context.md`; only write back when explicitly extending/revising outlines this round; unknown fields get `[to be determined]`; never auto-modify locked volume outlines |
 
-`追踪/伏笔.md`、`追踪/时间线/`、`追踪/逐章记录/` 默认不整份读取。续写状态卡没有某个旧信息时，才按「旧信息查找步骤」定点查询。
+**On-demand character files**: extract this chapter's character names from the outline and load `setting/characters/{Name}.md` on demand. If the outline lists none, skip.
 
-**按需加载创作公式**：当写作中需要引用创作公式约束时（如期待感公式、爽点公式、信息差公式），加载 `references/genre-writing-formulas.md`。默认不加载，避免无条件加载 1500+ 行文件浪费 token。
+**On-demand creation formulas**: when writing needs formula constraints (anticipation formula, payoff formula, information-gap formula), load `references/genre-writing-formulas.md`. Not loaded by default, to avoid unconditionally loading a 1500+ line file and wasting tokens.
 
-### 续写状态卡与追踪事务
+### Layered summary of written content
 
-`追踪/上下文.md` 不是历史档案，而是当前语义检查点中的续写状态卡；顶层只能有以下 7 个栏目：`当前位置 / 长期约束 / 核心角色状态 / 活跃伏笔 / 近三章速记 / 下一章承诺 / 连贯性风险`。目标 8192 字节，硬上限 12288 字节。文风每章从 `设定/文风.md` / 对标文风读取；质量计数、普通待办、文件行数索引、参照章使用记录、去 AI 味统计都不进入续写状态卡。
+When the project passes 30 chapters, the written-content summary in `tracking/context.md` should use a three-layer structure, compressing early chapters and keeping recent detail:
 
-所有追踪文件的 schema、事务 JSON、初始化和失败修复统一见 [tracking-transaction.md](tracking-transaction.md)。每章只向工具提交一次结构化事务，由 `scripts/tracking_commit.py` 确定性生成逐章增量、角色快照、伏笔当前视图、作者/读者时间线和续写状态卡；主会话和子 agent 都不得分别直接改这些最终文件。
+| Layer | Granularity | Format | Maintained at |
+|------|------|------|----------|
+| **Last 5 chapters in detail** | chapter-by-chapter summaries of the last 5 | keep current format (one paragraph per chapter: event + state change + foreshadowing) | after each chapter |
+| **10-chapter overviews** | one paragraph per 10 chapters | `chapter range | written core events | character state changes` | one paragraph per 10 completed chapters |
+| **Volume-level overview** | one sentence per volume | `volume | written main-line progress | key turns` | at each volume end |
 
-**首次初始化**：
+**Example (a 50-chapter project)**:
+```markdown
+## Last 5 chapters in detail (chapters 46-50)
+Chapter 46: the protagonist enters the secret realm and finds the ancient ruins...
+Chapter 47: fights the guardian beast, barely wins and receives the inheritance...
+...
 
-1. `_tracking-state.json` 不存在且项目尚无正文：构造 `last_chapter=0` 的初始化事务，执行 `tracking_commit.py init`。
-2. `_tracking-state.json` 不存在但项目已有正文：停止日更。该目录停在旧追踪结构上，走 `/story-import` 的「旧追踪项目迁移」重建 `追踪/`——**不用重跑全书拆解**，只按最后完整章号和现有追踪文件构造初始化事务。本 workflow 自己不解析旧追踪结构、不推测状态。`init` 会把旧结构按原样整体移入 `追踪/_旧追踪存档/` 再建当前协议——旧内容不删除也不参与解析。
-3. `tracking_commit.py check` 报告派生视图与 state 不一致：重新提交该章的 `mode=revision` 事务让工具整份重建（`expected_state_revision` 取 `追踪/_tracking-state.json` 的 `state_revision` 字段——`check` 失败时只往 stderr 打 ERROR，不输出 JSON）；不得手改 Markdown 或继续写下一章。手写出的逐章记录会让同章 append 永久报 `chapter delta N already exists with different content`，删掉那个手写文件后重跑原事务即可。
+## 10-chapter overviews
+Chapters 1-10 | protagonist awakens the cheat, enters the training academy | from useless disciple to inner disciple
+Chapters 11-20 | academy tournament, defeats the prodigy rival | gains elder attention, breaks through
+Chapters 21-30 | leaves the academy, explores the secret realm | finds identity clues, makes allies
+Chapters 31-40 | dragged into faction war, identity exposed | hunted, breaks through again
+Chapters 41-50 | kills the pursuers, enters a new map | bloodline inheritance confirmed, ascends to the upper realm
 
-**长期约束溢出**：工具最多接受 6 条。出现第 7 条时，在提交事务前先合并语义重叠项或请用户裁定取舍；不得自动删除旧约束，也不得把待办塞进派生视图。
+## Volume-level overview
+Volume 1 · Awakening | from useless disciple to genius | cheat awakened, identity begins to surface
+```
 
-**退役必须显式声明**：`context.long_term_constraints` 和 `context.continuity_risks` 每章整份提交，因此每次都要把仍然成立的条目原样带上。凡是上一版有、本次不再提交的条目，必须逐条写进 `delta.retired_context_items`；漏写会被工具在任何写入前拒绝，不会被当成删除。不再复用的核心角色同理写进 `delta.retired_characters`；角色本章阵亡/退场时照常写 `character_changes`，不必再交一份马上要删的快照。两类退役都只能在 `mode=append` 提交——修订事务的记录属于被改写的旧章，写在那里会谎报退役章节；回炉必须原样重交当前全部上下文条目。两类退役都会留档在本章逐章记录，事后可回查。
+> **First-daily fallback**: if all files under `tracking/` are empty or nonexistent (Phase 3 just finished, no daily yet), additionally load `outline/volume_outline_N.md` and the latest chapter's prose to rebuild context.
 
-**与项目 rules 的关系**：永久生效的设定裁定进入事务 `context.long_term_constraints`；短期强承诺进入 `delta.next_chapter_commitments`；已完成或只影响本章的过程决策不进续写状态卡。
+> **Determining the next chapter number N**: read the "last completed chapter" field from `tracking/context.md`. If the file does not exist, scan `prose/` for the highest-numbered chapter and add 1.
 
-> **确定下一章编号 N 与状态修订号**：执行 `tracking_commit.py check`，从其紧凑 JSON 输出取 `last_committed_chapter + 1` 与 `state_revision`，同时核对 `上下文.md` 的当前位置。逐章事务必须把该修订号写进 `expected_state_revision`；若提交前状态已经变化，工具会在任何写入前拒绝旧事务，此时重新读取当前状态并重构。不要把会随历史增长的完整 state 读进 prompt；章号不一致时修复，不扫描正文猜测编号。
-
-确定本轮写作范围后直接进入 Step 2，不做"是否继续"式确认。K 默认 2-3 章；用户明确说"只写1章"/"日更3章"/"逐章确认"时按用户要求调整。用户给出 N>3 时，本轮只写前 3 章并在 Step 4 进度摘要提示"剩余章节下轮继续"。仅在章节号冲突、细纲缺失、请求范围超过已有细纲、用户要求会改变大纲/追踪，或存在其他会导致写错的阻塞信息时暂停确认。
-
----
-
-## Step 2：串行批量写作
-
-一次加载多章细纲，但**必须在主会话内串行逐章写作**：不得把多章同时交给多个子代理并发写。长篇章节依赖上一章正文和追踪文件，并发会导致上下文断裂、追踪覆盖和标题去重失效。
-
-**批量 continuation 规则**：进入本 Step 后，"继续"/"续写"/"日更"只表示继续当前日更批量流程。不得把这些词解释为跳过「状态筛选」或「对标模块/节奏/题材卡/文风召回」的直接正文续写；也不得在每章之间重复询问是否继续，除非用户明确要求逐章确认或出现阻塞。到达本轮 K（最多 3 章）后必须进入 Step 3/4 收尾并停止，不能因为仍有后续细纲就继续写下一批。
-
-1. **读取写作计划**：写作计划按 **卷契约 → 当前剧情单元 → 章节细纲** 的顺序确定；已写内容仍以正文与 `追踪/` 文件为准。先从 `大纲/卷纲_第X卷.md` 读取卷契约、当前剧情单元（单元ID/位置）、单元情绪引擎、本卷主推线/战果与终局底牌边界，再加载本次要写的 2-3 章细纲。卷纲或细纲缺少当前协议的必需字段时先补齐，未知字段写 `[待补充]`，不在内存临时推断一套替代结构；已锁定卷纲不得自动改动。细纲读取「阶段位置」「本章结构公式」「本章禁止提前释放」「内容概括（起因/发展/转折/高潮/结尾）」「情节安排（主线/辅线/事件线/感情线/逻辑线）」「人物关系和出场顺序」「情节细化」「结尾设定和钩子」及逐点字数预算。只有真正影响后续连续性的结果才进入本章事务，规划推理过程不落追踪。
-   - **批次定位与阶段约束**：写本批前先从 `大纲/大纲.md`、对应 `大纲/卷纲_第X卷.md` 和本批细纲提取：当前章节区间属于哪个阶段、本批推进目标、本批可释放的信息、本批严禁提前释放的信息、章尾钩子不能越过的边界。必须按终局储备确认本批主推线与战果，别动用本阶段还不该解锁的终局底牌（多线齐涨的战果允许）；行动成本可无，不硬造代价。未来揭示计划留在大纲，不写入时间线事实；只有下一章必须消费的边界才进 `## 下一章承诺`。
-   - **阶段进度自检**：每批写完或补完细纲后检查是否超前、拖慢或偏离阶段节奏；若偏离，把下一章必须执行的补偿动作放入事务 `next_chapter_commitments`，跨多章风险放入 `continuity_risks`；不得通过提前泄露后期信息强行提速。
-2. **逐章执行**（以下每步在每章循环内执行）：
-   - 读细纲 → 按需加载角色设定
-   - **标题预检**：扫描既有章节标题；如本章标题同名或明显重复，先按本章核心事件改名，并同步细纲标题与正文文件名
-   - **上一章欠账检查**：写本章正文前，确认上一章正文无未清 blocking 毒句式欠账（写前 hook 会自动拦；hook 不可用时对上一章跑 `node scripts/check-ai-patterns.js --check --fail-on=blocking`）；有欠账先清完再写本章，除非上一章标了 `<!-- 去味:跳过 -->`（用户显式豁免）
-   - **状态筛选**：每章开始前必须确认本章细纲、上一章正文（或上一章刚写入的正文）、`追踪/上下文.md` 已在本轮实际读取/更新，并已运行 `tracking_commit.py check`。不要为取状态/章号把完整 `_tracking-state.json` 加载进 prompt。角色最新状态先取续写状态卡 `## 核心角色状态`，待回收/推进伏笔取 `## 活跃伏笔`；缺失内容按下方「旧信息查找步骤」定点查询，不得用未标明来源的聊天记忆替代，也不得为了方便通读所有逐章记录。
-   - **久别角色交叉检查**：本章细纲列出的核心复用角色若不在 `## 核心角色状态`，直接读取小文件 `追踪/角色状态/{名}.md`；不存在即视为当前检查点损坏，运行 `tracking_commit.py check` 并通过完整事务修复，不能临时扫描增量后手写替代。`设定/角色/{名}.md` 只有静态原始人设，不能替代动态快照。角色重新活跃后，把名字放进本章事务 `context.active_character_names`，由工具更新续写状态卡。
-   - **对标模块/节奏/题材卡/文风召回**：
-     - 调 story-explorer 的 `benchmark_style_load` query_type（输入：项目目录 + 本章目标情绪 + 本章爽点类型 + 本章目标字数）一次性拿到：`{style_profile_path, style_profile_summary, selected_emotion_module, rhythm_reference, module_source_path, rhythm_source_path, matched_chapter_K, matched_chapter_techniques, anchor_excerpts, gaps}`
-     - **题材正文提示卡召回**：主会话优先读 `设定/题材正文提示卡.md`；缺失则先读 `设定/题材定位.md` + `references/genre-prose-cards.md` 索引，按主题材精确匹配后只读取 `references/genre-prose-cards/{题材}.md` 单卡（如 都市脑洞 / 豪门总裁 / 年代 / 双男主；低置信卡必须在意图确认标注低置信，并要求同题材对标校准），无命中再读 `references/style-genre-modules.md` 通用流派模块。跨题材时主题材抽 3-5 条、辅题材抽 1-2 条，生成 `genre_prose_card`（题材边界、核心逻辑、读者期待、核心爽点/情绪、节奏密度、场景颗粒、禁止漂移、本章取舍、卡片置信度）。题材卡必须进入 narrative-writer prompt，但只传短摘要，并说明卡片只供内部题材校准、正文里不得出现卡片文字或合规自评
-     - **自定义文风覆盖（先于下列 gaps 判定）**：主会话直接读 `设定/文风.md`（不经 explorer），含实质内容（去空白 ≥200 字，或含 句长 / 标点 / 对话 / 锚点 / 笔调 小节且小节内有可执行约束：比例 / 例句 / 禁止或偏好描述）则置 `custom_style=true`——它作权威风格基**取代** `style_profile_path` 喂给 narrative-writer（句长 / 标点 / 潜台词 / 情绪交替），对标 / 拆文 `style_profile_path` 降级为参考（原文锚点 + 句长分布数值兜底）。空 / 仅空白 / 仅标题 / 占位 stub（待办 / 待补充 / ___）视为不存在。仅接管风格，**不豁免情绪 / 节奏轴**。
-     - 若 `gaps.no_benchmark: true` → `custom_style` 为真则进入「自定义文风模式」（用 `设定/文风.md` 写作；无对标可召回，情绪 / 节奏目标改从本书细纲「目标情绪」、卷纲、`设定/题材定位.md` 等内部材料取，`selected_emotion_module` / `rhythm_reference` 记为「无」，不声称从对标召回）；否则跳过文风召回，在「意图确认」标记"无对标参考"
-     - 若 `gaps.missing_primary_contract: true` → 停止本章准备，按 `repair_action` 提示重跑 `/story-long-analyze` Stage 3+ 或重新 `/story-import`；不得进入 narrative-writer（情绪 / 节奏轴独立于文风轴，**自定义文风模式不豁免此停止**——补 `剧情/情绪模块.md` / `剧情/节奏.md`，而非写 `设定/文风.md`）
-     - 若 `gaps.conflict` 或 `gaps.module_rhythm_conflict: true` → 意图确认必须说明冲突并按 `剧情/情绪模块.md` / `剧情/节奏.md` 的权威优先级执行；不得让 `文风.md` 覆盖情绪/节奏目标
-     - 若 `gaps.profile_missing: true` → `custom_style` 为真则进入自定义文风模式继续；否则按上文 fail-fast 流程停止
-     - 若 `gaps.profile_degenerate: true`（对标文风不可用） → `custom_style` 为真则用 `设定/文风.md` 写作；否则跳过文风、回到默认 Gates 写作
-     - 若 `gaps.tone_match_failed: true` → 仅用整书文风写作，不喂 matched_chapter
-     - 否则原样传给 `style_profile_path`、`style_profile_summary`、`selected_emotion_module`、`rhythm_reference`、`module_source_path`、`rhythm_source_path`、`matched_chapter_K`、`matched_chapter_techniques`、`anchor_excerpts` 和 `genre_prose_card` 给 Step 2 末尾的 narrative-writer spawn prompt；其中 `selected_emotion_module` 必须进入情绪目标，`rhythm_reference` 必须进入节奏/爆发安排，`genre_prose_card` 必须进入题材取舍，`matched_chapter_techniques` 必须进入「文风召回指令」。写前准备记录必须保留 `gaps` 原值，尤其 `gaps.module_missing`、`gaps.rhythm_missing`、`gaps.conflict`、`gaps.matched_deep_dive_missing`；若 `matched_deep_dive_missing` 为 true，文风召回指令中明确写“同章深度拆解缺失，已回退黄金三章/文风技巧”，不得在后续报告中反转为 false
-     - **无 story-explorer 时直接执行**：主会话手动按对标书路径查找，先读 `剧情/情绪模块.md` 选 `selected_emotion_module`，再读 `剧情/节奏.md` 选 `rhythm_reference`，读 `设定/题材正文提示卡.md` 或按 `genre-prose-cards.md` 索引 + 单题材卡优先即时生成 `genre_prose_card`，先读 `设定/文风.md`（含实质内容则 `custom_style=true`、作权威风格基，对标 `文风.md` 降为参考 / 句长兜底）、再读对标 `文风.md` + grep `章节/*_摘要.md` 的「基调」字段找匹配章，然后读对应 `第K章_摘要.md`；如 `第K章_深度拆解.md` 不存在，改读 `第1-3章_深度拆解.md` 中与本章基调最接近的一章。模块或节奏文件缺失时设置 `missing_primary_contract` 并停止修复
-   - **意图确认**：从细纲「目标情绪」字段确认本章情绪目标，综合状态筛选结果 + `selected_emotion_module` + `rhythm_reference` + `genre_prose_card` + 文风召回输出，用一句话写本章意图（情绪+节奏+模块+题材取舍+文风指令）。意图必须表达“**情绪前状态 → 触发 → 后状态**”，不得只写情绪标签，并指明本章推进单元情绪引擎的哪一环。意图确认必须消费主角代理权、当前剧情单元的主角目标/关键选择、本单元主推线/战果、终局底牌边界与收益归属。仅当新承载对象、关键转折或高潮进入时，运行 emotional-methods.md 的“合理性五问”；不要让每段填表。若新版细纲存在，意图确认必须显式带入：阶段位置和禁止提前释放决定本章边界，结构公式决定推进骨架，内容概括决定起承转合，情节安排决定主线/辅线/事件线/感情线/逻辑线的取舍，人物关系和出场顺序决定镜头进入顺序，情节细化决定行动成本（可无）/收益归属，结尾设定和钩子决定章尾承接——但这些字段只界定本章"要发生什么"，不规定正文的形状：不得把情节点逐条按序各扩成一段、不得把"谁做了什么"的概括语原样搬进叙述、五段式不是五个顺写的段块，可自由合并/穿插/重排情节点，把每个点演成场景（见 writing-craft.md「从细纲到正文」）；并落实四条写作要求——① 发展/转折=爽点(高潮)的铺垫蓄势，爽点出手前先铺可指认的危机/期待（plot-emotion-system 倒推法，不铺=空洞）；② 装逼/打脸/揭露章把 视角/信息差 经 出场顺序 里的在场配角放大成差异化反应（plot-core-methods 信息差×人际×情绪/集体震惊）；③ 对话声线基线随基调——高压/生死/悲痛节拍→搞笑担当/轻快配角声线让位、信息型配角不当科普嘴、对话逐句承接对方情绪；④ **细纲优先边界**——只展开本章细纲已有事件/人物/伏笔/钩子，不自造新主线、新角色、新反转，不提前写后续章剧情。写进本章意图、生成时即按基调收敛。按权威文件的因果权 + 结算权与“关键节点四问”确认期待所有权：配角可执行局部动作，不要求主角亲自动手，但不得无声夺走已承诺的高光/收益；若被配角、机构或偶然性捕获且没有可见交换，标记 `protagonist_agency_risk`，先修复细纲/卷纲再进正文。自愿让渡是否亮红灯、战略性让步如何算，按权威文件判，不在本步展开。例：「快节奏打脸——起因=账单暴露，逻辑线=发现→逼问→反证→公开代价；复现 M03‘信息差反杀’的读者期待，按都市世情题材卡落到账单/转账/旁人反应，关键信息先压后爆，爆发后用一段冷却承接下一钩子；标点照文风里的停顿节奏、对话潜台词用问非所答；剧情边界=不得新增账单之外的新敌人或提前解决下一章钩子。」
-   - 写正文 → **字数验证（优先 Python 字符统计，`wc -m` 仅作 Unix 备选，< 目标90%则对照情节点字数预算定位欠账密点、一次性重写到配额，不挤牙膏反复回炉；只能扩写细纲内已有情节点，若现有细纲不足以达标则停止并输出 `outline_underfilled` 欠账点；> 章目标×1.1 则压过场/合并疏点收敛；90% 是放行下限非目标，理想落在 [章目标, 章目标×1.1]）** → 检查钩子/爽点 → **正文元信息扫描** → 禁用词扫描（含 SKILL Phase 4 步骤 11 的最毒句式速查；写后 hook 推回的毒句式命中当轮清零，不得留到批末）
-     - **正文元信息扫描**：标题行以外不得出现 `第[一二三四五六七八九十百千万两0-9]+章|上一章|上章|前一章|本章|这一章|前文|后文|伏笔|细纲|读者`。这些词属于写作/工程元信息，必须改成角色当下能感知的事件锚点或相对时间；例如“比第一章那三秒开火更疼”改成“比那三秒开火更疼”。只有角色在故事世界内真实阅读/讨论“第X章”文本，或真实身为作者/读者并谈论读者身份时例外。
-   - 每章写完后**立即提交一次追踪事务**：
-     1. 从刚落盘的正文、细纲和上一版续写状态卡提取 `result / character_changes / foreshadow_changes / timeline_events / constraints / next_chapter_commitments`。只记录会影响未来章节的变化；过程日志、质检计数、参照章和去 AI 味统计全部排除。
-     2. 需要长期复用的核心角色，把完整动态快照放进 `character_snapshots`，并在 `character_changes` 写对应变化；一次性路人只写变化、不交快照。已有动态快照的核心角色再次变化时必须提交新快照。静态人设继续以 `设定/角色/{名}.md` 为准。
-     3. `context.long_term_constraints`、当前卷/故事时间/场景、活跃核心角色名、连贯性风险提交当前完整值；活跃伏笔、近三章速记和下一章承诺由工具从当前视图/本章增量派生，不重复手填。
-     4. 把最近一次 `tracking_commit.py check` 返回的 `state_revision` 写入事务 `expected_state_revision`，再把 JSON 写到临时文件并执行 `tracking_commit.py commit`。成功并复检后删除临时 JSON；脚本返回新的 `state_revision` 才能进入下一章。
-     5. 失败时 `_tracking-state.json` 尚未推进；保留临时 JSON，修正写入环境后重跑同一 `commit`。不得另写下一章、不得手工补派生视图、不得忽略返回码。
-
-     `追踪/逐章记录/第NNN章.md` 由工具按 5 类变化生成，目标 ≤1536 字节、硬上限 3072 字节。它不是正文摘要大全，更不保存写作过程。`伏笔.md` 每个 ID 只有一行当前状态；角色状态按核心角色拆文件；时间线的客观事实和读者认知只在同一事件登记中维护，再派生作者/读者两个视图。
-
-     状态更新仍由主会话负责。narrative-writer 只写正文并回报必要的写作结果，不直接写 `追踪/`；主会话也不绕过事务工具直接修改最终追踪文件。
-   - **质检提示**（可选）：本章写作完成。如需一致性检查，运行 `/story-review lean`。批量写作模式跳过此步骤，全部写完后再统一审查。
-3. **不中断但不并发**：一章写完不问用户，直接写下一章（除非用户要求逐章确认）；下一章必须读取上一章刚写入的正文和追踪更新后再开始。
-
-**资料研究（按需）**：如果写作中遇到需要查证的外部事实（历史年代、地理方位、职业细节等），暂停写作，spawn `story-researcher` agent 搜索并输出到 `参考资料/` 目录。研究完成后再继续写作。
-
-### 旧信息查找步骤
-
-状态摘要里没有、但本章确实需要的旧信息（20 章前埋的伏笔、久别角色的当前状态、某个时间锚点），按以下顺序查找，**每一步的读取量都有上限**。不允许因为"查着方便"退化成读历史记录文件全文。
-
-| 级别 | 手段 | 成本 |
-|------|------|------|
-| 1 | 续写状态卡已有 → 直接用 | 0 |
-| 2 | 伏笔 ID 查 `grep -n "F007" 追踪/伏笔.md`；角色查 `追踪/角色状态/{名}.md`；读者认知查 `时间线/读者已知.md`，作者真相查 `时间线/作者真相.md` | 一个当前行或一个有界小文件 |
-| 3 | 需要变化原因/历史时，调用 story-explorer 的 `foreshadow_status / character_status / timeline`；各 adapter 按自身 agent 调用方式，agent 不可用就直接 Grep/Read | 子代理/主会话只返回相关条目 |
-| 4 | explorer 不可用 → `grep -R -n --include='第*.md' "F007" 追踪/逐章记录/ 2>/dev/null \| tail -5`，只取最近 5 条匹配增量 | 只读取匹配行 |
-| 5 | 仍不够 → `Read` 对应增量或埋设章正文 | 1 个紧凑增量或单章正文 |
-| 6 | 全量读取所有逐章增量/正文 | **日更禁止**。只在 `/story-review` 或用户明确要求全面审计时 |
-
-**查询次数限制**：单章执行步骤 3 和步骤 4 合计超过 3 次，说明细纲没写清本章要消费哪些旧信息。这时一次性让 story-explorer 查询多项，并在批末口头提示细纲需补清回收项，不另写过程日志。
-
-查询结果只有在本章结束后仍影响后续时才进入追踪事务；当前伏笔由 `foreshadow_changes` 更新，核心角色由快照更新，事实/认知由 `timeline_events` 更新。不要直接改续写状态卡某一行。
+After determining this round's writing range, go straight to Step 2 — no "continue?" confirmation. K defaults to 2-3 chapters; adjust per the user's explicit "1 chapter only" / "daily 3 chapters" / "chapter-by-chapter confirmation". When the user gives N>3, write only the first 3 this round and note in the Step 4 progress summary that remaining chapters continue next round. Pause for confirmation only on chapter-number conflicts, missing chapter outlines, requests beyond existing outlines, requests that would change existing outlines/tracking, or other blocking information that would cause writing errors.
 
 ---
 
-## Step 3：质量检查
+## Step 2: Serial batch writing
 
-批量写作结束后，对本次所有新写章节执行 Phase 5 质量检查（至少包含）：
+Load multiple chapter outlines at once, but **must write chapter by chapter serially in the main session**: never hand multiple chapters to multiple subagents to write concurrently. Long-form chapters depend on the previous chapter's prose and tracking files; concurrency breaks context, overwrites tracking, and breaks title dedup.
 
-1. **禁用词扫描**：对照 `references/banned-words.md`，一级词命中即替换
-2. **标题去重检查**：汇总本轮新写章节与既有标题；发现同名或明显重复时，回到对应细纲和正文文件统一重命名
-3. **正文元信息扫描**：检查标题行以外是否混入 `第[一二三四五六七八九十百千万两0-9]+章|上一章|上章|前一章|本章|这一章|前文|后文|伏笔|细纲|读者` 这类写作工程词，命中即改成场景内表达；故事内真实阅读/讨论“第X章”或真实读者身份语境除外
-4. **钩子检查**：每章章尾是否有往下看的理由（低压/过场章弱钩子或阶段目标即可，不强求强钩子，按细纲章节定位；见 references/outline-structure-theory.md「章节定位与张弛」）；如新版细纲有「结尾设定和钩子」，检查结尾是否落在具体动作/画面/悬念上（"收束状态"是规划口径，不是要写进正文的状态总结句）、留下未解决问题和下一章推动力
-5. **契约与细纲双向核对**：先按 `reader-contract-and-progression.md` 检查读者契约、因果权 + 结算权、关键节点四问、期待所有权、期待债偿还、终局储备（透支两问）；章级推进按权威文件七类状态分档（快节奏保留可见事件/爽点下限），相对本书题材与对标判断；高潮后允许短暂低压和小而可见的收益/奖励。新地图/机构/能力/敌人/谜团须检查换书债；履约爽文/能力幻想另查主角是否反复以可避免的无能制造灾难再由他人收拾。再核对正文是否消费了细纲的内容概括五段式、情节安排多线、人物关系变化/出场顺序、行动成本（可无）/收益归属；并加三条写作要求兑现核对（不达标→修复）：① 爽点出手前是否有可指认的危机/期待铺垫段落？指不出=空洞 → 回 Step 2 补铺垫情节点（plot-emotion-system 倒推法）；② 装逼/打脸/揭露章是否写出在场配角差异化反应（集体震惊/各异），还是只写主角动作？没有 → 补在场配角反应（plot-core-methods）；③ 详略是否按目的词（爽点/卖点点展开、过渡点带过、信息密度交替），还是均匀注水？均匀 → 删过渡、扩爽点点。
-6. **伏笔盘点（仅本轮增量）**：确认本批新增/推进/回收的每个 ID 在 `追踪/伏笔.md` 恰好有一行当前状态，并能在对应 `逐章记录/第NNN章.md` 找到本次变化；不得追加第二行历史，也不得在日更流程扫描全部正文做全量伏笔审计
-7. **确定性收尾**：主会话对本批实际落盘正文运行 `node scripts/check-ai-patterns.js --check --fail-on=blocking 正文/第XXX章_*.md`；blocking 先改正文并复扫，advisory 只作读感提示，功能性写法标 `[需复核]`。
-   再运行 `node scripts/normalize-punctuation.js 正文/第XXX章_*.md`（默认 `--quote-mode keep`）清理无功能省略号、破折号、双连字符和独立分隔线。narrative-writer agent 不运行这些脚本。
-   - **退化防护**：再跑 `node scripts/check-degeneration.js --check 正文/第XXX章_*.md`。blocking 只重写受影响章节，最多 2 次；仍失败就报告证据让用户定夺。advisory 先看例外，确属工程词泄漏或退化再改。
+**Batch continuation rule**: after entering this step, "continue" / "write more" / "daily update" only mean continuing the current daily batch flow. Do not interpret these words as direct prose continuation that skips "state filtering" or "benchmark module/rhythm/genre-card/style recall"; do not re-ask whether to continue between chapters unless the user explicitly wants chapter-by-chapter confirmation or a blocker appears. After reaching this round's K (max 3 chapters), enter Step 3/4 finishing and stop — do not keep writing the next batch just because more outlines exist.
 
-> 完整检查清单见 [Phase 5：质量检查](../SKILL.md#phase-5质量检查)。
-> 若本步修文改变了会影响后续的事实、角色状态、伏笔、时间线或下一章承诺，必须在进入 Step 4 前为受影响章节提交 `mode=revision` 事务并通过 `check`；其中 `delta` 要重算修订后该章仍成立的完整当前记录，不能只传本次改动；纯措辞调整不重复提交。
+1. **Read the writing plan**: the authoritative order of the writing plan is **volume contract → current story unit → chapter outline**; already-written facts are authoritative in the prose and `tracking/` files. First read the volume contract, current story unit (unit ID/position), unit emotional engine, this volume's primary push line/result lines, and endgame trump card boundaries from `outline/volume_outline_N.md`, then load this round's 2-3 chapter outlines. Legacy volume outlines missing volume contract/story-unit cards do not block daily updates: infer this round in memory and record in `tracking/context.md`; write back to the volume outline only when explicitly extending/revising outlines; unknown fields get `[to be determined]`; never auto-modify a locked volume outline. New-format outlines are read preferentially via 「Stage position」「Chapter structure formula」「Forbidden early release」「Content summary (Cause/Development/Turn/Climax/Ending)」「Plot arrangement (Main line/Sub-line/Event & task line/Relationship line/Logic line)」「Characters and appearance order」「Plot detail」「Ending and hook」; legacy outlines missing these fields do not block — fall back to core event, plot-point sequence, target emotion, chapter-open/close hooks, target words. When a legacy outline has a target word count but no per-point budgets, derive temporary budgets by function tag after writing to locate deficits (payoff/comeuppance/reversal = dense, transition/travel = light), then allocate — no guessing by feel.
+   - **Batch positioning & stage constraints**: before writing the batch, extract from `outline/outline.md`, the corresponding `outline/volume_outline_N.md`, and this batch's chapter outlines: which stage the current chapter range belongs to, this batch's advancement target, what this batch may release, what this batch is strictly forbidden from releasing early, and the boundary chapter-end hooks may not cross. Confirm this batch's primary push line and result lines against the endgame reserve; do not touch endgame trump cards this stage may not unlock (multi-line result gains allowed); action cost may be absent — never fabricate costs. With no explicit stage overview, summarize temporarily for this round from the volume outline and written progress; write back only when explicitly extending/revising outlines this round, otherwise record in `tracking/context.md`; never auto-modify locked master/volume outlines.
+   - **Stage progress self-check**: after each batch or outline batch, check whether the writing is ahead of, behind, or drifting from the stage rhythm; if drifting, record the compensation plan in `tracking/context.md`'s notes (e.g. next batch speeds up conflict, delays a truth, adds one relationship payoff) — never force speed by leaking later-stage information early.
+2. **Per-chapter execution** (each step inside the per-chapter loop):
+   - Read the outline → load character setting on demand
+   - **Title pre-check**: scan existing chapter titles; if this chapter's title duplicates or clearly resembles one, rename by this chapter's core event, keeping outline title and prose filename in sync
+   - **Previous-chapter deficit check**: before writing this chapter's prose, confirm the previous chapter's prose has no uncleared blocking toxic-pattern deficits (the write hook auto-blocks; when the hook is unavailable, run `node scripts/check-ai-patterns.js --check --fail-on=blocking` on the previous chapter); clear deficits first, unless the previous chapter carries `<!-- deslop:skip -->` (explicit user exemption)
+   - **State filtering**: before each chapter, confirm the following sources were read or just updated within this round's workflow: this chapter's outline, the previous chapter's prose (or the prose just written), `tracking/context.md`, `tracking/foreshadowing.md`, `tracking/timeline.md`; when characters are involved, also confirm `tracking/character-state.md` or the corresponding `setting/characters/{Name}.md` sources. "Loaded" means actually read/updated within this round's workflow — never substitute chat memory without a stated source. Character latest state is filtered preferentially from `tracking/character-state.md` (if absent, infer from character setting); pending/advancing foreshadowing from `tracking/foreshadowing.md`; when the outline does not exist, still handle per the build flow below — direct prose writing is not allowed
+   - **Benchmark module/rhythm/genre-card/style recall**:
+     - Call story-explorer's `benchmark_style_load` query_type (input: project directory + this chapter's target emotion + this chapter's payoff type + this chapter's target words) to get in one shot: `{style_profile_path, style_profile_summary, selected_emotion_module, rhythm_reference, module_source_path, rhythm_source_path, matched_chapter_K, matched_chapter_techniques, anchor_excerpts, gaps}`
+     - **Genre prose card recall**: the main session prefers `setting/genre-prose-card.md`; when missing, first read `setting/genre-positioning.md` + the `references/genre-prose-cards.md` index, exactly match the primary genre and read only the single card `references/genre-prose-cards/{genre}.md` (e.g. contemporary-romance / mafia-romance / cultivation; low-confidence cards must be flagged low-confidence in the intent confirmation and calibrated against a same-genre benchmark), then fall back to `references/style-genre-modules.md` generic style modules. Cross-genre: 3-5 items from the primary genre, 1-2 from the secondary, produce a `genre_prose_card` (genre boundaries, core logic, reader expectations, core payoff/emotion, pacing density, scene granularity, drift bans, this-chapter tradeoffs, card confidence). The genre card must enter the narrative-writer prompt, but only as a short summary, with the note that the card is for internal genre calibration only and card wording or compliance self-assessments must never appear in the prose
+     - **Custom-style override (before the gaps judgments below)**: the main session reads `setting/style.md` directly (not via explorer); with substantive content (≥200 words after whitespace removal, or containing style subsections for sentence length / punctuation / dialogue / anchors / tone with executable constraints: ratios / examples / bans or preferences) set `custom_style=true` — it becomes the authoritative style base that **replaces** `style_profile_path` fed to narrative-writer (sentence length / punctuation / subtext / emotional alternation), and the benchmark/teardown `style_profile_path` demotes to reference (source anchors + sentence-length distribution numbers). Empty / whitespace-only / title-only / placeholder stubs (TODO / to be added / ___) count as nonexistent. It takes over style only and does **not** exempt the emotion/pacing axis
+     - If `gaps.no_benchmark: true` → with `custom_style` true, enter "custom-style mode" (write with `setting/style.md`; no benchmark to recall, emotion/pacing targets come from internal material such as the chapter outline's "Target emotion", volume outlines, `setting/genre-positioning.md`; `selected_emotion_module` / `rhythm_reference` record "none" and never claim benchmark recall); otherwise skip style recall and mark "no benchmark reference" in the intent confirmation
+     - If `gaps.missing_primary_contract: true` → stop this chapter's preparation, prompt per `repair_action` to re-run `/story-long-analyze` Stage 3+ or re-run `/story-import`; do not enter narrative-writer (the emotion/pacing axis is independent of the style axis — **custom-style mode does not exempt this stop**: repair `plot/emotional-beats.md` / `plot/pacing.md`, not by writing `setting/style.md`)
+     - If `gaps.conflict` or `gaps.module_rhythm_conflict: true` → the intent confirmation must state the conflict and execute per the authority of `plot/emotional-beats.md` / `plot/pacing.md`; never let `style.md` override emotion/pacing targets
+     - If `gaps.profile_missing: true` → with `custom_style` true, continue in custom-style mode; otherwise stop per the fail-fast flow above
+     - If `gaps.profile_degenerate: true` (benchmark style unusable) → with `custom_style` true, write with `setting/style.md`; otherwise skip style and write under the default Gates
+     - If `gaps.tone_match_failed: true` → write with the whole-book style only; do not feed matched_chapter
+     - Otherwise pass through `style_profile_path`, `style_profile_summary`, `selected_emotion_module`, `rhythm_reference`, `module_source_path`, `rhythm_source_path`, `matched_chapter_K`, `matched_chapter_techniques`, `anchor_excerpts`, and `genre_prose_card` to the narrative-writer spawn prompt at the end of Step 2; `selected_emotion_module` must enter the emotion target, `rhythm_reference` must enter the rhythm/burst arrangement, `genre_prose_card` must enter the genre tradeoffs, `matched_chapter_techniques` must enter the "style recall directive". The pre-writing record must keep `gaps` values, especially `gaps.module_missing`, `gaps.rhythm_missing`, `gaps.conflict`, `gaps.matched_deep_dive_missing`; if `matched_deep_dive_missing` is true, the style recall directive explicitly states "same-chapter deep dive missing, fell back to golden-three-chapters/style techniques", and later reports must not flip it back to false
+     - **Without story-explorer, execute directly**: the main session manually follows the benchmark path lookup: first read `plot/emotional-beats.md` to pick `selected_emotion_module`, then `plot/pacing.md` to pick `rhythm_reference`, read `setting/genre-prose-card.md` or generate `genre_prose_card` on the fly via the `genre-prose-cards.md` index + single-card priority, read `setting/style.md` first (substantive content → `custom_style=true`, authoritative style base, benchmark `style.md` demotes to reference / sentence-length fallback), then read the benchmark `style.md` + grep the `tone:` field in `chapters/*_summary.md` for a matching chapter, then read the corresponding `chapter_K_summary.md`; if `chapter_K_deep-dive.md` does not exist, read the chapter in `chapters/chapter_001-003_deep-dive.md` closest in tone to this chapter. When module or rhythm files are missing, set `missing_primary_contract` and stop to repair
+   - **Intent confirmation**: confirm this chapter's emotion target from the outline's "Target emotion" field, combine the state-filtering results + `selected_emotion_module` + `rhythm_reference` + `genre_prose_card` + style recall output, and write this chapter's intent in one sentence (emotion + rhythm + module + genre tradeoffs + style directive). The intent must express "**emotion pre-state → trigger → post-state**", not just an emotion label, and state which link of the unit's emotional engine this chapter advances. The intent confirmation must consume protagonist agency, the current story unit's protagonist goal/key choice, this unit's primary push line/result lines, endgame trump card boundaries, and benefit attribution. Only when a new carrier, key turn, or climax enters, run emotional-methods.md's "five plausibility questions"; do not fill forms every paragraph. When a new-format outline exists, the intent confirmation must explicitly bring in: stage position and forbidden early release define this chapter's boundary; the structure formula defines the advancement skeleton; the content summary defines the cause-development-turn-climax-ending; the plot arrangement defines main/sub/event/relationship/logic line tradeoffs; characters & appearance order define the order in which the camera enters; plot detail defines action cost (optional) / benefit attribution; ending & hook defines the chapter-end handoff — but these fields only define "what happens" in the chapter, not the shape of the prose: do not expand plot points one by one into paragraphs, do not copy "who did what" summary wording into narration, the five-part structure is not five sequentially written blocks — plot points may be merged/interleaved/reordered freely; play each point as a scene (see writing-craft.md "from outline to prose"); and implement four writing requirements — ① development/turn = payoff(climax) setup charge; before a payoff lands, first lay an identifiable crisis/anticipation (plot-emotion-system back-derivation; unset = hollow); ② status-flex/comeuppance/reveal chapters amplify POV/information gap through the present side characters in appearance order into differentiated reactions (plot-core-methods information-gap × relationships × emotion / collective shock); ③ dialogue voice baseline follows the tone — in high-pressure/life-and-death/grief beats, comedy-relief/light side-character voices yield, info-role side characters do not lecture, lines answer the other person's emotion line by line; ④ **outline-priority boundary** — only expand this chapter's outline events/people/foreshadowing/hooks; no self-invented main lines, new characters, new reversals, no writing later-chapter plot early. Write it into this chapter's intent and converge per the tone at generation time. Per the authoritative file's causal rights + settlement rights and the "key-node four questions", confirm expectation ownership: side characters may execute local actions, the protagonist need not do everything personally, but promised highlights/benefits must not be silently stolen; if captured by side characters, institutions, or chance without a visible exchange, mark `protagonist_agency_risk` and fix the outline/volume outline before prose. Whether a voluntary cession is a red light and how strategic concessions count follow the authoritative file — do not expand here. Example: 「Fast comeuppance — cause = bill exposed; logic line = discovery → interrogation → counter-evidence → public cost; reproduce the reader anticipation of M03 "information-gap counter-kill", land it per the urban-genre card on bills/transfers/onlooker reactions, hold the key info then burst it, and use a cooldown beat after the burst to carry the next hook; punctuation follows the style file's pause rhythm, dialogue subtext uses answering-not-asking; plot boundary = no new enemies beyond the bill and no early resolution of the next chapter's hook.」
+   - Write prose → **word-count verification (prefer Python character statistics; `wc -m` is a Unix-only fallback; < 90% of target: locate the deficit dense points against the plot-point word budgets and rewrite once to quota — no repeated refires; may only expand outline-listed plot points; if the existing outline cannot reach the target, stop and output `outline_underfilled` deficit points; > chapter target×1.1: compress transitions/merge light points; 90% is the release floor, not the goal — aim for [chapter target, chapter target×1.1])** → check hooks/payoffs → **prose meta-information scan** → banned-word scan (including the most-toxic-pattern quick pass in SKILL Phase 4 step 11; write-hook push-backs of toxic patterns are cleared in the same round, never left to batch end)
+     - **Prose meta-information scan**: outside the title line, prose must not contain `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` (and variants: last chapter / previous chapter / next chapter / earlier text / later text). These are writing/engineering meta-information; rewrite into event anchors or relative time the character can perceive; e.g. "more painful than those three seconds of gunfire in chapter one" becomes "more painful than those three seconds of gunfire". Exceptions: a character genuinely reads/discusses "chapter X" text inside the story world, or is truly an author/reader talking about being a reader.
+   - After each chapter, **immediately update**:
+     - `tracking/foreshadowing.md` (new/collected foreshadowing)
+     - `tracking/timeline.md` (event order)
+     - `tracking/character-state.md` (if the chapter changed a character's state — identity, ability, relationship, public image — update the entry and append a change record)
+     - `tracking/context.md` (progress meta only: current position + written words + this round's changes; no detailed character-state/foreshadowing content; reuse existing planned-beats/actual-results/promise-progress post-writing records to reflect engine advancement, appending this chapter's unit execution state: unit ID, planned beats, actual results, benefit changes, primary push line/result lines, promise progress, drift aligned|adaptive|structural, next chapter's hard task. Do not add fields beyond these; do not create separate memory packs or unit tracking files)
+   - **Quality-check prompt** (optional): this chapter is written. For consistency checks, run `/story-review lean`. Batch mode skips this step; review everything together after the batch.
+3. **Uninterrupted but not concurrent**: after one chapter, do not ask the user — write the next directly (unless the user wants chapter-by-chapter confirmation); the next chapter must read the previous chapter's just-written prose and tracking updates before starting.
 
----
-
-## Step 4：批末收尾
-
-**本步不再写任何追踪内容**——每章 Step 2 已完成事务。只做两项验证：
-
-1. 对项目运行 `tracking_commit.py check`；验证 state schema、逐章记录连续/规范/未超限、续写状态卡固定 7 栏且不超过 12288 字节，以及全部派生视图与 state 一致。
-2. 确认本批每章都有对应 `追踪/逐章记录/第NNN章.md`，每个文件 ≤3072 字节。缺失或超限时不手工补文件，回到该章事务修正并重跑 `commit`。
-
-然后向用户口头汇报本批完成情况（章数、字数、漂移、下一批建议），不另存为文件。
-
----
-
-> **漂移处理**：aligned = 按计划推进；adaptive = 细节适配但不改契约；structural 漂移 / 结构性漂移 = 正文已经改变卷契约、单元承诺、推进线或兑现归属，必须修正文或重规划未来章节细纲，不能只在增量里备注。下一章必须修的漂移进入 `next_chapter_commitments`，跨章风险进入 `continuity_risks`；两者都受续写状态卡上限约束，完整语义以紧凑增量和大纲为准。
-
-## 细纲缺失补建流程
-
-当检测到细纲不存在时，不能跳过。按以下步骤补建：
-
-1. 加载 `大纲/卷纲_第{N}卷.md`（本章对应的事件规划），读取本章所属剧情单元卡；剧情单元卡含「对标剧情参照」时加读其指向的剧情单元文件（1 个），以其「结构分布」对应位置作本章功能参照；若本章起整个剧情单元均无细纲，按 outline-structure-theory.md「按剧情批出细纲」整批补建而非单章补。卷纲缺必需字段时先补齐，不绕过当前模板继续
-2. 加载本章涉及的 `设定/角色/{角色名}.md`（角色状态）
-3. 读取最新一章正文（情节衔接）
-4. 按 SKILL.md Phase 3 的新版细纲模板补建本章细纲，补齐阶段位置、本章结构公式、本章禁止提前释放、内容概括、情节安排、人物关系/出场顺序、情节细化、结尾设定；无法从卷纲/正文/设定确认的字段写 `[待补充]`，不杜撰
-5. 补建完成后继续 Step 2 写作
+**Research (on demand)**: if the writing needs external facts verified (historical dates, geography, professional details, etc.), pause, spawn the `story-researcher` agent to search and output into the `reference/` directory. Continue after research completes.
 
 ---
 
-## 常见问题
+## Step 3: Quality check
 
-| 问题 | 处理 |
+After the batch, run the Phase 5 quality check on all newly written chapters (at minimum):
+
+1. **Banned-word scan**: per `references/banned-words.md`; tier-1 hits replaced on sight
+2. **Title dedup**: collect this round's new chapter titles and existing titles; on duplicates or clear similarity, rename in the corresponding outline and prose files uniformly
+3. **Prose meta-information scan**: check outside the title line for `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` and variants; rewrite hits into in-scene expressions; in-story reading/discussion of "chapter X" or genuine reader-identity contexts excepted
+4. **Hook check**: does each chapter end give a reason to keep reading (low-pressure/transition chapters need only a weak hook or stage goal — no strong-hook requirement, per the outline's chapter positioning; see references/outline-structure-theory.md "chapter positioning & tension"); with a new-format "Ending and hook", check the ending lands on a concrete action/image/suspense ("settled state" is planning language, not a state-summary sentence to write into prose), leaves unresolved problems, and a next-chapter driving force
+5. **Contract & outline cross-check**: first per `reader-contract-and-progression.md` check reader contract, causal rights + settlement rights, key-node four questions, expectation ownership, promise-debt repayment, endgame reserve (the overdraw two questions); chapter-level advancement tiers per the authoritative file's seven state types (fast-paced keeps the visible-event/payoff floor), judged against this book's genre and benchmark; short low-pressure passages and small visible gains/rewards after climaxes are allowed. New maps/institutions/abilities/enemies/mysteries must be checked for new-element debt; fulfillment-genre/ability-fantasy books additionally check whether the protagonist repeatedly creates disasters through avoidable incompetence that others then clean up. Then cross-check the prose against the outline — did it write to the outline. With a new-format outline, verify the prose consumed the five-part content summary, the multi-line plot arrangement, the relationship changes/appearance order, action cost (optional) / benefit attribution; and verify three writing requirements (fail → fix): ① is there an identifiable crisis/anticipation setup passage before the payoff lands? Cannot point = hollow → return to Step 2 and add setup plot points (plot-emotion-system back-derivation); ② in status-flex/comeuppance/reveal chapters, are the present side characters given differentiated reactions (collective shock / varied), or only the protagonist acts? None → add side-character reactions (plot-core-methods); ③ is the density distributed by purpose words (payoff/selling points expand, transitions skim, info density alternates), or evenly padded? Even → cut transitions, expand payoff points. Legacy outlines only check core event, target emotion, chapter-open/close hooks, and target words
+6. **Foreshadowing inventory (this round's increments only)**: confirm only this batch's new/advanced/collected foreshadowing is written into `tracking/foreshadowing.md` with updated status; do not read through all sessions or scan all prose for a full foreshadowing audit in the daily flow. Full audits happen only via `/story-review` or explicit "fully check foreshadowing" requests
+7. **Deterministic finishing**: the main session runs `node scripts/check-ai-patterns.js --check --fail-on=blocking prose/chapter_NNN_*.md` on this batch's landed prose; blocking hits are fixed in the prose and rescanned; advisory is reading-feel hints only; functional writing gets `[needs review]`.
+   Then run `node scripts/normalize-punctuation.js prose/chapter_NNN_*.md` (default `--quote-mode keep`) to clean non-functional ellipses, dashes, double hyphens, and standalone separators. The narrative-writer agent does not run these scripts.
+   - **Degeneration protection**: then run `node scripts/check-degeneration.js --check prose/chapter_NNN_*.md`. Blocking (verbatim repetition, truncation, refusal language, tier-1 engineering-word leaks) → rewrite only the affected chapters, at most 2 times; if still failing, report evidence and let the user decide. Advisory: check the exceptions first; only fix genuine engineering-word leaks or degeneration.
+
+> Full checklist in [Phase 5: Quality check](../SKILL.md#phase-5-quality-check).
+
+---
+
+## Step 4: Progress summary
+
+Update `tracking/context.md` (already incrementally updated per chapter; final summary here):
+
+```markdown
+## Writing Progress
+
+- Last completed chapter: Chapter {N}
+- Updated: {date}
+- This round: {K} chapters, {X} words total
+
+## Current state
+
+- Active foreshadowing: {N} items (see tracking/foreshadowing.md)
+- Character states: latest change {character} (see tracking/character-state.md)
+- Next chapter outline: {exists / needs building}
+- Notes: {key decisions or changes to remember}
+
+## Unit execution state (updated inside the existing context.md; no separate tracking file)
+- Unit ID: {Lx-y}
+- Planned beats: {original planned beats}
+- Actual results: {what was actually written}
+- Benefit changes: {delivery increased/deferred/transferred and its attribution}
+- Primary push line/result lines: {this chapter's advanced lines}
+- Promise progress: {promise-debt progress}
+- Drift: {aligned|adaptive|structural}
+- Next chapter's hard task: {the hard task the next chapter must handle}
+```
+
+---
+
+> **Drift handling**: aligned = advanced per plan; adaptive = details adapted without changing the contract; structural drift = the prose has already changed the volume contract, unit promise, advancement line, or delivery attribution — must fix the prose or re-plan future chapter outlines; a context note alone is not enough.
+
+## Chapter-outline build flow (missing outlines)
+
+When an outline is detected missing, it cannot be skipped. Build it as follows:
+
+1. Load `outline/volume_outline_N.md` (this chapter's event plan) and read this chapter's story-unit card; when the card has a "benchmark plot reference", additionally read the referenced story-unit file (1), using its "structure distribution" position as this chapter's function reference; if the whole story unit starting from this chapter has no outlines, prefer building the whole batch per outline-structure-theory.md "chapter outlines by story-unit batch" rather than a single chapter. Missing references / legacy volume outlines without the field never block; continue the original flow
+2. Load the involved `setting/characters/{Name}.md` (character states)
+3. Read the latest chapter's prose (plot continuity)
+4. Build this chapter's outline per the SKILL.md Phase 3 new-format template, completing stage position, chapter structure formula, forbidden early release, content summary, plot arrangement, characters & appearance order, plot detail, ending & hook; fields that cannot be determined from the volume outline/prose/setting get `[to be determined]` — no fabrication
+5. Continue Step 2 writing after the build
+
+---
+
+## Common issues
+
+| Issue | Handling |
 |------|------|
-| 细纲不存在 | 执行上方"细纲缺失补建流程" |
-| 细纲缺当前蓝图字段 | 先按当前模板补齐，未知项写 `[待补充]`；未补齐前不写正文 |
-| 追踪文件为空 | 正常继续，写作中逐步填充 |
-| 用户要求改大纲 | 提醒"改大纲会影响后续细纲"，确认后修改，标记受影响的细纲 |
-| 写到卷末 | 提示用户"当前卷已完成，是否开新卷？" |
-| 用户中断批量写作 | 保存当前章节，已更新追踪文件，下次从断点继续 |
+| Chapter outline missing | run the "chapter-outline build flow" above |
+| Outline missing new-format fields | legacy outlines do not block daily updates: consume via Step 2-1's fallback fields; backfill only when explicitly extending/revising outlines this round; new/built outlines must follow the current template completely, unknown items `[to be determined]` |
+| Tracking files empty | continue normally, fill in while writing |
+| User asks to change the outline | remind "changing the outline affects later chapter outlines", confirm, then modify and mark affected outlines |
+| Volume end reached | prompt the user "this volume is complete — open a new volume?" |
+| User interrupts the batch | save the current chapter, tracking files already updated, resume from the breakpoint next time |

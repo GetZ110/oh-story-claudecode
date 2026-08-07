@@ -14,7 +14,8 @@ const state = {
   searchTruncation: null,
   searchSequence: 0,
   searchTimer: null,
-  // 记住作者手动展开/收起过的目录，重绘文件树时不要把人正在翻的章节文件夹关掉
+  // Remember directories the author manually expanded/collapsed; don't close the
+  // chapter folders they are browsing when the tree redraws
   expandedDirs: new Set(),
   collapsedDirs: new Set(),
 };
@@ -68,8 +69,8 @@ async function requestJson(url, options) {
   try {
     response = await fetch(url, options);
   } catch {
-    setConnection("offline", "连接中断");
-    throw new ApiError(0, "network_error", "无法连接本地 Dashboard 服务");
+    setConnection("offline", "Connection lost");
+    throw new ApiError(0, "network_error", "Cannot reach the local Dashboard service");
   }
 
   let payload;
@@ -83,10 +84,10 @@ async function requestJson(url, options) {
     throw new ApiError(
       response.status,
       payload?.error?.code || "request_failed",
-      payload?.error?.message || `请求失败（${response.status}）`,
+      payload?.error?.message || `Request failed (${response.status})`,
     );
   }
-  setConnection("online", "仅本机");
+  setConnection("online", "Local only");
   return payload;
 }
 
@@ -120,8 +121,9 @@ function countCharacters(content) {
   return [...content.replace(/\s/g, "")].length;
 }
 
-// textarea 的 value 永远是 LF：读盘时先归一化，写盘时再换回原文件的换行符，
-// 否则 CRLF 稿件会被一次改动整篇重写，而且脏标记永远对不上、清不掉。
+// The textarea value is always LF: normalize on read, restore the original file's
+// line endings on write — otherwise one edit would rewrite the whole CRLF
+// manuscript and the dirty flag would never match or clear.
 function detectEol(content) {
   let crlf = 0;
   let lf = 0;
@@ -138,8 +140,9 @@ function detectEol(content) {
       lf += 1;
     }
   }
-  // 按 LF/CRLF 的主流风格回写；只有纯 CR 文件才保留 CR。一个粘贴进来的孤立 CR
-  // 不能把每个 LF 都扩散成 CR，反过来也不能让 CRLF 稿件整篇变成 LF。
+  // Write back in the dominant style (LF or CRLF); only pure-CR files keep CR. A
+  // stray pasted CR must not spread CR across every LF, nor may a CRLF manuscript
+  // silently become all-LF.
   if (crlf > lf) return "\r\n";
   if (lf > 0) return "\n";
   if (cr > 0) return "\r";
@@ -183,7 +186,8 @@ function createTreeEntry(node, depth = 0) {
       state.expandedDirs.has(node.path) ||
       (depth === 0 && !state.collapsedDirs.has(node.path));
     details.open = shouldOpen;
-    // 只记录作者亲手的展开/收起；首层程序化展开不算偏好。
+    // Record only the author's own expand/collapse; programmatic first-level
+    // expansion is not a preference.
     let recorded = shouldOpen;
     details.addEventListener("toggle", () => {
       if (details.open === recorded) return;
@@ -213,21 +217,21 @@ function createTreeEntry(node, depth = 0) {
     if (node.loading) {
       const loading = document.createElement("li");
       loading.className = "tree-inline-status";
-      loading.textContent = "正在读取目录…";
+      loading.textContent = "Reading directory…";
       list.append(loading);
     } else if (node.loadError) {
       const retry = document.createElement("li");
       retry.className = "tree-inline-status";
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = "目录加载失败，点击重试";
+      button.textContent = "Failed to load directory, click to retry";
       button.addEventListener("click", () => loadDirectory(node));
       retry.append(button);
       list.append(retry);
     } else if (node.loaded && node.children.length === 0) {
       const empty = document.createElement("li");
       empty.className = "tree-inline-status";
-      empty.textContent = "空目录";
+      empty.textContent = "Empty directory";
       list.append(empty);
     }
     if (node.nextCursor && !node.loading) {
@@ -235,7 +239,7 @@ function createTreeEntry(node, depth = 0) {
       more.className = "tree-inline-status";
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = "加载更多";
+      button.textContent = "Load more";
       button.addEventListener("click", () => loadDirectory(node, { append: true }));
       more.append(button);
       list.append(more);
@@ -258,7 +262,7 @@ function createTreeEntry(node, depth = 0) {
   button.dataset.path = node.path;
   button.dataset.active = String(state.activeFile?.path === node.path);
   button.disabled = !node.editable;
-  button.title = node.editable ? node.path : `${node.path}（此文件类型只展示，不可编辑）`;
+  button.title = node.editable ? node.path : `${node.path} (this file type is display-only, not editable)`;
   button.innerHTML = iconSvg("file");
 
   const label = document.createElement("span");
@@ -324,11 +328,12 @@ function loadedFileCount() {
 function renderLoadedFileCount() {
   if (!state.workspace) return;
   const count = loadedFileCount();
-  elements.fileCount.textContent = count ? `${formatNumber(count)}+` : "按需";
-  elements.fileCount.title = "文稿随目录展开按需加载，不预先遍历整个工作区";
+  elements.fileCount.textContent = count ? `${formatNumber(count)}+` : "on demand";
+  elements.fileCount.title = "Manuscripts load on demand as directories expand; the whole workspace is not pre-walked";
 }
 
-// 只改当前高亮行，不重建整棵树——重建会把作者正在翻的目录全部收起
+// Update only the highlighted row, not the whole tree — rebuilding would collapse
+// every directory the author is browsing
 function syncActiveRow() {
   const activePath = state.activeFile?.path;
   elements.fileTree.querySelectorAll(".file-row").forEach((row) => {
@@ -342,25 +347,25 @@ function searchTruncationMessage() {
   const messages = [];
   if (status.byResults) {
     messages.push(
-      `匹配结果超过 ${formatNumber(status.limits.maxResults)} 条，仅显示最先找到的部分，请输入更精确的文件名`,
+      `More than ${formatNumber(status.limits.maxResults)} matches found; showing the first ones — enter a more specific file name`,
     );
   }
   if (status.byNodes) {
     messages.push(
-      `搜索达到 ${formatNumber(status.limits.maxNodes)} 个节点的扫描上限，后续目录尚未检查，请直接展开目标目录查找`,
+      `Search hit the ${formatNumber(status.limits.maxNodes)}-node scan limit; deeper directories were not checked — expand the target directory directly`,
     );
   }
   if (status.byDepth) {
     messages.push(
-      `部分目录超过 ${formatNumber(status.limits.maxDepth)} 层，更深处未搜索；其他项目已继续搜索`,
+      `Some directories exceed ${formatNumber(status.limits.maxDepth)} levels; deeper content was not searched; other projects continued`,
     );
   }
   if (status.byReadError) {
     const paths = status.scanErrors.map((entry) => entry.path).filter(Boolean);
-    const shown = paths.slice(0, 3).join("、") || "部分目录";
-    const more = paths.length > 3 ? `等 ${formatNumber(paths.length)} 处` : "";
+    const shown = paths.slice(0, 3).join(", ") || "some directories";
+    const more = paths.length > 3 ? `and ${formatNumber(paths.length)} more` : "";
     messages.push(
-      `${shown}${more}无法读取，搜索结果可能不完整。请检查目录访问权限或外挂盘挂载状态`,
+      `${shown}${more} could not be read; search results may be incomplete. Check directory permissions or external-drive mount state`,
     );
   }
   return messages.join("；");
@@ -378,7 +383,7 @@ function renderTree() {
     const message = document.createElement("div");
     message.className = "tree-message";
     const text = document.createElement("p");
-    text.textContent = `正在搜索“${query}”…`;
+    text.textContent = `Searching for "${query}"…`;
     message.append(text);
     elements.fileTree.append(message);
     return;
@@ -390,11 +395,11 @@ function renderTree() {
     const text = document.createElement("p");
     text.textContent = query
       ? state.searchTruncation
-        ? `搜索未完成，暂时无法确认是否存在“${query}”`
-        : `没有找到“${query}”`
+        ? `Search incomplete — cannot confirm whether the query exists`
+        : `No results for the query`
       : state.activeView === "libraries"
-        ? "工作区里还没有拆文库。运行拆文 skill 后，档案会出现在这里。"
-        : "还没有识别到写作项目。长篇需包含正文、大纲、设定或追踪目录；短篇需包含正文.md，并同时包含小节大纲.md或设定.md。";
+        ? "No teardowns in this workspace yet. Run a teardown skill and the archives will appear here."
+        : "No writing projects recognized yet. Long-form needs a prose, outline, setting, or tracking directory; short-form needs prose.md plus section-outline.md or setting.md.";
     message.append(text);
     elements.fileTree.append(message);
     const truncation = searchTruncationMessage();
@@ -428,9 +433,9 @@ function renderTree() {
 
 function truncationMessage(scanErrors = []) {
   const paths = scanErrors.map((entry) => entry.path).filter(Boolean);
-  const shown = paths.slice(0, 3).join("、") || "部分目录";
-  const more = paths.length > 3 ? `等 ${formatNumber(paths.length)} 处` : "";
-  return `${shown}${more}无法读取，其中的文稿没有列出。请检查这些目录的访问权限和外挂盘挂载状态，恢复后刷新目录。`;
+  const shown = paths.slice(0, 3).join(", ") || "some directories";
+  const more = paths.length > 3 ? `and ${formatNumber(paths.length)} more` : "";
+  return `${shown}${more} could not be read; their manuscripts are not listed. Check directory permissions and external-drive mount state, then refresh after restoring.`;
 }
 
 function renderTruncationNotice(limits, scanErrors) {
@@ -470,7 +475,7 @@ async function loadWorkspace({ announce = false } = {}) {
   state.searchSequence += 1;
   elements.treeLoading.hidden = false;
   elements.fileTree.replaceChildren();
-  setConnection("", "连接中");
+  setConnection("", "Connecting");
   try {
     state.workspace = await requestJson("/api/workspace");
     state.searchResults = [];
@@ -478,7 +483,7 @@ async function loadWorkspace({ announce = false } = {}) {
     state.searching = Boolean(state.filter.trim());
     renderWorkspace();
     if (state.filter.trim()) scheduleSearch();
-    if (announce) showToast("工作区目录已刷新");
+    if (announce) showToast("Workspace refreshed");
   } catch (error) {
     elements.treeLoading.hidden = true;
     const message = document.createElement("div");
@@ -492,13 +497,13 @@ async function loadWorkspace({ announce = false } = {}) {
 }
 
 function confirmDiscard() {
-  return !state.dirty || window.confirm("当前文稿还有未保存的修改。确定放弃并打开另一份文件吗？");
+  return !state.dirty || window.confirm("This manuscript has unsaved changes. Discard them and open another file?");
 }
 
 function setDirty(dirty) {
   state.dirty = dirty;
   elements.dirtyStatus.dataset.state = dirty ? "dirty" : "saved";
-  elements.dirtyStatus.querySelector("span:last-child").textContent = dirty ? "待保存" : "已保存";
+  elements.dirtyStatus.querySelector("span:last-child").textContent = dirty ? "Unsaved" : "Saved";
   syncActionAvailability();
 }
 
@@ -512,10 +517,10 @@ function setSaving(saving) {
   state.saving = saving;
   elements.dirtyStatus.dataset.state = saving ? "saving" : state.dirty ? "dirty" : "saved";
   elements.dirtyStatus.querySelector("span:last-child").textContent = saving
-    ? "保存中"
+    ? "Saving…"
     : state.dirty
-      ? "待保存"
-      : "已保存";
+      ? "Unsaved"
+      : "Saved";
   syncActionAvailability();
 }
 
@@ -538,7 +543,7 @@ function updateDocumentMeta() {
   const content = elements.editorInput.value;
   elements.documentMeta.textContent = [
     formatBytes(currentByteSize()),
-    `${formatNumber(countCharacters(content))} 字符`,
+    `${formatNumber(countCharacters(content))} characters`,
     fileExtension(state.activeFile.name).toUpperCase(),
   ].join("  ·  ");
 }
@@ -548,7 +553,7 @@ function updateCursorPosition() {
   const caret = elements.editorInput.selectionStart;
   const before = content.slice(0, caret);
   const lines = before.split("\n");
-  elements.cursorPosition.textContent = `第 ${lines.length} 行，第 ${[...lines.at(-1)].length + 1} 列`;
+  elements.cursorPosition.textContent = `Line ${lines.length}, column ${[...lines.at(-1)].length + 1}`;
 }
 
 async function openFile(path, { force = false } = {}) {
@@ -678,8 +683,9 @@ function setMode(mode) {
 
 async function saveFile() {
   if (!state.activeFile || !state.dirty || state.saving || state.deleting) return;
-  // 请求发出前就把身份和正文快照下来：保存期间作者可能换文件、也可能接着敲字，
-  // 收尾只允许写回这次真正送出去的那份，绝不能落到别的文稿头上。
+  // Snapshot the identity and content before sending: the author may switch files
+  // or keep typing during the save; the completion must only write back to the
+  // file this request actually sent — never another manuscript.
   const file = state.activeFile;
   const sent = elements.editorInput.value;
   setSaving(true);
@@ -696,15 +702,16 @@ async function saveFile() {
     file.mtimeMs = saved.mtimeMs;
     file.version = saved.version;
     file.size = saved.size;
-    showToast(`已保存《${file.name}》`);
+    showToast(`Saved "${file.name}"`);
     if (state.activeFile !== file) return;
     state.originalContent = sent;
-    // 保存途中敲进来的字仍是未保存修改，不能被这次结果抹平成「已保存」
+    // Keystrokes during the save are still unsaved changes; this result must not
+    // flatten them into "Saved".
     setDirty(elements.editorInput.value !== sent);
     updateDocumentMeta();
   } catch (error) {
     if (state.activeFile !== file) {
-      showToast(`《${file.name}》保存失败：${error.message}`, "error");
+      showToast(`Failed to save "${file.name}": ${error.message}`, "error");
       return;
     }
     setDirty(true);
@@ -722,8 +729,8 @@ async function deleteFile() {
   if (!state.activeFile || state.saving || state.deleting) return;
   const file = state.activeFile;
   const warning = state.dirty
-    ? `《${file.name}》还有未保存修改。删除会永久移除磁盘文件并丢弃这些修改，且无法撤销。确定删除吗？`
-    : `确定永久删除《${file.name}》吗？此操作无法撤销。`;
+    ? `"${file.name}" still has unsaved changes. Deleting permanently removes the file from disk and discards those changes — this cannot be undone. Delete anyway?`
+    : `Permanently delete "${file.name}"? This cannot be undone.`;
   if (!window.confirm(warning)) return;
 
   state.deleting = true;
@@ -745,7 +752,7 @@ async function deleteFile() {
     document.body.classList.remove("document-open");
     setDirty(false);
     await loadWorkspace();
-    showToast(`已删除《${file.name}》`);
+    showToast(`Deleted "${file.name}"`);
   } catch (error) {
     showToast(error.message, "error");
   } finally {

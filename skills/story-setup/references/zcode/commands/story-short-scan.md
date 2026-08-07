@@ -1,8 +1,8 @@
 ---
-description: 短篇网文扫榜，分析盐言、七猫、黑岩、点众等平台趋势。
+description: Short-form web-novel market scan: trend analysis across Inkitt, Dreame, Galatea, Tapas, and other platforms.
 skills: story-short-scan
 ---
 
-调用 `$story-short-scan` 执行短篇榜单与市场调研。
+Invoke `$story-short-scan` to run short-form ranking and market research.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

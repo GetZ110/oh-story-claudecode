@@ -1,147 +1,190 @@
-# AI味禁用词与句式表
+# AI-Flavor Banned Words & Sentence Patterns
 
-<!-- 同名副本×6 字节同步，改动后跑 scripts/check-shared-files.sh -->
+<!-- Byte-identical copy ×6; after editing run scripts/check-shared-files.sh -->
 
-## 最毒禁用句式（出现即修，最高优先级）
+## Most toxic sentence patterns (fix on sight, highest priority)
 
-写网文最毒的 AI 句式，作者一旦养成就会反复出现。Gate A 第一遍扫描必须命中：
+The most damaging AI sentence patterns in English web fiction. Once an author picks
+them up they recur constantly. Gate A's first pass must hit these:
 
-| 毒级 | 句式 | 错误例 | 修法 |
-|------|------|--------|------|
-| ★★★★★ | "不是A，（而）是B" / "不是A，不是B，（而）是C"（"而"可省略，省掉也算命中）| "他不是冷漠，而是绝望" | 直接写 B 或用更自然的表达 |
-| ★★★☆☆ | 跨段「不是A。/也不是B。/只是C。」 | 「不是嚎啕大哭。/也不是扯着嗓子喊不舍。/只是一个人走远了……」 | 语义复核；重复提纲或拖慢画面时压成 C，有辩解/悬念排除功能可保留 |
-| ★★★★ | "，带着……" 万能状语 | "他笑了一下，带着一丝不易察觉的嘲讽" | 删掉状语留主句，或换具体动作 |
-| ★★★★ | 无情绪声线："声音不大，却带着……" / "语气毫无波澜" / "平静无波" / "声音平直/平平/听不出情绪" | "她声音不大，却带着不容置疑的力量" | 直接写台词内容、声音特征或动作 |
-| ★★★★ | "他/她知道……" | "他知道这一切都来不及了" | 用行为展示认知 |
-| ★★★ | "仿佛/犹如/宛若……一般" | "仿佛能穿透一切一般" | 删掉或白描 |
-| ★★★ | "眼中闪过一丝……" / "嘴角勾起一抹……" | "眼中闪过一丝悲伤" | 他垂下眼 / 他嘴角一扯 |
-| ★★★ | "心中涌起一股……" / "心头一震" | "心中涌起一股暖流" | 用身体反应 |
-| ★★★ | 抽象命运/开端收束："命运……棋局/獠牙" / "这一刻终于明白" / "反击才刚刚开始" | "命运终于露出獠牙；属于他的反击才刚刚开始" | 回到角色当下可见的文件、动作、对话或物理后果 |
-| ★★ | 章末预告 "他不知道的是……" | "他不知道的是，更大的风暴即将来临" | 用具体钩子物件/事件收束，避免空泛预告 |
+| Toxicity | Pattern | Bad example | Fix |
+|----------|---------|-------------|-----|
+| ★★★★★ | "It wasn't X. It was Y." / "not X but Y" contrast flips | "He wasn't cold. He was desperate." | Write Y directly, or show it through action/detail |
+| ★★★★★ | Trailer/preview endings: "Little did he know..." / "what happened next would..." / "this was only the beginning" | "Little did she know, everything was about to change." | End on a concrete action, image, or line; let the event hang |
+| ★★★★★ | Chapter-end state verdicts: "It was a night that would change everything" / "nothing would ever be the same" / "everything was about to change" | "It was a night that would change everything." | The ending state is planning language — land one last concrete beat |
+| ★★★★ | "the kind of X that Y" | "the kind of smile that never reached her eyes" | Concrete detail or action the reader can picture |
+| ★★★★ | "couldn't help but X" | "He couldn't help but smile." | Just do X; no hedge needed |
+| ★★★★ | "as if on cue" | "As if on cue, the rain started." | Delete; the sequence itself does the work |
+| ★★★★ | quiet-voice contrast: "voice was quiet/soft/low, but..." | "Her voice was quiet, but it carried an unmistakable authority." | Write the line and the room's reaction |
+| ★★★ | "took a deep breath" | "She took a deep breath and opened the door." | Delete or make it specific to the moment |
+| ★★★ | heart verbs: "heart raced/sank/lurched/hammered/skipped a beat" | "His heart raced as he stepped forward." | Body-specific detail, or none at all |
+| ★★★ | "a wave of X washed over" / "a mix of X and Y" | "A wave of relief washed over him." / "She felt a mix of anger and relief." | Pick the dominant feeling; show it in behavior |
+| ★★★ | "in that moment" / "at that moment" | "In that moment, he knew..." | Delete or name the exact beat |
+| ★★★ | "eyes widened/narrowed/met" | "Her eyes widened in shock." | Show the reaction through posture, breath, or words |
+| ★★ | "He knew that..." / "She realized..." (filter/reasoning) | "He knew that this was his only chance." | Behavior shows the knowledge; cut the filter |
+| ★★ | "before he knew it" / "little by little" / "one by one" | "Before he knew it, the day was gone." | Concrete elapsed-time detail |
+| ★★ | "for some reason" / "somehow" / "deep down" / "there was something about" | "For some reason, he couldn't move." | The reason is the story; write the cause |
+| ★★ | "a beat passed" / "a moment passed" | "A beat passed before she answered." | Delete the filler; cut to her answer |
 
-> 凡命中 ★★★★★ 一处即视为重度AI味的强证据；★★★★ 命中 ≥2 处即触发中度复扫。
+> Any ★★★★★ hit is strong evidence of heavy AI flavor; ≥2 ★★★★ hits trigger a
+> medium-depth rescan.
 
-`check-ai-patterns.js` 的 `formulaic-parallelism` 还会提示「至于X不X，怎么X」和同动词「不V A，不V B」。这两类可能是功能性口语，因此只做 advisory；Gate B 必须连同台词读语境复核，若只是复述细纲/前文就压成一次判断，不能因 hook 豁免台词而跳过。
-
-**标点**：正文（含叙述和对话）禁用破折号 `——`/`—`、双连字符 `--` 和省略号停顿，改用句号、逗号、短句或动作断句；不设置对话破折号例外。盐言「」引号不在此列。
+**Punctuation**: prose may keep at most one em dash per line (clusters are an AI
+tell); use "…" (single ellipsis char), never "..." or "......"; never write double
+hyphens "--" (convert to em dash); prefer curly quotes; no space before punctuation.
 
 ---
 
-## 一级禁用词（出现即替换）
+## Tier-1 banned phrases (replace on sight)
 
-> 什么词进一级：只收真人语料里几乎不出现、AI 特有的词。真人高频使用的自然副词和虚词不进一级，走二级密度控制。
+> What goes into tier-1: phrases that rarely appear in clean human prose and are
+> AI-signature. Natural adverbs and ordinary function words stay out of tier-1 —
+> they belong to tier-2 density control.
 
-### 情态类
-仿佛、犹如、宛若、如同、一丝、一抹、些许、几分、隐约、毫无征兆、几不可闻、微不可察
+### Modal / hedging
+couldn't help but, as if on cue, little did X know, unbeknownst to, before X knew it,
+for some reason, somehow, deep down, in the depths of, there was something about
 
-### 动作类
-深吸一口气、不禁
+### Reaction templates
+took a deep breath, heart raced/sank/lurched/hammered/skipped a beat,
+a wave of X washed over, a mix of X and Y, in that moment, at that moment,
+eyes widened, eyes narrowed, eyes met, a beat passed, a moment passed
 
-### 表情类
-眼中闪过、嘴角勾起、眉头微皱、眉眼低垂、瞳孔微缩、瞳孔收缩、瞳孔一缩、指节泛白、眼神锐利、目光锐利
+### Judgment summaries
+the kind of X that Y, he finally understood, she realized then, from that moment on,
+a new chapter began, nothing would ever be the same, everything was about to change,
+fate had other plans, the wheels of fate
 
-### 心理类
-心中一动、心头一震、心下了然、心中暗道、心底泛起、不由得、心中一凛
+### Fillers
+for a moment, after a moment, for the longest time, at this point, as if to say,
+the weight of the moment, the silence hung in the air, tension was palpable,
+she let out a breath she didn't know she'd been holding
 
-### 判断类
-不容置疑、不容置喙、不易察觉、显而易见、毫无疑问、不可否认、前所未有
+## Tier-2 (replace when they cluster)
 
-### 形容类
-坚定、闪烁着光芒、狡黠、深邃、凛冽、冰冷
+### Context-sensitive words (only when repeated or lazy)
+suddenly, immediately, instantly, abruptly, seemingly, almost, barely, slightly,
+gently, softly, quietly, slowly, carefully (keep in dialogue, real sudden events,
+or time compression; synonym-rotation to dodge repetition still counts as the same
+word for density)
 
-### 过渡类
-不由自主、情不自禁、自然而然、话锋一转
+### Weak adverbs (density control)
+almost, barely, slightly, gently, softly, quietly, slowly, really, very, quite,
+somewhat, perhaps, maybe (≤3 per 1000 words total; these also feed
+`cliche-density-tic`; isolated natural use may stay, strings of them or one per
+action should be cut)
 
-## 二级禁用词（高频出现时替换）
+### Filter words (density control)
+felt, saw, noticed, realized, knew, wondered, thought, heard, seemed, appeared
+(show the evidence instead of the perception)
 
-### 语境敏感词（仅高频或偷懒时处理）
-突然、陡然、骤然、猛然、好像、似乎、瞬间、猛地、死死地（角色口语、真实突发、时间压缩、视角不确定时可保留；用同义变体轮换规避重复不算豁免，按同一个词计密度）
+### Formal register → plain
 
-### 弱化副词（密度控制）
-缓缓、微微、轻轻、淡淡（每千字合计 ≤3；这四个词同时计入 `cliche-density-tic` 的套词密度统计；孤立自然使用可保留，成串出现或每个动作都垫一个时才替换）
+| Formal | Plain |
+|--------|-------|
+| commence | start |
+| purchase | buy |
+| utilize | use |
+| ascertain | find out |
+| endeavor | try |
+| subsequently | then |
+| approximately | about |
+| additional | more |
+| in order to | to |
+| due to the fact that | because |
+| at this point in time | now |
+| it is important to note | (delete) |
 
-### 书面腔 → 口语化
+### Summary sentences
+- "He/She finally understood..."
+- "She realized then..."
+- "In that moment, he knew..."
+- "From that moment on..."
+- "X's counterattack/revenge/story was just beginning"
+- "fate/destiny + wheels/plans/game/sealed"
+- "Everything was going to change"
+- "This was only the beginning"
 
-| 书面腔 | 口语化替换 |
-|--------|-----------|
-| 瓦解 | 消失 / 散了 / 没了 |
-| 无名火 | 烦躁 |
-| 往我心上捅刀子 | 心烦意乱 |
+### Parallel triads
+- 3+ consecutive same-structure sentences
+- "No X. No Y. No Z."
+- "Not X. Not Y."
+- "Some X, some Y, some Z"
 
-### 总结句式
-- "他/她终于明白..."
-- "他/她这才意识到..."
-- "这一刻，他/她终于明白/意识到..."
-- "从这一刻开始..."
-- "属于X的反击/复仇/故事，才刚刚开始"
-- "命运/宿命 + 齿轮/棋局/獠牙/改写/安排"
-- "此刻，他/她..."
-- "一切...都..."
-- "原来..."
+### Elevation sentences
+- "In that moment..."
+- "He knew..."
+- "She understood..."
+- "This was..."
 
-### 排比句式
-- 连续3句以上相同结构的排比
-- "有的...有的...有的..."
-- "一边...一边...一边..."
+## Banned template table
 
-### 升华句式
-- "这一刻..."
-- "他知道..."
-- "她明白..."
-- "这就是..."
+| Template | Example | Problem |
+|----------|---------|---------|
+| "It wasn't X. It was Y." | "He wasn't cold. He was desperate." | Most toxic; write Y directly |
+| "couldn't help but X" | "He couldn't help but smile." | Needless hedge |
+| "voice was quiet, but..." | "Her voice was quiet, but it carried authority." | AI's favorite voice move |
+| "a mix of X and Y" | "She felt a mix of anger and relief." | Emotion label instead of behavior |
+| "took a deep breath" | "She took a deep breath and..." | Filler before every action |
+| "heart + raced/sank/lurched" | "His heart raced." | Template reaction |
+| "the kind of X that Y" | "the kind of smile that never reached her eyes" | AI habit construction |
+| "in that moment" | "In that moment, he knew..." | Elevation filler |
+| "a wave of X" | "A wave of relief washed over him." | Emotion as weather |
+| "eyes widened/narrowed/met" | "Her eyes widened in shock." | Face as telegraph |
+| "a beat passed" | "A beat passed before she answered." | Scene filler |
+| "It wasn't just X, it was Y" | "It wasn't just anger. It was fury." | Intensifier contrast |
+| "He felt / She felt" | "She felt a sting of betrayal." | Telling instead of showing |
+| "the silence hung in the air" | "The silence hung in the air like a curtain." | Atmosphere cliche |
+| "she let out a breath she didn't know she'd been holding" | "She let out a breath she hadn't realized she was holding." | Signature AI reflex line |
+| "gaze" stacking | "His gaze swept the room. Her gaze fell." | Fancy-word repetition; use eyes/look or cut |
+| "seemed to X" stacking | "He seemed to hesitate. She seemed to wait." | Hedging every action |
+| "as if to say" | "He nodded, as if to say he understood." | Narrator interpretation; write the nod |
 
-## 禁用句式模板
+## Metaphor classification (review by default, don't delete wholesale)
 
-| 句式 | 示例 | 问题 |
-|------|------|------|
-| "不是A，而是B" | "他不是冷漠，而是绝望" | 最毒；直接写 B |
-| "...，带着..." | "他说，带着一丝无奈" | 万能状语 |
-| "声音不大，却带着……" | "她声音不大，却带着不容置疑的力量" | AI 最爱声音描写 |
-| "仿佛能...一般" | "仿佛能穿透一切一般" | 文言腔 |
-| 对话标签密度过高/公式化标签 | "好的，他说道" | 普通"说"可保留；高频或公式化时处理 |
-| "他/她感到..." | "她感到一丝失落" | 告诉而非展示 |
-| "他/她意识到..." | "他意识到事情不对" | 直接告知 |
-| "眼中闪过一丝XX" | "眼中闪过一丝悲伤" | 模板化 |
-| "嘴角勾起一抹XX" | "嘴角勾起一抹冷笑" | 模板化 |
-| "心中涌起一股XX" | "心中涌起一股暖流" | 模板化 |
-| "取而代之的是" | "笑容消失，取而代之的是冰冷" | AI 过渡模板；直接写新状态 |
-| "淬了/淬着X" | "眼里淬了毒" | AI 通感套路；写动作或台词 |
-| "显得（有些）X" | "他显得有些兴奋" | 告诉而非展示 |
-| "心底/心里某个地方+软" | "心里某个地方软得一塌糊涂" | 言情套句；写动作 |
-| "（浑身）散发着一股X气息/气场" | "浑身散发着一股生人勿近的气息" | 万能气场描写；写旁人的反应 |
-| "命运/宿命 + 齿轮/棋局/獠牙/改写/安排" | "命运终于露出獠牙" / "早已布好的棋局" | 抽象作者总结；改成角色当下撞见的文件、动作、对话、物理后果 |
-| "这一刻终于明白/从这一刻开始/才刚刚开始" | "这一刻，他终于明白" / "反击才刚刚开始" | AI 收束腔；删总结，用动作或未解决问题收尾 |
+A metaphor with "like/as if/as though" is not automatically AI. The real risks are:
+stacking them in sheets, reusing universal literary similes, using a polished
+metaphor to replace plot advancement, or ending paragraphs with an authorial
+meaning-summary. This table identifies metaphors worth reviewing:
 
-## 比喻分类（默认复核，不默认全删）
+| Class | Example | Treatment |
+|-------|---------|-----------|
+| Everyday / character-bound | "like a stray dog that had been kicked" | Keep if it fits the POV and carries information or feeling |
+| Object / phenomenon | "sharp as a blade" "white as the snow driving past" | Functional similes may stay; templated or repeated ones go plain |
+| State (cliche) | "butterflies in her stomach" "like a deer in headlights" "cold as ice" | Cut first, or replace with a concrete action/expression |
+| Abstract | "like the wheels of fate" "like dust from a past life" | High risk; land back on action, objects, sounds, consequences |
+| Hypothetical | "as if he could crush bone" | Keep if it's bodily perception; cut when piled for effect |
 
-带"像/如/仿佛/犹如/宛若"的比喻不是一律 AI。真正高风险的是：成片堆叠、套用万能文学比喻、用精致比喻替代剧情推进，或在段尾替读者总结意义。本表用于识别需要复核的比喻类型：
+Principle: function first, then density. Keep the one or two similes that carry the
+most information or feeling; return the rest to plain description, verbs, nouns,
+effects, results, or facts. Don't swap deleted metaphors for a new batch.
+Example: "white as the snow driving past" is a cliche unless the snow is actively
+pressing on the character — then keep it or show the snow the character actually sees.
 
-| 比喻类别 | 例 | 处理 |
-|---------|----|------|
-| 生活/角色化 | "像一头被抛弃的野狗" | 若贴角色视角、能传递信息或情绪，可保留 |
-| 物品/现象类 | "像一把刀" "脸色惨白得像这漫天的雪" | 普通功能性比喻可留；模板化或重复时改白描 |
-| 状态类（陈词滥调） | "梨花带雨" "如沐春风" | 优先删或改成具体动作/表情 |
-| 抽象类 | "像命运的齿轮" "像上辈子的尘埃" | 高风险，优先落回动作、物件、声音、后果 |
-| 假设类 | "力道大得像是要把骨头捏碎" | 若是角色身体感知可留；夸张堆叠时改事实后果 |
+> `metaphor-density-tic` is advisory: read through and review, not blocking;
+> everyday, character-bound, single functional metaphors may stay.
 
-处理原则：先看功能，再看密度。保留最能传递信息或情绪的一两个，其余改为直接描述、动词、名词、作用、结果或事实；不要把删掉的比喻替换成另一批新比喻。例 "脸色惨白得像这漫天的雪" 若只是套话 → "脸色惨白"；若雪景正在压迫角色，可保留或改成角色当下看到的具体画面。
+## Replacement quick reference
 
-> `metaphor-density-tic` 是 advisory：提示通读复核，不是 blocking；生活化、角色化、单个有功能的比喻可以保留。
+| Original type | Replacement | Example |
+|---------------|-------------|---------|
+| Abstract emotion | Concrete action | "nervous" → "his hands were shaking" |
+| "felt X" | Externalized behavior | "felt angry" → "clenched his fists" |
+| Adjective pile | Plain description | "a radiantly beautiful smile" → "she smiled" |
+| Formal register | Plain speech | "He commenced" → "He started" |
+| Explanatory description | Leave blank | "because he was scared..." → "He stepped back" |
+| Parallel triad | Keep the strongest | 3 sentences → 1 |
+| Summary/elevation sentence | Delete | "In that moment, she finally understood..." → delete |
+| "It wasn't X, it was Y" | Write Y directly | "He wasn't cold. He was desperate." → show desperation |
+| Redundant modifiers | Delete | "a white pill" → "pill"; "a racing car" → "car" |
 
-## 替换策略速查
+**No synonym recycling**: the right column is direction, not a standard answer. When
+a banned phrase hits multiple times in one chapter, give each spot a different
+concretization; if one replacement keeps recurring (every reaction "shrugged", every
+pause "a beat passed"), the fix itself becomes a new template fingerprint.
 
-| 原文类型 | 替换方法 | 示例 |
-|----------|----------|------|
-| 抽象情绪词 | 具体动作 | "紧张" → "手在抖" |
-| "感到XX" | 外化表现 | "感到愤怒" → "攥紧拳头" |
-| 形容词堆砌 | 白描手法 | "美丽动人的笑容" → "她笑了" |
-| 书面表达 | 口语化 | "不容置疑" → "就是" |
-| 解释性描写 | 留白 | "他因为害怕而..." → "他退后一步" |
-| 连续排比 | 保留最强一条 | 3 句排比留 1 句 |
-| 总结升华句 | 直接删除 | "这一刻，她终于明白了..." → 删 |
-| "不是A，而是B" | 直接写 B 或更自然的表达 | "他不是冷漠，而是绝望" → 直接写 B |
-| 多余修饰（形容词/定语/量词/指示代词） | 删 | "白色的药片" → "药片"；"手里那截链子" → "链子"；"飞驰的汽车" → "车" |
-
-**替换不复用**：右列是方向示例，不是标准答案。同一禁用词在一章内多次命中时，各处给不同的具体化写法；同一个替换写法反复出现（每次都「垂下眼」、每个动作都补「了一下」），替换产物本身就成为新的模板指纹。
-
-**套词密度优先处理**：`check-ai-patterns.js` 报 `cliche-density-tic` 时，说明禁用词不是零星误用，而是聚成了模板腔。处理顺序不是同义词替换，而是先删抽象总结，再把情绪/判断落到角色当下可见的动作、物件、对话和具体后果。
+**Density findings first**: when `check-ai-patterns.js` reports `cliche-density-tic`,
+the banned phrases are not stray misuse — they have coalesced into a template voice.
+The order of operations is not synonym substitution: first cut the abstract
+summaries, then land feelings and judgments on actions, objects, dialogue, and
+concrete consequences the character can see right now.

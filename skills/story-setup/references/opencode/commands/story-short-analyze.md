@@ -1,5 +1,5 @@
 ---
-description: 短篇网文拆文。拆解爆款短篇的故事核、结构、情感线和反转设计。
+description: Short-form web-novel teardown. Breaks down a hit short story's core, structure, emotional arc, and reversal design.
 ---
 
-请使用 story-short-analyze skill，帮助我拆解短篇小说。
+Use the story-short-analyze skill to help me tear down a short-form novel.

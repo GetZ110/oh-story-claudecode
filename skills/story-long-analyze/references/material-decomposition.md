@@ -1,502 +1,502 @@
-# 小说素材拆解方法论
+# Novel Material Decomposition Methodology
 
 ---
 
-## 拆解流程 5 阶段
+## The 5-phase decomposition process
 
-### 阶段 1：章节解析
+### Phase 1: Chapter parsing
 
-- 识别章节分隔符（第X章、Chapter X、数字编号等）
-- 提取章节标题，记录每章字数
+- Recognize chapter separators (Chapter X, `###01`, numbered titles, etc.)
+- Extract chapter titles, record each chapter's word count
 
-### 阶段 2：原子提取（并行 Agent 处理每章）
+### Phase 2: Atomic extraction (parallel agents, one per chapter)
 
-并行/降级策略见 SKILL.md「Stage 2 并行 Agent 策略」。
+Parallel/degradation strategy: see "Stage 2 parallel agent strategy" in SKILL.md.
 
-Agent 输出格式严格对齐本阶段 A/B/C 三部分的合并输出，详见 output-templates.md 的 Stage 2 模板。
+Agent output format strictly matches the merged A/B/C/D output of this phase; see the Stage 2 templates in output-templates.md.
 
-#### A. 章节摘要
+#### A. Chapter summary
 
-- 章节概要（100-300 字，按时序连贯讲清事件、原因、结果；写法与自检见 output-templates.md「Stage 2 章节摘要+情节点」）
-- 关键事件（3-5 个，按时间顺序）
-- 出场人物、主题标签、章节基调
-- 剧情推进度（大转折/日常过渡/铺垫伏笔）
+- Chapter summary (100-300 words; coherent chronological narration of events, causes, results; writing rules and self-check in output-templates.md "Stage 2 chapter summary + plot points")
+- Key events (3-5, in time order)
+- Cast of characters, theme tags, chapter tone
+- Plot progress (major turn / daily transition / setup foreshadowing)
 
-#### B. 情节点提取（每章 10-40 个，按字数动态调节）
+#### B. Plot-point extraction (10-40 per chapter, adjusted by word count)
 
-密度公式：字数÷200（下限）到 字数÷150（上限），即 150-200 字/个情节点。当公式计算超出 [10, 40] 范围时，以硬约束为准。
+Density formula: word count ÷ 200 (floor) to word count ÷ 150 (ceiling), i.e. one plot point per 150-200 words. When the formula lands outside [10, 40], the hard bounds win.
 
-| 字数 | 目标范围 | 说明 |
-|------|---------|------|
-| ≤1000 | 10 个 | 短章按硬下限拆足关键步骤（公式建议 5-7，硬下限 10） |
-| 3000 | 15-20 个 | 标准密度 |
-| 5000 | 25-34 个 | 中长章 |
-| 8000+ | ≤40 个 | 长章上限 |
+| Words | Target range | Notes |
+|-------|-------------|-------|
+| ≤1000 | 10 | short chapters split the full key steps by the hard floor (formula suggests 5-7; floor is 10) |
+| 3000 | 15-20 | standard density |
+| 5000 | 25-34 | medium-long chapter |
+| 8000+ | ≤40 | long-chapter cap |
 
-写入章节摘要 .md 的情节点子章节（不单独输出 .json）。每个情节点：
+Written as the plot-point subsection of the chapter summary .md (no separate .json output). Each plot point:
 
-| 字段 | 说明 |
-|------|------|
-| 序号 | 严格时间顺序 |
-| 标题 | ≤15 字短标签，与描述不写成同一句 |
-| 类型 | 转折点/信息揭示/冲突/解决/铺垫/行动/对话/状态变化 |
-| 描述 | 客观白描：谁做了什么、结果如何，原文给出的起因一并写入，埋伏笔的写出伏笔线索（禁止叙事框架词、禁止推测动机） |
-| 原文引用 | 精选，不逐点铺满：只给关键转折 / 关键台词 / 写法样本保留，每章至多 8 条，<=400 字连续切片；过长或分散时改用 `原文定位：{5-15字原句片段}` |
-| 涉及人物 | 全名，不用代词 |
-| 地点 | 地理位置信息 |
-| 关键物品 | 与剧情相关的物品 |
-| 时间标记 | 相对时间（次日、半月后、同时） |
+| Field | Notes |
+|-------|-------|
+| Index | strictly chronological |
+| Title | ≤15-word short label; not the same sentence as the description |
+| Type | turning point/info reveal/conflict/resolution/setup/action/dialogue/state change |
+| Description | objective plain description: who did what, with what result; causes given by the source included; write out foreshadowing clues when planted (no narrative-frame words, no motive speculation) |
+| Source quote | curated, not point-by-point: only key turning points / key lines / craft samples, ≤8 per chapter, ≤400 words contiguous slices; when too long or scattered, use `Source locate: {5-15 word phrase}` instead |
+| Characters involved | full names, no pronouns |
+| Location | geographic info |
+| Key item | items related to the plot |
+| Time marker | relative time (next day, half a month later, at the same time) |
 
-#### C. 关键信息与扩写技法提取
+#### C. Key info and expansion-technique extraction
 
-每章必须额外输出 `关键信息与扩写技法` 表，作为后续 `剧情/节奏.md` 和 `剧情/情绪模块.md` 的基础数据。它避免主观点评，负责把“本章必须传递的剧情信息”与“作者如何把它扩写成可读场景”拆开。
+Each chapter must additionally output the `Key info and expansion techniques` table, the base data for `plot/pacing.md` and `plot/emotional-beats.md`. It avoids subjective commentary by separating "the plot info this chapter must deliver" from "how the author expanded it into a readable scene".
 
-| 字段 | 提取方式 |
-|------|----------|
-| 关键信息/剧情走向 | 从关键事件与情节点中归纳本章必须让读者知道、误判、期待或确认的信息 |
-| 原文如何扩写 | 记录作者用了哪些事件、对话、反应层、细节、误导、回扣把信息扩成场景 |
-| 扩写技法 | 从铺垫后置/反应层放大/信息差/对比锚点/延迟揭示/身体反应/小目标嵌套/其他中选择或补充 |
-| 对读者情绪的作用 | 标注该扩写制造的好奇、期待、压抑、爽、心疼、紧张、甜、热血等效果 |
-| 可复用提醒 | 只抽象情绪逻辑和功能位，明确禁止照搬具体桥段、台词、专名、独特设定 |
+| Field | Extraction method |
+|-------|-------------------|
+| Key info / plot direction | from key events and plot points, generalize what this chapter must make the reader know / misjudge / expect / confirm |
+| How the source expanded it | record which events, dialogue, reaction layers, details, misdirection, callbacks the author used to expand the info into scenes |
+| Expansion technique | choose or supplement from: delayed setup / reaction-layer amplification / information gap / contrast anchor / delayed reveal / body reaction / nested small goals / other |
+| Effect on reader emotion | label the curiosity / anticipation / oppression / gratification / sympathy / tension / warmth / hype etc. the expansion produces |
+| Reusable reminder | abstract the emotional logic and functional slots only; copying specific scenes, lines, proper nouns, or unique settings is explicitly forbidden |
 
-质量要求：每章至少 1 条；标准章节通常 2-5 条。若本章只是过渡，也要说明它维持了什么期待或冷却了什么情绪，而不是写“无”。
+Quality: at least 1 row per chapter; standard chapters usually 2-5. If the chapter is only a transition, say what expectation it sustained or what emotion it cooled — don't write "none".
 
-#### D. 角色提取
+#### D. Character extraction
 
-每个角色提取：外在表现（身份/言行/外貌）、本章功能、别名。
-只记录新出场角色或已有角色的新发展。
+Per character: external presentation (identity/speech-and-deeds/appearance), function in this chapter, aliases.
+Only record newly appearing characters or new developments of existing ones.
 
-**角色重要性分级**（按本章戏份）：
+**Character-importance tiers** (by this chapter's screen time):
 
-| 等级 | 标准 |
-|------|------|
-| **major** | 本章核心：台词 ≥3 句 OR 推动本章主线 OR 有重要决策 |
-| **supporting** | 本章配角：台词 1-2 句 OR 参与互动但非核心 |
-| **minor** | 本章次要：仅被提及 OR 无台词但有名字 |
+| Tier | Criterion |
+|------|-----------|
+| **major** | chapter core: ≥3 lines OR drives this chapter's main line OR makes an important decision |
+| **supporting** | chapter secondary: 1-2 lines OR participates but isn't core |
+| **minor** | mentioned only OR no lines but named |
 
-### 阶段 3：聚合分析（跨章节）
+### Phase 3: Aggregation analysis (cross-chapter)
 
-> **语料读取**：本阶段及阶段 4a/4c、散落情节兜底里的「全部章节摘要 / 全部情节点」统一从 `_章节摘要汇总.md`（Stage 2 收尾按章号无损拼接的全书摘要，见 SKILL.md「Stage 2 收尾：合并章节摘要」）**一次性读取、在上下文中复用**，不逐文件 glob 重扫——同一份语料的 4-5 次冷读降为 1 次。汇总文件缺失或语料超上下文时，回退原「扫描全部章节摘要」逐文件方式 / 分块策略，行为不变。
+> **Corpus reading**: this phase and phase 4a/4c and the loose-thread safety net read "all chapter summaries / all plot points" **once from `_merged-summaries.md`** (the whole-book concatenation produced at the Stage 2 wrap-up, see SKILL.md "Stage 2 wrap-up: merging chapter summaries") **and reuse it in context** — no per-file glob rescanning; 4-5 cold reads of the same corpus become 1. If the merged file is missing or the corpus exceeds context, fall back to the original "scan all chapter summaries" per-file method / chunking strategy — behavior unchanged.
 
-#### 0. 故事框架识别（聚合前置）
+#### 0. Story-framework recognition (aggregation prerequisite)
 
-在剧情聚合之前，先识别全书的故事框架。框架决定聚合策略：
+Before aggregating plots, recognize the whole book's story framework. The framework decides the aggregation strategy:
 
-| 框架类型 | 特征 | 聚合策略 |
-|----------|------|----------|
-| 升级流 | 等级体系清晰，按境界分段 | 按等级阶段划分剧情单元 |
-| 复仇线 | 核心矛盾明确，目标驱动 | 按复仇对象/阶段划分 |
-| 日常/单元 | 每卷独立故事，弱连续性 | 按卷/单元划分 |
-| 多线交织 | 多视角/多时间线 | 按线索划分，交叉点单独标记 |
-| 蜕变成长 | 主角内在变化为主线 | 按成长阶段划分 |
+| Framework type | Traits | Aggregation strategy |
+|----------------|--------|----------------------|
+| Escalation flow | clear tier system, segmented by realm | divide story units by tier/realm stage |
+| Revenge line | clear core contradiction, goal-driven | divide by revenge target/stage |
+| Daily/unit | each volume a self-contained story, weak continuity | divide by volume/unit |
+| Multi-line interweaving | multi-POV / multi-timeline | divide by thread; mark intersections separately |
+| Transformation growth | protagonist's inner change is the main line | divide by growth stage |
 
-识别方法：扫描概要.md（Stage 0 thin first-pass 足够，无需等 Stage 5 全书概要）+ 前3章摘要 + 后3章摘要，判断核心驱动模式。
-输出写入 `剧情/故事线.md` 的框架识别部分。
+Recognition method: scan `overview.md` (the Stage 0 thin first-pass suffices; no need to wait for the Stage 5 whole-book overview) + the first 3 chapter summaries + the last 3 chapter summaries to judge the core driving pattern.
+Output written into the framework-recognition section of `plot/storylines.md`.
 
-**预期剧情数量引导**（强制参考，非建议）：
+**Expected story-count guide** (mandatory reference, not a suggestion):
 
-| 总章数 | 预期独立剧情数 | 依据 |
-|--------|--------------|------|
-| <30 章 | 3-6 个 | 短篇结构紧凑 |
-| 30-100 章 | 5-15 个 | 每条剧情 5-20 章 |
-| 100-300 章 | 10-25 个 | 含主线+支线+补充 |
-| >300 章 | 15-40 个 | 多卷多线结构 |
+| Total chapters | Expected independent plots | Basis |
+|----------------|---------------------------|-------|
+| <30 chapters | 3-6 | short-form, compact structure |
+| 30-100 chapters | 5-15 | each plot spans 5-20 chapters |
+| 100-300 chapters | 10-25 | main line + sublines + supplements |
+| >300 chapters | 15-40 | multi-volume multi-line structure |
 
-偏差超过 ±30% 需重新检查粒度。首要原则：保证核心戏剧目标叙事弧的完整性。
-
-**粒度层级混乱检测**（框架识别后自检）：
-
-| 混乱模式 | 检测方法 | 修正方式 |
-|---------|---------|---------|
-| 包含关系 | 剧情A 章节范围完全包含剧情B | 保留粒度适中的B，拆分过粗的A |
-| 重叠率 >50% | 两剧情共享章节超过一半 | 检查是否混淆「剧情」和「剧情阶段」 |
-| 剧情仅为另一剧情的开端/结尾 | 剧情A 只占剧情B 的首/尾几章 | 合并为同一剧情，B 的阶段 |
-| 剧情无独立目标 | 目标描述是另一剧情的子目标 | 降级为该剧情的阶段 |
-
-**框架识别后自检**（聚合前必须通过）：
-1. 覆盖率检查：所有剧情覆盖的章节数（去重）是否达到 85% 以上
-2. 粒度检查：是否存在过细（单一事件）或过粗（宏观主题）的剧情，执行粒度层级混乱检测
-3. 独立性检查：每条剧情是否满足 4 项独立性标准
-4. 数量检查：剧情总数是否在预期范围内
-
-#### A. 剧情聚合（两步法）
-
-将剧情聚合拆为两步：先从摘要识别剧情大纲，再按大纲分配情节点。
-
-**第一步：剧情大纲识别（从章节摘要）**
-
-扫描全部章节摘要，识别每条独立剧情的大纲。每条大纲包含：
-
-| 字段 | 说明 |
-|------|------|
-| 标题 | 简洁有力，15字以内 |
-| 概要 | 150-300字，按时序连贯叙述因果，不靠同一连接词反复串联；含核心角色、关键地点、事件发展 |
-| 核心目标 | 具体、可衡量的戏剧目标 |
-| 核心冲突 | 具体冲突对象+冲突事件 |
-| 类型 | 主线/爱情/成长/复仇/寻宝/悬疑/战斗/权谋/修炼/危机/谜团/日常/其他 |
-| 主题 | 不超过3个 |
-| 章节范围 | 起止章节号 |
-
-识别完成后执行框架识别自检（4项检查）。
+A deviation beyond ±30% requires re-checking granularity. First principle: keep the complete narrative arc of the core dramatic goal.
+
+**Granularity-tier mess detection** (self-check after framework recognition):
+
+| Mess pattern | Detection | Fix |
+|--------------|-----------|-----|
+| Containment | plot A's chapter range fully contains plot B | keep the appropriately-sized B; split the too-coarse A |
+| Overlap >50% | two plots share over half their chapters | check whether "plot" and "plot stage" got confused |
+| Plot is only another plot's opening/ending | plot A covers only the first/last few chapters of plot B | merge into one plot, B's stages |
+| Plot has no independent goal | goal description is another plot's subgoal | demote to that plot's stage |
+
+**Post-recognition self-check** (must pass before aggregation):
+1. Coverage: do all plots' covered chapters (deduped) reach ≥85%?
+2. Granularity: any too-fine (single event) or too-coarse (macro theme) plots? Run the granularity-tier mess detection
+3. Independence: does every plot meet the 4 independence criteria?
+4. Count: is the total plot count within the expected range?
+
+#### A. Plot aggregation (two-step)
+
+Split aggregation into two steps: first identify the plot outline from the summaries, then assign plot points by that outline.
+
+**Step one: plot-outline recognition (from chapter summaries)**
+
+Scan all chapter summaries and recognize each independent plot's outline. Each outline includes:
+
+| Field | Notes |
+|-------|-------|
+| Title | concise and strong, ≤15 words |
+| Summary | 150-300 words; coherent chronological causality, not chained by one connector; includes core characters, key locations, event development |
+| Core goal | concrete, measurable dramatic goal |
+| Core conflict | specific conflict target + conflict event |
+| Type | main line/romance/growth/revenge/treasure-hunting/mystery/combat/scheming/cultivation/crisis/enigma/daily/other |
+| Themes | at most 3 |
+| Chapter range | start/end chapter numbers |
+
+After recognition, run the framework-recognition self-check (4 items).
 
-**第二步：情节点分配（按剧情大纲）**
+**Step two: plot-point assignment (by plot outline)**
 
-对每条剧情大纲，扫描全部情节点，将直接服务该目标的节点分配进来。
+For each plot outline, scan all plot points and assign the nodes directly serving that goal.
 
-**分配执行逻辑**（4 步）：
-1. **主题溯源与节点收集**：针对每条剧情大纲的核心目标，扫描全部情节点，将直接服务、推动或阻碍该目标的事件节点挑出
-2. **边界识别**：识别剧情的起点（触发事件/前置条件）和终点（完成/失败标志），以及连接两者的关键过渡节点
-3. **索引构建与验证**：将筛选出的情节点按时间顺序排列，验证覆盖完整性
-4. **画像数据补充**：基于最终节点集合，补充完善概要、结构分布等字段
+**Assignment logic** (4 steps):
+1. **Theme trace and node collection**: for each outline's core goal, scan all plot points and pick the event nodes that directly serve, advance, or block that goal
+2. **Boundary recognition**: recognize the plot's start (triggering event / precondition) and end (completion/failure markers), plus the key transition nodes connecting them
+3. **Index building and validation**: order the selected plot points chronologically and validate coverage completeness
+4. **Profile data supplementation**: based on the final node set, complete fields like the summary and structure distribution
 
-**情节点筛选标准**（判定归属时使用）：
-- **主题相关**：情节点内容与剧情概要、主题一致
-- **角色匹配**：情节点涉及的角色与剧情核心角色相关
-- **因果关系**：情节点与剧情发展有因果或逻辑延续
-- **目标导向**：情节点推动或阻碍剧情目标实现
-- **章节范围**：优先选择剧情章节范围内的情节点
+**Plot-point selection criteria** (for judging membership):
+- **Theme-related**: point content matches the plot summary and themes
+- **Character match**: characters involved relate to the plot's core characters
+- **Causality**: the point has a causal or logical continuation with the plot's development
+- **Goal-directed**: the point advances or blocks the plot goal
+- **Chapter range**: prioritize points within the plot's chapter range
 
-**剧情粒度标准（核心要求）**：
+**Plot granularity standard (core requirement)**:
 
-| 粒度 | 示例 | 问题 |
-|------|------|------|
-| 过细（单一事件） | "获得神器"（1-2章）、"首次修炼"（第3章） | 这些是事件，不是独立剧情 |
-| 过粗（宏观主题） | "主角的成长之路"（1-100章） | 这是主题，不是具体剧情 |
-| **合适** | "家族觉醒与传承认知"（1-6章）、"神器获得与导师相遇"（7-13章） | 有独立目标、冲突、角色群和完整叙事弧 |
+| Granularity | Example | Problem |
+|-------------|---------|---------|
+| Too fine (single event) | "got the divine artifact" (1-2 chapters), "first cultivation" (Chapter 3) | events, not independent plots |
+| Too coarse (macro theme) | "the protagonist's path of growth" (Chapters 1-100) | a theme, not a concrete plot |
+| **Right-sized** | "family awakening and inheritance recognition" (Chapters 1-6), "artifact acquisition and meeting the mentor" (Chapters 7-13) | has an independent goal, conflict, character set, and complete narrative arc |
 
-**剧情独立性判断标准**（必须同时满足）：
-1. **独立的核心目标**：有明确的、可衡量的戏剧目标（不是宏观主题或抽象概念）
-2. **独立的主要冲突**：有具体的对抗力量和冲突事件（不是某个大冲突的子阶段）
-3. **相对独立的角色群**：有该剧情特有的核心角色（可以与其他剧情共享部分角色）
-4. **独立的叙事节奏**：有自己的紧张-缓和节奏
+**Plot-independence criteria** (all must hold):
+1. **Independent core goal**: a clear, measurable dramatic goal (not a macro theme or abstract concept)
+2. **Independent primary conflict**: a concrete opposing force and conflict event (not a sub-stage of a bigger conflict)
+3. **Relatively independent character set**: characters specific to this plot (may share some characters with other plots)
+4. **Independent narrative rhythm**: its own tension-release rhythm
 
-**三层覆盖策略**：
-1. **主线剧情**（优先级最高）：推动整体故事发展，通常占 60-70% 章节
-2. **支线剧情**：感情线、成长线、战斗线等，通常占 20-30% 章节
-3. **补充剧情**：过渡剧情、日常剧情，确保覆盖率 ≥85%
+**Three-tier coverage strategy**:
+1. **Main-line plots** (highest priority): drive the overall story, usually 60-70% of chapters
+2. **Subline plots**: romance, growth, combat lines, usually 20-30% of chapters
+3. **Supplement plots**: transition and daily plots, ensuring coverage ≥85%
 
-**剧情类型**：
-- 主线（推动整体故事发展的核心剧情）
-- 爱情（感情关系发展）
-- 成长（角色能力/心智/地位提升）
-- 复仇（复仇相关）
-- 寻宝（争夺物品或目标）
-- 悬疑（推理、真相揭露）
-- 战斗（战争、比武、对决）
-- 权谋（政治斗争、权力争夺）
-- 修炼（修炼、突破、传承）
-- 危机（危机应对、解救、逃脱）
-- 谜团（世界观未解之谜、身世秘密、隐藏真相）
-- 日常（日常生活、过渡性内容）
-- 其他（无法归入以上类型）
+**Plot types**:
+- Main line (core plot driving the overall story)
+- Romance (relationship development)
+- Growth (capability/mind/status rises)
+- Revenge (revenge-related)
+- Treasure-hunting (contending over an item or goal)
+- Mystery (deduction, truth reveal)
+- Combat (war, tournament, duel)
+- Scheming (political struggle, power contention)
+- Cultivation (training, breakthrough, inheritance)
+- Crisis (crisis response, rescue, escape)
+- Enigma (worldview unsolved mysteries, identity secrets, hidden truths)
+- Daily (everyday life, transitional content)
+- Other (nothing above fits)
 
-每条剧情提取：标题、概要（150-300字，按时序连贯叙述因果）、核心目标、核心冲突、类型、章节范围。
-标记结构分布：铺垫期/发展期/高潮期/收尾期 各包含哪些章节。
+Each plot extracts: title, summary (150-300 words, coherent chronological causality), core goal, core conflict, type, chapter range.
+Mark the structure distribution: which chapters belong to setup/development/climax/wrap-up periods.
 
-**核心目标类型参考**：
-- 获得型："赢得大比冠军""获得关键道具/传承""攻占要塞"
-- 解决型："解除家族危机""偿还巨额债务""摆脱追杀"
-- 创造型："创立新宗门""研发新招式""开创一个流派"
-- 探索型："调查父母失踪真相""探索上古遗迹""揭露阴谋"
+**Core-goal type reference**:
+- Acquire: "win the tournament championship", "obtain the key artifact/inheritance", "take the fortress"
+- Resolve: "lift the family crisis", "repay the huge debt", "escape the pursuit"
+- Create: "found a new sect", "develop a new technique", "start a school"
+- Explore: "investigate the parents' disappearance", "explore the ancient ruins", "expose the conspiracy"
 
-#### B. 故事线提取
+#### B. Storyline extraction
 
-将多条剧情聚合为「故事线」：标题、描述（300-600字发展阶段划分）、主要人物、主题关键词、包含的剧情列表（至少1个剧情）。
+Aggregate multiple plots into a "storyline": title, description (300-600 words with development phases), main characters, theme keywords, contained-plot list (at least 1 plot).
 
-**故事线类型**：主线/感情线/成长线/复仇线/夺宝线/冲突线/谜团线/其他
+**Storyline types**: main line / romance line / growth line / revenge line / treasure line / conflict line / enigma line / other
 
-**故事线描述要求**：
-- 划分 3-8 个发展阶段（periodization），寻找关键转折点或里程碑事件作为阶段边界
-- 每个阶段含：核心冲突、关键角色及作用、能力/资源/地位演进、主题母题
-- 独立追踪伏笔与回收关系链（前后呼应的伏笔-回收对）
-- 标注与其他故事线的交织关系（并行/交织/依赖）
-- 包含剧情按时序排列，每条故事线至少包含1个剧情
+**Storyline description requirements**:
+- Divide into 3-8 development phases (periodization); find key turning points or milestone events as phase boundaries
+- Each phase includes: core conflict, key characters and their roles, capability/resource/status evolution, thematic motifs
+- Independently track the foreshadowing plant-and-recovery chain (foreshadowing-recovery pairs that echo each other)
+- Note interweaving with other storylines (parallel / interwoven / dependent)
+- Contained plots in chronological order; each storyline contains at least 1 plot
 
-#### C. 节奏索引与情绪模块生成
+#### C. Pacing index and emotional-module generation
 
-Stage 3 聚合后必须生成两个权威产物，供 Stage 5 报告摘要和 `story-long-write` 直接读取：
-
-1. **`剧情/节奏.md`（节奏权威）**
-   - 输入：全部章节摘要的情节点、`关键信息与扩写技法` 表、剧情大纲、故事线。
-   - 输出：关键信息推进表、爽点循环索引、情绪触动点索引、爆发节奏总结。
-   - 生成法：按章节顺序扫描关键事件与关键信息，标出“信息进入读者视野 → 被延迟/误导/验证 → 情绪爆发 → 余波/新钩子”的链条。
-   - 校验：每条爽点/触动点必须能回指章节或情节点；每个长间隔（连续 3 章以上无触动点）必须说明作者如何用小钩子或信息推进维持期待。
+After Stage 3 aggregation, two authoritative artifacts must be generated, read directly by the Stage 5 report summary and `story-long-write`:
+
+1. **`plot/pacing.md` (pacing authority)**
+   - Input: plot points of all chapter summaries, the `Key info and expansion techniques` tables, plot outlines, storylines
+   - Output: key-info progression table, payoff-cycle index, emotional-touchpoint index, burst-rhythm summary
+   - Method: scan key events and key info in chapter order, marking the chain "info enters the reader's view → delayed/misdirected/validated → emotional eruption → aftershock/new hook"
+   - Validation: every payoff/touchpoint must point back to a chapter or plot point; every long gap (3+ consecutive chapters without a touchpoint) must explain how the author sustains anticipation with small hooks or info progression
 
-2. **`剧情/情绪模块.md`（模块权威）**
-   - 输入：故事框架识别、剧情单元、`剧情/节奏.md`、读者需求判断、桥段标签。
-   - 输出：读者需求 / 情绪引擎、故事框架与套路运行图、可复现模块卡、重组与复现指南。
-   - 生成法：先抽象“读者想看什么”，再把具体剧情抽成情绪链和功能位；模块卡必须包含可替换项和不可照搬项。
-   - 校验：best-effort 为模块标注来源（关联 `剧情/节奏.md` 的 RH/TR 条目或章节情节点），无把握时留空、不硬凑、不删模块；禁止把原文专名、独特事件顺序、标志性台词写成可复用模板。
+2. **`plot/emotional-beats.md` (module authority)**
+   - Input: story-framework recognition, story units, `plot/pacing.md`, reader-need judgments, trope tags
+   - Output: reader needs / emotional engine, story framework and trope-operation map, reproducible module cards, reassembly and reproduction guide
+   - Method: first abstract "what the reader wants to see", then abstract concrete plots into emotional chains and functional slots; module cards must include replaceable items and do-not-copy items
+   - Validation: best-effort module source labeling (relate to RH/TR entries in `plot/pacing.md` or chapter plot points); when unsure, leave blank, don't force, don't delete modules; copying the source's proper nouns, unique event orders, or signature lines into reusable templates is forbidden
 
-**权威关系**：`剧情/节奏.md` 管节奏/触动点，`剧情/情绪模块.md` 管读者需求/模块复现。`拆文报告.md` 与 `剧情/故事线.md` 只能摘要或引用这两个文件，不能成为并列权威。
+**Authority relationships**: `plot/pacing.md` owns rhythm/touchpoints; `plot/emotional-beats.md` owns reader needs/module reproduction. `teardown-report.md` and `plot/storylines.md` may only summarize or reference these two files — they can't be co-authorities.
 
-#### D. 小说概要生成（在 Stage 5 落盘，覆盖 Stage 0 thin first-pass）
+#### D. Whole-book overview generation (written at Stage 5, overwriting the Stage 0 thin first-pass)
 
-整体故事框架识别 + 500-1000字高密度全书概要（涵盖主要剧情线阶段性发展、核心人物作用、关键转折点、因果关系）。
+Whole-story-framework recognition + 500-1000-word dense whole-book overview (covering the main plot lines' phased development, core character functions, key turning points, causality).
 
-> **落盘时机**：聚合阶段（Material 阶段 3 ≈ pipeline Stage 3）产出概要文本，但**写入 `概要.md` 的动作放在 pipeline Stage 5 汇总报告**——届时 Stage 3 / 4 全部完成、信息最完整。Stage 5 覆盖 Stage 0 的 thin first-pass 段，章节索引和卷段表保留。
+> **On-disk timing**: the aggregation phase (Material phase 3 ≈ pipeline Stage 3) produces the overview text, but the actual **write into `overview.md` happens at pipeline Stage 5** (the final report) — by then Stages 3/4 are all done and information is most complete. Stage 5 overwrites the Stage 0 thin first-pass section; the chapter index and volume/part table stay.
 
-### 阶段 4：世界观与设定提取
+### Phase 4: Worldview and setting extraction
 
-Stage 2 的角色轻量提及数据在此阶段升级为完整档案。
+Stage 2's lightweight character mentions are upgraded into full files here.
 
-#### 角色两阶段模型
+#### The two-stage character model
 
-**阶段 A：轻量提及（Stage 2 输出）**
-- 每个 agent 返回出场人物表（姓名/重要性/别名/本章表现）
-- 不做跨章分析，只记录本章可见信息
+**Stage A: lightweight mentions (Stage 2 output)**
+- Each agent returns a cast table (name/importance/aliases/performance this chapter)
+- No cross-chapter analysis; only record what's visible in this chapter
 
-**阶段 B：完整档案（Stage 4 构建）**
-- 合并所有章节的角色提及数据
-- 跨章节别名解析
-- 构建完整角色档案
+**Stage B: full files (Stage 4 build)**
+- Merge all chapters' character-mention data
+- Cross-chapter alias resolution
+- Build full character files
 
-#### 一人一实体原则
+#### One-person-one-entity principle
 
-- **绝对禁止**将不同人物的信息合并到同一个实体中
-- 每个角色实体必须对应唯一的一个人物
-- 如果无法确定两个称呼是否指向同一人物，必须分开创建实体
+- **Absolutely forbidden** to merge different people's info into one entity
+- Each character entity must correspond to exactly one person
+- If you can't determine whether two appellations refer to the same person, create separate entities
 
-#### 别名解析规则
+#### Alias resolution rules
 
-**别名类型**：
+**Alias types**:
 
-| 类型 | 定义 | 可合并 | 示例 |
-|------|------|--------|------|
-| proper_name | 专名/全名/常用名 | 是 | "希尔曼""林雷·巴鲁克" |
-| nickname | 绰号/外号，须有同指证据 | 是（置信度≥0.85） | "龙血战士林雷" |
-| descriptor | 描述性称谓 | 否 | "红发壮汉""随从""队长" |
-| title | 头衔/职务 | 否 | "护卫队长""家主""族长" |
+| Type | Definition | Mergeable | Example |
+|------|------------|-----------|---------|
+| proper_name | proper/full/common name | yes | "Hillman", "Lin Lei Baruch" |
+| nickname | moniker/epithet, needs same-reference evidence | yes (confidence ≥0.85) | "dragon-blood warrior Lin Lei" |
+| descriptor | descriptive appellation | no | "red-haired brute", "attendant", "captain" |
+| title | honorific/position | no | "guard captain", "family head", "clan chief" |
 
-**合并约束**：
-- 仅 proper_name 和 nickname（置信度 ≥0.85）可用于合并
-- descriptor 和 title **永不**触发实体合并
-- nickname 须提供同指证据：同位说明、括号别名、上下文指代、明确改名
+**Merge constraints**:
+- Only proper_name and nickname (confidence ≥0.85) can trigger merges
+- descriptor and title **never** trigger entity merges
+- nickname must provide same-reference evidence: apposition, parenthetical alias, contextual reference, explicit rename
 
-**Archetype 量化判断**：
+**Archetype quantitative judgment**:
 
-| 类型 | 标准 |
-|------|------|
-| **主角** | 出现章节 ≥50% 总章节 + 推动主线 + 有完整成长轨迹 |
-| **反派** | 与主角对立 + 推动核心冲突 + 有明确动机 |
-| **核心配角** | 出现章节 ≥20% OR 推动重要支线 OR 有独立人格和成长 |
-| **功能角色** | 出现章节 <20% + 作用有限（提供信息/道具/一次性互动） |
+| Type | Criterion |
+|------|-----------|
+| **protagonist** | appears in ≥50% of chapters + drives the main line + has a full growth arc |
+| **antagonist** | opposes the protagonist + drives the core conflict + has a clear motive |
+| **core supporting** | appears in ≥20% of chapters OR drives an important subline OR has an independent personality and growth |
+| **functional** | appears in <20% of chapters + limited function (info/props/one-off interactions) |
 
-**特殊**：前期 minor 后期 supporting → 判为 supporting。重要导师/伙伴即使出现少也可判为 supporting。
+**Special**: early minor → later supporting counts as supporting. Important mentors/companions count as supporting even with few appearances.
 
-**角色档案结构**（200-500字）：
-1. 身份背景（1-2句）
-2. 核心经历（3-5句，按时序）
-3. 性格特质（1-2句，从行为归纳）
-4. 能力特长（1-2句）
-5. 人际关系（1-2句）
-6. 成长轨迹（如有，1句）
+**Character-file structure** (200-500 words):
+1. Identity background (1-2 sentences)
+2. Core experiences (3-5 sentences, chronological)
+3. Personality traits (1-2 sentences, generalized from behavior)
+4. Abilities/skills (1-2 sentences)
+5. Relationships (1-2 sentences)
+6. Growth trajectory (if any, 1 sentence)
 
-#### 金手指合并规则
+#### Cheat merge rules
 
-- 相互关联、共同作用的元素**合并为一个**（如"戒指+导师灵魂"是一个整体）
-- 同一事物的不同描述角度**不拆分**
-- 只有完全独立、互不依赖的能力来源才拆分为多个
-- 长篇特点：金手指可能复杂多样，需详尽描述演化过程和多重能力
-- 无金手指时注明
+- Elements that interact and work together **merge into one** (e.g., "ring + mentor soul" is one whole)
+- Different descriptive angles of the same thing **don't split**
+- Only fully independent, mutually non-dependent capability sources split into multiple
+- Long-form trait: the cheat can be complex and multi-faceted — describe its evolution history and multi-capability development in detail
+- Note it explicitly when there is no cheat
 
-**金手指类型**：system（系统）/ space（空间）/ rebirth（重生）/ transmigration（穿越）/ special_physique（特殊体质）/ artifact（神器）/ bloodline（血脉）/ other（其他）
+**Cheat types**: system / space / rebirth / transmigration / special_physique / artifact / bloodline / other
 
-#### 世界观（按主题拆分到多个文件）
+#### Worldview (split into multiple files by topic)
 
-字段与落盘位置：
+Fields and landing files:
 
-| 字段 | 说明 | 落盘文件 |
-|------|------|----------|
-| 类型 | 奇幻/现实/平行世界 | 各文件 frontmatter 或开头注明 |
-| 力量体系 | 名称、等级、晋升方式（文本描述） | `设定/世界观/力量体系.md`（>=200字独立，否则并入 背景设定） |
-| 地理 | 分布、主要区域、关键地点（文本描述） | `设定/世界观/地理.md`（同上，>=200字独立） |
-| 势力 | 门派/组织/家族/国家 | **每个势力一个文件** `设定/势力/{势力名}.md`（>=200字独立；不足合并到 `设定/世界观/背景设定.md`） |
-| 核心规则 | 世界运转的基本规则 | `设定/世界观/背景设定.md` |
-| 特殊设定 | 区别于现实的独特设定 | `设定/世界观/背景设定.md`（与核心规则同文件） |
-| 金手指 | 见上方「金手指合并规则」 | `设定/世界观/金手指.md`（统一在 `设定/世界观/` 子目录下，不放扁平 `设定/金手指.md`） |
+| Field | Notes | Landing file |
+|-------|-------|--------------|
+| Type | fantasy / reality / parallel world | noted in each file's frontmatter or opening |
+| Power system | name, ranks, promotion method (text) | `setting/worldview/power-system.md` (standalone ≥200 words, else merged into background) |
+| Geography | distribution, main regions, key locations (text) | `setting/worldview/geography.md` (same, standalone ≥200 words) |
+| Factions | sects/organizations/families/nations | **one file per faction** `setting/factions/{Faction Name}.md` (standalone ≥200 words; else merged into `setting/worldview/background.md`) |
+| Core rules | the basic rules the world runs on | `setting/worldview/background.md` |
+| Special settings | unique settings differing from reality | `setting/worldview/background.md` (same file as core rules) |
+| Cheat | see "cheat merge rules" above | `setting/cheat.md` |
 
-> 模板与示例见 [output-templates.md](output-templates.md) 「Stage 4 设定+关系」节。下游导入只原样同步当前主题文件，不再现场拆分扁平文件。
+> Templates and examples in the "Stage 4 setting + relationships" section of [output-templates.md](output-templates.md). Downstream imports sync these topic files as-is; no on-the-fly splitting of flat files.
 
-### 阶段 5：人物关系提取
+### Phase 5: Relationship extraction
 
-每对关系：
+Per pair:
 
-| 字段 | 说明 |
-|------|------|
-| 角色A | 全名 |
-| 角色B | 全名 |
-| 关系类型 | 家人/师徒/朋友/敌人/恋人/同事/上下级/商业/其他 |
-| 情感倾向 | 正面/负面/中性/复杂 |
-| 描述 | 关系本质+建立过程+关键互动（50-200字） |
+| Field | Notes |
+|-------|-------|
+| Character A | full name |
+| Character B | full name |
+| Relationship type | family/mentor-student/friends/enemies/lovers/colleagues/superior-subordinate/business/other |
+| Emotional valence | positive/negative/neutral/complex |
+| Description | relationship essence + how it formed + key interactions (50-200 words) |
 
-#### 关系提取策略
+#### Relationship-extraction strategy
 
-**数据源**：从已提取的情节点描述中提取关系（不从原文提取），更高效、更聚焦。
+**Data source**: extract relationships from the already-extracted plot-point descriptions (not from the source) — more efficient and more focused.
 
-**批量提取**：每 5 章批量提取一次，只记录新关系或关系变化。
+**Batched extraction**: extract every 5 chapters; only record new relationships or relationship changes.
 
-**关系演变追踪**：当同一对角色关系发生变化时，记录演变轨迹：
+**Evolution tracking**: when a pair's relationship changes, record the trajectory:
 ```
-第{N}章：{关系状态A} → 第{M}章：{关系状态B}
-触发事件：{具体事件}
-情感转变：{正面→负面/负面→正面/中立→复杂 等}
+Chapter {N}: {relationship state A} → Chapter {M}: {relationship state B}
+Triggering event: {specific event}
+Emotional shift: {positive→negative / negative→positive / neutral→complex, etc.}
 ```
 
-**最终状态合并**：同一对角色的多阶段关系，保留最新状态作为主记录，历史变化写入演变轨迹。避免同一对出现多条重复关系。
+**Final-state merge**: for multi-stage relationships of the same pair, keep the latest state as the main record; historical changes go into the evolution trajectory. Avoid duplicate relationship entries for the same pair.
 
-**隐含关系推断**：当角色间没有直接互动但有间接证据时：
-- 通过第三方的评价/描述推断（置信度标 0.7）
-- 通过共同出现的频率和场合推断（置信度标 0.6）
-- 推断关系标记 `[推断]`，与直接证据关系区分
+**Implied-relationship inference**: when two characters have no direct interaction but indirect evidence exists:
+- Infer from a third party's evaluation/description (confidence 0.7)
+- Infer from co-appearance frequency and occasions (confidence 0.6)
+- Inferred relationships are marked `[inferred]`, distinguished from directly-evidenced ones
 
-**关系网络密度**：
-- 统计主要角色（主角+核心配角）的关系数量
-- 关系数 < 3 → 关系网偏薄，检查是否有遗漏
-- 关系数 > 10 → 关系网过密，检查是否有误合并
-
----
-
-## 原子提取六大铁律
-
-1. **绝对时序**：严格按事件发生的时间顺序排列
-2. **客观白描**：记录"发生了什么"和结果，原文明说的起因照写，不推测未写出的动机，不用叙事框架词
-3. **信息保真**：不遗漏改变语境的关键细节
-4. **高度浓缩**：一个情节点一句话概括
-5. **复合合并**：为同一戏剧目的服务的连续微动作合并为一个情节点
-6. **客观事实**：提取客观事实，不做叙事分析
-
-**客观白描 vs 叙事框架词**：
-- 禁止：「通过对话，郑松得知张子豪在韩国训练」
-- 正确：「吴志斌告诉郑松，张子豪在韩国训练」
-- 禁止：「林风展现了自己的实力」
-- 正确：「林风三招击败对手，围观者倒吸一口凉气」
-- 禁止：「邵阳感到心碎和愤怒」
-- 正确：「邵阳目睹宋丽与人拥抱，表情由刺痛转为冷漠」
+**Relationship-network density**:
+- Count the main characters' (protagonist + core supporting) relationship counts
+- <3 relationships → the network is thin; check for misses
+- >10 relationships → the network is too dense; check for wrong merges
 
 ---
 
-## 合成阶段事实保真（阶段 3-5：剧情/设定/角色/报告）
+## The six iron rules of atomic extraction
 
-阶段 3-5 从章节摘要二次合成，离原文已两跳，最易把「摘要没说的」用合理推断补成「看似坐实的事实」——这是拆文事实错误的最大来源（典型：给「双系魔法师」凭空补第二系、把坐骑等级安到骑手头上、给原文没给的字段编一个数值、把出场区间填成连续跨度含没出场的章）。强模型也照样漂移，因为越远离原文，模型越靠世界知识与"合理性"填空。三条硬约束：
+1. **Absolute chronology**: strictly ordered by event time
+2. **Objective plain description**: record "what happened" and the result; causes the source states are written as-is; don't speculate unwritten motives; no narrative-frame words
+3. **Information fidelity**: don't drop key details that change the context
+4. **High compression**: one sentence per plot point
+5. **Composite merging**: consecutive micro-actions serving the same dramatic purpose merge into one plot point
+6. **Objective facts**: extract objective facts; no narrative analysis
 
-1. **硬事实必须可溯源**：力量等级、数值、距离、属性、势力数量、谁对谁说了什么、角色出场章节——这类硬事实写进设定/角色/报告前，回原文核对（摘要不足就直接读原文）；核到才写。
-2. **缺失写「原文未明确」，禁编造填空**：原文没给的字段，写「原文未明确/节选未涉及」，绝不用近义项、别处的范例或惯例补一个看似合理的值。
-3. **跨指代不串**：相邻实体的属性不互相挪用——坐骑等级≠骑手等级、A 的台词≠B 的台词、本章统计数字≠相邻章数字。
-
-落盘后做一次**事实可溯源自检**：抽查设定/角色/报告里的硬事实，逐条能否 grep 回原文；命中即过，命中不到的改写为「原文未明确」或删除，不保留无源断言。此自检独立于下方三个比率——比率查归类质量，它查事实真伪。
-
----
-
-目录结构见 SKILL.md「输出目录结构」。
-
----
-
-## 质量阈值体系
-
-阶段 3 和阶段 4 完成后自检：
-
-| 指标 | 阈值 | 计算 | 不达标处理 |
-|------|------|------|------------|
-| 置信度 | >= 0.85 | 有明确归属的情节点 / 剧情单元内情节点总数 | 低于 0.85 标记「待复核」 |
-| 覆盖率 | 85%-95% | 已归类情节点 / 总情节点数 | <85% 触发孤立情节二次分类；>95% 复核边界 |
-| 关键信息覆盖 | >= 每章1条 | 含 `关键信息与扩写技法` 的章节数 / 摘要章节数 | 缺失章节回到 Stage 2 补提取 |
-| 模块来源标注 | best-effort | 情绪模块卡尽量标注 RH/TR 或章节情节点来源 | 无把握的来源留空，不硬凑、不删模块（同桥段标签的 best-effort 处理）|
-| 重叠率 | <= 35% | 跨剧情单元共享情节点 / 总情节点数 | >35% 提示边界模糊，建议合并 |
-
-> **小体量节选（< 30 章、单主线连续叙事）的特例**：此类素材按时序连续切分时，覆盖率天然接近 100%、散落情节接近 0，这是线性结构的正常结果，不算过度归并。此时复核重点是「有无把不同剧情强行并进同一条」，而非覆盖率数值本身——不必为压到 95% 以下而人为拆分。
+**Objective plain description vs narrative-frame words**:
+- Forbidden: "Through the conversation, Zheng Song learned that Zhang Zihao trains in Korea"
+- Correct: "Wu Zhibin told Zheng Song that Zhang Zihao trains in Korea"
+- Forbidden: "Lin Feng showed off his strength"
+- Correct: "Lin Feng defeats the opponent in three moves; the onlookers gasp"
+- Forbidden: "Shaoyang felt heartbroken and angry"
+- Correct: "Shaoyang watched Song Li hug someone; his expression went from stung to cold"
 
 ---
 
-## 散落情节兜底
+## Fact fidelity in the synthesis stage (Stages 3-5: plot/setting/character/report)
 
-阶段 3 聚合完成后执行（6 步，含覆盖率验证）：
+Stages 3-5 synthesize from chapter summaries — two hops from the source, the easiest place to backfill "plausible" facts the summary never stated into "apparently confirmed" facts. This is the biggest source of teardown fact errors (typical: inventing a second element for a "dual-element mage", attributing the mount's rank to the rider, making up a number for a field the source never gave, or filling an appearance range across chapters the character never appeared in). Even strong models drift, because the further from the source, the more the model fills gaps with world knowledge and "reasonableness". Three hard constraints:
 
-1. **计算孤立比例**：孤立情节点数 / 总情节点数。若比例 < 5%，跳过后续步骤，直接标记为「少量散落，无需处理」
-2. **筛选未分配情节点**：从所有章节摘要中收集未归类到任何剧情单元的情节点
-3. **三层置信度归入**：按角色重叠、地点重叠、因果关系三条线索计算相关性
-   - **强相关**（0.8-1.0）：角色匹配 + 主题相关 → 归入现有剧情单元，标记 `[孤立情节归入]`
-   - **中等相关**（0.5-0.8）：角色匹配 或 主题相关 → 归入并标记 `[低置信归入]`，待复核
-   - **弱相关**（<0.5）：不建议强行归入，宁可放入未分配
-4. **主题聚类**：弱相关的情节点按主题关键词聚类
-   - 聚类结果 >= 5 个情节点 → 形成候选剧情单元，标记 `[聚类生成]`
-   - 聚类结果 < 5 个 → 不单独建条
-5. **散落情节归档**：仍无法归类的写入 `散落情节.md`，按章节排列，标注原因
-   - 不丢弃任何情节点，不要强行分配到不相关的剧情
-   - 在拆文报告中统计散落情节点数量和占比
-6. **覆盖率验证**：
-   - 覆盖率 = (总数 - 散落数) / 总数 × 100%
-   - 目标：85%-95%
-   - < 85% → 回到步骤 3，降低置信度阈值重试
-   - > 95% → 检查是否有过度归并，复核边界剧情单元
+1. **Hard facts must be traceable**: power ranks, numbers, distances, attributes, faction counts, who said what to whom, character appearance chapters — before writing such hard facts into settings/characters/report, check against the source (read the source directly if the summary is insufficient); only write what checks out.
+2. **Missing → "not stated in the source", inventing fills forbidden**: for fields the source never gives, write "not stated in the source / not covered in the excerpt" — never substitute a near-synonym, an example from elsewhere, or a convention to produce a plausible-looking value.
+3. **No cross-referent leakage**: adjacent entities' attributes don't get swapped — mount rank ≠ rider rank, A's lines ≠ B's lines, this chapter's numbers ≠ adjacent chapters' numbers.
+
+After writing to disk, run a **fact-traceability self-check**: spot-check hard facts in settings/characters/report — can each be grepped back to the source? A hit passes; a miss gets rewritten as "not stated in the source" or deleted — no source-less assertions kept. This self-check is independent of the three ratios below: the ratios check classification quality; this checks factual truth.
 
 ---
 
-## Claude Code 执行指引
+Directory structure in SKILL.md "Output directory structure".
 
-### 分块策略
+---
 
-Stage 2 使用 chapter-extractor agent 并行处理（每章一个 agent，每批 5-8 个），不分块。
-其他阶段（0、1、3、4、5）的分块策略如下：
+## Quality-threshold system
 
-| 规模 | 策略 | 块大小 |
-|------|------|--------|
-| <50 章 | 按阶段整体处理 | 无需分块 |
-| 50-100 章 | 按阶段整体处理 | 无需分块（可选智能分块） |
-| 100-500 章 | 按章节分块 | 5-8 章/块 |
-| >500 章 | **智能分块**：基于章节摘要识别自然分界，按语义连贯性切分 | 50-200 章/块 |
+Self-check after phases 3 and 4:
 
-### 智能分块（>500 章）
+| Metric | Threshold | Calculation | If below threshold |
+|--------|-----------|-------------|--------------------|
+| Confidence | >= 0.85 | plot points with clear assignment / total plot points in the unit | below 0.85 mark "pending review" |
+| Coverage | 85%-95% | classified plot points / total plot points | <85% triggers orphan reclassification; >95% re-check boundaries |
+| Key-info coverage | >= 1 per chapter | chapters containing `Key info and expansion techniques` / summary chapters | missing chapters go back to Stage 2 for re-extraction |
+| Module source labeling | best-effort | emotion module cards label RH/TR or chapter plot-point sources when possible | uncertain sources left blank, not forced, modules not deleted (same best-effort handling as trope tags) |
+| Overlap | <= 35% | plot points shared across story units / total plot points | >35% signals blurred boundaries; consider merging |
 
-对于大型小说，基于章节摘要识别自然分界，而非固定切分：
+> **Small excerpts (<30 chapters, single-mainline continuous narration)**: when such material is sliced chronologically, coverage naturally approaches 100% and stray plots approach 0 — a normal result of linear structure, not over-aggregation. Re-check focus then is "were different plots force-merged into one line", not the coverage number itself — don't artificially split to get under 95%.
 
-**分块原则（四大铁律）**：
-1. **语义连贯**：每块是一个相对独立的内容单元（大故事阶段或主要事件线）
-2. **自然分界**：在内容转折点、场景切换、时间跨越处切分，不在紧密剧情中间切
-3. **大小适中**：每块 50-200 章，语义完整性优先于大小均匀
-4. **避免割裂**：不在紧密剧情中间切分
+---
 
-**题材特化分块参考**：
+## Loose-thread safety net
 
-| 题材 | 分块依据 | 示例 |
-|------|---------|------|
-| 修仙/升级 | 境界突破、地图切换 | 炼气期→筑基期→金丹期 |
-| 都市 | 事件线、身份转变 | 学生→创业→商业帝国 |
-| 历史 | 历史阶段、战役 | 起兵→统一北方→南征 |
-| 玄幻 | 世界地图、势力变化 | 东域→中州→上界 |
-| 有卷/部/篇 | 优先按原结构 | 按作者划分的卷/部 |
+Executed after phase 3 aggregation completes (6 steps, incl. coverage validation):
 
-**无明显结构**时按固定章节数均匀切分。**硬约束**：所有章节必须被覆盖，块之间不能重叠（每章只属于一个块）。**分块上限**：最多 10 块（超出时扩大块大小，保持语义完整性）。
+1. **Compute the orphan ratio**: orphan plot points / total plot points. If <5%, skip the rest and mark "few strays, no processing needed"
+2. **Collect unassigned plot points**: gather plot points from all chapter summaries that weren't classified into any story unit
+3. **Three-tier confidence assignment**: compute relevance on three clues — character overlap, location overlap, causality
+   - **Strong correlation** (0.8-1.0): character match + theme match → assign into the existing unit, mark `[orphan assigned]`
+   - **Medium correlation** (0.5-0.8): character match or theme match → assign and mark `[low-confidence assignment]`, pending review
+   - **Weak correlation** (<0.5): don't force; better left unassigned
+4. **Theme clustering**: cluster weak-correlation plot points by theme keyword
+   - ≥5 points in a cluster → candidate story unit, mark `[cluster-generated]`
+   - <5 points → no standalone unit
+5. **Archive the strays**: still-unclassifiable points go into `loose-threads.md`, ordered by chapter, with the reason noted
+   - Don't discard any plot point; don't force points into unrelated plots
+   - Count stray points and their share in the teardown report
+6. **Coverage validation**:
+   - Coverage = (total − strays) / total × 100%
+   - Target: 85%-95%
+   - <85% → back to step 3, retry with a lowered confidence threshold
+   - >95% → check for over-aggregation; re-review boundary units
 
-每块输出元数据：`块标题 | 起止章节 | 核心主题（2-5个） | 关键事件（2-5个） | 主角阶段`。
+---
 
-输入分块大小 6-8K token/块（中小型），章节边界对齐。输出长度限制见 SKILL.md（Stage 2 agent 模式按密度公式输出，Stage 3-5 单阶段 ≤8000 中文字符）。每块完成后更新 _progress.md。
+## Claude Code execution guidance
 
-### 跨块合并（大型小说 >500 章）
+### Chunking strategy
 
-分块处理后，相邻块的边界剧情可能被机械切分割裂。Stage 3 聚合时执行跨块合并检查：
+Stage 2 uses chapter-extractor agents in parallel (one agent per chapter, 5-8 per batch) — no chunking.
+Other stages (0, 1, 3, 4, 5) chunk as follows:
 
-**合并判断标准**（必须同时满足）：
-1. ✓ 同一核心事件/目标：讲述的是同一个核心事件（不是两个独立事件）
-2. ✓ 主要人物相同：涉及的主要人物相同
-3. ✓ 剧情发展连续：剧情 B 是剧情 A 的自然延续
-4. ✓ 非因果独立事件：不是因果关系的两个独立事件
+| Scale | Strategy | Chunk size |
+|-------|----------|-----------|
+| <50 chapters | whole-stage processing | no chunking needed |
+| 50-100 chapters | whole-stage processing | no chunking needed (optional smart chunking) |
+| 100-500 chapters | chunk by chapters | 5-8 chapters/chunk |
+| >500 chapters | **smart chunking**: recognize natural boundaries from chapter summaries, cut by semantic coherence | 50-200 chapters/chunk |
 
-**应该合并**：
-- "竞选县长秘书（准备阶段）" + "竞选县长秘书（投票阶段）" → 同一事件被分块割裂
-- "修炼突破（前期）" + "修炼突破（后期）" → 同一突破过程
+### Smart chunking (>500 chapters)
 
-**不应合并**：
-- "在办公室立足" + "竞选县长秘书" → 两个独立目标
-- "炼气期修炼" + "筑基期修炼" → 不同阶段的独立剧情
-- "东域修炼" + "中州历练" → 不同地图的独立剧情
+For very large novels, recognize natural boundaries from chapter summaries rather than fixed slicing:
 
-**保守原则**：当不确定时，倾向于不合并（保持独立）。
+**Chunking principles (four iron rules)**:
+1. **Semantic coherence**: each chunk is a relatively self-contained content unit (a large story phase or major event line)
+2. **Natural boundaries**: cut at content turning points, scene switches, time jumps — never mid-tight-plot
+3. **Right size**: 50-200 chapters per chunk; semantic completeness outranks uniform size
+4. **Avoid tearing**: don't cut in the middle of a tightly-woven plot
 
-**边界检测原则**：只检查相邻块中接近块边界的剧情对，远离边界的剧情不参与跨块合并。
+**Genre-specific chunking reference**:
 
-### 跨会话恢复
+| Genre | Chunking basis | Example |
+|-------|----------------|---------|
+| Cultivation/escalation | realm breakthroughs, map switches | Qi-refining → Foundation Establishment → Golden Core |
+| Urban | event lines, identity changes | student → founder → business empire |
+| Historical | historical stages, campaigns | uprising → unify the north → southern campaign |
+| Fantasy | world map, faction changes | eastern domain → central continent → upper world |
+| Has volumes/parts/sections | prefer the original structure | by the author's own volumes/parts |
 
-- 进度通过 _progress.md 追踪
-- 新会话读 _progress.md 定位断点
-- 从断点所在块的起始章节重新开始（覆盖该块已有输出）
+**No clear structure** → cut evenly by fixed chapter counts. **Hard constraints**: every chapter must be covered; chunks must not overlap (each chapter belongs to exactly one chunk). **Chunk cap**: at most 10 chunks (when exceeded, enlarge chunk size, keeping semantic completeness).
+
+Per-chunk metadata: `chunk title | chapter range | core themes (2-5) | key events (2-5) | protagonist stage`.
+
+Chunk input size 6-8K tokens/chunk (small-medium), chapter boundaries aligned. Output length limits per SKILL.md (Stage 2 agent mode outputs by the density formula; Stages 3-5 single-stage ≤8000 words). Update `_progress.md` after each chunk.
+
+### Cross-chunk merge (large novels >500 chapters)
+
+After chunking, boundary plots of adjacent chunks may be mechanically torn apart. Stage 3 aggregation runs a cross-chunk merge check:
+
+**Merge criteria** (all must hold):
+1. ✓ Same core event/goal: telling the same core event (not two independent events)
+2. ✓ Same main characters: the main characters involved are the same
+3. ✓ Continuous development: plot B is the natural continuation of plot A
+4. ✓ Not causally independent events: not two independent events related only by cause-effect
+
+**Should merge**:
+- "running for county secretary (preparation phase)" + "running for county secretary (voting phase)" → the same event torn apart by chunking
+- "cultivation breakthrough (early)" + "cultivation breakthrough (late)" → the same breakthrough process
+
+**Should not merge**:
+- "standing firm in the office" + "running for county secretary" → two independent goals
+- "Qi-refining training" + "Foundation-Establishment training" → independent plots at different stages
+- "eastern-domain training" + "central-continent training" → independent plots on different maps
+
+**Conservative principle**: when unsure, prefer not merging (keep independent).
+
+**Boundary detection principle**: only check plot pairs near chunk boundaries; plots far from boundaries don't participate in cross-chunk merging.
+
+### Cross-session resume
+
+- Progress tracked through `_progress.md`
+- New sessions read `_progress.md` to locate the breakpoint
+- Resume from the first chapter of the chunk containing the breakpoint (overwriting that chunk's existing outputs)

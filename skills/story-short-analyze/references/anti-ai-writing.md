@@ -1,581 +1,747 @@
-# 去AI味完整指南
+# De-AI-Flavor Complete Guide
 
-<!-- 同名副本×5 字节同步，改动后跑 scripts/check-shared-files.sh -->
+<!-- Byte-identical copy ×5; after editing run scripts/check-shared-files.sh -->
 
-> 识别AI写作指纹、系统性去AI三遍法、禁用词约束、改写范例库。用于正文写作后做去AI味自检和改写时查阅。
-
----
-
-## 决策路由
-
-| 你在做什么 | 查阅哪个模块 |
-|-----------|-------------|
-| 写完正文后做去AI自检 | 核心规则 -> AI写作模式检测 -> 质量维度检查 |
-| 改写某段AI味重的文字 | 改写范例库 + 冲突对话改写范例 |
-| 检查是否用了禁用词 | 禁用词与句式速查 -> AI高频词（模式1） |
-| 系统性去除整章AI味 | 系统性去AI三遍法 |
-| 检查章尾是否有总结升华 | AI写作指纹 -> 章末总结体 |
-| 判断情绪描写是否告知式 | Show Don't Tell原则 + 去AI味补充技法 |
-| 快速扫描全章质量 | 快速自检口诀 + 质量维度检查 |
-
-## 指令语气
-
-本文件以问题模式和高危清单为主。一级高危词优先检查；二级/语境敏感词按频率、语境和是否偷懒判断。遇到冲突时，保留创作意图与剧情功能优先于机械替换。
+> Identify AI-writing fingerprints, the systematic three-pass de-AI method, banned
+> phrase constraints, and a rewrite example library. Consult after writing prose for
+> self-check and rewriting.
 
 ---
 
-## AI写作指纹（必须避免）
+## Decision routing
 
-### 高频AI用词
+| What you're doing | Which module to consult |
+|-------------------|-------------------------|
+| Self-check prose after writing | Core rules -> AI pattern detection -> quality dimension checks |
+| Rewriting a passage heavy with AI flavor | Rewrite example library + conflict-dialogue rewrite examples |
+| Checking for banned phrases | Banned words & patterns quick ref -> AI high-frequency phrases (Pattern 1) |
+| Removing AI flavor from a whole chapter systematically | The systematic three-pass de-AI method |
+| Checking whether a chapter end summarizes or elevates | AI fingerprints -> chapter-end summary body |
+| Judging whether emotion writing is tell-not-show | Show Don't Tell + supplementary de-AI techniques |
+| Fast full-chapter quality scan | Quick self-check mnemonic + quality dimension checks |
 
-> 完整禁用词表见 [banned-words.md](banned-words.md)
+## Tone
 
-**补充类目**（`banned-words.md` 未覆盖的高阶替换）：
+This file is mostly problem patterns and high-risk lists. Check tier-1 high-risk
+phrases first; tier-2/context-sensitive words are judged by frequency, context, and
+laziness. When in doubt, creative intent and plot function outrank mechanical
+replacement.
 
-| 类别 | 替代原则 |
-|------|---------|
-| 抽象升华词（命运、宿命、注定） | 用具体事件代替抽象概念 |
-| 万能比喻（像潮水般、如闪电般、仿佛春风） | 优先不用比喻，确需时只留少数生活化、角色化比喻 |
+---
 
-### 章末总结体
+## AI writing fingerprints (must avoid)
 
-**禁止**在章节结尾用以下方式收束：
-- 总结性感悟（"他终于明白了……"）
-- 升华式感叹（"这一夜，注定无人入眠"）
-- 哲理式收尾（"人生就是这样……"）
-- 伏笔式预告（"他不知道的是，更大的风暴即将来临"）
+### High-frequency AI phrases
 
-**正确做法**：章尾用动作、对话或悬念收束，让情节本身制造余韵。
+> The full banned list lives in [banned-words.md](banned-words.md)
 
-### 叠加式描写（同一动作掰开写三遍）
+**Supplementary categories** (advanced replacements not covered by `banned-words.md`):
 
-**检测模式**：一个动作/情绪先写发生，再补感知细节，再补身体反应，分三段依次写完。读者看到的是同一个动作被掰开写了三遍。
+| Category | Replacement principle |
+|----------|----------------------|
+| Abstract elevation words (fate, destiny, destined, profound) | Replace the abstract concept with a concrete event |
+| Universal similes (like a wave, like a bolt of lightning, like the dawn) | Prefer no metaphor; if truly needed, keep only a few everyday, character-bound ones |
 
-**典型特征**：
-- 先写一个概括性动作，再展开写同一动作的细节，再写身体反应：三段说的是同一件事
-- "发生层→感知层→反应层"按顺序分段出现
-- 每个维度独立成段，而不是揉进同一段连续正文
+### Chapter-end summary body
 
-**错误示例**：
-> 林父低着头，左手把文书压住，右手拿笔，往纸上落。
+**Forbidden** ways to close a chapter:
+- Summary reflection ("He finally understood...")
+- Elevated exclamation ("That night was destined to be sleepless")
+- Philosophic close ("Life is just like that...")
+- Teaser preview ("Little did he know, a greater storm was coming")
+
+**Correct**: close with action, dialogue, or suspense — let the events create the
+aftertaste.
+
+### Layered description (the same action written three times)
+
+**Detection pattern**: an action/emotion is written as (1) the event, then (2) the
+perception detail, then (3) the body reaction, in three separate paragraphs. The
+reader sees the same beat sliced into three passes.
+
+**Typical traits**:
+- A summary action first, then the same action's detail, then the body reaction:
+  three paragraphs about the same thing
+- "Event layer -> perception layer -> reaction layer" appears as sequential paragraphs
+- Each dimension gets its own paragraph instead of being folded into one continuous passage
+
+**Bad example**:
+> Old Man Lin lowered his head, pressing the document flat with his left hand, pen
+> in his right, moving it toward the paper.
 >
-> 手从肘到腕都在抖。
+> His hand was shaking from elbow to wrist.
 >
-> 笔尖在纸上停了停，写了一横，又停。那个"林"字的撇写歪了。
+> The nib paused over the paper, wrote one stroke, stopped again. The leftward slash
+> of that "Lin" came out crooked.
 
-→ 同一个动作（手抖/写字）分三段写，每段是同一瞬间的不同维度
+→ The same beat (shaking hand / writing) is spread across three paragraphs, each
+paragraph a different dimension of the same instant.
 
-**正确做法**：发生、感知、反应三个维度揉进同一段连续正文，读者读到一个完整瞬间：
+**Correct**: fold event, perception, and reaction into one continuous passage so the
+reader gets one complete instant:
 
-> 林父左手压着文书，右手拿笔往纸上落，笔尖一触纸面就偏了，从肘到腕止不住地抖，那一横斜着拖出去。
+> Old Man Lin pressed the document flat with his left hand, pen in his right — the
+> nib veered the moment it touched paper, the tremor running from elbow to wrist as
+> the first stroke dragged sideways.
 
-→ 发生、感知、反应在一段里同时呈现
+→ Event, perception, and reaction all in one paragraph.
 
-**处理原则**：保留有功能的情绪细节，把同一瞬间的重复描写合并成连续画面。若合并后明显变薄，优先恢复原文中有功能的信息，或把既有信息改成更自然的动作/对话表达；不要新增原文没有的情节、设定、关系或时间线。
+**Principle**: keep the emotion details that have a function; merge the repeated
+descriptions of the same instant into one continuous picture. If the merge makes the
+passage clearly thinner, restore the functional information from the original, or
+re-express existing information as more natural action/dialogue; never add plot,
+setting, relationships, or timeline that the original didn't have.
 
 ---
 
-## 核心规则
+## Core rules
 
-> **句长以规则 3 为准**：规则 1-4 和本文件其他地方的「短句 / 拆短 / 能删就删」说法，与规则 3 冲突时按规则 3 执行。
+> **Sentence length follows Rule 3**: wherever Rules 1-4 or other parts of this file
+> say "short sentences / split short / cut whenever possible," Rule 3 wins.
 
-### 规则 1：段落密度诊断
+### Rule 1: paragraph density diagnosis
 
-段落长短没有固定优劣。检查重点是朗读和手机阅读是否卡顿：
+Paragraph length has no fixed good or bad. The check is whether reading aloud and
+on mobile flow without stalling:
 
-- 一段通常只承载一个动作、一个信息变化或一组紧密相关的反应。
-- 逗号串太长、多个完整动作挤在一段里，读起来需要换气时，按动作或信息变化拆开。
-- 连续短段碎成提纲时，合并同一镜头内的相邻句，让画面保持连续。
+- One paragraph usually carries one action, one piece of changing information, or a
+  tightly related set of reactions.
+- When a comma chain is too long or several complete actions are packed into one
+  paragraph and the reader has to gasp for air, split at the action or the
+  information change.
+- When consecutive short paragraphs shatter into an outline, merge adjacent
+  sentences in the same shot so the picture stays continuous.
 
 ```
-过密：他看着窗外的雨，心中涌起一股说不清的感觉，这些年走过的路和很多已经忘记的事都在这一刻涌上心头。
+Too dense: He stared at the rain on the window, a nameless feeling rising in his
+chest, all the roads he'd walked and things he'd forgotten surging back in that one
+moment.
 
-更自然：他盯着窗外的雨，雨从下午下到天黑。
-"你还在想她？"老刘问。
-他没说话。
+More natural: He watched the rain streak down the glass. It had been falling since
+afternoon.
+"You still thinking about her?" Old Liu asked.
+He didn't answer.
 ```
 
-### 规则 2：动作 + 对话 + 情绪反应
+### Rule 2: action + dialogue + emotional reaction
 
-三要素循环推进，不要单写心理活动超过 2 段：
-
-```
-动作 -> 对话 -> 情绪反应 -> 动作 -> 对话 -> ……
-```
-
-情绪不用"他感到/他觉得"，用身体反应和行为表现：
-- 不写"他很紧张" -> 写"手心全是汗，筷子差点掉了"
-- 不写"她很愤怒" -> 写"她把杯子摔在地上，碎片弹到脚背上也没弯腰捡"
-- 不写"他很伤心" -> 写"他在车里坐了二十分钟才发动引擎"
-
-以上替换针对关键情绪节点；低强度过场情绪可一笔直写（"他有点烦"），不必处处外化。
-
-### 规则 3：句子该多长（短句是工具，不是默认）
-
-叙述（旁白）默认写成**逗号长句**：一句用逗号串起 2-4 个动作或信息，再落句号；逗号之间 8-12 字，整句 20-30 字。短句是偶尔的孤立重拍工具，不是叙述的默认写法。
-
-| 场景 | 句长 | 示例（长篇语料原句） |
-|------|------|------|
-| 日常 / 推进 / 描写（多数叙述句） | 逗号之间 8-12 字，整句 20-30 字 | 阴冷潮湿的气息扑面而来，身下铺着一层薄薄的稻草，湿漉漉地粘在皮肤上。 |
-| 对话 | 口语化，长短随角色 | "你疯了？""可能吧。" |
-
-**不合格（与 AI 腔同级）**：
-- 逗号之间连着都是 ≤5 字的碎片（"他抬手，开门，进屋，坐下"式）
-- 通篇 3-8 字句、句号密得像提纲（电报体，见模式 9）
-- 一长一短机械交替（同样是模板）
-
-> **爆款语料校准**（七猫长篇 现言/都市/古言/玄幻/历史 125 本×前 8 章旁白统计）：逗号之间平均 8.8-9.6 字；整句平均 22-24 字；逗号长句占叙述句 74-80%；≤5 字的短片段约占两成，多是孤立的时间词、转折、动作重拍。短篇（盐言体）段落更短（≤15 字的单句段可近一半，长篇约两三成），但句子内部的节奏和长篇一样：**段落随体裁变短，句子内部不碎**。
-
-### 规则 4：口语化表达
-
-- 允许用俚语、粗话（符合角色身份）
-- 对话不要书面语（"我认为此事不妥" -> "我觉得不靠谱"）
-- 叙述也不要端着（"他目光如炬" -> "他眼珠子一动不动盯着"）
-- 短语优先于成语（"无可奈何" -> "没办法"）——只管对话和贴角色声口的叙述；旁白常用成语（不动声色、心不在焉一类）照留
-
----
-
-## Show Don't Tell 原则
-
-| Tell（告诉） | Show（展示） |
-|-------------|-------------|
-| 他是个胆小的人 | 他把检查报告在手里翻来覆去看了三遍，还是不敢打开 |
-| 这间酒吧很吵 | 酒保凑到他耳边喊了两次他才听见 |
-| 她很富有 | 她随手把一张信用卡丢在桌上，卡面上的数字比这顿饭贵十倍 |
-| 两人关系很差 | 他把烟掐灭在她刚泡的茶杯里，她面无表情地把杯子推到一边 |
-| 他很聪明 | 三秒钟。他看了三秒钟就把文件合上了。"第三页，第二行。" |
-
-**核心方法**：
-1. 用行为代替形容词
-2. 用细节代替总结
-3. 用对话代替旁白说明
-4. 用反应代替情绪词
-
----
-
-## 质量维度检查
-
-### 1. 核心一致性（权重最高）
-- 剧情是否与大纲/前文一致
-- 人物行为是否符合人设
-- 设定是否有前后矛盾
-
-### 2. 表面改写（防AI指纹）
-- 是否包含AI高频用词（见上表）
-- 章尾是否有总结/升华
-- 是否有大段纯心理描写
-- 段落是否按戏剧单元/镜头自然断开，避免机械单句成段或为凑短碎成提纲（网文段落规则）
-
-### 3. 格式一致性
-- 对话格式统一：按项目/平台约定保持同一引号风格；知乎盐言短篇可用「」
-- 标点节奏匹配语气：避免通篇句号化；保留有功能的问号和少量感叹号；用动作/短句表达迟疑或打断，不用省略号或破折号硬造停顿
-- 场景切换有明显标记
-- 时间线清晰可追踪
-
-### 4. 可读性
-- 是否有连续多个长句压住阅读节奏，且缺少动作、对话或短句换气
-- 对话是否口语化
-- 是否有未解释的生僻词/设定术语
-- 节奏是否有快有慢（不能全是一种节奏）
-
-### 5. 逻辑连贯性
-- 角色动机是否合理
-- 事件因果链是否清晰
-- 时间线是否对得上
-- 角色的知识范围是否合理（不能"开上帝视角"）
-
----
-
-## 快速自检口诀
+Cycle the three elements; don't write pure interiority for more than 2 paragraphs:
 
 ```
-一事一段，镜头自然断。
-对话要像人说话。
-心情不写心里话。
-结尾不搞大升华。
-打斗不写流水账。
-日常要埋伏笔桩。
+action -> dialogue -> emotional reaction -> action -> dialogue -> ...
 ```
 
-> 网文段落规则：按戏剧单元/镜头/一件事结束自然断段；短段快读，长段承载完整推理、氛围和情绪链，避免机械单句成段或通篇同长度。
+Emotion doesn't use "he felt / she felt" — use body reactions and behavior:
+- Don't write "He was nervous" -> write "His palms were wet and he nearly dropped the chopsticks"
+- Don't write "She was furious" -> write "She threw the cup on the floor and didn't bend to pick up the shards that bounced off her foot"
+- Don't write "He was heartbroken" -> write "He sat in the car for twenty minutes before starting the engine"
+
+These replacements apply to key emotion beats; low-intensity transition emotions can
+be written in one line ("He was a little annoyed") without externalizing everything.
+
+### Rule 3: how long should sentences be (short sentences are a tool, not the default)
+
+Narration defaults to **mid-length sentences**: one sentence carries 2-4 actions or
+pieces of information linked by commas/and, then lands on a period; clauses run
+8-14 words, whole sentences 15-25 words. Short sentences are occasional isolated
+heavy beats, not the default voice.
+
+| Scene | Length | Example |
+|-------|--------|---------|
+| Daily / advancing / describing (most narrative sentences) | clauses 8-14 words, whole sentence 15-25 words | The damp cold hit him in the face, and under him lay a thin layer of straw, sticky against his skin. |
+| Dialogue | colloquial, length follows the character | "Are you out of your mind?" "Maybe." |
+
+**Unacceptable (same class as AI voice)**:
+- Clause after clause of fragments ≤5 words ("He raised a hand, opened the door,
+  stepped in, sat down" style)
+- Whole passages of 3-8 word sentences, periods thick as an outline (telegraphic
+  style, see Pattern 9)
+- Mechanical long-short alternation (also a template)
+
+> **Corpus calibration (v1 baseline)**: derived from published commercial-fiction
+> norms — average sentence 12-16 words, clauses (between commas/and) averaging 8-12
+> words, narrative sentences mostly mid-length, ≤5-word fragments roughly a fifth,
+> usually isolated time markers, transitions, and action heavy-beats. Short-form
+> episodes have shorter paragraphs but the same internal sentence rhythm: **paragraphs
+> get shorter with the form; sentences don't shatter inside**. Re-derive these
+> numbers from a clean English genre corpus before tightening them.
+
+### Rule 4: colloquial speech
+
+- Slang and profanity are allowed when they fit the character
+- Dialogue must not be bookish ("I believe this approach may be inadvisable" -> "I don't think that's a good idea")
+- Narration shouldn't be stiff either ("His gaze was piercing" -> "He stared without blinking")
+- Plain phrases beat formal register ("commence" -> "start", "endeavor" -> "try") — this applies to dialogue and character-voiced narration; formal voice is fine in a deliberately literary narrator
 
 ---
-> **番茄高分样本校准**：番茄正文更接近“手机端短段 + 自然虚词 + 场内动作/对话推进”，不是机械指标达标。番茄高分样本 305 章窗口显示：段落中位约 23.5 字，50-60 字行宽平均只占 5.1%；平均对话占比约 20.6%，对话≥50% 仅 3/305，开篇对话 59/305；`地/得` 305/305、`很` 275/305、`像/好像/仿佛/如同` 267/305、顿号 176/305、省略号 281/305。结论：这些只能按语境复核，不能做 0 容忍硬禁令。
->
-> **反投机边界**：不要为了“反检测”强制每句换行、把 `……` 改成 `........`、把 `地/得` 全改成 `的`、禁用所有顿号/“很”/“像”、强行开篇对话或按三番四证重排章节。去 AI 味是润色，不是结构重写；除非用户明确要求重写，否则不改变章节顺序、伏笔分布、对话占比和人物信息释放节奏。
+
+## Show Don't Tell
+
+| Tell | Show |
+|------|------|
+| He was a coward | He turned the medical report over three times without opening it |
+| The bar was loud | The bartender had to shout twice into his ear before he heard |
+| She was rich | She tossed a credit card on the table — the number on it was worth ten times this meal |
+| Their relationship was bad | He stubbed out his cigarette in her fresh tea; she pushed the cup away without a word |
+| He was sharp | Three seconds. He looked at the file for three seconds and closed it. "Page three, line two." |
+
+**Core method**:
+1. Behavior replaces adjectives
+2. Detail replaces summary
+3. Dialogue replaces narration
+4. Reaction replaces emotion words
 
 ---
 
-## 禁用词与句式速查
+## Quality dimension checks
 
-> 完整禁用词表和句式模板见 [banned-words.md](banned-words.md)
+### 1. Core consistency (highest weight)
+- Does the plot match the outline / earlier chapters
+- Do character actions fit their design
+- Any setting contradictions
 
-### 正确替代示例
-- '他感到一丝紧张' -> '他的手在抖'
-- '她很伤心' -> '她背过身，把袖口攥皱了'
-- '"好的。"他说道' -> '"好的。"他把门卡塞回口袋'
-- '他深吸一口气' -> '他把话咽回去'
+### 2. Surface rewrite (anti-AI fingerprint)
+- Any AI high-frequency phrases (see table above)
+- Chapter end with summary/elevation
+- Long blocks of pure interiority
+- Paragraphs broken naturally by dramatic unit/shot instead of mechanical one-line-per-sentence or shattering into an outline
+
+### 3. Format consistency
+- Dialogue format consistent: one quote style per project/platform convention
+- Punctuation rhythm matches tone: avoid whole-text period flattening; keep functional question marks and a few exclamation marks; express hesitation or interruption with action/short sentences, not ellipsis or dash padding
+- Scene changes clearly marked
+- Timeline traceable
+
+### 4. Readability
+- Consecutive long sentences crushing the reading rhythm with no action, dialogue, or short-sentence breathing room
+- Dialogue colloquial?
+- Unexplained jargon/setting terms
+- Rhythm varied (can't be all one pace)
+
+### 5. Logical coherence
+- Character motivation reasonable
+- Cause-effect chain clear
+- Timeline consistent
+- Character knowledge scope reasonable (no god-view)
 
 ---
 
-## 10 种 AI 写作模式检测
+## Quick self-check mnemonic
 
-### 模式 1：AI 高频词
+```
+One thing per paragraph, break at the shot.
+Dialogue must sound like a person talking.
+Feelings aren't narrated as inner monologue.
+Endings don't rise to grand summaries.
+Fights aren't written as camera logs.
+Daily scenes still plant their seeds.
+```
 
-| 禁用 | 替换为 |
-|------|--------|
-| 不禁 | 删掉 |
-| 仿佛/宛如 | 删掉或用具体描写 |
-| 映入眼帘 | 删掉 |
-| 心中暗道 | 用动作展示思考 |
-| 沉声道/淡淡地说 | 换成动作标签 |
-| 脸色一变 | 用具体表情/动作 |
-| 嘴角微扬 | 他笑了/他翘了下嘴 |
-| 不由自主 | 删掉 |
-| 只见/此时此刻 | 删掉 |
-| 目光如炬 | 删掉或具体化 |
+> Paragraph rules: break naturally by dramatic unit/shot/one completed thing; short
+> paragraphs read fast, long ones carry complete reasoning, atmosphere, and emotion
+> chains — avoid mechanical one-line paragraphs or uniform lengths.
 
-### 模式 2：弱化副词泛滥
-阈值：每 1000 字超过 3 个 = AI 签名。重点监控：微微、淡淡、缓缓、轻轻。
+---
 
-### 模式 3：意义膨胀
-- "意义深远" -> 写具体后果
-- "前所未有" -> 给出对比参照
-- "可谓" -> 删掉
+## Banned words & patterns quick ref
 
-### 模式 4：万能结论
-- "未来可期" -> 用未解决的紧张感结尾
-- "前途无量" -> 删
-- "充满希望" -> 写具体的下一步动作
+> The complete banned list and template table live in [banned-words.md](banned-words.md)
 
-### 模式 5：论文体段落结构
-小说中出现以下开头句 = AI 入侵：
-- "不难看出""由此可见""事实上""综上所述"
+### Correct replacement examples
+- 'He felt a flash of nervousness' -> 'His hands were shaking'
+- 'She was heartbroken' -> 'She turned away and crushed the edge of her sleeve in her fist'
+- '"Okay." He said' -> '"Okay." He slid the key card back into his pocket'
+- 'He took a deep breath' -> 'He swallowed the words'
 
-### 模式 6：书面语连词泛滥
-叙事散文中频繁出现："于是乎""与此同时""从而""因而""诚然" -> 口语化替代或直接删除。
+---
 
-### 模式 7：三连排比癖
-AI 喜欢把事情凑成三个以显"完整"。-> 砍到只剩最有力的一条。
+## 10 AI writing pattern detections
 
-跨段「不是A。/也不是B。/只是C。」由 `formulaic-parallelism` 作 advisory：它可能是工整铺排，也可能承担辩解、悬念排除或情绪递进；只有重复提纲、拖慢画面时才压缩。该类提示与「至于X不X，怎么X」、同动词「不V A，不V B」都只作语义复核：对话也要检查，但有明确人物声线或任务功能时可保留；若来自细纲多个字段对同一要求的重复，正文只能消费一次，不能逐项复述。
+### Pattern 1: AI high-frequency phrases
 
-### 模式 8：解释腔 / 上帝视角 / 安排感
-最难察觉、却最"像 AI"的一类。叙述者跳出角色当下，去解释、剧透、总结、定性、拔高，读者能闻到"作者在场"和"剧情被安排好了"的味道。这正是"说教感/上帝感/解释腔/机械感/刻意感/安排感"的来源。
+| Banned | Replace with |
+|--------|--------------|
+| couldn't help but | delete |
+| as if on cue | delete |
+| took a deep breath | delete or make it specific |
+| heart raced/sank/lurched | specific body detail, or nothing |
+| a wave of X washed over | pick one; show it in behavior |
+| the kind of X that Y | concrete detail or action |
+| in that moment / at that moment | delete or name the exact beat |
+| eyes widened/narrowed/met | posture, breath, words |
+| for some reason / somehow / deep down | write the cause |
+| a beat passed / a moment passed | cut to the answer |
 
-| 表现 | 例（删/改） |
+### Pattern 2: weak adverb flood
+Threshold: more than 3 per 1000 words = AI signature. Watch: almost, barely,
+slightly, gently, softly, quietly, slowly, really, very, quite.
+
+### Pattern 3: meaning inflation
+- "profoundly significant" -> write the concrete consequence
+- "unprecedented" -> give a comparison reference
+- "one might say" -> delete
+
+### Pattern 4: universal conclusions
+- "a bright future awaits" -> end on unresolved tension
+- "boundless potential" -> delete
+- "full of hope" -> write the specific next step
+
+### Pattern 5: essay-style paragraph openings
+These openers in fiction = AI intrusion:
+- "It is worth noting that" / "As we can see" / "In conclusion" / "In fact" / "Needless to say" / "Interestingly"
+
+### Pattern 6: formal connective flood
+Frequent in narrative prose: "furthermore", "moreover", "consequently",
+"additionally", "nevertheless", "thus", "therefore" -> plain alternatives or delete.
+
+### Pattern 7: triple-parallel habit
+AI likes to group things in threes to look "complete". -> Cut to the strongest one.
+
+### Pattern 8: explainer voice / god-view / arranged feeling
+The hardest to spot and the most "AI-like" of all. The narrator steps out of the
+character's present to explain, spoil, summarize, classify, or elevate — the reader
+smells "the author is here" and "the plot was arranged". This is the source of the
+preachy/god-like/explainer/mechanical/arranged feeling.
+
+| Manifestation | Example (delete/rewrite) |
 |---|---|
-| 解释因果 | 「之所以…是因为」「原来…」「这意味着」「正是因为」-> 删。因果只从角色动作、对话、反应里让读者自己拼 |
-| 上帝视角剧透 | 「她不知道的是」「殊不知」「多年以后」「冥冥之中」「仿佛预示着」-> 删。只写角色此刻知道的，悬念让读者自己悬 |
-| 替读者下结论/定性 | 「演得真好」「这出戏她看过一遍」「他就是这样薄情的人」-> 删。把证据（神态、动作、台词）摆出来，定性留给读者 |
-| 替角色总结心理 | 「她明白，这一切都是命」-> 换成一句带偏见的闪念或一个身体反应 |
-| 总结/动机/评价链把意义说满 | 「他终于明白」「这是最好的选择」「所有人都会记住这一刻」-> 删掉定性，改成角色当下要处理的具体缺口、未完成动作或局部反馈；不是保留评价再硬塞物件/动作 |
-| 安排感/硬铺垫 | 为后文强行交代背景、整段回忆倒叙 -> 背景按角色此刻真实所需，用闪念、半句话、物件零碎带出，不集中交代 |
-| 升华式收尾 | 结尾对仗拔高、金句点题 -> 用一个动作或一句留白收住，把"意思"压进画面里 |
-| 抽象命运/开端收束 | 「命运终于露出獠牙」「早已布好的棋局」「这一刻终于明白」「属于他的反击才刚刚开始」-> 改成角色当下可见的文件、动作、对话或物理后果；`check-ai-patterns.js` 报 `abstract-summary-tic` 时优先处理 |
-| 套词密度过高 | 仿佛/一丝/一抹/深吸一口气/平静无波/指节泛白等成串复现（`cliche-density-tic`）-> 不是同义词轮换，整段回到角色当下证据：文件、动作、对话、物理后果 |
-| 比喻密度过高 | 像/好像/仿佛/如同等比喻标记成片复现（`metaphor-density-tic`）-> 保留最能传递信息或情绪的一两个，其余改回具体动作、物件、声音、后果；不要换成新比喻 |
-| 系统公告公文腔过密 | 方括号规则/面板/公告行里硬规则词成片（`system-notice-formality-tic`）-> 保留为角色看见的屏幕/公告/规则载体；只在载体内部白话化部分硬词，或补角色当场看懂的具体后果，不改成叙述者解释 |
+| Explaining cause-effect | "The reason was that... / What he didn't know was... / This meant... / Precisely because..." -> delete. Let the reader assemble cause from the character's actions, dialogue, and reactions |
+| God-view spoilers | "Little did she know", "Years later", "As fate would have it", "As if foreshadowing" -> delete. Write only what the character knows right now; let suspense hang |
+| Verdicts for the reader | "He was that kind of cold man", "She had seen this play before" -> delete. Present the evidence (expression, action, line) and let the reader judge |
+| Summarizing the character's psychology | "She understood: this was fate" -> replace with one biased flash-thought or one body reaction |
+| Meaning-complete summary chains | "He finally understood", "It was the best choice", "Everyone would remember this moment" -> delete the verdict; replace with the concrete gap the character must handle now, the unfinished action, or local feedback — not keeping the verdict and shoving an object/action in |
+| Arranged setup / hard seeding | Forcing background for later, whole-paragraph flashback -> bring background out as the character actually needs it now: flash-thoughts, half-sentences, fragments of objects |
+| Elevated endings | Parallel grand closers, aphorism points -> close with one action or one blank beat, pressing the "meaning" into the image |
+| Abstract fate closures | "Fate had finally bared its teeth", "The game was already set", "He finally understood in this moment", "His counterattack was just beginning" -> rewrite as documents, actions, dialogue, or physical consequences the character can see right now; when `check-ai-patterns.js` reports `abstract-summary-tic`, treat it first |
+| Cliche density too high | "couldn't help but / a wave of / took a deep breath / somehow" strings (`cliche-density-tic`) -> not synonym rotation; return the whole passage to the character's present evidence: documents, actions, dialogue, physical consequences |
+| Metaphor density too high | like/as if/as though marker sheets (`metaphor-density-tic`) -> keep the one or two that carry the most information or emotion; return the rest to concrete action, objects, sounds, consequences; don't swap in new metaphors |
+| System-notice formality too dense | [bracketed] rule/panel/notice lines full of hard rule words (`system-notice-formality-tic`) -> keep them as the screen/notice/rule carrier the character sees; plain-language some hard words inside the carrier or show the concrete consequence the character understands on the spot — don't rewrite into narrator explanation |
 
-**更隐蔽的一层（最难自查，没有标志词）**——同样是安排感/上帝感：
-- 评判性副词/补语：「关切得恰到好处」「笑得恰如其分」「不多不少」-> 作者在替读者盖章"这是装的"。只写动作（"她掩了帕子，眼睛没动"），装不装让读者自己判。
-- 剧透式点破潜台词：「那点笑她看得分明」「谁都看得出他在撒谎」-> 把藏着的挑明了。留着别点破。
-- 定性比喻/盖棺句：「像在宣判一件早已定好的事」「像看一件死物」-> 比喻在替角色下定论。非角色此刻强烈主观感受就删；要留也只能是她带偏见的瞬间感觉，不是客观断言。
+**A deeper layer (hardest to self-check, no marker words)** — the same
+arranged/god feeling:
+- Judging adverbs/complements: "he asked with just the right amount of concern",
+  "she smiled exactly as expected" -> the author is stamping "this is fake" for the
+  reader. Only write the action ("she pressed her handkerchief to her mouth, eyes
+  still"), let the reader decide.
+- Spoiler-like point-outs: "she read the smile plainly", "anyone could see he was
+  lying" -> exposing what's hidden. Leave it un-pointed-out.
+- Verdict metaphors: "like a sentence already passed", "like looking at a dead
+  thing" -> the metaphor is passing judgment for the character. Delete unless it's
+  the character's strong subjective feeling in this moment; if kept, it must be her
+  biased flash-feeling, not an objective assertion.
 
-自检：每句问一遍——这是"角色在经历"，还是"作者在讲解/安排"？凡作者跳出来讲，删，或改成角色视角内的呈现。根治办法是锁定深度限知视角（见 writing-craft.md「视角姿态：深度限知」），镜头钉死在角色身体里，作者就没位置跳出来了。
+Self-check: ask of every sentence — is this "the character experiencing" or "the
+author explaining/arranging"? Whenever the author steps out to talk, delete it or
+re-present it inside the character's POV. The root cure is locking the deep limited
+POV (see writing-craft.md "POV stance: deep limited") — the camera nailed inside the
+character's body leaves no room for the author to step out.
 
-改法优先级：先删或原位替换污染句，不在段尾另补“人味”尾巴。需要补信息时，把原来的总结/动机/评价句改成角色当下能碰到的问题、手续、回信、付款、门外动静等具体压力；已有手机/屏幕/公告/门牌/表单等信息，优先作为角色看见的场内载体保留，不要转写成叙述者解释。具体载体跟剧情走，不套固定清单。
+Fix priority: delete or in-place replace the polluted sentence first; don't tack a
+"humanity tail" onto the paragraph end. When information must be kept, turn the
+summary/motivation/verdict sentence into the concrete pressure the character can
+touch right now: problems, procedures, replies, payments, sounds outside the door.
+When the text already has phones, screens, notices, door plates, forms, etc., keep
+them as in-scene carriers the character sees — don't rewrite the same information as
+narrator explanation. The carrier follows the plot; don't apply a fixed list.
 
-**任务卡点不是固定公式，也不是通用补流程按钮**：它只是把已有解释落回角色当下要处理的缺口。先问原文有没有“要办的事”和“卡住的点”；有，才可以压成任务卡点；没有，就只删解释或改动作/对话，不新造事件链。改完再做“删掉试试”：删掉后不影响信息、情绪、关系、代价或伏笔，就压缩或删除。
+**Task blockers are not a fixed formula or a universal fill button**: they merely
+land existing explanations back into a gap the character must handle now. First ask
+whether the original has a "thing to do" and a "blockage"; only then compress the
+explanation into a task blocker; if not, just delete the explanation or change it to
+action/dialogue — don't invent a new event chain. After rewriting, run the "delete
+test": if deleting it loses no information, emotion, relationship, cost, or
+foreshadowing, compress or delete.
 
-**但删解释腔 ≠ 把读者读懵**：新名词/新设定/新道具首次出现时，仍要让读者抓到一个锚——靠角色的动作反应、对话里半句自然提及、或场景里的物理后果，一笔带出它此刻的作用或分量；既不整段讲来历原理，也别只甩个零信息生词让读者干懵。人物记忆、情绪缓冲、因果承接也一样：如果一句看似解释/评价，实际承担小连贯（让读者知道角色为什么脸热、为什么停顿、为什么这一声压不住），不要机械删成摘录清单；把它压成角色当下的白话、动作、物件或半句念头。例：「蓝晶」首次出现不写"这是储存记忆的装置"，但可写她把蓝晶按上太阳穴、别人的记忆碎片炸开在眼前——功能被读者看见，全貌留作悬念。区分：锚是"角色此刻撞上的可感知后果/记忆或情绪承接"（留或压），解释是"作者跳出来讲设定来历/原理/替读者下结论"（删）。
+**But deleting explainer voice ≠ confusing the reader**: when a new term/setting/
+prop first appears, the reader still needs one anchor — through the character's
+action-reaction, a half-line in dialogue, or a physical consequence in the scene —
+one stroke that shows its current function or weight; neither a whole passage of
+backstory/principles nor a bare unknown word that leaves the reader stranded.
+Character memory, emotional buffering, and causal continuity work the same way: if a
+sentence that looks like explanation actually carries local coherence (why the
+character's face is hot, why she pauses, why this sound can't be suppressed), don't
+mechanically delete it into an itemized list; compress it into the character's
+present plain speech, action, object, or half-thought. Example: the first appearance
+of the "blue crystal" doesn't require "this is a device that stores memories" — but
+it can show her pressing the blue crystal to her temple and someone else's memory
+fragments exploding behind her eyes. Function is seen; the full picture stays a
+mystery. Distinction: an anchor is "the perceptible consequence/memory/emotion the
+character collides with right now" (keep or compress); an explanation is "the author
+stepping out to teach the setting's origins/principles or conclude for the reader"
+(delete).
 
-### 模式 9：过度压缩（电报体）
+### Pattern 9: overcompression (telegraphic style)
 
-去AI味删过头的反向指纹。每句都压到最短、结构虚词扫光、每个动作都补一个「了下/了一下」式轻反应。单句看着干净，连读像提纲，读者的体感是"不流畅、喘不上气"。删减的目标是删废话（解释、注水、凑数），不是删中文的自然冗余。
+The reverse fingerprint of over-aggressive de-AI. Every sentence squeezed to minimum,
+function words swept clean, every action capped with a hedged micro-reaction. Each
+sentence looks clean alone; read together it's an outline — the reader feels "not
+smooth, can't breathe". The goal of cutting is deleting waste (explanation, padding,
+filler), not deleting English's natural redundancy.
 
-| 表现 | 修法 |
+| Manifestation | Fix |
 |---|---|
-| 非峰值叙述句也全部压成最短句 | 重拍句（动作/情绪/悬念峰值）保持短促；铺垫、过渡、日常动作写成自然白话句，保留 了/的/就/的时候 等结构虚词 |
-| 「扯了下/停了一下/拍了两下/松了半圈」式微动作高密度复现（check-ai-patterns.js 报 micro-action-tic） | 合并动作，换具体细节；不是每个动作都要接一个反应尾巴 |
-| 强调副词（连/才/又/只/全/反而）被扫光 | 删前判语义：承担人设、对比、讽刺义的保留（"才二十三天"删掉"才"，人设强调就反了） |
-| 对话语气词归零 | 按角色保留自然低频的 呢/吧/啊；也不反向猛加——人味来自结构自然，不是聊天腔 |
-| 叙述残留公文/文言腔（不得/须/未/已然/当前） | 换白话（不能/要/还没/现在）。系统公告、规则条文、面板播报可以保留冷硬功能；若 `system-notice-formality-tic` 报警，只在原载体内白话化一部分，不改成叙述者解释 |
-| 长文本里短叙述段成片（`overcompressed-prose-tic`） | 不是把所有短段拉长。先人工通读：重拍短句、密集镜头如果上下文顺，就保留；只处理读起来像提纲的过渡句，把它们并回同一镜头，让读者顺着动作、空间、因果读过去 |
-| 引号外叙述低连接密度且缺中长句（`low-connective-density-tic`） | 不是全局补“的/了/就”，也不处理台词/弹幕/系统播报的天然短促。先找叙述层读起来像提纲/电报体的断裂处，恢复必要连接、指代和中长承接句；有中长句链条的低功能词文本可保留 |
+| Non-peak narrative sentences all crushed to minimum | Keep heavy-beat sentences (action/emotion/suspense peaks) short; write setup, transition, and daily actions as natural sentences, keeping function words (the/and/was/had/but/then/when) |
+| Hedged micro-beat repetition: "smiled slightly / nodded gently / sighed softly" (`micro-action-tic`) | Merge actions, vary with concrete detail; not every action needs a reaction tail |
+| Emphatic adverbs swept clean | Judge meaning before deleting: keep those carrying characterization, contrast, or irony |
+| Dialogue particles zeroed out | Keep natural low-frequency interjections per character; don't reverse-flood either — humanity comes from natural structure, not chat-speak |
+| Narration keeps formal residue ("must/shall/thus/hereby" in non-system prose) | Plain it ("has to / should / so / now"). System notices, rule text, panel broadcasts may keep cold function; if `system-notice-formality-tic` fires, plain-language part of it inside the carrier only, don't turn it into narrator explanation |
+| Short narrative paragraphs in sheets (`overcompressed-prose-tic`) | Don't lengthen all short paragraphs. Read first: heavy-beat short sentences and dense shots that flow fine stay; only process the transitions that read like an outline, merging them back into the same shot so the reader flows through action, space, and causation |
+| Low connective density outside quotes with few mid-long sentences (`low-connective-density-tic`) | Not a global "add the/and/but" pass, and don't touch naturally terse dialogue/chat/system text. Find the narration joints that read like an outline/telegraph, restore necessary connectives, reference, and mid-length sentence groups; text with a chain of mid-long sentences can stay |
 
-自检：删完连读一遍，读感像提纲或流水口令，就是删过了——把非峰值句恢复成自然白话，不是接着删。
+Self-check: after cutting, read it once through — if it reads like an outline or
+drill commands, you over-cut. Restore non-peak sentences to natural speech; don't
+keep cutting.
 
-本模式约束的是删减的度，不降低清理力度：禁用词、套路句式、告知式心理照删照改，模式 1-8 与 Gate A-G 全额执行；回填只回结构虚词和连接，不保留、不恢复任何模板措辞。
+This pattern governs the *degree* of cutting, not the cleaning standard: banned
+words, template sentences, and tell-not-show psychology still get cut per Patterns
+1-8 and Gates A-G in full; restorations only add structural function words and
+connectives — never keep or restore template phrasing.
 
-### 模式 10：二修伪自然（油腻倒装 / 监控动作清单 / 对话指标化）
+### Pattern 10: second-pass fake naturalness (greasy inversion / camera action lists / dialogue metrics)
 
-一些“反检测提示词”会把文本推向另一种模板：为了提高突发性而乱倒装，为了真人感而机械加口误和脏话，为了手机阅读而强制每句换行，为了对话占比而把心理和叙述硬改成台词。这些不是自然网文，是二修痕迹。
+Some "anti-detection" prompts push text into another template: random inversions to
+look sudden, mechanically sprinkled verbal slips and profanity for "realism",
+forced line breaks for mobile reading, and psychology/narration converted into
+dialogue to hit a dialogue percentage. These are not natural web fiction — they're
+second-pass traces.
 
-| 表现 | 修法 |
+| Manifestation | Fix |
 |---|---|
-| 油腻倒装 | 不写“手里拿着刀，他冲了上去”这类伴随动作前置。连续同主语时，优先用场内物件、声音、局部身体或环境反馈自然换句首；不要滥用死物拟人 |
-| 监控摄像头式动作清单 | 同段连续“伸手拿起、取过、挑开、放下、转身……”像步骤表。合并琐碎动作，只保留有情绪、情节或空间功能的动作；必要时用角色犹豫、误判、旁人反应或环境反馈做缓冲 |
-| 高压场景误脱水 | 冲突、追杀、打斗可删解释和逻辑胶水；日常、暧昧、铺垫不能全章脱水。删的是废话，不是“的/了/就/但是”等自然连接 |
-| 吃字漏词 | 去 AI 后如果动词没有对象、动作指向不清、读者不知道谁对谁做了什么，要补回必要宾语、承载物或物理反馈；中文可省略，但不能省到像提纲 |
-| 对话指标化 | 不为凑 50%-60% 对话占比硬扩台词。台词只在角色真会说、此刻必须说时增加；长对白可拆动作，解释性对白优先压成冲突、回避或半句信息 |
-| 硬格式投机 | 不强制每句换行、50-60 字一行、不把省略号改成英文点、不把 `地/得` 全改错。按平台和项目既有格式走 |
+| Greasy inversion | Don't write "Holding the knife in his hand, he charged" style front-loaded participial motion. With a continuing subject, prefer in-scene objects, sounds, body parts, or environment feedback to vary sentence openers; don't abuse animating dead objects |
+| Camera action list | A paragraph stacking "reached, grabbed, pulled open, set down, turned, walked" like a procedure table. Merge trivial steps; keep only actions with emotional, plot, or spatial function; buffer with hesitation, misjudgment, others' reactions, or environment feedback when needed |
+| High-pressure over-dehydration | Conflict, chase, and fight scenes may shed explanation and logical glue; daily, romantic, and setup scenes can't be dehydrated for a whole chapter. Cut waste, not natural connectives (and/but/then/when/though) |
+| Eaten words | After de-AI, if verbs have no object, actions point nowhere, and the reader can't tell who did what to whom, restore the necessary object, carrier, or physical feedback |
+| Dialogue metrics | Don't inflate dialogue to hit a 50-60% ratio. Add lines only when a character truly would and must speak now; long exchanges can break into action; explanatory dialogue compresses into conflict, avoidance, or half-information |
+| Hard formatting gaming | Don't force one sentence per line, 50-60 char lines, ellipsis as periods, or all punctuation games. Follow the platform/project's existing format |
 
-`check-ai-patterns.js` 的 `action-list-tic` 只提示监控动作清单，不是 blocking。功能性打斗/追逐/仪式步骤若动作链本身承担信息，可保留或标 `[需复核]`。番茄高分样本中该类命中为 0，因此适合作为“需通读”的风格提示，而不是硬性失败项。
+`check-ai-patterns.js`'s `action-list-tic` is advisory, not blocking. Functional
+fight/chase/ritual chains that carry information may stay or be marked `[needs
+review]`.
 
-#### 工具提示处理
+#### Tool-report handling
 
-`check-ai-patterns.js` 是本地写作 lint；blocking 只限确定性句式/标点问题，advisory 不作完成门槛。用户贴其他工具报告时，只把能落到正文的句式、段落、词汇问题转成具体修改点，不写“0% AI / 100% 真人”或“固定公式”，也不围绕分数反复微调。
+`check-ai-patterns.js` is a local writing lint; blocking covers only deterministic
+sentence/punctuation issues, advisory is not a completion gate. When the user pastes
+another tool's report, convert only the sentence/paragraph/vocabulary issues that
+land in the prose into concrete fix points — don't write "0% AI / 100% human" or
+"fixed formula", and don't fine-tune around a score.
 
-工具提示不高于读感规则。参考文本里若出现“仿佛/非常/感到”等套词或告知式心理，仍按模式 1-8 清理；不要机械补词、故意错字或按题材套壳。
+Tool reports don't outrank reading-feel rules. If reference text contains banned
+phrases or tell-not-show psychology ("couldn't help but", "he felt"), still clean it
+per Patterns 1-8; don't mechanically add typos, deliberately misspell, or genre-shell
+it.
 
-**去 AI 味补充判断**：
-- 优先处理：作者解释总结、意义尾巴、把情节翻译成“他意识到 / 这意味着 / 真正重要的是 / 这次成长”。优先删掉，或落回场内动作、对话、物件状态、任务状态和角色当场要处理的后果。
-- 场内载体优先：原文已有手机、屏幕、公告、门牌、表单、账单、物证、规则行时，保留为角色看见/读错/处理的文本或物件；不要把同一信息改写成叙述者解释规则。
-- 白话但不注水：少用精致戏剧反应短语（头皮发紧、眼皮一跳、心口一沉、胃里翻涌）连续替代剧情推进；能写普通动作/普通感觉就写普通动作/普通感觉，并保留自然的“的/了/就/但是/已经/之后/没有”等连接。
-- 题材文风优先：文风对标有帮助，但必须来自目标题材/本书文风指纹；不要把盘龙腔、旧网文腔、第一人称声口等当成跨题材万能修法。
-- 不要当通用修法：单纯加标题、补物件、补动作尾巴、拉长/压短句子、增加排队/门禁/记录体，不能替代具体的情节、视角和语言问题处理。
+**Supplementary de-AI judgments**:
+- Priority fixes: author explanation/summary, meaning tails, translating plot into
+  "he realized / this meant / what really mattered / this growth". Delete first, or
+  land them on in-scene action, dialogue, object state, task state, and the
+  consequence the character must handle right now.
+- In-scene carriers first: when the text already has phones, screens, notices, door
+  plates, forms, bills, evidence, rule lines — keep them as text/objects the
+  character sees/misreads/handles; don't rewrite the same information as narrator
+  explanation rules.
+- Plain but not padded: don't substitute refined dramatic-reaction phrases
+  ("his scalp tightened, her heart lurched, his stomach churned") in a chain to
+  replace plot progress; when a plain action or plain feeling works, write the plain
+  thing, and keep natural connectives.
+- Genre style first: style benchmarking helps, but must come from the target
+  genre/this book's style fingerprint; don't treat one famous author's voice as a
+  universal cross-genre cure.
+- Not a universal fix: merely adding titles, objects, action tails, lengthening/
+  shortening sentences, or adding queues/gates/log entries cannot replace treating
+  the specific plot, POV, and language problems.
 
-#### 把提纲句写成连续段落
+#### Turning outline sentences into continuous paragraphs
 
-当文本已无 blocking / 明显 advisory，但读起来仍像提纲时，只处理断裂处：
+When the text has no blocking / obvious advisory findings but still reads like an
+outline, treat only the broken joints:
 
-1. 标出读起来像逻辑报告的段落：连续出现“他知道/他明白/这意味着/真正的问题/必须/需要”等判断链，却缺少当下动作、物件或对话反馈。
-2. 把叙述者结论落地：用角色当下能触到、听到、被迫处理的后果替代“他意识到/这意味着”。不要套固定物件清单，也不要把某个场景外壳当通用规则。
-3. 只在断裂处恢复自然连接和结构虚词；不设比例目标，不机械补连接。
-4. 系统公告、规则条文、面板播报可以保留冷硬短句；`system-notice-formality-tic` 报警时，只在原载体内白话化一部分硬规则词，或让角色当场看到具体后果，不改成叙述者解释。
+1. Mark paragraphs that read like logic reports: chains of "he knew / he understood /
+   this meant / the real problem / had to / needed" without present action, object,
+   or dialogue feedback.
+2. Land the narrator's conclusions: replace "he realized / this meant" with the
+   consequence the character can touch, hear, or is forced to handle now. Don't
+   apply a fixed object list, and don't treat one scene's shell as a universal rule.
+3. Restore natural connectives and function words only at the broken joints; no
+   ratio targets, no mechanical connective filling.
+4. System notices, rule text, and panel broadcasts may keep cold short sentences;
+   when `system-notice-formality-tic` fires, plain-language part of the hard rule
+   words inside the carrier or let the character see the concrete consequence on the
+   spot — don't rewrite into narrator explanation.
 
-`overcompressed-prose-tic` / `low-connective-density-tic` 的具体修法：
+Specific fixes for `overcompressed-prose-tic` / `low-connective-density-tic`:
 
-1. 圈出连续短叙述段，逐段标注功能：爆点/反转/恐惧重拍、密集镜头可继续短；铺垫、空间、因果、动作承接应并回同一镜头。人工读着顺，就不因该 advisory 继续拉长。
-2. 合并时优先补“动作顺序、空间方位、因果承接”，例如“抬头时/门外/已经/还/就/被”，而不是给每句硬塞“的/了/就”。
-3. 合并后再删套词和告知心理：读顺不是恢复 AI 腔，不能把“仿佛/感到/非常/好像”成片加回来。
+1. Circle the consecutive short narrative paragraphs and label each one's function:
+   explosion/reversal/fear heavy-beats and dense shots may stay short; setup, space,
+   causation, and action continuation should merge back into the same shot. If it
+   reads fine by hand, don't keep lengthening because of the advisory.
+2. When merging, prefer restoring "action order, spatial orientation, causal
+   connection" ("when he looked up / outside the door / already / still / then /
+   because") rather than jamming a function word into every sentence.
+3. After merging, cut banned phrases and tell-not-show psychology again: reading
+   smoothly is not a license to restore AI voice — don't flood "couldn't help but /
+   felt / somehow / a wave of" back in.
 
-复核处理：如果清掉 `overcompressed-prose-tic` / `low-connective-density-tic` 后读感仍不稳，停止局部微调，转为段落级重写或人工读感对照。
+Review handling: if the feel is still unstable after clearing
+`overcompressed-prose-tic` / `low-connective-density-tic`, stop local tweaks and
+switch to paragraph-level rewrite or a human read-feel comparison.
 
-示例：
+Example:
 
 ```
-过度压缩：
-林遥抬头。
-雨棚外的街灯灭了。
-风也停了。
-柜台上的纸杯晃了两下。
+Overcompressed:
+Lin Yao looked up.
+The streetlights outside the awning went dark.
+The wind stopped too.
+The paper cup on the counter wobbled twice.
 
-读顺后：
-林遥抬头时，雨棚外的街灯正一盏盏熄下去。风忽然停了，柜台上的纸杯还在原地轻轻打转。
+Smoothed:
+When Lin Yao looked up, the streetlights outside the awning were blinking out one by
+one. The wind had stopped, and the paper cup on the counter was still spinning
+slowly in place.
 ```
-
 
 ---
 
-## 系统性去AI三遍法
+## The systematic three-pass de-AI method
 
-### Pass 1：去泛化（Strip Generic）
-- 抽象情绪总结句 -> 删或替换为具体动作
-- 假深度句 -> 删
-- 意义膨胀 -> 缩小到具体影响
-- 空洞结论 -> 删
-- 工整对比句式 -> 打散重写
-- 装饰性形容词堆砌 -> 白描
-- 过度使用"于是""然而""此刻" -> 删掉一半
-- 所有角色说话一样"高级" -> 区分语气
+### Pass 1: Strip generic
+- Abstract emotion summaries -> delete or replace with concrete action
+- Fake-depth sentences -> delete
+- Meaning inflation -> shrink to the specific effect
+- Hollow conclusions -> delete
+- Tidy contrast constructions -> break apart and rewrite
+- Decorative adjective piles -> plain description
+- Overused "then / so / in that moment / somehow" -> cut half
+- All characters sounding equally "elevated" -> differentiate voices
 
-**原则**：能删就删，不能删就用具体细节替换。这一遍去掉80%的AI味。
+**Principle**: delete when you can; when you can't, replace with concrete detail.
+This pass removes ~80% of the AI flavor.
 
-### Pass 2：去书面化（Cut Professional Diction）
-- 分析性用词（"机制""结构""逻辑""体系"出现在小说中）-> 换成日常表达
-- 抽象名词滥用 -> 直接说事
-- 体制内用语（"进一步""深入""推进""落实"）-> 删
-- 专业术语堆砌 -> 只保留必要的，用白话解释
+### Pass 2: Cut professional diction
+- Analytic words in fiction ("mechanism", "structure", "logic", "system" as
+  abstractions) -> everyday expression
+- Abstract-noun abuse -> say the thing
+- Institutional phrasing ("furthermore", "additionally", "in terms of", "with
+  regard to") -> delete
+- Jargon piles -> keep only what's needed, plain-language the rest
 
-**例外**：保留专业感的场景（历史题材正式用语、文学向刻意密度、喜剧夸张修辞）。
+**Exception**: keep professional texture where the scene demands it (formal
+historical register, deliberately dense literary prose, comedic exaggeration).
 
-### Pass 3：回自然感（Restore Natural Presence）
-- 具体的感官细节（气味、温度、触感）
-- 角色说话方式的区分（不同人不同语气）
-- 句首变化：连续 3+ 句用同一主语或同一词性开头时换开法（动作、场景、对话引入）
-- 节奏变化（长短句交错）：按情绪 beat、动作推进和戏剧单元自然调节句段长短；忌连续多段同一长度，也忌为凑短而碎成提纲。长短不是随机，沉淀处可放慢，冲突/反转处可骤短，完整推理与情绪链优先保持连贯
-- 社会位置感的对话（上级和下属说话方式不同）
-- 场景特有的记忆点
-- 项目特有的语言习惯（角色的口头禅）
+### Pass 3: Restore natural presence
+- Concrete sensory details (smell, temperature, touch)
+- Distinct character speech (different voices)
+- Sentence-opener variety: when 3+ consecutive sentences open with the same subject
+  or same word class, change the opener (action, scene, dialogue lead-in)
+- Rhythm variation (long/short interleave): regulate sentence and paragraph length
+  by emotion beat, action advance, and dramatic unit; avoid uniform lengths across
+  paragraphs, but don't shatter into an outline for shortness. Length isn't random:
+  reflective passages can slow, conflict/reversal can snap short, complete reasoning
+  and emotion chains stay continuous
+- Social-positioned dialogue (boss and subordinate talk differently)
+- Scene-specific memory points
+- Project-specific speech habits (character catchphrases)
 
-**原则**：少即是多。每段加 1-2 个具体细节就够了。
+**Principle**: less is more. 1-2 concrete details per paragraph are enough.
 
-### 升级策略
+### Escalation strategy
 
-| AI味程度 | 策略 |
-|----------|------|
-| 轻度 | 只做 Pass 1 |
-| 中度 | Pass 1 + Pass 2 |
-| 重度 | 完整三遍 + 重点段落重写 |
+| AI-flavor level | Strategy |
+|-----------------|----------|
+| Light | Pass 1 only |
+| Medium | Pass 1 + Pass 2 |
+| Heavy | Full three passes + key-paragraph rewrite |
 
-### 自检清单
-- 对话自然度检查：对话是否使用口语化表达，是否避免了书面语/正式腔调
-- 删掉任何一句，会影响理解吗？不会 = 可能多余
-- 不同角色能通过对话区分吗？
-- 有没有一个细节是这个场景特有的？
+### Self-check list
+- Dialogue naturalness: colloquial? No formal register?
+- Delete any sentence — does understanding suffer? No = possibly redundant
+- Can you tell characters apart by dialogue?
+- Is there one detail specific to this scene?
 
 ---
 
-## 去AI味补充技法
+## Supplementary de-AI techniques
 
 ### Show vs Tell
 
-| 告知类型 | AI写法 | 自然写法 |
-|----------|--------|----------|
-| 告诉期待感 | "他很期待" | 展示期待->情绪->满足的链条 |
-| 告诉角色目的 | "她想离婚" | 用行动展示目的 |
-| 告诉角色态度 | "她很冷静" | 用对话和反应体现 |
-| 告诉剧情走向 | "接下来会发生大事" | 用铺垫->反转->延续展示 |
+| Tell type | AI version | Natural version |
+|-----------|-----------|-----------------|
+| Telling anticipation | "He was looking forward to it" | Show the anticipation -> emotion -> fulfillment chain |
+| Telling intent | "She wanted a divorce" | Show the intent through action |
+| Telling attitude | "She was very calm" | Convey through dialogue and reactions |
+| Telling plot direction | "Something big was about to happen" | Show via setup -> reversal -> continuation |
 
-### 心理描写润物细无声
+### Interiority that works quietly
 
-- 加括号标注内心活动 = 破坏代入感
-- 大段内心独白解释动机 = AI签名
-- 直接写"她感到""她意识到" = 告知情绪
+- Parenthetical inner commentary = breaks immersion
+- Long interior monologue explaining motivation = AI signature
+- Writing "she felt" / "she realized" directly = telling emotion
 
-**自然写法**：心理活动自然融入叙事，用行为暗示心理，用沉默/动作/反常行为表达内心。
+**Natural version**: interiority folds into the narration; behavior implies mind;
+silence, actions, and off-behavior express the inner state.
 
-### 代入感检查
-- 主角行为读者能理解、共鸣、接受吗？
-- 反派够强吗？（弱反派 = 读者觉得主角赢了没意义）
-- 是否围绕人设写行为？（行为/语言/思维围绕人格展开）
-- 读者已知信息是否被有效操控？（信息差制造情绪波动）
-
----
-
-## 改写范例库
-
-### 情绪外化范例
-
-**紧张**
-- '他感到一阵紧张，心跳不由自主地加快了'
-- 他攥紧了手里的纸杯，水洒出来一些
-
-**愤怒**
-- '愤怒在他心中燃烧，他不由得握紧了拳头'
-- 他把筷子往桌上一拍，碗里的汤溅了出来
-
-**悲伤**
-- '一丝悲伤涌上心头，她的眼中闪过泪光'
-- 她低头搅着咖啡，搅了很久
-
-**害怕**
-- '恐惧瞬间笼罩了他，他感到一阵战栗'
-- 他的背贴在墙上，不敢动
-
-**失望**
-- '她感到一丝失落，心仿佛被什么东西揪住了'
-- "哦。"她把手机锁了屏
-
-**惊讶**
-- '他的瞳孔微微收缩，显然没有想到会听到这样的话'
-- 他张了张嘴，什么都没说出来
-
-### 场景描写范例
-
-**AI风场景**
-- '阳光透过窗帘的缝隙洒进来，在地板上投下斑驳的光影。空气中弥漫着淡淡的花香，仿佛整个世界都沉浸在一片宁静祥和的氛围中。'
-- 下午三点，客厅里只有钟在走。
-
-**AI风天气**
-- '天空阴沉沉的，乌云密布，仿佛随时都会下起倾盆大雨。凛冽的寒风呼啸而过，带着一丝刺骨的寒意。'
-- 要下雨了。风把晾在外面的衣服吹得乱晃。
-
-**AI风打斗**
-- '他的拳头犹如疾风骤雨般猛烈，每一击都蕴含着不容置疑的力量。对手的瞳孔微微收缩，显然没有预料到如此凌厉的攻势。'
-- 他一拳怼过去，对方没躲开，嘴角破了。
-
-### 结尾改写范例
-
-**升华式结尾** -> '他站在窗前，望着远方的天际线，终于明白了生活的真谛：有时候，放手才是最好的选择。' -> 他把烟掐了，回屋睡觉。
-
-**总结式结尾** -> '这一刻，一切都变了。她知道，从今以后，她的人生将翻开崭新的一页。' -> 她关上了那扇门。没回头。
-
-**感慨式结尾** -> '岁月如流水般悄然流逝……' -> 直接删掉这种段落。
-
-### 节奏调整范例
-
-> 以下范例处理的是臃肿修饰、堆叠比喻和抽象总结，不是「见长就拆」：改写后叙述仍以逗号长句为主（规则 3），不要把正常的逗号长句拆成短句串。
-
-**排比句**
-- '他看着她的眼睛，看着她的嘴唇，看着她微微颤动的睫毛，心中涌起一股难以名状的情感。'
-- 他看着她，她没说话。
-
-**臃肿长句去修饰**
-- '当他终于推开那扇沉重的木门时，映入眼帘的是一间昏暗的房间，空气中弥漫着陈旧的气息，墙角堆满了落满灰尘的箱子。'
-- 他推开木门，屋里昏暗，墙角堆着几个落灰的箱子。
-
-**工整段落打碎**
-- '她喜欢春天的花朵，喜欢夏天的阳光，喜欢秋天的落叶，喜欢冬天的白雪。每一个季节都有它独特的美。'
-- 她喜欢春天，别的季节也还行。
+### Immersion check
+- Can the reader understand, resonate with, and accept the protagonist's actions?
+- Is the antagonist strong enough? (weak antagonist = the protagonist's win feels hollow)
+- Does behavior revolve around character design? (behavior/language/thinking around personality)
+- Is reader-known information being manipulated effectively? (information gaps create emotional swings)
 
 ---
 
-## 冲突对话改写范例
+## Rewrite example library
 
-### AI式温和对话
-- '我觉得你这样做不太合适，能不能考虑一下我的感受？' -> "你眼里还有我吗？"
+### Externalizing emotion
 
-### AI式完美解释
-- '其实我这样做是有原因的，因为当时的情况非常复杂……' -> "你能怎么着？"她把茶杯重重放下。
+**Nervous**
+- 'A wave of nervousness washed over him, his heart beating faster against his will'
+- He squeezed the paper cup until water spilled over the rim
 
-### 对话情绪五级递进范例
+**Angry**
+- 'Anger burned inside him and he clenched his fists without thinking'
+- He slammed his chopsticks on the table; soup splashed out of the bowl
 
-同一冲突场景，从弱到强：
+**Sad**
+- 'A trace of sadness rose in her chest and tears glistened in her eyes'
+- She stirred her coffee, head down, for a long time
 
-1. **客观陈述**："你把我的东西扔了。"
-2. **陈述+建议**："你把我的东西扔了，以后能不能先跟我说一声。"
-3. **主观指责**："你凭什么动我的东西。"
-4. **指责+命令**："你算什么东西，也配碰我的东西？滚出去。"
-5. **指责+PUA**："我伺候你吃伺候你穿，你连个东西都放不好。你这辈子也就是这样了，离了我你什么都不是。"
+**Afraid**
+- 'Fear gripped him instantly and a shudder ran through him'
+- He pressed his back against the wall and didn't dare move
 
-### 震惊分层改写范例
+**Disappointed**
+- 'She felt a sting of disappointment, as if something had squeezed her heart'
+- "Oh." She locked her phone and set it face-down
 
-**AI式一步到位**：所有人都震惊了，不敢相信自己的耳朵。
+**Surprised**
+- 'His pupils contracted slightly; clearly he hadn't expected to hear that'
+- His mouth opened and closed without a sound
 
-**自然分层震惊**：
-1. 对面的男人手抖了一下，茶杯里的水洒出来。
-2. 旁边的人互相看了一眼，有人往后退了一步，角落里有人开始掏手机。
-3. 刚才还趾高气扬的女人，脸上的笑僵住了。她张了张嘴，一个字没说出来。
+### Scene description
 
-### 代入感修复范例
+**AI-style scene**
+- 'Sunlight streamed through the gaps in the curtains, casting dappled shadows on the
+  floor. The air was filled with the faint scent of flowers, as if the whole world
+  were bathed in a serene and peaceful atmosphere.'
+- Three in the afternoon, and the only thing moving in the living room was the clock.
 
-**被动主角**：她很害怕，不知道该怎么办，只能等着事情过去。
+**AI-style weather**
+- 'The sky hung heavy with dark clouds, as if it might pour at any moment. A biting
+  wind howled through, carrying a chill that pierced to the bone.'
+- It was going to rain. The wind was whipping the laundry on the line.
 
-**主动主角**：她锁了门，把手机调成静音，打开了录音。
+**AI-style fight**
+- 'His fists came like a storm, each blow carrying undeniable force. The opponent's
+  pupils contracted — clearly unprepared for such a ferocious assault.'
+- He threw one punch. The other guy didn't dodge, and his lip split.
+
+### Ending rewrites
+
+**Elevated ending** -> 'He stood at the window, gazing at the skyline, finally
+understanding the truth of life: sometimes letting go is the best choice.' -> He
+stubbed out his cigarette and went to bed.
+
+**Summary ending** -> 'In that moment, everything changed. She knew her life would
+turn a new page from today.' -> She closed the door behind her. Didn't look back.
+
+**Reflective ending** -> 'Time flowed by like water, quietly...' -> Delete the
+passage outright.
+
+### Rhythm adjustments
+
+> The following examples treat bloated modifiers, stacked metaphors, and abstract
+> summaries — not "break any long sentence": after rewriting, narration still runs on
+> mid-length sentences (Rule 3); don't chop healthy mid-length sentences into short
+> strings.
+
+**Parallel sentence**
+- 'He looked at her eyes, looked at her lips, looked at her trembling lashes, a
+  nameless emotion rising in his chest.'
+- He looked at her. She didn't say anything.
+
+**Bloated long sentence, stripped**
+- 'When he finally pushed open the heavy wooden door, what met his eyes was a dim
+  room, the air thick with age, the corners piled with dusty boxes.'
+- He pushed open the door. The room was dim, with dusty boxes stacked in the corner.
+
+**Tidy paragraph, broken apart**
+- 'She loved the flowers of spring, the sun of summer, the leaves of autumn, the
+  snow of winter. Every season had its own unique beauty.'
+- She loved spring. The other seasons were fine too.
 
 ---
 
-## 质量检查清单
+## Conflict dialogue rewrite examples
 
-写完每章后，按此清单逐项扫描：
+### AI-style polite dialogue
+- 'I feel that what you're doing isn't quite appropriate. Could you please consider
+  my feelings?' -> "Do I even exist to you?"
 
-- [ ] **段落控制**：段落按动作/信息变化断开，读起来不卡
-- [ ] **正文无破折号**：正文（含叙述和对话）无 `——`/`—`/`--`（用句号、逗号、短句或动作断句），不设置对话例外
-- [ ] **AI高频词扫描**：无不禁/仿佛/映入眼帘/心中暗道/沉声道/嘴角微扬/不由自主/只见
-- [ ] **弱化副词计数**：每1000字"微微/淡淡/缓缓/轻轻"不超过3个
-- [ ] **无三连排比**：没有AI式的"三个一组"修辞
-- [ ] **工整否定清单已复核**：跨段「不是A / 也不是B / 只是C」及其他 `formulaic-parallelism` advisory 已连同台词逐条复核；功能性修辞可保留
-- [ ] **无论文体**：无"不难看出/由此可见/事实上/综上所述"
-- [ ] **无书面语连词堆砌**：无"于是乎/与此同时/从而/因而/诚然"泛滥
-- [ ] **章尾无总结升华**：用动作/对话/悬念收束，无感悟/哲理/预告
-- [ ] **无大段心理描写**：心理活动不超过2段，无括号标注内心
-- [ ] **情绪用动作展示**：关键情绪节点无直接写"愤怒/伤心/紧张"，用身体反应替代；低强度过场情绪可一笔直写，不必处处外化
-- [ ] **对话口语化**：无书面腔，不同角色语气可区分
-- [ ] **标点不压平**：没有把质问、爆发、犹豫全部压成句号；也没有随机堆砌 `？`/`！`，或用 `……`/`——` 硬造停顿
-- [ ] **Show Don't Tell**：用行为代替形容词，用细节代替总结
-- [ ] **句长达标**：叙述默认是逗号长句（逗号之间 8-12 字、整句 20-30 字，规则 3）；短句只作偶尔的孤立重拍，用完回到逗号长句；没有连着的 ≤5 字碎片，没有通篇短句像提纲
-- [ ] **少电报体风险**：非峰值叙述保留自然虚词，「了下/了一下」式微动作不复读；若 micro-action-tic 提示，先通读判断，确属机械复读再合并动作，功能性轻反应可留或标 `[需复核]`
-- [ ] **少抽象总结腔**：命运/棋局/这一刻终于明白/才刚刚开始不成串复现；若 abstract-summary-tic 提示，确属拔高定性再改，结尾优先用动作、物件或未解决问题收束
-- [ ] **少套词堆叠**：仿佛/一丝/一抹/深吸一口气/平静无波等高危套词不聚集；若 cliche-density-tic 提示，确属模板腔再具体化，不做同义词轮换
-- [ ] **少比喻堆叠**：像/好像/仿佛/如同不成片复现；若 metaphor-density-tic 提示，只留最有功能的比喻，其余改回具体画面，不换一批新比喻
-- [ ] **少解释链报告腔**：知道/明白/这意味着/必须/需要等判断链不聚集；若 reasoning-chain-tic 提示，确属报告腔再落到动作、物件、对话和现场反馈
-- [ ] **少系统公告公文腔**：方括号规则/面板/公告行里的硬规则词不成片聚集；若 system-notice-formality-tic 提示，保留为场内载体，只在载体内部白话化部分硬词或补角色当场看懂的具体后果
-- [ ] **少未解释的过度精炼短段/低连接密度**：长文本短叙述段不呈现提纲/电报体；若 overcompressed-prose-tic 或 low-connective-density-tic 提示，先通读判断。有意短镜头且上下文读着顺可记录为可留；确有断裂感时，只补断裂处、必要结构虚词和中长句群，禁止机械注水
-- [ ] **少监控动作清单**：同段不要连续罗列“伸手/拿起/取过/放下/转身”式琐碎步骤；若 action-list-tic 提示，先判断动作链是否承担打斗、追逐、仪式或信息功能，确属步骤表再合并动作、补视角缓冲
-- [ ] **不做硬指标投机**：不为反检测强制每句换行、50-60 字一行、对话 50%-60%、英文点省略号，或把 `地/得` 全改成 `的`
-- [ ] **任务卡点服从原文边界**：抽象总结若改成角色办事被卡住，必须来自原文已有任务/证据/手续/物件缺口；不新增原文没有的事件链
-- [ ] **去AI三遍法执行**：轻度只做Pass1，中度做Pass1+2，重度完整三遍
-- [ ] **对话自然度测试**：无书面语痕迹 = 通过
+### AI-style perfect explanation
+- 'Actually, I had my reasons, because the situation at the time was very
+  complicated...' -> "What are you going to do about it?" She set her teacup down
+  hard.
+
+### Five-level dialogue escalation
+
+The same conflict scene, weak to strong:
+
+1. **Objective statement**: "You threw away my stuff."
+2. **Statement + suggestion**: "You threw away my stuff. Next time, tell me first."
+3. **Subjective accusation**: "What gave you the right to touch my things?"
+4. **Accusation + command**: "Who do you think you are, touching my stuff? Get out."
+5. **Accusation + degradation**: "I feed you, I clothe you, and you can't even put
+   one thing away right. You'll never amount to anything. Without me, you're
+   nothing."
+
+### Layered shock rewrite
+
+**AI-style one-step**: Everyone was shocked, unable to believe their ears.
+
+**Natural layered shock**:
+1. The man across the table's hand twitched; tea spilled from his cup.
+2. The people beside him exchanged glances; one stepped back, someone in the corner
+   started pulling out a phone.
+3. The woman who'd been strutting moments ago — the smile froze on her face. Her
+   mouth opened and closed without a word.
+
+### Immersion repair
+
+**Passive protagonist**: She was very scared and didn't know what to do, so she
+just waited for it to pass.
+
+**Active protagonist**: She locked the door, put her phone on silent, and started
+recording.
+
+---
+
+## Quality check list
+
+Scan every chapter after writing:
+
+- [ ] **Paragraph control**: paragraphs break at action/information change, read without stalling
+- [ ] **No em-dash clusters**: at most one em dash per line in prose (including dialogue); no `--`; no `...` runs (use single `…`)
+- [ ] **AI high-frequency phrase scan**: no couldn't help but / as if on cue / took a deep breath / heart raced / a wave of / in that moment / eyes widened / for some reason
+- [ ] **Weak adverb count**: no more than 3 per 1000 words of almost/barely/slightly/gently/softly/quietly/slowly/really/very/quite
+- [ ] **No triple parallel**: no AI "group of three" rhetoric
+- [ ] **No essay voice**: no "It is worth noting that / As we can see / In conclusion / Interestingly"
+- [ ] **No formal connective flood**: no furthermore/moreover/consequently/additionally/nevertheless strings
+- [ ] **Chapter end without summary/elevation**: closed with action/dialogue/suspense, no reflection/philosophy/preview
+- [ ] **No long interior blocks**: interiority under 2 paragraphs, no parenthetical inner commentary
+- [ ] **Emotion shown by action**: key emotion beats have no direct "angry/sad/nervous" labels — body reactions instead; low-intensity transition emotions may be written straight
+- [ ] **Dialogue colloquial**: no bookish register; character voices distinguishable
+- [ ] **Punctuation not flattened**: questions, outbursts, hesitation aren't all period-flattened; no random `?`/`!` stacking or `…`/`—` padding for pauses
+- [ ] **Show Don't Tell**: behavior replaces adjectives, detail replaces summary
+- [ ] **Sentence length on target**: narration defaults to mid-length sentences (clauses 8-14 words, whole sentences 15-25 words, Rule 3); short sentences are occasional isolated heavy beats; no consecutive ≤5-word fragments, no whole-passage telegraph
+- [ ] **Low telegraph risk**: non-peak narration keeps natural function words; hedged micro-beats ("smiled slightly / nodded gently") don't repeat; if `micro-action-tic` fires, read first, merge only genuine mechanical repetition; functional light reactions may stay or be marked `[needs review]`
+- [ ] **Low abstract-summary voice**: fate/wheels/finally understood/just beginning don't string; if `abstract-summary-tic` fires, treat only genuine elevation; endings close on action, objects, or unresolved questions
+- [ ] **Low cliche stacking**: couldn't help but / a wave of / took a deep breath / somehow don't cluster; if `cliche-density-tic` fires, concretize only genuine template voice — no synonym rotation
+- [ ] **Low metaphor stacking**: like/as if/as though don't sheet; if `metaphor-density-tic` fires, keep only the most functional metaphors, return the rest to concrete imagery — don't swap in a new batch
+- [ ] **Low reasoning-chain report voice**: he knew / this meant / had to decide chains don't cluster; if `reasoning-chain-tic` fires, treat only genuine report voice, land on action, objects, dialogue, and scene feedback
+- [ ] **Low system-notice formality**: [bracketed] rule/panel/notice lines don't stack hard words; if `system-notice-formality-tic` fires, keep the in-scene carrier, plain-language part of the hard words inside it, or show the consequence the character understands on the spot
+- [ ] **No unexplained overcompressed short paragraphs / low connective density**: long texts don't show an outline/telegraph distribution; if `overcompressed-prose-tic` or `low-connective-density-tic` fires, read first. Intentional short shots that flow may be marked keepable; where joints genuinely break, restore connectives, necessary function words, and mid-length sentence groups only — mechanical padding is forbidden
+- [ ] **No camera action lists**: one paragraph doesn't stack "reached/grabbed/pulled/set down/turned/walked" trivial steps; if `action-list-tic` fires, judge whether the chain carries fight/chase/ritual/information function first; if it's a procedure table, merge actions and add POV buffering
+- [ ] **No hard metric gaming**: no forced one-line-per-sentence, no dialogue-percentage padding, no ellipsis-as-periods or punctuation games to dodge detectors
+- [ ] **Task blockers respect the original boundary**: abstract summaries compressed into task blockers must come from the original's existing task/evidence/procedure/object gap; don't invent event chains the original didn't have
+- [ ] **Three-pass method executed**: light = Pass 1 only, medium = Pass 1+2, heavy = all three
+- [ ] **Dialogue naturalness test**: no written-register traces = pass

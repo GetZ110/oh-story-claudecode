@@ -1,184 +1,182 @@
+# Web Novel Quality Checklist
 
-# 网文质量检查清单
+## Contents
 
-## 目录
+- [Part 1: Generic checks](#part-1-generic-checks)
+- [Part 2: Long-form specifics](#part-2-long-form-specifics)
 
-- [一、通用检查](#一通用检查)
-- [二、长篇专项](#二长篇专项)
+## Part 1: Generic checks
 
-## 一、通用检查
+### Chapter structure
+- [ ] Opening has a hook (not weather/scenery/daily-life opening)
+- [ ] Middle advances (fast-paced genres need a visible event; slow-burn genres need a state change)
+- [ ] Situation changes (after this chapter, the world is different from before)
+- [ ] Ending lands on a change (not a summary)
 
-### 章节结构
-- [ ] 开头有钩子（不是天气/风景/日常开场）
-- [ ] 中段有推进（快节奏题材要有可见事件；慢热题材状态变化即可）
-- [ ] 局势有变化（读完这章，世界跟之前不一样了）
-- [ ] 结尾落在变化上（不是总结）
+### Opening check (first 300-500 words)
+- [ ] Has a hook that grabs attention
+- [ ] Does not start from weather/scenery/daily life
+- [ ] Protagonist appears quickly
+- [ ] Selling point or crisis visible
 
-### 开篇检查（前 300-500 字）
-- [ ] 有钩子，能抓住注意力
-- [ ] 不从天气/风景/日常开始
-- [ ] 主角快速出场
-- [ ] 卖点或危机可见
+### Chapter advancement
+- [ ] This chapter changes at least one of the seven state types: goal / risk / information / relationship / resource / identity / emotional stance; fast-paced (Webnovel/payoff fiction) should have a visible event or payoff — only slow-burn/emotional books may pass on low-pressure small changes; no per-chapter climax requirement
+- [ ] Not filler (if this chapter were deleted, which state change would be lost? If you cannot answer, it needs compression)
+- [ ] Task blocker useful: does the block produce one of the state changes above?
+- [ ] Advancement strength matches this book's established genre, delivery rhythm, and benchmark — not a fixed generic word count
 
-### 章节推进
-- [ ] 本章至少改变目标 / 风险 / 信息 / 关系 / 资源 / 身份 / 情绪立场七类状态之一；快节奏（番茄/爽文）应有可见事件或爽点，慢热/情感文才可只靠低压小变化达标，不强求每章高潮
-- [ ] 不是水字数（删掉这章会损失哪项状态变化？答不出才需压缩）
-- [ ] 任务卡点有用：卡住之后是否带来上述状态变化？
-- [ ] 推进强弱是否符合本书已建立的题材、兑现节奏与对标，而非套固定通用字数
+### Information delivery
+- [ ] No long setting-exposition passages
+- [ ] Information follows conflict (setting delivered through events)
+- [ ] Setting volume controlled (≤3 new concepts per chapter)
 
-### 信息传递
-- [ ] 没有大段设定说明文
-- [ ] 信息跟着冲突走（通过事件传递设定）
-- [ ] 设定量可控（一章不超 3 个新概念）
+### Scene check
+- [ ] Scene has a goal (what the people want)
+- [ ] Scene has an obstacle (what blocks it)
+- [ ] Scene has a change (different after it ends)
+- [ ] Characters are doing things, not feeling things
+- [ ] No deletable paragraphs
 
-### 场景检查
-- [ ] 场景有目标（人物要什么）
-- [ ] 场景有阻碍（什么挡着）
-- [ ] 场景有变化（结束后跟之前不同）
-- [ ] 人物在做事情，不是在感觉事情
-- [ ] 没有可删除的段落
+### Chapter end
+- [ ] Ends on a change
+- [ ] Has at least one of: crisis / decision / discovery / reversal
+- [ ] Not a summary ending
+- [ ] Pulls the reader to the next page
 
-### 章尾
-- [ ] 结尾落在变化上
-- [ ] 有危机/决定/发现/反转中的至少一个
-- [ ] 不是总结式结尾
-- [ ] 拉住读者翻下一页
+### Language
+- [ ] No hollow lyrical passages
+- [ ] No multiple consecutive paragraphs of the same emotion
+- [ ] Dialogue fits the character (different people speak differently)
+- [ ] Emotion lands through action (not direct "he was very sad")
+- [ ] Outside the title line, no chapter/writing meta-information: no `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` or variants (last chapter / previous chapter / next chapter / earlier text / later text); when referring back, use event anchors or relative time the character can perceive; in-story reading/discussion of "chapter X" or genuine reader-identity contexts excepted
 
-### 语言
-- [ ] 没有空洞的抒情段落
-- [ ] 没有连续多段同一情绪
-- [ ] 对话符合人物身份（不同人说话方式不同）
-- [ ] 情绪通过动作落地（不是直接说"他很难过"）
-- [ ] 标题行以外没有章节/写作元信息：不得出现 `第[一二三四五六七八九十百千万两0-9]+章|上一章|上章|前一章|本章|这一章|前文|后文|伏笔|细纲|读者` 这类词；需要承接前文时改成角色能感知的事件锚点或相对时间；故事内真实阅读/讨论“第X章”或真实读者身份语境除外
+### Serialization continuity
+- [ ] No forgotten promises/foreshadowing
+- [ ] No sudden dumps of new setting
+- [ ] Foreshadowing advances
+- [ ] The story engine still runs
 
-### 连载连续性
-- [ ] 没有遗忘之前的承诺/伏笔
-- [ ] 没有突然塞入大量新设定
-- [ ] 伏笔有推进
-- [ ] 故事引擎还在运转
-
-### 水（filler）检测
-以下信号出现 = 可能水了：
-- 全章对话没有任何新信息
-- 同一个情绪写了 3 段以上
-- 场景描写超过 500 字但不推进剧情
-- 角色回忆之前发生的事但没有任何新视角
-- 连续 2 章以上没有冲突
-- 删掉无损的流程细节 / 任务卡点 = 水；压缩或删除
+### Filler detection
+These signals = possible filler:
+- Whole-chapter dialogue with no new information
+- The same emotion written for 3+ paragraphs
+- Scene description over 500 words that advances nothing
+- A character recalling past events with no new perspective
+- 2+ consecutive chapters with no conflict
+- Process details / task blockers whose deletion loses nothing = filler; compress or delete
 
 ---
 
-## 二、长篇专项
+## Part 2: Long-form specifics
 
-### 黄金三章检查
-- [ ] 第一章前 500 字有钩子？
-- [ ] 主角第一章就出场？
-- [ ] 第一章有事件（不是纯铺垫）
-- [ ] 第二章有升级（矛盾加深）
-- [ ] 第三章有追读理由（给出继续看的动力）
-- [ ] 前三章有至少 2 个爽点？
-- [ ] 世界观没有大段说明文？
-- [ ] 每章结尾有往下看的理由？（低压/过场章弱钩子或阶段目标即可，不强求强悬念）
+### Golden-three-chapters check
+- [ ] Chapter 1's first 500 words have a hook?
+- [ ] Chapter 1 introduces the protagonist?
+- [ ] Chapter 1 has an event (not pure setup)?
+- [ ] Chapter 2 escalates (conflict deepens)?
+- [ ] Chapter 3 gives a reason to keep reading?
+- [ ] First three chapters have ≥2 payoffs?
+- [ ] No long setting-exposition passages for the worldview?
+- [ ] Every chapter end gives a reason to keep reading? (low-pressure/transition chapters: weak hook or stage goal is enough, no strong-suspense requirement)
 
-### 节奏检查
-- [ ] 最近 5 章是否有明确进展？
-- [ ] 爽点间隔是否超过 5000 字？（按章节定位：高压/推进章查间隔；低压/关系/信息整理章不计入）
-- [ ] 有没有连续 2 章以上没有冲突？（呼吸章正常；红线是连续两章压力级≤1 或相邻章情绪趋同）
-- [ ] 一卷是否有章节定位高低层次，没有全程同一力度？低压+过场是否克制（合计不超约 15%）？
+### Rhythm check
+- [ ] Clear progress in the last 5 chapters?
+- [ ] Payoff interval exceeding 5000 words? (by chapter positioning: check intervals for high-pressure/advancement chapters; low-pressure/relationship/information-assembly chapters do not count)
+- [ ] 2+ consecutive chapters without conflict? (breathing chapters are normal; the red line is two consecutive chapters at pressure level ≤1 or adjacent chapters converging on the same emotion)
+- [ ] Does a volume have tiered chapter positioning instead of one uniform intensity? Low-pressure + transition restrained (total ≤ ~15%)?
 
-### 人物检查
-- [ ] 主角行为符合人设？
-- [ ] 配角是否有存在感？
-- [ ] 反派逼格是否匹配当前阶段？
+### Character check
+- [ ] Protagonist behavior matches the character sheet?
+- [ ] Side characters have presence?
+- [ ] Antagonist gravitas matches the current stage?
 
-### 五维评分标准
+### Five-dimension scoring
 
-每个维度 0-100 分，根据评分结果选择精修策略。
+Score each dimension 0-100; pick the polish strategy by the result.
 
-### 维度 1：核心一致度
-检查：关键冲突、关键行动、人物动机是否前后一致。
+### Dimension 1: Core consistency
+Check: are key conflicts, key actions, and character motivations consistent throughout?
 
-| 问题 | 严重度 | 修复 |
+| Issue | Severity | Fix |
 |------|--------|------|
-| 人物动机突然改变无铺垫 | critical | 补充动机转变的触发事件 |
-| 核心冲突前后不一致 | high | 回溯修改冲突设定 |
-| 关键行动与人物性格矛盾 | high | 调整行动或补充解释 |
-| 次要矛盾遗忘 | medium | 回收或弱化 |
+| Motivation changes suddenly with no setup | critical | add the trigger event for the change |
+| Core conflict inconsistent before/after | high | go back and revise the conflict setting |
+| Key action contradicts personality | high | adjust the action or add an explanation |
+| Secondary conflict forgotten | medium | collect or weaken |
 
-### 维度 2：表层重写度
-检查：句式与措辞是否足够原创，避免套路化表达。
+### Dimension 2: Surface rewrite
+Check: are sentence patterns and wording original enough, avoiding formulaic expression?
 
-| 问题 | 严重度 | 修复 |
+| Issue | Severity | Fix |
 |------|--------|------|
-| 照搬原句导致语气不自然 | medium | 只在确有 AI 腔时改写，正常原句可保留 |
-| 大量使用 AI 标志词 | high | 替换为具体描述 |
-| 同一句式重复出现 | medium | 变换表达方式 |
-| 描写过于文学化（辞藻堆砌、书面腔、比喻成串） | medium | 改为口语化/动作化；动作化不是切成三五字短句串，改写后叙述仍以逗号长句为主 |
+| Copied wording makes the tone unnatural | medium | only rewrite when genuine AI flavor exists; fine original lines may stay |
+| Heavy AI marker words | high | replace with concrete description |
+| Same sentence pattern repeated | medium | vary the expression |
+| Over-literary description (diction piling, bookish register, metaphor strings) | medium | colloquialize/action-ize; action-izing does not mean chopping into 3-5-word fragment strings; narration stays comma-linked mid-length sentences after rewriting |
 
-### 维度 3：格式一致度
-检查：段落是否按戏剧单元/镜头自然断开，主语/角色名节奏是否自然，开头结尾格式是否统一。
+### Dimension 3: Format consistency
+Check: paragraphs break naturally by dramatic unit/shot; subject/name rhythm natural; opening/ending formats uniform.
 
-| 问题 | 严重度 | 修复 |
+| Issue | Severity | Fix |
 |------|--------|------|
-| 机械按字数切段或主语过密 | medium | 按戏剧单元重排段落，段首点名、段中代词/省略、关键转折再点名 |
-| 章节字数偏离目标 | **high** | 写作/大纲修复时先回到细纲补足计划内情节点，再展开；去AI味已有正文时不得新增剧情 |
-| 格式混乱（对话/描写不统一）| low | 统一格式 |
+| Mechanically word-counted paragraph breaks or subject density too high | medium | rebreak paragraphs by dramatic unit; name at paragraph head, pronouns/omission mid-paragraph, re-name at key turns |
+| Chapter word count off target | **high** | in writing/outline repair, first return to the outline and add planned plot points, then expand; never add plot when de-AI-ing existing prose |
+| Format chaos (dialogue/description inconsistent) | low | unify the format |
 
-### 维度 4：可读性
-检查：是否有啰嗦、AI 腔、空泛总结、套路修辞。
+### Dimension 4: Readability
+Check: wordiness, AI flavor, hollow summaries, formulaic rhetoric.
 
-| AI 腔特征 | 如何识别 | 如何修复 |
+| AI-flavor trait | How to spot | How to fix |
 |-----------|----------|----------|
-| 空泛总结 | 「他终于明白了」「一切尽在不言中」 | 删掉，用行动代替 |
-| 套路修辞 | 「命运仿佛在和他开玩笑」 | 删掉或换成具体描述 |
-| 比喻堆叠 | 连续多处「像/好像/仿佛/如同」，每个画面都靠比喻解释 | 只留最有叙事功能的少数比喻，其余改成动作、物件、声音或后果 |
-| 情绪标签 | 「他感到一阵悲伤」 | 改为行为表现 |
-| 心理描写空转 | 内心独白无新信息、重复同一情绪或复述读者已知 | 只压缩空转部分；带新信息、决断或情绪转折的独白不按句数压缩 |
+| Hollow summary | "He finally understood" / "all was said in silence" | delete; replace with action |
+| Formulaic rhetoric | "Fate seemed to be joking with him" | delete or replace with concrete description |
+| Metaphor stacking | multiple consecutive "like/as if/as though", every image explained by metaphor | keep only the few most narratively functional metaphors; return the rest to action, objects, sounds, consequences |
+| Emotion labels | "He felt a wave of sadness" | change to behavioral display |
+| Spinning interiority | inner monologue with no new information, repeating the same emotion, or restating what the reader knows | compress only the spinning parts; monologues carrying new information, decisions, or emotional turns are not compressed by sentence count |
 
-### 维度 5：逻辑连贯
-检查：句间/段间是否通顺，有无设定冲突。
+### Dimension 5: Logical coherence
+Check: sentence/paragraph flow, setting conflicts.
 
-| 问题 | 严重度 | 修复 |
+| Issue | Severity | Fix |
 |------|--------|------|
-| 设定前后矛盾 | critical | 查找并统一设定 |
-| 时间线错误 | high | 标记时间线并修正 |
-| 角色信息不一致 | high | 建立角色档案对照 |
-| 因果链断裂 | medium | 补充过渡 |
+| Setting contradicts itself | critical | locate and unify |
+| Timeline error | high | mark the timeline and fix |
+| Character info inconsistent | high | build a character sheet to cross-check |
+| Causal chain broken | medium | add a transition |
 
-### 精修策略
+### Polish strategy
 
-根据五维评分结果，选择精修策略：
+Pick by the five-dimension results:
 
-| 主要问题 | 策略 | 说明 |
+| Main problem | Strategy | Notes |
 |----------|------|------|
-| 核心一致度低 | rewrite | 围绕核心冲突重写相关段落 |
-| 字数超标 | compress | 删减不推动剧情的内容 |
-| 无意义卡点 | compress | 保留卡出的变化，压掉流程 |
-| AI 腔重 | de_ai | 替换禁用词、改写句式 |
-| 小问题多 | polish | 打磨语言细节 |
+| Low core consistency | rewrite | rewrite relevant passages around the core conflict |
+| Word count over | compress | cut content that does not advance the plot |
+| Meaningless blockers | compress | keep the change the blocker produced, compress the process |
+| Heavy AI flavor | de_ai | replace banned words, rewrite sentence patterns |
+| Many small issues | polish | polish language details |
 
-### 读者契约与终局储备双向审查
+### Reader contract & endgame reserve two-way review
 
-参 `reader-contract-and-progression.md`。先问“无毒吗”，再问“好看吗”：**无毒不等于好看**，没有 契约破坏 只代表不踩雷，还要确认情绪兑现足够强。
+See `reader-contract-and-progression.md`. First ask "is it non-toxic", then ask "is it good": **non-toxic ≠ good** — no contract break only means no red lines; confirm the emotional delivery is strong enough.
 
-- [ ] 读者契约：本章/本卷是否兑现开篇承诺，还是把核心卖点交给机构、配角或偶然性？风险标记：契约安全 / 需补强 / 契约破坏。
-- [ ] 主角代理权：按因果权 + 结算权审查，而非按出场时长；用“关键节点四问”核对决定、不可替代选择、后果与核心结算。配角可执行局部动作，但不能无声夺走期待所有权。
-- [ ] 期待债：承诺是否被偿还、延期并支付利息，还是被解释/流程/设定吞掉？
-- [ ] 终局储备：本单元是否动用了本阶段还不该解锁的终局底牌（宿敌/真相/身份/金手指上限）？是否让某条升级线逼近天花板、后面没台阶接？两问皆否即放行——单章一战多得（多线齐涨）是好设计，不算超速。
-- [ ] 兑现归属：期待所有权是否按承诺结算；自愿让渡只有在“长期净收益为负 + 控制/因果权下降”同时出现时亮红灯，战略性让步的更大控制/未来收益/权力/信息交换是否可见？
-- [ ] 节奏续接：高潮/兑现后是否允许短暂低压和小而可见的收益/奖励，而非机械立即加危机？新元素是否支付换书债、没有逃避旧承诺？
-- [ ] 题材特定风险：履约爽文/能力幻想中，主角是否反复以愚蠢或可避免的无能制造灾难并由他人收拾，损害因果权与结算信任？
-- [ ] 反向审查：若删除“安全解释”，情绪是否更强？若保留风险情节，是否带来更强期待、代价或爽点？
+- [ ] Reader contract: does this chapter/volume deliver the opening promise, or hand the core selling point to institutions, side characters, or chance? Risk labels: contract safe / needs reinforcement / contract broken.
+- [ ] Protagonist agency: review by causal rights + settlement rights, not screen time; use the "key-node four questions" for decisions, irreplaceable choices, consequences, and core settlement. Side characters may execute local actions but cannot silently steal expectation ownership.
+- [ ] Promise debt: is the promise repaid, deferred with interest, or swallowed by explanation/process/setting?
+- [ ] Endgame reserve: did this unit use endgame trump cards this stage may not unlock (rival/truth/identity/cheat ceiling)? Did any progression line near its ceiling with no rung left? Both "no" = pass — a single chapter with one-battle-many-gains (multi-line rise) is good design, not overspeed.
+- [ ] Delivery attribution: is expectation ownership settled per the promise; does a voluntary cession only flash red when "long-term net benefit negative + control/causal rights declining" co-occur; is the greater control/future benefit/power/information exchange of a strategic concession visible?
+- [ ] Rhythm handoff: after climax/delivery, is a short low-pressure passage with small visible gains/rewards allowed instead of mechanically adding an immediate crisis? Do new elements pay the new-element debt without dodging old promises?
+- [ ] Genre-specific risk: in fulfillment-genre/ability-fantasy books, does the protagonist repeatedly create disasters through stupidity or avoidable incompetence that others clean up, damaging causal rights and settlement trust?
+- [ ] Reverse review: if the "safety explanation" were deleted, would the emotion be stronger? If the risky plot stays, does it bring stronger anticipation, cost, or payoff?
 
-- [ ] 综合线：契约、主角代理权、期待债、终局储备是否互相支撑，而不是只做到“无毒”。
+- [ ] Combined lines: do contract, protagonist agency, promise debt, and endgame reserve support each other rather than merely being "non-toxic"?
 
+### Unit emotional-engine falsifiability check
 
-### 单元情绪因果可证伪检查
-
-- [ ] 目标是否只有“热血/悲伤”等情绪标签，却没有前状态→触发→后状态的情绪因果？
-- [ ] 承载对象是否只是等待主角解决问题的工具角色？
-- [ ] 高潮是否依赖巧合或最后一刻新增设定？
-- [ ] 主角的硬能力是否服务核心情绪，而非只服务自我证明？
-- [ ] 个体/关系/群体兑现是否回到本书的题材契约？群体兑现只在题材需要时使用。
-- [ ] 是否错把“更安全”或“获得成长”本身当成高潮，却没有情绪意义变化？
-- [ ] 机制是否保持可选：不把物件、误解、反转、死亡、疾病、哭喊或群体抬升当成通用硬模板？
+- [ ] Is the goal only an emotion label ("hyped/sad") with no pre-state → trigger → post-state emotional causation?
+- [ ] Is the carrier merely a tool character waiting for the protagonist to solve the problem?
+- [ ] Does the climax rely on coincidence or last-minute new setting?
+- [ ] Does the protagonist's hard ability serve the core emotion rather than self-validation?
+- [ ] Does individual/relationship/collective delivery return to this book's genre contract? Collective delivery only when the genre needs it.
+- [ ] Is "safer" or "achieved growth" itself mistaken for a climax with no emotional meaning change?
+- [ ] Do mechanisms stay optional: objects, misunderstandings, reversals, death, illness, crying, and collective elevation are not universal hard templates?

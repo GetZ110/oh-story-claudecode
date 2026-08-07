@@ -1,99 +1,98 @@
-# workflow-revision.md：大修工作流
+# workflow-revision.md: Major Revision Workflow
 
-本文件为"大修/回炉"场景的完整指引。SKILL.md 路由到本文件后，按以下流程执行。
-
----
-
-## 适用条件
-
-- 用户说"修改第X章""回炉第X章""重写第X章"
-- 目标：修改已写好的章节内容
-
-> 用户必须指定章节号或章节名。无法自动推断需要修改哪一章。
+This file is the complete guide for the "major revision / rework" scenario. After SKILL.md routes here, execute the flow below.
 
 ---
 
-## Step 1：定位章节
+## Applicability
 
-1. 根据"第X章"找到文件：`正文/第{X}章_*.md`
-2. 如果用户说的是章节名而非编号，用 `find 正文/ -name "*{关键词}*"` 搜索
-3. 找不到时让用户确认具体章节
-4. 如果用户指定段落范围（"第3-5段"/"那场打斗"/"对话部分"），记录为局部修改目标
+- The user says "revise chapter X" / "rework chapter X" / "rewrite chapter X"
+- Goal: modify the content of already-written chapters
+
+> The user must specify a chapter number or title. Which chapter needs revision cannot be inferred automatically.
 
 ---
 
-## Step 2：加载上下文
+## Step 1: Locate the chapter
 
-加载比日常写作更多的上下文（因为修改需要理解前后衔接）：
+1. Find the file by chapter number: `prose/chapter_{X}_*.md`
+2. If the user gives a title rather than a number, search with `find prose/ -name "*{keyword}*"`
+3. If not found, ask the user to confirm the exact chapter
+4. If the user specifies a passage range ("paragraphs 3-5" / "that fight" / "the dialogue part"), record it as a partial-revision target
 
-| 序号 | 文件 | 用途 | 如果不存在 |
+---
+
+## Step 2: Load context
+
+Load more context than for daily writing (revision needs to understand what comes before and after):
+
+| # | File | Use | If missing |
 |------|------|------|-----------|
-| 1 | `正文/第{X}章_*.md` | 待修改章节 | 必须存在 |
-| 2 | `大纲/细纲_第{X}章.md` | 原始写作计划 | 跳过 |
-| 3 | `正文/第{X-1}章_*.md` | 前一章（衔接） | 第1章时加载 `设定/世界观/背景设定.md` 替代 |
-| 4 | `正文/第{X+1}章_*.md` | 后一章（衔接） | 末章时检查 `大纲/细纲_第{X+1}章.md`（如有）确保连续性 |
-| 5 | `tracking_commit.py check` + `追踪/上下文.md` | 用工具确认唯一 state 与派生视图一致；续写状态卡提供当前连续性，不把完整 state 加入 prompt | 缺 state 时停止；已有正文项目必须经 `story-import` 生成标准追踪状态 |
-| 6 | `设定/角色/{相关角色}.md` + `追踪/角色状态/{相关角色}.md` | 静态人设 + 动态当前快照 | 动态快照缺失时从相关增量重算 |
+| 1 | `prose/chapter_{X}_*.md` | the chapter to revise | must exist |
+| 2 | `outline/outline_chapter_{X}.md` | original writing plan | skip |
+| 3 | `prose/chapter_{X-1}_*.md` | previous chapter (continuity) | for chapter 1, load `setting/worldview/background.md` instead |
+| 4 | `prose/chapter_{X+1}_*.md` | next chapter (continuity) | for the last chapter, check `outline/outline_chapter_{X+1}.md` (if any) to ensure continuity |
+| 5 | `tracking/foreshadowing.md` | involved foreshadowing | skip |
+| 6 | `setting/characters/{relevant}.md` | this chapter's characters | skip |
 
-**相关角色判定**：从 `大纲/细纲_第{X}章.md` 中提取角色名。如果细纲不存在，从待修改章节正文中搜索 `设定/角色/` 目录下的角色名关键词。将角色名映射为文件名：`设定/角色/{角色名}.md`。
-
----
-
-## Step 3：修改
-
-1. **阅读原文**：读完整章内容，记录原始字数
-2. **备份原文**：将原文复制为 `正文/第{X}章_章名_原稿_{YYYYMMDD}.md`，确保可回退
-3. **确认修改范围**：问用户是"全文重写"还是"修改特定段落"
-   - 全文重写：基于细纲重新写，保留备份
-   - 局部修改：只改指定段落（按场景序号或关键词定位），保持其他部分不变
-4. **执行修改**：改写文件
-5. **字数对比**：修改后与原文字数差异 > 30% 或 > 800 字时提醒用户（取较大值）
-
-**资料研究（按需）**：如果修改涉及需要验证的外部事实（历史年代、地理方位、职业细节等），spawn `story-researcher` agent 搜索验证。
+**Relevant-character determination**: extract character names from `outline/outline_chapter_{X}.md`. If the outline does not exist, search the chapter's prose for character-name keywords present under `setting/characters/`. Map names to filenames: `setting/characters/{Name}.md`.
 
 ---
 
-## Step 4：级联检查
+## Step 3: Revise
 
-修改完成后，用一次 `mode=revision` 追踪事务完成级联更新，协议见 [tracking-transaction.md](tracking-transaction.md)：
+1. **Read the original**: read the full chapter, record the original word count
+2. **Back up the original**: copy the original to `prose/chapter_{X}_{Title}_original_{YYYYMMDD}.md` so it can be rolled back
+3. **Confirm the revision scope**: ask whether it is a "full rewrite" or "revise specific passages"
+   - Full rewrite: rewrite from the outline, keep the backup
+   - Partial revision: only change the specified passages (locate by scene number or keywords), leave everything else untouched
+4. **Execute the revision**: rewrite the file
+4. **Word-count comparison**: if the post-revision word count differs from the original by >30% or >800 words (whichever is larger), alert the user
 
-1. **重算修订章增量**：对比旧正文/旧增量与新正文，只保留新版本对未来仍有效的 `result / 角色变化 / 伏笔变化 / 时间与揭示 / 约束 / 下一章承诺`。事务工具整份重写 `追踪/逐章记录/第{X}章.md`，不保留被新正文推翻的结论。
-2. **伏笔当前值**：对受影响 ID 从第 X 章检查到最后已写章 M，提交修订后的**截至 M 章当前状态**。若修订删除了埋设，但后文仍引用该 ID，先列为正文冲突，不能简单删除；确定整条线不存在时才用 `action=delete`。`伏笔.md` 始终每 ID 一行，不追加修订历史。
-3. **时间与读者认知**：为受影响事件提交客观事实、读者截至 M 章的当前认知、实际揭示状态/章节；删掉的事件用 `action=delete`。未来揭示计划仍留大纲。工具把事件合并进 `_tracking-state.json` 并重建作者/读者视图，禁止分别手改。
-4. **角色当前快照**：对受影响核心角色从 X 检查到 M，按身份、位置、目标、能力资源、关系对象、已知信息、未结事项分别重算，提交一份截至 M 的完整快照；不得用最后一条单维度变化覆盖其它维度。
-5. **导入截止范围**：若 X ≤ `_tracking-state.json.imported_through_chapter`，事务为第 X 章新增覆盖记录；导入截止章不变，当前结构化状态按修订结果更新。
-6. **提交与重试**：把修订开始时 `tracking_commit.py check` 返回的 `state_revision` 写入 `expected_state_revision`，再执行 `tracking_commit.py commit`；若期间状态已变化，重新读取当前状态并重构事务。任一步骤失败时保留原事务 JSON，修正写入环境后重跑同一 `commit`；成功并通过 `check` 前禁止继续修下一章或写新章。
-7. **后续影响**：如果修改改变了角色状态/关系/世界观设定，扫描后续章节正文标记受影响项：
+**Research (on demand)**: if the revision involves external facts needing verification (historical dates, geography, professional details, etc.), spawn the `story-researcher` agent to search and verify.
+
+---
+
+## Step 4: Cascade check
+
+After the revision, check one by one whether later chapters are affected:
+
+1. **Foreshadowing check**: compare the foreshadowing list before/after (old snapshot vs new content), mark changes:
+   - New foreshadowing → add to `tracking/foreshadowing.md`
+   - Removed foreshadowing → remove from `tracking/foreshadowing.md` and check whether later chapters reference it
+   - Modified foreshadowing → update the description, check later references stay consistent
+2. **Timeline check**: compare the event order before/after, update `tracking/timeline.md`
+3. **Downstream impact**: if the revision changed character states/relationships/worldview setting, scan later chapters' prose and mark affected items:
 
 ```
-⚠️ 修改第{X}章后，以下章节可能需要同步调整：
-- 第{X+1}章：{原因}（建议检查）
-- 第{X+3}章：{原因}（建议检查）
+⚠️ After revising chapter {X}, the following chapters may need sync adjustments:
+- Chapter {X+1}: {reason} (suggested check)
+- Chapter {X+3}: {reason} (suggested check)
 ```
 
-8. **正文元信息扫描**：检查标题行以外是否混入 `第[一二三四五六七八九十百千万两0-9]+章|上一章|上章|前一章|本章|这一章|前文|后文|伏笔|细纲|读者` 这类写作工程词，命中即改成角色当下可感知的事件锚点或相对时间；故事内真实阅读/讨论“第X章”或真实读者身份语境除外
-9. **禁用词扫描**：对照 `references/banned-words.md` 检查修改后的内容，并运行 `tracking_commit.py check` 验证 state 与全部派生视图一致
+4. **Prose meta-information scan**: check outside the title line for `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` and variants; rewrite hits into event anchors or relative time the character can perceive; in-story reading/discussion of "chapter X" or genuine reader-identity contexts excepted
+5. **Banned-word scan**: per `references/banned-words.md`, scan the revised content
 
 ---
 
-## Step 5：质量检查
+## Step 5: Quality check
 
-对修改后的章节执行 Phase 5 质量检查（至少包含）：
+Run the Phase 5 quality check on the revised chapter (at minimum):
 
-1. **禁用词扫描**：如 Step 4 未覆盖全章，再次扫描
-2. **正文元信息扫描**：同「级联检查」中的「正文元信息扫描」，确认覆盖全章。
-3. **人物一致性**：修改后的角色行为是否与角色设定一致
-4. **节奏检查**：修改是否破坏了章节节奏
+1. **Banned-word scan**: if Step 4 did not cover the whole chapter, scan again
+2. **Prose meta-information scan**: same as the "prose meta-information scan" in the cascade check; confirm full-chapter coverage
+3. **Character consistency**: does the revised character behavior match the character setting
+4. **Rhythm check**: did the revision break the chapter's rhythm
 
-> 完整检查清单见 [Phase 5：质量检查](../SKILL.md#phase-5质量检查)。
+> Full checklist in [Phase 5: Quality check](../SKILL.md#phase-5-quality-check).
 
 ---
 
-## 常见问题
+## Common issues
 
-| 问题 | 处理 |
+| Issue | Handling |
 |------|------|
-| 用户没说改哪里 | 问"你想改哪一章？哪方面？情节/节奏/对话/描写？" |
-| 修改后字数暴增/暴减 | 提醒用户，由用户决定是否调整 |
-| 连续改多章 | 逐章修改，每章独立执行 Step 2-5 |
-| 改完发现后续不一致 | 列出受影响章节，由用户决定是否现在修改 |
+| User did not say what to change | ask "which chapter do you want to change, and what aspect? Plot / rhythm / dialogue / description?" |
+| Word count exploded or collapsed after revision | alert the user; the user decides whether to adjust |
+| Revising multiple chapters in a row | revise chapter by chapter, each chapter independently runs Steps 2-5 |
+| Inconsistencies found after revising | list the affected chapters; the user decides whether to fix now |

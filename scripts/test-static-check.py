@@ -84,7 +84,7 @@ def test_structural_failures_are_not_hidden_by_prose() -> None:
         )
         write(
             root / "skills/broken/references/guide.md",
-            "# Guide\n\n## Real section\n\n详见 SKILL.md Phase 2。\n",
+            "# Guide\n\n## Real section\n\nsee SKILL.md Phase 2.\n",
         )
         write(root / "skills/broken/references/orphan.md", "# Orphan\n")
 
@@ -178,14 +178,14 @@ def test_fenced_examples_do_not_leak_into_validation() -> None:
         assert "[unknown-agent]" not in result.stdout, result.stdout
 
 
-def test_cjk_joined_globs_are_not_misread_as_emphasis_paths() -> None:
-    with tempfile.TemporaryDirectory(prefix="story-static-cjk-glob-") as tmp:
+def test_conjoined_globs_are_not_misread_as_emphasis_paths() -> None:
+    with tempfile.TemporaryDirectory(prefix="story-static-glob-join-") as tmp:
         root = Path(tmp)
         build_agent_catalog(root)
         write(
             root / "skills/demo/SKILL.md",
             "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n"
-            "批量读取 references/*.md与references/*.json，再汇总结果。\n",
+            "Read references/*.md and references/*.json, then summarize the results.\n",
         )
         write(root / "skills/demo/references/example.md", "# Example\n")
         write(root / "skills/demo/references/example.json", "{}\n")
@@ -195,14 +195,14 @@ def test_cjk_joined_globs_are_not_misread_as_emphasis_paths() -> None:
         assert "[broken-link-path]" not in result.stdout, result.stdout
 
 
-def test_cjk_joined_globs_validate_every_named_path() -> None:
-    with tempfile.TemporaryDirectory(prefix="story-static-cjk-missing-glob-") as tmp:
+def test_conjoined_globs_validate_every_named_path() -> None:
+    with tempfile.TemporaryDirectory(prefix="story-static-glob-missing-") as tmp:
         root = Path(tmp)
         build_agent_catalog(root)
         write(
             root / "skills/demo/SKILL.md",
             "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n"
-            "批量读取 references/*.md与assets/missing/*.json，再汇总结果。\n",
+            "Read references/*.md and assets/missing/*.json, then summarize the results.\n",
         )
         write(root / "skills/demo/references/example.md", "# Example\n")
 
@@ -294,10 +294,10 @@ def test_external_urls_are_not_cross_skill_paths() -> None:
             "See [remote docs](https://example.test/repo/skills/story-setup/SKILL.md), "
             "[uppercase HTTPS](HTTPS://example.test/repo/skills/story-setup/SKILL.md), "
             "and [FTP](FTP://example.test/repo/skills/story-setup/SKILL.md).\n\n"
-            "源码见 https://example.test/repo/skills/story-setup/references/agent-references/craft.md\n\n"
-            "参考 <https://example.test/docs/references/guide.md> 的说明。\n\n"
-            "命令 `curl https://example.test/docs/references/guide.md`，"
-            "文档 `https://example.test/docs/guide.md`。\n",
+            "The source is at https://example.test/repo/skills/story-setup/references/agent-references/craft.md\n\n"
+            "See the notes in <https://example.test/docs/references/guide.md>.\n\n"
+            "Command `curl https://example.test/docs/references/guide.md`, "
+            "documented at `https://example.test/docs/guide.md`.\n",
         )
         write(
             root / "skills/demo/scripts/runner.js",
@@ -310,27 +310,27 @@ def test_external_urls_are_not_cross_skill_paths() -> None:
         assert "[broken-inline-path]" not in result.stdout, result.stdout
 
 
-def test_unlinked_section_covers_cjk_without_spaces() -> None:
-    with tempfile.TemporaryDirectory(prefix="story-static-unlinked-cjk-") as tmp:
+def test_unlinked_section_covers_no_space_phrasing() -> None:
+    with tempfile.TemporaryDirectory(prefix="story-static-unlinked-no-space-") as tmp:
         root = Path(tmp)
         build_agent_catalog(root)
         write(
             root / "skills/demo/SKILL.md",
-            "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n## 阶段二流程\n\n"
+            "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n## Phase Two Flow\n\n"
             "Read [the guide](references/guide.md).\n",
         )
         write(
             root / "skills/demo/references/guide.md",
-            "# Guide\n\n详见SKILL.md的阶段二流程。\n\n"
-            "榜单清单与 URL 见 SKILL.md「起点采集目标」表。\n",
+            "# Guide\n\nsee SKILL.md Phase Two Flow for the pipeline.\n\n"
+            "Ranking lists and URLs: see the SKILL.md「Top-100 targets」 table.\n",
         )
 
         result = run(root)
         assert result.returncode == 1, result.stdout + result.stderr
         assert "[unlinked-skill-section]" in result.stdout, result.stdout
-        assert "详见SKILL.md的阶段二流程" in result.stdout, result.stdout
-        # 括号里原样引用标题不是模糊猜测，不在本规则范围内
-        assert "起点采集目标" not in result.stdout, result.stdout
+        assert "see SKILL.md Phase Two Flow" in result.stdout, result.stdout
+        # A direct title quote in brackets is not a vague guess and stays out of scope
+        assert "Top-100 targets" not in result.stdout, result.stdout
         assert result.stdout.count("[unlinked-skill-section]") == 1, result.stdout
 
 
@@ -346,7 +346,7 @@ def test_templates_and_web_assets_are_scanned_for_cross_skill_paths() -> None:
         )
         write(
             root / "skills/demo/references/CLAUDE.md.tmpl",
-            "# 项目约定\n\n必读：story-setup/references/agent-references/craft.md。\n",
+            "# Project Conventions\n\nMust-read: story-setup/references/agent-references/craft.md.\n",
         )
         write(
             root / "skills/demo/references/opencode.json.patch",
@@ -379,12 +379,12 @@ def test_emphasized_paths_are_still_existence_checked() -> None:
         write(
             root / "skills/demo/SKILL.md",
             "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n"
-            "参见 **references/definitely-missing.md** 获取细节。\n\n"
-            "题材卡在 references/cards/*.md 与 references/data/*.json 里，按需加载。\n\n"
+            "See **references/definitely-missing.md** for details.\n\n"
+            "Theme cards live in references/cards/*.md and references/data/*.json; load as needed.\n\n"
             "Read [the guide](references/guide.md).\n",
         )
         write(root / "skills/demo/references/guide.md", "# Guide\n")
-        write(root / "skills/demo/references/cards/都市.md", "# 都市\n")
+        write(root / "skills/demo/references/cards/urban.md", "# Urban\n")
         write(root / "skills/demo/references/data/rules.json", "{}\n")
 
         result = run(root)
@@ -393,7 +393,8 @@ def test_emphasized_paths_are_still_existence_checked() -> None:
             "[broken-inline-path] skills/demo/SKILL.md:7" in result.stdout
         ), result.stdout
         assert "references/definitely-missing.md" in result.stdout, result.stdout
-        # 真通配符仍按父目录校验，不能因为剥强调符而被截断成断链
+        # A true wildcard still resolves by parent directory; stripping emphasis
+        # must not truncate it into a broken link
         assert result.stdout.count("[broken-inline-path]") == 1, result.stdout
         assert "[broken-inline-path] skills/demo/SKILL.md:9" not in result.stdout, result.stdout
 
@@ -405,7 +406,7 @@ def test_wildcard_mentions_do_not_hide_dead_references() -> None:
         write(
             root / "skills/demo/SKILL.md",
             "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n"
-            "只读取本 Skill 的 `demo/references/*`，不要跨 skill。\n\n"
+            "Only read this Skill's `demo/references/*`, do not cross skills.\n\n"
             "Read [the guide](references/guide.md).\n",
         )
         write(root / "skills/demo/references/guide.md", "# Guide\n")
@@ -428,7 +429,7 @@ def test_brace_enumerations_name_each_file() -> None:
         write(
             root / "skills/demo/SKILL.md",
             "---\nname: demo\ndescription: Demo\n---\n# Demo\n\n"
-            "平台 rubric：`references/rubrics/{fanqie,qidian,zhihu}.md`\n",
+            "Platform rubric: `references/rubrics/{fanqie,qidian,zhihu}.md`\n",
         )
         write(root / "skills/demo/references/rubrics/fanqie.md", "# fanqie\n")
         write(root / "skills/demo/references/rubrics/qidian.md", "# qidian\n")
@@ -436,7 +437,8 @@ def test_brace_enumerations_name_each_file() -> None:
 
         result = run(root)
         assert result.returncode == 1, result.stdout + result.stderr
-        # 点名枚举展开成逐个路径：缺失成员是断链，命中成员算已引用，未点名的仍是死引用
+        # A named enumeration expands to per-file paths: missing members are broken
+        # links, present members count as referenced, unnamed ones stay dead references
         assert "references/rubrics/zhihu.md" in result.stdout, result.stdout
         assert "[broken-inline-path]" in result.stdout, result.stdout
         assert (
@@ -467,7 +469,7 @@ def test_launcher_reports_missing_git_repository() -> None:
             text=True,
             encoding="utf-8",
         )
-        # `set -e` 曾让裸赋值直接中断脚本：退出码 128 且无任何提示
+        # `set -e` used to abort on a bare assignment: exit 128 with no diagnostics
         assert proc.returncode == 1, f"exit={proc.returncode}\n{proc.stdout}{proc.stderr}"
         assert "not in a git repository" in proc.stderr, proc.stdout + proc.stderr
 
@@ -482,11 +484,11 @@ def main() -> None:
     test_cross_skill_paths_in_runtime_scripts_fail()
     test_foundation_browser_cdp_reference_passes()
     test_external_urls_are_not_cross_skill_paths()
-    test_unlinked_section_covers_cjk_without_spaces()
+    test_unlinked_section_covers_no_space_phrasing()
     test_templates_and_web_assets_are_scanned_for_cross_skill_paths()
     test_emphasized_paths_are_still_existence_checked()
-    test_cjk_joined_globs_are_not_misread_as_emphasis_paths()
-    test_cjk_joined_globs_validate_every_named_path()
+    test_conjoined_globs_are_not_misread_as_emphasis_paths()
+    test_conjoined_globs_validate_every_named_path()
     test_wildcard_mentions_do_not_hide_dead_references()
     test_brace_enumerations_name_each_file()
     test_launcher_reports_missing_git_repository()

@@ -1,8 +1,8 @@
 ---
-description: 长篇网文扫榜，分析起点、番茄、晋江等平台趋势。
+description: Long-form web-novel market scan: trend analysis across Royal Road, Webnovel, Wattpad, and other platforms.
 skills: story-long-scan
 ---
 
-调用 `$story-long-scan` 执行长篇榜单与市场调研。
+Invoke `$story-long-scan` to run long-form ranking and market research.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

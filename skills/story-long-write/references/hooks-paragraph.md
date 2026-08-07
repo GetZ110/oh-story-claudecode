@@ -1,146 +1,146 @@
-# 段落级钩子技法
-短篇/段落级钩子类型、组合技法、禁忌、对话情绪递增、不公平伤害、围观者层级。用于段落内微钩子设计。
+# Paragraph-Level Hook Techniques
+Types, combinations, taboos, dialogue emotion escalation, unfair harm, and bystander tiers for paragraph-level micro-hooks in short-form / paragraph-level writing.
 
 ---
 
-## 段落级钩子 11 种
+## The 11 paragraph-level hook types
 
-| # | 名称 | 公式 | 示例 | 有效性 |
-|---|------|------|------|--------|
-| 1 | 信息差 | 读者知道关键信息，角色不知道 | "他笑着接过咖啡，不知道她刚才在里面加了一片安眠药。" | ★5 |
-| 2 | 倒计时 | 设置明确的时间压力 | "离婚冷静期还剩最后三天。三天后，他签不签都无所谓了。" | ★4 |
-| 3 | 反转 | 读者预期突然被打破 | "她打开遗嘱，继承人那一栏空着。下一页压着她母亲的死亡证明。" | ★5 |
-| 4 | 暗牌 | 主角藏了一张牌没打，读者等亮牌 | "婆婆骂了整整十分钟。我一句话没说。手机录音还在跑。" | ★4 |
-| 5 | 打脸 | 角色正在得意，读者知道马上要被打脸 | "【就你？也想跟我争？】她笑得前仰后合。我没说话。只是把那份亲子鉴定报告从包里拿了出来。" | ★5 |
-| 6 | 代价 | 暗示主角即将失去某样东西/选择要付出惨重代价 | "我知道举报他意味着什么。举报了他，我也完了。但我还是按下了发送键。" | ★4 |
-| 7 | 弱者/孩子 | 引入需要被保护的弱者，激发保护欲 | "女儿躲在门后面，捂着耳朵。她才四岁，什么都不懂。但她知道不该出声。" | ★4 |
-| 8 | 灵魂旁观 | 主角已死，以灵魂视角叙述，全知但无力改变 | "我的魂魄慢慢飘起来，看着妈妈铁青的脸。对不起妈妈，我没能站直。" | ★5 |
-| 9 | 异常物件 | 不该出现在这里的物件引发全局 | "避孕套日期突然变了，连味道也变成了我以前过敏的芒果味。我笑着点头。" | ★5 |
-| 10 | 假意顺从 | 重生后主动给出前世拼命保护的东西，对手以为她疯了 | "'你既然想要，就都给你吧。'反正谁拿到这笔巨额遗产谁就大祸临头，正愁保命的方法呢。" | ★4 |
-| 11 | 冷发现 | 发现异常后第一反应保持极度冷静，冷静本身制造悬念 | "钥匙扣上印着'悦安月子中心VIP'。我们明明没有孩子。我笑着点头。当天就去月子中心记下了预约单。" | ★5 |
+| # | Name | Formula | Example | Effectiveness |
+|---|------|------|--------|--------|
+| 1 | Information gap | the reader knows key info, the character does not | "He smiled and took the coffee, not knowing she had slipped a sleeping pill into it." | ★5 |
+| 2 | Countdown | set a clear time pressure | "Three days left in the divorce cooling-off period. After three days, his signature stopped mattering." | ★4 |
+| 3 | Reversal | the reader's expectation is suddenly broken | "She opened the will. The heir column was blank. On the next page lay her mother's death certificate." | ★5 |
+| 4 | Hidden card | the protagonist holds a card unplayed; the reader waits for the reveal | "My mother-in-law ranted for a full ten minutes. I said nothing. The phone was still recording." | ★4 |
+| 5 | Comeuppance | a character gloats; the reader knows the slap is coming | "[You? Competing with me?] She laughed until she couldn't breathe. I said nothing. I just took the paternity report out of my bag." | ★5 |
+| 6 | Cost | hint that the protagonist is about to lose something / a choice carries a brutal price | "I knew what reporting him meant. If I reported him, I was finished too. I pressed send anyway." | ★4 |
+| 7 | The weak / the child | introduce someone needing protection, ignite protectiveness | "My daughter hid behind the door, hands over her ears. She was four. She understood nothing. But she knew not to make a sound." | ★4 |
+| 8 | Soul bystander | the protagonist is dead, narrating from a spirit's view — omniscient but powerless | "My soul drifted up slowly, looking at my mother's ashen face. I'm sorry, Mom. I couldn't stand up straight." | ★5 |
+| 9 | Anomalous object | an object that should not be here triggers everything | "The condom's date changed overnight, and even the smell had become the mango I'm allergic to. I smiled and nodded." | ★5 |
+| 10 | Feigned compliance | after a second chance, the protagonist gives away what they guarded with their life; the opponent thinks they've lost their mind | "'If you want it, it's all yours.' Either way, whoever inherits that fortune inherits disaster — I'd been trying to figure out how to survive it." | ★4 |
+| 11 | Cold discovery | first reaction to an anomaly is total calm; the calm itself creates suspense | "The keychain read 'VIP, Yue'an Maternity Center.' We didn't have a child. I smiled and nodded. That same day I went and took down the appointment." | ★5 |
 
-### 使用要点
-- 信息差不能拖太久，超过 3000 字读者会烦
-- 倒计时一旦设定，必须到期兑现，不能烂尾
-- 反转必须有铺垫，无铺垫的反转是作弊
-- 暗牌不能藏太久，短篇里最多藏 30% 篇幅
-- 打脸要干脆利落，一句话打脸比一段话打脸爽
-- 代价必须真实，主角最后什么都没失去则代价钩子失效
-- 弱者不能只是工具人，要有自己的行动线
-- 灵魂视角的限制（只能看不能动）必须严格遵守
+### Usage notes
+- Information gaps cannot drag: past ~3000 words the reader gets annoyed
+- A countdown, once set, must land on schedule — no fizzling
+- Reversals need setup; an unset reversal is cheating
+- Hidden cards cannot hide too long: in short-form, at most ~30% of the length
+- Comeuppance must be clean: one sentence of comeuppance beats a paragraph
+- The cost must be real: if the protagonist loses nothing in the end, the cost hook fails
+- The weak cannot be a tool: they need their own action line
+- The spirit's limitation (can see, cannot act) must be strictly observed
 
 ---
 
-## 钩子组合
+## Hook combinations
 
-### 基础组合
+### Basic combinations
 
-| 组合 | 效果 | 适合题材 |
+| Combination | Effect | Genres |
 |------|------|----------|
-| 信息差 + 暗牌 | 读者知道主角在憋大招 | 复仇、世情 |
-| 倒计时 + 代价 | 时间紧迫 + 选什么都亏 | 悬疑、婚恋 |
-| 反转 + 打脸 | 情绪过山车 | 所有爽向短篇 |
-| 弱者 + 代价 | 共情拉满 | 追妻、世情、死人文学 |
-| 暗牌 + 打脸 | 爽感最强 | 复仇、逆袭 |
+| Information gap + hidden card | the reader knows the protagonist is charging a big move | revenge, slice-of-life comeuppance |
+| Countdown + cost | time pressure + every choice loses | suspense, romance/marriage |
+| Reversal + comeuppance | emotional rollercoaster | all payoff short-form |
+| The weak + cost | maximum empathy | second-chance romance, slice of life, death literature |
+| Hidden card + comeuppance | strongest payoff | revenge, turnaround |
 
-### 进阶组合
+### Advanced combinations
 
-| 组合 | 效果 |
+| Combination | Effect |
 |------|------|
-| 异常物件 + 冷发现 | 日常悬疑感 + 智商碾压 |
-| 灵魂旁观 + 弱者 | 极致悲剧 + 保护欲 |
-| 假意顺从 + 暗牌 | 三重信息差 + 爽感蓄力 |
-| 阶梯背叛 + 冷发现 | 层层加码 + 全程冷静 |
+| Anomalous object + cold discovery | daily-life suspense + intelligence crush |
+| Soul bystander + the weak | extreme tragedy + protectiveness |
+| Feigned compliance + hidden card | triple info gap + payoff charging |
+| Laddered betrayal + cold discovery | layer on layer + total composure |
 
-### 组合使用原则
-1. 技巧服务表达，不要为了用技巧而用技巧
-2. 构思剧情阶段可同时考虑多种技巧丰富剧情
-3. 技巧可杂糅使用，没用就丢弃
-4. 不要通过单个技巧推导剧情，技巧是工具不是束缚
+### Combination principles
+1. Techniques serve expression; do not use techniques for their own sake
+2. During plot conception, multiple techniques may be considered together to enrich the plot
+3. Techniques may be mixed; discard what does not work
+4. Do not derive plot from a single technique — techniques are tools, not constraints
 
 ---
 
-## 钩子禁忌
+## Hook taboos
 
-| 禁忌 | 说明 |
+| Taboo | Explanation |
 |------|------|
-| 假悬念 | 威胁不存在或立刻解除，读者被骗一次就不会再信 |
-| 机械降神 | 章尾抛出危机，下章开头用巧合解决 |
-| 过度留白 | 连续多章不揭示任何信息，读者失去耐心 |
-| 低风险钩 | 用无关紧要的事制造悬念 |
-| 同类型连用 | 连续 3 章以上用同一种钩子类型 |
+| Fake suspense | the threat does not exist or is instantly removed; the reader deceived once stops believing |
+| Deus ex machina | chapter-end crisis, next-chapter coincidence solution |
+| Over-blanking | multiple chapters reveal nothing; the reader loses patience |
+| Low-stakes hooks | manufacturing suspense from trivialities |
+| Same-type streaks | the same hook type for 3+ consecutive chapters |
 
 ---
 
-## 对话情绪五级递增
+## Five-level dialogue emotion escalation
 
-写矛盾冲突时，对话越不礼貌，情绪越强烈：
+In conflict scenes, the less polite the dialogue, the stronger the emotion:
 
-| 级别 | 类型 | 强度 |
+| Level | Type | Strength |
 |------|------|------|
-| 1 | 客观陈述事实 | 最弱 |
-| 2 | 客观陈述 + 提出建议 | 礼貌但有力 |
-| 3 | 主观指责 | 开始有冲突感 |
-| 4 | 主观指责 + 强制命令 | 强情绪 |
-| 5 | 主观指责 + PUA抬升自己 | 最强 |
+| 1 | objective statement of facts | weakest |
+| 2 | objective statement + suggestion | polite but forceful |
+| 3 | subjective accusation | conflict begins |
+| 4 | subjective accusation + command | strong emotion |
+| 5 | subjective accusation + self-elevation (PUA-style) | strongest |
 
-最强话术：打着"为你好"的幌子，句句不离关心，但句句都是嫌弃、指责、厌恶。
+The strongest play: under the banner of "for your own good," every line dripping with concern while every line is disdain, blame, disgust.
 
 ---
 
-## 不公平伤害钩子
+## Unfair-harm hooks
 
-不公平伤害 = 不公平（主角无辜）+ 伤害（物理+精神）
+Unfair harm = unfair (protagonist innocent) + harm (physical + psychological)
 
-- 精神上的伤害更能拉动读者情绪——大多数读者受气的时候多
-- "不患寡而患不均"：减月例大家都减（公平），但唯独主角药材降了一等（不公平）
-- 随便挑一种写到位都能拉起对反派的仇恨
+- Psychological harm pulls reader emotion harder — most readers have swallowed more than their share
+- "It's not scarcity, it's unevenness": cutting everyone's allowance is fair; cutting only the protagonist's medicine to a lower grade is unfair
+- Any one of these, written well, ignites hatred for the antagonist
 
-### 三种伤害类型
+### Three harm types
 
-| 类型 | 动机 | 行为 | 态度 |
+| Type | Motive | Behavior | Attitude |
 |------|------|------|------|
-| 利益转移型 | 反派不想自己承担代价 | 掠夺、命令、逼迫主角 | 理所应当、趾高气昂 |
-| 损失转嫁型 | 反派将受惩罚嫁祸给主角 | 威逼利诱、做局、逼迫顶罪 | 隐蔽、阴险 |
-| 针锋相对型 | 反派所处秩序被主角打破 | 陷害、算计、伤害 | 不留活路 |
+| Benefit-shifting | the antagonist refuses to bear the cost | loots, commands, forces the protagonist | entitled, swaggering |
+| Blame-shifting | the antagonist frames the protagonist for punishment | coercion, setups, forcing a scapegoat | covert, vicious |
+| Head-on | the protagonist breaks the antagonist's order | framing, scheming, harming | no way out |
 
-### 压主角的正确方式
-1. 尽量不压——用"他人否定，主角打脸"替代"主角真受委屈"
-2. 否定间接化——当面嘲讽改为内心活动或背后议论
-3. 否定理由合情合理——基于现有信息的合理判断
-4. 否定人物多元化——不同立场否定方式不同
-5. 只在卷高潮时稍微压一下
+### The right way to pressure the protagonist
+1. Minimize pressure — replace "the protagonist really suffers" with "others dismiss, protagonist delivers comeuppance"
+2. Indirect denial — face-to-face mockery becomes interior thought or behind-the-back talk
+3. Denial with fair reasons — reasonable judgment based on the available information
+4. Diversify the deniers — different stances deny in different ways
+5. Only squeeze slightly at the volume climax
 
 ---
 
-## 围观者质量层级
+## Bystander quality tiers
 
-震惊效果取决于围观者的数量和质量：
+Shock effect depends on the number and quality of bystanders:
 
-| 层级 | 对象 | 特征 |
+| Tier | Objects | Traits |
 |------|------|------|
-| 低质量 | 群演、打杂、实习生 | 纯情绪反应，无后续 |
-| 中质量 | 懂行的从业者、副手 | 能做专业对比，有态度变化 |
-| 高质量 | 导演级别、行业顶层 | 反应伴随信息展露、关系进展、拉起期待 |
+| Low | extras, gofers, interns | pure emotion reaction, no follow-up |
+| Mid | knowledgeable practitioners, deputies | can make expert comparisons, attitude changes |
+| High | director-level, industry top | reactions carry info reveals, relationship progress, anticipation |
 
-### 围观者分层扩大原则
+### Bystander layering principles
 
-| 维度 | 原则 |
+| Dimension | Principle |
 |------|------|
-| 角色种类 | 多种角色 > 单种角色，每种产生不同反应 |
-| 角色数量 | 多人 > 少人，选择可多人出场的场合 |
-| 角色层级 | 多层级 > 单层级，路人/同行/高手/反派每层不同 |
-| 关系深度 | 熟人 > 陌生人，熟人震惊远爽于陌生人震惊 |
+| Character variety | multiple types > one type; each type reacts differently |
+| Character count | more people > fewer; choose venues where many can appear |
+| Character tiers | multiple tiers > one tier; passerby / peer / expert / antagonist each layer different |
+| Relationship depth | acquaintances > strangers; an acquaintance's shock is far better than a stranger's |
 
 ---
 
-## 拆文检查清单
+## Teardown checklist
 
-拆文时对每个钩子评估：
+When tearing down a book, evaluate each hook:
 
-1. 钩子类型是什么？
-2. 钩子在第几句话/第几个字出现？
-3. 钩子强度（1-10）？
-4. 钩子是否在合理位置兑现？
-5. 铺垫和兑现之间的距离是否合适？
-6. 是否有钩子未兑现（烂尾）？
+1. What hook type is it?
+2. Which sentence/word does the hook appear at?
+3. Hook strength (1-10)?
+4. Is the hook delivered at a reasonable position?
+5. Is the distance between setup and delivery appropriate?
+6. Any undelivered hooks (fizzled)?

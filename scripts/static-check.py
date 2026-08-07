@@ -16,44 +16,92 @@ ATX_HEADING_RE = re.compile(r"^[ ]{0,3}#{1,6}[ \t]+(.*?)(?:[ \t]+#+[ \t]*)?$")
 OPEN_FENCE_RE = re.compile(r"^[ ]{0,3}(`{3,}|~{3,})(.*)$")
 LINK_RE = re.compile(r"!?\[[^\]\n]*\]\(([^)\n]+)\)")
 INLINE_CODE_RE = re.compile(r"(?<!`)`([^`\n]+)`(?!`)")
-# 只还原“强调符完整包住一条 skill 内路径”的形态。开始/结束 marker 必须同宽，
-# 且两边不能粘着 ASCII 路径字符；这样 CJK 连写的 references/*.md与references/*.json
-# 不会把两个 glob 星号跨片段配成一对强调符。
+# Only restore "emphasis markers fully wrapping one skill-local path". The
+# opening/closing markers must be the same width and must not touch ASCII path
+# characters on either side, so two glob stars across a run-together pair can't be
+# matched as one emphasis span.
 EMPHASIS_PATH_RE = re.compile(
     r"(?<![A-Za-z0-9_./-])(?P<marker>\*{1,2})"
     r"(?P<path>(?:[a-z0-9_-]+/)?(?:references|scripts|assets)/[^\s*]+)"
     r"(?P=marker)(?![A-Za-z0-9_./-])"
 )
 SKILL_PATH_PREFIX = r"(?:[a-z0-9_-]+/)?(?:references|scripts|assets)/"
-# 中文说明常把多个路径写成 `references/*.md与assets/*.json`。重复体必须在“连接词 +
-# 下一个路径前缀”前停住，否则首个 match 会把整串吞掉，normalize_path_token 再于第一个
-# `*` 截成 references/，后面的缺失路径永远没有独立参与校验。
+# Docs often run multiple paths together: `references/*.md and assets/*.json`.
+# The repeat body must stop before "connector + next path prefix", otherwise the
+# first match swallows the whole string and normalize_path_token truncates at the
+# first `*`, so the later missing path never gets its own validation.
 SKILL_PATH_RE = re.compile(
     r"(?<![A-Za-z0-9_-])(?P<path>"
     + SKILL_PATH_PREFIX
-    + r"(?:(?!(?:与|和|及|、)"
+    + r"(?:(?!(?:(?:and|or|与|和|及|、)\s+)"
     + SKILL_PATH_PREFIX
     + r")[^\s`\"')\]><「（，。；：、])+)"
 )
 ASCII_MD_RE = re.compile(r"^[a-z0-9_-]+\.md$")
+# Project-structure paths (the naming contract's writing-project tree) referenced
+# by skill docs are not skill-local files and must not be existence-checked
+# against the skill directory: teardown-lib/ tracking/ prose/ outline/ setting/
+# benchmark/ and their files. Single-file names in this set (or chapter_NNN_*
+# files) are project artifacts, not skill assets.
+PROJECT_DIR_PREFIXES = frozenset({
+    "teardown-lib", "tracking", "prose", "outline", "setting", "benchmark",
+    "source", "chapters", "characters", "plot", "reference",
+})
+PROJECT_FILE_NAMES = frozenset({
+    "prose.md", "section-outline.md", "setting.md",
+    "context.md", "foreshadowing.md", "timeline.md", "character-state.md",
+    "style.md", "relationships.md", "genre-positioning.md", "worldview.md",
+    "overview.md", "teardown-report.md", "quick-preview.md", "cheat.md",
+    "plot-points.md", "writing-techniques.md", "craft-methods.md", "plot-nodes.md",
+    "topic-decision.md", "outline.md", "volume-outline.md",
+    "emotional-beats.md", "pacing.md", "storylines.md", "loose-threads.md",
+    "scene-units.md", "genre-prose-card.md", "background.md", "geography.md",
+    "source.txt", "power-system.md", "source.md",
+})
+PROJECT_PATH_RE = re.compile(r"^chapter[_ -]?[0-9]+")
+# Scan-output files follow the `{platform}_{ranking}_{YYYYMMDD}.md` convention and
+# live in the user's scan directory, not the skill.
+SCAN_OUTPUT_RE = re.compile(r"^[a-z-]+(?:_[a-z0-9-]+)?_[0-9]{8}\.md$")
+
+
+def is_project_structure_path(raw: str) -> bool:
+    """True when an inline path names the writing-project tree, not a skill file."""
+    normalized = raw.replace("\\", "/")
+    parts = normalized.split("/")
+    if len(parts) > 1 and parts[0] in PROJECT_DIR_PREFIXES:
+        return True
+    if len(parts) == 1:
+        if normalized in PROJECT_FILE_NAMES:
+            return True
+        if PROJECT_PATH_RE.match(normalized):
+            return True
+        if SCAN_OUTPUT_RE.match(normalized):
+            return True
+    return False
 INLINE_MD_PATH_RE = re.compile(
-    r"(?P<path>(?:[A-Za-z0-9._-]+/)*[a-z0-9_-]+\.md)(?=$|[^A-Za-z0-9_.-])"
+    r"(?P<path>(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9_-]+\.md)(?=$|[^A-Za-z0-9_.-])"
 )
 AGENT_REF_RES = (
     re.compile(r"subagent_type\s*:\s*\"([a-z][a-z0-9_-]*)\""),
     re.compile(r"subagent_type\s*=\s*\"([a-z][a-z0-9_-]*)\""),
-    # 括号形态同时接受全角/半角括号与冒号（正文标注常写「（subagent_type: x）」），
-    # 引号可选。保留括号收尾锚点：兼容性说明里大量出现裸 `subagent_type` 词条，
-    # 不带括号/引号锚点的裸形态会把这些非引用语境误抓成 agent 引用。
+    # The parenthesized form accepts full/half-width parentheses and colons
+    # (docs often write "(subagent_type: x)"), quotes optional. Keeping the
+    # closing-paren anchor matters: bare `subagent_type` tokens appear all over
+    # compatibility notes, and an unanchored form would mis-flag those non-reference
+    # contexts as agent references.
     re.compile(r"[（(]subagent_type\s*[:：]\s*\"?([a-z][a-z0-9_-]*)\"?\s*[)）]"),
 )
-# 「见 SKILL.md + 章节名」是无法被链接校验的文本猜测：SKILL.md 改标题后引用会静默失效。
-# 分隔符两侧统一用 \s*——中文正文里「详见SKILL.md的阶段二流程」不带空格，恰是最常见的写法，
-# 只认 `\s+` 会让这类写法整体绕过本规则。
-# 章节名首字符排除括号/引号/竖线/井号：`见 SKILL.md「输出目录结构」`、`见 SKILL.md（…）`、
-# 表格里的 `见 SKILL.md）|` 是原样引用标题或句子收尾，不属于本规则要清理的模糊猜测。
+# "See SKILL.md + section name" is a textual guess link validation cannot check:
+# once the SKILL.md heading changes the reference silently dies.
+# The separator is \s* on both sides — "see SKILL.md's stage-two flow" with no
+# space is exactly the common English phrasing, and requiring \s+ would let the
+# whole pattern bypass this rule.
+# The section-name first char excludes brackets/quotes/pipe/hash: "see
+# SKILL.md「output structure」", "see SKILL.md (…)", and table rows like "see
+# SKILL.md)|" are direct title quotes or sentence tails, not the vague guesses
+# this rule cleans.
 UNLINKED_SECTION_RE = re.compile(
-    r"(?:见|参考|参见|详见)\s*SKILL\.md\s*"
+    r"(?:see (?:the )?|refer to (?:the )?|详见|见|参考|参见)\s*SKILL\.md\s*"
     r"[^\s，。；;、（）()「」『』【】《》〈〉\[\]{}<>#|\"'“”‘’]"
     r"[^，。；;\n]*"
 )
@@ -63,16 +111,20 @@ DEPLOYED_RUNTIME_PREFIXES = (".claude/", ".codex/", ".opencode/")
 # skills may reference its launcher; every other cross-skill file path remains
 # forbidden so domain workflows stay self-contained.
 FOUNDATION_SKILL_REFERENCES = frozenset({"browser-cdp"})
-# 变更日志按定义记录历史状态：其内联路径是「当时」的引用（含已删/已移动/跨 skill 的旧文件），
-# 不是当前运行时依赖，不作跨 skill / 死链校验（与 check-current-skill-contracts.py 的跳过一致）。
+# Changelogs by definition record historical states: their inline paths are
+# "at the time" references (including deleted/moved/cross-skill old files), not
+# current runtime dependencies — no cross-skill / dead-link validation (same
+# skip as check-current-skill-contracts.py).
 CHANGELOG_DOCS = frozenset({"UPGRADING.md", "CHANGELOG.md"})
 EXTERNAL_URL_RE = re.compile(
     r"(?i)\b(?:https?|ftp)://[^\s<>\"'`]+"
 )
-# 花括号枚举（含逗号）是「逐个点名」，可以展开成具体路径；`{题材}` 这种单占位符不是枚举。
+# A brace list (containing a comma) is "naming files one by one" and can expand
+# into concrete paths; a single placeholder like `{topic}` is not a list.
 BRACE_LIST_RE = re.compile(r"\{([^{}/]*,[^{}/]*)\}")
-# 跨 skill 扫描覆盖全部文本资产。模板（*.md.tmpl / *.json.patch）与前端资产同样会被
-# story-setup 部署进作者项目，漏扫等于把「skill 自包含」这条红线在部署面上放空。
+# The cross-skill scan covers all text assets. Templates (*.md.tmpl / *.json.patch)
+# and frontend assets are deployed into author projects by story-setup too — missing
+# them would void the "skills stay self-contained" red line at the deployment face.
 SKILL_TEXT_SUFFIXES = {
     ".cmd",
     ".css",
@@ -171,11 +223,13 @@ def strip_inline_markup(line: str) -> str:
 
 
 def path_alternatives(raw: str) -> list[str]:
-    """把点名枚举 `{a,b,c}` 展开成逐条路径。
+    """Expand a named-enumeration `{a,b,c}` into per-item paths.
 
-    `{story_codex_hook.py,run-story-hook.sh,run-story-hook.cmd}` 是作者逐个点名的文件，
-    等价于分别写三条引用：展开后每条都参与存在性与可达性校验。`{题材}` 这类单占位符
-    不是枚举（没有点名任何文件），保持原样交给 normalize_path_token 当通配处理。
+    `{story_codex_hook.py,run-story-hook.sh,run-story-hook.cmd}` names files one by
+    one — equivalent to three separate references: after expansion each item takes
+    part in existence and reachability checks. A single placeholder like `{topic}`
+    is not an enumeration (names no file); it stays as-is and normalize_path_token
+    treats it as a wildcard.
     """
 
     match = BRACE_LIST_RE.search(raw)
@@ -246,11 +300,14 @@ def parse_document(path: Path) -> Document:
                 SourceRef(line=line_number, raw=strip_link_title(match.group(1)), kind="link")
             )
 
-        # 外部 URL 命名远程资源，不是仓库内 skill 路径（与 cross_skill_path_issues 同一约定）：
-        # 两条扫描通道都必须先剥掉，否则 URL 尾段（.../references/x.md）会被当成本地路径误报。
-        # 正文里的加粗/斜体包裹也要还原：`**references/x.md**` 的 `*` 会被字符类吃进 token，
-        # 让它被误判成通配符并截断到父目录，从而跳过存在性校验。行内代码内不作强调还原——
-        # 反引号里的 `*` 是字面通配符。
+        # External URLs name remote resources, not in-repo skill paths (same
+        # convention as cross_skill_path_issues): both scan channels must strip
+        # them first, otherwise a URL tail (.../references/x.md) would be
+        # misreported as a local path. Bold/italic wrapping in prose must also be
+        # restored: the `*` of `**references/x.md**` gets eaten into the token by
+        # the character class, misjudged as a wildcard, truncated to the parent
+        # directory, and thus skips existence validation. No emphasis restoration
+        # inside inline code — a `*` inside backticks is a literal wildcard.
         prose_without_code = EMPHASIS_PATH_RE.sub(
             r"\g<path>", EXTERNAL_URL_RE.sub("", LINK_RE.sub("", INLINE_CODE_RE.sub("", line)))
         )
@@ -270,7 +327,7 @@ def parse_document(path: Path) -> Document:
             for path_match in INLINE_MD_PATH_RE.finditer(code):
                 raw = path_match.group("path")
                 base = Path(raw).name
-                if ASCII_MD_RE.fullmatch(base) and not base.startswith("_"):
+                if ASCII_MD_RE.fullmatch(base) and not base.startswith("_") and not is_project_structure_path(raw):
                     document.refs.append(SourceRef(line=line_number, raw=raw, kind="inline-md"))
 
         prose = strip_inline_markup(line)
@@ -304,7 +361,7 @@ def resolve_ref(
     root: Path,
     documents: dict[Path, Document],
 ) -> tuple[Path | None, str, bool, bool]:
-    """返回（目标, 锚点, 是否本地引用, 是否通配引用）。"""
+    """Returns (target, anchor, is_local_reference, is_wildcard_reference)."""
 
     raw = ref.raw.strip()
     if not raw or is_external_ref(raw):
@@ -470,7 +527,8 @@ def validate_skill(
     resolved_by_document: dict[Path, set[Path]] = {path.resolve(): set() for path in markdown_paths}
 
     for document in list(documents.values()):
-        # 变更日志的历史内联路径不作死链/跨 skill 校验（仍可作为其它文件的链接目标）
+        # Changelog historical inline paths skip dead-link/cross-skill validation
+        # (they may still serve as link targets for other files)
         if document.path.name in CHANGELOG_DOCS:
             continue
         seen_refs: set[tuple[int, str, str]] = set()
@@ -527,9 +585,12 @@ def validate_skill(
                     )
                 )
                 continue
-            # 通配引用只声明范围（`references/*` 说的是「本 skill 的参考目录」），并没有点名
-            # 任何文件；把它解析出的目录当作可达起点会把整棵子树标成「已被引用」，
-            # dead-reference 检查对该 skill 就永久失效。点名枚举已在 path_alternatives 展开。
+            # A wildcard reference only declares a scope (`references/*` means
+            # "this skill's reference directory") and names no file; treating its
+            # resolved directory as a reachability seed would mark the whole
+            # subtree "already referenced", permanently disabling dead-reference
+            # checks for that skill. Named enumerations are expanded in
+            # path_alternatives.
             if not (dynamic and target.is_dir()):
                 resolved_by_document.setdefault(document.path.resolve(), set()).add(target)
             if fragment:
@@ -575,7 +636,8 @@ def validate_skill(
         queue: list[Path] = []
 
         def is_reference_content(candidate: Path) -> bool:
-            # .gitkeep 是占位符；__pycache__ 是 .gitignore 的构建产物，都不是参考内容。
+            # .gitkeep is a placeholder; __pycache__ is a .gitignore build
+            # artifact — neither is reference content.
             return candidate.name != ".gitkeep" and "__pycache__" not in candidate.parts
 
         def add_target(target: Path) -> None:

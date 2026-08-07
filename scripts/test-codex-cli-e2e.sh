@@ -12,6 +12,17 @@ trap 'rm -rf "$TMP_ROOT"' EXIT
 
 fail() { echo "FAIL: $*" >&2; exit 1; }
 
+# Locate a working Python interpreter: python3 may be a Windows Store stub that
+# exits without running anything, so probe python3 -> python -> py.
+PYBIN=""
+for cand in python3 python py; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" -c 'import sys' >/dev/null 2>&1; then
+    PYBIN="$cand"
+    break
+  fi
+done
+[ -n "$PYBIN" ] || fail "no usable Python interpreter (tried python3, python, py)"
+
 command -v codex >/dev/null 2>&1 \
   || fail "codex CLI not found on PATH. Install with: npm install -g @openai/codex"
 
@@ -29,7 +40,7 @@ cp "$REPO_ROOT"/skills/story-setup/references/codex/hooks/{story_codex_hook.py,r
 cp "$REPO_ROOT/skills/story-setup/references/codex/AGENTS.md.tmpl" \
   "$WORKSPACE/AGENTS.md"
 git -C "$WORKSPACE" init -q
-python3 - "$TMP_ROOT/home/.codex/config.toml" "$WORKSPACE" <<'PY'
+"$PYBIN" - "$TMP_ROOT/home/.codex/config.toml" "$WORKSPACE" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -49,7 +60,7 @@ echo "  Checking isolated deployed project (skills + agents + hooks)"
 HOME="$TMP_ROOT/home" CODEX_HOME="$TMP_ROOT/home/.codex" \
   codex -C "$WORKSPACE" debug prompt-input >"$TMP_ROOT/prompt-input.json"
 
-python3 - "$TMP_ROOT/prompt-input.json" "$WORKSPACE" "$EXPECTED_COUNT" <<'PY'
+"$PYBIN" - "$TMP_ROOT/prompt-input.json" "$WORKSPACE" "$EXPECTED_COUNT" <<'PY'
 import json
 import re
 import sys

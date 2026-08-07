@@ -1,197 +1,153 @@
-# 网文题材趋势与流派参考
-题材选择、流派写作要点、扫榜技巧的速查手册。
+# Genre Trends and Sub-genre Reference
+
+Quick-reference handbook for genre selection, sub-genre craft points, and scan technique on English platforms.
 
 ---
 
-## 脑洞文创作
+## Idea-driven fiction
 
-### 从灵感到成书
+### From spark to book
 
-1. 得到点子（金手指雏形/画面/切入点）
-2. 评估潜力（纯原创？有市场铺垫？）
-3. 匹配题材（放进熟悉题材看效果）
-4. 提炼核心卖点（能否转化为情绪缺口/期待感）
-5. 梳理故事雏形（框架/金手指/切入点）
-6. 动笔验证
+1. Get the idea (special-ability kernel / image / entry angle)
+2. Assess potential (original? is there market groundwork?)
+3. Match to a genre (drop it into a familiar genre and see)
+4. Distill the core appeal (can it convert into an emotional gap / anticipation?)
+5. Sketch the story shape (framework / ability / entry)
+6. Write to validate
 
-### 金手指创新
+### Special-ability innovation
 
-基础=满足条件→得到反馈。变体：多条件一反馈 / 阶段性反馈 / 概率性反馈 / 反馈可叠加
+Base = condition met -> feedback delivered. Variants: multiple conditions one feedback / staged feedback / probabilistic feedback / stacking feedback.
 
-### 写长方法
+### Writing long
 
-1. 从核心卖点找多角度，归纳不同矛盾套路，每套写1-2卷
-2. 叠加框架：多角度交织循环支撑几百万字
-3. 框架+小剧情循环：大目标→中目标→小目标→细纲
+1. Derive multiple angles from the core appeal; collect distinct conflict patterns, 1-2 volumes each
+2. Stack frameworks: interleaved loops sustain millions of words
+3. Framework + mini-arc loop: big goal -> mid goal -> small goal -> chapter outline
 
-### 跟风 = 换皮
+### Following a trend = reskinning
 
-照搬核心设定换熟悉题材。金手指类兼容所有题材；同题材跟风保留底层情绪另换角度。
-
----
-
-## 题材选择
-
-85%熟悉+15%惊喜。选择数据充分+可构建完整世界观的赛道。
+Copy the core setup into a familiar genre. Ability-based premises fit almost any genre; same-genre follow-ups keep the underlying emotion and change the angle.
 
 ---
 
-## 边界感三层圈
+## Genre selection
 
-| 圈层 | 示例 | 规则 |
-|------|------|------|
-| 题材圈 | 都市、玄幻、仙侠 | 大分类 |
-| 流派圈 | 极道流、凡人流、种田流 | 细分 |
-| 核心梗圈 | 具体卖点/金手指/情绪点 | 内容不能踏出此圈 |
-
-| 错误 | 后果 |
-|------|------|
-| 高武文写官场 | 踏破边界 |
-| 种田文写深度商战 | 串味 |
-| 悬疑文去掉悬念 | 核心卖点消失 |
+85% familiar + 15% surprise. Choose lanes with enough data and a complete world to build.
 
 ---
 
-## 扫榜
+## Boundary layers
 
-### 三级分类
+| Layer | Example | Rule |
+|-------|---------|------|
+| Genre layer | fantasy, sci-fi, romance, horror | the big category |
+| Sub-genre layer | litRPG, progression, cozy fantasy, dark romance | the niche |
+| Core-hook layer | the specific appeal/ability/emotion point | content must not leave this circle |
 
-| 级别 | 频率 | 要点 |
-|------|------|------|
-| 新题材 | 极少 | 只有出现跨榜单、跨作者重复样本时才标记为趋势；否则作为观察项 |
-| 新金手指 | 较少，翻新为主 | 适合作为低成本验证点，但必须换题材外壳和情绪触发方式 |
-| 新噱头 | 常见 | 高同质化风险；没有差异化机制时降低优先级 |
-
-### 各网站方法
-
-**起点**：三江→首订图→签约新书榜前15→拆精品到万订之间的书
-**番茄**：新书榜拉到底→在读30万以上为标准
-
-### 起点热门题材
-
-| 题材 | 要点 |
-|------|------|
-| 都市 | 重生/种田/娱乐；重生可与任何元素融合 |
-| 玄幻 | 极道流、加点横推等强反馈样本优先；传统玄幻若近期样本稀疏，标记为高风险 |
-| 仙侠 | 优先检查脑洞融合路线的近期样本；纯传统路线需额外验证受众 |
-| 历史 | 秦/唐/明/宋/三国；类同人写法 |
-| 诸天无限 | 不要写原创副本，用同人 |
-| 科幻 | 末世类（含脑洞/种田/游戏设定） |
+| Mistake | Result |
+|---------|--------|
+| High-power fantasy written as a political drama | breaks the boundary |
+| Cozy slice-of-life with deep corporate warfare | genre contamination |
+| Mystery without suspense | core appeal gone |
 
 ---
 
-## 流派写作要点
+## Scanning
 
-| 流派 | 核心要点 |
-|------|----------|
-| 极道流 | 金手指属性加点，横推一切；边界清楚、验证成本低，适合作为低复杂度候选 |
-| 凡人流 | 小人物攀爬+精打细算；战力数据化+寿命驱动 |
-| 巫师流 | 知识体系+实验探索升级，门槛较高 |
-| 种田流 | 经营餐馆/书店/渔场等；复杂度较低，可与多界穿梭结合，但仍需样本校验 |
-| 都市高武 | 高频：武馆+学校双线/死党对比/师姐诱惑/模拟考装逼；《武圣》前三章是黄金模板 |
-| 同人文 | 仅在用户明确目标 IP、平台允许且近期样本有效时使用；默认只抽“已知世界+新变量+名场面改写”结构 |
-| 盘点文 | 难度低，找对切入点 |
-| 模拟文 | 模拟制造情绪缺口→得奖励→现实满足 |
-| 两界穿梭 | 标准模板：金手指+震惊历史人物+改变命运 |
-| 历史文 | 秦/唐/明/宋/三国主流；需危机感+从小到大+清晰主线；宋朝以后审核风险高 |
+### Three-level classification
 
----
+| Level | Frequency | Key points |
+|-------|-----------|------------|
+| New genre | very rare | Only mark as a trend when repeated samples appear across multiple lists and authors; otherwise an observation |
+| New hook/ability | rare, mostly refresh | Good low-cost validation target, but must change the genre shell and the emotion trigger |
+| New gimmick | common | High homogeneity risk; deprioritize without a differentiation mechanism |
 
-## 都市重生文
+### Per-platform methods
 
-| 维度 | 要点 |
-|------|------|
-| 事业感情配比 | 五五开上限最高但要求极高；感情弱→8:2，感情行→2:8起步 |
-| 期待感 | 没有升级线必须持续维持期待感；悬疑反转少用；保持两万字规划连续性 |
-| 短视频化 | 每章有几个逗人一笑的点；搭建正反馈人际网循环玩梗；同一梗反复出现读者不厌倦 |
-| 同质化 | 微创新开头+中正内容=足够精品；缺的是流量不是内容 |
+**Royal Road**: Rising Stars -> Popular This Week -> follow-heavy long runners; check the tags of the top fictions per genre tab.
+**Webnovel**: New Books lists bottom-up; views/power stones of 300k+ as the standard for an established hit.
+**Kindle**: Top 100 Paid/Free in the target category; review-count bands and KU page-read totals as quality proxies.
+**Wattpad**: hot lists per tag; reads/votes/comments ratios.
 
 ---
 
-## 轻小说
+## Hot English genres (current calibration; re-validate against live lists)
 
-核心=卖有戏剧性的人设（尤其美少女人设）。
+| Genre | Key points |
+|-------|------------|
+| Progression fantasy | Clear power ladder, visible advancement, system or cultivation backbone; dominates Royal Road |
+| LitRPG | Game mechanics as the core loop; stats, skills, dungeons; strong Royal Road + Kindle overlap |
+| Cozy fantasy / cozy slice-of-life | Low-stakes charm, found family, healing tone; rising on Kindle and Inkitt |
+| Dark romance | Taboo-adjacent tension with guaranteed HEA; Inkitt/Wattpad/Kindle momentum; check platform content rules |
+| Romantasy | Romance + high fantasy; massive Kindle/Wattpad demand; trope clarity sells |
+| Isekai / transmigration | Self-insert into another world or a familiar story; must justify the angle; heavy on Webnovel |
+| Apocalypse / system apocalypse | World ends, system arrives, protagonist grinds; stable on Royal Road and Kindle |
+| Academy / magic school | Stakes + hierarchy + found family; evergreen on Wattpad and Webnovel |
+| Clean/sweet romance | Kiss-only or fade-to-black; a KU fast-seller lane with low review friction |
 
-- 事业线：美少女当前困境+她与别人的恩怨
-- 爱情线：有戏剧性的发展+人设搭配造成事件
-- 核心竞争力：人设设计+互动状态是否令人羡慕
-
----
-
-## 喜剧/沙雕文
-
-套路：中计掉坑+弄巧成拙 / 降智反派 / 误解错位，可组合。
-底层原理：根据读者对角色好感度，让剧情对角色的忧惧因素产生攻击性。
-
----
-
-## 霸道总裁文（女频）
-
-| 维度 | 传统 | 现代 |
-|------|------|------|
-| 女主 | 傻白甜 | 独立职业女性 |
-| 相遇逻辑 | 善良行为偶遇 | 职业交集+独特价值 |
-| 男主便利 | 全方位照顾 | 情绪价值+锦上添花 |
-| 底层逻辑 | 嫁好男人不用干 | 我很强+征服了强者的心 |
-
-情敌反派避免传统"绿茶"模式。
+Re-validate any of these against the current scan before treating them as market facts.
 
 ---
 
-## 爆款灵感素材库
+## 2026 market snapshot (initial calibration; re-validate before use)
 
-### 古言/宫闱宅斗
+> Compiled 2026-08-04 from public platform data: Amazon Kindle Top-100 (July 2026), Royal Road Rising Stars, GoodNovel / Dreame / Inkitt / Wattpad hot lists. A starting heuristic, **not current market fact**.
 
-| 标题 | 一句话卖点 |
-|------|-----------|
-| 重生后公府长媳要跑路，首辅大人疯魔了 | 前世替公府操碎心还被逼腾位，重生后决定卷走一切直接跑路 |
-| 权臣偏宠掌上娇，重生真千金杀疯了 | 真千金重生归来，先盯上将来权倾天下的养子 |
-| 惨死重生，捂不热的权臣我不要了 | 为妾五年被锁枯院，重生后捂不热的权臣不要了 |
-| 被逼替嫁我不慌，我送全家火葬场 | 被逼替嫁我不慌，我送全家火葬场 |
+| Rank | Genre | Heat | Evidence / driver |
+|------|-------|------|--------------------|
+| 1 | Romantasy | Very high | Kindle romance share ~61% (July 2026); trope-forward titles lead preorders |
+| 2 | LitRPG | Very high | Dungeon Crawler Carl held 6 of Kindle Top-20 slots; Royal Road + Kindle overlap |
+| 3 | Werewolf / shifter romance | High | GoodNovel / Dreame / Inkitt leaderboard mainstay; rejected-mate formula |
+| 4 | Dark romance | High | Inkitt / Wattpad / Kindle momentum; taboo-adjacent tension + guaranteed HEA |
+| 5 | Progression / cultivation | High | Royal Road Rising Stars mainstay; xianxia and western cultivation fusion |
+| 6 | Isekai | High | Royal Road Rising Stars runner-up tag; heavy on Webnovel |
+| 7 | Sports romance | Rising | 2026 surge (Heated Rivalry halo effect); rivals-to-lovers + team dynamics |
+| 8 | Cozy fantasy | Medium-high | Kindle + Inkitt growth; low-stakes charm, found family |
+| 9 | Domestic thriller | Medium-high | 4 of Kindle Top-20 slots (July 2026); closed-circle family secrets |
+| 10 | Mafia / billionaire | Medium-high | Serial-app mainstay (Dreame / GoodNovel); forbidden power dynamic |
+| 11 | Monster romance | Niche-growing | Inkitt / Dreame category growth; creature + human pairing |
 
-### 现言/总裁豪门
-
-| 标题 | 一句话卖点 |
-|------|-----------|
-| 逼我给青梅打官司，离婚你哭什么 | 逼我给青梅打官司，离婚你哭什么 |
-| 真千金出狱后，全家悔哭求原谅 | 亲爹亲哥联手送进监狱为假千金顶罪 |
-
-### 世情复仇
-
-| 标题 | 一句话卖点 |
-|------|-----------|
-| 班主任断我舞台梦，十五年后我封杀她女儿 | 年会试镜在评委席亲手刷掉班主任的女儿 |
-| 伤害转移100次，我妈终于杀疯了 | 病床上挨满百次剧痛后，妈妈说该你们还了 |
-
-### 都市/年代重生
-
-| 标题 | 一句话卖点 |
-|------|-----------|
-| 高武：开局就氪命，你小子是个狠人！ | 开局被亲人陷害，拿寿命换武学 |
-| 重生八零，我选择成全教授妻子和妹夫 | 重生回龙凤胎惨死前夜，先拍离婚书 |
-
-### 玄幻/历史/末世
-
-| 标题 | 一句话卖点 |
-|------|-----------|
-| 剑仙：从杀敌爆经验开始无敌 | 靠杀敌爆经验从苟命少年杀成无敌剑仙 |
-| 全宗通魔，唯有小师弟正的发邪 | "那便恭请师尊赴死" |
-| 被妹妹推去喂丧尸后，我重生囤满物资 | 被推进丧尸群死过一次后，先在地下藏满十年物资 |
+Cross-check notes:
+- Radish shut down December 2025; Galatea signals were unreachable at compile time — validate those platforms separately.
+- Kindle ranking proxies sales/KU velocity; Royal Road Rising Stars is reader-voted; serial apps are retention-driven. Don't mix proxies when comparing.
+- Re-validate every rank against the current live lists before choosing a genre.
 
 ---
 
-## 命名规律
+## Sub-genre craft points
 
-### 短篇公式
+| Sub-genre | Core craft |
+|-----------|------------|
+| LitRPG | Numbers must matter: visible build, meaningful stat choices, dungeon/raid loops |
+| Progression | Every arc ends with a visible gain; the ladder never tops out without a new ladder |
+| Cozy | Conflict stays low-stakes and warm; stakes are social, not lethal |
+| Dark romance | Push-pull tension, morally grey leads, hard-earned HEA; trigger warnings per platform norms |
+| System apocalypse | Rules of the system are the plot engine; scarcity and escalation drive it |
+| Academy | Term structure gives natural arcs; rankings and cliques create pressure |
+| Clean romance | Tension by anticipation, not heat; payoff is emotional commitment |
 
-`[极端事件] + [被逼/死亡] + [反击手段]`
+---
 
-高频词：疯了/杀疯了/悔疯了(17次) | 我反手/我让他(4次) | 全家/所有人都(4次) | 清明节/愚人节/除夕夜(4次)
+## Reincarnation / do-over urban fiction
 
-### 长篇公式
+| Dimension | Key points |
+|-----------|------------|
+| Career/love ratio | 50/50 has the highest ceiling but demands more; weak romance -> 8:2; strong romance -> 2:8 |
+| Anticipation | Without a leveling line you must sustain anticipation continuously; keep planning continuity across the story |
+| Serialization-friendly | A few laugh points per chapter; build a positive-feedback social loop; repeated running gags readers don't tire of |
+| Homogeneity | A micro-innovative opening + solid middle is enough for a hit; the missing ingredient is usually traffic, not content |
 
-高频词：快穿、系统、一见钟情、离婚后、反派、开局秒杀
+---
 
-### 知乎风格
+## Title patterns (English markets)
 
-平均7.9字。类型：事件型 / 反差型 / 互动型
+### Serial/platform formula
+
+`[Specific hook] + [stakes] + [promise]` — e.g., titles that name the system, the dungeon, the crown, the alpha.
+
+High-frequency elements: System, Dungeon, Crown, Alpha, Reborn/Reincarnated, Apocalypse, Academy, Heir, Blade, Blood.
+
+### Kindle formula
+
+Genre-naming titles: `[Trope] + [Setting]` (e.g., "A Court of..." style, "The Alpha's..." style). Titles that signal the trope raise click-through; fully literary titles underperform in-store.

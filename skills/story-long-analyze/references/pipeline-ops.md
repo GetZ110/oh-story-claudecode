@@ -1,80 +1,80 @@
-# 管道运维参考
+# Pipeline Operations Reference
 
-story-long-analyze 拆解管道的运维工具文档：`_progress.md` 模板、错误处理、恢复机制操作步骤。
+The operations manual for the story-long-analyze teardown pipeline: `_progress.md` template, error handling, resume procedure.
 
-> 质量阈值（置信度 / 覆盖率 / 重叠率）见 [material-decomposition.md 质量阈值体系](material-decomposition.md)。
+> Quality thresholds (confidence / coverage / overlap) live in the quality-threshold system of [material-decomposition.md](material-decomposition.md).
 
 ---
 
-## _progress.md 模板
+## `_progress.md` template
 
 ```markdown
-# 深度拆解进度：{书名}
-- 小说：{标题} | 总章数：{N} | 输出目录：{路径} | 开始：{日期}
-- 最终状态：{pending/paused_after_stage1/completed/completed_with_errors}
+# Deep-teardown progress: {Book Title}
+- Novel: {title} | Total chapters: {N} | Output directory: {path} | Started: {date}
+- Final status: {pending/paused_after_stage1/completed/completed_with_errors}
 - schema_version: 2
-## 管道进度
-| 阶段 | 状态 | 进度 | 备注 |
-|------|------|------|------|
-## 章节边界（Stage 0 章节边界子步骤产物，唯一权威）
-| 章号 | 标题 | 起始行 | 字数 |
-|------|------|--------|------|
-## 分块进度
-| 块 | 章节 | 状态 |
-## 失败记录
-| 类型 | 章节/阶段 | 错误信息 | 重试状态 |
-|------|----------|---------|---------|
-## 质量检查
-| 检查项 | 阶段 | 结果 | 修正 |
-## 角色合并
-| 合并前 | 合并后 | 依据 | 确认 |
-## 断点
-- 最后处理：第{N}章 | 当前阶段 | 下一操作
+## Pipeline progress
+| Stage | Status | Progress | Notes |
+|-------|--------|----------|-------|
+## Chapter boundary (produced by the Stage 0 chapter-boundary substep; single source of truth)
+| Chapter | Title | Start line | Word count |
+|---------|-------|------------|------------|
+## Chunk progress
+| Chunk | Chapters | Status |
+## Failure log
+| Type | Chapter/stage | Error message | Retry status |
+|------|---------------|---------------|--------------|
+## Quality checks
+| Check item | Stage | Result | Fix |
+## Character merge
+| Before merge | After merge | Basis | Confirmed |
+## Breakpoint
+- Last processed: Chapter {N} | Current stage | Next operation
 ```
 
-**schema_version 说明**：
+**schema_version notes**:
 
-| 版本 | 含义 |
-|------|------|
-| 2 | 当前契约：含「章节边界」表（Stage 0 章节边界子步骤产物）。Stage 1/2/6 全部以该表为切片真值，不再各自跑 regex |
+| Version | Meaning |
+|---------|---------|
+| 2 | Current contract: includes the chapter boundary table (produced by the Stage 0 chapter-boundary substep). Stages 1/2/6 all use this table as their slicing truth; no stage runs its own regex slicing anymore |
 
-缺少 `schema_version: 2` 或「章节边界」表时不得续跑；从 Stage 0 章节边界子步骤重建 `_progress.md` 后再恢复。
+Do not resume without `schema_version: 2` and the chapter boundary table; rebuild `_progress.md` from the Stage 0 chapter-boundary substep before resuming.
 
-**最终状态值说明**：
+**Final status values**:
 
-| 状态值 | 含义 |
-|--------|------|
-| `pending` | 管道进行中，尚未跑完 |
-| `paused_after_stage1` | Stage 1 停靠点暂停——Stage 0/1 已完成，已产出 `快速预览.md`，等待用户决定是否继续 Stage 2-6。续跑时跳过 Stage 0/1，从 Stage 2 开始 |
-| `completed` | 全管道 Stage 0-6 完成 |
-| `completed_with_errors` | 全管道完成，但有单章/单阶段失败（详见「失败记录」表，拆文报告中注明） |
-
----
-
-## 剧情单元清单补建（存量书）
-
-触发：用户说「补剧情单元清单」，或写作侧检索发现 `剧情/README.md` 无「剧情单元清单」表。
-
-动作：读存量 `拆文库/{书名}/剧情/*.md`（或 `对标/{书名}/剧情/*.md`）各剧情单元表头的 标题 / 类型 / 桥段标签 / 章节范围 字段，按 output-templates.md「剧情单元清单」表模板机械重建 `剧情/README.md` 的清单表；项目 `对标/{书名}/` 视图存在时同步一份。不读原文、不重跑任何 Stage、不改剧情单元内容、不动 `节奏.md` / `情绪模块.md`。旧剧情单元「章节范围」行没有字数信息时，体量列只写「共{N}章」、字数记「未知」，不得编造。
-
-写作侧消费点对无清单的书自动回退逐文件检索（见 story-long-write 的 outline-structure-theory.md「对标节奏迁移」步骤 1），补建只是加速，不是阻塞项。
-
-## 错误处理
-
-| 场景 | 处理 |
-|------|------|
-| 章节识别失败 | 提示确认格式；支持自定义正则 |
-| 分块中断 | 读 _progress.md 断点恢复 |
-| 聚合质量不达标 | 孤立情节二次分类；阈值放宽至 0.5 |
-| 角色合并冲突 | 记录待确认列表 |
-| 输出目录冲突 | 追加不覆盖；冲突标 `[重新分析]` |
+| Value | Meaning |
+|-------|---------|
+| `pending` | Pipeline in progress, not finished yet |
+| `paused_after_stage1` | Paused at the Stage 1 stop point — Stage 0/1 done, `quick-preview.md` produced, waiting for the user's decision on whether to continue Stage 2-6. On resume, skip Stage 0/1 and start from Stage 2 |
+| `completed` | Full pipeline Stage 0-6 done |
+| `completed_with_errors` | Full pipeline done, but with per-chapter/per-stage failures (see the Failure log table; noted in the teardown report) |
 
 ---
 
-## 恢复机制操作步骤
+## Story-unit list backfill (existing books)
 
-1. 管道启动时检查输出目录是否已有 `_progress.md`
-2. 校验 `schema_version: 2` 与「章节边界」表；任一缺失即停止，并提示从 Stage 0 章节边界子步骤重建进度文件
-3. 读取断点信息（最后处理章节 + 当前阶段 + 最终状态）
-4. **断点状态为 `paused_after_stage1`**（Stage 1 停靠点）→ 跳过 Stage 0/1，直接从 Stage 2 续跑逐章摘要，不重跑已完成的概要与黄金三章
-5. 其他断点状态 → 从断点所在块的起始章节恢复，覆盖该块已有输出
+Trigger: the user says "backfill the story-unit list", or a writing-side search finds `plot/README.md` without a "Story-unit list" table.
+
+Action: read the existing `teardown-lib/{Book Title}/plot/*.md` (or `benchmark/{Book Title}/plot/*.md`) story-unit headers — the Title / Type / Trope tags / Chapter range fields — and mechanically rebuild the list table in `plot/README.md` per the "Story-unit list" table template in output-templates.md; sync a copy when the project `benchmark/{Book Title}/` view exists. Do not read the source, do not re-run any stage, do not change story-unit content, do not touch `plot/pacing.md` / `plot/emotional-beats.md`. When an old story unit's chapter-range row has no word-count info, write only "N chapters total" in the size column and "unknown" for the word count — never invent it.
+
+Writing-side consumers automatically fall back to per-file search for books without the list (see story-long-write's outline-structure-theory.md "Benchmark rhythm migration" step 1); the backfill only speeds things up, it's not a blocker.
+
+## Error handling
+
+| Scenario | Handling |
+|----------|----------|
+| Chapter recognition fails | Ask to confirm the format; custom regex supported |
+| Chunking interrupted | Resume from the breakpoint in `_progress.md` |
+| Aggregation quality below threshold | Re-classify orphan plot points; relax threshold to 0.5 |
+| Character-merge conflict | Record in a pending-confirmation list |
+| Output-directory conflict | Append instead of overwrite; mark conflicts `[re-analyze]` |
+
+---
+
+## Resume procedure
+
+1. On pipeline start, check whether `_progress.md` already exists in the output directory
+2. Validate `schema_version: 2` and the chapter boundary table; if either is missing, stop and tell the user to rebuild the progress file from the Stage 0 chapter-boundary substep
+3. Read the breakpoint info (last processed chapter + current stage + final status)
+4. **Breakpoint status `paused_after_stage1`** (Stage 1 stop point) → skip Stage 0/1 and resume straight from Stage 2 per-chapter summaries; don't re-run the finished overview and opening hook chapters
+5. Other breakpoint statuses → resume from the first chapter of the chunk containing the breakpoint, overwriting that chunk's existing outputs

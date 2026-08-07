@@ -1,114 +1,121 @@
-# 网文平台运营与书名简介指南
+# English Platform Publishing Norms: Platform Fit, Visibility, Metrics, Blurb
 
-## 目录
+## Contents
 
-1. [平台选择与定位](#平台选择与定位)
-2. [推荐机制](#推荐机制)
-3. [数据指标解读](#数据指标解读)
-4. [简介写法](#简介写法)
-
----
-
-## 平台选择与定位
-
-### 主流平台对比
-
-| 平台 | 特点 | 适配条件 |
-|------|------|----------|
-| 起点 | 主站标杆，订阅制，推荐机制完善 | 男频长线、追读驱动、能持续展开主线与爽点循环 |
-| 番茄 | 免费阅读，流量大，强完读/强标签导向 | 吸量书名、快节奏、强情绪或强脑洞，需用当前榜单校验 AI 同质化风险 |
-| 七猫 | 下沉市场，强情绪流 | 强感情线、甜虐推拉、情绪密度高；合同/收益规则必须以最新官方口径为准 |
-| 晋江 | 女频/纯爱/言情主阵地 | 主体性、文案安全感、人物细节和收藏/营养液等指标可支撑时优先 |
-
-### 选择原则
-
-- 先匹配题材与平台读者，再比较流量；不把平台规模直接等同于项目成功率
-- 合同、保底、分成、全勤等收益相关判断必须以平台最新官方规则或编辑确认信息为准，本文件只提供适配维度
-- 可同时保留主站/渠道候选，但每个平台都要列出：目标读者、题材样本、核心指标、失败风险
-- 平台选择至少检查三个方向：写法节奏、题材噱头、样本匹配度
-
-### 女频平台收稿倾向
-
-| 平台 | 收稿倾向 |
-|------|----------|
-| 七猫 | 强情绪流，甜虐交替极限推拉；爹系男主VS大美人、追妻火葬场、60-90年代甜宠+对照组、多男主修罗场 |
-| 起点女频 | 候选前必须复核近期榜单与推荐位样本；若目标题材样本稀疏，标记为高流量风险 |
+1. [Platform selection and positioning](#platform-selection-and-positioning)
+2. [Visibility mechanics](#visibility-mechanics)
+3. [Reading the metrics](#reading-the-metrics)
+4. [Writing the blurb](#writing-the-blurb)
 
 ---
 
-## 推荐机制
+## Platform selection and positioning
 
-### 起点推荐流程
+### Main platform comparison
+
+| Platform | Character | Fit conditions |
+|----------|-----------|----------------|
+| Royal Road | Serial-first, genre-fiction core; free to read, Patreon monetization; community-driven visibility | Progression/litRPG/xianxia-adjacent premises, regular chapter drops, follow-through is everything |
+| Webnovel (webnovel.com) | Free-to-read mobile traffic, coin/power-stone economy, contracted serials | Hook-driven openings, fast gratification, high-freemium conversion; verify current contract/benefit terms with the official site |
+| Wattpad | Community serialization, teens/young adults | Romance and contemporary; reads/votes/comments decide visibility; Wattpad Paid Stories where available |
+| Amazon Kindle (KDP) | Paid store; Kindle Unlimited (KU) binge reading | Bingeable series with page-turn pacing; KDP Select requires 90-day Kindle exclusivity in exchange for KU page-read revenue |
+| Inkitt | Indie romance and speculative; data-driven | Strong single-sitting hooks, romance community norms |
+
+### Selection principles
+
+- Match genre and readers to the platform before comparing raw traffic; never equate platform scale with project success
+- Earnings judgments (contracts, guarantees, royalties, advance schemes) must always be checked against the platform's current official rules or editor confirmation; this file only gives fit dimensions
+- You may keep multiple candidates (e.g., Royal Road + Kindle later), but for each platform list: target readers, genre samples, core metrics, failure risk
+- Platform selection checks at least three directions: pacing/writing style, genre hook, sample fit
+
+---
+
+## Visibility mechanics
+
+### Royal Road
 
 ```
-出库 -> 试水期(7天) -> 培育期(21-42天) -> 三江推荐/上架
+First chapters (free) -> Rising Stars -> Popular This Week -> stable follows/ratings
 ```
 
-**试水期**：同期新书在同一流量池，七天总流量恒定。
+- Rising Stars ranks by recent follow velocity and read-through; new fictions with strong openings rise fast
+- Follow-through (fraction of readers who come back for new chapters) drives long-term visibility
+- Reader-visible practices that move the needle: consistent chapter schedule, active author notes, review swaps / shout-out swaps between comparable fictions
+- Royal Road does not require exclusivity; many authors post there while holding Kindle rights, or go Kindle-only later
 
-**培育期**：四个等级：放量包++ > 放量包+ > 放量包 > 扶持包（安慰奖）。每1-2天一个流量包，共21个。下一个流量包大小取决于上一个的成绩（追读+留存）。噱头强但留存差 -> 恶性循环。
+### Webnovel
 
-**关键数据**：
-- 出库时300假追可无缝衔接试水
-- 冲三江至少500假追
-- 1000假追以下全是扶贫包，2000以上有放量+
+- Recommendation slots, test word counts, and traffic rules change often; always re-verify with the official author backend, editor guidance, or the latest author announcements
+- When analyzing Webnovel samples, record: validation-period word count, views, power stones, favorites, title/tags, blurb hook
+- If the current scan shows dense AI-homogenized samples, flag homogeneity risk and differentiation checks instead of reusing historical numbers
+- Review data at the project's actual word-count milestones with the platform's latest rules; don't treat fixed word counts as hard rules
 
-### 起点新书榜规则
+### Amazon Kindle
 
-上榜条件（三选一即下榜）：满20万字 / 签约满30天 / 断更超3天
+- KDP Select enrolls a title in Kindle Unlimited for 90 days; in exchange the title earns page-read royalties and cannot be sold elsewhere (incl. other ebook stores and web serialization) for that window
+- Page reads and completion matter; a strong "read-through" from book 1 to book 2-3 is the main growth lever for series
+- New release + free/discounted promos + newsletter swaps (explicitly allowed) are standard launch levers
+- Reviews: early review velocity affects store algorithms; ratings need sample size to mean anything
 
-**多待榜单技巧**：内投通过后和编辑商量，先发到3万字左右再完成签约流程，可多待4-5天。
+### Wattpad
 
-### 番茄推荐机制
+- Reads, votes, comments, and completion feed the algorithm; consistent posting and genre tags drive distribution
+- Story covers, title, and first-part hook decide click-through inside the app
 
-- 推荐节点、测试字数、流量包规则变化频繁；执行前必须用官方后台、编辑口径或最新作者公告复核
-- 分析番茄样本时记录：验证期字数、在读数、完读率/追更、书名标签、简介钩子
-- 若当前 scan 发现 AI 同质化样本密集，输出同质化风险和差异化检查，不直接沿用历史给量数字
-- 观察数据时按项目实际字数节点和平台最新规则设置复盘点，不使用固定字数作为硬规则
+### Inkitt
 
-### 书名简介的重要性
+- Inkitt ranks by reads/votes and pitches strong-performing stories to its reader data and publishing program; consistent updates and genre tagging matter
 
-起点新推荐机制下，书名和简介是第一道筛选：
-- 书名点明题材可保下限
-- 书名简介吸量 >> 追读 >> 读完率/书架比
-- 文艺书名在新机制下会被拉长培育期
+### Why title and blurb matter
 
----
-
-## 数据指标解读
-
-### 番茄核心数据
-
-**追更人数** = 阅读最近 7 日更新章节的有效读者数。该指标只能和同题材、同字数段、同推荐阶段样本横向比较。
-
-| 指标 | 用法 |
-|------|------|
-| 追更人数 | 判断近期读者留存和更新期待，必须标注统计周期 |
-| 在读数 | 判断流量规模，需结合书龄和推荐阶段 |
-| 完读/读完率 | 判断章节承接是否掉点；若无法获取，报告中标记为缺失 |
-| 书架/收藏 | 判断吸量后是否留下，需和书名/简介一起分析 |
-
-历史追更区间只能作为样本注释；不输出固定首秀量预测，除非有当前平台同阶段数据支撑。
-
-### 起点核心数据
-
-- **收订比**：收藏与首订的比例，反映转化效率
-- **24小时追读**：VIP读者的实时追读，上推荐看这个数据
-- **首订数据参考**：上架首订不到100属中游水平
-
-### 通用数据逻辑
-
-- 读完率高 = 内容质量好，追更高 = 期待感足
-- 书架比好但完读差 = 中间内容出了问题
-- 收益与追更/在读等指标相关，但具体收益受平台规则、合同和推荐阶段影响，必须另行核实
-- 数据不好时优先检查：开头吸量、章节留存、期待感断档
+On every platform the title and blurb are the first filter:
+- A title that names the genre guarantees a floor (e.g., "Dungeon" / "Alpha" / "Crown")
+- Title + blurb pull >> follow-through >> completion; vague literary titles get stretched out of the discovery funnel
+- Blurb norms differ: Royal Road readers scan tags + one-line hook; Kindle readers skim for trope + stakes; Wattpad readers click on emotional triggers
 
 ---
 
-## 简介写法
+## Reading the metrics
 
-核心结构：主角处境 -> 金手指能干嘛 -> 第一个爽点预览。不要写成设定说明书，要写成广告。好处要说具体。
+### Royal Road core data
 
-**常见错误**：东扯一句西塞一句没有核心主题 | 创意名字但实际是普通积分类系统 | "且看主角如何如何"空话套话 | 自称用"俺"等过于出戏
+| Metric | Use |
+|--------|-----|
+| Follows | Reader commitment; compare only within similar length/update cohorts |
+| Follow-through | Retention signal; the core indicator for visibility |
+| Rating + votes | Vote-weighted quality; always read with sample size |
+| Views / pages | Traffic scale; pair with book age and update cadence |
 
-**简介结构提取**：参考三江推荐（qidian.com/sanjiang/）或畅销榜同类型爆款简介结构，只提取功能位：问题、利益点、爽点预告、安全感、悬念。禁止复刻具体剧情和表达。
+### Webnovel core data
+
+| Metric | Use |
+|--------|-----|
+| Views | Traffic scale; pair with book age and promotion stage |
+| Power stones / coins | Paid/engaged reader support |
+| Favorites | Whether the hook converts into commitment; analyze together with title/blurb |
+| Completion/read rate | Whether chapters hold readers; mark as missing if not available |
+
+Historical ranges are sample annotations only. Do not output fixed first-release number predictions unless backed by current same-stage data on the platform.
+
+### Kindle core data
+
+- **Page reads (KU)**: binge signal; page-turn rate = chapter-level retention
+- **Review count + rating**: trust signal; compare with category norms (a 4.5 with 50 reviews is not the same signal as 4.5 with 5,000)
+- **Category rank**: relative demand within the store niche; rank in "Fantasy > Epic" means little without the genre context
+
+### Generic data logic
+
+- High completion/read-through = content quality; high follow-through = anticipation management
+- Good click-through but weak completion = the middle of the story has a problem
+- Earnings correlate with follow-through/reads but are shaped by platform rules, contracts, and promotion stage — verify separately
+- When data is bad, check in order: opening pull, chapter retention, anticipation gaps
+
+---
+
+## Writing the blurb
+
+Core structure: protagonist's situation -> what the hook/special ability does -> preview of the first payoff. Do not write a setting manual; write an ad. Be specific about benefits.
+
+**Common mistakes**: unrelated fragments with no core theme | a creative name hiding a generic system | "watch the protagonist conquer..." empty promises | self-referential narrator jokes that break immersion.
+
+**Blurb structure extraction**: study the blurbs of top fictions in the same genre on the target platform (Royal Road Rising Stars, Kindle bestseller blurbs, Wattpad hot-list descriptions), extract only the functional slots: problem, benefit, payoff preview, safety, suspense. Never copy specific plot or phrasing.

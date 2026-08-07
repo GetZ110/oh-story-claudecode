@@ -1,165 +1,159 @@
 ---
 name: output-contract
 description: |
-  story-short-analyze 输出契约。定义 Stage → 文件映射、_meta.json schema、
-  下游消费规范（story-short-write 读全套 markdown + 原文 + _meta.json 写新短篇）。
+  story-short-analyze output contract. Defines the Stage → file mapping, the _meta.json schema,
+  and downstream consumption rules (story-short-write reads the full set of markdown + source +
+  _meta.json to write new short fiction).
 sync-policy: |
-  本文件在 story-short-analyze 与 story-short-write 之间需保持字节一致（byte-equal）。
-  修改任一副本后，必须同步另一副本，并通过 bash scripts/check-shared-files.sh 验证。
-  禁止把本文件加入 IGNORE_NAMES 列表——它必须保持同步，不属于 intentional differences。
+  This file must stay byte-equal (identical bytes) between story-short-analyze and story-short-write.
+  After editing either copy, you must sync the other copy and verify with
+  bash scripts/check-shared-files.sh.
+  Do not add this file to the IGNORE_NAMES list — it must stay in sync; it is not an intentional difference.
 ---
 
-# 输出契约：story-short-analyze ↔ story-short-write
+# Output Contract: story-short-analyze ↔ story-short-write
 
-`story-short-analyze` 拆完一篇短篇后，产物落盘到 `拆文库/{书名}/`。`story-short-write`
-写下一篇同题材短篇时，**同时**读这个目录下的全部产出。
+After `story-short-analyze` tears down a short story, the artifacts land in `teardown-lib/{Book Title}/`. When `story-short-write` writes the next story in the same genre, it reads **all** the outputs in that directory at once.
 
 ---
 
-## 输出目录与文件树
+## Output directory and file tree
 
 ```
-拆文库/{书名}/
-├── 原文/                  # 管道前置步骤产出，存放源文件备份
-├── 拆文报告.md             # 人类可读综合报告（Stage 2-6 综合）
-├── 情节节点.md             # Stage 2 情节节点清单
-├── 写作手法.md             # Stage 4 写作手法分析
-└── _meta.json             # 管道元数据 + 结构计数（resume + 验收数值依据）
+teardown-lib/{Book Title}/
+├── source/                  # pipeline pre-step output; backup of the source file
+├── teardown-report.md       # human-readable combined report (Stages 2-6 combined)
+├── plot-nodes.md            # Stage 2 plot-node list
+├── craft-methods.md         # Stage 4 writing-craft analysis
+└── _meta.json               # pipeline metadata + structure counts (resume + acceptance numbers)
 ```
 
-**文件名约定**：`拆文报告.md / 情节节点.md / 写作手法.md` 由 `story-short-write` 硬编码
-消费，不可重命名。分析叙事走 markdown，数字/枚举走 `_meta.json.structure_counts`。
+**Filename conventions**: `teardown-report.md / plot-nodes.md / craft-methods.md` are hardcoded consumers of `story-short-write`; they must not be renamed. Analysis narrative goes in markdown; numbers/enums go in `_meta.json.structure_counts`.
 
 ---
 
-## Stage → 文件映射
+## Stage → file mapping
 
-| Stage | 名称 | 落地文件 | 主要内容 |
-|-------|------|----------|---------|
-| 2 | 结构+情节节点 | `拆文报告.md`（故事核/结构/梗概段） + `情节节点.md` | 故事核 / 4-6 段结构 / 故事梗概 / 情节节点清单 |
-| 3 | 情感线+爆点 | `拆文报告.md`（情感曲线段+爆点段） | 情感曲线 ≥5 节点 / 爆点 6 维度 / 期待感 |
-| 4 | 反转+写作手法 | `拆文报告.md`（反转段） + `写作手法.md` | 前置反转检查 / 反转分析（铺垫 ≥2） / 写作手法 ≥5 项 |
-| 5 | 人物+开头结尾 | `拆文报告.md`（人物段+首尾段） | 人物分类+功能评估 / 开头分析 / 结尾分析 / 首尾呼应 |
-| 6 | 综合评估 | `拆文报告.md`（综合段） + `_meta.json`（写 structure_counts） | 五维评分 / 爆点性 / 话题性 / 共鸣 ≥3 层 / 可复用结构 ≥3 条 / 节奏速报 |
+| Stage | Name | Landing files | Main content |
+|-------|------|---------------|--------------|
+| 2 | Structure + plot nodes | `teardown-report.md` (story core/structure/summary sections) + `plot-nodes.md` | story core / 4-6 segment structure / story summary / plot-node list |
+| 3 | Emotional line + eruption points | `teardown-report.md` (emotion-curve + eruption-point sections) | emotion curve ≥5 nodes / eruption 6 dimensions / anticipation |
+| 4 | Reversal + writing craft | `teardown-report.md` (reversal section) + `craft-methods.md` | pre-reversal check / reversal analysis (setup clues ≥2) / craft ≥5 items |
+| 5 | Characters + opening/ending | `teardown-report.md` (characters + opening/ending sections) | character classification + function assessment / opening analysis / ending analysis / opening-ending echo |
+| 6 | Combined assessment | `teardown-report.md` (combined section) + `_meta.json` (write structure_counts) | five-dimension score / eruption potential / topicality / resonance ≥3 layers / reusable structures ≥3 / rhythm briefing |
 
 ---
 
 ## `_meta.json` schema
 
-`_meta.json` 是管道元数据 + 结构计数。**不放分析内容**，只放数字和枚举——给验收
-检查做完整性校验用。分析叙事都在 `拆文报告.md` 里。
+`_meta.json` is pipeline metadata + structure counts. **No analysis content** — only numbers and enums, for acceptance completeness checks. The analysis narrative all lives in `teardown-report.md`.
 
 ```jsonc
 {
   "version": "2.0",
-  "word_count": 5234,                   // 源文字数（Phase 1 探针填入）
-  "genre_detected": "追妻",             // Phase 1 题材识别；未识别填 "通用"
-  "created_at": "{ISO8601 时间戳}",      // 拆文启动时间，写入时填当前 UTC
-  "stages_completed": [2, 3, 4, 5],     // 已完成 Stage，按完成顺序 append
-  "last_stage_in_progress": null,       // 当前正在执行的 Stage；空闲为 null
+  "word_count": 5234,                   // source word count (filled by the Phase 1 probe)
+  "genre_detected": "enemies-to-lovers", // Phase 1 genre recognition; fill "general" when unrecognized
+  "created_at": "{ISO8601 timestamp}",    // teardown start time; fill current UTC when writing
+  "stages_completed": [2, 3, 4, 5],      // completed stages, appended in completion order
+  "last_stage_in_progress": null,        // the stage currently executing; null when idle
 
-  "structure_counts": {                 // Stage 6 完成时一次性写入；structure_counts 数值校验依据
-    "beats": 5,                         // 结构段数（结构划分，开端/发展/高潮/结局，Stage 2）
-    "hooks": 4,                         // 钩子数（Stage 3）
-    "setup_clues": 3,                   // 反转铺垫线索数（Stage 4）
-    "character_archetypes": 3,          // 有反差人物数（Stage 5）
-    "reusable_structures": 3,           // 可复用手法条数（Stage 6）
-    "reversal_type": "视角反转"          // 反转类型枚举（视角/身份/动机/时间线/信息/认知/无反转）；甜宠/喜剧/报应型填「无反转」
+  "structure_counts": {                 // written once at Stage 6 completion; basis for the structure_counts numeric validation
+    "beats": 5,                         // number of structure segments (structure split: opening/development/climax/ending, Stage 2)
+    "hooks": 4,                         // number of hooks (Stage 3)
+    "setup_clues": 3,                   // number of reversal setup clues (Stage 4)
+    "character_archetypes": 3,          // number of characters with contrast (Stage 5)
+    "reusable_structures": 3,           // number of reusable craft items (Stage 6)
+    "reversal_type": "perspective"      // reversal-type enum (perspective/identity/motivation/timeline/information/perception/none); sweet/comedy/karmic-justice stories fill "none"
   }
 }
 ```
 
-### 写入顺序（crash safety）
+### Write order (crash safety)
 
-1. **Stage N 开始前**：`last_stage_in_progress = N`，写盘。
-2. **Stage N 文件写完后**：non-empty + 最小长度合理性检查（如 `拆文报告.md` 新增段 ≥ 200 字）。
-3. **通过**：清空 `last_stage_in_progress`，append `N` 到 `stages_completed[]`。
-4. **失败**：`stages_completed` 不动，`last_stage_in_progress` 保留为 `N`。
-5. **Stage 6 完成时额外动作**：把 `structure_counts` 一次性算出并写入 `_meta.json`，
-   然后才进入验收。
+1. **Before Stage N starts**: `last_stage_in_progress = N`, write to disk.
+2. **After Stage N files are written**: non-empty + minimum-length sanity check (e.g., the new `teardown-report.md` section ≥ 200 words).
+3. **Pass**: clear `last_stage_in_progress`, append `N` to `stages_completed[]`.
+4. **Fail**: `stages_completed` untouched, `last_stage_in_progress` stays `N`.
+5. **Extra action at Stage 6 completion**: compute `structure_counts` in one go and write it into `_meta.json`, then enter acceptance.
 
-### Resume 协议
+### Resume protocol
 
-- `last_stage_in_progress` 非空 → 该 Stage 上次中断，**从头**重跑（不复用半成品）。
-- `last_stage_in_progress` 为空 → 从 `max(stages_completed) + 1` 开始。
-- `stages_completed` 含 6 → 已完成，询问用户覆盖/取消。
+- `last_stage_in_progress` non-empty → that stage was interrupted last time; **re-run it from scratch** (don't reuse half-written files).
+- `last_stage_in_progress` empty → start from `max(stages_completed) + 1`.
+- `stages_completed` contains 6 → already done; ask the user to overwrite or cancel.
 
-**Stage 6 = 内容写完 AND 验收通过**。验收未过前 `last_stage_in_progress` 保持 `6`、`stages_completed` 不含 `6`；resume 时正文/structure_counts 已在盘上，只重跑验收检查，不重写 Stage 6 正文。
-
----
-
-## 验收接入点
-
-Stage 6 内容写完后、`stages_completed[6]` append 前，跑三道检查：
-
-### Step 1：拆文报告 AI 腔自检
-
-扫描 `拆文报告.md` 全文 against 拆文流程本地加载的禁用词表与报告 AI 腔规则。
-这是拆文报告质量门；成稿去 AI 规则由写作流程在自己的 Skill 内维护，不跨 Skill 读取参考文件，也不要把两套规则混用。
-命中 → 不写 `stages_completed[6]`，列出位置请用户修订**拆文报告本身**的 AI 腔
-（源文里有 AI 腔不算——这里扫的是分析师写的报告）。
-
-### Step 2：`_meta.json.structure_counts` 数值校验
-
-| 字段 | 最低值 | 不达标 |
-|------|--------|--------|
-| `structure_counts.beats` | ≥ 4（结构段：开端/发展/高潮/结局）| 阻断 |
-| `structure_counts.hooks` | ≥ 3 | 阻断 |
-| `structure_counts.setup_clues` | ≥ 3（reversal_type=无反转时跳过本行）| 阻断 |
-| `structure_counts.character_archetypes` | ≥ 2 | 阻断 |
-| `structure_counts.reusable_structures` | ≥ 3 | 阻断 |
-| `structure_counts.reversal_type` | 在枚举内（含「无反转」）| 阻断 |
-| `genre_detected` | 非空 | 阻断 |
-
-> 情节节点数（15-60 个，按字数分档）走 `情节节点.md` 自己的密度校验（见 material-decomposition.md），不在本表。`beats` 是结构段数，不是情节节点数。
-
-### Step 3：`story-short-analyze` BLOCK 项扫描
-
-扫拆文流程本地加载的输出模板，确认所有 `[BLOCK]` 标注项对应的产出段均在 `拆文报告.md` 出现。
-任一缺失 → 阻断。`[WARN]` 项 → 写入拆文报告末尾「待补」清单，不阻断。
-
-### Step 4：通过
-
-清空 `_meta.json.last_stage_in_progress`，append `6` 到 `stages_completed[]`，提示
-用户「拆解完成，可调用 `/story-short-write` 写下一篇」。
+**Stage 6 = content written AND acceptance passed.** Until acceptance passes, `last_stage_in_progress` stays `6` and `stages_completed` has no `6`; on resume the body/structure_counts are already on disk — only re-run the acceptance checks, don't rewrite the Stage 6 body.
 
 ---
 
-## 下游消费规范（story-short-write 怎么用）
+## Acceptance entry points
 
-> `story-short-write` 当前硬编码读 `拆文报告.md / 情节节点.md / 写作手法.md` 三个 markdown。
-> `_meta.json` 是可选增强：read 容忍，不存在不阻塞写作。
+After the Stage 6 content is written, before appending `stages_completed[6]`, run three checks:
 
-| 文件 | 角色 | 怎么读 |
-|------|------|--------|
-| `_meta.json`（可选）| 数字门面 + 题材识别 | 看 `genre_detected` 决定哪个题材标尺，读 `structure_counts` 确认拆文完整性，读 `structure_counts.reversal_type` 选反转骨架 |
-| `拆文报告.md` | 分析叙事主体 | 读「故事核」「结构」「情感曲线」「爆点」「反转分析」「人物」「五维评分」「共鸣分析」「可复用结构」「同类型写作动作」段，是 writer 的主输入 |
-| `情节节点.md` | 节奏锚点 | 看每个节点的字数位置 + 功能 + 触发事件，给新故事排节奏 |
-| `写作手法.md` | 手法库 | POV / 对话 / 时间 / 信息控制 等具体手法 + 原文示例，新篇里复用 |
-| `原文/` | 语感源 | 抄对话调子、节奏、画面感、打脸张力。**不抄具体情节**，抄写法。 |
+### Step 1: teardown-report AI-flavor self-check
 
-### 写作流程建议
+Scan the full text of `teardown-report.md` against the banned-word list and report-AI-flavor rules loaded locally by the teardown flow. This is the teardown report's quality gate; the finished-prose de-AI rules are maintained by the writing flow inside its own skill — don't read reference files across skills and don't mix the two rule sets.
+Hit → don't write `stages_completed[6]`; list the locations and ask the user to fix the AI flavor of **the teardown report itself** (AI flavor in the source doesn't count — this scans the report the analyst wrote).
 
-1. 看 `_meta.json.genre_detected` 和 `structure_counts.reversal_type` 选骨架。
-2. 读 `拆文报告.md` 的「核心手法」「共鸣分析」「可复用结构」段，决定要保留 / 调整哪些。
-3. 读 `情节节点.md` 把节奏锚点抄到新故事的字数位置上。
-4. 写场景时翻 `写作手法.md` + `原文/`，参考具体写法。
-5. 写完后（可选）在新文档 frontmatter 写 `derived_from: 拆文库/{书名}/` 追溯。
+### Step 2: `_meta.json.structure_counts` numeric validation
 
-### 维护者本地烟雾测试
+| Field | Minimum | If below |
+|-------|---------|----------|
+| `structure_counts.beats` | ≥ 4 (structure segments: opening/development/climax/ending) | block |
+| `structure_counts.hooks` | ≥ 3 | block |
+| `structure_counts.setup_clues` | ≥ 3 (skip this row when reversal_type=none) | block |
+| `structure_counts.character_archetypes` | ≥ 2 | block |
+| `structure_counts.reusable_structures` | ≥ 3 | block |
+| `structure_counts.reversal_type` | within the enum (incl. "none") | block |
+| `genre_detected` | non-empty | block |
+
+> Plot-node count (15-60 by the word-count tier) goes through `plot-nodes.md`'s own density validation (see material-decomposition.md), not this table. `beats` is the structure-segment count, not the plot-node count.
+
+### Step 3: `story-short-analyze` BLOCK item scan
+
+Scan the output templates loaded locally by the teardown flow and confirm every `[BLOCK]`-labeled item's output section appears in `teardown-report.md`.
+Any missing → block. `[WARN]` items → write into the "to-do" list at the end of the teardown report; don't block.
+
+### Step 4: Pass
+
+Clear `_meta.json.last_stage_in_progress`, append `6` to `stages_completed[]`, and tell the user "teardown complete — run `/story-short-write` to write the next story".
+
+---
+
+## Downstream consumption rules (how story-short-write uses this)
+
+> `story-short-write` currently hardcodes reading the three markdown files `teardown-report.md / plot-nodes.md / craft-methods.md`.
+> `_meta.json` is an optional enhancement: reads tolerate it; if it's absent, writing isn't blocked.
+
+| File | Role | How to read |
+|------|------|-------------|
+| `_meta.json` (optional) | numeric facade + genre recognition | check `genre_detected` to pick the genre yardstick; read `structure_counts` to confirm teardown completeness; read `structure_counts.reversal_type` to pick the reversal skeleton |
+| `teardown-report.md` | analysis narrative body | read the "story core", "structure", "emotion curve", "eruption points", "reversal analysis", "characters", "five-dimension score", "resonance analysis", "reusable structures", "same-type writing actions" sections — the writer's primary input |
+| `plot-nodes.md` | rhythm anchors | look at each node's word-count position + function + triggering event; schedule the new story's rhythm off them |
+| `craft-methods.md` | craft library | POV / dialogue / time / info control etc. with source examples; reuse in the new piece |
+| `source/` | voice source | copy the dialogue register, rhythm, imagery, and comeuppance tension. **Don't copy the specific plot** — copy the craft. |
+
+### Writing-flow suggestions
+
+1. Look at `_meta.json.genre_detected` and `structure_counts.reversal_type` to pick the skeleton.
+2. Read the "core craft", "resonance analysis", "reusable structures" sections of `teardown-report.md` to decide what to keep / adjust.
+3. Read `plot-nodes.md` to copy the rhythm anchors onto the new story's word-count positions.
+4. When writing scenes, consult `craft-methods.md` + `source/` for concrete craft.
+5. After writing, optionally write `derived_from: teardown-lib/{Book Title}/` in the new document's frontmatter for traceability.
+
+### Maintainer smoke test
 
 ```bash
-ls 拆文库/{书名}/   # 应有：原文/ 拆文报告.md 情节节点.md 写作手法.md _meta.json
-/story-short-write 拆文库/{书名}/
-# 通过：输出 8000+ 字同题材新短篇，prose 有源文对话节奏和画面感
-# 失败：写得像填空 / 或 short-write 找不到三个 markdown
+ls teardown-lib/{Book Title}/   # should contain: source/ teardown-report.md plot-nodes.md craft-methods.md _meta.json
+/story-short-write teardown-lib/{Book Title}/
+# pass: outputs a 4000+ word new short story in the same genre, with the source's dialogue register and imagery
+# fail: reads like fill-in-the-blanks / or short-write can't find the three markdown files
 ```
 
 ---
 
-## 版本约定
+## Version conventions
 
-- `_meta.json.version` 与本文件 `sync-policy` 联动。
-- breaking change（字段重命名 / 类型变更 / 必填变更）必须 bump major version 并同步两侧
-  副本，CI 通过 `scripts/check-shared-files.sh` 拦截单边修改。
-- additive change（新增可选字段）可 bump minor；producer、consumer 与两侧副本必须在同一变更中升级到当前 schema。
+- `_meta.json.version` is coupled to this file's `sync-policy`.
+- A breaking change (field rename / type change / required change) must bump the major version and sync both copies; CI intercepts one-sided edits via `scripts/check-shared-files.sh`.
+- An additive change (new optional field) may bump minor; producer, consumer, and both copies must upgrade to the current schema in the same change.

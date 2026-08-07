@@ -1,8 +1,8 @@
 ---
-description: 短篇网文拆文，分析故事核、情绪线、结构和反转。
+description: Short-form web-novel teardown: analyzes the story core, emotional arc, structure, and reversals.
 skills: story-short-analyze
 ---
 
-调用 `$story-short-analyze` 拆解用户指定的短篇小说。
+Invoke `$story-short-analyze` to tear down the short-form novel the user specifies.
 
-用户参数：$ARGUMENTS
+User arguments: $ARGUMENTS

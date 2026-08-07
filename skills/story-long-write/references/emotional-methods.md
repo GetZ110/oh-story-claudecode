@@ -1,209 +1,209 @@
-# 情感设计方法：三板斧 + 拉扯节奏 + 失败模式
+# Emotional Design Methods: Three Techniques + Pull Rhythm + Failure Modes
 
-> 设计情感桥段时加载。先用下方通用长篇单元情绪引擎规划因果链；三板斧只在适用场景中作为可选技法。
-
----
-
-## 长篇单元情绪引擎（通用正向框架）
-
-每个剧情单元先设计能制造情绪与兑现的**正向发动机**，再做安全审查：
-
-> **核心情绪命题 → 承载对象/情绪缺口 → 受阻或缺口维持原因 → 本轮触发 → 主角不可替代的点火/转化动作 → 意义变化或可见兑现 → 题材/契约兑现**
-
-这条因果链适用于爽、燃、甜、虐、恐、治愈等不同核心情绪。承载对象可以是人物、关系、目标、规则或场景；不适用的环节可写“无/即时”，但必须保持因果闭合。它不要求每个题材都有长期受阻、最终画面或克制反应，也不规定单一机制：误解、物件、反转、死亡等都不是必备项。下文“情感虐心三板斧”是适合部分情感题材的**可选技法**，不是通用引擎的硬模板。
-
-### 正向发动机与负向护栏的顺序
-
-1. **先设计正向发动机**：明确读者会为什么投入，本轮如何让这份投入改变意义并得到可见兑现。
-2. **后用主角代理权/成长负向护栏诊断**：以 `reader-contract-and-progression.md` 的因果权 + 结算权、期待所有权与终局储备排查契约/推进失败。“安全”只代表没踩红线，不代表好看；护栏不能代替情绪发动机。
-
-### 合理性五问
-
-1. 为何是该承载对象？
-2. 为何是现在？
-3. 为什么没有被直接解决 / 为何此前仍悬置？
-4. 主角凭什么介入/转化？
-5. 现实/设定边界如何约束？
-
-五问用来截住巧合式工具人、为推情节而突然变蠢的机构，以及事后补一段说明的解释补丁。
-
-### 强度原则
-
-强情绪来自**具体投入、受阻/延迟、意义变化、可信反应等机制按题材组合**，不要求全部出现，也不来自堆叠死亡、疾病和哭喊。克制反应只是部分情绪的可选放大器。物件、对话、动作、身份、规则、关系都可作为可选锚点；锚点频率随篇幅和读者记忆需求调整，从不强制重复三次。集体或价值抬升也是可选的；只在题材需要时，才由个体兑现扩展到题材核心情绪。
+> Load when designing emotional scenes. First use the generic long-form unit emotional engine below to plan the causal chain; the three techniques are optional tools for applicable scenes only.
 
 ---
 
-## 决策路由
+## The long-form unit emotional engine (generic positive framework)
 
-| 你的情感设计场景是 | 用这个策略 | 跳转到 |
+Design a **positive engine** that creates emotion and delivers it for every story unit first, then run the safety review:
+
+> **Core emotional proposition → carrier object/emotional gap → why it is blocked or kept hanging → this round's trigger → the protagonist's irreplaceable ignition/transformation action → meaning change or visible delivery → genre/contract delivery**
+
+This causal chain applies to different core emotions: payoff, hype, sweetness, pain, fear, healing. The carrier may be a person, relationship, goal, rule, or scene; inapplicable links may say "none/immediate", but the causal chain must stay closed. It does not require every genre to have long-term blockage, a final image, or restrained reactions, and it does not mandate a single mechanism: misunderstanding, objects, reversals, death are all optional. The "three emotional techniques" below are **optional techniques** suited to some emotional genres, not a hard template for the generic engine.
+
+### The order of positive engine and negative guardrails
+
+1. **Design the positive engine first**: be clear what the reader invests in, and how this round changes the meaning of that investment and delivers visibly.
+2. **Then diagnose with the protagonist-agency/growth negative guardrails**: use `reader-contract-and-progression.md`'s causal rights + settlement rights, expectation ownership, and endgame reserve to check contract/progression failures. "Safe" only means no red lines, not good; guardrails cannot replace the emotional engine.
+
+### The five plausibility questions
+
+1. Why this carrier?
+2. Why now?
+3. Why has it not been directly solved / why has it stayed suspended?
+4. What qualifies the protagonist to intervene/transform?
+5. How do reality/setting boundaries constrain it?
+
+The five questions stop coincidence-tool characters, institutions that suddenly turn stupid to advance the plot, and explanation patches tacked on afterward.
+
+### Intensity principles
+
+Strong emotion comes from mechanisms combined **by genre**: concrete investment, blocking/delay, meaning change, credible reactions — not all must appear, and it never comes from stacking death, illness, and screaming. Restrained reaction is only an optional amplifier for some emotions. Objects, dialogue, actions, identities, rules, and relationships may all be optional anchors; anchor frequency adjusts to length and reader memory needs, never a mandatory three appearances. Collective or value elevation is also optional; only when the genre requires it does individual delivery extend to the genre's core emotion.
+
+---
+
+## Decision routing
+
+| Your emotional design scenario | Strategy | Go to |
 |---------------|-----------|----------|
-| 规划长篇剧情单元的情绪引擎 | 通用长篇单元情绪引擎 | 长篇单元情绪引擎 |
-| 建立角色羁绊（让读者相信关系） | 羁绊铺设（第一斧） | 三板斧 §1 |
-| 制造情感撕裂（反差/错位/背叛） | 情感撕裂（第二斧） | 三板斧 §2 |
-| 写结尾余韵（安静细节击穿读者） | 余韵钝痛（第三斧） | 三板斧 §3 |
-| 规划整体情感节奏曲线 | 拉扯节奏设计 | 拉扯节奏 |
-| 不同题材的情感策略选择 | 题材策略差异 | 按题材 |
-| 检查情感设计是否有效 | 失败模式排查 + 快速自查 | 底部清单 |
+| Plan a long-form unit's emotional engine | the generic long-form unit emotional engine | the long-form unit emotional engine |
+| Build character bonds (make the reader believe the relationship) | bond building (technique 1) | three techniques §1 |
+| Create emotional tearing (contrast/misalignment/betrayal) | emotional tearing (technique 2) | three techniques §2 |
+| Write ending afterglow (quiet details pierce the reader) | afterglow dull pain (technique 3) | three techniques §3 |
+| Plan the overall emotional rhythm curve | pull-rhythm design | pull rhythm |
+| Choose genre emotional strategies | genre strategy differences | by genre |
+| Check whether the emotional design works | failure-mode check + quick self-check | checklist at bottom |
 
 ---
 
-## 情感虐心三板斧
+## The three emotional techniques
 
-### 第一斧：羁绊铺设（前 1/3）
+### Technique 1: Bond building (first 1/3)
 
-**目标**：用具体物件/数字/细节建立关系质感，让读者相信这段关系是真实的。
+**Goal**: build the relationship's texture with concrete objects/numbers/details so the reader believes the relationship is real.
 
-**方法**：
-- 用具体数字建立时间感：「相恋八年」「昏迷五年」「七年光景」
-- 用具体物件承载感情：金锁（姐姐的生日礼物）、账本数字（还债记录）、木头小马（父王磨的）
-- 用重复动作建立习惯：每天一碗粥、每两周来看一次、每年冬天冻得睡不着
+**Methods**:
+- Concrete numbers build time: "eight years together" / "five years in a coma" / "seven years of waiting"
+- Concrete objects carry emotion: a gold lock (the sister's birthday gift), ledger numbers (debt repayment records), a wooden horse (carved by father)
+- Repeated actions build habits: a bowl of porridge every day, a visit every two weeks, lying awake cold every winter
 
-**案例**：
-- 《迟来二十年》：用二十年的账本数字（八万块）建立母女关系的重量
-- 《我在佛前求你》：昏迷五年、求神拜佛的细节、从初中开始的暗恋
-- 《皇弟欺负幼子》：七年质子生涯的具体苦难（跪雪地、挨巴掌、吃馊饭）
+**Cases**:
+- *Twenty Years Late*: a ledger's numbers (eighty thousand) carry the weight of a mother-daughter relationship
+- *Begging at the Temple Gate*: five years in a coma, the details of prayer and worship, a crush from middle school
+- *The Prince's Little Brother*: seven years as a hostage in concrete misery (kneeling in snow, slapped, eating spoiled rice)
 
-**核心**：羁绊越具体，后面的撕裂越痛。不要用「他们很相爱」这种抽象描述。
-
----
-
-### 第二斧：情感撕裂（中后段）
-
-**目标**：制造反差，让读者以为恨对了 → 发现恨错了（或反过来）。
-
-**方法**：
-- **反差法**：先展示温暖一面，再用残酷真相击碎
-- **错位法**：角色 A 以为在保护角色 B，实际上在伤害
-- **延迟真相法**：关键信息在读者最不期待的时候揭示
-
-**案例**：
-- 《姐夫捎路要奶粉钱》：妈妈表面软弱可怜，实际一直操控姐姐索取钱财 → 金锁是假的（金包铜）→ 反差撕裂
-- 《皇弟欺负幼子》：王氏表面温柔（送手炉、煎汤药）→ 实际下药逼疯先皇后 → 用诛心话逼死
-- 《重生弟弟》：弟弟深爱女友 → 女友是诈骗犯 → 怀孕是假的 → 被骗到电诈园区
-
-**核心**：撕裂的力度取决于铺垫的厚度。没有好的羁绊铺设，撕裂就是无根之木。
+**Core**: the more concrete the bond, the more the later tearing hurts. Never use abstract statements like "they loved each other deeply."
 
 ---
 
-### 第三斧：余韵钝痛（结尾）
+### Technique 2: Emotional tearing (middle/late)
 
-**目标**：不用大哭大闹，用安静细节击穿读者防线。
+**Goal**: create contrast; make the reader think they were right to hate → discover they hated the wrong thing (or the reverse).
 
-**方法**：
-- 用日常动作承载巨大情感：继续喂粥、把衣服叠好、不回头
-- 用物件细节制造余韵：坏掉的金锁、木头小马、沾血的戒指
-- 用「不」制造留白：不解释、不回头、不流泪
+**Methods**:
+- **Contrast**: show the warm side first, then shatter it with the cruel truth
+- **Misalignment**: character A thinks they are protecting B while actually harming
+- **Delayed truth**: key information reveals at the moment the reader least expects
 
-**案例**：
-- 《皇弟欺负幼子》：「他拿着那匹被我磨得很光滑的木头小马……他握着正好。」
-- 《姐夫捎路要奶粉钱》：「我的手机清净了不少。那些困扰我很久的麻烦，在一瞬间变得很小很小。」
-- 《准儿媳打分》：「办了收养手续后，她第一次踏进这个陌生的家……我知道，这一次我没选错。」
+**Cases**:
+- *The Brother-in-Law's Milk Money*: the mother seemed weak and pitiable but had been manipulating her sister for money all along → the gold lock is fake (gold over copper) → contrast tearing
+- *The Prince's Little Brother*: Lady Wang seemed gentle (hand warmers, boiled medicine) → actually drugging the empress into madness → driving her to death with poisonous words
+- *The Reborn Brother*: the brother deeply loved his girlfriend → she was a fraud → the pregnancy was fake → he was lured into a scam compound
 
-**核心**：最好的余韵不靠大哭，靠「看完之后很久都忘不掉」。
+**Core**: tearing force depends on setup thickness. Without good bond building, tearing is rootless.
 
 ---
 
-## 情感拉扯节奏设计
+### Technique 3: Afterglow dull pain (ending)
 
-### 基本节奏曲线
+**Goal**: not loud crying — quiet details pierce the reader's defenses.
+
+**Methods**:
+- Carry huge emotion with daily actions: keep feeding the porridge, fold the clothes, don't look back
+- Object details create afterglow: the broken gold lock, the wooden horse, the blood-stained ring
+- "No" creates blank space: no explanation, no turning back, no tears
+
+**Cases**:
+- *The Prince's Little Brother*: "He held the little wooden horse I'd polished smooth… it fit his hand exactly."
+- *The Brother-in-Law's Milk Money*: "My phone went quiet. The troubles that had plagued me for so long suddenly became very, very small."
+- *The Daughter-in-Law Scorecard*: "After the adoption paperwork went through, she stepped into this unfamiliar home for the first time… I knew I hadn't chosen wrong this time."
+
+**Core**: the best afterglow does not rely on crying — it relies on "you can't forget it long after finishing."
+
+---
+
+## Emotional pull-rhythm design
+
+### The basic rhythm curve
 
 ```
-温暖 → 残忍 → 善意 → 真相 → 原谅 → 来不及 → 释然 → 细节暴击
+warmth → cruelty → kindness → truth → forgiveness → too late → release → detail punch
 ```
 
-不是所有故事都走完整曲线。按题材选择子集：
+Not every story walks the full curve. Pick a subset by genre:
 
-| 题材 | 典型节奏 | 核心拉扯 |
+| Genre | Typical rhythm | Core pull |
 |------|----------|----------|
-| 世情/爽文 | 欺压 → 忍耐 → 爆发 → 打脸 | 情绪反弹快、打脸密度高 |
-| 情感/虐心 | 甜蜜 → 破碎 → 挽回 → 错过 | 慢铺垫、后劲大 |
-| 古言/复仇 | 隐忍 → 布局 → 揭穿 → 报应 | 设定简洁、暴力美学 |
-| 悬疑/推理 | 平静 → 不安 → 真相 → 震惊 | 信息差制造不安 |
-| 年代/亲情 | 误解 → 冲突 → 真相 → 和解 | 代际冲突、时代质感 |
+| Slice-of-life/payoff fiction | oppression → endurance → burst → comeuppance | fast emotion rebound, high comeuppance density |
+| Emotional/anguish | sweet → broken → recovery → missed | slow setup, heavy afterkick |
+| Historical/revenge | restraint → scheming → exposure → retribution | simple setting, violent beauty |
+| Mystery/investigation | calm → unease → truth → shock | info gaps create unease |
+| Era/family | misunderstanding → conflict → truth → reconciliation | generational conflict, era texture |
 
-### 拉扯原则
+### Pull principles
 
-1. **情绪转向频率是题材与篇幅经验法则**：结合题材、篇幅和既有兑现节奏调整，不固定要求每 3-5 个小节转向
-2. **每次转向都要有触发事件**（不能无理由地改变情绪）
-3. **最后一次转向决定结尾余韵的基调**
-4. **爽文允许快速反弹，虐文需要更长铺垫**
-
----
-
-## 按题材的情感策略差异
-
-### 世情/爽文
-
-- 情绪反弹速度：快（受辱后 2-3 节内打脸）
-- 打脸密度：每 3-5 节一次
-- 反派嚣张度：递增（第一次小嚣张，最后一次大嚣张）
-- 结尾基调：痛快、解气
-- 案例：《准儿媳打分》— 打分制反制、铁盒零分、断绝关系
-
-### 情感/虐心
-
-- 羁绊细节密度：高（前 1/3 必须建立深厚羁绊）
-- 反差设计：先暖后冷，先甜后苦
-- 余韵技法：安静结尾 + 物件细节
-- 结尾基调：意难平、释然
-- 案例：《姐夫捎路要奶粉钱》— 金锁真相 → 假爱 → 独立
-
-### 古言/复仇
-
-- 设定简洁原则：人物关系清晰，不搞复杂世界观
-- 暴力美学写法：打脸要直接，不拖泥带水
-- 底牌时机：最后 1/4 揭示最大底牌
-- 结尾基调：大快人心、因果报应
-- 案例：《皇弟欺负幼子》— 一声令下打二十棍 → 查出真相 → 废后
-
-### 悬疑/推理
-
-- 信息差布局：读者知道角色不知道，或反过来
-- 排除法结构：逐步排除可能性，最后只剩真相
-- 动机揭示节奏：先揭示做了什么，再揭示为什么做
-- 结尾基调：细思极恐、原来如此
-- 案例：《重生弟弟》— 重生设定 + 诈骗犯身份 + 电诈园区
-
-### 年代/亲情
-
-- 代际冲突处理：不站队，展示双方的苦
-- 时代细节质感：用时代特有的物件/习俗建立质感
-- 和解节奏：不急和解，先让双方充分受伤
-- 结尾基调：温暖中带着遗憾
-- 案例：《姐夫捎路要奶粉钱》— 亲子关系 → 金锁真相 → 断裂
+1. **Emotion turn frequency is a genre-and-length experience rule**: adjust by genre, length, and existing delivery rhythm; no fixed "turn every 3-5 beats"
+2. **Every turn needs a trigger event** (no unmotivated emotion changes)
+3. **The last turn decides the ending afterglow's tone**
+4. **Payoff fiction rebounds fast; anguish fiction needs longer setup**
 
 ---
 
-## 常见失败模式
+## Genre emotional strategy differences
 
-| 失败模式 | 识别方法 | 修正方向 |
+### Slice-of-life / payoff fiction
+
+- Rebound speed: fast (comeuppance within 2-3 beats of the humiliation)
+- Comeuppance density: once per 3-5 beats
+- Antagonist arrogance: escalating (small first, biggest last)
+- Ending tone: cathartic, vindicated
+- Case: *The Daughter-in-Law Scorecard* — scorecard counter-play, an iron box of zeroes, cutting ties
+
+### Emotional / anguish
+
+- Bond-detail density: high (the first 1/3 must build deep bonds)
+- Contrast design: warm first then cold, sweet first then bitter
+- Afterglow technique: quiet endings + object details
+- Ending tone: bittersweet ache, release
+- Case: *The Brother-in-Law's Milk Money* — gold-lock truth → false love → independence
+
+### Historical / revenge
+
+- Simple setting principle: clear relationships, no convoluted worldview
+- Violent beauty: comeuppance direct, no dragging
+- Trump-card timing: reveal the biggest card in the final 1/4
+- Ending tone: satisfying, karma
+- Case: *The Prince's Little Brother* — twenty strokes at a word → the truth uncovered → the empress dethroned
+
+### Mystery / investigation
+
+- Info-gap layout: the reader knows what characters don't, or the reverse
+- Elimination structure: progressively rule out possibilities until only the truth remains
+- Motive reveal rhythm: first what was done, then why
+- Ending tone: deeply unsettling, "so that's it"
+- Case: *The Reborn Brother* — second-chance premise + fraud identity + scam compound
+
+### Era / family
+
+- Generational conflict handling: no taking sides; show both sides' pain
+- Era-detail texture: era-specific objects/customs build texture
+- Reconciliation rhythm: no rush; let both sides hurt fully first
+- Ending tone: warmth with regret
+- Case: *The Brother-in-Law's Milk Money* — parent-child bond → gold-lock truth → rupture
+
+---
+
+## Common failure modes
+
+| Failure mode | How to spot | Fix |
 |----------|----------|----------|
-| **太平** | 连续 5+ 节没有情绪转折 | 插入意外事件或新信息 |
-| **太赶** | 重大转折缺少可辨认的铺垫 | 按转折重量与篇幅给予足够且可辨认的铺垫，不固定三节 |
-| **假虐** | 读者不心疼，只是看着难受 | 检查羁绊铺设是否具体 |
-| **割裂** | 前半部分和后半部分像两篇不同的故事 | 用伏笔/物件/主题贯穿 |
-| **烂尾** | 反转后仍长时间重复交代 | 按题材与篇幅适配的速度收束或冷却，不固定五百字 |
-| **人设崩** | 角色在关键时刻的行为不符合前面的人设 | 回顾人设，确保行为逻辑一致 |
+| **Too flat** | 5+ consecutive beats with no emotion turn | insert an unexpected event or new information |
+| **Too rushed** | major turns lack identifiable setup | give setup proportional to turn weight and length; no fixed three beats |
+| **Fake anguish** | the reader feels no pain, just discomfort | check whether the bond building was concrete |
+| **Split** | first half and second half read like two different stories | thread with foreshadowing/objects/themes |
+| **Fizzled ending** | long repetitive wrap-up after the reversal | close or cool at a speed matched to genre and length; no fixed 500 words |
+| **Character collapse** | the character acts against the established persona at a key moment | review the persona; keep behavior logic consistent |
 
 ---
 
-## 快速自查
+## Quick self-check
 
-设计情感时，用这个清单：
+When designing emotion, run this list:
 
-- [ ] 前 1/3 有具体羁绊细节（不是抽象描述）？
-- [ ] 中段有反差/撕裂（读者以为 A → 实际是 B）？
-- [ ] 结尾有安静细节（不是大段抒情）？
-- [ ] 情绪转向频率是否按题材、篇幅和既有兑现节奏调整，而非固定密度？
-- [ ] 反派行为符合其人设逻辑？
-- [ ] 不存在上述 6 种失败模式？
+- [ ] First 1/3 has concrete bond details (not abstract description)?
+- [ ] Middle has contrast/tearing (the reader thinks A → it is actually B)?
+- [ ] Ending has quiet details (not long lyricism)?
+- [ ] Emotion turn frequency adjusted by genre, length, and existing delivery rhythm, not a fixed density?
+- [ ] Antagonist behavior follows their persona logic?
+- [ ] None of the 6 failure modes above?
 
 ---
 
-## 三板斧与 SKILL.md 五段结构映射
+## Mapping the three techniques to the SKILL.md five-part structure
 
-| 三板斧 | 对应 SKILL.md 五段 | 说明 |
-|--------|-------------------|------|
-| 第一斧：羁绊铺设（前 1/3） | 铺垫段（第二段，占 30-40%） | 用物件/数字/习惯建立关系质感 |
-| 第二斧：情感撕裂（中后段） | 升级段（第三段）+ 反转段（第四段） | 反差/错位/延迟真相制造撕裂 |
-| 第三斧：余韵钝痛（结尾） | 结尾段（第五段，占 5-10%） | 安静细节收尾，不写大段抒情 |
+| Technique | Corresponding SKILL.md five-part | Notes |
+|-------------------|-------------------|------|
+| 1: Bond building (first 1/3) | setup passage (part 2, 30-40%) | build relationship texture with objects/numbers/habits |
+| 2: Emotional tearing (middle/late) | escalation passage (part 3) + reversal passage (part 4) | contrast/misalignment/delayed truth create tearing |
+| 3: Afterglow dull pain (ending) | ending passage (part 5, 5-10%) | quiet-detail close, no long lyricism |

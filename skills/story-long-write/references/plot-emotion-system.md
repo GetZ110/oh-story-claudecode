@@ -1,354 +1,354 @@
-# 情绪体系操作手册
+# Emotion System Handbook
 
-> 主角与对手递进对抗、情绪模块分类、爽点设计、情绪升级与对比、驱动读者欲望。
+> Protagonist-opponent escalating confrontation, emotion-module classification, payoff design, emotion escalation & comparison, driving reader desire.
 
 ---
 
-## 决策路由表
+## Decision routing table
 
-遇到具体写作场景时，按此表定位对应方法：
+For concrete writing scenarios, locate the method by this table:
 
-| 你在写什么 | 用什么方法 |
+| What you're writing | Method |
 |------------|-----------|
-| 主角与对手对抗 | [递进对抗写法](#主角与对手的递进对抗写法) + 装逼层级 |
-| 爽点设计 | [爽点设计体系](#爽点设计体系) + 密度建议 |
-| 情绪升级 | [情绪升级与对比的核心技巧](#情绪升级与对比的核心技巧) |
-| 制造拉扯/误会 | [误会制造拉扯法](#误会制造拉扯法) |
-| 用梗驱动剧情 | [以梗构建剧情法](#以梗构建剧情法) |
-| 搭配情绪模块 | [情绪模块与戏剧单元分类](#情绪模块与戏剧单元分类) |
-| 控制节奏与高潮 | [节奏与高潮控制技巧](#节奏与高潮控制技巧) |
-| 驱动读者追读欲望 | [驱动读者欲望的四步公式](#驱动读者欲望的四步公式) |
-| 选择驱动方式 | [情绪驱动与事件驱动](#情绪驱动与事件驱动) |
+| Protagonist vs opponent | [escalating confrontation](#escalating-confrontation-between-protagonist-and-opponent) + flex tiers |
+| Payoff design | [payoff design system](#payoff-design-system) + density suggestions |
+| Emotion escalation | [emotion escalation & comparison core techniques](#emotion-escalation--comparison-core-techniques) |
+| Pull/misunderstanding | [misunderstanding pull method](#misunderstanding-pull-method) |
+| Meme-driven plot | [meme-constructed plot method](#meme-constructed-plot-method) |
+| Emotion modules | [emotion modules & dramatic unit classification](#emotion-modules--dramatic-unit-classification) |
+| Rhythm & climax control | [rhythm & climax control techniques](#rhythm--climax-control-techniques) |
+| Driving reader follow-through | [the four-step reader-desire formula](#the-four-step-reader-desire-formula) |
+| Choosing the driver | [emotion-driven vs event-driven](#emotion-driven-vs-event-driven) |
 
 ---
 
-## 主角与对手的递进对抗写法
+## Escalating confrontation between protagonist and opponent
 
-### 核心原则：角力而非碾压
+### Core principle: skirmish, not steamroll
 
-主角与反派的对抗不是一路碾压。让主角在每次小角力中稍占上风，最后迎来大胜利。
+Protagonist-antagonist confrontation is not a one-way crush. Let the protagonist be slightly ahead in every small skirmish, with the big victory last.
 
-斗地主比喻：主角对三，反派对四，主角对A，反派对2，最后主角王炸一锤定音。
+Card-game metaphor: the protagonist plays a 3, the opponent a 4; the protagonist an A, the opponent a 2; finally the protagonist's jokers seal it.
 
-### 装逼层级分类
+### Flex tier classification
 
-| 层级 | 特点 | 使用场景 |
+| Tier | Traits | Use |
 |------|------|----------|
-| 日常小装逼 | 无需剧情，日常生活展示优势 | 距离下个大爽点远时，维持读者耐心 |
-| 核心爽点 | 切在主线上，围绕主线目标装逼 | 推进主线同时让读者爽 |
-| 偏离爽点 | 背离主线去别处装逼 | 应避免，浪费读者耐心 |
+| Daily mini-flex | no plot needed; everyday life shows the edge | far from the next big payoff; maintains reader patience |
+| Core payoff | cut on the main line; flexes around main-line goals | advances the main line while satisfying the reader |
+| Off-target payoff | flexing elsewhere, away from the main line | avoid; wastes reader patience |
 
-### 角色逼格管理
+### Character gravitas management
 
-- 升级线与主角反应线分开管理。
-- 同样被骂：主角暴怒反击 = 毒点；主角微微一笑毫不在意 = 逼格。
-- 主角反应规则：升级提升的是实力，不自动改变主角的从容反应。面对低级挑衅时，主角应表现为不被牵着走。
+- Manage the upgrade line and the protagonist-reaction line separately
+- Same insult: the protagonist raging back = poison point; the protagonist smiling it off = gravitas
+- Reaction rules: upgrades raise power, not automatically the composed reaction; facing low-tier provocation, the protagonist should not be led by the nose
 
-### 爽点密度规则
+### Payoff density rules
 
-- 不要拉长单个爽点的铺垫，而是多想几个爽点。
-- 用层次划分法制造连锁震惊：当场观众震惊 -> 别处观众震惊 -> 专家震惊 -> 配角间信息差抹平 -> 再震惊。
-
----
-
-## 情绪驱动与事件驱动
-
-### 事件驱动型叙事
-
-- 故事由外部可见的事件串联：被打脸 -> 升级 -> 反打脸。
-- 读者刺激来自事件结果："他能不能打赢？"
-- 优点：节奏快、爽点明确、易上手。
-- 缺点：开篇用S级事件后，后续A级/B级事件会让读者疲劳。
-
-### 情感驱动型叙事（人物驱动型）
-
-- 故事由人物内在动机、情感变化、人际关系推动。
-- 事件悬念是一次性的，人物悬念是持续性的。
-- 读者更容易代入、情感拉扯更绵长。
-
-### 本质
-
-两者共同本质是"情绪的波动"。事件驱动通过外部冲突制造波动，情感驱动通过内部冲突和人际张力制造波动。怎么选：
-
-- 番茄爽文/打脸文 -> 事件驱动：每章给一个外部结果（赢了、升级了、对手栽了）。
-- 追妻/虐心/世情 -> 情感驱动：事件可以少，但人物心结要一直悬着（他后悔了没？她原谅了没？）。
-- 混合 -> 主线用事件往前推，每 3-5 章插一段情感停顿（独处、回忆、试探），让人物心结透口气。
+- Don't stretch one payoff's setup; think up more payoffs
+- Use layering for chain shocks: on-site audience shocked → off-site audience shocked → experts shocked → side-character info gap closes → shocked again
 
 ---
 
-## 情绪升级与对比的核心技巧
+## Emotion-driven vs event-driven
 
-### 情绪升级
+### Event-driven narration
 
-- 爽点不是一次到位的，需要层层铺垫和递进。
-- 负面情绪要逐步升级到饱和，再转化为正面情绪。
-- 通过反复的拒绝、嘲笑、质疑来不断加码负面情绪。
+- The story is strung by visible external events: slapped → upgrade → counter-slap
+- Reader stimulation comes from event results: "can he win?"
+- Pros: fast rhythm, clear payoffs, easy to start
+- Cons: after an S-class opening event, later A/B-class events fatigue readers
 
-### 对比手法
+### Emotion-driven narration (character-driven)
 
-- 对比是爽文的底层逻辑之一。
-- 配角失败 vs 主角成功（关羽温酒斩华雄）。
-- 配角得意 vs 主角碾压（比袈裟：金池长老沾沾自喜 vs 唐僧袈裟降维打击）。
-- "没有对比就没有伤害"。
+- The story is pushed by inner motives, emotional changes, and relationships
+- Event suspense is one-time; character suspense is sustained
+- Readers project more easily; emotional pull lasts longer
 
-### 负面情绪的正确用法
+### The essence
 
-- 负面情绪只是让鸡下蛋的一种手段，不是唯一方法。
-- 关键是理解题材的情绪链条朝什么方向走。
-- 《登神》几乎没有情绪压抑套路，照样是大爽文——"情感缺口"来自读者对俗套情节的厌倦。
+Both share the essence of "emotional fluctuation." Event-driven makes fluctuations through external conflicts; emotion-driven through inner conflicts and relational tension. How to choose:
 
-### 情绪拉扯的实用素材
-
-- 过渡、日常、平淡剧情中也可以做情绪拉扯。
-- "求人办事"类桥段：阻碍设置、权力展示、以退为进。
-- 以退为进、欲左先右是过渡章节中有效的情绪拉扯结构模式。
+- Webnovel payoff fiction / comeuppance fiction → event-driven: one external result per chapter (won, upgraded, opponent down)
+- Comeback / anguish / slice-of-life → emotion-driven: events may be few, but the character's knot must stay hanging (has he regretted? has she forgiven?)
+- Mixed → the main line advances by events; every 3-5 chapters insert an emotional pause (solitude, recall, testing), letting the character's knot breathe
 
 ---
 
-## 爽点设计体系
+## Emotion escalation & comparison core techniques
 
-### 爽点的本质
+### Emotion escalation
 
-- 爽点不只是装逼打脸，而是包含各种各样的情绪满足。
-- 纯输出正面情绪也可以形成爽点，但无法将爽感最大化。
-- 让负面情绪转化为正面情绪 = 最大程度满足读者。
+- Payoffs aren't one-shot; they need layered setup and progression
+- Negative emotion escalates to saturation, then converts to positive
+- Escalate negative emotion through repeated refusal, mockery, and doubt
 
-### 六种爽点类型
+### Comparison techniques
 
-| 类型 | 核心 | 功能延伸 |
+- Comparison is one of payoff fiction's bottom-layer logics
+- Side-character failure vs protagonist success (the classic "warming the wine while the general is killed" moment)
+- Side-character smugness vs protagonist crush
+- "No comparison, no harm"
+
+### The right use of negative emotion
+
+- Negative emotion is one way to lay the golden egg, not the only method
+- The key is understanding where the genre's emotion chain points
+- Some books have almost no repression patterns and are still big payoffs — the "emotional gap" comes from readers' fatigue with clichéd plots
+
+### Practical pull material
+
+- Transitions, dailies, and flat plots can also do emotional pulling
+- "Asking favors" scenes: obstacle setting, power display, retreat-to-advance
+- Retreat-to-advance and want-left-go-right are effective pull structures for transition chapters
+
+---
+
+## Payoff design system
+
+### The essence of payoffs
+
+- Payoffs are not just flex-comeuppance; they include all kinds of emotional satisfaction
+- Pure positive-emotion output can form a payoff, but can't maximize satisfaction
+- Converting negative emotion into positive = maximum reader satisfaction
+
+### The six payoff types
+
+| Type | Core | Function extension |
 |------|------|----------|
-| 能力碾压 | 实力远超对手，纯粹优越感 | -- |
-| 目标达成 | 完成阶段性目标 | 引出行动线和下一步计划 |
-| 收获盘点 | 清点获得的资源/人脉/能力 | 利用收获引出下一步剧情 |
-| 态度转变 | 配角从轻视到敬佩 | 利用配角引出下一步剧情 |
-| 隐藏身份/掉马甲 | 身份逐步被揭开 | 不断制造震惊 |
-| 情感圆满度 | 追夫/妻火葬场，关系修复的满足感 | -- |
+| Ability crush | power far beyond the opponent, pure superiority | -- |
+| Goal achievement | completing a stage goal | leads the action line and next plan |
+| Gain inventory | counting gained resources/connections/abilities | uses gains to lead the next plot |
+| Attitude change | side characters from contempt to respect | uses side characters to lead the next plot |
+| Hidden identity / mask-drop | identity gradually revealed | continuously creates shock |
+| Emotional completion | comeback romance, relationship-repair satisfaction | -- |
 
-### 设计爽点的倒推法
+### Back-derivation for payoff design
 
-1. 先确定用什么方式让读者满足（爽点类型）。
-2. 再设计如何拉起期待（期待点）。
-3. 最后设计如何铺垫（铺垫）。
-4. 设计章纲时也按这个顺序思考。
+1. First fix how the reader is satisfied (the payoff type)
+2. Then design how anticipation is raised (the anticipation point)
+3. Finally design the setup (the setup)
+4. Design chapter outlines in this order too
 
 ---
 
-## 情绪模块与戏剧单元分类
+## Emotion modules & dramatic unit classification
 
-### 提炼层级
+### Distillation tiers
 
-从原型故事逐级提炼出可复用工具。核心原则：**戏剧性会磨损，情绪不会磨损**。
+Distill reusable tools tier by tier from prototype stories. Core principle: **drama wears out; emotion doesn't.**
 
-| 层级 | 名称 | 内容 | 说明 |
+| Tier | Name | Content | Note |
 |------|------|------|------|
-| 零级 | 具体故事 | 原文完整情节 | 直接搬用 = 抄袭 |
-| 一级 | 经典故事情节 | 去描写，留素材（人名/地名/事件） | 换汤不换药，仍有雷同风险 |
-| 二级 | 故事构型 | 去素材，只剩逻辑走向 | 戏剧单元 + 情绪模块的组合体 |
-| 三级 | 戏剧单元 | 戏剧性走向的抽象 | 可自由组合的逻辑结构 |
-| 四级 | 情绪模块 | 读者想看什么的抽象 | 期待感方向 + 爽感方向 |
+| Zero | concrete story | the original's complete plot | direct copying = plagiarism |
+| One | classic plot | description removed, material kept (names/places/events) | new bottle old wine; still similarity risk |
+| Two | story shape | material removed, only the logical direction | dramatic unit + emotion module composite |
+| Three | dramatic unit | abstraction of the dramatic direction | freely combinable logical structure |
+| Four | emotion module | abstraction of what readers want to see | anticipation direction + payoff direction |
 
-**故事构型 + 素材 = 具体故事**。用法两种：①**重构**（保留素材，彻底改构型，长篇必备）；②**微调**（用经典情节，按人设深挖微调，短篇适用）。人设与经典情节冲突时必须重构。
+**Story shape + material = concrete story.** Two uses: ①**reconstruction** (keep the material, thoroughly change the shape; long-form must-have) ②**fine-tuning** (use the classic plot, dig the persona for fine-tuning; short-form). When the persona conflicts with the classic plot, reconstruct.
 
-贯穿例子（拿一篇追妻文逐级往上扒）：
+A threading example (peeling a comeback-romance book tier by tier):
 
-- 零级 = 《某追妻文》原文，连对白带场景照搬。
-- 一级 = 去掉描写，只留素材："前夫上门求复婚被拒"。
-- 二级 = 连素材也扔掉，只剩走向："施害方追悔 -> 受害方已经不在乎了"。
-- 三级戏剧单元 = "迟来的追悔"。
-- 四级情绪模块 = 读者想看的两件事："渣男后悔 + 主角不回头"。
+- Zero = the original text, dialogue and scenes copied outright
+- One = description removed, material kept: "the ex-husband comes to beg for remarriage and is refused"
+- Two = material thrown away too, only the direction: "the harmer regrets → the harmed no longer cares"
+- Three dramatic unit = "the belated regret"
+- Four emotion module = the two things readers want to see: "the scumbag regrets + the protagonist doesn't look back"
 
-换壳示范：抓住二级走向"施害方追悔 -> 受害方不在乎"，换一套素材就是新故事——职场版（坑过你的上司栽了来找你，你已经跳槽当老板）、古言版（休妻的夫君败落来求和，你已是诰命）。
+Shell-swapping demo: grab the level-two direction "the harmer regrets → the harmed doesn't care," swap in new material and it's a new story — workplace version (the boss who screwed you over falls and comes to you; you've already quit and started your own company), historical version (the husband who divorced you fell from grace and comes to reconcile; you're already a titled lady).
 
-### 情绪模块与戏剧单元的关系
+### Emotion modules & dramatic units
 
-- 大/中戏剧单元 = 戏剧性的抽象，笼罩整本书或大段剧情的基调。
-- 情绪模块 = 情绪核心的抽象，对应具体的情绪爽点。
-- 叙事元素和结构技法合称"辅助工具"，不能独立提供完整框架，必须应用在某个完整框架内。
+- Big/mid dramatic units = abstraction of drama, covering the whole book or a big plot stretch's tone
+- Emotion modules = abstraction of the emotion core, matching concrete emotional payoffs
+- Narrative elements and structural techniques together are "auxiliary tools"; they can't provide a complete framework alone and must be applied inside a complete framework
 
-### 戏剧性与情绪的关系
+### Drama & emotion
 
-- 同一套路（如英雄救美）反复用不腻，腻的是结构不变；每次换场景/换对手/加新情绪就不算重复。
+- The same pattern (e.g. hero saves beauty) never tires when reused; what tires is an unchanged structure; changing scenes/opponents/adding emotions each time isn't repetition
 
-### 情绪模块卡片
+### Emotion-module cards
 
-#### 修罗场卡
+#### The chaos-scene card
 
-- 多个人喜欢同一个人，在被喜欢的人面前互相竞争。
-- 递进设计：初期（跟男1逛街被男2撞见）-> 中期（跟男2接吻被男主撞见）-> 后期（男1、男2大打出手）。
+- Multiple people like the same person, competing in front of the liked one
+- Escalating design: early (strolling with guy 1 caught by guy 2) → mid (kissing guy 2 caught by the male lead) → late (guy 1 and guy 2 brawling)
 
-#### 倒计时卡
+#### The countdown card
 
-- 需要一个计时，倒计时结束时必须有事情发生。
-- 常结合实力悬殊的战斗：打不过但必须打。
+- A timer is needed; when it ends, something must happen
+- Often combines power-imbalanced fights: can't win but must fight
 
-#### 恩怨情仇卡（大/中戏剧单元）
+#### The grudges-bonds card (big/mid dramatic unit)
 
-- 两个人因特定事件形成带有强烈情感或道德伦理枷锁的关系。
-- 重点不在"形成恩怨的过程"，而在恩怨形成后的行为和情感。
-- 作为大戏剧单元是笼罩整本书的"基调"。
+- Two people bound by an emotion- or morality-laden event
+- The point isn't "the grudge's formation" but the behavior and emotion after it forms
+- As a big dramatic unit, it's the "tone" covering the whole book
 
-#### 双重身份卡
+#### The dual-identity card
 
-- 两个身份重叠的一刹那给读者带来意外。
-- 设计要点：A身份的日常塑造 + 隐藏信息 + B身份揭示时的冲击。
+- The instant two identities overlap gives the reader a surprise
+- Design points: A-identity daily building + hidden information + the impact of B-identity's reveal
 
-#### 特殊对待卡
+#### The special-treatment card
 
-- 拯救人物OOC的神器。
-- 用"特殊对待"来合理化角色在特定情境下的行为偏离。
+- The savior of out-of-character characters
+- Use "special treatment" to rationalize behavior deviation in specific situations
 
-#### 好感变化卡
+#### The affinity-change card
 
-- 核心在于展示情绪链条的质变。
-- 英雄救美作为载体：关键是关系质变，不是怎么救。
-- 避免重复：每卷的复杂程度和收获上升，情绪呈螺旋上升趋势。
+- The core is showing the emotion chain's qualitative change
+- Hero-saves-beauty as a carrier: the key is the relationship transformation, not how the rescue happens
+- Avoid repetition: each volume's complexity and gains rise; emotion spirals upward
 
-#### 装逼的深层理解
+#### Deep status-flex understanding
 
-- 核心在于牛逼和不牛逼之间的对比。
-- 可用"几成力"来对比：对完招再吹用了几成力。
-- 前期铺垫：嘲讽压抑的情绪、主角扮猪。
+- The core is the contrast between awesome and not-awesome
+- "How much strength" can contrast: after the clash, brag about using only a fraction
+- Early setup: suppressed mocked emotion, the protagonist playing pig
 
-#### 以小搏大
+#### Small-to-big
 
-- 成本与收获之间的比例要巨大。
-- 过程要有随机性和主观能动性，不能让读者觉得100%成功。
-- 可以不成功，但通过歪打正着、贵人扶持等方式补充情绪缺口。
+- The cost-to-gain ratio must be huge
+- The process needs randomness and agency; readers must not feel 100% success
+- Failure allowed, but the emotion gap gets filled via lucky accidents, noble help, etc.
 
-#### 误解卡
+#### The misunderstanding card
 
-- 系列误会步骤：确定核心误会 -> 自然衍生各小误会 -> 确定解除条件 -> 设计障碍。
-- 误解消除规则：对事业线/爱情线有负面作用的必须消除；没有负面作用或有正面作用的可以不消除。
+- Series of misunderstanding steps: fix the core misunderstanding → naturally derive small misunderstandings → fix the dissolve condition → design obstacles
+- Misunderstanding dissolve rules: those with negative effects on the career/romance line must dissolve; those without negative or with positive effects may stay
 
-### 叙事元素卡片
+### Narrative-element cards
 
-| 卡片 | 核心用法 |
+| Card | Core use |
 |------|----------|
-| 工具人卡 | 特定场景满足叙事需求：烘托/推动/提供情报 |
-| 迷之少女卡 | 梦/回忆/幻觉中对剧情起关键作用的线索，不能随便放开头 |
-| 失能卡 | 角色不能用意识正常控制身体/道具，可与人设绑定成为缺陷 |
-| 关系卡 | 角色间特定关系配置，决定互动基本模式 |
-| 秘密卡 | 保守秘密/挖掘秘密/无意得知秘密 |
-| 闹矛盾卡 | 意见不合/误会/伤害 -> 争吵/对抗/散伙 -> 后悔/和谈/危机促和好 |
-| 双界联系卡 | 穿越型/联系型/融合型 |
-| 紧追其后卡 | 追逐/追踪/跟踪三种形式 |
-| 隐蔽行动卡 | 角色的隐蔽行动/调查他人的隐蔽行动/他人对角色的隐蔽行动 |
-| 未来窥视卡 | 预言/穿越记忆/系统提示，反应：避免/争取/利用/换取好处 |
-| 禁忌卡 | 特定个体/群体/物品/场所/活动的禁忌，必须明示触犯下场 |
-| 新环境扮演卡 | 卧底/被挟持/失忆/穿越，确认要素：对方背景、性格、技能、弱点 |
+| Tool-character card | fills narrative needs in specific scenes: atmosphere/support/info |
+| Mystery-girl card | a clue in dreams/memories/hallucinations critical to the plot; can't be casually placed at the opening |
+| Dysfunction card | a character can't consciously control body/props; bindable to the persona as a flaw |
+| Relationship card | specific relationship configurations deciding interaction basics |
+| Secret card | keeping a secret / digging a secret / accidentally learning a secret |
+| Falling-out card | disagreement/misunderstanding/harm → quarrel/confrontation/split → regret/peace talks/crisis-forced reconciliation |
+| Two-worlds card | transmigration-type / connection-type / fusion-type |
+| Tail-chase card | chase/pursue/tail three forms |
+| Covert-action card | the character's covert actions / investigating others' covert actions / others' covert actions against the character |
+| Future-peek card | prophecy/transmigration memory/system hints; reactions: avoid/strive/exploit/trade for benefits |
+| Taboo card | taboos on specific individuals/groups/objects/places/activities; consequences of violation must be explicit |
+| New-environment-acting card | undercover/held-hostage/amnesia/transmigration; confirm: the other's background, personality, skills, weaknesses |
 
-### 结构技法卡片
+### Structural-technique cards
 
-| 卡片 | 核心用法 |
+| Card | Core use |
 |------|----------|
-| 差异评价卡 | 两种思路：打压与反转；借人之手是变体 |
-| 戏剧三角卡 | 迫害者、受害者、拯救者三者可转换 |
-| 翻弄风云 | 强调主角行为对不同角色的意义和影响 |
-| 解谜设计 | 设命题P1/P2 -> 推导P3 -> 取反推导P4 -> 隐藏P3产生误导 |
+| Differing-evaluation card | two routes: suppression and reversal; via-others'-hands is a variant |
+| Drama-triangle card | persecutor/victim/savior mutually convertible |
+| Stirring-the-storm | emphasize the protagonist's action's meaning and impact on different characters |
+| Puzzle design | set propositions P1/P2 → derive P3 → negate to derive P4 → hide P3 for misdirection |
 
-### 组合与提炼
+### Combination & distillation
 
-- 一级提炼：从成功作品中提取基本叙事模式。
-- 二级提炼：在一级框架上加入特定题材元素。
-- 不同类型卡片可叠加：核心梗卡 + 关系卡 + 限制卡 = 完整剧情单元。
-- 重构使用：保留素材名称，替换故事走向。
-- 微调使用：保留故事走向，增加新的情绪模块。
-- 螺旋上升：同一套路每次出现时复杂程度和收获都上升。
+- Level-1 distillation: extract basic narrative modes from successful works
+- Level-2 distillation: add genre-specific elements onto the level-1 framework
+- Different card types stack: core-hook card + relationship card + constraint card = a complete story unit
+- Reconstruction use: keep material names, replace the story direction
+- Fine-tuning use: keep the story direction, add new emotion modules
+- Spiral up: each reappearance of the same pattern raises complexity and gains
 
-### 常见误区
+### Common misconceptions
 
-1. **故事雷同**：只做一级提炼（换名字不换结构），读者眼里和抄袭无区别。
-2. **人设崩坏**：为套用经典情节强行让人物做不符合人设的事。
-3. **创新失控**：脱离情绪模块的"创新"容易变成毒点。
-4. **扼杀核心创意**："读者爱看"和"自己爱写"别变成二选一。
+1. **Story similarity**: only level-1 distillation (renaming without restructuring) is indistinguishable from plagiarism to readers
+2. **Persona collapse**: forcing characters out of persona to fit classic plots
+3. **Innovation out of control**: "innovation" detached from emotion modules easily becomes poison
+4. **Killing the core creativity**: "what readers love" and "what I love writing" need not become a choice
 
 ---
 
-## 误会制造拉扯法
+## Misunderstanding pull method
 
-### 误会的本质
+### The essence of misunderstanding
 
-"我原先以为 A，后来发现全错了" -- 信息差制造情绪落差。核心是信息差的运用。执行时必须确保每一步都有明确的信息差设计。
+"I thought A, then discovered it was all wrong" — info gaps create emotion gaps. The core is info-gap use. Execution must ensure every step has explicit info-gap design.
 
-| 场景 | 用法 |
+| Scene | Use |
 |------|------|
-| 装逼打脸 | 主角谦虚 -> 配角误以为主角弱 -> 反转打脸更爽 |
-| 感情线 | 误会制造心有芥蒂 -> 阻碍感情发展 -> 解开时更甜 |
-| 人设反差 | "我以为主角很弱，但他其实超级强" |
-| 世界观设定 | "我以为世界能修仙，但其实不能" |
+| Flex-comeuppance | the protagonist modest → side characters mistake him as weak → reversal slaps harder |
+| Romance line | misunderstanding creates a knot → blocks romance → sweeter when dissolved |
+| Persona contrast | "I thought the protagonist was weak, but he's actually super strong" |
+| Worldview setting | "I thought the world could cultivate; it can't" |
 
-### 操作要点
+### Operation points
 
-- 感情线中：不能真正扯开（不能分手），而是"心有芥蒂""暂时冷静"。
-- 拉近关系用英雄救美，扯开关系用误会。
-- 装逼打脸中：主角的谦虚/低调本身就是误会制造器。
-
----
-
-## 以梗构建剧情法
-
-### 四段式
-
-1. **发生**：建立初始情境，引出梗的前提条件。
-2. **发展**：通过反复挫败或积累，推向梗的触发点。
-3. **转折**：利用金手指或关键手段实现梗的反转。
-4. **高潮**：梗的完整释放 -- 前后反差最大化。
-
-用梗作为高潮点倒推剧情，天然避免流水账。只要有新梗，就能持续写出有意思的剧情。
+- Romance line: never truly split (no breakup); only "a knot in the heart" / "temporary cooling"
+- Pull closer with hero-saves-beauty; pull apart with misunderstanding
+- In flex-comeuppance: the protagonist's modesty/low-key is itself a misunderstanding-maker
 
 ---
 
-## 节奏与高潮控制技巧
+## Meme-constructed plot method
 
-| 要素 | 规则 |
+### Four segments
+
+1. **Happen**: establish the initial situation, lead out the meme's precondition
+2. **Develop**: through repeated setbacks or accumulation, push to the meme's trigger
+3. **Turn**: use the cheat or key means to realize the meme's reversal
+4. **Climax**: the meme's full release — before/after contrast maximized
+
+Using a meme as the climax point and back-deriving the plot naturally avoids play-by-play. As long as there are new memes, interesting plots keep coming.
+
+---
+
+## Rhythm & climax control techniques
+
+| Element | Rule |
 |------|------|
-| 大高潮周期 | 7-10天完成（一天双更，14章），超过10天读者易反感 |
-| 小高潮周期 | 控制在3天左右 |
-| 高潮后过渡 | 加1-2章日常过渡，给读者喘息空间 |
-| 追订下降应对 | 快速进入下一段故事，不要在低谷期犹豫 |
-| 公众期5章循环 | 1章人设建立 + 2章铺垫 + 1章打脸 + 1章反响 |
-| VIP节奏 | 1-2章人设 + 5章铺垫 + 1-2章打脸 + 1章总结 |
-| 多线缓解疲劳 | 插入半章配角视角，换视角换节奏 |
-| 高潮过渡技巧 | 高潮前穿插支线人物埋伏笔，高潮后拎出来自然过渡 |
+| Big-climax cycle | complete in 7-10 days (double daily, 14 chapters); past 10 days readers resent it |
+| Small-climax cycle | ~3 days |
+| Post-climax transition | add 1-2 daily transition chapters for breathing |
+| Follow-through drops | quickly enter the next story; no hesitation at the low point |
+| Public-period 5-chapter loop | 1 chapter persona + 2 setup + 1 comeuppance + 1 reaction |
+| VIP rhythm | 1-2 persona + 5 setup + 1-2 comeuppance + 1 summary |
+| Multi-line fatigue relief | insert a half-chapter of supporting-character POV; change POV and rhythm |
+| Climax transition technique | plant sub-line foreshadowing before the climax; pull it out after for natural transition |
 
 ---
 
-## 驱动读者欲望的四步公式
+## The four-step reader-desire formula
 
-**核心公式**：生产诉求 -> 给予希望 -> 努力解决 -> 得偿所愿
+**Core formula**: create desire → give hope → struggle to solve → get what is deserved
 
-### 第一步：生产诉求
+### Step 1: create desire
 
-- 用"低地位""困境""迫在眉睫的威胁""不曾拥有"让读者感同身受。
-- 读者看到诬告、不公、恃强凌弱，天生生出"不该如此"的念头。
+- Use "low status" / "trap" / "imminent threat" / "never-possessed" for reader empathy
+- Readers seeing false accusations, injustice, and bullying naturally generate "it shouldn't be like this"
 
-### 金手指的本质
+### The essence of the cheat
 
-金手指是现实中我们难以拥有的特质/能力。没有金手指，困境的痛苦会让读者感到无力。
+The cheat is a trait/ability we can hardly own in reality. Without the cheat, the trap's pain makes readers feel powerless.
 
-### 节奏的本质
+### The essence of rhythm
 
-- 不断解决现有矛盾 + 不断制造新矛盾。
-- 方式一："逐渐变好" -- 目标拆分。
-- 方式二："新的困境" -- 矛盾层级递进。
-- 好的节奏：困境层级层层递进，种类多样，解决方式也多样。
+- Keep solving existing conflicts + keep making new ones
+- Path 1: "gradually getting better" — goal splitting
+- Path 2: "new traps" — conflict tiers escalating
+- Good rhythm: trap tiers escalate, varied in kind, varied in solutions
 
 ---
 
-## 质量检查清单
+## Quality checklist
 
-完成一个章节或一段剧情后，逐项检查：
+After a chapter or plot stretch, verify:
 
-- [ ] **决策路由**：是否按路由表选对了对应方法？
-- [ ] **对抗递进**：主角与对手的每次交锋是否逐级升级？是否存在一上来就碾压？
-- [ ] **装逼层级**：日常小装逼 / 核心爽点是否区分清楚？是否出现偏离主线的装逼？
-- [ ] **爽点类型**：是否明确使用了六种爽点之一？是否能说清属于哪种？
-- [ ] **爽点倒推**：是否先定爽点类型，再设计期待，最后补铺垫？
-- [ ] **情绪升级**：负面情绪是否逐步加码到饱和再释放？是否一步到位？
-- [ ] **对比手法**：是否用了配角衬托来放大主角的爽感？
-- [ ] **误会拉扯**：感情线误会是否控制在"心有芥蒂"而非真正分手？
-- [ ] **梗的四段式**：发生 -> 发展 -> 转折 -> 高潮是否完整？是否缺少转折直接跳到高潮？
-- [ ] **节奏周期**：大高潮是否在7-10天内完成？小高潮是否在3天左右？
-- [ ] **读者欲望**：是否走完"生产诉求 -> 给予希望 -> 努力解决 -> 得偿所愿"四步？
-- [ ] **卡片组合**：情绪模块、叙事元素、结构技法是否叠加使用而非单独依赖？
-- [ ] **螺旋上升**：同一套路再次出现时，复杂程度和收获是否比上次更高？
+- [ ] **Routing**: the right method picked per the routing table?
+- [ ] **Confrontation escalation**: each protagonist-opponent exchange escalates? Any instant steamroll?
+- [ ] **Flex tiers**: daily mini-flex / core payoff distinguished? Any off-main-line flex?
+- [ ] **Payoff type**: explicitly used one of the six types? Can you state which?
+- [ ] **Payoff back-derivation**: type first, then anticipation, then setup?
+- [ ] **Emotion escalation**: negative emotion escalated to saturation before release? Any one-step arrival?
+- [ ] **Comparison**: side-character contrast amplifying the protagonist's payoff?
+- [ ] **Misunderstanding pull**: romance-line misunderstanding kept at "a knot in the heart," not a real breakup?
+- [ ] **Meme four segments**: happen → develop → turn → climax complete? Any jump from develop to climax?
+- [ ] **Rhythm cycle**: big climax in 7-10 days? Small climax ~3 days?
+- [ ] **Reader desire**: the four steps "create desire → give hope → struggle to solve → get what is deserved" walked?
+- [ ] **Card combination**: emotion modules, narrative elements, and structural techniques stacked rather than singly relied on?
+- [ ] **Spiral up**: the same pattern's next appearance raises complexity and gains over the last?

@@ -19,14 +19,14 @@ test("story skill exposes the platform-specific dashboard triggers", async () =>
   assert.match(skill, /\$story dashboard/);
   assert.match(
     skill,
-    /\| 工作台 \| dashboard、工作台、看拆文库、浏览项目文件、打开项目面板 \| 见下方「Dashboard 工作台」 \|/,
+    /\| Dashboard \| dashboard, workbench, browse teardown library, open project panel \| see "Dashboard workbench" below \|/,
   );
   assert.match(
     skill,
     /node "<story-skill-dir>\/scripts\/dashboard-server\.mjs" --root "<workspace>" --open/,
   );
-  assert.match(skill, /默认只监听 `127\.0\.0\.1`/);
-  assert.match(skill, /不要主动增加 `--allow-network`/);
+  assert.match(skill, /listens on `127\.0\.0\.1` by default/);
+  assert.match(skill, /Do not add `--allow-network` proactively/);
 });
 
 test("Claude Code marketplace exposes story while Codex uses the canonical skill bundle", async () => {
@@ -38,7 +38,7 @@ test("Claude Code marketplace exposes story while Codex uses the canonical skill
   assert.match(claudeStory.description, /\/story dashboard/);
 
   const readme = await read("README.md");
-  assert.match(readme, /`\/story dashboard`（Codex 用 `\$story dashboard`）/);
+  assert.match(readme, /`\/story dashboard` \(`\$story dashboard` in Codex\)/);
 
   for (const relativePath of [
     "SKILL.md",

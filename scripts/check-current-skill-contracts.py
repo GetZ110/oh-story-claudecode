@@ -76,9 +76,12 @@ class AbsentRule:
     label: str
     pattern: str
     relative_roots: Tuple[str, ...]
-    # 「静默才禁」豁免：命中行的本地上下文若带显式容忍标记（不阻塞 / [待补充] / 回退 /
-    # 只核对 / 记录…），说明是有据可查的旧格式容忍而非静默降级，放行。仅用于旧格式大纲容忍
-    # （keep C）；benchmark 回退（drop A/B）的规则不设豁免，静默与显式一律禁。
+    # The "silent-only" exemption: when the hit line's local context carries an
+    # explicit tolerance marker (not blocking / [TODO] / fallback / only checks /
+    # recorded...), it is a documented legacy-format tolerance rather than a silent
+    # downgrade, so it passes. Only for legacy-format outline tolerance (keep C);
+    # benchmark-fallback rules (drop A/B) have no exemption — silent and explicit
+    # are both forbidden.
     exempt_when: Optional[str] = None
 
 
@@ -92,11 +95,14 @@ LEGACY_RULES = (
     AbsentRule(
         "old-artifact-prose",
         "no silent old artifact-format downgrade",
-        r"旧拆文库|旧版细纲|旧式薄细纲|旧版内部降级标记|早期拆文库格式|兼容旧结构",
+        r"legacy teardown|old chapter outline format|old volume outline format|old outline format|legacy deconstruction format|legacy structure",
         ("skills",),
-        # keep C：旧格式大纲/细纲容忍是显式、有据可查的（不阻塞日更、回退读取旧字段、未知写
-        # [待补充]、记录到追踪），不是静默降级——带这些标记就放行，只拦无标记的静默兼容措辞。
-        exempt_when=r"不阻塞|\[待补充\]|回退|只核对|记录|保留或映射|仍可续写|仍可用|仍要保留",
+        # keep C: legacy-format outline/chapter-outline tolerance is explicit and
+        # documented (does not block daily updates, falls back to reading old
+        # fields, writes unknown values as [TODO], records to tracking) — not a
+        # silent downgrade; markers pass, only unmarked silent-compat wording is
+        # intercepted.
+        exempt_when=r"not blocking|\[TODO\]|fallback|only checks|recorded?|keep|still|compat",
     ),
     AbsentRule(
         "removed-hook-alias",
@@ -107,7 +113,7 @@ LEGACY_RULES = (
     AbsentRule(
         "obsolete-short-benchmark-path",
         "short writing uses only current benchmark paths",
-        r"\{短篇标题\}/拆文库/\{书名\}",
+        r"\{ShortTitle\}/teardown-lib/\{BookTitle\}",
         ("skills/story-short-write",),
     ),
     AbsentRule(
@@ -119,13 +125,13 @@ LEGACY_RULES = (
     AbsentRule(
         "obsolete-topic-decision-acceptance",
         "long analyze does not silently accept obsolete topic-decision contracts",
-        r"旧模板或文件坏了|直接跳过，不提示",
+        r"old template|broken template|skip silently without a hint",
         ("skills/story-long-analyze",),
     ),
     AbsentRule(
         "duplicate-adapter-reference-fallback",
         "story-setup deploys one canonical reference path per adapter",
-        r"同步复制到\s*`skills/[^`]+`\s*作为 fallback",
+        r"copy(?:ing)? to\s*`skills/[^`]+`\s*as fallback",
         ("skills/story-setup/SKILL.md",),
     ),
     AbsentRule(
@@ -137,7 +143,7 @@ LEGACY_RULES = (
     AbsentRule(
         "codex-old-reference-prefix",
         "Codex agents use the deployed .codex/skills reference path only",
-        r"\.(?:claude|opencode)/skills/story-setup/references/agent-references/|\{项目根\}/skills/story-setup/references/agent-references/",
+        r"\.(?:claude|opencode)/skills/story-setup/references/agent-references/|\{project root\}/skills/story-setup/references/agent-references/",
         ("skills/story-setup/references/codex/agents",),
     ),
     AbsentRule(
@@ -239,23 +245,26 @@ PRIMARY_GAP_TERMS = (
     "module_missing",
     "rhythm_missing",
     "missing_primary_contract",
-    "主产物",
-    "权威文件",
-    "主文件",
+    "primary artifact",
+    "primary artifacts",
+    "key artifact",
+    "authoritative file",
+    "primary file",
 )
-MISSING_STATE_RE = r"(?:缺失|不存在|未找到|找不到|为\s*(?:true|真)|:\s*true)"
+MISSING_STATE_RE = r"(?:missing|not found|does not exist|absent|:\s*true)"
 SUBSTITUTE_SOURCE_RE = re.compile(
-    r"章节(?:/\*|/第[^\s`，。；;]*)?_?摘要(?:\.md)?|第[^\s`，。；;]*章_摘要(?:\.md)?|"
-    r"拆文报告(?:\.md)?|故事线(?:\.md)?",
+    r"chapter[_ -]?[0-9]*_?summary(?:\.md)?|chapter summary|"
+    r"teardown-report(?:\.md)?|storylines(?:\.md)?",
     re.IGNORECASE,
 )
 SUBSTITUTE_ACTION_RE = re.compile(
-    r"回退|fallback|改读|转读|读取|使用|采用|改用|替代|代替|顶替|补足|补齐|拼出|兜底|"
-    r"substitut(?:e|ion)",
+    r"fallback|fall back|instead|in place of|substitut(?:e|ion)|"
+    r"read|use|adopt|switch to|supplement|backfill|make up for",
     re.IGNORECASE,
 )
 PROHIBITION_RE = re.compile(
-    r"不得|禁止|严禁|不允许|不可|不要|不能|不应|must\s+not|do\s+not|never",
+    r"must not|shall not|prohibited|forbidden|never|do not|not allowed|"
+    r"cannot|can't|mustn't|should not|don't",
     re.IGNORECASE,
 )
 
@@ -418,9 +427,11 @@ def read_text(path: Path) -> Optional[str]:
         return None
 
 
-# 二进制资产读不出文本是正常的（demo 封面图、__pycache__ 字节码），静默跳过即可；其余文件
-# 一律按 UTF-8 文本对待。GBK/cp936 的 Markdown 会让所有内容规则一起失效——regex_hits 拿到
-# None 就当「没命中」，检查照样打 [PASS]——所以文本文件解码失败必须是命名失败，不是跳过。
+# Binary assets that don't read as text are normal (demo cover images,
+# __pycache__ bytecode) and skip silently; everything else is treated as UTF-8
+# text. A GBK/cp936 Markdown file would void every content rule — regex_hits gets
+# None and treats it as "no hit", so the check still prints [PASS] — which is why
+# a text file that fails to decode must be a named failure, not a skip.
 BINARY_SUFFIXES = frozenset(
     {
         ".png",
@@ -472,16 +483,20 @@ TEXT_SUFFIXES = frozenset(
 
 
 def is_binary_asset(path: Path) -> bool:
-    """二进制资产（封面图、字节码、.DS_Store 之类）读不出文本是正常的。
+    """Binary assets (cover images, bytecode, .DS_Store etc.) that don't read as
+    text are normal.
 
-    后缀白名单之外再看有没有 NUL 字节：这样 `.DS_Store`、无后缀的二进制不会误报，而
-    GBK/cp936 的 Markdown（没有 NUL）仍会被判成必须修的文本文件。读不到字节就按文本算，
-    宁可报错也不静默放行。
+    Beyond the suffix allowlist, sniff for NUL bytes: `.DS_Store` and extension-less
+    binaries don't false-report, while GBK/cp936 Markdown (no NUL) is still judged
+    a text file that must be fixed. Unreadable bytes count as text — better to
+    report than to pass silently.
     """
     if path.suffix.lower() in BINARY_SUFFIXES:
         return True
-    # UTF-16 文本同样含大量 NUL；已知文本后缀必须先按契约文本处理，让 UTF-8 解码失败成为
-    # 命名错误。NUL sniff 只服务于 .DS_Store / 未知扩展二进制，不能覆盖文件类型事实。
+    # UTF-16 text also carries plenty of NUL; known text suffixes must first be
+    # treated as contract text so UTF-8 decode failure is a named error. The NUL
+    # sniff serves only .DS_Store / unknown-extension binaries — it cannot override
+    # the file-type fact.
     if path.suffix.lower() in TEXT_SUFFIXES:
         return False
     try:
@@ -491,7 +506,7 @@ def is_binary_asset(path: Path) -> bool:
 
 
 def undecodable_source_findings(roots: Sequence[Path]) -> List[Finding]:
-    """内容规则扫过的文本文件必须能按 UTF-8 读出来，否则整条规则静默放行。"""
+    """Every text file scanned by content rules must read as UTF-8, otherwise the rule silently passes."""
     findings: List[Finding] = []
     seen: set[str] = set()
     for root in roots:
@@ -533,8 +548,10 @@ def check_absent_rule(repo_root: Path, rule: AbsentRule) -> List[Finding]:
         for path in iter_files(root):
             for hit in regex_hits(path, compiled):
                 if exempt is not None:
-                    # 只看命中行本身：显式容忍标记须与旧格式措辞同处一行才算「有据可查」，
-                    # 避免相邻的静默降级借上一行的标记蒙混过关
+                    # Only the hit line itself counts: an explicit tolerance
+                    # marker must share the line with the legacy-format wording to
+                    # be "documented" — a neighboring silent downgrade must not
+                    # borrow the previous line's marker
                     if exempt.search(hit.excerpt):
                         continue
                 findings.append(
@@ -543,7 +560,8 @@ def check_absent_rule(repo_root: Path, rule: AbsentRule) -> List[Finding]:
     return findings
 
 
-# 列表项与表格行都是「一条独立记录」：条件与动作要在同一条记录（或它的上级）里才算一件事。
+# List items and table rows are each "one independent record": a condition and
+# an action must live in the same record (or its parent) to count as one thing.
 BLOCK_ITEM_RE = re.compile(r"^(\s*)(?:[-*+]\s+|[0-9]+[.)]\s+|\|)")
 
 
@@ -553,7 +571,7 @@ def _indent_width(line: str) -> int:
 
 
 def _block_item_indent(line: str) -> Optional[int]:
-    """列表项 / 表格行返回其缩进；普通正文行返回 None。"""
+    """List items / table rows return their indent; plain prose lines return None."""
     match = BLOCK_ITEM_RE.match(line)
     if match is None:
         return None
@@ -563,10 +581,14 @@ def _block_item_indent(line: str) -> Optional[int]:
 def logical_bullet_context(lines: Sequence[str], index: int) -> str:
     """Return the hit line plus the branch that actually governs it.
 
-    同一逻辑条目 = 命中行本身 + 它所属条目的续行 + 缩进更浅的上级条目或列表/表格引导句。
-    条件常写在上级（`任一主产物缺失时：` 后跟缩进子项或表格行），必须读得到；但同级兄弟条目
-    彼此是独立契约，相邻的 fail-fast 条目不得把「主产物缺失」借给本行——否则「两个主产物都
-    存在时读取 `拆文报告.md`」这类正确文档会被误判成静默降级。不跨空行与标题。
+    A logical item = the hit line + its item's continuation lines + shallower
+    parent items or list/table lead-ins. The condition is often written on the
+    parent ("when any primary artifact is missing:" followed by indented items or
+    table rows) and must be reachable; but sibling items are independent contracts,
+    and an adjacent fail-fast item must not lend its "primary artifact missing" to
+    this line — otherwise a correct document like "when both primary artifacts
+    exist, read `teardown-report.md`" would be misjudged as a silent downgrade.
+    Never crosses blank lines or headings.
     """
     parts = [lines[index]]
     own_item_indent = _block_item_indent(lines[index])
@@ -580,8 +602,10 @@ def logical_bullet_context(lines: Sequence[str], index: int) -> str:
             break
         item_indent = _block_item_indent(candidate)
         indent = item_indent if item_indent is not None else _indent_width(candidate)
-        # 上级条目（缩进更浅）或同层引导句/续行：条件对整棵子树生效，收进上下文。
-        # 其余是同级、更深的兄弟条目及其续行，与命中行无关；跳过但继续往上找上级。
+        # Parent items (shallower indent) or same-level lead-ins/continuations:
+        # the condition governs the whole subtree, so keep it in context. Anything
+        # else is a sibling or deeper item and its continuations — unrelated to the
+        # hit line; skip but keep looking upward.
         if indent < threshold or (item_indent is None and indent <= threshold):
             parts.insert(0, candidate)
             threshold = indent
@@ -600,7 +624,7 @@ def semantic_primary_fallback_findings(
     the same line, and the missing-primary condition must be in that line or in
     the bullet branch that governs it (its own continuation plus shallower
     parents).  Sibling bullets are independent contracts and never lend their
-    condition.  Explicit negative clauses such as "不得以拆文报告代替" are accepted.
+    condition.  Explicit negative clauses such as "do not substitute teardown-report for it" are accepted.
     """
     findings: List[Finding] = []
     lines = text.splitlines()
@@ -638,7 +662,7 @@ def semantic_primary_fallback_findings(
         findings.append(
             Finding(
                 "silent-primary-artifact-fallback",
-                "missing primary benchmark artifacts must fail fast; do not substitute summaries, 拆文报告, or 故事线",
+                "missing primary benchmark artifacts must fail fast; do not substitute summaries, teardown-report, or storylines",
                 path,
                 index + 1,
                 substitute_clauses[0].strip() or line,
@@ -784,11 +808,11 @@ def parse_frontmatter_version(path: Path) -> Optional[str]:
 
 
 def extract_current_version_fields(text: str) -> dict[str, str]:
-    """Parse version bullets from the `## 当前版本` section only."""
+    """Parse version bullets from the `## Current Version` section only."""
     lines = text.splitlines()
     start: Optional[int] = None
     for index, line in enumerate(lines):
-        if re.fullmatch(r"##\s+当前版本\s*", line):
+        if re.fullmatch(r"##\s+(?:Current [Vv]ersion|当前版本)\s*", line):
             start = index + 1
             break
     if start is None:
@@ -832,8 +856,10 @@ def upgrading_version_findings(
                     path,
                 )
             )
-    # 「升级步骤」里让用户核对的版本号是操作指令，bump 时最容易漏（它不在当前版本 bullet
-    # 里，也不被部署检查的 TS10 锚点覆盖）。任何写成 `agents_version: N` 的行都必须是当前值。
+    # The version numbers users are told to verify in "upgrade steps" are
+    # operational instructions and the easiest to miss on a bump (they are not in
+    # the current-version bullet and not covered by the deployment check's TS10
+    # anchor). Any line written as `agents_version: N` must be the current value.
     for raw in text.splitlines():
         match = re.search(r"`agents_version:\s*(\d+)`", raw)
         if match and match.group(1) != str(manifest.agents_version):
@@ -854,13 +880,13 @@ def extract_sentinel_fields(text: str) -> Optional[dict[str, str]]:
 
     This intentionally ignores version strings in surrounding explanatory
     prose.  The deployment contract is the fenced block following the
-    "写入以下字段" instruction inside "创建部署标记".
+    "write the following fields" instruction inside "Create deployment marker".
     """
     lines = text.splitlines()
     section_start: Optional[int] = None
     heading_level = 0
     for index, line in enumerate(lines):
-        match = re.match(r"^(#{2,6})\s+Step\s+[A-Za-z0-9]+[：:]\s*创建部署标记\s*$", line)
+        match = re.match(r"^(#{2,6})\s+Step\s+[A-Za-z0-9]+[：:]\s*(?:创建部署标记|Create deployment marker|Create the Deployment Sentinel)\s*$", line)
         if match:
             section_start = index + 1
             heading_level = len(match.group(1))
@@ -877,7 +903,7 @@ def extract_sentinel_fields(text: str) -> Optional[dict[str, str]]:
 
     marker_index: Optional[int] = None
     for index in range(section_start, section_end):
-        if "写入以下字段" in lines[index]:
+        if "写入以下字段" in lines[index] or "write the following fields" in lines[index].lower():
             marker_index = index + 1
             break
     if marker_index is None:
@@ -962,18 +988,18 @@ def _clean_markdown_label(label: str) -> str:
 
 def _normalize_rule_field(label: str) -> str:
     label = _clean_markdown_label(label)
-    if label.startswith("本章"):
-        label = label[2:]
+    if label.startswith("本章") or label.startswith("This chapter's ") or label.startswith("This chapter ") or label.startswith("This chapter"):
+        label = label[2:] if label.startswith("本章") else (label[len("This chapter's "):] if label.startswith("This chapter's ") else (label[len("This chapter "):] if label.startswith("This chapter ") else label[len("This chapter"):]))
     label = re.sub(r"[（(].*$", "", label).strip()
     return label
 
 
 def extract_outline_rule_fields(text: str) -> set[str]:
-    """Return structured field labels from Rules item 2 (细纲必填项)."""
+    """Return structured field labels from Rules item 2 (Required chapter-outline fields)."""
     lines = text.splitlines()
     start: Optional[int] = None
     for index, line in enumerate(lines):
-        if re.match(r"^\s*2\.\s+\*\*细纲必填项\*\*", line):
+        if re.match(r"^\s*2\.\s+\*\*(?:细纲必填项|Required chapter-outline fields)\*\*", line):
             start = index + 1
             break
     if start is None:
@@ -1028,21 +1054,28 @@ SCHEMA_VERSION_PIN_RE = re.compile(r"schema_version:\s*([0-9]+)")
 
 
 def progress_schema_pin_findings(repo_root: Path, expected: int) -> List[Finding]:
-    """每个字面 `schema_version: N` 锚点都必须是当前续跑契约版本。
+    """Every literal `schema_version: N` anchor must equal the current
+    continuation contract version.
 
-    续跑契约同时写在 analyze 的写入/恢复段、import 的当前拆文契约、UPGRADING 当前契约段和
-    demo 基准进度文件里。只核对 pipeline-ops.md 会让 bump 之后其余文件静默留在旧版本——技能
-    包自相矛盾、续跑拒收自己写出的 `_progress.md`，而 CI 全绿。参照 `agents_version` 的做法
-    （见 upgrading_version_findings）：任何写成 `schema_version: N` 的行都必须是当前值。
-    仓库根的 CHANGELOG.md 是历史记录，故意不在扫描范围内；版本说明表的 `| 2 | 当前契约… |`
-    不写成锚点形式，本规则也不会误伤。
+    The continuation contract lives in the analyze write/resume sections, the
+    import current-teardown contract, the UPGRADING current-contract section, and
+    the demo baseline progress file. Checking only pipeline-ops.md would leave the
+    other files silently on the old version after a bump — the skill pack
+    contradicts itself, continuation refuses its own `_progress.md`, and CI stays
+    green. Following the `agents_version` precedent (see
+    upgrading_version_findings): any line written as `schema_version: N` must be
+    the current value. The repo-root CHANGELOG.md is history and deliberately out
+    of scope; version-note table rows like `| 2 | current contract... |` are not
+    written as anchors, so this rule cannot hit them either.
     """
     findings: List[Finding] = []
     paths: List[Path] = []
     for root in (repo_root / "skills", repo_root / "demo"):
         paths.extend(path for path in iter_files(root) if path.suffix.lower() == ".md")
-    # iter_files 按名字跳过 UPGRADING.md（历史章节不该被当前值约束），但 `## v21 当前契约`
-    # 段里的续跑契约陈述与 agents_version 同理，bump 时必须跟着改。
+    # iter_files skips UPGRADING.md by name (historical sections must not be
+    # constrained by the current value), but the continuation-contract statement
+    # in the `## v23 Current Contract` section follows agents_version: it must
+    # change on every bump.
     paths.append(repo_root / "skills/story-setup/UPGRADING.md")
     for path in paths:
         text = read_text(path)
@@ -1095,7 +1128,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
     findings.extend(
         progress_schema_pin_findings(repo_root, manifest.progress_schema_version)
     )
-    findings.extend(require_pattern(pipeline, r"章节边界", "chapter-boundary-table", "progress must keep the canonical chapter-boundary table"))
+    findings.extend(require_pattern(pipeline, r"(?:章节边界|chapter boundary)", "chapter-boundary-table", "progress must keep the canonical chapter-boundary table"))
 
     setup_skill = repo_root / "skills/story-setup/SKILL.md"
     actual_setup_version = parse_frontmatter_version(setup_skill)
@@ -1126,7 +1159,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
 
     topic_file = repo_root / "skills/story-long-scan/references/topic-decision.md"
     topic_text = read_text(topic_file) or ""
-    topic_match = re.search(r"Phase\s+([0-9]+)[^\n]*产出\s*`选题决策\.md`", topic_text)
+    topic_match = re.search(r"Phase\s+([0-9]+)[^\n]*(?:产出\s*`选题决策\.md`|produces?\s*`topic-decision\.md`)", topic_text)
     if not topic_match or int(topic_match.group(1)) != manifest.topic_decision_phase:
         findings.append(
             Finding(
@@ -1142,7 +1175,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
     findings.extend(
         require_pattern(
             scan_skill,
-            r"^#{{2,6}}\s+Phase\s+{}[：:]\s*选题决策\s*$".format(manifest.topic_decision_phase),
+            r"^#{{2,6}}\s+Phase\s+{}[：:]\s*(?:选题决策|Topic decision)\s*$".format(manifest.topic_decision_phase),
             "topic-decision-phase-heading",
             "story-long-scan must expose topic decision as Phase {}".format(manifest.topic_decision_phase),
         )
@@ -1152,10 +1185,11 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
             continue
         text = read_text(path) or ""
         for line_number, line_text in enumerate(text.splitlines(), start=1):
-            if "选题决策" not in line_text:
+            if "选题决策" not in line_text and "topic-decision" not in line_text:
                 continue
-            # 技能名在本包的房子风格是反引号包裹（`story-long-scan` Phase 5），裸 token 匹配
-            # 跨不过反引号，会漏掉一半引用；两种写法都要拦。
+            # The house style wraps the skill name in backticks
+            # (`story-long-scan` Phase 5); a bare-token match cannot cross
+            # backticks and would miss half the references; both forms are caught.
             for match in re.finditer(
                 r"`?story-long-scan`?[\s`]*Phase\s+([0-9]+)", line_text
             ):
@@ -1252,7 +1286,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
         outline_rule_contract_findings(outline_rule_text, manifest, outline_rule)
     )
 
-    demo_root = repo_root / "demo/拆文库/盘龙"
+    demo_root = repo_root / "demo/teardown-lib/The-Last-Knight"
     for artifact in manifest.primary_benchmark_artifacts:
         artifact_path = demo_root / artifact
         try:
@@ -1264,8 +1298,8 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
                 Finding("demo-primary-artifact", "demo deconstruction is missing non-empty {}".format(artifact), artifact_path)
             )
 
-    outline_dir = repo_root / "demo/长篇/让你管账号，你高燃混剪炸全网/大纲"
-    outlines = sorted(outline_dir.glob("细纲_第*.md"))
+    outline_dir = repo_root / "demo/long-form/The-Shattered-Throne/outline"
+    outlines = sorted(outline_dir.glob("outline_chapter_*.md"))
     if len(outlines) != manifest.expected_demo_outline_count:
         findings.append(
             Finding(

@@ -1,7 +1,7 @@
 #!/bin/bash
-# check-shared-files.sh — 检查跨 skill 同名文件内容一致性
-# 扫描所有 skill 的 references/ 与 scripts/ 目录，找出同名文件并比较内容
-# 兼容 bash 3+（macOS）
+# check-shared-files.sh — cross-skill same-name file content consistency
+# Scans every skill's references/ and scripts/ directories, finds same-name files,
+# and compares their content. Bash 3+ compatible (macOS).
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -21,12 +21,12 @@ fi
 # - material-decomposition.md: long/short analyze use different decomposition pipelines
 # - quality-checklist.md: story-short-analyze's copy points to material-decomposition.md
 #   (absent in story-short-write); the two copies are intentionally skill-specific
-# - 4 genre files: story-short-analyze prepends a "## 用作拆文标尺时" analyst-lens
-#   header (consumed as a reference standard for source-story evaluation, not a writer
-#   playbook). Writer skills don't get the header. Wholesale-ignored here because their
-#   non-analyst copies have not all been confirmed byte-identical.
-#   genre-writing-formulas.md graduated to ANALYST_DIVERGENT_NAMES: its writer copies
-#   are byte-identical and now guarded.
+# - 4 genre files: story-short-analyze prepends an "## When used as a teardown
+#   benchmark" analyst-lens header (consumed as a reference standard for source-story
+#   evaluation, not a writer playbook). Writer skills don't get the header.
+#   Wholesale-ignored here because their non-analyst copies have not all been
+#   confirmed byte-identical. genre-writing-formulas.md graduated to
+#   ANALYST_DIVERGENT_NAMES: its writer copies are byte-identical and now guarded.
 # - AGENTS.md.tmpl / hooks.json: CLI-specific project templates differ deliberately
 #   and are validated by each CLI adapter check.
 IGNORE_NAMES="output-templates.md material-decomposition.md quality-checklist.md \
@@ -34,24 +34,35 @@ genre-catalog.md genre-core-mechanics.md genre-readers.md \
 genre-writing-techniques.md \
 AGENTS.md.tmpl hooks.json"
 
-# Analyst-divergent (basename): the story-short-analyze copy intentionally prepends the
-# "## 用作拆文标尺时" analyst-lens header, so it is dropped from the comparison set; all
-# OTHER copies (writer skills + agent-references) must still stay byte-identical. Stricter
-# than a wholesale ignore — it still guards writer↔writer drift.
+# Analyst-divergent (basename): the story-short-analyze copy intentionally prepends
+# the "## When used as a teardown benchmark" analyst-lens header, so it is dropped
+# from the comparison set; all OTHER copies (writer skills + agent-references) must
+# still stay byte-identical. Stricter than a wholesale ignore — it still guards
+# writer↔writer drift.
 ANALYST_DIVERGENT_NAMES="character-basics.md character-design-methods.md character-relations.md genre-writing-formulas.md"
 
-# Genre-style-divergent (basename): the story-short-write copy under references/genre-styles/
-# is a short-form writer style pack, a different artifact from the long-form
-# references/genre-prose-cards/ card of the same basename (story-long-write + its story-setup
-# deployment mirror). Drop the genre-styles copy from the comparison; the prose-card copies
-# must still stay byte-identical. Stricter than a wholesale ignore.
-GENRE_STYLE_DIVERGENT_NAMES="双男主.md"
+# Genre-style-divergent (basename): the story-short-write copy under
+# references/genre-styles/ is a short-form writer style pack, a different artifact
+# from the long-form references/genre-prose-cards/ card of the same basename
+# (story-long-write + its story-setup deployment mirror). Drop the genre-styles copy
+# from the comparison; the prose-card copies must still stay byte-identical. Stricter
+# than a wholesale ignore. sports-romance.md is divergent for the same reason
+# (long-form card + short-form pack share the basename).
+GENRE_STYLE_DIVERGENT_NAMES="cozy-mystery.md dark-romance.md horror.md sports-romance.md"
+
+# Form-divergent (basename): in the English edition the long-form and short-form
+# writer skills own form-specific versions of these methodology docs (19 long-form
+# genre formulas vs 10 short-form reversal formulas; long-form reversal toolkit vs
+# short-form reversal toolkit). Drop the story-short-write copy from the comparison;
+# the remaining copies must still stay byte-identical.
+FORM_DIVERGENT_NAMES="genre-writing-formulas.md reversal-toolkit.md"
 
 # Longform-divergent (basename): story-long-write's copy carries a long-form-only
-# section (长篇单元情绪引擎) that references reader-contract-and-progression.md, which
-# exists only under story-long-write; syncing it to the short-write / agent-references
-# copies would create a dangling reference. Drop the story-long-write copy from the
-# comparison; the short-write and agent-references copies must still stay byte-identical.
+# section (long-form story-unit emotion engine) that references
+# reader-contract-and-progression.md, which exists only under story-long-write;
+# syncing it to the short-write / agent-references copies would create a dangling
+# reference. Drop the story-long-write copy from the comparison; the short-write and
+# agent-references copies must still stay byte-identical.
 LONGFORM_DIVERGENT_NAMES="emotional-methods.md"
 
 mismatches=0
@@ -144,6 +155,21 @@ for base in $dup_names; do
       for p in ${paths[@]+"${paths[@]}"}; do
         case "$p" in
           */genre-styles/*) ;;
+          *) filtered+=("$p") ;;
+        esac
+      done
+      paths=(${filtered[@]+"${filtered[@]}"})
+      ;;
+  esac
+
+  # Form-divergent basenames: drop the story-short-write copy (intentional
+  # form-specific fork); the remaining copies must still be byte-identical.
+  case " $FORM_DIVERGENT_NAMES " in
+    *" $base "*)
+      filtered=()
+      for p in ${paths[@]+"${paths[@]}"}; do
+        case "$p" in
+          */story-short-write/*) ;;
           *) filtered+=("$p") ;;
         esac
       done

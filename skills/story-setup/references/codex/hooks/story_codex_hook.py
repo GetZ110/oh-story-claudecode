@@ -21,10 +21,10 @@ HOOK_CWD: Path | None = None
 
 def read_hook_input() -> dict[str, Any]:
     global HOOK_CWD
-    # Read raw UTF-8 bytes, not the locale-decoded text stream: Codex/Claude tool
-    # payloads carry Chinese 正文/细纲 paths, and Windows Python defaults stdin to the
-    # ANSI code page (cp1252/cp936), which mojibakes them so the prose guard never
-    # matches and silently allows (issue #164 class — same fix as the bash hooks).
+    # Read raw UTF-8 bytes, not the locale-decoded text stream: tool payloads can
+    # carry non-ASCII filenames, and Windows Python defaults stdin to the ANSI code
+    # page (cp1252/cp936), which mojibakes them so the prose guard never matches and
+    # silently allows (same fix as the bash hooks).
     raw = sys.stdin.buffer.read().decode("utf-8", "replace")
     if not raw.strip():
         return {}
@@ -43,7 +43,7 @@ def read_hook_input() -> dict[str, Any]:
 def emit(obj: dict[str, Any] | None) -> None:
     if obj:
         # Write UTF-8 bytes directly: Windows Python stdout defaults to the ANSI code
-        # page and would garble/raise on the Chinese deny reasons and additionalContext.
+        # page and would garble/raise on deny reasons and additionalContext.
         sys.stdout.buffer.write(json.dumps(obj, ensure_ascii=False).encode("utf-8"))
 
 
@@ -119,15 +119,15 @@ def read_active_book(root: Path) -> Path | None:
                 candidate = None  # type: ignore[assignment]
             if candidate and candidate.exists():
                 return candidate
-    for track in root.glob("**/追踪"):
+    for track in root.glob("**/tracking"):
         if any(part.startswith(".") for part in track.relative_to(root).parts):
             continue
         return track.parent
-    for body in root.glob("**/正文"):
+    for body in root.glob("**/prose"):
         if any(part.startswith(".") for part in body.relative_to(root).parts):
             continue
         return body.parent
-    for body_file in root.glob("**/正文.md"):
+    for body_file in root.glob("**/prose.md"):
         if any(part.startswith(".") for part in body_file.relative_to(root).parts):
             continue
         return body_file.parent
@@ -138,26 +138,27 @@ def hook_context(event: str, text: str) -> dict[str, Any]:
     return {"hookSpecificOutput": {"hookEventName": event, "additionalContext": text}}
 
 
-# ── 轻量确定性网（与 templates/hooks/check-prose-after-write.sh 内嵌 python 同实现，保持 parity）──
-# 只兜「硬信号」（漏跑最伤、退化模型自己发现不了的）：截断 / 生成拒绝语·AI 自指 /
-# 工程词漏进正文 / 紧邻整行复读。不依赖 check-degeneration.js，是独立的轻量网。
-# 收尾标点集与深扫 oracle check-degeneration.js 的 findTruncation 对齐（[。！？!?…”"』」）)】]）：
-# 】 是章尾系统播报模板的收束符（agent-references/hooks-chapter.md 章尾实战模板一/四），ASCII "
-# 是 normalize-punctuation.js --quote-mode ascii 的合法收引号，两者都不该被判「疑似截断」。
-_NET_TERMINAL = set("。！？…”』」）)!?.~—】\"")
-_NET_QUOTE_OPENERS = ("「", "“", "‘", "『", '"')
+# ── lightweight deterministic net (same implementation as the python embedded in
+# templates/hooks/check-prose-after-write.sh, keeping parity) ──
+# Only "hard signals" (worst when missed, and a degenerating model can't self-report):
+# truncation / generation refusal·AI self-reference / engineering words in prose /
+# back-to-back verbatim lines. Independent of check-degeneration.js.
+# The terminal set is aligned with check-degeneration.js findTruncation ([.!?…”"'’])}~—"]):
+# ASCII " is the legal closing quote from normalize-punctuation.js --quote-mode ascii.
+_NET_TERMINAL = set(".!?…”’”])}~—\"")
+_NET_QUOTE_OPENERS = ("“", "‘", '"', "'")
 _NET_SOFT_PATTERNS = [
-    # 型号后缀（AI语言模型/AI助手/人工智能语言模型/AI模型/AI大模型）必须可选吃掉：否则前视断言
-    # 紧跟在「AI」后面看到的是「语」/「助」/「模」，最典型的退化开场整类漏检。
-    (re.compile(r'作为(一个)?(AI|人工智能|大?语言模型|智能助手|聊天助手)(?:语言模型|大?模型|助手|机器人)?(?=，|,|。|、|；|;|：|:|！|!|？|\?|\s|）|\)|」|』|"|】|我|无法|不能|没法|$)'), "AI 自指"),
-    (re.compile(r"^(Sure|Certainly|Here'?s|As an AI|I (?:cannot|can't|am unable|apologize))"), "英文 AI 腔"),
-    (re.compile(r"我(无法|不能)(继续(写|创作|生成|下去|输出)?|生成(内容|文本|正文)?|创作|续写|写作|完成(这个|本)?(章|篇|创作|请求)?)"), "生成拒绝语"),
+    # Model-typed suffixes (language model / AI assistant / chatbot) must be consumed
+    # optionally, otherwise the lookahead sees the next word and misses the classic
+    # degenerate opening entirely.
+    (re.compile(r"\b(?:as an?|being an?)\s+(?:AI|language model|artificial intelligence|chatbot|assistant)(?=\b|[.,;:!?\"')\]]|I(?:'m| am)|can't|cannot|won't|will not|would|shall|must|$)", re.I), "AI self-reference"),
+    (re.compile(r"^(Sure|Certainly|Here'?s|As an AI|I (?:cannot|can't|am unable|apologize))"), "AI chatbot voice"),
+    (re.compile(r"\b(?:I|we)(?:'m|'re| am| are)? (?:sorry|apologize|unable|not able|can't|cannot) (?:to )?(?:continue|write|generate|finish|complete|help|assist|provide|produce)\b", re.I), "generation refusal"),
 ]
 _NET_HARD_PATTERNS = [
-    (re.compile(r"[（(](此处|以下|这里|下文|后续)?[^）)]{0,10}(省略|略去|略过)[^）)]{0,10}[）)]"), "占位符（括号省略）"),
-    (re.compile(r"(TODO|占位符|placeholder|待补充|此处待填|此处待补)"), "占位符"),
-    (re.compile(r"(细纲|情节点|卷纲|功能标签|目标情绪|字数目标|章首钩子|章尾钩子|任务描述)"), "工程词泄漏"),
-    (re.compile("�"), "乱码（替换字符）"),
+    (re.compile(r"\b(?:TODO|TBD|placeholder|to be continued)\b|\[INSERT[^\]]{0,20}\]", re.I), "placeholder"),
+    (re.compile(r"\b(?:chapter outline|volume outline|master outline|story unit|plot point|target words?|word count target|hook note|payoff note|foreshadowing note)\b", re.I), "engineering-word leakage"),
+    (re.compile("�"), "mojibake (replacement char)"),
 ]
 
 
@@ -173,95 +174,70 @@ def _net_is_skippable(stripped: str) -> bool:
     return False
 
 
-# ── 毒句式（确定性 AI 句式指纹，与 JS 核 toxicPhraseFindings 同构，文案以 JS 核为准）──
-# 与 check-ai-patterns.js 的同名新规则统一规格：只收确定性、低误报的句式；密度型/
-# advisory 检测归 check-ai-patterns.js 深扫。全部正则线性扫描、量词有界。台词/弹幕/
-# 系统播报不算：逐行把成对引号段等长问号占位（见 _toxic_mask_quoted 为何用问号而不是句号），
-# 占位后仍残留引号字符（跨行对话/未闭合）的行整行跳过。
-# js↔py 由 scripts/check-hook-regex-sync.sh（规范串逐字锁）与
-# scripts/test-prose-net-parity.sh（fixture 逐字 diff）锁 parity。
-_TOXIC_QUOTE_SPANS = [re.compile(r"「[^」]*」"), re.compile(r"『[^』]*』"), re.compile(r"【[^】]*】"), re.compile(r"“[^”]*”"), re.compile(r"‘[^’]*’"), re.compile(r'"[^"]*"'), re.compile(r"'[^']*'")]
-_TOXIC_QUOTE_CHARS = set("「」『』【】“”‘’\"'")
-# 分句起点边界（前一字符属于它才认「是A，不是B」的分句首「是」）；同时用作确认语的右边界。
-_TOXIC_CLAUSE_BOUNDARY = set("，,。.！!？?；;：:、…—~ \t　")
-# 疑问尾（是吗/是吧/是嘛）与确认语（是的/是啊/是呀/是呢+边界）里的「是」不是对比句系动词；
-# 排除逻辑移植自 check-ai-patterns.js 的 TAG_PARTICLES / AFFIRMATION_TAG_PARTICLES。
-_TOXIC_TAG_PARTICLES = ("吗", "吧", "嘛")
-_TOXIC_AFFIRM_PARTICLES = ("的", "啊", "呀", "呢")
-_TOXIC_TRAILER_WINDOW = 600
+# ── toxic patterns (deterministic AI sentence fingerprints, isomorphic to the JS
+# core toxicPhraseFindings; messages canonical in the JS core) ──
+# Same spec as the same-name rules in check-ai-patterns.js: only deterministic,
+# low-false-positive patterns; density/advisory checks belong to the deep scan.
+# All regexes scan linearly with bounded quantifiers. Dialogue/chat/system text
+# doesn't count: paired-quote spans become equal-length '?' placeholders (see
+# _toxic_mask_quoted for why '?' not '.'), and lines still containing quote chars
+# after masking (cross-line dialogue / unclosed quotes) are skipped whole.
+# js↔py parity is locked by scripts/check-hook-regex-sync.sh (verbatim canonical
+# strings) and scripts/test-prose-net-parity.sh (fixture diffs).
+_TOXIC_QUOTE_SPANS = [re.compile(r"“[^”]*”"), re.compile(r"‘[^’]*’"), re.compile(r'"[^"]*"'), re.compile(r"'[^']*'")]
+_TOXIC_QUOTE_CHARS = set("“”‘’\"'")
+# Clause-start boundary (a preceding char in this set admits the "wasn't X. It was Y"
+# second clause opener).
+_TOXIC_CLAUSE_BOUNDARY = set(" ,.!?;:…—~ \t")
+_TOXIC_TRAILER_WINDOW_WORDS = 250
 _TOXIC_SENTENCE_PATTERNS = [
-    (re.compile(r"声音(?:并)?不[大高响亮][^。！？!?\n]{0,16}[却但偏]"), "voice-contrast", "删「不X…却Y」反差腔，直接写具体效果或动作。"),
-    (re.compile(r"(?:没有[^。！？!?\n，,]{1,12}[，,]){2}"), "negation-parade", "「没有…，没有…」排比删到只剩一个或全删，改写正面在场的细节。"),
-    (re.compile(r"是[^。！？!?\n，,]{1,12}[，,]\s*(?:而)?不是[^。！？!?\n]{1,20}"), "reverse-not-is", "删否定铺垫，直接写肯定项，或改成动作细节。"),
-    (re.compile(r"不是[^。！？!?\n]{1,16}[，,]\s*(?:而)?是"), "not-is-comparison", "删否定铺垫，直接写肯定项，或改成动作细节。"),
+    (re.compile(r"\b(?:his|her|their|the (?:man'?s|woman'?s|boy'?s|girl'?s)) voice\s+(?:was|were|sounded|stayed|remained|dropped)\s+(?:quiet|soft|low|calm|even|level|steady|gentle|barely (?:audible|a whisper))[^.!?\n]{0,30}?\b(?:but|yet|still|though)\b", re.I), "voice-contrast", "Cut the 'voice was quiet/soft... but/yet...' contrast setup; write the concrete effect the voice lands on the room."),
+    (re.compile(r"(?:\bno\s+[a-z][a-z0-9' -]{1,24}(?:,|\.)\s*){2}\bno\s+[a-z][a-z0-9' -]{1,24}\b", re.I), "negation-parade", "Cut the 'No X. No Y...' denial list to one or none; write what is actually present."),
+    (re.compile(r"\b(it|that|this) wasn't (?:just|merely|simply)\s+[^.!?\n,]{1,20}[,.]\s*\b(?:it|that|this) (?:was|is)\b", re.I), "not-was-comparison", "Cut the negated setup; write the positive term directly, or show it through action/detail."),
 ]
-# 「正式拉开序幕/帷幕」是场内事件的报幕式陈述，不是叙述者预告，lookbehind 排除（同 check-ai-patterns.js）。
-_TOXIC_TRAILER = re.compile(r"没人知道|谁也不知道|谁也没想到|殊不知|(?:这)?才刚刚开(?:始|头)|正(?:朝着|向着)[^。！？!?\n]{0,24}(?:压|涌|袭|逼)(?:了?过去|了?过来|来)|(?<!正式)拉开(?:序幕|帷幕)|即将(?:开始|来临|降临)")
-# 章尾状态总结体：与 trailer-ending 共用文末窗口，盖章过去而非预告将来（同 story_hook_core.js）。
-# 收的都是 banned-words 已按名禁掉的形态；不收「(这|那)一刻…终于明白」——真人叙述里那是正常认知
-# 节拍，短篇第一人称审判句还是卖点。各分支要求落在句末断言位，避免吃进条件从句/动补/成语/及物用法/否定认知。
-_TOXIC_TRAILER_SUMMARY = re.compile(r"这一(?:夜|天|刻|战|年|局|役)[，,]?[^。！？!?，,\n]{0,6}(?<!命中)(?<!是)注定[^。！？!?\n]{0,8}[。！]|就这样[，,][^。！？!?，,\n]{0,8}(?:一切|全部)[^。！？!?，,\n]{0,4}(?:结束了|落幕|收场)[。！]|这一切[，,]?[^。！？!?，,\n]{0,6}(?:都)?(?:说明|意味着|结束了)(?!的)(?:(?!什么)[^。！？!?\n]){0,6}[。！]|(?:新的篇章|新的旅程|崭新的篇章|新的人生)[^。！？!?\n]{0,6}(?:开始|拉开|展开)|命运[^。！？!?\n]{0,6}齿轮")
-# 「是A，不是B」的反问尾巴（…，不是吗/么/吧）不算对比句；取匹配段最后一个「不是」后的首字判断。
-_TOXIC_REVERSE_TAIL = re.compile(r".*[，,]\s*(?:而)?不是([^。！？!?\n]*)$")
+_TOXIC_TRAILER = re.compile(r"\blittle did (?:he|she|they|we|i|anyone|everyone) know\b|\bunbeknownst to (?:him|her|them|us|everyone)\b|\bno (?:one|body) knew (?:that|what|how|why|where|who)\b|\bnone of them knew\b|\bwhat (?:happened|came) next would\b|\bthis (?:was|is|would be) only the beginning\b|\bthe (?:night|day|battle|war|real (?:battle|war|test|challenge)) (?:was|is|had) (?:just|only) (?:beginning|starting)\b|\b(?:their|his|her|the) (?:lives|life|world|story) (?:was|were|is|are) about to change\b|\bfate had other plans\b", re.I)
+# Chapter-end state summary: shares the end window with trailer-ending; seals the
+# past where trailer-ending previews the future. All branches are banned forms by
+# name; "in that moment, he finally understood" is NOT collected (normal human beat).
+_TOXIC_TRAILER_SUMMARY = re.compile(r"\bit was (?:a|the) (?:night|day|morning|moment) that would (?:change|alter|end) everything\b|\b(?:nothing|everything) would (?:ever )?be the same (?:again)?\b|\beverything was about to change\b|\bthe world would never be the same\b|\b(?:his|her|their|the) (?:life|world|story) (?:would|was) (?:be )?(?:forever|permanently) changed\b|\bthe wheels? of fate\b", re.I)
 
 
 def _toxic_mask_quoted(line: str) -> str:
-    # 占位字符用「？」而不是「。」：占位既要截断各规则的 [^。！？!?…] 否定类（？与句号在每条规则的
-    # 否定类里等效），又不能落在任何规则的接受位。句号占位会替 trailer-summary 的句末 [。！] 伪造出
-    # 终止符，让「这一战注定是「血屠」的开端，…」这类引号里放代号/绰号的叙述行被误报，且报出的
-    # 『这一战注定是。』在原文里 grep 不到。
-    # 占位长度按 UTF-16 码元计（emoji 等增补面字符算 2），与 JS 核 "？".repeat(m.length)
-    # 逐字对齐——否则含 emoji 台词的行两端 masked 长度不同，trailer 窗口切点漂移。
+    # The placeholder is "?" rather than ".": it must truncate the rules' [^.!?\n]
+    # negative classes (? is equivalent to a period in every rule's class) without
+    # landing on any rule's acceptance position. A period placeholder would forge a
+    # terminator for the end-window rules. Length is preserved, so the window cut
+    # doesn't drift. The placeholder length counts UTF-16 code units (an emoji in
+    # dialogue counts 2), aligned with the JS core "?".repeat(m.length).
     out = line
     for rx in _TOXIC_QUOTE_SPANS:
-        out = rx.sub(lambda m: "？" * (len(m.group(0).encode("utf-16-le")) // 2), out)
+        out = rx.sub(lambda m: "?" * (len(m.group(0).encode("utf-16-le")) // 2), out)
     return out
 
 
-def _toxic_not_is_excluded(line: str, matched: str, start: int) -> bool:
-    """「是不是」疑问、翻转「是」后跟疑问尾/确认语 → 不算「不是A，(而)是B」对比句。"""
-    if start > 0 and line[start - 1] == "是":
-        return True
-    end = start + len(matched)
-    c1 = line[end] if end < len(line) else ""
-    c2 = line[end + 1] if end + 1 < len(line) else ""
-    if c1 in _TOXIC_TAG_PARTICLES:
-        return True
-    if c1 in _TOXIC_AFFIRM_PARTICLES and (c2 == "" or c2 in _TOXIC_CLAUSE_BOUNDARY):
-        return True
-    return False
-
-
-def _toxic_reverse_not_is_excluded(line: str, matched: str, start: int) -> bool:
-    """只认分句首的「是A，不是B」：句中「但是/还是/只是/他是…」的「是」一律不算（either-or
-    「不是/就是/也是」与全部「X是」连词/副词合成词都被分句首判定排除）；「是的，不是…」
-    确认语开头、「是不是…」问句起头、「…，不是吗/么/吧」反问尾巴不算（同 check-ai-patterns.js）。"""
-    prev = line[start - 1] if start > 0 else ""
-    if prev != "" and prev not in _TOXIC_CLAUSE_BOUNDARY:
-        return True
-    if line[start + 1:start + 3] == "不是":
-        return True
-    c1 = line[start + 1] if start + 1 < len(line) else ""
-    c2 = line[start + 2] if start + 2 < len(line) else ""
-    if (c1 in _TOXIC_TAG_PARTICLES or c1 in _TOXIC_AFFIRM_PARTICLES) and (c2 == "" or c2 in _TOXIC_CLAUSE_BOUNDARY):
-        return True
-    tail = _TOXIC_REVERSE_TAIL.search(matched)
-    t1 = tail.group(1)[:1] if tail and tail.group(1) else ""
-    if t1 in ("吗", "么", "吧"):
+def _toxic_not_was_excluded(line: str, matched: str, start: int) -> bool:
+    """"Wasn't it obvious?" — a question opener is not the "wasn't just X... was Y"
+    contrast (the regex already requires a following "it/that/this was", but a
+    question form "Wasn't it just X?" would otherwise slip past the comma clause)."""
+    before = line[max(0, start - 12):start]
+    if re.search(r"wasn't it$", before, re.I):
         return True
     return False
 
 
 def _toxic_match_sentence(line: str) -> tuple[str, str, str] | None:
-    """每行只报第一条命中的句式规则（复扫到净哲学：改完一处再扫下一处）。"""
+    """Each line reports only the first matching sentence rule (rescan-to-clean
+    philosophy: fix one spot, rescan for the next)."""
     for rx, label, fix in _TOXIC_SENTENCE_PATTERNS:
         for m in rx.finditer(line):
-            if label == "not-is-comparison" and _toxic_not_is_excluded(line, m.group(0), m.start()):
-                continue
-            if label == "reverse-not-is" and _toxic_reverse_not_is_excluded(line, m.group(0), m.start()):
+            if label == "not-was-comparison" and _toxic_not_was_excluded(line, m.group(0), m.start()):
                 continue
             return (label, fix, m.group(0))
     return None
+
+
+def _word_count(text: str) -> int:
+    return len(re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z]+)?", text))
 
 
 def toxic_phrase_findings(text: str) -> list[str]:
@@ -278,22 +254,23 @@ def toxic_phrase_findings(text: str) -> list[str]:
     for line_no, masked in content:
         hit = _toxic_match_sentence(masked)
         if hit:
-            findings.append(f"第{line_no}行 毒句式[{hit[0]}]：『{hit[2][:20]}』——{hit[1]}")
-    # trailer-ending 只扫文末 600 字窗口（引号占位后按行累计，边界行整行计入）。
+            findings.append(f"Line {line_no} toxic pattern [{hit[0]}]: \"{hit[2][:20]}\" — {hit[1]}")
+    # trailer-ending / trailer-summary scan only the end window (word count after
+    # quote masking, boundary line counted in full).
     acc = 0
     cut = len(content)
-    while cut > 0 and acc < _TOXIC_TRAILER_WINDOW:
+    while cut > 0 and acc < _TOXIC_TRAILER_WINDOW_WORDS:
         cut -= 1
-        acc += len(content[cut][1])
+        acc += _word_count(content[cut][1])
     for line_no, masked in content[cut:]:
         m = _TOXIC_TRAILER.search(masked)
         if m:
-            findings.append(f"第{line_no}行 毒句式[trailer-ending]：『{m.group(0)[:20]}』——删章尾预告腔，用正在发生的动作或画面收章。")
+            findings.append(f"Line {line_no} toxic pattern [trailer-ending]: \"{m.group(0)[:20]}\" — cut the chapter-end preview; end on an action or image that is happening now.")
         ms = _TOXIC_TRAILER_SUMMARY.search(masked)
         if ms:
-            findings.append(f"第{line_no}行 毒句式[trailer-summary]：『{ms.group(0)[:20]}』——删章尾状态总结句，收束状态是细纲的规划口径，正文落到具体动作、画面或台词上。")
+            findings.append(f"Line {line_no} toxic pattern [trailer-summary]: \"{ms.group(0)[:20]}\" — cut the chapter-end state verdict; the ending state is outline planning language — land the chapter on a concrete action, image, or line.")
     if findings:
-        findings.append("毒句式是确定性 AI 指纹：本章须清零后再继续。完整扫描：node <skill>/scripts/check-ai-patterns.js --check <正文文件>")
+        findings.append("Toxic patterns are deterministic AI fingerprints: clear this chapter before continuing. Full scan: node <skill>/scripts/check-ai-patterns.js --check <prose file>")
     return findings
 
 
@@ -311,7 +288,7 @@ def prose_net_findings(text: str) -> list[str]:
             for rx, label in _NET_SOFT_PATTERNS:
                 m = rx.search(s)
                 if m:
-                    findings.append(f"第{i}行 元信息泄漏（{label}）：「{m.group(0)[:20]}」")
+                    findings.append(f"Line {i} meta leakage ({label}): \"{m.group(0)[:20]}\"")
                     hit = True
                     break
         if hit:
@@ -319,44 +296,50 @@ def prose_net_findings(text: str) -> list[str]:
         for rx, label in _NET_HARD_PATTERNS:
             m = rx.search(s)
             if m:
-                findings.append(f"第{i}行 {label}：「{m.group(0)[:20]}」")
+                findings.append(f"Line {i} {label}: \"{m.group(0)[:20]}\"")
                 break
     for (la, sa), (lb, sb) in zip(content, content[1:]):
         if sa == sb and len(sa) >= 8:
-            findings.append(f"第{lb}行 紧邻复读：整行与上一行完全相同「{sa[:20]}」")
+            findings.append(f"Line {lb} verbatim repeat: line identical to the previous line \"{sa[:20]}\"")
     if content:
         ln, last = content[-1]
         if last and last[-1] not in _NET_TERMINAL:
-            findings.append(f"第{ln}行 疑似截断：结尾「…{last[-12:]}」未以标点收束")
-    # 「去味:跳过」豁免与欠账门同判据（文件首 6 行）：标记在场时跳过毒句式推回，
-    # 其余网（元信息/占位/复读/截断）照常——否则按拦截提示加标记的那次 Edit 会把
-    # 已豁免的毒句式再次当硬信号推回。
-    if not re.search(r"去味(：|:)跳过", "\n".join(re.split(r"\r?\n", text)[:6])):
+            findings.append(f"Line {ln} suspected truncation: ending \"...{last[-12:]}\" does not end with terminal punctuation")
+    # The "deslop:skip" exemption shares the debt-gate criterion (first 6 lines of the
+    # file): when the marker is present, skip the toxic-pattern push-back only — the
+    # rest of the net (meta/placeholder/repeat/truncation) still runs.
+    if not re.search(r"deslop\s*:\s*skip", "\n".join(re.split(r"\r?\n", text)[:6]), re.I):
         findings.extend(toxic_phrase_findings(text))
     return findings
 
 
 def _is_prose_path(root: Path, abs_path: Path) -> bool:
-    """正文文件判定（与 check-prose-after-write.sh 的 over-capture 门一致）：
-    短篇 {书}/正文.md 且同目录有 设定.md；长篇 {书}/正文/第N章*.md 且 {书} 有 大纲/追踪/设定。"""
+    """Prose file detection (same over-capture gate as check-prose-after-write.sh):
+    short-form {book}/prose.md with setting.md alongside; long-form
+    {book}/prose/chapter_N*.md with {book} having outline/tracking/setting."""
     base = abs_path.name
     parent = abs_path.parent.name
-    if base == "正文.md":
-        return (abs_path.parent / "设定.md").exists()
-    if parent == "正文" and re.match(r"^第.*章.*\.md$", base):
+    if base == "prose.md":
+        return (abs_path.parent / "setting.md").exists()
+    if parent == "prose" and re.match(r"^chapter.*\.md$", base, re.I):
         book = abs_path.parent.parent
-        return (book / "大纲").is_dir() or (book / "追踪").is_dir() or (book / "设定").is_dir() or (book / "设定.md").exists()
+        return (book / "outline").is_dir() or (book / "tracking").is_dir() or (book / "setting").is_dir() or (book / "setting.md").exists()
     return False
 
 
 def find_changed_prose_files(root: Path) -> list[Path]:
-    """本回合改动过的正文文件（git 改动 + untracked），用于 Stop 兜底——Codex 无 PostToolUse，
-    故内容网在回合结束的 Stop 事件按 git 改动集复扫。非 git 仓库或无改动则空（best-effort）。"""
-    # diff 两支必须带 --relative（且 -- .）：不带时 git 吐的是仓库根相对路径，项目根是仓库子目录
-    # （.git 在上层）时 root/rel 拼出 <root>/<proj>/<proj>/… 这种不存在的路径，被 exists() 全量丢掉
-    # ——已提交章节的改稿因此整类漏扫，而 Codex 无 PostToolUse，这张 Stop 网是它唯一的内容网。
-    # --relative 同时把范围收窄到 -C 的子树，与 ls-files（本就 cwd 相对）口径一致；同
-    # staged_markdown_warnings 与 JS 核 stagedMarkdownWarnings。
+    """Prose files changed this turn (git diff + untracked), used by the Stop
+    backstop — Codex has no PostToolUse, so the content net rescan runs on git's
+    change set at the Stop event. Non-git repos or no changes return empty
+    (best-effort)."""
+    # Both diff invocations must carry --relative (and -- .): without it git emits
+    # repo-root-relative paths, and when the project root is a subdirectory of the
+    # repo (.git above), root/rel composes a non-existent <root>/<proj>/<proj>/…
+    # path that exists() drops entirely — committed chapters' revisions would be
+    # missed wholesale, and Codex has no PostToolUse, so this Stop net is its only
+    # content net. --relative also narrows scope to the -C subtree, matching
+    # ls-files (already cwd-relative); same for staged_markdown_warnings and the
+    # JS core stagedMarkdownWarnings.
     out: list[Path] = []
     seen: set[str] = set()
     for args in (
@@ -385,41 +368,42 @@ def find_changed_prose_files(root: Path) -> list[Path]:
 
 
 def _wordcount_finding(abs_path: Path, text: str) -> str | None:
-    """字数欠账（仅长篇分章正文）：从 大纲/细纲_第N章*.md 读「字数目标」，实际 < 90% 提示。
-    与 check-prose-after-write.sh 内嵌 python / opencode wordcountFinding 同实现。"""
+    """Word-count debt (long-form chaptered prose only): read "Target words:" from
+    outline/outline_chapter_N*.md; actual < 90% is a hint. Same implementation as the
+    python embedded in check-prose-after-write.sh / opencode wordcountFinding."""
     base = abs_path.name
-    if abs_path.parent.name != "正文":
+    if abs_path.parent.name != "prose":
         return None
-    m = re.match(r"^第0*(\d+)章", base)
+    m = re.match(r"^chapter[_ ]?0*(\d+)", base, re.I)
     if not m:
         return None
     num = m.group(1)
     target = None
-    for f in (abs_path.parent.parent / "大纲").glob("细纲_第*章*.md"):
-        fm = re.search(r"细纲_第0*(\d+)章", f.name)
+    for f in (abs_path.parent.parent / "outline").glob("outline_chapter_*.md"):
+        fm = re.search(r"outline_chapter_0*(\d+)", f.name, re.I)
         if not fm or fm.group(1) != num:
             continue
         try:
             txt = f.read_text(encoding="utf-8")
         except Exception:
             continue
-        tm = re.search(r"字数目标[^0-9]{0,6}(\d{3,6})", txt)
+        tm = re.search(r"[Tt]arget words?:?\s*(\d{3,6})", txt)
         if tm:
             target = int(tm.group(1))
         break
     if not target:
         return None
-    actual = len(text)
+    actual = _word_count(text)
     if actual < target * 0.9:
-        return (f"字数：第{num}章 实际 {actual} 字 < 目标 {target} 的 90%（{int(target*0.9)}）。"
-                f"对照细纲字数预算定位欠账的密点、一次性重写到配额，别挤牙膏回炉。")
+        return (f"Word count: chapter {num} is {actual} words < 90% of the target {target} ({int(target*0.9)}). "
+                f"Locate the thin dense/light spots against the outline budget and rewrite once to quota — don't squeeze in piecemeal fixes.")
     return None
 
 
 def _discover_all_books(root: Path) -> list[Path]:
     books: list[Path] = []
     seen: set[str] = set()
-    for pattern in ("**/追踪", "**/正文", "**/正文.md"):
+    for pattern in ("**/tracking", "**/prose", "**/prose.md"):
         for hit in root.glob(pattern):
             if any(part.startswith(".") for part in hit.relative_to(root).parts):
                 continue
@@ -431,70 +415,20 @@ def _discover_all_books(root: Path) -> list[Path]:
     return books
 
 
-def tracking_checkpoint_issue(
-    book: Path,
-    *,
-    require_state: bool = False,
-    expected_last_committed: int | None = None,
-) -> str | None:
-    state = book / "追踪" / "_tracking-state.json"
-    if not state.exists():
-        if require_state:
-            return "追踪/_tracking-state.json 缺失；已有正文项目走 /story-import 的「旧追踪项目迁移」重建追踪（不必重跑全书拆解），新书先用 tracking_commit.py init 初始化"
-        return None
-    try:
-        document = json.loads(state.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, json.JSONDecodeError):
-        return "追踪/_tracking-state.json 无法解析；停止写正文并重新 /story-import，不能猜测或手补状态"
-    if not isinstance(document, dict) or document.get("schema_version") != 4:
-        return "追踪/_tracking-state.json 不是当前 schema_version=4；停止写正文并重新 /story-import，不保留旧结构兼容路径"
-    revision = document.get("state_revision")
-    if type(revision) is not int:
-        return "追踪/_tracking-state.json 缺少整数 state_revision；停止写正文并重新 /story-import"
-    context = book / "追踪" / "上下文.md"
-    context_revision = None
-    try:
-        match = re.search(r"状态修订：(\d+)", context.read_text(encoding="utf-8"))
-        if match:
-            context_revision = int(match.group(1))
-    except (OSError, UnicodeError):
-        pass
-    if context_revision != revision:
-        shown = "缺失" if context_revision is None else str(context_revision)
-        return (
-            f"追踪/上下文.md 状态修订 {shown} 与 _tracking-state.json 的 {revision} 不一致；"
-            "重新提交该章的 mode=revision 事务重建派生视图（expected_state_revision 取 追踪/_tracking-state.json 的 state_revision 字段（check 失败时不输出 JSON））"
-        )
-    if expected_last_committed is not None:
-        last_committed = document.get("last_committed_chapter")
-        if type(last_committed) is not int:
-            return "追踪/_tracking-state.json 缺少整数 last_committed_chapter；停止写正文并重新 /story-import"
-        # 章号已在追踪范围内 = 回炉/改名/留原稿备份，不是首建新章：文件名新但章节早已提交过，
-        # 顺序校验对它恒为假（workflow-revision 的「备份原稿」步骤必然命中），跳过。
-        if expected_last_committed < last_committed:
-            return None
-        if last_committed != expected_last_committed:
-            return (
-                f"追踪已提交到第{last_committed}章，首建第{expected_last_committed + 1}章前"
-                f"必须先提交第{expected_last_committed}章追踪事务"
-            )
-    return None
-
-
 def continuity_findings(root: Path) -> list[str]:
-    """跨批连续性兜底：① 追踪 staleness（写了章但 续写状态卡没跟上）；
-    ② 章节标题去重（两章同名多半是误复制）。模型无关，回合/会话边界提醒，无问题则静默。
-    扫描范围 repo-wide（与缺口检测一致），非活跃书也提醒——有意为之，不按 .active-book 收窄；
-    staleness 用 mtime +1 秒容差，是启发式 advisory（checkout / 带 -p 拷贝可能偏差）。"""
+    """Cross-batch continuity backstop: ① tracking staleness (chapters written but
+    context.md not updated → continuation loses continuity); ② duplicate chapter
+    titles (two chapters with the same name are usually a mistaken copy). Model-
+    independent reminders at turn/session boundaries; silent when clean.
+    Scans repo-wide (same as gap detection) — inactive books are flagged on purpose,
+    not narrowed by .active-book; staleness uses mtime +1s tolerance, a heuristic
+    advisory (checkout / -p copies can skew)."""
     msgs: list[str] = []
     for book in _discover_all_books(root):
-        body_dir = book / "正文"
-        chapters = sorted(body_dir.glob("第*章*.md")) if body_dir.is_dir() else []
-        # ① 追踪 staleness（仅长篇：有 追踪/上下文.md）
-        ctx = book / "追踪" / "上下文.md"
-        checkpoint_issue = tracking_checkpoint_issue(book, require_state=bool(chapters))
-        if checkpoint_issue:
-            msgs.append(f"[continuity] {safe_rel(root, book)}：{checkpoint_issue}。")
+        body_dir = book / "prose"
+        chapters = sorted(body_dir.glob("chapter*.md")) if body_dir.is_dir() else []
+        # ① tracking staleness (long-form only: has tracking/context.md)
+        ctx = book / "tracking" / "context.md"
         if chapters and ctx.exists():
             newest = max((c.stat().st_mtime for c in chapters), default=0)
             try:
@@ -503,20 +437,11 @@ def continuity_findings(root: Path) -> list[str]:
                 ctx_m = 0
             if newest > ctx_m + 1:
                 latest = max(chapters, key=lambda c: c.stat().st_mtime).name
-                msgs.append(f"[continuity] {safe_rel(root, book)}：正文已更新到「{latest}」但续写状态卡更早——为该章提交 tracking_commit.py 事务、check 通过后再续写，禁止分别手改 上下文.md/伏笔.md。")
-        # ①b 续写状态卡预算：上下文.md 由事务工具整份重建，硬上限 12288 字节。
-        # 若不处理，每章读取量会随章节数增长，最终达到 O(N^2)。这里只提醒、不阻止；应把超出规定的区块移到 追踪/逐章记录/。
-        if ctx.exists():
-            try:
-                ctx_size = ctx.stat().st_size
-            except Exception:
-                ctx_size = 0
-            if ctx_size > 12288:
-                msgs.append(f"[continuity] {safe_rel(root, book)}：追踪/上下文.md 已 {ctx_size} 字节，超出续写状态卡预算 12288 字节——提交一份 mode=revision 事务让 tracking_commit.py 整份重建，不要手改也不要继续追加。")
-        # ② 标题去重（按文件名 第N章_标题 的标题部分）
+                msgs.append(f"[continuity] {safe_rel(root, book)}: prose is ahead of tracking — latest is \"{latest}\" but tracking/context.md is older; continuation will lose continuity. Update tracking/context.md and tracking/foreshadowing.md before continuing.")
+        # ② title dedup (by the title part of chapter_N_Title)
         titles: dict[str, list[str]] = {}
         for c in chapters:
-            mt = re.match(r"^第0*\d+章[_\- 　]+(.+)$", c.stem)
+            mt = re.match(r"^chapter[_ ]?0*\d+[_\- ]+(.+)$", c.stem, re.I)
             if not mt:
                 continue
             key = mt.group(1).strip()
@@ -524,7 +449,7 @@ def continuity_findings(root: Path) -> list[str]:
                 titles.setdefault(key, []).append(c.name)
         for title, files in titles.items():
             if len(files) > 1:
-                msgs.append(f"[continuity] {safe_rel(root, book)}：{len(files)} 章标题重复「{title}」（{('、'.join(files))[:60]}），建议改名。")
+                msgs.append(f"[continuity] {safe_rel(root, book)}: {len(files)} chapters share the title \"{title}\" ({('，'.join(files))[:60]}), consider renaming.")
     return msgs
 
 
@@ -535,12 +460,12 @@ def session_start() -> None:
     if sentinel.exists():
         sent_text = sentinel.read_text(encoding="utf-8", errors="ignore")
         if "target_cli:" not in sent_text:
-            messages.append("[story-setup] .story-deployed 缺少 target_cli 字段；建议重新运行 $story-setup。")
+            messages.append("[story-setup] .story-deployed is missing the target_cli field; re-run $story-setup.")
         elif "codex" not in re.search(r"target_cli:\s*(.*)", sent_text).group(1):  # type: ignore[union-attr]
-            messages.append("[story-setup] 当前部署标记未包含 codex；如需 Codex hooks/agents，请重新运行 $story-setup 并选择 Codex。")
+            messages.append("[story-setup] the deployment marker does not include codex; re-run $story-setup and choose Codex to enable Codex hooks/agents.")
     book = read_active_book(root)
     if book:
-        ctx = book / "追踪" / "上下文.md"
+        ctx = book / "tracking" / "context.md"
         if ctx.exists():
             messages.append(f"[story context] Active book: {safe_rel(root, book)}. Read {safe_rel(root, ctx)} before continuing long-form writing.")
         else:
@@ -557,9 +482,11 @@ def resolve_target(root: Path, target: str, base: Path | None = None) -> Path:
 
 
 def _shell_words(segment: str) -> list[str]:
-    """引号感知的线性分词（与 JS 核 shellWords 同构，逐字对齐）：引号内原样取字（成对引号剥掉，
-    不闭合就取到段尾），只按 ASCII 空白（空格/Tab/CR/LF）分词——U+3000 不是 shell 分词符，故不切。
-    不解 \\ 转义：resolve_target 把 \\ 当路径分隔符（Windows 路径）。"""
+    """Quote-aware linear word splitter (isomorphic to the JS core shellWords,
+    char-by-char aligned): quoted spans copied verbatim (paired quotes stripped,
+    unclosed runs to segment end), ASCII whitespace (space/Tab/CR/LF) splits —
+    U+3000 is not a shell word splitter, so it does not split. No \\ unescaping:
+    resolve_target treats \\ as a path separator (Windows paths)."""
     words: list[str] = []
     current = ""
     started = False
@@ -589,7 +516,8 @@ def _shell_words(segment: str) -> list[str]:
 
 
 def _shell_segments(command: str) -> list[str]:
-    """只在引号外按 shell 控制符切段；保留引号交给 _shell_words 去除。"""
+    """Split on shell control chars outside quotes only; quotes are kept for
+    _shell_words to remove."""
     segments: list[str] = []
     current = ""
     quote = ""
@@ -615,7 +543,8 @@ def _shell_segments(command: str) -> list[str]:
 
 
 def _before_shell_redirection(segment: str) -> str:
-    """去掉首个引号外重定向及其后内容；2> 里的 fd 数字也一并去掉。"""
+    """Drop the first outside-quote redirection and everything after it; the fd
+    digits of 2> are dropped too."""
     current = ""
     quote = ""
     for ch in segment:
@@ -635,18 +564,17 @@ def _before_shell_redirection(segment: str) -> str:
 
 
 def extract_prose_targets_from_command(command: str) -> list[str]:
-    # Only treat a 正文 path as a write target when it is the destination of an actual
+    # Only treat a prose path as a write target when it is the destination of an actual
     # write op (redirection / tee / touch / cp|mv dest). Scanning the whole command would
     # flag any heredoc body, doc string, or grep pattern that merely *mentions*
-    # 正文/第N章.md and wrongly deny the edit.
-    # 目标 token 三形态（引号段优先）：双引号段 / 单引号段 / 裸词。此前只有一个把引号排除在字符类外
-    # 的裸词式，带空格的引号目标（> "my book/正文/第1章.md"）整条命令抽不到目标就静默放行。
-    # 裸词类只排 ASCII 空白（空格/Tab/CR/LF，shell 真正的分词符）：\s 在 python 与 js 都含 U+3000，
-    # 而全角空格不分词，用 \s 会把「第003章　开局.md」截成「第003章」而漏拦（本项目章名分隔符
-    # [_\- 　] 自带全角空格）。反斜杠转义空格（my\ book）仍不认——resolve_target 把 \ 归一成路径
-    # 分隔符（Windows 路径），在此解转义会反过来毁掉 book\正文\第1章.md。
+    # prose/chapter_N.md and wrongly deny the edit.
+    # Target tokens come in three shapes (quoted spans win): double-quoted / single-quoted /
+    # bare word. The bare class only excludes ASCII whitespace (space/Tab/CR/LF, the shell's
+    # real word splitters): \s in both python and js includes U+3000, and a full-width space
+    # does not split shell words. Backslash-escaped spaces are still not supported —
+    # resolve_target normalizes \ to path separators (Windows paths).
     bare = "[^ \t\r\n\"'<>|;&()]"
-    token = "\"([^\"]*正文[^\"]*)\"|'([^']*正文[^']*)'|['\"]?(" + bare + "*正文" + bare + "*)['\"]?"
+    token = "\"([^\"]*prose[^\"]*)\"|'([^']*prose[^']*)'|['\"]?(" + bare + "*prose" + bare + "*)['\"]?"
     targets: list[str] = []
     for m in re.finditer(r">>?\s*(?:" + token + ")", command):  # > dest, >> dest, cat >dest
         targets.append(m.group(1) or m.group(2) or m.group(3))
@@ -655,32 +583,38 @@ def extract_prose_targets_from_command(command: str) -> list[str]:
     for m in re.finditer(r"(?:^|[\s;&|(){}<>])(?:tee(?:\s+-a)?|touch)\s+(?:" + token + ")", command):
         targets.append(m.group(1) or m.group(2) or m.group(3))
     # cp/mv: the write destination is the last positional arg of the segment. Parse it (regex can't
-    # tell a 正文 source from a 正文 dest, and a trailing 2>/dev/null / >log / || breaks end-anchoring).
+    # tell a prose source from a prose dest, and a trailing 2>/dev/null / >log / || breaks end-anchoring).
     for raw_segment in _shell_segments(command):
         seg = _before_shell_redirection(raw_segment)
-        # 引号感知分词（同 JS 核 shellWords）：str.split() 会按 U+3000 和引号内空格切碎目标，
-        # 末位取到 book/正文/第1章.md —— 判到另一本书上（那本有细纲就直接放行）。
+        # Quote-aware splitting (same as the JS core shellWords): str.split() would chop
+        # targets on U+3000 and spaces inside quotes, taking the last piece and judging
+        # it against another book (one that has the outline and passes).
         words = _shell_words(seg)
         if len(words) >= 2 and words[0] in ("cp", "mv"):
             positionals = [w for w in words[1:] if not w.startswith("-")]
-            if positionals and "正文" in positionals[-1]:
+            if positionals and "prose" in positionals[-1]:
                 targets.append(positionals[-1])
     return [t for t in targets if t]
 
 
 def extract_apply_patch_targets(command: str) -> list[str]:
-    # 与 JS 共享核 extractPatchTargets 逐字同构（parity 由 test-prose-net-parity.sh 的命令函数
-    # fixture 锁）。只认 Add/Update 会漏掉 `*** Move to:`——它是 Update File 段的子指令
-    # （apply_patch 的改名/搬家形态），落盘路径是**目的地**，源路径搬完就不存在了：一份没细纲的
-    # 草稿曾能靠 `Update File: draft.md` + `Move to: 书/正文/第9章.md` 直接搬进 正文/（细纲门放行、
-    # 写后兜底网扫的还是已不存在的源）。故 Move 用目的地**顶替**同段的源目标。
-    # Delete File 一律不入表：删除不是写入，prose_block_reason 对已存在的正文本就放行、删完文件
-    # 也不在了没东西可扫，认它只会给「删稿」误报；但 Delete 段也能带 Move to（搬走后删源），
-    # 那条 Move 的目的地照样要进表，故 Delete 只清掉待顶替的源槽位。
+    # Char-by-char isomorphic with the JS shared core extractPatchTargets (parity locked
+    # by test-prose-net-parity.sh command-function fixtures). Only Add/Update would miss
+    # `*** Move to:` — a sub-directive of the Update File section (apply_patch's
+    # rename/move form) whose written path is the *destination*; the source no longer
+    # exists after the move: a draft without an outline once moved straight into
+    # prose/ via `Update File: draft.md` + `Move to: book/prose/chapter_9.md` (the
+    # outline gate passed and the after-write net scanned a source that no longer
+    # exists). So Move *replaces* the same section's source target.
+    # Delete File never enters the table: deletion is not a write, prose_block_reason
+    # already passes for existing prose and there is nothing to scan after deletion;
+    # but a Delete section can still carry Move to (move then delete source), so Delete
+    # only clears the source slot pending replacement.
     targets: list[str] = []
     source_index = -1
     for line in command.splitlines():
-        # 控制行必须从第 0 列开始；前导空格是 apply_patch 的上下文 marker，不能 strip 掉。
+        # Control lines must start at column 0; a leading space is apply_patch's
+        # context marker and must not be stripped.
         m = re.match(r"^\*\*\* (Add|Update|Delete) File: (.+)$", line)
         if m:
             if m.group(1) == "Delete":
@@ -732,72 +666,60 @@ def target_paths_from_hook(obj: dict[str, Any]) -> list[Path]:
 def prose_block_reason(root: Path, abs_path: Path) -> str | None:
     base = abs_path.name
     parent = abs_path.parent.name
-    if base == "正文.md":
+    if base == "prose.md":
         if abs_path.exists():
             return None
         book_dir = abs_path.parent
-        if (root / "拆文库" / book_dir.name).exists():
+        if (root / "teardown-lib" / book_dir.name).exists():
             return None
-        if not (book_dir / "设定.md").exists():
+        if not (book_dir / "setting.md").exists():
             return None
-        if not (book_dir / "小节大纲.md").exists():
-            # 文案对齐 JS core proseBlockReason（py↔js 由 test-prose-net-parity.sh Part E 锁 parity）
-            return f"⛔ 写正文被拦截：{safe_rel(root, abs_path)} 缺少同目录 小节大纲.md。先按 story-short-write 完成「小节大纲.md」再写正文。"
+        if not (book_dir / "section-outline.md").exists():
+            # copy aligned with the JS core proseBlockReason (py↔js locked by
+            # test-prose-net-parity.sh Part E)
+            return f"⛔ Prose blocked: {safe_rel(root, abs_path)} is missing section-outline.md in the same directory. Finish \"section-outline.md\" per story-short-write before writing prose."
         return None
-    if parent != "正文":
+    if parent != "prose":
         return None
-    if not re.match(r"^第.*章.*\.md$", base):
+    if not re.match(r"^chapter.*\.md$", base, re.I):
         return None
-    m = re.match(r"^第0*(\d+)章", base)
+    if abs_path.exists():
+        return None
+    m = re.match(r"^chapter[_ ]?0*(\d+)", base, re.I)
     if not m:
         return None
     num = m.group(1)
     book_dir = abs_path.parent.parent
-    # 新书可能在任何大纲/追踪/设定脚手架存在前就首建正文；核心守卫必须 fail closed。
-    # 相对路径由 HOOK_CWD 解析，不能靠削弱这条 canonical guard 来掩盖 cwd 语义。
-    state = book_dir / "追踪" / "_tracking-state.json"
-    # story-import 在复制既有正文、尚未执行 tracking init 的窗口可以写；一旦 state 存在，
-    # 即进入当前追踪协议，不再因为保留了 拆文库/ 分析资产而永久绕过守卫。
-    if (root / "拆文库" / book_dir.name).exists() and not state.exists():
+    # A new book may first-build prose before any outline/tracking/setting scaffolding
+    # exists; the core guard must fail closed. Relative paths are resolved by
+    # HOOK_CWD — don't weaken this canonical guard to mask cwd semantics.
+    if (root / "teardown-lib" / book_dir.name).exists():
         return None
-    exists = abs_path.exists()
-    outline_dir = book_dir / "大纲"
+    outline_dir = book_dir / "outline"
     found = False
-    if not exists:
-        if outline_dir.is_dir():
-            for candidate in outline_dir.iterdir():
-                fm = re.match(r"^细纲_第0*(\d+)章.*\.md$", candidate.name)
-                if fm and fm.group(1) == num:
-                    found = True
-                    break
-        if not found:
-            return f"⛔ 写正文被拦截：第 {num} 章缺少细纲（{safe_rel(root, outline_dir)}/细纲_第{num}章.md）。先按 story-long-write 单章流程补建细纲再写正文。"
-    checkpoint_issue = tracking_checkpoint_issue(
-        book_dir,
-        require_state=True,
-        expected_last_committed=None if exists else int(num) - 1,
-    )
-    if checkpoint_issue:
-        return f"⛔ 写正文被拦截：{safe_rel(root, book_dir)} 的{checkpoint_issue}。"
-    if exists:
-        return None
-    # 欠账门（无状态）：写第 N 章（首建）前，上一章有未清毒句式且未标「去味:跳过」豁免时先清再写。
-    # 判据现算自上一章文件本身，不落任何状态文件；找不到上一章/读取失败一律放行（宁可漏拦不可误伤）。
-    # js↔py 文案由 check-hook-regex-sync.sh 锁同步，判定由 test-prose-net-parity.sh Part E 锁 parity。
+    if outline_dir.is_dir():
+        for candidate in outline_dir.iterdir():
+            fm = re.match(r"^outline_chapter_0*(\d+).*\.md$", candidate.name, re.I)
+            if fm and fm.group(1) == num:
+                found = True
+                break
+    if not found:
+        return f"⛔ Prose blocked: chapter {num} has no chapter outline ({safe_rel(root, outline_dir)}/outline_chapter_{num}.md). Build the chapter outline per story-long-write before writing prose."
+    # Debt gate (stateless): before first-writing chapter N, if the previous chapter
+    # has uncleared toxic patterns and no "deslop:skip" exemption, clear them first.
+    # The check is computed from the previous chapter file itself; a missing/unreadable
+    # previous chapter passes (miss over false-hit).
+    # js↔py copy is locked by check-hook-regex-sync.sh; judgment by
+    # test-prose-net-parity.sh Part E.
     prev_num = int(num) - 1
     if prev_num >= 1:
         prev_file = None
         try:
-            # iterdir 顺序在 ext4/overlayfs 上是哈希序：不排序就可能挑中同章号的原稿备份
-            # （workflow-revision 的「备份原稿」产物），拿早已被改写掉的旧文本报欠账。
-            # 显式排除 _原稿_ 备份并排序，保证四端与各文件系统上取到同一个「上一章」。
-            candidates = sorted(
-                c for c in abs_path.parent.iterdir()
-                if re.match(r"^第0*(\d+)章.*\.md$", c.name)
-                and int(re.match(r"^第0*(\d+)章", c.name).group(1)) == prev_num
-                and "_原稿_" not in c.name
-            )
-            prev_file = candidates[0] if candidates else None
+            for candidate in abs_path.parent.iterdir():
+                pm = re.match(r"^chapter[_ ]?0*(\d+).*\.md$", candidate.name, re.I)
+                if pm and int(pm.group(1)) == prev_num:
+                    prev_file = candidate
+                    break
         except OSError:
             prev_file = None
         if prev_file is not None:
@@ -806,18 +728,18 @@ def prose_block_reason(root: Path, abs_path: Path) -> str | None:
                 prev_text = prev_file.read_text(encoding="utf-8", errors="replace")
             except OSError:
                 prev_text = None
-            if prev_text is not None and not re.search(r"去味(：|:)跳过", "\n".join(re.split(r"\r?\n", prev_text)[:6])):
-                hits = [ln for ln in toxic_phrase_findings(prev_text) if ln.startswith("第")]
+            if prev_text is not None and not re.search(r"deslop\s*:\s*skip", "\n".join(re.split(r"\r?\n", prev_text)[:6]), re.I):
+                hits = [ln for ln in toxic_phrase_findings(prev_text) if ln.startswith("Line ")]
                 if hits:
                     shown = hits[:6]
                     more = len(hits) - len(shown)
                     reason = (
-                        f"⛔ 写正文被拦截：上一章（{prev_file.name}）有 {len(hits)} 处未清毒句式欠账，"
-                        f"先清零再写第 {num} 章；用户显式豁免时在上一章标题行下加 <!-- 去味:跳过 --> 后重试。\n"
+                        f"⛔ Prose blocked: the previous chapter ({prev_file.name}) still has {len(hits)} uncleared toxic patterns; "
+                        f"clear them before writing chapter {num}. To exempt explicitly, add <!-- deslop:skip --> under the previous chapter's title line and retry.\n"
                         + "\n".join(shown)
                     )
                     if more > 0:
-                        reason += f"\n（另有 {more} 处，完整扫描：node <skill>/scripts/check-ai-patterns.js --check 上一章文件）"
+                        reason += f"\n({more} more; full scan: node <skill>/scripts/check-ai-patterns.js --check <previous chapter file>)"
                     return reason
     return None
 
@@ -934,34 +856,43 @@ def is_git_commit_command(raw: str) -> bool:
     return False
 
 
-# 设定/ 直属的项目级设定件：artifact-protocols.md 规定的 关系.md（正文是「# 角色关系图」）、
-# 题材定位.md，以及 文风.md、题材正文提示卡.md 等，它们本来就没有 名字/姓名 字段。
-_SETTING_NON_CHARACTER_FILES = {"关系.md", "题材定位.md", "题材正文提示卡.md", "文风.md", "世界规则.md", "世界观.md", "金手指.md", "背景设定.md"}
+# Project-level setting files directly under setting/: artifact-protocols.md defines
+# relationships.md (body is "# Character Relationship Map"), genre-positioning.md,
+# style.md, genre-prose-card.md — these have no name field by design.
+_SETTING_NON_CHARACTER_FILES = {"relationships.md", "genre-positioning.md", "genre-prose-card.md", "style.md", "world-rules.md", "worldview.md", "cheat.md", "background.md"}
 
 
 def _is_character_sheet_path(rel: str) -> bool:
-    """只查角色卡：整棵 设定/ 一刀切会让每次碰设定的提交都刷一屏假警告，把同框的
-    「正文硬编码角色属性」真警告埋掉。判定口径与 validate-story-commit.sh / opencode
-    pre-commit.sh 的 case 分支一一对齐（bash↔js↔py 四端同口径，别单边改回一刀切）：
-    ① 设定/角色|人物 子目录内的文件 → 角色卡；
-    ② 其余 设定/<子目录>/ → 整目录跳过（世界观/势力/报告/原理/人物关系 等）；
-    ③ 设定/ 直属的扁平文件 → 除已知项目级设定件外都算角色卡（主角.md/配角.md/反派.md 等自定义命名）。
-    bash 的 `*` 跨 `/` 匹配，`设定/角色/*|*/设定/角色/*` 等价于「路径里存在某个 设定 目录段满足该
-    分支」，所以两趟扫描（先全路径找分支①，再全路径找分支②）而不是只看第一个 设定 段就定分支——
-    后者在 设定/其他/设定/角色/x.md 这类嵌套路径上会与 bash 判定分叉。
-    与 JS core isCharacterSheetPath 同实现，py↔js 由 scripts/test-prose-net-parity.sh Part E 锁 parity。"""
+    """Only character sheets are checked: scanning the whole setting/ tree would
+    flood every commit touching setting/ with false warnings and bury real
+    "hardcoded character attributes in prose" warnings. Matches the case branches
+    in validate-story-commit.sh / opencode pre-commit.sh (bash↔js↔py four-end
+    parity, don't unilaterally revert to one-shot):
+    ① files inside a setting/characters|people subdirectory → character sheet;
+    ② anything else under a setting/<subdir>/ → whole directory skipped
+       (worldview/factions/reports/principles/relationships etc.);
+    ③ flat files directly under setting/ → character sheets except the known
+       project-level files (protagonist.md/side-character.md/villain.md etc.).
+    bash's `*` matches across `/`, so `setting/characters/*|*/setting/characters/*`
+    means "some setting segment satisfies the branch" — hence two passes (first find
+    branch ① across the path, then branch ②) rather than judging by the first
+    setting segment, which would diverge from bash on nested paths like
+    setting/other/setting/characters/x.md.
+    Same implementation as the JS core isCharacterSheetPath; py↔js locked by
+    scripts/test-prose-net-parity.sh Part E."""
     segments = rel.split("/")
     last = len(segments) - 1
-    # 分支①：某个 设定 段紧跟 角色/人物，且其下还有文件段
+    # Branch ①: some setting segment is followed by characters/people with a file under it
     for i in range(last - 1):
-        if segments[i] == "设定" and segments[i + 1] in ("角色", "人物"):
+        if segments[i] == "setting" and segments[i + 1] in ("characters", "people"):
             return True
-    # 分支②：某个 设定 段后还有 ≥2 段，即落在非角色子目录里
+    # Branch ②: some setting segment has >=2 segments after it, i.e. a non-character subdir
     for i in range(last - 1):
-        if segments[i] == "设定":
+        if segments[i] == "setting":
             return False
-    # 分支③：设定 直属扁平文件（分支②已排掉更深的路径，设定 段只能是倒数第二段）
-    return last >= 1 and segments[last - 1] == "设定" and segments[last] not in _SETTING_NON_CHARACTER_FILES
+    # Branch ③: flat files directly under setting/ (branch ② already excluded deeper
+    # paths, so the setting segment can only be the second-to-last)
+    return last >= 1 and segments[last - 1] == "setting" and segments[last] not in _SETTING_NON_CHARACTER_FILES
 
 
 def staged_markdown_warnings(root: Path) -> str:
@@ -985,19 +916,20 @@ def staged_markdown_warnings(root: Path) -> str:
         if not full.exists():
             continue
         text = full.read_text(encoding="utf-8", errors="ignore")
-        # 匹配语义与警告文案对齐 JS core（story_hook_core.js stagedMarkdownWarnings，跨 CLI 的
-        # 权威实现）：name 字段 re.I 大小写不敏感、中文文案。py↔js 由
-        # scripts/test-prose-net-parity.sh Part E 锁 parity。
-        if file == "正文.md" or "/正文.md" in file or file.startswith("正文/") or "/正文/" in file:
+        # Match semantics and warning copy aligned with the JS core
+        # (story_hook_core.js stagedMarkdownWarnings, the cross-CLI authoritative
+        # implementation): name field re.I case-insensitive. py↔js locked by
+        # scripts/test-prose-net-parity.sh Part E.
+        if file == "prose.md" or "/prose.md" in file or file.startswith("prose/") or "/prose/" in file:
             hits = []
             for idx, line in enumerate(text.splitlines(), 1):
-                if re.search(r"(身高|体重|年龄)(\s|　)*(：|:)(\s|　)*[0-9]+", line):
+                if re.search(r"\b(height|weight|age)\b(\s)*(:)(\s)*[0-9]+", line, re.I):
                     hits.append(f"{idx}:{line}")
             if hits:
-                warnings.append(f"⚠ {file}: 正文硬编码角色属性，应引用设定文件：\n" + "\n".join(hits))
+                warnings.append(f"⚠ {file}: prose hardcodes character attributes; reference the setting file instead:\n" + "\n".join(hits))
         if _is_character_sheet_path(file):
-            if not re.search(r"^(\s|　)*(名字|姓名|名称|name)(\s|　)*(：|:)", text, re.M | re.I):
-                warnings.append(f"⚠ {file}: 设定文件缺少 name/名字 必填字段。")
+            if not re.search(r"^(\s)*(name)(\s)*(:)", text, re.M | re.I):
+                warnings.append(f"⚠ {file}: setting file is missing the required name field.")
     if not warnings:
         return ""
     return "=== Story Commit Warnings（advisory only）===\n" + "\n".join(warnings) + "\n=== End Warnings ==="
@@ -1017,7 +949,7 @@ def compact_summary(event: str) -> None:
     lines = ["=== Story Compact Summary ==="]
     book = read_active_book(root)
     if book:
-        ctx = book / "追踪" / "上下文.md"
+        ctx = book / "tracking" / "context.md"
         if ctx.exists():
             line_count = len(ctx.read_text(encoding="utf-8", errors="ignore").splitlines())
             lines.append(f"Writing context: {safe_rel(root, ctx)} ({line_count} lines)")
@@ -1026,10 +958,11 @@ def compact_summary(event: str) -> None:
     else:
         lines.append("Active state: not found")
     try:
-        # -z + bytes so a Chinese filename under a user-global core.quotepath=false can't raise
-        # UnicodeDecodeError on a Windows ANSI code page (these are counts only).
-        # --relative -- . 把计数收窄到项目根子树：项目根是仓库子目录时，不带它会把上层整仓的
-        # 改动都算进来（同 find_changed_prose_files / staged_markdown_warnings 的口径）。
+        # -z + bytes so a non-ASCII filename under a user-global core.quotepath=false
+        # can't raise UnicodeDecodeError on a Windows ANSI code page (counts only).
+        # --relative -- . narrows counts to the project subtree: when the project root
+        # is a subdirectory of the repo, omitting it would count the whole upper repo
+        # (same stance as find_changed_prose_files / staged_markdown_warnings).
         changed = subprocess.check_output(["git", "-C", str(root), "-c", "core.quotepath=false", "diff", "--relative", "--name-only", "-z", "--", "."], stderr=subprocess.DEVNULL)
         staged = subprocess.check_output(["git", "-C", str(root), "-c", "core.quotepath=false", "diff", "--relative", "--name-only", "--cached", "-z", "--", "."], stderr=subprocess.DEVNULL)
         n_changed = len([x for x in changed.split(b"\0") if x])
@@ -1041,9 +974,10 @@ def compact_summary(event: str) -> None:
 
 
 def stop_event() -> None:
-    # Codex 无 PostToolUse，正文内容网在回合结束的 Stop 事件兜底：对本回合 git 改动过的正文
-    # 复扫硬信号（截断/拒绝语/工程词/复读）。非阻塞、无发现静默；解析失败一律 {continue:True}。
-    # Stop hooks require JSON on stdout.
+    # Codex has no PostToolUse; the prose content net runs at the turn-ending Stop
+    # event, rescanning hard signals (truncation/refusal/engineering words/repeat)
+    # on this turn's git-changed prose. Non-blocking, silent when clean; parse
+    # failures always {continue:True}. Stop hooks require JSON on stdout.
     try:
         root = project_root()
         blocks: list[str] = []
@@ -1061,7 +995,7 @@ def stop_event() -> None:
         if blocks:
             emit({
                 "continue": True,
-                "systemMessage": "=== 正文兜底检测（回合结束复扫，模型无关）===\n硬信号命中即回正文改掉、复扫到净：\n"
+                "systemMessage": "=== Prose backstop check (turn-end rescan, model-independent) ===\nHard signals: fix them in the prose and rescan to clean:\n"
                 + "\n".join(blocks),
             })
             return

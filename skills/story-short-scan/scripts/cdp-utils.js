@@ -1,10 +1,10 @@
 /**
- * CDP 工具函数 — 各平台采集脚本的公共依赖
+ * CDP utility functions — shared dependency for scraping scripts across platforms
  *
- * 使用方式：
+ * Usage:
  *   const { ab, sleep, evalJSON, evalJSONBase64, scrollLoad, getArg, safeStr, localDateStamp } = require("./cdp-utils");
  *
- * 前置：
+ * Prerequisites:
  *   node {SKILL_DIR}/browser-cdp/scripts/setup-cdp-chrome.js 9222
  */
 
@@ -73,14 +73,14 @@ function buildAgentBrowserInvocation(port, args, platform = process.platform) {
 }
 
 // ---------------------------------------------------------------------------
-// agent-browser 工具函数
+// agent-browser utility functions
 // ---------------------------------------------------------------------------
 
 /**
- * 调用 agent-browser CLI
- * @param {number} port - CDP 端口
- * @param  {...string} args - agent-browser 参数
- * @returns {string} stdout（trim 后）
+ * Invoke the agent-browser CLI
+ * @param {number} port - CDP port
+ * @param  {...string} args - agent-browser arguments
+ * @returns {string} stdout (trimmed)
  */
 function ab(port, ...args) {
   const invocation = buildAgentBrowserInvocation(port, args);
@@ -103,7 +103,7 @@ function ab(port, ...args) {
   }
 }
 
-/** 等待 ms 毫秒（跨平台，不依赖系统 sleep 命令） */
+/** Wait ms milliseconds (cross-platform, independent of the system sleep command) */
 function sleep(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
@@ -126,17 +126,19 @@ function parseJSONResult(raw) {
 }
 
 /**
- * 在浏览器内执行 JS，并解析 JSON 返回值。
- * 一律走 base64（-b）：正文提取用的 JS 常含引号、反斜杠等，作为命令行参数时在 Windows 上
- * 无法逐字透传（.cmd 的 %* 与 PowerShell 都会二次解析）。base64 让参数只含 [A-Za-z0-9+/=]，
- * 和各采集脚本已在用的 evalJSONBase64 走同一条安全通道。
+ * Execute JS inside the browser and parse the JSON return value.
+ * Always routes through base64 (-b): scraping JS often contains quotes, backslashes, etc. that
+ * cannot be passed verbatim as command-line arguments on Windows (.cmd's %* and PowerShell both
+ * re-parse them). base64 keeps the argument to [A-Za-z0-9+/=] only, sharing the same safe channel
+ * as evalJSONBase64 already used by the scraping scripts.
  */
 function evalJSON(port, js) {
   return evalJSONBase64(port, js);
 }
 
 /**
- * 通过 agent-browser 的 base64 参数执行复杂 JS，避免命令行转义和参数边界问题。
+ * Execute complex JS via agent-browser's base64 argument, avoiding command-line escaping
+ * and argument boundary issues.
  */
 function evalJSONBase64(port, js) {
   const encoded = Buffer.from(String(js), "utf8").toString("base64");
@@ -144,20 +146,21 @@ function evalJSONBase64(port, js) {
 }
 
 /**
- * 安全地将值插入浏览器 eval 字符串。
- * 使用 JSON.stringify 确保值不会因特殊字符（引号、反斜杠等）破坏 eval 字符串。
- * @param {*} val - 要插入的值
- * @returns {string} JSON 字符串表示（含引号）
+ * Safely insert a value into a browser eval string.
+ * Uses JSON.stringify so the value cannot break the eval string with special characters
+ * (quotes, backslashes, etc.).
+ * @param {*} val - The value to insert
+ * @returns {string} JSON string representation (with quotes)
  */
 function safeStr(val) {
   return JSON.stringify(String(val));
 }
 
 /**
- * 滚动页面加载更多内容
- * @param {number} port - CDP 端口
- * @param {number} times - 滚动次数
- * @param {number} [interval=1000] - 每次滚动间隔（ms）
+ * Scroll the page to load more content
+ * @param {number} port - CDP port
+ * @param {number} times - Number of scrolls
+ * @param {number} [interval=1000] - Interval between scrolls (ms)
  */
 function scrollLoad(port, times, interval = 1000) {
   for (let i = 0; i < times; i++) {
@@ -166,7 +169,7 @@ function scrollLoad(port, times, interval = 1000) {
   }
 }
 
-/** 解析 --xxx 参数 */
+/** Parse --xxx style arguments */
 function getArg(args, name) {
   const i = args.indexOf(name);
   if (i >= 0) return i + 1 < args.length ? args[i + 1] : null;
@@ -176,11 +179,12 @@ function getArg(args, name) {
 }
 
 /**
- * 输出文件名用的日期戳（YYYYMMDD），一律取**本地日历日**。
- * 不能用 new Date().toISOString().slice(0,10)：那是 UTC 日期，比 UTC+8 晚 8 小时。
- * 文件名是各采集脚本唯一的去重键（一个榜单一天一份），北京时间 00:00-08:00 之间的采集
- * 会退回「昨天」的文件名，静默覆盖前一晚采到的同名报告，且这份数据被标成前一天。
- * @param {Date} [date] - 默认当前时间
+ * Date stamp for output filenames (YYYYMMDD), always the **local calendar day**.
+ * Do not use new Date().toISOString().slice(0,10): that is the UTC date, 8 hours behind UTC+8.
+ * Filenames are the sole dedup key for scraping scripts (one report per ranking per day); a scrape
+ * between Beijing time 00:00-08:00 would fall back to "yesterday"'s filename, silently overwriting
+ * the same-named report collected the night before, and the data would be labeled as the previous day.
+ * @param {Date} [date] - Defaults to the current time
  * @returns {string} YYYYMMDD
  */
 function localDateStamp(date) {
