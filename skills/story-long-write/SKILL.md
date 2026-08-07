@@ -70,6 +70,11 @@ When the scenario is unclear, list the scenario table above and let the user pic
 
 **Check topic decision first**: if `topic-decision.md` exists at the project root (produced by story-long-scan Phase 5, moved in before opening the book), read it — take the top-ranked recommendation (highest feasibility) as the opening topic, confirm with the user: "The scan suggests writing X (why it could hit: Y, differentiation: Z). Open the book on this?" Also check the `scan date`: if it is old, note "market data may be stale, consider rescanning". On user agreement → enter Phase 2 with that topic's genre/selling point/differentiation. If missing, ask once: "Is there a `topic-decision.md` from a scan? Put it at the project root or paste the path; if not, answer the questions below." If still none, use the normal questions below.
 
+**Topic-decision lifecycle rules (multi-book safety)**:
+1. **Book-level lookup first**: if the current book directory already contains `topic-decision.md` (e.g., re-opening the same book later), read that copy instead of the project-root one.
+2. **Leftover detection**: if the project-root `topic-decision.md` exists AND a copy already exists inside any other book directory, it is a leftover from a previous book — do not auto-offer it; ask the user whether to reuse it for this book, remove it, or skip to the normal questions.
+3. **Archive on use**: once the user confirms a topic taken from the project-root `topic-decision.md`, move the file into the book directory as `{BookTitle}/topic-decision.md` and do not leave a copy at the project root — otherwise it will be re-offered to every future book opening.
+
 If the user already has a direction → skip the direction questions below, but still do the "benchmark context load" (including benchmark findings) before Phase 2.
 
 If the user has no direction:
@@ -114,6 +119,35 @@ story-architect is a high-level structural design agent. Lightweight genre posit
 > - **Reader contract & protagonist agency**: the protagonist is irreplaceable in causal rights (decisions / setups / delegations / key information determine how things happen and turn) plus settlement rights (core benefits/recognition return to the deserved party per the promise); the protagonist need not do everything personally. Side characters may execute local actions but must not silently steal promised highlights/benefits.
 > - **Key-node four questions** (ask when designing key nodes): ① Who decides why things happen / how they enter? ② Who makes the irreplaceable key choice? ③ Who bears or chooses the key consequence? ④ To whom are the core benefits/recognition/power finally settled?
 > - The full rules are governed by `references/reader-contract-and-progression.md` loaded in the main session; this is only a compressed version for story-architect; the agent does not have the file deployed and cannot read it itself.
+
+---
+
+### Phase 1.5: Book language & book-level AGENTS.md (new books, mandatory)
+
+When opening a **new** book (no `{BookTitle}/` directory yet), before any book files are written, use `AskUserQuestion` to confirm two language settings — do not guess:
+
+1. **Prose language**: 中文 / English
+2. **Record language** (outline, setting, tracking, reports): 中文 / English
+
+Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
+
+```markdown
+# {BookTitle} — Book-level instructions
+
+## Language rules (mandatory)
+- Prose language: {zh | en}
+- Record language (outline / setting / tracking / reports): {zh | en}
+- All story-* outputs for this book must follow these languages; do not switch on your own.
+
+## Book identity
+- Title: {title}
+- Genre: {genre}
+- Protagonist: {name}
+```
+
+- ZCode sessions opened inside the book directory load this file automatically; other CLIs treat it as the book's ground rules.
+- Phase 4 prose must follow its `Prose language`; all outline/setting/tracking/report outputs (Phase 2–5) must follow its `Record language`.
+- If the book directory already has an AGENTS.md (re-open scenario), keep it — only regenerate when the user explicitly asks.
 
 ---
 
@@ -691,4 +725,4 @@ Some topics span multiple phases and live in several files. The table below give
 
 ## Language
 
-- Follow the user's language. English prose follows the house style rules in references/anti-ai-writing.md; keep sentences conversational, concrete, and free of AI-flavor patterns.
+- Follow the book's language rules: read `{BookTitle}/AGENTS.md` — `Prose language` governs prose drafting (English prose follows the house style rules in references/anti-ai-writing.md; keep sentences conversational, concrete, and free of AI-flavor patterns), `Record language` governs outline/setting/tracking/report outputs. If the book has no AGENTS.md, follow the user's language.
