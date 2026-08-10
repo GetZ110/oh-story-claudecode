@@ -137,7 +137,7 @@ Migrate the source into the single file `prose.md`, normalized per `format-and-s
 |------------|-------------|
 | Episode markers | `###1.` `###2.` `###3.` (the general short-form format; when the user specifies a platform, switch per the platform override table in `format-and-structure.md`) |
 | Paragraph splits | break naturally by dramatic unit/shot/one-completed-thing; no forced splits by fixed word counts; complete reasoning, atmosphere, and emotional chains may keep slightly longer paragraphs; avoid uniform lengths or outline-shattering |
-| Blank lines between paragraphs | adjacent body paragraphs allow **exactly one line break `\n`**; no blank lines or `\n\n` |
+| Blank lines between paragraphs | adjacent body paragraphs use **exactly one blank line (`\n\n`)**; no extra blank-line runs |
 | Dialogue quotes | default curly double quotes `""`; straight quotes or corner brackets per platform/user specification |
 | Indentation | none; no full/half-width spaces |
 | Markdown | no `**` `*` `#` `---` Markdown syntax in body paragraphs (except the episode markers) |

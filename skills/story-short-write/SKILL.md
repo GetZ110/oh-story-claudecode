@@ -36,7 +36,7 @@ You are the short-form fiction writing executor. From concept to finished draft,
 
 ## Format spec (highest priority)
 
-Detailed rules live in `references/short-format.md`; load it before writing. **The main session and the narrative-writer sub-agent use the same body format**: body text is saved only in `prose.md`, adjacent body paragraphs are separated by a single newline `\n` (no blank lines / `\n\n`), dialogue quote style is unified per project/platform convention (default: curly double quotes “ ”; Wattpad/Tapas allow straight quotes if the platform renders them; no corner-bracket style), and the short-story section marker is uniform across the whole text (default `###1.` / `###2.`). If a sub-agent's output doesn't match the main session's format, re-flow it to this spec before writing to file.
+Detailed rules live in `references/short-format.md`; load it before writing. **The main session and the narrative-writer sub-agent use the same body format**: body text is saved only in `prose.md`, adjacent body paragraphs are separated by exactly one blank line (`\n\n`), dialogue quote style is unified per project/platform convention (default: curly double quotes “ ”; Wattpad/Tapas allow straight quotes if the platform renders them; no corner-bracket style), and the short-story section marker is uniform across the whole text (default `###1.` / `###2.`). If a sub-agent's output doesn't match the main session's format, re-flow it to this spec before writing to file.
 
 ---
 

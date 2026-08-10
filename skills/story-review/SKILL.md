@@ -121,7 +121,7 @@ Generic web-fiction content rubric:
 - Concrete word-count expressions: numeric prose claims must have a verifiable counting basis and narrative need; otherwise replace them with non-numeric phrasing.
 - Punctuation rhythm: punctuation serves tone/character voice; whole-text period flattening, random `?`/`!` stacking, or leftover `...`/`--` manufactured pauses are S3/S2 by impact.
 - Concrete word-count expressions: when the prose evaluates a line, inscription, letter, thought, or comment with specific word counts ("these five words / the three-word reply / eight words hitting the ground"), the counting basis, machine-verification result, and narrative necessity must be confirmable; if the count cannot be guaranteed, treat it as a prose-naturalness issue and suggest replacing with non-numeric phrasing ("the words landed", "those few words", "as the line fell").
-- Format readability: short paragraphs, standalone dialogue lines, no stray blank lines; format that blocks reading is S3, severe chaos S2.
+- Format readability: short paragraphs, standalone dialogue lines, and paragraph spacing consistent with the book/platform contract; missing or stray blank lines that block reading are S3, severe chaos S2.
 - Plot loop: goal -> blocker -> action -> cost/feedback -> new anticipation; missing goal/blocker/feedback is usually at least S2.
 - Climax construction: energy build -> false win -> collapse -> reversal/payoff; a flat climax with no cost or no payoff is usually S2/S3.
 - Relationship progress: interaction intensity must match the current relationship stage; overstepping intimacy, sudden trust, or sudden hostility needs setup, otherwise S1/S2 by impact.
@@ -304,7 +304,7 @@ Use the Agent/Task tool for parallel calls (Codex native subagents use `agent_ty
   Check items:
   1. Any banned words/templates/cliches, or simile sheets ("like/as if/as though")?
   2. Any AI writing fingerprints, the AI writing patterns (incl. Pattern 8 explainer voice / god view / arranged feel), or chapter-end summary body?
-  3. Format compliant (paragraphs broken by dramatic unit/shot, no mechanical word-count splitting, no blank lines, dialogue on its own lines, natural subject rhythm)?
+3. Format compliant (paragraphs broken by dramatic unit/shot, no mechanical word-count splitting, paragraph spacing follows the book/platform contract, dialogue on its own lines, natural subject rhythm)?
   4. Punctuation rhythm matches tone/character voice: whole-text period flattening, random `?`/`!` stacking, or leftover `...`/`--` manufactured pauses? Dashes in prose (incl. dialogue) cleaned?
   5. Concrete word-count expressions in prose ("these five words / the three-word reply / eight words hitting the ground")? If the counting basis is unclear, no machine-verification result exists, or no narrative necessity, flag it and suggest non-numeric phrasing.
   6. Rhythm uniform (no multi-section runs without emotional change)?
@@ -419,7 +419,7 @@ lean mode spawns only `story-architect` + `consistency-checker`. If either is mi
 No agent spawning. First identify the target platform per Phase 1 step 4 and load the matching rubric; even solo must calibrate judgment with the platform rubric, `story-review/references/quality-rubric.md`, or the built-in review standards package.
 
 solo must run the base checks:
-1. Format compliance (paragraphs broken by dramatic unit/shot, no mechanical word-count splitting, no blank lines, dialogue format, subject/character-name rhythm).
+1. Format compliance (paragraphs broken by dramatic unit/shot, no mechanical word-count splitting, paragraph spacing follows the book/platform contract, dialogue format, subject/character-name rhythm).
 2. Simple setting-consistency grep (character names, attributes, key settings, foreshadowing keywords) + reasoning-based consistency checks (rule boundaries, setting hierarchy, cross-chapter causal chains, abusable loopholes, cost consistency).
 3. AI-flavor and banned-words check (prefer `story-review/references/banned-words.md` and `story-review/references/anti-ai-writing.md`; use the built-in AI-flavor / banned-words fallback quick ref when unreadable).
 4. Generic web-fiction content scoring (prefer `story-review/references/quality-rubric.md`; use the built-in generic web-fiction content rubric when unreadable).
@@ -443,7 +443,7 @@ Review scope: {chapters/files}
 ### Format Compliance
 - [{x| }] Paragraphs break naturally at dramatic unit/shot/one completed thing, not mechanically by word count; an occasional longer complete reasoning/atmosphere/emotion chain is not a violation; whole-text uniform-threshold splitting or outline-shattering counts: pass/fail; evidence: ...
 - [{x| }] Subject/character-name rhythm natural: sentence/section openings establish the subject, mid-passage pronouns/ellipsis, names return at key turns; continuous unnecessary repetition of the same protagonist name across sentences/paragraphs counts as subject overload: pass/fail; evidence: ...
-- [{x| }] No blank lines between paragraphs: pass/fail; evidence: ...
+- [{x| }] Paragraph spacing follows the book/platform contract, with no missing or stray blank lines: pass/fail; evidence: ...
 - [{x| }] Dialogue on its own lines: pass/fail; evidence: ...
 - [{x| }] Concrete word-count expressions confirmed correct and narratively necessary; otherwise changed to non-numeric phrasing: pass/fail; evidence: ...
 - Violation locations: {list}

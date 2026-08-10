@@ -99,7 +99,7 @@ Working directory structure per [Phase 2: Design the core framework](../SKILL.md
 
 ### Format
 - [ ] Paragraphs short-based with long/short alternation and dense/sparse variation (not uniform)? No consecutive overlength blocks?
-- [ ] Single newline between paragraphs?
+- [ ] Exactly one blank line (`\n\n`) between paragraphs, with no extra blank-line runs?
 - [ ] Dialogue on its own line; quote style matches the project/platform convention?
 - [ ] Punctuation rhythm matches tone/voice: no whole-text period flattening, no random question/exclamation stacking, no `...`/`--` forced pauses?
 - [ ] `...` / `——` / `—` / `--` in the body (including dialogue) converted to action/short sentences/commas/periods?

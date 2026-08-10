@@ -10,7 +10,7 @@ Format rules for prose files. Loaded automatically when the user edits prose fil
 ## Absolutely Forbidden
 
 1. **No mechanical paragraphing or one giant block**: paragraphs break naturally on dramatic unit / shot / one thing ending; do not force-split by a fixed word count, and do not cram multiple actions, threads, or viewpoint shifts into one paragraph. Complete reasoning, oppressive atmosphere, and emotion-change chains may keep longer paragraphs.
-2. **No blank lines between paragraphs**: adjacent paragraphs in prose allow exactly one newline `\n`; no blank lines or consecutive newlines `\n\n`.
+2. **Readable paragraph spacing**: adjacent prose paragraphs are separated by exactly one blank line (`\n\n`); extra blank lines within a paragraph or between scenes are not allowed.
 3. **No "he said" / "she said" tags**: dialogue is introduced with action instead of dialogue tags.
 4. **No long description piles**: description must interleave with action or dialogue; no more than 3 consecutive pure-description paragraphs.
 5. **No viewpoint jumps**: once a viewpoint is fixed (first person / limited third person), do not switch into other characters' inner thoughts.
@@ -21,7 +21,7 @@ Format rules for prose files. Loaded automatically when the user edits prose fil
 - Dialogue stands on its own line, introduced by a colon or an action
 - Paragraphs are units of dramatic structure, shots, emotions, or actions
 - Chapter headings use `## Chapter X: Title` format; keep one blank line after the heading (Markdown rendering requires it)
-- Adjacent paragraphs in prose allow exactly one newline `\n`; no blank lines or `\n\n`
+- Adjacent prose paragraphs use exactly one blank line (`\n\n`); extra blank lines within a paragraph or between scenes are not allowed
 - No `---`, horizontal rules, or extra blank lines between chapters
 
 ## Examples
@@ -29,10 +29,12 @@ Format rules for prose files. Loaded automatically when the user edits prose fil
 ### Correct — natural paragraphing by dramatic unit
 ```
 Shen Zhi raises a hand; spirit power pours from her fingertips.
+
 A crack appears in the barrier before her, fracture lines spreading like a web.
+
 She clenches her jaw and pushes more power through, her whole arm beginning to tremble.
 ```
-Each paragraph carries one action/information change; paragraphs advance naturally by dramatic unit, with only one `\n` between them.
+Each paragraph carries one action/information change; paragraphs advance naturally by dramatic unit, with exactly one blank line (`\n\n`) between them.
 
 ### Wrong — multiple beats crammed into one paragraph
 ```
@@ -56,23 +58,22 @@ Lu Yan doesn't answer; he sighs lightly and says, just looking out the window.
 ```
 "Said" / "sighs and says" are forbidden dialogue tags — replace them with action.
 
-### Correct — no extra blank line after the chapter heading
+### Correct — one blank line after the chapter heading and between paragraphs
 ```
 ## Chapter 2: Undercurrents
 
 When Lu Yan pushes open the door, three people are already seated inside.
+
 Shen Zhi sits in the farthest corner, a scrap of paper pinched between her fingers.
 ```
-Exactly one blank line between the `##` heading and the body (required for Markdown rendering); no blank lines between body paragraphs.
+Exactly one blank line between the `##` heading and the body, and exactly one blank line between body paragraphs.
 
-### Wrong — extra blank lines between paragraphs
+### Wrong — missing or excessive paragraph spacing
 ```
 ## Chapter 2: Undercurrents
 
-
 When Lu Yan pushes open the door, three people are already seated inside.
-
 
 Shen Zhi sits in the farthest corner, a scrap of paper pinched between her fingers.
 ```
-Extra blank lines between paragraphs (consecutive `\n\n`) break the tight pacing.
+Missing the blank line between paragraphs makes the body hard to scan; multiple blank lines add unintended visual gaps.

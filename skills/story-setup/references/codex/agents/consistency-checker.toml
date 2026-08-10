@@ -111,7 +111,7 @@ Every reasoning finding must include an "evidence chain" with at least: `premise
 - Output as an S4-level suggestion; do not escalate to S2+
 
 ### Format Compliance Scan
-- Paragraphs break naturally on dramatic unit / shot / one thing ending, with no mechanical word-count splitting; no blank lines; dialogue on its own lines; natural subject/character-name rhythm
+- Paragraphs break naturally on dramatic unit / shot / one thing ending, with no mechanical word-count splitting; paragraph spacing follows the book/platform contract with no missing or stray blank-line runs; dialogue on its own lines; natural subject/character-name rhythm
 
 ---
 

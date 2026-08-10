@@ -24,11 +24,11 @@ Default formats (by flexibility):
 
 ### Core rule: dramatic unit first
 
-Default delivery layout is **breaking paragraphs by dramatic unit/shot, tightly packed**. Do not treat a fixed word count as a forced cutting knife; first judge whether "one thing / one reasoning chain / one emotion change" is complete.
+Default delivery layout is **breaking paragraphs by dramatic unit/shot with readable spacing**. Do not treat a fixed word count as a forced cutting knife; first judge whether "one thing / one reasoning chain / one emotion change" is complete.
 
 - One paragraph carries one dramatic unit: an action chain, a clue discovery, a gaze shift, a round of judgment, or one continuous atmosphere/reasoning/emotion chain.
 - Scene end, one thing finished, a new action, a new object, new information, or new dialogue starts a new paragraph; the happening, perception, and reaction of the same instant weave together — do not split into action layer / perception layer / reaction layer.
-- Adjacent prose paragraphs allow **only one newline `\n`**; no blank lines or consecutive newlines `\n\n` (tight packing).
+- Adjacent prose paragraphs are separated by **exactly one blank line (`\n\n`)**. Do not add extra blank lines within a paragraph or between scenes.
 - No indentation (platform renderers handle it; no full-width spaces).
 - Length is diagnostic only: break when it feels crowded, mixes multiple beats, or is hard to follow on a phone screen; longer paragraphs may stay when a complete reasoning chain, atmosphere build, or emotion progression is unfinished.
 
@@ -158,7 +158,7 @@ Each beat should have:
 The following rules run through all writing; they do not change by genre or style:
 
 1. **No mechanical word-count paragraph breaking**: do not force a break just because a word count is passed; first judge whether the paragraph is still one complete dramatic unit. Break when it mixes multiple actions/info/gaze shifts; complete reasoning, atmosphere, and emotion chains may keep longer paragraphs
-2. **No blank lines between paragraphs**: adjacent prose paragraphs allow only one `\n`; no blank lines or `\n\n`
+2. **Readable paragraph spacing**: adjacent prose paragraphs use exactly one blank line (`\n\n`); extra blank lines within a paragraph or between scenes are not allowed
 3. **Avoid mechanical dialogue tags**: high-frequency or formulaic "he said" / "she said" / "he said with a smile" are replaced by action/context; plain "said" may stay
 4. **No indentation**: no full-width or half-width space indentation
 5. **No Markdown rendering inside prose paragraphs**: apart from unified beat/chapter markers (like `###1.`), no bold `**`, italics `*`, headings `#`, or separators `---` inside prose paragraphs
@@ -175,7 +175,7 @@ After every paragraph, self-check with this list:
 - [ ] Paragraphs break by dramatic unit/shot, not mechanically by word count?
 - [ ] Three-dimension woven paragraphs break by shot/information change, with complete reasoning/atmosphere/emotion chains kept continuous?
 - [ ] Subject/name rhythm natural: paragraph head establishes the subject, mid-paragraph pronouns/omission, re-name at key turns, no unnecessary consecutive repetition?
-- [ ] Adjacent prose paragraphs have only one `\n`, no blank lines / `\n\n`?
+- [ ] Adjacent prose paragraphs have exactly one blank line (`\n\n`), with no extra blank lines within a paragraph or between scenes?
 - [ ] Dialogue on its own lines, quote style per project/platform convention (Zhihu Yan `「」` legal)?
 - [ ] Punctuation rhythm matches tone/voice, no whole-text period flattening, no random `?`/`!` stacking or repeated `……`/`——` pauses?
 - [ ] Functional em dashes and ellipses are intentional, with no `--`, ellipsis runs, or em-dash clusters?

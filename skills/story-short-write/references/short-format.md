@@ -64,7 +64,7 @@ My hand paused on the bowl's edge.
 
 ### Shared hard constraints (all platforms)
 
-- Adjacent body paragraphs are separated by **exactly one newline `\n`**; no blank lines / `\n\n` runs (tightly packed). Section markers count separately.
+- Adjacent body paragraphs are separated by **exactly one blank line (`\n\n`)**; do not add extra blank-line runs. Section markers count separately.
 - **No indentation**: no full-width or half-width space indents; platform renderers handle it.
 - **No Markdown in body paragraphs**: outside the unified section/chapter markers (like `###1.`), no bold `**`, italics `*`, headings `#`, or divider lines `---` in body text.
 - Long and short alternate; never uniform lengths. Cutting every paragraph to the same word count is a source of AI-flavor.
@@ -161,7 +161,7 @@ When the user doesn't specify a platform, default to the general short-story for
 ## Quick check after each batch
 
 - [ ] Paragraph shape matches the target platform's template (one-line style / short-paragraph-interweave)? Not sliced into equal-length outline chunks?
-- [ ] Exactly one `\n` between adjacent paragraphs; no blank lines / `\n\n`?
+- [ ] Exactly one blank line (`\n\n`) between adjacent paragraphs; no extra blank-line runs?
 - [ ] No indentation (no full-width spaces or space indents)?
 - [ ] No Markdown (`**` `*` `#` `---`) in body paragraphs outside titles/section markers?
 - [ ] Dialogue on its own line; quote style matches the platform (curly by default); tags not mechanical?
