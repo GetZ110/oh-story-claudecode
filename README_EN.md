@@ -2,6 +2,8 @@
 
 An English web-fiction writing skill pack with built-in adapters for Claude Code, OpenCode, ZCode, OpenClaw, Codex CLI, and Reasonix. Web AI / agent environments that can read project files can use the generic skills path. Covers the full pipeline for long-form and short-form English web novels: trend scanning, deconstruction, writing, AI-tone removal, and cover generation.
 
+Unless you explicitly request another language, skill commands communicate with you in Simplified Chinese. This affects conversational replies, progress updates, questions, and reports only; English novel prose and project artifacts remain English according to the book contract.
+
 > **v0.8.0 is the English edition.** All skills, hooks, agents, references, the dashboard, and the project structure are now English (`teardown-lib/`, `tracking/`, `prose/`, `outline/`, `setting/`, `outline_chapter_N.md`, `Chapter N` chapter files, `<!-- deslop:skip -->` exemption marker). Market scanning targets English platforms (Royal Road, Webnovel, Wattpad, Amazon Kindle, Inkitt, Radish, Galatea) plus general web research. **This release ships `agents_version` 23** — deployed projects must re-run `/story-setup` and start a new session, otherwise neither this release's prose rules nor its hooks take effect.
 
 ## Core Approach

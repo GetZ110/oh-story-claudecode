@@ -7,6 +7,11 @@ metadata: {"openclaw":{"requires":{"bins":["agent-browser"]},"source":"https://g
 
 Control Chrome over the CDP protocol, reuse existing login sessions, and run browser automation.
 
+## Interaction language
+
+- Unless the user explicitly requests another reply language, communicate with the user in Simplified Chinese (简体中文), including questions, progress updates, confirmations, errors, and summaries.
+- This applies to conversational output only. Keep browser commands, URLs, extracted source text, code, and other user-requested artifacts in their required language.
+
 ## Prerequisites
 
 - macOS / Linux / Windows (experimental), Google Chrome installed

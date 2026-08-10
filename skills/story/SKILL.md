@@ -5,6 +5,11 @@ metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"
 ---
 # story: Web-fiction toolbox router
 
+## Interaction language
+
+- Unless the user explicitly requests another reply language, communicate with the user in Simplified Chinese (简体中文), including questions, progress updates, confirmations, errors, and summaries.
+- This applies to conversational output only. Keep English novel prose and other project artifacts in the language declared by the book contract or explicitly requested by the user.
+
 ### Agent bundle preflight
 
 The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
