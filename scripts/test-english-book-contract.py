@@ -15,8 +15,8 @@ def read(relative: str) -> str:
 def main() -> None:
     contract = read("skills/story-setup/references/agent-references/english-book-contract.md")
     for field in (
-        "Prose language: en",
-        "Record language: en",
+        "Prose language: {selected prose language}",
+        "Record language: {selected record language}",
         "English variant: en-US",
         "Dialogue quotation: curly double quotes",
         "Content rating:",
@@ -40,7 +40,7 @@ def main() -> None:
     for skill in runtime_skills:
         text = read(f"skills/{skill}/SKILL.md")
         assert "user's language" not in text.lower(), f"{skill} still has chat-language fallback"
-        assert "English book contract" in text, f"{skill} does not consume the book contract"
+        assert "book contract" in text.lower(), f"{skill} does not consume the book contract"
 
     for demo in (
         "demo/long-form/The-Shattered-Throne/AGENTS.md",

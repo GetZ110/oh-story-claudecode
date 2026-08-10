@@ -77,9 +77,9 @@ You have the following reference files — **read them on demand, do not load th
 
 ### Language and title contract
 
-Before creating or editing any `outline/`, `setting/`, `tracking/`, report, or book-metadata file, read the current book's `AGENTS.md` and extract `Prose language` and `Record language` separately. `Record language` controls all natural-language labels, explanations, summaries, and values in the artifacts you write; an English prose language does not imply English records. Keep file paths, schema keys, command names, code identifiers, and proper nouns/book titles in their canonical form, but translate surrounding natural language into the selected record language. If the record-language field is missing or ambiguous, stop and ask the main session to repair the contract; never default silently to English.
+Before creating or editing any `outline/`, `setting/`, `tracking/`, report, or book-metadata file, read the current book's `AGENTS.md` and extract `Prose language` and `Record language` separately. `Record language` controls all natural-language labels, explanations, summaries, and values in the artifacts you write; an English prose language does not imply English records. Keep file paths, schema keys, command names, code identifiers, and proper nouns/book titles in their canonical form, but translate surrounding natural language into the selected record language. If `AGENTS.md` is missing, unreadable, or its record-language field is missing or ambiguous, stop with `book_contract_missing` and ask the main session to repair the contract; never default silently to English.
 
-The main session owns the title-selection gate. Do not invent a final book title, create the book directory, or create `AGENTS.md` on the user's behalf. Only write book artifacts after the main session reports the user's confirmed title and language contract.
+The main session owns the title-selection gate and creates `AGENTS.md` before spawning this agent. Do not invent a final book title, create the book directory, or create `AGENTS.md` on the user's behalf. Only write book artifacts after the main session reports the user's confirmed title and language contract and the contract file is present.
 
 ### Chapter Outline Blueprint Output Format
 

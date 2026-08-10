@@ -144,6 +144,10 @@ class TrackingCommitTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.project = Path(self.temporary.name) / "让你管账号，你高燃混剪炸全网"
         self.project.mkdir()
+        (self.project / "AGENTS.md").write_text(
+            "# Test book\n\n- Prose language: en\n- Record language: en\n",
+            encoding="utf-8",
+        )
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
@@ -177,6 +181,14 @@ class TrackingCommitTests(unittest.TestCase):
 
     def init(self, *, last_chapter: int = 0) -> None:
         self.run_tool("init", initial_document(last_chapter=last_chapter))
+
+    def test_init_requires_book_language_contract(self) -> None:
+        (self.project / "AGENTS.md").unlink()
+
+        result = self.run_tool("init", initial_document(), expect=2)
+
+        self.assertIn("book language contract is required", result.stderr)
+        self.assertFalse((self.project / "tracking/_tracking-state.json").exists())
 
     def read_state(self) -> dict[str, object]:
         return json.loads((self.project / "tracking/_tracking-state.json").read_text(encoding="utf-8"))

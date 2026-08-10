@@ -183,12 +183,16 @@ def tracking_root(project: Path) -> Path:
 def record_language(project: Path) -> str:
     """Resolve the output language from the book contract.
 
-    The workflow requires AGENTS.md for new books.  The English fallback keeps
-    the standalone legacy fixture and direct CLI usage backwards compatible.
+    New books must have an explicit book-level language contract.  Falling
+    back to English is unsafe: it makes a missing contract look like a valid
+    English choice and can contaminate a Chinese-record project before the
+    contract is noticed.
     """
     profile = project.resolve() / "AGENTS.md"
     if not profile.exists():
-        return "en"
+        raise TrackingError(
+            f"book language contract is required before tracking initialization: {profile}"
+        )
     try:
         text = profile.read_text(encoding="utf-8")
     except (OSError, UnicodeError) as exc:

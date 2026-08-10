@@ -7,6 +7,8 @@
 
 The protocol is one structured authority state plus deterministic derived views. The views are not written separately; `_tracking-state.json` is the only commit point. Keep the transaction JSON and directly rerun the same `commit` after an environment failure. It uses `expected_state_revision`, writes a complete continuity record, and is not a concurrency lock.
 
+When rendering Markdown views, `tracking_commit.py` reads the book root `AGENTS.md` and uses its `Record language` for headings, labels, status descriptions, and chapter-record prose. `Prose language` never controls tracking output. Stable JSON field names, enum values, IDs, file paths, and proper nouns remain canonical; the surrounding Markdown is localized. A missing or invalid contract is an error: create and validate `AGENTS.md` before initializing tracking. The tool no longer defaults a new project to English.
+
 The authority records the imported cutoff chapter as `imported_through_chapter`; chapter records may be overlay records, while the JSON remains the sole authority. The tool does not reverse-parse Markdown. A failed transaction JSON must be retained until the same input succeeds.
 
 `tracking/` 使用“一个结构化权威状态 + 多个确定性派生视图”。模型只提交一份语义 JSON，不分别 `Write/Edit/echo >>` 多个tracking文件。

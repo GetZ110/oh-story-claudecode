@@ -134,16 +134,25 @@ story-architect is a high-level structural design agent. Lightweight genre posit
 
 ### Phase 1.5: Book language & book-level AGENTS.md (all books, mandatory)
 
-Before any prose, outline, setting, tracking, or review output is written, load the deployed book contract. For a new book, use `AskUserQuestion` in Plan mode to confirm the prose language and the record language as two separate choices, plus the market settings. Never infer the record language from the prose language, target market, source language, or chat language. If interactive questioning is unavailable, stop and ask in plain text; do not silently choose English and continue.
+This is a hard precondition, not a reminder. Before any prose, outline, setting, tracking, report, or review file is written, use `AskUserQuestion` in Plan mode to confirm the prose language and record language as two separate choices, plus the market settings. Never infer the record language from the prose language, target market, source language, or chat language. If interactive questioning is unavailable, stop and ask in plain text; do not silently choose English and continue.
 
 1. **Prose language**: ask separately; for this English-fiction toolkit, suggest English but require confirmation.
 2. **Record language** (outline, setting, tracking, reports): ask separately; it may be English, Simplified Chinese (`zh-CN`), or another explicitly chosen language.
 3. **English variant**: ask for `en-US` or `en-GB` when prose is English.
 4. **Dialogue quotation**: curly double quotes by default; record a platform override explicitly.
+5. **Title**: resolve the title-selection gate before creating the book directory or any book artifact. A user-supplied title still needs confirmation unless the user explicitly said to use it unchanged.
 
-The selected `Record language` governs all natural-language content in `outline/`, `setting/`, `tracking/`, reports, and book-level metadata. Keep stable file paths, schema keys, command names, code identifiers, and proper nouns/book titles in their required canonical form; translate surrounding labels, explanations, summaries, and values into the selected record language. Run a final language scan over the generated artifacts before reporting completion.
+The selected `Record language` governs all natural-language content in `outline/`, `setting/`, `tracking/`, reports, and book-level metadata. Keep stable file paths, schema keys, command names, code identifiers, and proper nouns/book titles in their required canonical form; translate surrounding labels, explanations, summaries, and values into the selected record language.
 
-Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
+After all choices are confirmed and before delegating or generating any artifact, create `{BookTitle}/AGENTS.md` and validate it with:
+
+```text
+{PYTHON} {current skill root}/scripts/check-record-language.py --project {BookTitle} --contract-only
+```
+
+If `AGENTS.md` is missing, unreadable, or lacks a supported `Record language`, stop with `book_contract_missing`; do not create `setting/`, `outline/`, `tracking/`, or reports. If any of those directories already contain files while the contract is missing, stop and report the incomplete project instead of trying to repair it in the same run.
+
+Once the working title is fixed, create `{BookTitle}/AGENTS.md`:
 
 ```markdown
 # {BookTitle} — Book-level instructions
@@ -173,6 +182,7 @@ Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 - ZCode sessions opened inside the book directory load this file automatically; other CLIs treat it as the book's ground rules.
 - Phase 4 prose must follow its `Prose language`; all outline/setting/tracking/report outputs (Phase 2–5) must follow its `Record language`.
 - If the book directory already has an AGENTS.md, preserve user-authored sections but add any missing language/market fields before continuing.
+- Before any delegated agent writes a book artifact, the main session must confirm that this file exists and its language fields validate. Agents must stop if it does not.
 
 ---
 
@@ -313,6 +323,14 @@ Before volume-level outlines, write the book-wide length and stage boundaries as
 **Outline safety review (order must not be inverted; run once per batch, covering all story units and chapters in the batch)**: first design the positive emotional engine and genre-core delivery per `references/emotional-methods.md`, then diagnose with the authoritative file's protagonist-agency/ownership/growth negative-risk guardrails. The latter checks causal rights + settlement rights, the key-node four questions, and expectation ownership for every story unit's protagonist goal, key choices, attribution of delivery, core-asset exchanges, institution/faction boundaries, new-element debt, and progression lines; the protagonist need not personally perform every action. **Contract broken** must be fixed in the outline; **needs reinforcement** must add exchange/setup/cost. Then run two falsifiable degradation checks: ① after deleting the genre-core object/relationship/problem, does the story degrade into a generic career-upgrade or reskinned plot? ② After deleting the protagonist, does the emotional delivery stay essentially unchanged? Answer "yes" to either → fix the engine first.
 
 **Every chapter must have a chapter outline file** (`outline/outline_chapter_NNN.md`); skipping chapters is not allowed.
+
+After each setting or outline batch, run the deterministic record-language gate before reporting the batch complete:
+
+```text
+{PYTHON} {current skill root}/scripts/check-record-language.py --project {BookTitle}
+```
+
+For `zh-CN`, the gate allows canonical titles, proper nouns, identifiers, and platform/language codes, but fails on clear English natural-language blocks. For `en`, it fails on clear Chinese natural-language blocks. Fix every finding before proceeding to another batch or prose; do not postpone localization until a later validation message.
 
 Default is batched outline building: build the first 10 chapter outlines then **stop**, report "ready to write chapter 1 / daily update"; enter Phase 4 only when the user explicitly asks for prose. Rolling extension follows the numbering rules (see references/outline-structure-theory.md "chapter outlines by story-unit batch"):
 1. **Batch boundaries**: one batch ≈ one story unit (5-15 chapters); story units longer than 10 chapters split into two batches. **First batch = capped at the first 10 chapters, may cross units**: recall the crossed-into story unit once when building its card; remaining chapters share that unit card's conclusions in later rolling batches. When the written content reaches the unit's tail (remaining unbriefed chapters ≤2), roll the next unit's full batch; when the user explicitly gives a chapter count/range, follow the user, but still recommend ≤10 chapters per batch with consecutive delivery.
@@ -742,6 +760,7 @@ Load by scenario; never load everything at once.
 |------|---------|
 | Quality check | `references/quality-checklist.md` + `references/reader-contract-and-progression.md` |
 | Banned-word scan | `references/banned-words.md` |
+| Book contract / record-language gate | `scripts/check-record-language.py` |
 | AI-pattern script rescan | `scripts/check-ai-patterns.js` |
 | De-AI flavor | `references/anti-ai-writing.md` |
 
