@@ -7,24 +7,25 @@ fields and the fallback order.
 
 ## Resolution order
 
-Resolve language settings in this order:
+Resolve prose language and record language as two independent settings:
 
-1. The book's `AGENTS.md`.
-2. The book's `setting.md`, `setting/`, or imported metadata language profile.
-3. The source prose language for an imported book.
-4. The repository default: English (`en`, `en-US`).
+1. Read the book's `AGENTS.md` fields separately.
+2. For a new book with no profile, use `AskUserQuestion` in Plan mode to confirm both fields before creating any artifact.
+3. For an existing/imported book, read `setting.md`, `setting/`, or imported metadata only to repair missing fields; source prose can inform the prose-language suggestion, never the record-language choice.
+4. Use the repository defaults (`en`, `en-US`) only after the user explicitly confirms them in the setup flow.
 
 The language used in the user's chat message never overrides the book
-contract. A missing contract is a setup gap, not permission to switch output
-language per request. Legacy non-English books may keep their source language,
-but must record it explicitly.
+contract. An English prose language may use Chinese records. A missing or
+ambiguous contract is a setup gap, not permission to silently switch output
+language or continue with English records. Legacy non-English books may keep
+their source language, but must record it explicitly.
 
 ## Required book-level fields
 
 ```markdown
 ## Language profile
-- Prose language: en
-- Record language: en
+- Prose language: {selected prose language}
+- Record language: {selected record language}
 - English variant: en-US
 - Spelling: US English
 - Dialogue quotation: curly double quotes
@@ -71,8 +72,8 @@ with this minimum contract before writing or reviewing:
 # {BookTitle} - Book-level instructions
 
 ## Language profile
-- Prose language: en
-- Record language: en
+- Prose language: {prose_language}
+- Record language: {record_language}
 - English variant: en-US
 - Spelling: US English
 - Dialogue quotation: curly double quotes

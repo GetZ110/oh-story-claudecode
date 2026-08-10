@@ -116,6 +116,8 @@ After `$story-setup` deploys into a writing project, it creates `.codex/agents/*
 
 After updating, if a project has already run `/story-setup`, re-run `/story-setup` from the project root to sync hooks / agents / references. Per-version changes are in [CHANGELOG.md](CHANGELOG.md) and [Releases](https://github.com/GetZ110/oh-story-claudecode/releases).
 
+Codex users: see the complete Chinese usage guide in [docs/codex-usage.md](docs/codex-usage.md), including which commands should run in Plan mode for interactive choices.
+
 **Multi-agent collaboration needs setup + a fresh session:** the 7 specialist agents (story-architect, prose-writer, consistency-checker, etc.) are written into your project's `.claude/agents/` by `/story-setup`, or into `.codex/agents/*.toml` by `$story-setup`. Claude Code and Codex register custom agents most reliably at session start; ZCode 3.3.4, OpenClaw Phase 1, Reasonix Phase 1, and the generic path default to skills + solo fallback. To check Claude/Codex agents: run `/story-review` in the new session — `Effective Mode: full/lean` means agents registered, `Fallback: ... -> solo` means they are unavailable.
 
 **Import and continuation order:** run `/story-setup` from the writing-project root first to deploy hooks, agents, and `AGENTS.md`; start or refresh the session, then run `/story-import` for the existing novel and continue with `/story-long-write daily` or `/story-long-write chapter 21`. You can also run `/story-import` directly; if setup is missing, it offers to run setup first or continue with a serial import.

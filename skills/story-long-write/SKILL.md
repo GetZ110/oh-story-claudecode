@@ -9,7 +9,7 @@ metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"
 ## Interaction language
 
 - Unless the user explicitly requests another reply language, communicate with the user in Simplified Chinese (简体中文), including questions, progress updates, confirmations, errors, and summaries.
-- This applies to conversational output only. For an English book, keep prose, outlines, settings, tracking files, metadata, and other book artifacts in English according to the book contract.
+- This applies to conversational output only. Prose, outlines, settings, tracking files, metadata, and other book artifacts must follow the language declared by that book's contract; an English prose language does not imply English records.
 
 ### Agent bundle preflight
 
@@ -134,12 +134,14 @@ story-architect is a high-level structural design agent. Lightweight genre posit
 
 ### Phase 1.5: Book language & book-level AGENTS.md (all books, mandatory)
 
-Before any prose, outline, setting, tracking, or review output is written, load the deployed English book contract. For a new book, use `AskUserQuestion` to confirm the language and market settings. For an existing or imported book, read the existing profile and repair missing fields before continuing; do not use the chat language as a fallback.
+Before any prose, outline, setting, tracking, or review output is written, load the deployed book contract. For a new book, use `AskUserQuestion` in Plan mode to confirm the prose language and the record language as two separate choices, plus the market settings. Never infer the record language from the prose language, target market, source language, or chat language. If interactive questioning is unavailable, stop and ask in plain text; do not silently choose English and continue.
 
-1. **Prose language**: English
-2. **Record language** (outline, setting, tracking, reports): English
-3. **English variant**: `en-US` by default, or `en-GB` when the target market requires it
-4. **Dialogue quotation**: curly double quotes by default; record a platform override explicitly
+1. **Prose language**: ask separately; for this English-fiction toolkit, suggest English but require confirmation.
+2. **Record language** (outline, setting, tracking, reports): ask separately; it may be English, Simplified Chinese (`zh-CN`), or another explicitly chosen language.
+3. **English variant**: ask for `en-US` or `en-GB` when prose is English.
+4. **Dialogue quotation**: curly double quotes by default; record a platform override explicitly.
+
+The selected `Record language` governs all natural-language content in `outline/`, `setting/`, `tracking/`, reports, and book-level metadata. Keep stable file paths, schema keys, command names, code identifiers, and proper nouns/book titles in their required canonical form; translate surrounding labels, explanations, summaries, and values into the selected record language. Run a final language scan over the generated artifacts before reporting completion.
 
 Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 
@@ -148,8 +150,8 @@ Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 
 ## Language rules (mandatory)
 - Prose language: en
-- Record language (outline / setting / tracking / reports): en
-- English variant: en-US
+- Record language (outline / setting / tracking / reports): {record_language}
+- English variant: {en-US or en-GB when prose is English}
 - Spelling: US English
 - Dialogue quotation: curly double quotes
 - Date convention: prose follows the target market; records use ISO 8601
@@ -177,6 +179,17 @@ Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 ### Phase 2: Core setting
 
 Starting from the target emotion fixed in Phase 1, find the corresponding plot pattern inside the genre framework, extract reusable modules from the benchmark book (treating its concrete characters as function slots), and fill them with the user's own characters and setting.
+
+#### Title selection gate
+
+Before creating the book directory, `AGENTS.md`, or any book artifacts, resolve the working title:
+
+1. If the user supplied an exact title, repeat it back and confirm it through `AskUserQuestion` unless the user explicitly said to use it without changes.
+2. If no exact title was supplied, generate 3-5 concise title candidates calibrated to the chosen genre, platform, and hook. Present them through `AskUserQuestion` with options for each candidate, `Use a custom title`, and `Generate more candidates`.
+3. Do not invent one title and continue when the user has not chosen. If `AskUserQuestion` is unavailable, stop after displaying the candidates and wait for a title choice.
+4. Record the result in the book `AGENTS.md` as `Title selection: user-selected candidate`, `user-provided title`, or `custom title`; retain the candidate list in a short `Title candidates considered` field for traceability.
+
+The title gate is separate from topic selection. A market-scan recommendation can choose the story direction, but it cannot choose the book title on the user's behalf.
 
 Establish the following core elements with the user:
 
@@ -753,4 +766,4 @@ Some topics span multiple phases and live in several files. The table below give
 
 ## Language
 
-- Follow the book's language rules: read `{BookTitle}/AGENTS.md` and the deployed English book contract. `Prose language` governs prose drafting, `Record language` governs outline/setting/tracking/report outputs, and `English variant` governs spelling and conventions. If the profile is missing, create it using the contract before writing; never fall back to the user's chat language.
+- Follow the book's language rules: read `{BookTitle}/AGENTS.md` and the deployed book contract. `Prose language` governs prose drafting, `Record language` governs outline/setting/tracking/report outputs, and `English variant` governs spelling and conventions. If the profile is missing, stop for the language-selection gate before writing; never fall back to the user's chat language or silently choose English records.

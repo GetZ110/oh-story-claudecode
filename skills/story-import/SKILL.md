@@ -88,7 +88,7 @@ User provides a path?
    - **Whether the last chapter is complete**: complete / draft (half-written). If it's a draft, tell the user and record "draft through chapter N" in the context, and let the user decide between "continue from the draft chapter" and "finish it before importing". story-import only records the user's decision; it doesn't choose for them.
 3. **Output confirmation**: show the user the detected chapter range, word count, length verdict, and last-chapter status; after confirmation, start the analysis
 
-4. **Language-contract confirmation**: load the deployed English book contract, detect the source prose language, and record the language profile before generating analysis or writing-project files. An English source defaults to `en-US` with English records. If the source is not English, preserve that source language only when it is explicitly recorded; never choose the output language from the language of the user's request.
+4. **Language-contract confirmation**: load the deployed book contract and confirm prose language and record language separately before generating analysis or writing-project files. An English source may use English prose with Chinese or another explicitly chosen record language; source language never determines record language. Never choose output language from the language of the user's request without an explicit contract choice.
 
 ### Step 5: environment detection (pre-flight)
 
@@ -714,5 +714,5 @@ This skill's own reference files all live in `references/`; load by scenario. Fo
 
 ## Language
 
-> - Load the deployed English book contract and resolve language from the book profile, then the source prose, then the repository default `en-US`. Do not use the user's chat language as a fallback.
+> - Load the deployed book contract and resolve prose language and record language separately from the book profile. Do not infer record language from source prose, repository defaults, or the user's chat language.
 > - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

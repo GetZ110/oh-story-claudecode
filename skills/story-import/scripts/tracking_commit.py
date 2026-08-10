@@ -180,6 +180,147 @@ def tracking_root(project: Path) -> Path:
     return project.resolve() / "tracking"
 
 
+def record_language(project: Path) -> str:
+    """Resolve the output language from the book contract.
+
+    The workflow requires AGENTS.md for new books.  The English fallback keeps
+    the standalone legacy fixture and direct CLI usage backwards compatible.
+    """
+    profile = project.resolve() / "AGENTS.md"
+    if not profile.exists():
+        return "en"
+    try:
+        text = profile.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        raise TrackingError(f"unable to read book language contract {profile}: {exc}") from exc
+    match = re.search(r"(?im)^\s*(?:[-*]\s*)?Record language\s*:\s*([A-Za-z0-9_-]+)\s*$", text)
+    require(match is not None, "book AGENTS.md is missing a complete Record language field")
+    value = match.group(1).lower()
+    if value in {"zh", "zh-cn", "zh-hans"}:
+        return "zh-CN"
+    if value in {"en", "en-us", "en-gb", "en-au", "en-ca"}:
+        return "en"
+    raise TrackingError(f"unsupported Record language in book AGENTS.md: {match.group(1)}")
+
+
+def labels_for(language: str) -> dict[str, Any]:
+    if language == "zh-CN":
+        return {
+            "context_title": "写作连续性上下文",
+            "context_note": "状态修订号：{revision}。仅保留下一章所需的连续性状态。",
+            "context_headings": (
+                "## 当前状态",
+                "## 长期约束",
+                "## 核心角色状态",
+                "## 活跃伏笔",
+                "## 最近章节",
+                "## 下一章承诺",
+                "## 连续性风险",
+            ),
+            "current_chapter": "当前章节：{value}",
+            "volume": "分卷：{value}（从第{chapter}章开始）",
+            "story_time": "故事时间：{value}",
+            "scene": "场景：{value}",
+            "goal": "目标：{value}",
+            "not_started": "未开始",
+            "chapter": "第{number}章",
+            "none": "无",
+            "snapshot_title": "{name} | 当前状态",
+            "state_revision": "状态修订号：{value}",
+            "through_chapter": "截至章节：{value}",
+            "identity": "身份：{value}",
+            "location": "地点：{value}",
+            "current_goal": "当前目标：{value}",
+            "state": "状态：{value}",
+            "abilities": "能力与资源",
+            "relationships": "关键关系",
+            "knowledge": "已知信息",
+            "open_threads": "待解线索",
+            "foreshadow_title": "当前伏笔状态",
+            "foreshadow_note": "状态修订号：{revision}。每个编号只保留一行当前状态；历史记录位于 `chapter-records/`。",
+            "foreshadow_headers": "| 编号 | 摘要 | 埋设章节 | 计划回收 | 状态 | 重要性 | 最后更新 |",
+            "timeline_author_title": "作者真相时间线",
+            "timeline_author_note": "状态修订号：{revision}。记录权威事实与读者已知信息的差异。",
+            "timeline_author_headers": "| 编号 | 首次记录章节 | 故事时间 | 客观事实 | 读者信息 | 揭示状态 | 揭示章节 |",
+            "timeline_reader_title": "读者认知时间线",
+            "timeline_reader_note": "状态修订号：{revision}。只记录读者目前知道或相信的内容。",
+            "timeline_reader_headers": "| 编号 | 读者信息 | 已知截至章节 |",
+            "planted_chapter": "已埋设于第{number}章",
+            "resolution_tbd": "待定",
+            "characters": "角色",
+            "chapter_record_title": "第{number:03d}章 | {title}",
+            "result": "结果",
+            "next_commitments": "下一章承诺",
+            "character_changes": "角色变化",
+            "foreshadow_changes": "伏笔变化",
+            "timeline_reveals": "时间线与揭示",
+            "continuity_constraints": "连续性约束",
+            "retired_entries": "本章停用条目",
+            "core": "核心",
+            "temporary": "临时",
+            "deleted": "已删除当前条目",
+            "resolution": "回收",
+            "fact": "事实",
+            "reader": "读者",
+            "status": {"planted": "已埋设", "resolved": "已回收", "expired": "已过期", "abandoned": "已放弃"},
+            "importance": {"high": "高", "medium": "中", "low": "低"},
+            "reveal_status": {"unrevealed": "未揭示", "partially_revealed": "部分揭示", "revealed": "已揭示"},
+        }
+    return {
+        "context_title": "Writing Continuity Context",
+        "context_note": "State revision: {revision}. Only continuity state needed for the next chapter.",
+        "context_headings": CONTEXT_HEADINGS,
+        "current_chapter": "Current chapter: {value}",
+        "volume": "Volume: {value} (starts at Chapter {chapter})",
+        "story_time": "Story time: {value}",
+        "scene": "Scene: {value}",
+        "goal": "Goal: {value}",
+        "not_started": "Not started",
+        "chapter": "Chapter {number}",
+        "none": "None",
+        "snapshot_title": "{name} | Current State",
+        "state_revision": "State revision: {value}",
+        "through_chapter": "Through chapter: {value}",
+        "identity": "Identity: {value}",
+        "location": "Location: {value}",
+        "current_goal": "Current goal: {value}",
+        "state": "State: {value}",
+        "abilities": "Abilities and Resources",
+        "relationships": "Key Relationships",
+        "knowledge": "Known Information",
+        "open_threads": "Open Threads",
+        "foreshadow_title": "Current Foreshadowing State",
+        "foreshadow_note": "State revision: {revision}. One current row per ID; history is in `chapter-records/`.",
+        "foreshadow_headers": "| ID | Summary | Planted Chapter | Planned Resolution | Status | Importance | Last Updated |",
+        "timeline_author_title": "Author-Truth Timeline",
+        "timeline_author_note": "State revision: {revision}. Authoritative facts versus reader knowledge.",
+        "timeline_author_headers": "| ID | First Recorded Chapter | Story Time | Objective Fact | Reader Knowledge | Reveal Status | Reveal Chapter |",
+        "timeline_reader_title": "Reader-Knowledge Timeline",
+        "timeline_reader_note": "State revision: {revision}. Shows only what the reader knows or believes so far.",
+        "timeline_reader_headers": "| ID | Reader Knowledge | Known Through Chapter |",
+        "planted_chapter": "planted Chapter {number}",
+        "resolution_tbd": "Resolution TBD",
+        "characters": "characters",
+        "chapter_record_title": "Chapter {number:03d} | {title}",
+        "result": "Result",
+        "next_commitments": "Next-chapter commitments",
+        "character_changes": "Character Changes",
+        "foreshadow_changes": "Foreshadowing Changes",
+        "timeline_reveals": "Timeline and Reveals",
+        "continuity_constraints": "Continuity Constraints",
+        "retired_entries": "Retired Entries This Chapter",
+        "core": "Core",
+        "temporary": "Temporary",
+        "deleted": "Deleted current entry",
+        "resolution": "resolution",
+        "fact": "Fact",
+        "reader": "Reader",
+        "status": {"planted": "planted", "resolved": "resolved", "expired": "expired", "abandoned": "abandoned"},
+        "importance": {"high": "high", "medium": "medium", "low": "low"},
+        "reveal_status": {"unrevealed": "unrevealed", "partially_revealed": "partially_revealed", "revealed": "revealed"},
+    }
+
+
 def state_path(project: Path) -> Path:
     return tracking_root(project) / "_tracking-state.json"
 
@@ -270,25 +411,27 @@ def normalize_snapshots(value: object, label: str = "character_snapshots") -> di
     return normalized
 
 
-def render_snapshot(name: str, snapshot: dict[str, Any], through_chapter: int, revision: int) -> str:
+def render_snapshot(
+    name: str, snapshot: dict[str, Any], through_chapter: int, revision: int, labels: dict[str, Any]
+) -> str:
     def section(title: str, values: list[str]) -> list[str]:
-        return [f"## {title}", *(f"- {item}" for item in values or ["None"]), ""]
+        return [f"## {title}", *(f"- {item}" for item in values or [labels["none"]]), ""]
 
     lines = [
-        f"# {name} | Current State",
+        f"# {labels['snapshot_title'].format(name=name)}",
         "",
-        f"- State revision: {revision}",
-        f"- Through chapter: {through_chapter}",
-        f"- Identity: {snapshot['identity']}",
-        f"- Location: {snapshot['location']}",
-        f"- Current goal: {snapshot['goal']}",
-        f"- State: {snapshot['state']}",
+        f"- {labels['state_revision'].format(value=revision)}",
+        f"- {labels['through_chapter'].format(value=through_chapter)}",
+        f"- {labels['identity'].format(value=snapshot['identity'])}",
+        f"- {labels['location'].format(value=snapshot['location'])}",
+        f"- {labels['current_goal'].format(value=snapshot['goal'])}",
+        f"- {labels['state'].format(value=snapshot['state'])}",
         "",
     ]
-    lines.extend(section("Abilities and Resources", snapshot["abilities_resources"]))
-    lines.extend(section("Key Relationships", snapshot["relationships"]))
-    lines.extend(section("Known Information", snapshot["knowledge"]))
-    lines.extend(section("Open Threads", snapshot["open_threads"]))
+    lines.extend(section(labels["abilities"], snapshot["abilities_resources"]))
+    lines.extend(section(labels["relationships"], snapshot["relationships"]))
+    lines.extend(section(labels["knowledge"], snapshot["knowledge"]))
+    lines.extend(section(labels["open_threads"], snapshot["open_threads"]))
     payload = "\n".join(lines).rstrip() + "\n"
     require(
         byte_size(payload) <= SNAPSHOT_MAX_BYTES,
@@ -370,21 +513,22 @@ def normalize_foreshadow_state(value: object, last_chapter: int) -> dict[str, di
     return normalized
 
 
-def render_foreshadow(rows: dict[str, dict[str, Any]], revision: int) -> str:
+def render_foreshadow(rows: dict[str, dict[str, Any]], revision: int, labels: dict[str, Any]) -> str:
     lines = [
-        "# Current Foreshadowing State",
+        f"# {labels['foreshadow_title']}",
         "",
-        f"> State revision: {revision}. One current row per ID; history is in `chapter-records/`.",
+        f"> {labels['foreshadow_note'].format(revision=revision)}",
         "",
-        "| ID | Summary | Planted Chapter | Planned Resolution | Status | Importance | Last Updated |",
+        labels["foreshadow_headers"],
         "|---|---|---:|---:|---|---|---:|",
     ]
     for identifier in sorted(rows):
         row = rows[identifier]
-        planned = f"Chapter {row['planned_resolution_chapter']}" if row["planned_resolution_chapter"] else "—"
+        planned = labels["chapter"].format(number=row["planned_resolution_chapter"]) if row["planned_resolution_chapter"] else "—"
         lines.append(
-            f"| {identifier} | {row['summary']} | Chapter {row['planted_chapter']} | {planned} | "
-            f"{row['status']} | {row['importance']} | Chapter {row['updated_chapter']} |"
+            f"| {identifier} | {row['summary']} | {labels['chapter'].format(number=row['planted_chapter'])} | {planned} | "
+            f"{labels['status'][row['status']]} | {labels['importance'][row['importance']]} | "
+            f"{labels['chapter'].format(number=row['updated_chapter'])} |"
         )
     return "\n".join(lines) + "\n"
 
@@ -468,33 +612,37 @@ def normalize_timeline_state(value: object, last_chapter: int) -> dict[str, dict
     return normalized
 
 
-def render_timeline_views(events: dict[str, dict[str, Any]], revision: int) -> tuple[str, str]:
+def render_timeline_views(
+    events: dict[str, dict[str, Any]], revision: int, labels: dict[str, Any]
+) -> tuple[str, str]:
     author_lines = [
-        "# Author-Truth Timeline",
+        f"# {labels['timeline_author_title']}",
         "",
-        f"> State revision: {revision}. Authoritative facts versus reader knowledge.",
+        f"> {labels['timeline_author_note'].format(revision=revision)}",
         "",
-        "| ID | First Recorded Chapter | Story Time | Objective Fact | Reader Knowledge | Reveal Status | Reveal Chapter |",
+        labels["timeline_author_headers"],
         "|---|---:|---|---|---|---|---:|",
     ]
     reader_lines = [
-        "# Reader-Knowledge Timeline",
+        f"# {labels['timeline_reader_title']}",
         "",
-        f"> State revision: {revision}. Shows only what the reader knows or believes so far.",
+        f"> {labels['timeline_reader_note'].format(revision=revision)}",
         "",
-        "| ID | Reader Knowledge | Known Through Chapter |",
+        labels["timeline_reader_headers"],
         "|---|---|---:|",
     ]
     for identifier in sorted(events):
         event = events[identifier]
-        reveal = f"Chapter {event['reveal_chapter']}" if event.get("reveal_chapter") else "—"
+        reveal = labels["chapter"].format(number=event["reveal_chapter"]) if event.get("reveal_chapter") else "—"
         characters = ", ".join(event.get("characters", []))
-        objective = event["objective_fact"] + (f" (characters: {characters})" if characters else "")
+        objective = event["objective_fact"] + (f" ({labels['characters']}: {characters})" if characters else "")
         author_lines.append(
-            f"| {identifier} | Chapter {event['first_recorded_chapter']} | {event['story_time']} | {objective} | "
-            f"{event['reader_knowledge']} | {event['reveal_status']} | {reveal} |"
+            f"| {identifier} | {labels['chapter'].format(number=event['first_recorded_chapter'])} | {event['story_time']} | {objective} | "
+            f"{event['reader_knowledge']} | {labels['reveal_status'][event['reveal_status']]} | {reveal} |"
         )
-        reader_lines.append(f"| {identifier} | {event['reader_knowledge']} | Chapter {event['updated_chapter']} |")
+        reader_lines.append(
+            f"| {identifier} | {event['reader_knowledge']} | {labels['chapter'].format(number=event['updated_chapter'])} |"
+        )
     return "\n".join(author_lines) + "\n", "\n".join(reader_lines) + "\n"
 
 
@@ -542,7 +690,7 @@ def validate_context_input(value: object, *, include_initial_fields: bool) -> di
     return normalized
 
 
-def active_foreshadow_lines(rows: dict[str, dict[str, Any]]) -> list[str]:
+def active_foreshadow_lines(rows: dict[str, dict[str, Any]], labels: dict[str, Any]) -> list[str]:
     importance = {value: index for index, value in enumerate(FORESHADOW_IMPORTANCE)}
     candidates = [row for row in rows.values() if row["status"] == "planted"]
     candidates.sort(
@@ -550,52 +698,69 @@ def active_foreshadow_lines(rows: dict[str, dict[str, Any]]) -> list[str]:
     )
     result = []
     for row in candidates[:8]:
-        planned = f"Chapter {row['planned_resolution_chapter']}" if row["planned_resolution_chapter"] else "Resolution TBD"
-        result.append(f"{row['id']} | {row['summary']} | planted Chapter {row['planted_chapter']} | {planned} | {row['importance']}")
+        planned = (
+            labels["chapter"].format(number=row["planned_resolution_chapter"])
+            if row["planned_resolution_chapter"]
+            else labels["resolution_tbd"]
+        )
+        result.append(
+            f"{row['id']} | {row['summary']} | {labels['planted_chapter'].format(number=row['planted_chapter'])} | "
+            f"{planned} | {labels['importance'][row['importance']]}"
+        )
     return result
 
 
-def render_context(state: dict[str, Any]) -> str:
+def render_context(state: dict[str, Any], labels: dict[str, Any]) -> str:
     context = state["context"]
     position = context["position"]
     current_chapter = (
-        "Not started" if state["last_committed_chapter"] == 0 else f"Chapter {state['last_committed_chapter']}"
+        labels["not_started"]
+        if state["last_committed_chapter"] == 0
+        else labels["chapter"].format(number=state["last_committed_chapter"])
     )
     character_lines = [
         f"{name} | {state['characters'][name]['identity']} | {state['characters'][name]['state']} | "
-        f"Goal: {state['characters'][name]['goal']}"
+        f"{labels['goal'].format(value=state['characters'][name]['goal'])}"
         for name in context["active_character_names"]
     ]
     sections: list[tuple[str, list[str]]] = [
         (
-            "## Current Position",
+            labels["context_headings"][0],
             [
-                f"Current chapter: {current_chapter}",
-                f"Volume: {position['volume']} (starts at Chapter {position['volume_start_chapter']})",
-                f"Story time: {position['story_time']}",
-                f"Scene: {position['scene']}",
+                labels["current_chapter"].format(value=current_chapter),
+                labels["volume"].format(
+                    value=position["volume"], chapter=position["volume_start_chapter"]
+                ),
+                labels["story_time"].format(value=position["story_time"]),
+                labels["scene"].format(value=position["scene"]),
             ],
         ),
-        ("## Long-Term Constraints", context["long_term_constraints"]),
-        ("## Core Character States", character_lines),
-        ("## Active Foreshadowing", active_foreshadow_lines(state["foreshadow"])),
-        ("## Recent Chapters", [f"Chapter {item['chapter']} | {item['summary']}" for item in context["recent_chapters"]]),
-        ("## Next-Chapter Commitments", context["next_chapter_commitments"]),
-        ("## Continuity Risks", context["continuity_risks"]),
+        (labels["context_headings"][1], context["long_term_constraints"]),
+        (labels["context_headings"][2], character_lines),
+        (labels["context_headings"][3], active_foreshadow_lines(state["foreshadow"], labels)),
+        (
+            labels["context_headings"][4],
+            [
+                f"{labels['chapter'].format(number=item['chapter'])} | {item['summary']}"
+                for item in context["recent_chapters"]
+            ],
+        ),
+        (labels["context_headings"][5], context["next_chapter_commitments"]),
+        (labels["context_headings"][6], context["continuity_risks"]),
     ]
     lines = [
-        f"# Writing Continuity Context | {state['book_title']}",
+        f"# {labels['context_title']} | {state['book_title']}",
         "",
-        f"> State revision: {state['state_revision']}. Only continuity state needed for the next chapter.",
+        f"> {labels['context_note'].format(revision=state['state_revision'])}",
         "",
     ]
     for heading, values in sections:
         lines.append(heading)
-        lines.extend(f"- {value}" for value in values or ["None"])
+        lines.extend(f"- {value}" for value in values or [labels["none"]])
         lines.append("")
     payload = "\n".join(lines).rstrip() + "\n"
     headings = tuple(line for line in payload.splitlines() if line.startswith("## "))
-    require(headings == CONTEXT_HEADINGS, "generated context headings do not match the seven-section schema")
+    require(headings == labels["context_headings"], "generated context headings do not match the seven-section schema")
     require(byte_size(payload) <= CONTEXT_MAX_BYTES, f"hot context exceeds {CONTEXT_MAX_BYTES} bytes")
     return payload
 
@@ -680,50 +845,59 @@ def normalize_delta(
     }
 
 
-def render_delta(chapter: int, title: str, delta: dict[str, Any], core_names: set[str]) -> str:
+def render_delta(
+    chapter: int, title: str, delta: dict[str, Any], core_names: set[str], labels: dict[str, Any]
+) -> str:
     lines = [
-        f"# Chapter {chapter:03d} | {title}",
-        f"- Result: {delta['result']}",
-        "- Next-chapter commitments: " + ("; ".join(delta["next_chapter_commitments"]) or "None"),
+        f"# {labels['chapter_record_title'].format(number=chapter, title=title)}",
+        f"- {labels['result']}: {delta['result']}",
+        f"- {labels['next_commitments']}: " + ("; ".join(delta["next_chapter_commitments"]) or labels["none"]),
         "",
-        "## Character Changes",
+        f"## {labels['character_changes']}",
     ]
     lines.extend(
-        f"- {item['name']} | {'Core' if item['name'] in core_names else 'Temporary'} | {item['change']}"
+        f"- {item['name']} | {labels['core'] if item['name'] in core_names else labels['temporary']} | {item['change']}"
         for item in delta["character_changes"]
     )
     if not delta["character_changes"]:
-        lines.append("- None")
-    lines.extend(["", "## Foreshadowing Changes"])
+        lines.append(f"- {labels['none']}")
+    lines.extend(["", f"## {labels['foreshadow_changes']}"])
     for item in delta["foreshadow_changes"]:
         if item["action"] == "delete":
-            lines.append(f"- {item['id']} | Deleted current entry")
+            lines.append(f"- {item['id']} | {labels['deleted']}")
         else:
-            planned = f"Chapter {item['planned_resolution_chapter']}" if item["planned_resolution_chapter"] else "TBD"
-            lines.append(f"- {item['id']} | {item['status']} | {item['summary']} | resolution {planned}")
+            planned = (
+                labels["chapter"].format(number=item["planned_resolution_chapter"])
+                if item["planned_resolution_chapter"]
+                else labels["resolution_tbd"]
+            )
+            lines.append(
+                f"- {item['id']} | {labels['status'][item['status']]} | {item['summary']} | "
+                f"{labels['resolution']} {planned}"
+            )
     if not delta["foreshadow_changes"]:
-        lines.append("- None")
-    lines.extend(["", "## Timeline and Reveals"])
+        lines.append(f"- {labels['none']}")
+    lines.extend(["", f"## {labels['timeline_reveals']}"])
     for item in delta["timeline_events"]:
         if item["action"] == "delete":
-            lines.append(f"- {item['id']} | Deleted current entry")
+            lines.append(f"- {item['id']} | {labels['deleted']}")
         else:
             lines.append(
-                f"- {item['id']} | {item['story_time']} | Fact: {item['objective_fact']} | "
-                f"Reader: {item['reader_knowledge']} | {item['reveal_status']}"
+                f"- {item['id']} | {item['story_time']} | {labels['fact']}：{item['objective_fact']} | "
+                f"{labels['reader']}：{item['reader_knowledge']} | {labels['reveal_status'][item['reveal_status']]}"
             )
     if not delta["timeline_events"]:
-        lines.append("- None")
-    lines.extend(["", "## Continuity Constraints"])
+        lines.append(f"- {labels['none']}")
+    lines.extend(["", f"## {labels['continuity_constraints']}"])
     lines.extend(f"- {item}" for item in delta["constraints"])
     if not delta["constraints"]:
-        lines.append("- None")
+        lines.append(f"- {labels['none']}")
     retired = delta.get("retired_context_items", []) + [
         f"Character state: {name}" for name in delta.get("retired_characters", [])
     ]
     if retired:
         # Retired entries remain here so compacted context can still be audited.
-        lines.extend(["", "## Retired Entries This Chapter"])
+        lines.extend(["", f"## {labels['retired_entries']}"])
         lines.extend(f"- {item}" for item in retired)
     payload = "\n".join(lines) + "\n"
     size = byte_size(payload)
@@ -957,18 +1131,19 @@ def merge_transaction(state: dict[str, Any], transaction: dict[str, Any]) -> dic
     return normalize_state(next_state)
 
 
-def render_views(state: dict[str, Any]) -> dict[str, str]:
+def render_views(state: dict[str, Any], project: Path) -> dict[str, str]:
     revision = state["state_revision"]
+    labels = labels_for(record_language(project))
     views = {
-        "context.md": render_context(state),
-        "foreshadowing.md": render_foreshadow(state["foreshadow"], revision),
+        "context.md": render_context(state, labels),
+        "foreshadowing.md": render_foreshadow(state["foreshadow"], revision, labels),
     }
-    author, reader = render_timeline_views(state["timeline"], revision)
+    author, reader = render_timeline_views(state["timeline"], revision, labels)
     views["timeline/author-truth.md"] = author
     views["timeline/reader-knowledge.md"] = reader
     for name, snapshot in state["characters"].items():
         views[f"character-state/{name}.md"] = render_snapshot(
-            name, snapshot, state["last_committed_chapter"], revision
+            name, snapshot, state["last_committed_chapter"], revision, labels
         )
     return views
 
@@ -1013,7 +1188,7 @@ def initialize(project: Path, document: object) -> dict[str, Any]:
     tracking = tracking_root(project)
     require(not state_path(project).exists(), "tracking state already exists; init never overwrites project state")
     state = normalize_initial_document(document)
-    views = render_views(state)
+    views = render_views(state, project)
     state_payload = json_payload(state)
 
     # 输入全部校验通过后才动用户文件，失败的 init 不会挪走任何东西。
@@ -1045,8 +1220,9 @@ def apply_transaction(project: Path, document: object) -> dict[str, Any]:
         transaction["delta"],
         # 本章退役的角色在 next_state 里已被删除，但本章记录里仍应标为核心。
         set(next_state["characters"]) | set(transaction["delta"]["retired_characters"]),
+        labels_for(record_language(project)),
     )
-    views = render_views(next_state)
+    views = render_views(next_state, project)
     next_state_payload = json_payload(next_state)
     path = delta_path(tracking, transaction["chapter"])
     if transaction["mode"] == "append" and path.exists():
@@ -1079,7 +1255,7 @@ def check_project(project: Path) -> dict[str, Any]:
         require(chapter <= last_chapter, f"chapter delta {chapter} exceeds last_committed_chapter")
         require(path.stat().st_size <= DELTA_MAX_BYTES, f"chapter delta {chapter} exceeds {DELTA_MAX_BYTES} bytes")
 
-    expected_views = render_views(state)
+    expected_views = render_views(state, project)
     for relative, expected in expected_views.items():
         path = tracking / relative
         require(path.exists(), f"derived view is missing: {relative}")

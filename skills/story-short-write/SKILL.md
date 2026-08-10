@@ -9,7 +9,7 @@ metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"
 ## Interaction language
 
 - Unless the user explicitly requests another reply language, communicate with the user in Simplified Chinese (简体中文), including questions, progress updates, confirmations, errors, and summaries.
-- This applies to conversational output only. For an English book, keep prose, outlines, settings, tracking files, metadata, and other book artifacts in English according to the book contract.
+- This applies to conversational output only. Prose, outlines, settings, tracking files, metadata, and other book artifacts must follow the language declared by that book's contract; an English prose language does not imply English records.
 
 ### Agent bundle preflight
 
@@ -151,8 +151,8 @@ Help the user settle the short story's core framework:
 - Title (working): {}
 - Target words: {} words (short form usually 4000-12000 words)
 - Target platform: {}
-- Prose language: en
-- Record language: en
+- Prose language: {from book contract}
+- Record language: {from book contract}
 - English variant: en-US
 - Spelling / dialogue quotation: US English / curly double quotes
 - Market: {US | UK | global English}

@@ -255,5 +255,5 @@ All references in `story-short-analyze` are **comparison yardsticks** — compar
 
 ## Language
 
-> - Load the deployed English book contract. Use the source/book language for the teardown and record the inferred profile; for English source material default records to `en-US`. The user's chat language does not override the source language.
+> - Load the deployed book contract. Resolve source/prose language and record language separately; an English source may have Chinese records when the book contract says `zh-CN`. Do not infer record language from source language or chat language.
 > - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.
