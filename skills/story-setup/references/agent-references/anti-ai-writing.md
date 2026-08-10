@@ -158,13 +158,12 @@ heavy beats, not the default voice.
   style, see Pattern 9)
 - Mechanical long-short alternation (also a template)
 
-> **Corpus calibration (v1 baseline)**: derived from published commercial-fiction
-> norms — average sentence 12-16 words, clauses (between commas/and) averaging 8-12
-> words, narrative sentences mostly mid-length, ≤5-word fragments roughly a fifth,
-> usually isolated time markers, transitions, and action heavy-beats. Short-form
-> episodes have shorter paragraphs but the same internal sentence rhythm: **paragraphs
-> get shorter with the form; sentences don't shatter inside**. Re-derive these
-> numbers from a clean English genre corpus before tightening them.
+> **Corpus calibration (v1 baseline)**: these are conservative English prose
+> heuristics, not an AIGC score. The repository's human-prose regression fixture
+> must pass with zero blocking findings. Before tightening thresholds, evaluate
+> against a licensed, genre-labelled English corpus and record false-positive
+> rates for narration, dialogue, first person, YA, romance, and thriller prose.
+> A single genre's cadence must not become a universal rewrite rule.
 
 ### Rule 4: colloquial speech
 

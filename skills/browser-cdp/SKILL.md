@@ -1,7 +1,7 @@
 ---
 name: browser-cdp
 description: "Use this skill when you need to control a Chrome browser via CDP (Chrome DevTools Protocol) to reuse existing login sessions. Covers: launching Chrome in debug mode, opening URLs, waiting for page load, evaluating JavaScript, taking snapshots, and extracting auth tokens. Trigger phrases: browser automation, CDP, agent-browser, Chrome CDP, reuse login session, extract token from browser."
-metadata: {"openclaw":{"requires":{"bins":["agent-browser"]},"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"requires":{"bins":["agent-browser"]},"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # Browser CDP Operations
 
@@ -116,7 +116,7 @@ agent-browser --cdp 9222 type "<sel>" "<text>"
 
 ## Stop / clean up
 
-- Close the debug Chrome window (or `pkill -9 -x 'Google Chrome'` / `taskkill /F /IM chrome.exe`).
+- Close the debug Chrome window, or rerun the setup script with `--reset --yes`; cleanup is limited to the process IDs discovered for this setup run.
 - Login expired: `node {SKILL_DIR}/scripts/setup-cdp-chrome.js 9222 --reset --yes` (note: `--yes` also requires asking the user first).
 
 ---
@@ -151,7 +151,7 @@ Even with the timeout wrapper, these scenarios can still fail:
 |----------|------|------------|
 | Page load timeout | eval waits forever | 30s timeout; retry after timeout |
 | Bulk data scraping | cumulative waits across pagination | per-page independent timeouts; resume from the breakpoint after failure |
-| Chrome process stuck | CDP connection drops but the process lingers | clean with `pkill` / `taskkill`, then reconnect |
+| Chrome process stuck | CDP connection drops but the process lingers | rerun the setup script with `--reset --yes`, then reconnect |
 | Network fluctuation | requests hang with no timeout | retry once automatically after timeout |
 
 If an operation keeps hanging in opencode, press `ESC` to interrupt manually.

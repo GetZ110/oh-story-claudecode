@@ -1036,4 +1036,20 @@ NODE
 
 echo "abstract-summary-tic (abstract summary repetition) regression tests passed."
 
+# --- Human-prose baseline: ordinary English commercial-fiction-like prose must
+# not produce blocking findings. This is a regression floor, not an AIGC score;
+# genre-specific corpora should be added before tightening thresholds. ---
+FIXTURE_HUMAN_BASELINE="$TMP_DIR/fixture-human-baseline.md"
+cat > "$FIXTURE_HUMAN_BASELINE" <<'EOF'
+The state-of-the-art ward didn't fail—it shifted when Mara pressed her palm to the glass. A green line moved across the display, slow enough for her to follow. "You can still walk away," Jonah said. He kept one hand on the door, but he didn't open it.
+Mara looked at the receipt tucked beneath the monitor. The date was yesterday's date, and the signature belonged to someone who had been dead for six months. She folded the paper once and put it in her pocket. If the ward had recognized her, the person who wrote the receipt had expected her to come.
+EOF
+set +e
+node "$SCRIPT" --fail-on=blocking "$FIXTURE_HUMAN_BASELINE" >/dev/null 2>&1
+human_status=$?
+set -e
+[ "$human_status" -eq 0 ] || { echo "FAIL: clean English baseline produced blocking findings" >&2; exit 1; }
+
+echo "English human-prose baseline regression test passed."
+
 echo "All AI pattern detector regression tests passed."

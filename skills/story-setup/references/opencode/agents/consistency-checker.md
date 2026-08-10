@@ -70,6 +70,8 @@ Using the terms from Step 1, run the following checks:
 - Is the event order logically self-consistent?
 - Are time jumps reasonably accounted for?
 - Check prose time statements against `tracking/timeline.md` (if it exists).
+- Use the author-truth timeline to verify objective chronology and the reader-knowledge timeline to verify that prose does not reveal information early.
+- After any tracking repair, report that the parent flow owns post-repair validation via `tracking_commit.py check`; this read-only agent does not execute shell commands.
 
 ### Step 3: Reasoning-based consistency review
 

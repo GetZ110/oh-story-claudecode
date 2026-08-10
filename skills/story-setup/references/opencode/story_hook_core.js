@@ -216,6 +216,8 @@ function proseBlockReason(root, absolute) {
   if (!match) return null
   const chapter = match[1]
   const book = path.dirname(path.dirname(absolute))
+  const checkpointReason = trackingCheckpointReason(book)
+  if (checkpointReason) return checkpointReason
   // Canonical guard case: an agent may create {book}/prose/chapter_N.md before any
   // scaffolding exists. "Looks like a book" is not a pass condition; relative-path
   // misresolution belongs to the host adapter resolving against cwd, not a fail-open
@@ -262,6 +264,24 @@ function proseBlockReason(root, absolute) {
         }
       }
     }
+  }
+  return null
+}
+
+function trackingCheckpointReason(book) {
+  const tracking = path.join(book, "tracking")
+  if (!existingDir(tracking)) return null
+  const stateFile = path.join(tracking, "_tracking-state.json")
+  if (!fs.existsSync(stateFile)) {
+    return "Tracking checkpoint invalid: _tracking-state.json is missing. schema_version=4, state_revision, and last_committed_chapter are required; re-run /story-import, then use a mode=revision transaction to rebuild derived views. Tracking must be committed first."
+  }
+  try {
+    const state = JSON.parse(fs.readFileSync(stateFile, "utf8"))
+    if (state.schema_version !== 4 || !Number.isInteger(state.state_revision) || !Number.isInteger(state.last_committed_chapter)) {
+      return "Tracking checkpoint invalid: _tracking-state.json has an unsupported schema or missing state_revision/last_committed_chapter. Re-run /story-import, then use a mode=revision transaction to rebuild derived views. Tracking must be committed first."
+    }
+  } catch {
+    return "Tracking checkpoint invalid: _tracking-state.json is unreadable. Re-run /story-import, then use a mode=revision transaction to rebuild derived views. Tracking must be committed first."
   }
   return null
 }
@@ -357,7 +377,7 @@ function matchToxicSentence(line) {
 }
 
 function wordCount(text) {
-  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?/g)
+  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+|-[A-Za-z0-9]+)*/g)
   return m ? m.length : 0
 }
 
@@ -701,6 +721,7 @@ module.exports = {
   extractProseTargets,
   extractPatchTargets,
   proseBlockReason,
+  trackingCheckpointReason,
   isProsePath,
   wordcountFinding,
   duplicateTitleFindings,

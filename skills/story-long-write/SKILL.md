@@ -2,9 +2,13 @@
 name: story-long-write
 version: 1.0.0
 description: "Long-form web fiction writing. From outline to chapter prose with continuous tracking of world, characters, and plot lines. Triggers: /story-long-write, $story-long-write, 'start a novel', 'write a novel outline', 'daily update', 'continue the story', 'write chapter N', 'rewrite chapter N'."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-long-write: Long-Form Web Fiction Writing
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are a web-novel writing coach. Your job is to help the user write a complete long-form web novel from zero: topic confirmation, outline, and chapter prose.
 
@@ -21,6 +25,7 @@ We write web fiction by locking the emotion first, then delivering that emotion 
 3. **Assemble from modules; do not reinvent.** Every genre has proven plot patterns — how reversals build, how payoff moments detonate, how romance pulls. Find the right module, treat the benchmark book's concrete characters as function slots (rival / ally / catalyst), then map them onto your own characters. Fill the slots with your own material.
 4. **Load only what is necessary.** When writing each chapter, load only the information you would get wrong if you didn't know it: the characters' states, pending foreshadowing, relevant setting. Everything else stays on the file system.
 5. **Contract and progression decisions go through the authoritative reference.** When judging reader contract, protagonist agency, interest safety, promise debt, endgame reserve (trump cards / power-up ladder), institution/faction boundaries, and the contract risk levels (safe / needs reinforcement / broken), calibrate against `references/reader-contract-and-progression.md` first; do not duplicate long rules inside SKILL.md.
+6. **Tracking transactions use the canonical protocol.** Before initializing or committing `tracking/`, load `references/tracking-transaction.md` and use its JSON schema and `tracking_commit.py` commands; never hand-edit derived views.
 
 | Genre type | Core emotion | Primary reference |
 |------|---------|---------|
@@ -87,7 +92,7 @@ Ask: **"What do you want readers to feel? Any favorite books to benchmark agains
 >
 > **Benchmark path lookup**: prefer `{project}/benchmark/{BookTitle}/`, fall back to `teardown-lib/{BookTitle}/`. All benchmark-data loading below uses this rule.
 
-**Benchmark findings (before the reactive loads below)**: whether or not the user names a benchmark book, scan `teardown-lib/` and recommend by genre proactively — do not wait passively.
+**Benchmark findings (before the reactive loads below)**: exclude the current imported work, current project prose, and its own teardown from all benchmark candidates. For the remaining external books, scan `teardown-lib/` and recommend by genre proactively — do not wait passively.
 
 1. `ls teardown-lib/` (data source) and the project's `benchmark/` (reference view); if both are empty → skip to item 4.
 2. Read each book's genre (short-form: `teardown-lib/{Book}/_meta.json` `genre_detected`; long-form: head of `overview.md` or the "genre" in `teardown-report.md` basic info), compare with this book's genre/direction, and label same-genre / weakly related / unrelated.
@@ -122,12 +127,14 @@ story-architect is a high-level structural design agent. Lightweight genre posit
 
 ---
 
-### Phase 1.5: Book language & book-level AGENTS.md (new books, mandatory)
+### Phase 1.5: Book language & book-level AGENTS.md (all books, mandatory)
 
-When opening a **new** book (no `{BookTitle}/` directory yet), before any book files are written, use `AskUserQuestion` to confirm two language settings — do not guess:
+Before any prose, outline, setting, tracking, or review output is written, load the deployed English book contract. For a new book, use `AskUserQuestion` to confirm the language and market settings. For an existing or imported book, read the existing profile and repair missing fields before continuing; do not use the chat language as a fallback.
 
-1. **Prose language**: 中文 / English
-2. **Record language** (outline, setting, tracking, reports): 中文 / English
+1. **Prose language**: English
+2. **Record language** (outline, setting, tracking, reports): English
+3. **English variant**: `en-US` by default, or `en-GB` when the target market requires it
+4. **Dialogue quotation**: curly double quotes by default; record a platform override explicitly
 
 Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 
@@ -135,8 +142,19 @@ Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 # {BookTitle} — Book-level instructions
 
 ## Language rules (mandatory)
-- Prose language: {zh | en}
-- Record language (outline / setting / tracking / reports): {zh | en}
+- Prose language: en
+- Record language (outline / setting / tracking / reports): en
+- English variant: en-US
+- Spelling: US English
+- Dialogue quotation: curly double quotes
+- Date convention: prose follows the target market; records use ISO 8601
+- Number and currency convention: en-US unless the setting requires another system
+- Measurement convention: setting-specific
+- Target platform: {platform}
+- Market: {US | UK | global English}
+- Content rating: {general | teen | mature}
+- Content warnings: {none or list}
+- Serialization: {serial episode | web chapter | ebook manuscript | one-shot}
 - All story-* outputs for this book must follow these languages; do not switch on your own.
 
 ## Book identity
@@ -147,7 +165,7 @@ Once the working title is fixed (Phase 2 sheet), create `{BookTitle}/AGENTS.md`:
 
 - ZCode sessions opened inside the book directory load this file automatically; other CLIs treat it as the book's ground rules.
 - Phase 4 prose must follow its `Prose language`; all outline/setting/tracking/report outputs (Phase 2–5) must follow its `Record language`.
-- If the book directory already has an AGENTS.md (re-open scenario), keep it — only regenerate when the user explicitly asks.
+- If the book directory already has an AGENTS.md, preserve user-authored sections but add any missing language/market fields before continuing.
 
 ---
 
@@ -164,6 +182,9 @@ Establish the following core elements with the user:
 - Book title: {working title}
 - Genre/type: {primary + secondary}
 - Target platform: {Royal Road / Webnovel / Wattpad / Kindle / other}
+- Market / English variant: {US/en-US | UK/en-GB | global English}
+- Content rating / warnings: {general | teen | mature} / {none or list}
+- Serialization: {serial episode | web chapter | ebook manuscript | one-shot}
 - Target length: {X} thousand words
 - Target reader: {profile}
 - Reader contract: {the core reading pleasure this book promises; see reader-contract-and-progression.md}
@@ -459,6 +480,7 @@ Long-form writing must use the file system — do not pile content into the conv
 | benchmark/{Book}/setting/*.md | benchmark book | analyze output | Phase 2 setting reference, Phase 4 worldview constraints |
 
 **Missing-file handling**: explicitly repair when the current primary artifact is missing; never assemble degraded substitutes:
+0. **Tracking authority missing or invalid** → if an existing book has prose and `tracking/` but `_tracking-state.json` is missing or invalid, treat the semantic checkpoint as corrupted and stop before writing; re-run `/story-import` and initialize/repair the JSON authority before continuing.
 1. **Character-state file missing** → infer the current state from the character setting files and prior prose.
 2. **Non-primary subdirectories missing (characters, ordinary story units, setting)** → look up the project view then the root data source per the "benchmark path lookup" rule; if still missing, skip that optional module. This item does not apply to `plot/emotional-beats.md` and `plot/pacing.md`.
 3. **`plot/emotional-beats.md` / `plot/pacing.md` missing** → pre-write preparation must stop, set `missing_primary_contract: true`, and give a `repair_action`: re-run `/story-long-analyze` Stage 3+ or re-run `/story-import`; never fake recall of the authoritative modules with summary files.
@@ -469,7 +491,7 @@ Long-form writing must use the file system — do not pile content into the conv
 **Benchmark authority priority (authoritative read order)**:
 1. `plot/emotional-beats.md` is the authoritative source for reader needs / emotional engine, payoff-genre framework, reproducible modules, and recombination guidance.
 2. `plot/pacing.md` is the authoritative source for key information advancement, chapter-expansion technique aggregation, emotional trigger points, and burst pacing.
-3. `style.md` only governs sentence length, punctuation, dialogue subtext, source anchors, and tone; it cannot override emotional-module or pacing intent. **Custom style `setting/style.md` (user-written, never overwritten by imports/teardowns) outranks the benchmark `style.md`**: with substantive content it is the authoritative style base and the benchmark style drops to reference and sentence-length numeric fallback; hard safety lines (`……`/em-dashes/blank lines between paragraphs/fragments) still normalize per narrative-writer — the custom style only takes over sentence length / soft punctuation / subtext / emotional alternation.
+3. `style.md` only governs sentence length, punctuation, dialogue subtext, source anchors, and tone; it cannot override emotional-module or pacing intent. **Custom style `setting/style.md` (user-written, never overwritten by imports/teardowns) outranks the benchmark `style.md`**: with substantive content it is the authoritative style base and the benchmark style drops to reference and sentence-length numeric fallback; structural safety lines (blank lines between paragraphs/fragments, `--`, repeated ellipses, and em-dash clusters) still normalize per narrative-writer, while a functional single em dash or ellipsis remains valid English punctuation.
 4. `chapters/chapter_K_summary.md` is chapter-level evidence for verifying and supplementing the authoritative indexes; it does not reverse-override `emotional-beats.md` / `pacing.md`.
 5. `teardown-report.md` and `plot/storylines.md` are projections/summaries; if they conflict with `plot/emotional-beats.md` or `plot/pacing.md`, write per the two authoritative files and record the conflict source in pre-write `gaps.conflict`.
 
@@ -547,7 +569,7 @@ When the user is ready to write a chapter:
      - Outline-priority boundary: only expand this chapter's outline, no self-invented plot; if the word target cannot be met with existing plot points, return `outline_underfilled` deficit points; the main session supplements/confirms the outline before writing.
    - Do not copy this file's whole rule set into the prompt; details follow the loaded references and the narrative-writer template.
    - Agent output writes to `prose/chapter_NNN_Title.md`. If the agent is not deployed, the main thread writes directly.
-8. **Word-count verification** (the first thing after writing): count the chapter's actual words with cross-platform Python character statistics, probing `python3/python/py`; do not use `wc -c` or model estimation; do not assume `python3` exists on Windows. macOS/Linux may use `wc -m` as a fallback.
+8. **Word-count verification** (the first thing after writing): count the chapter's actual words with the deployed shared English word-count tokenization, probing `python3/python/py`; do not use `wc -c`, character statistics, or model estimation; do not assume `python3` exists on Windows. macOS/Linux may use `wc -w` only when its result matches the shared tokenization.
    - Words < 90% of outline target: find deficit points against the plot-point budgets. Dense points (payoff/comeuppance/reversal) written thin → rewrite to their budgets; low-pressure/relationship/information-assembly chapters → expand existing setup, interaction, or performance beats inside the outline — do not force payoffs in. If the existing outline lacks expandable content, stop and output `outline_underfilled` deficit points; supplement/confirm the outline first — prose must not invent new plot.
    - Words > chapter target×1.1: compress transitions, merge light points, cut redundant transitions — do not cut main-line payoffs to hit length.
    - 90% is only the release floor; the target is still `[chapter target, chapter target×1.1]`; re-count after rewriting and enter step 9 once inside the range.
@@ -555,7 +577,8 @@ When the user is ready to write a chapter:
 10. **Meta-information scan**: check the prose outside the title line for engineering words — `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` (plus the variants listed in step 6) — rewrite any hit into in-scene expression; exceptions are the same as step 6.
 11. **Banned-word scan**: first pass the **most toxic sentence patterns** (the ones that slip through most in practice; hit → fix): ① the whole "It wasn't X. It was Y." family — including the "No X. No Y. (only Z)" parallel negation, the reversed "It was Y, not X", and the rise-after-fall "He didn't X, nor did he Y. He only Z"; ② voice-contrast "voice was quiet/low… but…"; ③ the universal adverbial ", with a trace of …"; ④ trailer/summary endings "No one knew…" / "(it was) only the beginning" / "was pressing toward…" / "the curtain was about to rise" / "in that moment…"; ⑤ short words in quotes for emphasis in narration (he was hired to "keep an eye on" things). Then check the full table in `references/banned-words.md`: tier-1 words (high-frequency AI flavor) replaced on hit; tier-2 (low-frequency/context-sensitive) replaced when frequent, occasional use judged qualitatively per `references/anti-ai-writing.md`.
 12. **Update tracking**: immediately after writing, update `tracking/foreshadowing.md` (new/collected foreshadowing), `tracking/timeline.md` (event order), and `tracking/character-state.md` (if the chapter changed a character's state — identity, ability, relationship, public image — update the entry and append a change record). If this chapter first introduces a reusable named character/faction, build the corresponding `setting/` files per Phase 3 "post-outline setting completion". Character-state update rules see state-tracking.md.
-13. **Mid-way snapshot** (long-form safety net): after every 3 consecutive chapters, before continuing:
+13. **English localization pass**: before release, check names, places, institutions, occupations, education, law, medicine, military terms, dates, money, units, idioms, titles, kinship terms, and dialogue register against the book's market profile. Preserve intentional non-English setting details, but mark the reason in `setting/` rather than silently leaving direct translations.
+14. **Mid-way snapshot** (long-form safety net): after every 3 consecutive chapters, before continuing:
    - Write current progress into `tracking/context.md` (progress meta only — current position, recent decisions, pending threads — do not repeat character-state/foreshadowing specifics)
    - `ls -la prose/` to confirm the last 3 chapter files landed on disk with sane sizes (>100 bytes)
    - If files are missing or sizes are abnormal, rewrite them immediately
@@ -725,4 +748,4 @@ Some topics span multiple phases and live in several files. The table below give
 
 ## Language
 
-- Follow the book's language rules: read `{BookTitle}/AGENTS.md` — `Prose language` governs prose drafting (English prose follows the house style rules in references/anti-ai-writing.md; keep sentences conversational, concrete, and free of AI-flavor patterns), `Record language` governs outline/setting/tracking/report outputs. If the book has no AGENTS.md, follow the user's language.
+- Follow the book's language rules: read `{BookTitle}/AGENTS.md` and the deployed English book contract. `Prose language` governs prose drafting, `Record language` governs outline/setting/tracking/report outputs, and `English variant` governs spelling and conventions. If the profile is missing, create it using the contract before writing; never fall back to the user's chat language.

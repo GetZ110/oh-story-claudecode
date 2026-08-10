@@ -43,6 +43,8 @@ This file is the complete guide for the "daily continuation" scenario. After SKI
 
 ## Step 1: Quick context load
 
+All tracking writes go through `tracking_commit.py`; do not edit derived Markdown directly.
+
 **Optional: use the story-explorer agent to load context in bulk.** If the project has deployed a story-explorer agent (check whether `.claude/agents/story-explorer.md` exists), you may run `Agent(subagent_type: "story-explorer", prompt: "Project directory: {dir}\nQuery type: context_load\nQuery params: preparing to write chapter {N}")` to fetch all writing context in one `context_load` query. Use its results directly after spawn, skipping the manual loading steps below. If the agent is unavailable or returns incomplete results, fall back to the manual loading below.
 
 Manual loading (default):
@@ -129,6 +131,7 @@ Load multiple chapter outlines at once, but **must write chapter by chapter seri
      - `tracking/timeline.md` (event order)
      - `tracking/character-state.md` (if the chapter changed a character's state — identity, ability, relationship, public image — update the entry and append a change record)
      - `tracking/context.md` (progress meta only: current position + written words + this round's changes; no detailed character-state/foreshadowing content; reuse existing planned-beats/actual-results/promise-progress post-writing records to reflect engine advancement, appending this chapter's unit execution state: unit ID, planned beats, actual results, benefit changes, primary push line/result lines, promise progress, drift aligned|adaptive|structural, next chapter's hard task. Do not add fields beyond these; do not create separate memory packs or unit tracking files)
+   - submit the complete current context each chapter. Any removed `long_term_constraints` or `continuity_risks` item must be declared in `delta.retired_context_items`, and any inactive core character must be declared in `delta.retired_characters`; omission is not deletion. A failed `init` validation moves no files, and content under `tracking/_retired-tracking-archive/` is not parsed.
    - **Quality-check prompt** (optional): this chapter is written. For consistency checks, run `/story-review lean`. Batch mode skips this step; review everything together after the batch.
 3. **Uninterrupted but not concurrent**: after one chapter, do not ask the user — write the next directly (unless the user wants chapter-by-chapter confirmation); the next chapter must read the previous chapter's just-written prose and tracking updates before starting.
 
@@ -153,6 +156,8 @@ After the batch, run the Phase 5 quality check on all newly written chapters (at
 > Full checklist in [Phase 5: Quality check](../SKILL.md#phase-5-quality-check).
 
 ---
+
+If a prose repair changes facts that affect later chapters, submit a `mode=revision` transaction before batch finish and run `check` afterward. Pure wording changes do not require a resubmission.
 
 ## Step 4: Progress summary
 

@@ -417,4 +417,4 @@ Punctuation carries tone, power relationships, and emotion beats; it is not deco
 
 1. Read the scene's target emotion and character voice; label every key dialogue beat with a tone class (pressure/testing/burst/hesitation/interrupted).
 2. Polish pass: scan sentence endings — if a whole passage has only periods, check whether accusations, hesitations, and bursts got flattened; if the screen is full of `?`/`!`, cut down to the functional positions only.
-3. In prose (including dialogue), all `……`, `——`, `—`, `--` become periods, commas, short sentences, line breaks, or action breaks. Zhihu Yan's `「」` is only a quote style; it doesn't affect the legal use of question marks and exclamation marks.
+3. In prose (including dialogue), functional English ellipses and em dashes are allowed for hesitation, interruption, or a deliberate aside. Remove repeated pause padding, `--`, and em-dash clusters. Zhihu Yan's `「」` remains a legacy platform-specific quote style; it does not affect the legal use of question marks and exclamation marks.

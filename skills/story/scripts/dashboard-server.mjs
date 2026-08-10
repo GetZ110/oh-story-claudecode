@@ -121,7 +121,7 @@ function compareTreeEntries(left, right) {
   if (left.type !== right.type) {
     return left.type === "directory" ? -1 : 1;
   }
-  return left.name.localeCompare(right.name, "zh-CN", { numeric: true, sensitivity: "base" });
+  return left.name.localeCompare(right.name, "en-US", { numeric: true, sensitivity: "base" });
 }
 
 async function existingRealRoot(root) {
@@ -340,7 +340,7 @@ async function listLibraryRoots(root, scanErrors) {
   }
 
   return roots.sort((left, right) =>
-    left.relativePath.localeCompare(right.relativePath, "zh-CN", { numeric: true }),
+    left.relativePath.localeCompare(right.relativePath, "en-US", { numeric: true }),
   );
 }
 
@@ -458,7 +458,7 @@ export async function searchWorkspace(root, queryValue, scopeValue) {
   const realRoot = await existingRealRoot(root);
   const { libraryRoots, projectRoots, scanErrors } = await discoverWorkspaceRoots(realRoot);
   const roots = scopeValue === "libraries" ? libraryRoots : projectRoots;
-  const normalizedQuery = query.toLocaleLowerCase("zh-CN");
+  const normalizedQuery = query.toLocaleLowerCase("en-US");
   const state = {
     nodes: 0,
     truncatedByResults: false,
@@ -490,7 +490,7 @@ export async function searchWorkspace(root, queryValue, scopeValue) {
     if (!info || info.isSymbolicLink()) return;
     if (info.isFile()) {
       const path = toPosixPath(relativePath);
-      if (basename(absolutePath).toLocaleLowerCase("zh-CN").includes(normalizedQuery)) {
+      if (basename(absolutePath).toLocaleLowerCase("en-US").includes(normalizedQuery)) {
         state.results.push({
           name: basename(absolutePath),
           path,

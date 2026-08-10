@@ -127,8 +127,12 @@ const PLATFORM_CONFIG = {
         return out.split("\n").map(Number).filter((n) => n > 0);
       } catch { return []; }
     },
-    killChrome() {
-      try { execSync("pkill -9 -x 'Google Chrome'", { stdio: "ignore" }); } catch {}
+    killChrome(pids) {
+      for (const pid of pids) {
+        if (Number.isInteger(pid) && pid > 0) {
+          try { execSync(`kill -9 ${pid}`, { stdio: "ignore" }); } catch {}
+        }
+      }
     },
   },
   win32: {
@@ -154,8 +158,12 @@ const PLATFORM_CONFIG = {
         }).filter((n) => n > 0);
       } catch { return []; }
     },
-    killChrome() {
-      try { execSync("taskkill /F /IM chrome.exe", { stdio: "ignore" }); } catch {}
+    killChrome(pids) {
+      for (const pid of pids) {
+        if (Number.isInteger(pid) && pid > 0) {
+          try { execSync(`taskkill /F /PID ${pid}`, { stdio: "ignore" }); } catch {}
+        }
+      }
     },
   },
   linux: {
@@ -181,9 +189,11 @@ const PLATFORM_CONFIG = {
       }
       return [...pids];
     },
-    killChrome() {
-      for (const pat of ["google-chrome-stable", "google-chrome", "chrome"]) {
-        try { execSync(`pkill -9 -x ${pat}`, { stdio: "ignore" }); } catch {}
+    killChrome(pids) {
+      for (const pid of pids) {
+        if (Number.isInteger(pid) && pid > 0) {
+          try { execSync(`kill -9 ${pid}`, { stdio: "ignore" }); } catch {}
+        }
       }
     },
   },
@@ -858,10 +868,10 @@ async function main() {
   // 5) Kill the existing Chrome processes and wait for them to exit
   if (runningPids.length > 0) {
     log(`Stopping ${runningPids.length} Chrome process(es)...`);
-    config.killChrome();
+    config.killChrome(runningPids);
     if (!waitForChromeExit(config, 6000)) {
       warn("Chrome processes still remain after the first kill; trying again...");
-      config.killChrome();
+      config.killChrome(runningPids);
       waitForChromeExit(config, 4000);
     }
     const remain = config.listChromePids();

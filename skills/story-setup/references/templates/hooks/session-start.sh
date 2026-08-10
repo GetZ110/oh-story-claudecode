@@ -168,7 +168,7 @@ story_update_check() {
   local checked=0
   if [ "$((now - last))" -ge 86400 ]; then
     checked=1
-    latest=$(curl -fsS --max-time 5 "https://api.github.com/repos/worldwonderer/oh-story-claudecode/releases/latest" 2>/dev/null \
+    latest=$(curl -fsS --max-time 5 "https://api.github.com/repos/GetZ110/oh-story-claudecode/releases/latest" 2>/dev/null \
       | grep -o '"tag_name"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*' | head -1) || latest=""
     # Write the timestamp on success or failure: on failure latest stays empty as a
     # negative cache, otherwise environments that can't reach GitHub would wait a
@@ -180,7 +180,7 @@ story_update_check() {
   [ "$checked" -eq 1 ] || return 0
   [ -n "$latest" ] || return 0
   if [ "$latest" != "$cur" ] && [ "$(printf '%s\n%s\n' "$cur" "$latest" | sort -t. -k1,1n -k2,2n -k3,3n | tail -1)" = "$latest" ]; then
-    OUTPUT+="[INFO] The story writing toolkit has a new version v${latest} (current v${cur}). Update: npx skills add worldwonderer/oh-story-claudecode -y -g then re-run /story-setup; or tell /story \"check for updates\". Disable reminders: export STORY_NO_UPDATE_CHECK=1${NL}"
+    OUTPUT+="[INFO] The story writing toolkit has a new version v${latest} (current v${cur}). Update: npx skills add GetZ110/oh-story-claudecode -y -g then re-run /story-setup; or tell /story \"check for updates\". Disable reminders: export STORY_NO_UPDATE_CHECK=1${NL}"
     HAS_CONTENT=true
   fi
 }

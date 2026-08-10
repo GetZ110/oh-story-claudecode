@@ -6,6 +6,8 @@ description: Multi-benchmark cross-book recall
 # Cross-Book Recall
 
 ## Trigger
+
+Benchmark discovery must exclude the current imported work, current project prose, and the current work's own teardown; only external books can be benchmark candidates.
 Enabled when the project root `teardown-lib/` or the project `benchmark/` has ≥2 books. The primary benchmark book comes from the `Primary benchmark book` field in `setting/genre-positioning.md` (inside the "Benchmark registry" or import-generated "Benchmark book list" section; field name identical); if missing, use the lexicographically first book (over `benchmark/`; over `teardown-lib/` if no `benchmark/`) and prompt the user to fill it via `gaps.main_benchmark_unspecified: true` / in the import report.
 
 > **Quantity rules**: at most 1 primary benchmark book, used for style and final prose input; secondary / reference benchmarks have **no registration limit**. During execution, recall per book by genre relevance, citation strength, and stage budget; when over budget, trim items — never delete book registrations.

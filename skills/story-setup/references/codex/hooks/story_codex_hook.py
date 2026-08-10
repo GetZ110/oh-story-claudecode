@@ -237,7 +237,7 @@ def _toxic_match_sentence(line: str) -> tuple[str, str, str] | None:
 
 
 def _word_count(text: str) -> int:
-    return len(re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z]+)?", text))
+    return len(re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z0-9]+|-[A-Za-z0-9]+)*", text))
 
 
 def toxic_phrase_findings(text: str) -> list[str]:
@@ -690,6 +690,9 @@ def prose_block_reason(root: Path, abs_path: Path) -> str | None:
         return None
     num = m.group(1)
     book_dir = abs_path.parent.parent
+    checkpoint_reason = tracking_checkpoint_reason(book_dir)
+    if checkpoint_reason:
+        return checkpoint_reason
     # A new book may first-build prose before any outline/tracking/setting scaffolding
     # exists; the core guard must fail closed. Relative paths are resolved by
     # HOOK_CWD — don't weaken this canonical guard to mask cwd semantics.
@@ -741,6 +744,31 @@ def prose_block_reason(root: Path, abs_path: Path) -> str | None:
                     if more > 0:
                         reason += f"\n({more} more; full scan: node <skill>/scripts/check-ai-patterns.js --check <previous chapter file>)"
                     return reason
+    return None
+
+
+def tracking_checkpoint_reason(book_dir: Path) -> str | None:
+    tracking = book_dir / "tracking"
+    if not tracking.is_dir():
+        return None
+    state_file = tracking / "_tracking-state.json"
+    if not state_file.exists():
+        return ("Tracking checkpoint invalid: _tracking-state.json is missing. "
+                "schema_version=4, state_revision, and last_committed_chapter are required; "
+                "re-run /story-import, then use a mode=revision transaction to rebuild derived views. "
+                "Tracking must be committed first.")
+    try:
+        state = json.loads(state_file.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return ("Tracking checkpoint invalid: _tracking-state.json is unreadable. "
+                "Re-run /story-import, then use a mode=revision transaction to rebuild derived views. "
+                "Tracking must be committed first.")
+    if (state.get("schema_version") != 4 or
+            not isinstance(state.get("state_revision"), int) or
+            not isinstance(state.get("last_committed_chapter"), int)):
+        return ("Tracking checkpoint invalid: _tracking-state.json has an unsupported schema or "
+                "missing state_revision/last_committed_chapter. Re-run /story-import, then use a "
+                "mode=revision transaction to rebuild derived views. Tracking must be committed first.")
     return None
 
 

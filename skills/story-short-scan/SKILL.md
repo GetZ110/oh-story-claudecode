@@ -2,7 +2,7 @@
 name: story-short-scan
 version: 1.0.0
 description: "Short-form fiction market scanning. Analyzes hot short fiction data from Wattpad, Inkitt, Radish, Galatea, Dreame, GoodNovel, Tapas and other English platforms to catch trending emotional angles. Trigger phrases: /story-short-scan, short fiction scan, what's hot in short fiction, scan Wattpad stories."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-short-scan: Short-form market scanning
 
@@ -213,7 +213,7 @@ Load on demand:
 
 ## Language
 
-- Follow the user's language.
+- Load the deployed English book contract; use the book or requested market profile for trend and platform reports, with `en-US` as the English default. The user's chat language does not override the report language.
 - English prose follows the house style rules in the skill's `references/` files
   (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
   and free of AI-flavor patterns.

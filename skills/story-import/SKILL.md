@@ -2,13 +2,19 @@
 name: story-import
 version: 1.0.0
 description: "Reverse import of an existing novel. Reverse-parses an already-written novel (partial or complete) into the standard project directory structure, compatible with the story-long-write / story-short-write flows that follow; internally reuses the story-long-analyze / story-short-analyze teardown pipelines, routing automatically by length. Triggers: /story-import, \"import this novel\", \"reverse parse\", \"import\", \"import my book\"."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-import: Reverse Import of an Existing Novel
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are a novel-project reverse engineer. Import routes by length: long-form takes Phase 3-L, short-form takes Phase 3-S.
 
 **The deliverable is a writing project**: rebuild the author's existing book into a **continuable writing project** (project structure + teardown-library analysis assets). `teardown-lib/` is part of the project (feeding the project's `benchmark/`), not a throwaway intermediate; it can't replace the deliverable itself — the deliverable must let the author keep writing directly. Execute with "building the project" as the visible goal; don't treat "the teardown" as the endpoint or as an external label.
+
+For the English tracking layout and transaction schema, load `references/tracking-transaction.md` before creating or validating `tracking/`.
 
 ---
 
@@ -69,10 +75,15 @@ User provides a path?
    - Title: {auto-detected or user input}
    - Genre: {user provided}
    - Target platform: {Royal Road / Webnovel / Wattpad / Amazon Kindle / Other}
+   - Market / English variant: {US/en-US | UK/en-GB | global English}
+   - Content rating / warnings: {general | teen | mature} / {none or list}
+   - Serialization: {serial episode | web chapter | ebook manuscript | one-shot}
    - Completed or not: {yes / no (partial, written through chapter N)}
    - **Length type**: long-form / short-form — auto-detected per [references/length-routing.md](references/length-routing.md) (user explicit declaration > structural signals > word-count fallback), and repeated back to the user for confirmation. The verdict decides whether Phase 3 takes the long-form or short-form path.
    - **Whether the last chapter is complete**: complete / draft (half-written). If it's a draft, tell the user and record "draft through chapter N" in the context, and let the user decide between "continue from the draft chapter" and "finish it before importing". story-import only records the user's decision; it doesn't choose for them.
 3. **Output confirmation**: show the user the detected chapter range, word count, length verdict, and last-chapter status; after confirmation, start the analysis
+
+4. **Language-contract confirmation**: load the deployed English book contract, detect the source prose language, and record the language profile before generating analysis or writing-project files. An English source defaults to `en-US` with English records. If the source is not English, preserve that source language only when it is explicitly recorded; never choose the output language from the language of the user's request.
 
 ### Step 5: environment detection (pre-flight)
 
@@ -217,6 +228,19 @@ Before long-form Stage 3-4 complete, quality checks run (confidence >= 0.85, cov
 ---
 
 ## Phase 3: structure migration
+
+### Title and benchmark identity boundary
+
+Keep the imported work and every external reference independent throughout the import:
+
+- `Imported Work Title` is the title of the work being migrated and owns the destination project directory and imported-work analysis.
+- `External Benchmark Title` is an unrelated comparison work and owns only its benchmark/reference directory.
+- Never copy imported-work analysis into an external benchmark target, and never use the imported work as its own benchmark.
+
+### Tracking import cutoff contract
+
+For an imported project, set `imported_through_chapter=N` in `_tracking-state.json` and do not fabricate per-chapter records for chapters 1..N. Generate the current `character-state/{Character Name}.md` snapshots and the timeline reader-knowledge view from the authoritative state. Run `tracking_commit.py init` before any chapter `commit`; the JSON authority is the only program input.
+Legacy tracking files are archived under `_retired-tracking-archive` and are not parsed or converted.
 
 Migrate `teardown-lib/{Book Title}/`'s analysis results into the project structure the writing skills can consume.
 
@@ -500,6 +524,7 @@ Migrate `teardown-lib/{Book Title}/`'s short-form teardown artifacts into the `{
 
 ```
 {ShortTitle}/
+├── AGENTS.md               ← book-level language, market, and content contract
 ├── setting.md              ← contains the core framework + benchmark summary
 ├── section-outline.md      ← back-derived by segment-episode structure
 ├── prose.md                ← the whole piece in one file
@@ -517,7 +542,7 @@ Migrate the full text from `teardown-lib/{Book Title}/source/` into the single f
 
 #### Step 2: setting generation
 
-Back-derive `{ShortTitle}/setting.md` from `teardown-report.md` and `craft-methods.md`, with two blocks:
+Create or update `{ShortTitle}/AGENTS.md` from the shared English book contract, then back-derive `{ShortTitle}/setting.md` from `teardown-report.md` and `craft-methods.md`, with two blocks:
 
 - **Core framework**: aligned with the story-short-write core-framework template (basic info, one-line synopsis, core reversal, emotion design, character sketches).
 - **Benchmark summary**: write the story structure, emotional rhythm, core reversal mechanics, and reusable writing craft into the benchmark-summary block.
@@ -684,5 +709,5 @@ This skill's own reference files all live in `references/`; load by scenario. Fo
 
 ## Language
 
-> - Follow the user's language.
+> - Load the deployed English book contract and resolve language from the book profile, then the source prose, then the repository default `en-US`. Do not use the user's chat language as a fallback.
 > - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

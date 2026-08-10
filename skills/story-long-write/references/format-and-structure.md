@@ -59,10 +59,10 @@ Choose per the target platform/user requirement; default format when unspecified
 
 | Priority | Format | Platforms |
 |--------|------|----------|
-| First choice | `"speech"` | short-form default, Webnovel |
-| Platform/project specified | `「speech」` | Zhihu Yan short-form, some historical, Japanese-style, or user-specified |
+| First choice | `“speech”` | English projects and platforms that render typographic quotes |
+| Platform/project specified | `"speech"` or `「speech」` | Explicit platform/user requirement; `「」` is legacy Zhihu Yan compatibility |
 
-**Default `""`**; switch to `「」` when the user or platform specifies the Zhihu Yan style — never treat `「」` as an error.
+**Default is curly `“ ”` for English projects**; use straight quotes or `「」` only when the book's contract or platform explicitly specifies them. Never treat a recorded legacy quote style as an error.
 
 ### Dialogue rules
 
@@ -162,7 +162,7 @@ The following rules run through all writing; they do not change by genre or styl
 3. **Avoid mechanical dialogue tags**: high-frequency or formulaic "he said" / "she said" / "he said with a smile" are replaced by action/context; plain "said" may stay
 4. **No indentation**: no full-width or half-width space indentation
 5. **No Markdown rendering inside prose paragraphs**: apart from unified beat/chapter markers (like `###1.`), no bold `**`, italics `*`, headings `#`, or separators `---` inside prose paragraphs
-6. **No dashes in prose**: prose (narration, dialogue, interiority) uses no dashes `——`/`—` or double hyphens `--`; use periods, commas, line breaks, action beats, or short-sentence breaks instead; no "dialogue exception"
+6. **Functional dashes only**: prose may use a single em dash `—` for a real interruption, aside, or break; remove `--`, repeated pause padding, and em-dash clusters. Do not rewrite a legitimate English em dash merely to satisfy a detector.
 7. **No whole-text period flattening or random punctuation stacking**: punctuation must match tone/character voice/emotional function; question marks for accusation, a few exclamation marks for bursts; hesitation, swallowing, unfinished speech expressed by action or sentence-length change, not `……` / `——` forced pauses, and no functionless `?`/`!` sprinkling
 8. **No chapter meta-information in prose**: chapter numbers appear only in titles/beat markers/filenames/tracking records. Narration, dialogue, and interiority must not contain `chapter outline|plot point|story unit|target words|this chapter|the reader|foreshadowing` or variants (last chapter / previous chapter / next chapter / earlier text / later text); rewrite into event anchors or relative time the character can perceive — e.g. "more painful than those three seconds of gunfire in chapter one" becomes "more painful than those three seconds of gunfire". Exceptions: a character genuinely reads/discusses "chapter X" text inside the story world, or is truly an author/reader talking about being a reader.
 
@@ -177,8 +177,8 @@ After every paragraph, self-check with this list:
 - [ ] Subject/name rhythm natural: paragraph head establishes the subject, mid-paragraph pronouns/omission, re-name at key turns, no unnecessary consecutive repetition?
 - [ ] Adjacent prose paragraphs have only one `\n`, no blank lines / `\n\n`?
 - [ ] Dialogue on its own lines, quote style per project/platform convention (Zhihu Yan `「」` legal)?
-- [ ] Punctuation rhythm matches tone/voice, no whole-text period flattening, no random `?`/`!` stacking or `……`/`——` forced pauses?
-- [ ] All `——`/`—`/`--` in prose (including dialogue) converted to commas, periods, action beats, or short-sentence breaks?
+- [ ] Punctuation rhythm matches tone/voice, no whole-text period flattening, no random `?`/`!` stacking or repeated `……`/`——` pauses?
+- [ ] Functional em dashes and ellipses are intentional, with no `--`, ellipsis runs, or em-dash clusters?
 - [ ] Dialogue tags avoid high frequency/formula, plain "said" kept per context?
 - [ ] No indentation?
 - [ ] Every beat has event + emotion + information?

@@ -693,22 +693,10 @@ def spawn_preflight_findings(
     current = str(manifest.agents_version)
     required = (
         (r"`agents_version:\s*{}`".format(current), "pin the current agents_version"),
-        (
-            r"照常按文件存在性检查并 spawn",
-            "state that a version mismatch does not block spawn",
-        ),
-        (
-            r"Notice: agents bundle 版本不匹配",
-            "surface the version mismatch notice",
-        ),
-        (
-            r"大于 {} 时额外提示先更新 oh-story-claudecode".format(current),
-            "tell future deployments to update the package first",
-        ),
-        (
-            r"只有 agent 文件缺失、或运行时不暴露 custom agent 时才降级 solo/direct",
-            "reserve the solo/direct fallback for genuinely missing agents",
-        ),
+        (r"version mismatch does not block spawning", "state that a version mismatch does not block spawn"),
+        (r"Notice: agents bundle version mismatch", "surface the version mismatch notice"),
+        (r"greater than {}.*update.*oh-story-claudecode".format(current), "tell future deployments to update the package first"),
+        (r"only.*missing.*agents.*solo/direct", "reserve the solo/direct fallback for genuinely missing agents"),
     )
     missing = [label for pattern, label in required if re.search(pattern, text) is None]
     if not missing:
@@ -731,7 +719,7 @@ def rubric_dimension_names(repo_root: Path) -> Tuple[List[str], List[str]]:
     rubric_text = read_text(repo_root / "skills/story-review/references/quality-rubric.md") or ""
     in_table = False
     for line in rubric_text.splitlines():
-        if line.startswith("| 维度 |"):
+        if line.startswith("| Dimension |") or line.startswith("| 维度 |"):
             in_table = True
             continue
         if not in_table:
@@ -744,14 +732,15 @@ def rubric_dimension_names(repo_root: Path) -> Tuple[List[str], List[str]]:
 
     embedded: List[str] = []
     skill_text = read_text(repo_root / "skills/story-review/SKILL.md") or ""
-    if "通用网文内容 rubric：" in skill_text:
-        block = skill_text.split("通用网文内容 rubric：", 1)[1]
+    rubric_marker = "Generic web-fiction content rubric:"
+    if rubric_marker in skill_text:
+        block = skill_text.split(rubric_marker, 1)[1]
         for line in block.splitlines():
             if not line.startswith("- "):
                 if embedded:
                     break
                 continue
-            embedded.append(line[2:].split("：", 1)[0].strip())
+            embedded.append(re.split(r"[:：]", line[2:], maxsplit=1)[0].strip())
     return table, embedded
 
 
@@ -773,6 +762,14 @@ def rubric_parity_findings(repo_root: Path) -> List[Finding]:
                 path,
             )
         ]
+    aliases = {
+        "Relationship/affinity": "Relationship progress",
+        "Foreshadowing and serialization anticipation": "Foreshadowing state",
+        "Minimal plot loop": "Plot loop",
+        "Opening freshness (only for the first chapter/first 3)": "Opening freshness (first chapter / first 3 only)",
+    }
+    table = [aliases.get(name, name) for name in table]
+    embedded = [aliases.get(name, name) for name in embedded]
     findings = []
     for missing, where in (
         (sorted(set(table) - set(embedded)), "内置 fallback rubric"),
@@ -1214,8 +1211,8 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
     findings.extend(require_pattern(long_analyze, r"invalid_topic_decision_contract", "invalid-topic-contract", "invalid topic-decision artifacts must fail explicitly"))
     # 章节边界表是 Stage 1/2/6 的唯一切片真值：原文开头的目录块会让每个章号命中两次，
     # 不剔就一路错到底。剔除步骤和落表前的连续性校验都必须留在 Stage 0。
-    findings.extend(require_pattern(long_analyze, r"先剔掉目录块", "stage0-toc-block-removal", "Stage 0 must drop the leading table-of-contents block before building the chapter table"))
-    findings.extend(require_pattern(long_analyze, r"落表前校验章号连续", "stage0-chapter-table-validation", "Stage 0 must validate chapter numbers before writing the boundary table"))
+    findings.extend(require_pattern(long_analyze, r"(?i)(?:先剔掉目录块|remove the leading table[- ]of[- ]contents block)", "stage0-toc-block-removal", "Stage 0 must drop the leading table-of-contents block before building the chapter table"))
+    findings.extend(require_pattern(long_analyze, r"(?i)(?:落表前校验章号连续|validate chapter numbers[^\n]*before writing the boundary table)", "stage0-chapter-table-validation", "Stage 0 must validate chapter numbers before writing the boundary table"))
     explorer = repo_root / "skills/story-setup/references/templates/agents/story-explorer.md"
     findings.extend(require_pattern(explorer, r"missing_primary_contract", "explorer-primary-failure", "story-explorer must fail closed on missing current benchmark artifacts"))
     findings.extend(require_pattern(explorer, r"repair_action", "explorer-repair-action", "story-explorer must return an explicit repair action"))
@@ -1240,7 +1237,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
         findings.extend(
             require_pattern(
                 import_contract,
-                r"\{导入书名\}",
+                r"(?i)(?:\{导入书名\}|\{Imported Work Title\}|Imported Work Title)",
                 "story-import-import-title-boundary",
                 "story-import must name the imported work independently",
             )
@@ -1248,7 +1245,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
         findings.extend(
             require_pattern(
                 import_contract,
-                r"\{对标书名\}",
+                r"(?i)(?:\{对标书名\}|\{External Benchmark Title\}|External Benchmark Title)",
                 "story-import-benchmark-title-boundary",
                 "story-import must name external benchmarks independently",
             )
@@ -1264,7 +1261,7 @@ def validate_repository(repo_root: Path, manifest: ContractManifest) -> List[Fin
         findings.extend(
             require_pattern(
                 benchmark_discovery,
-                r"排除[^\n]*当前[^\n]*(?:拆文库|作品|正文)",
+                r"(?:排除[^\n]*当前[^\n]*(?:拆文库|作品|正文)|exclude[^\n]*(?:current imported work|current work|project prose))",
                 "benchmark-discovery-excludes-current-work",
                 "benchmark discovery must exclude the current imported work",
             )

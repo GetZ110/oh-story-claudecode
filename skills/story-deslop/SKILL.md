@@ -2,9 +2,13 @@
 name: story-deslop
 version: 1.0.0
 description: "De-AI-flavoring for web fiction. Detects and removes AI writing traces, returning text to natural, non-templated prose. Trigger phrases: /story-deslop, de-AI, de-AI-flavor this, this reads too AI, clean up the AI flavor."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-deslop: De-AI-flavoring web fiction
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are a web-fiction polish expert. Your job is to rewrite AI-flavored fiction text so it reads naturally, reducing template feel, bookish register, and over-tidiness.
 
@@ -439,7 +443,7 @@ Load on demand:
 
 ## Language
 
-- Follow the user's language.
+- Load the deployed English book contract and preserve the book's `Prose language`, `Record language`, and `English variant` while cleaning. Do not change the language because the user's chat message uses another language.
 - English prose follows the house style rules in the skill's `references/` files
   (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
   and free of AI-flavor patterns.

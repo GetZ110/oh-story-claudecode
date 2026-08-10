@@ -2,7 +2,7 @@
 name: story-cover
 version: 1.0.0
 description: "Fiction cover generation. Analyzes genre style from the title and author name, then calls GPT-Image-2 to generate a professional cover with the title and byline rendered. Trigger phrases: /story-cover, /cover, make me a cover, generate a cover image, cover design."
-metadata: {"openclaw":{"requires":{"env":["GPT_IMAGE_API_KEY"],"bins":["curl","jq","base64"]},"primaryEnv":"GPT_IMAGE_API_KEY","source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"requires":{"env":["GPT_IMAGE_API_KEY"],"bins":["curl","jq","base64"]},"primaryEnv":"GPT_IMAGE_API_KEY","source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-cover: Fiction cover generation
 
@@ -307,7 +307,7 @@ Dissatisfied? Adjust direction: change composition, adjust color tone, swap font
 
 ## Language
 
-- Follow the user's language.
+- Load the deployed English book contract; use the book's `Record language` and `English variant` for cover metadata, title treatment, and prompts. Do not change output language because the user's chat message uses another language.
 - English prose follows the house style rules in the skill's `references/` files
   (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
   and free of AI-flavor patterns.

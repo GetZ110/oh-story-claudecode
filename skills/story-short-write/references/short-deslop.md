@@ -111,7 +111,7 @@ These have nothing to do with emotional intensity; they're pure AI formulas. Sho
 
 ## 7. Punctuation
 
-The body never contains `...` / `——` / `—` / `--` (de-AI scripts and hooks enforce it). Pauses, sobs, unfinished speech, white space: short sentences, periods, commas, action beats, line breaks. If a genre pack's example keeps `...`, it's illustrative; re-write per this rule in the body.
+Functional English ellipses (`…`) and em dashes (`—`) are allowed when they carry hesitation or interruption. Remove repeated pause padding, `--`, ellipsis runs, and em-dash clusters; do not rewrite a legitimate single em dash merely to satisfy a detector.
 
 ---
 

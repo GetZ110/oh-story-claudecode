@@ -69,17 +69,17 @@ The pattern covers `Chapter 1` / `Chapter 01` / `CHAPTER 1` etc. and matches dig
 
 - After getting the grep `line:Chapter N` list, pick chapter 1, chapter 10, chapter 20 (if total chapters <20, pick by 1/3, 2/3, tail ratios)
 - For each chapter, use `Read offset={chapter start line} limit=50` to cut out roughly 1000 words
-- Concatenate the 3 slices into `/tmp/style-sample.txt` (append with `>>`, don't change the file name)
+- Concatenate the 3 slices into `.story-style-sample.txt` at the project root (append with `>>`, then remove it after Stage 6)
 
 **Deterministic sentence-length/punctuation stats** (replacing subjective eyeballing):
 
-Stage 6 runs on the **main thread**, so Bash is available. Feed the assembled `/tmp/style-sample.txt` to the script below (heredoc as the Python source; the script opens the sample file itself, to avoid stdin-heredoc vs `< file` double-redirection conflicts). Probe for a working interpreter first — **don't just use `python3`**: on Windows it may trigger the Microsoft Store stub and exit 49:
+Stage 6 runs on the **main thread**, so the shell is available. Feed the assembled `.story-style-sample.txt` to the script below (heredoc as the Python source; the script opens the sample file itself, to avoid stdin-heredoc vs `< file` double-redirection conflicts). Probe for a working interpreter first — **don't just use `python3`**: on Windows it may trigger the Microsoft Store stub and exit 49:
 
 ```bash
 for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done
 "$PYBIN" <<'PYEOF'
 import re
-with open('/tmp/style-sample.txt', 'r', encoding='utf-8') as f:
+with open('.story-style-sample.txt', 'r', encoding='utf-8') as f:
     text = f.read()
 sents = [s for s in re.split(r'[.!?]+', text) if s.strip()]
 total = max(len(sents), 1)

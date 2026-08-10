@@ -85,8 +85,8 @@ def transaction(
                 "summary": "专业团队仍拍不出江晨原版的灵魂。",
                 "planted_chapter": chapter,
                 "planned_resolution_chapter": chapter + 8,
-                "status": "已埋",
-                "importance": "高",
+                "status": "planted",
+                "importance": "high",
             }
         ]
         if foreshadow
@@ -100,7 +100,7 @@ def transaction(
                 "story_time": "实弹训练两天后",
                 "objective_fact": "军方培养江晨另有尚未公开的后续安排。",
                 "reader_knowledge": "读者只知道专业重拍版被否决，不知道后续培养安排。",
-                "reveal_status": "未揭示",
+                "reveal_status": "unrevealed",
                 "reveal_chapter": None,
                 "characters": ["江晨", "钟嘉嘉"],
             }
@@ -179,11 +179,11 @@ class TrackingCommitTests(unittest.TestCase):
         self.run_tool("init", initial_document(last_chapter=last_chapter))
 
     def read_state(self) -> dict[str, object]:
-        return json.loads((self.project / "追踪/_tracking-state.json").read_text(encoding="utf-8"))
+        return json.loads((self.project / "tracking/_tracking-state.json").read_text(encoding="utf-8"))
 
     def test_init_creates_one_structured_authority_and_only_derived_views(self) -> None:
         self.init()
-        tracking = self.project / "追踪"
+        tracking = self.project / "tracking"
         state = self.read_state()
 
         self.assertEqual(state["schema_version"], 4)
@@ -192,14 +192,14 @@ class TrackingCommitTests(unittest.TestCase):
         self.assertEqual(state["foreshadow"], {})
         self.assertEqual(state["timeline"], {})
         self.assertFalse((tracking / "_tracking-meta.json").exists())
-        self.assertFalse((tracking / "时间线/事件库.json").exists())
-        self.assertIn("状态修订：0", (tracking / "上下文.md").read_text(encoding="utf-8"))
+        self.assertFalse((tracking / "timeline/事件库.json").exists())
+        self.assertIn("State revision: 0", (tracking / "context.md").read_text(encoding="utf-8"))
         self.run_tool("check")
 
     def test_commit_updates_state_and_all_demo_derived_views(self) -> None:
         self.init()
         self.run_tool("commit", transaction(1, character=True, foreshadow=True, timeline=True))
-        tracking = self.project / "追踪"
+        tracking = self.project / "tracking"
         state = self.read_state()
 
         self.assertEqual(state["last_committed_chapter"], 1)
@@ -207,11 +207,11 @@ class TrackingCommitTests(unittest.TestCase):
         self.assertIn("江晨", state["characters"])
         self.assertIn("F027", state["foreshadow"])
         self.assertIn("E010", state["timeline"])
-        self.assertIn("状态修订：1", (tracking / "上下文.md").read_text(encoding="utf-8"))
-        self.assertIn("F027｜专业团队仍拍不出江晨原版的灵魂", (tracking / "上下文.md").read_text(encoding="utf-8"))
-        self.assertIn("军方培养江晨另有尚未公开的后续安排", (tracking / "时间线/作者真相.md").read_text(encoding="utf-8"))
-        self.assertNotIn("军方培养江晨另有尚未公开的后续安排", (tracking / "时间线/读者已知.md").read_text(encoding="utf-8"))
-        self.assertTrue((tracking / "逐章记录/第001章.md").exists())
+        self.assertIn("State revision: 1", (tracking / "context.md").read_text(encoding="utf-8"))
+        self.assertIn("F027 | 专业团队仍拍不出江晨原版的灵魂", (tracking / "context.md").read_text(encoding="utf-8"))
+        self.assertIn("军方培养江晨另有尚未公开的后续安排", (tracking / "timeline/author-truth.md").read_text(encoding="utf-8"))
+        self.assertNotIn("军方培养江晨另有尚未公开的后续安排", (tracking / "timeline/reader-knowledge.md").read_text(encoding="utf-8"))
+        self.assertTrue((tracking / "chapter-records/chapter_001.md").exists())
         self.run_tool("check")
 
     def test_character_snapshot_lists_are_not_limited_to_eight_items(self) -> None:
@@ -239,7 +239,7 @@ class TrackingCommitTests(unittest.TestCase):
         completed = self.run_tool("commit", rejected, expect=2)
         self.assertIn("hard cap of 8192 bytes", completed.stderr)
         self.assertEqual(self.read_state(), before)
-        self.assertFalse((self.project / "追踪/逐章记录/第002章.md").exists())
+        self.assertFalse((self.project / "tracking/chapter-records/chapter_002.md").exists())
 
     def test_missing_active_snapshot_is_rejected_before_any_write(self) -> None:
         self.init()
@@ -251,7 +251,7 @@ class TrackingCommitTests(unittest.TestCase):
 
         self.assertIn("has no current snapshot", result.stderr)
         self.assertEqual(self.read_state(), before)
-        self.assertFalse((self.project / "追踪/逐章记录/第001章.md").exists())
+        self.assertFalse((self.project / "tracking/chapter-records/chapter_001.md").exists())
 
     def test_partial_view_write_keeps_old_authority_and_same_transaction_can_retry(self) -> None:
         self.init()
@@ -261,7 +261,7 @@ class TrackingCommitTests(unittest.TestCase):
         original = module.atomic_write_text
 
         def fail_on_foreshadow(path: Path, payload: str) -> None:
-            if path.name == "伏笔.md":
+            if path.name == "foreshadowing.md":
                 raise OSError("injected derived-view failure")
             original(path, payload)
 
@@ -270,7 +270,7 @@ class TrackingCommitTests(unittest.TestCase):
             module.apply_transaction(self.project, document)
 
         self.assertEqual(self.read_state()["state_revision"], 0)
-        self.assertIn("状态修订：1", (self.project / "追踪/上下文.md").read_text(encoding="utf-8"))
+        self.assertIn("State revision: 1", (self.project / "tracking/context.md").read_text(encoding="utf-8"))
         self.run_tool("check", expect=2)
 
         module.atomic_write_text = original
@@ -298,7 +298,7 @@ class TrackingCommitTests(unittest.TestCase):
         self.run_tool("commit", transaction(3, next_commitment="结算五天百万粉任务。"))
         self.run_tool("commit", transaction(1, mode="revision", next_commitment="修订章当时的旧承诺。"))
 
-        context = (self.project / "追踪/上下文.md").read_text(encoding="utf-8")
+        context = (self.project / "tracking/context.md").read_text(encoding="utf-8")
         self.assertIn("结算五天百万粉任务", context)
         self.assertNotIn("修订章当时的旧承诺", context)
 
@@ -309,7 +309,7 @@ class TrackingCommitTests(unittest.TestCase):
         chapter_two["delta"]["foreshadow_changes"][0].update(
             planted_chapter=1,
             planned_resolution_chapter=2,
-            status="已回收",
+            status="resolved",
             summary="专业版缺少灵魂的判断已经由高层拍板兑现。",
         )
         chapter_two["delta"]["timeline_events"][0]["reader_knowledge"] = "读者已经看到张耀祖采用江晨原版。"
@@ -319,7 +319,7 @@ class TrackingCommitTests(unittest.TestCase):
         revision["delta"]["foreshadow_changes"][0].update(
             planted_chapter=1,
             planned_resolution_chapter=2,
-            status="已回收",
+            status="resolved",
             summary="专业版缺少灵魂的判断已经由高层拍板兑现。",
         )
         revision["delta"]["timeline_events"][0]["reader_knowledge"] = "读者已经看到张耀祖采用江晨原版。"
@@ -333,26 +333,26 @@ class TrackingCommitTests(unittest.TestCase):
     def test_imported_cutoff_requires_only_new_daily_records(self) -> None:
         self.init(last_chapter=27)
         self.run_tool("commit", transaction(28, character=True))
-        tracking = self.project / "追踪"
+        tracking = self.project / "tracking"
 
-        self.assertFalse((tracking / "逐章记录/第027章.md").exists())
-        self.assertTrue((tracking / "逐章记录/第028章.md").exists())
+        self.assertFalse((tracking / "chapter-records/chapter_027.md").exists())
+        self.assertTrue((tracking / "chapter-records/chapter_028.md").exists())
         self.assertEqual(self.read_state()["imported_through_chapter"], 27)
         self.run_tool("check")
 
     def test_imported_chapter_revision_creates_an_overlay_record(self) -> None:
         self.init(last_chapter=20)
         self.run_tool("commit", transaction(10, mode="revision"))
-        self.assertTrue((self.project / "追踪/逐章记录/第010章.md").exists())
+        self.assertTrue((self.project / "tracking/chapter-records/chapter_010.md").exists())
         self.assertEqual(self.read_state()["imported_through_chapter"], 20)
         self.run_tool("check")
 
     def test_check_compares_derived_views_to_state_without_parsing_markdown(self) -> None:
         self.init()
         self.run_tool("commit", transaction(1, character=True, foreshadow=True, timeline=True))
-        tracking = self.project / "追踪"
+        tracking = self.project / "tracking"
 
-        path = tracking / "角色状态/江晨.md"
+        path = tracking / "character-state/江晨.md"
         path.write_text("# 任意手改格式\n", encoding="utf-8")
         result = self.run_tool("check", expect=2)
         self.assertIn("derived view differs from _tracking-state.json", result.stderr)
@@ -362,7 +362,7 @@ class TrackingCommitTests(unittest.TestCase):
 
     def test_check_rejects_orphan_character_file(self) -> None:
         self.init()
-        orphan = self.project / "追踪/角色状态/CONFLICT.md"
+        orphan = self.project / "tracking/character-state/CONFLICT.md"
         orphan.write_text("# orphan\n", encoding="utf-8")
         result = self.run_tool("check", expect=2)
         self.assertIn("character snapshot files differ", result.stderr)
@@ -375,42 +375,42 @@ class TrackingCommitTests(unittest.TestCase):
         self.init()
         state = self.read_state()
         state["status"] = "clean"
-        (self.project / "追踪/_tracking-state.json").write_text(
+        (self.project / "tracking/_tracking-state.json").write_text(
             json.dumps(state, ensure_ascii=False), encoding="utf-8"
         )
         result = self.run_tool("check", expect=2)
         self.assertIn("unsupported fields", result.stderr)
 
     def test_init_archives_a_pre_transaction_tracking_directory(self) -> None:
-        tracking = self.project / "追踪"
+        tracking = self.project / "tracking"
         tracking.mkdir()
-        (tracking / "角色状态.md").write_text("# 旧角色状态\n", encoding="utf-8")
-        (tracking / "时间线.md").write_text("# 旧时间线\n", encoding="utf-8")
+        (tracking / "character-state.md").write_text("# 旧character-state\n", encoding="utf-8")
+        (tracking / "timeline.md").write_text("# 旧timeline\n", encoding="utf-8")
         (tracking / "_tracking-meta.json").write_text("{}\n", encoding="utf-8")
 
         result = self.run_tool("init", initial_document())
-        self.assertIn("_旧追踪存档", result.stderr)
-        archive = tracking / "_旧追踪存档"
-        self.assertEqual((archive / "角色状态.md").read_text(encoding="utf-8"), "# 旧角色状态\n")
-        self.assertEqual((archive / "时间线.md").read_text(encoding="utf-8"), "# 旧时间线\n")
-        self.assertFalse((tracking / "角色状态.md").exists())
-        self.assertTrue((tracking / "角色状态").is_dir())
+        self.assertIn("_retired-tracking-archive", result.stderr)
+        archive = tracking / "_retired-tracking-archive"
+        self.assertEqual((archive / "character-state.md").read_text(encoding="utf-8"), "# 旧character-state\n")
+        self.assertEqual((archive / "timeline.md").read_text(encoding="utf-8"), "# 旧timeline\n")
+        self.assertFalse((tracking / "character-state.md").exists())
+        self.assertTrue((tracking / "character-state").is_dir())
         self.run_tool("check")
 
     def test_failed_init_leaves_the_old_tracking_directory_untouched(self) -> None:
-        tracking = self.project / "追踪"
+        tracking = self.project / "tracking"
         tracking.mkdir()
-        (tracking / "角色状态.md").write_text("# 旧角色状态\n", encoding="utf-8")
+        (tracking / "character-state.md").write_text("# 旧character-state\n", encoding="utf-8")
         invalid = initial_document()
         invalid["baseline"] = {}
 
         self.run_tool("init", invalid, expect=2)
-        self.assertTrue((tracking / "角色状态.md").exists())
-        self.assertFalse((tracking / "_旧追踪存档").exists())
+        self.assertTrue((tracking / "character-state.md").exists())
+        self.assertFalse((tracking / "_retired-tracking-archive").exists())
 
     def test_commit_and_check_still_refuse_a_retired_layout(self) -> None:
         self.init()
-        (self.project / "追踪/时间线.md").write_text("# 旧时间线\n", encoding="utf-8")
+        (self.project / "tracking/timeline.md").write_text("# 旧timeline\n", encoding="utf-8")
         result = self.run_tool("check", expect=2)
         self.assertIn("retired tracking files", result.stderr)
         result = self.run_tool("commit", transaction(1), expect=2)
@@ -423,7 +423,7 @@ class TrackingCommitTests(unittest.TestCase):
         result = self.run_tool("commit", silent, expect=2)
         self.assertIn("retired_context_items", result.stderr)
         self.assertEqual(self.read_state()["state_revision"], 0)
-        self.assertFalse((self.project / "追踪/逐章记录/第001章.md").exists())
+        self.assertFalse((self.project / "tracking/chapter-records/chapter_001.md").exists())
 
     def test_declared_context_retirement_is_recorded_in_the_chapter_delta(self) -> None:
         self.init()
@@ -434,47 +434,47 @@ class TrackingCommitTests(unittest.TestCase):
         self.run_tool("commit", declared)
 
         self.assertEqual(self.read_state()["context"]["long_term_constraints"], [])
-        delta_text = (self.project / "追踪/逐章记录/第001章.md").read_text(encoding="utf-8")
-        self.assertIn("## 本章退役登记", delta_text)
+        delta_text = (self.project / "tracking/chapter-records/chapter_001.md").read_text(encoding="utf-8")
+        self.assertIn("## Retired Entries This Chapter", delta_text)
         self.assertIn(constraint, delta_text)
         self.run_tool("check")
 
     def test_retiring_a_core_character_removes_its_derived_view(self) -> None:
         self.init()
         self.run_tool("commit", transaction(1, character=True))
-        self.assertTrue((self.project / "追踪/角色状态/江晨.md").exists())
+        self.assertTrue((self.project / "tracking/character-state/江晨.md").exists())
 
         retire = transaction(2)
         retire["delta"]["retired_characters"] = ["江晨"]
         self.run_tool("commit", retire)
 
         self.assertNotIn("江晨", self.read_state()["characters"])
-        self.assertFalse((self.project / "追踪/角色状态/江晨.md").exists())
-        self.assertIn("角色状态：江晨", (self.project / "追踪/逐章记录/第002章.md").read_text(encoding="utf-8"))
+        self.assertFalse((self.project / "tracking/character-state/江晨.md").exists())
+        self.assertIn("Character state: 江晨", (self.project / "tracking/chapter-records/chapter_002.md").read_text(encoding="utf-8"))
         self.run_tool("check")
 
     def test_an_interrupted_archive_can_be_resumed(self) -> None:
-        tracking = self.project / "追踪"
-        (tracking / "_旧追踪存档").mkdir(parents=True)
-        (tracking / "角色状态.md").write_text("# 未搬完\n", encoding="utf-8")
-        (tracking / "_旧追踪存档/时间线.md").write_text("# 上次已搬\n", encoding="utf-8")
+        tracking = self.project / "tracking"
+        (tracking / "_retired-tracking-archive").mkdir(parents=True)
+        (tracking / "character-state.md").write_text("# 未搬完\n", encoding="utf-8")
+        (tracking / "_retired-tracking-archive/timeline.md").write_text("# 上次已搬\n", encoding="utf-8")
 
         self.run_tool("init", initial_document())
-        archive = tracking / "_旧追踪存档"
-        self.assertEqual((archive / "角色状态.md").read_text(encoding="utf-8"), "# 未搬完\n")
-        self.assertEqual((archive / "时间线.md").read_text(encoding="utf-8"), "# 上次已搬\n")
+        archive = tracking / "_retired-tracking-archive"
+        self.assertEqual((archive / "character-state.md").read_text(encoding="utf-8"), "# 未搬完\n")
+        self.assertEqual((archive / "timeline.md").read_text(encoding="utf-8"), "# 上次已搬\n")
         self.run_tool("check")
 
     def test_archive_never_clobbers_an_already_archived_file(self) -> None:
-        tracking = self.project / "追踪"
-        (tracking / "_旧追踪存档").mkdir(parents=True)
-        (tracking / "角色状态.md").write_text("现役\n", encoding="utf-8")
-        (tracking / "_旧追踪存档/角色状态.md").write_text("存档\n", encoding="utf-8")
+        tracking = self.project / "tracking"
+        (tracking / "_retired-tracking-archive").mkdir(parents=True)
+        (tracking / "character-state.md").write_text("现役\n", encoding="utf-8")
+        (tracking / "_retired-tracking-archive/character-state.md").write_text("存档\n", encoding="utf-8")
 
         result = self.run_tool("init", initial_document(), expect=2)
         self.assertIn("already exists", result.stderr)
-        self.assertEqual((tracking / "角色状态.md").read_text(encoding="utf-8"), "现役\n")
-        self.assertEqual((tracking / "_旧追踪存档/角色状态.md").read_text(encoding="utf-8"), "存档\n")
+        self.assertEqual((tracking / "character-state.md").read_text(encoding="utf-8"), "现役\n")
+        self.assertEqual((tracking / "_retired-tracking-archive/character-state.md").read_text(encoding="utf-8"), "存档\n")
 
     def test_a_character_can_die_and_retire_in_one_transaction(self) -> None:
         self.init()
@@ -484,9 +484,9 @@ class TrackingCommitTests(unittest.TestCase):
         farewell["delta"]["retired_characters"] = ["江晨"]
         self.run_tool("commit", farewell)
 
-        record = (self.project / "追踪/逐章记录/第002章.md").read_text(encoding="utf-8")
-        self.assertIn("江晨｜核心｜在最终一战中阵亡，彻底退场", record)
-        self.assertIn("角色状态：江晨", record)
+        record = (self.project / "tracking/chapter-records/chapter_002.md").read_text(encoding="utf-8")
+        self.assertIn("江晨 | Core | 在最终一战中阵亡，彻底退场", record)
+        self.assertIn("Character state: 江晨", record)
         self.assertNotIn("江晨", self.read_state()["characters"])
         self.run_tool("check")
 

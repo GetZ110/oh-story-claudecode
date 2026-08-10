@@ -2,13 +2,21 @@
 name: story-review
 version: 1.1.0
 description: "Multi-perspective adversarial review. full/lean modes spawn reviewers in parallel when deployed; missing/abnormal agents or spawn failures degrade to solo automatically; when reference files are unreadable the built-in rubric fallback is used. Trigger phrases: /story-review, /review, review this chapter, check my writing."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-review: Multi-perspective adversarial review
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are the review coordinator. Your job is to find structural, character, prose, and setting problems in the fiction text and give actionable fixes.
 
 **Iron rule: review finds problems; it does not validate correctness.**
+
+When reviewing continuity state, use the canonical English transaction protocol in `references/tracking-transaction.md`; derived tracking views are read-only outputs.
+
+Tracking maintenance is transactional and scoped: full / lean modes may modify `tracking/` only through `tracking_commit.py`; solo mode reports findings and writes no files. Use `mode=revision` for corrections to an existing chapter, use the same ID `upsert` for current state, keep chapter-records within its size contract, and run `tracking_commit.py check` after every approved repair.
 
 ---
 
@@ -36,7 +44,7 @@ You are the review coordinator. Your job is to find structural, character, prose
      - **Claude Code agent (`.claude/agents/`)**: read the frontmatter; `name:` must exactly match the subagent_type. Missing/unparseable frontmatter or a name mismatch = malformed agent.
      - **OpenCode agent (`.opencode/agents/`)**: the filename is the agent name (OpenCode does not require `name:` in frontmatter); frontmatter must have parseable `mode: subagent` and `permission` fields. Missing/unparseable frontmatter = malformed.
      - **Codex agent (`.codex/agents/`)**: filename `{agent}.toml`; the TOML must parse and contain `name`, `description`, `developer_instructions`; `name` must exactly match the target agent.
-   - If `.story-deployed` exists with `agents_version` missing, non-integer, or less than `22`, treat it as a stale deployment; do not spawn, degrade to `solo`, and suggest re-running `/story-setup`. If `agents_version` is greater than `22`, do not spawn either: the installed skill is older than the project deployment — degrade to `solo` and prompt to update oh-story-claudecode first; do not redeploy with v22.
+   - If `.story-deployed` exists with `agents_version` missing, non-integer, or less than `23`, treat it as a stale deployment; do not spawn, degrade to `solo`, and suggest re-running `/story-setup`. If `agents_version` is greater than `23`, do not spawn either: the installed skill is older than the project deployment — degrade to `solo` and prompt to update oh-story-claudecode first; do not redeploy with v23.
    - If any required agent file for the target mode is missing or malformed, **do not spawn the missing/abnormal agent**; degrade to `solo` automatically and state at the top of the report: `Fallback: missing agents -> solo` or `Fallback: malformed agents -> solo`, list the problem files, and suggest running `/story-setup`.
 5. **Confirm Agent/Task tool availability**: if the current environment has no sub-agent/Task capability, degrade to `solo` and report `Fallback: agent tool unavailable -> solo`.
 6. **Runtime failure degradation**: if any agent spawn returns failure, `subagent_type` / `agent_type` is unavailable, frontmatter/TOML fails to parse at runtime, or a subagent cannot start, stop spawning, re-review with `solo`, and report `Fallback: spawn failed -> solo` plus the failing subagent_type/agent_type; never treat partially successful agent results as full/lean conclusions.
@@ -57,7 +65,7 @@ The final report must start with the following English keys, one per line — **
 Requested Mode: full | lean | solo
 Effective Mode: full | lean | solo
 Fallback: none | project custom agents unavailable -> solo | missing agents -> solo | malformed agents -> solo | stale agents -> solo | agent tool unavailable -> solo | spawn failed -> solo | subagent recursion guard -> solo
-Rubric: royal-road | webnovel | kindle | generic web-fiction
+Rubric: royal-road | webnovel | kindle | wattpad | inkitt | radish | galatea | dreame | goodnovel | tapas | generic web-fiction
 Rubric Source: file | embedded fallback
 ```
 
@@ -66,6 +74,8 @@ Rubric Source: file | embedded fallback
 When reference files are readable, try in this order:
 1. `{project root}/.claude/skills/{canonical path}` (Claude Code in-project install)
 2. `{project root}/.opencode/skills/{canonical path}` (OpenCode in-project install)
+3. `story-review/references/english-platform-policy.md` for Wattpad, Inkitt,
+   Radish, Galatea, Dreame, GoodNovel, Tapas, or a cross-platform review
 3. `{project root}/.codex/skills/{canonical path}` (Codex in-project install)
 4. `{project root}/.zcode/skills/{canonical path}` (ZCode in-project install)
 5. `{project root}/skills/{canonical path}` (this repo's dev environment)
@@ -82,7 +92,7 @@ Canonical paths are as follows; bare filenames are forbidden, and reading anothe
 | Character relations / affinity | `story-review/references/character-relations.md` |
 | Dialogue quality | `story-review/references/dialogue-mastery.md` |
 | Review banned words | `story-review/references/banned-words.md` |
-| Platform rubrics | `story-review/references/rubrics/{royal-road,webnovel,kindle}.md` |
+| Platform rubrics | `story-review/references/rubrics/{royal-road,webnovel,kindle}.md` plus `references/english-platform-policy.md` for Wattpad/Inkitt/Radish/Galatea/Dreame/GoodNovel/Tapas |
 | Punctuation precheck script | `story-review/scripts/normalize-punctuation.js` |
 | AI-pattern precheck script | `story-review/scripts/check-ai-patterns.js` |
 
@@ -93,6 +103,7 @@ If the reference files above are unreadable in the current project, **do not deg
 Generic web-fiction content rubric:
 - Core appeal: does the chapter advance a clear appeal; if no appeal is visible, at least S2.
 - Conflict advancement: is there a blocker, a choice, a cost, or a relationship change; if it only explains/chats/summarizes, at least S2.
+- Task blockers: a stuck state must yield information, relationship, cost, choice, or foreshadowing change; process-only blockers are at least S3.
 - Emotional curve: setup, escalation, release, or reversal; flat or abrupt emotions, S2/S3.
 - Hooks and anticipation: does the opening or ending create a follow-up question; no suspense or unresolved anticipation, at least S2.
 - Opening freshness (only for the first chapter/first 3): does the opening cut into a concrete character/situation, or is it the genre's default template (swappable onto any comparable book)? "Has a hook / not a weather opening" does not waive homogeneity; a templated opening with a hook is at least S3, a full genre-template collision S2.
@@ -101,13 +112,15 @@ Generic web-fiction content rubric:
 - Setting consistency: no violations of established rules, timeline, or character attributes; clear factual conflicts are usually S1.
 - Prose naturalness: concrete, perceptible, actions carrying information; AI flavor, cliches, and summary voice are S2/S3 by impact.
 - Sentence rhythm: narration defaults to comma-linked mid-length sentences (one sentence strings 2-4 actions with commas then lands on a period); fragments and telegraphic style (consecutive <=5-word clauses, whole passages of ultra-short sentences like an outline) are the same class as AI voice — S3/S2 by impact; "short = web-fiction pacing" is not a pass.
+- Punctuation rhythm: punctuation serves tone and character voice; period flattening, random `?`/`!` stacking, or manufactured `...`/`--` pauses are S3/S2 by impact.
+- Concrete word-count expressions: numeric prose claims must have a verifiable counting basis and narrative need; otherwise replace them with non-numeric phrasing.
 - Punctuation rhythm: punctuation serves tone/character voice; whole-text period flattening, random `?`/`!` stacking, or leftover `...`/`--` manufactured pauses are S3/S2 by impact.
 - Concrete word-count expressions: when the prose evaluates a line, inscription, letter, thought, or comment with specific word counts ("these five words / the three-word reply / eight words hitting the ground"), the counting basis, machine-verification result, and narrative necessity must be confirmable; if the count cannot be guaranteed, treat it as a prose-naturalness issue and suggest replacing with non-numeric phrasing ("the words landed", "those few words", "as the line fell").
 - Format readability: short paragraphs, standalone dialogue lines, no stray blank lines; format that blocks reading is S3, severe chaos S2.
-- Minimal plot loop: goal -> blocker -> action -> cost/feedback -> new anticipation; missing goal/blocker/feedback is usually at least S2.
+- Plot loop: goal -> blocker -> action -> cost/feedback -> new anticipation; missing goal/blocker/feedback is usually at least S2.
 - Climax construction: energy build -> false win -> collapse -> reversal/payoff; a flat climax with no cost or no payoff is usually S2/S3.
-- Relationship/affinity: interaction intensity must match the current relationship stage; overstepping intimacy, sudden trust, or sudden hostility needs setup, otherwise S1/S2 by impact.
-- Foreshadowing and serialization anticipation: foreshadowing state must be traceable; density is only a structural risk note and does not escalate to S2+ unless it directly breaks comprehension.
+- Relationship progress: interaction intensity must match the current relationship stage; overstepping intimacy, sudden trust, or sudden hostility needs setup, otherwise S1/S2 by impact.
+- Foreshadowing state: foreshadowing status and collection path must be traceable; density is only a structural risk note unless it directly breaks comprehension.
 
 AI-flavor / banned-words fallback quick ref:
 - High-frequency tells: `little did he know`, `it was a night that would change everything`, `a wave of relief washed over`, `the kind of smile that...`, `couldn't help but`.
@@ -139,6 +152,7 @@ In full/lean modes, the main session must write the "review standards package su
    - **Cross-batch continuity (mandatory when batching)**: before each batch, read `tracking/foreshadowing.md` for open items marked "planted, not yet collected / not yet planted" whose planned collection chapter <= this batch's last chapter; inject them together with the previous batch's findings summary as "inherited open items" into this batch's reviewer / consistency-checker prompts (alongside the known characters) — so reviewing chapters 200-300 can see hooks/foreshadowing planted in 1-200 that this batch was supposed to pay off but left hanging; continuity survives across batches. After the review, register open hooks newly found in this batch that are not in `foreshadowing.md` back into `tracking/foreshadowing.md` (reviewers often find hooks before the writer during continuation/import work).
    - **Out-of-order / overlapping review reminder**: if a later range was reviewed first (e.g., 300-400 first), then an earlier range (200-300) is reviewed, only when this batch **adds or changes an open item whose planned payoff chapter falls inside the already-reviewed later range** should you tell the user "changes in 200-300 may affect the already-reviewed 300-400" and let them choose: re-review affected chapters / full re-review / just log as a todo — **default to logging as a todo; never blindly re-run everything**. No cross-range dependency, no reminder.
 3. **Read supporting material**: prose, related setting, character sheets, outline, tracking/context, foreshadowing files; mark evidence gaps in the report when missing.
+   - For English projects, run the localization pass from the deployed English book contract: names, places, institutions, occupations, education, law, medicine, military terms, dates, money, units, idioms, titles, kinship terms, and dialogue register.
 4. **Identify the target platform and load the rubric**:
    - Prefer the platform the user explicitly stated.
    - Otherwise read the `Target platform` / `Platform` fields in project documents, e.g. `setting/genre-positioning.md`, `outline/`, `teardown-report`.
@@ -147,6 +161,8 @@ In full/lean modes, the main session must write the "review standards package su
    - Webnovel (webnovel.com) -> prefer `story-review/references/rubrics/webnovel.md`; if unreadable use the built-in Webnovel fallback summary.
    - Kindle / KU -> prefer `story-review/references/rubrics/kindle.md`; if unreadable use the built-in Kindle fallback summary.
    - Platform unrecognized -> prefer `story-review/references/quality-rubric.md`; if unreadable use the built-in generic web-fiction content rubric and report `Rubric: generic web-fiction` plus `Rubric Source: file | embedded fallback`.
+   - For Wattpad, Inkitt, Radish, Galatea, Dreame, GoodNovel, Tapas, or cross-platform work, load `story-review/references/english-platform-policy.md` and report the selected platform row as the effective policy.
+   - Before reviewing, load the deployed English book contract and resolve the book's language, English variant, content rating, warnings, and serialization mode. Review output must use the book's record language, not the user's chat language.
 5. **Form the review standards package summary**: compress the loaded file content or the built-in fallback summary into 5-12 review standards; solo and all sub-agents must use this summary. The summary must keep one sentence-rhythm standard: narration defaults to comma-linked mid-length sentences; fragments and telegraphic style are treated the same class as AI voice; "short" is not a pass.
 6. **Deterministic prechecks (report only, no modification)**: when the scope includes local prose file paths, run this skill's own scripts:
    ```bash
@@ -351,7 +367,7 @@ Note: the five English keys `Requested Mode`, `Effective Mode`, `Fallback`, `Rub
 Requested Mode: full | lean
 Effective Mode: full | lean
 Fallback: none
-Rubric: royal-road | webnovel | kindle | generic web-fiction
+Rubric: royal-road | webnovel | kindle | wattpad | inkitt | radish | galatea | dreame | goodnovel | tapas | generic web-fiction
 Rubric Source: file | embedded fallback
 Review scope: {chapters/files/batches}
 
@@ -413,7 +429,7 @@ Note: the five English keys `Requested Mode`, `Effective Mode`, `Fallback`, `Rub
 Requested Mode: {full | lean | solo}
 Effective Mode: solo
 Fallback: none | missing agents -> solo | malformed agents -> solo | stale agents -> solo | agent tool unavailable -> solo | spawn failed -> solo | subagent recursion guard -> solo
-Rubric: royal-road | webnovel | kindle | generic web-fiction
+Rubric: royal-road | webnovel | kindle | wattpad | inkitt | radish | galatea | dreame | goodnovel | tapas | generic web-fiction
 Rubric Source: file | embedded fallback
 Review scope: {chapters/files}
 
@@ -460,7 +476,7 @@ Review scope: {chapters/files}
 
 ## Language
 
-- Follow the user's language.
+- Load the deployed English book contract. Use the book's `Record language` and `English variant`; when a legacy book has no profile, infer from its prose and record the inferred profile before reporting. Never switch report language based on the user's chat language.
 - English prose follows the house style rules in the skill's `references/` files
   (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
   and free of AI-flavor patterns.

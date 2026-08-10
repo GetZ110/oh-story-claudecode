@@ -108,7 +108,7 @@ function showToast(message, kind = "success") {
 }
 
 function formatNumber(value) {
-  return new Intl.NumberFormat("zh-CN").format(value || 0);
+  return new Intl.NumberFormat("en-US").format(value || 0);
 }
 
 function formatBytes(bytes) {

@@ -77,7 +77,7 @@ My hand paused on the bowl's edge.
 
 | Priority | Format | Applies to |
 |----------|--------|------------|
-| First choice | `"speech"` curly double quotes | Short-story default, Wattpad, Tapas, Inkitt, Galatea, Dreame, GoodNovel |
+| First choice | `“speech”` curly double quotes | Short-story default, Wattpad, Tapas, Inkitt, Galatea, Dreame, GoodNovel |
 | Platform/project-specified | Straight `"speech"` | Platforms rendering straight quotes; user preference |
 
 **Default is curly `“ ”`**; use straight quotes only when the platform or user specifies them. Do not "correct" a user's specified quote style.
@@ -107,7 +107,7 @@ She set the cup down and said, "You should go." He didn't move, so she said agai
 
 ## Punctuation hard constraints
 
-**This repo's body text never contains `...` runs, `——`, `—`, or `--`** (the de-AI scripts and hooks enforce it; project-level red line). Applies to narration, dialogue, and interiority alike; no dialogue exceptions.
+**Functional English punctuation is allowed**: a single ellipsis (`…`) or em dash (`—`) may carry hesitation, interruption, or an intentional break. Do not use repeated pause padding, `--`, long em-dash clusters, or ellipsis runs. The detector reports clusters as a style warning rather than banning a legitimate English construction.
 
 Pauses, sobs, unfinished speech, interruptions, and white space are done with:
 

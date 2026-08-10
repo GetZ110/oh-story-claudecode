@@ -2,7 +2,7 @@
 name: story-long-scan
 version: 1.0.0
 description: "Long-form web fiction market scanning. Analyzes ranking data from Royal Road, Webnovel, Wattpad, Amazon Kindle and other English platforms to surface market trends and hot genres. Trigger phrases: /story-long-scan, long-form market scan, what's hot in long-form fiction, scan Royal Road rankings, what to write next."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-long-scan: Long-form market scanning
 
@@ -318,7 +318,7 @@ Load on demand:
 
 ## Language
 
-- Follow the user's language.
+- Load the deployed English book contract; use the book or requested market profile for trend and platform reports, with `en-US` as the English default. The user's chat language does not override the report language.
 - English prose follows the house style rules in the skill's `references/` files
   (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
   and free of AI-flavor patterns.

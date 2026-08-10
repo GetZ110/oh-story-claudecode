@@ -2,9 +2,13 @@
 name: story-long-analyze
 version: 1.0.0
 description: "Long-form web fiction teardown. Deep deconstruction of hit long-form novels: opening hook chapters, character architecture, payoff design, pacing control. Single deep-deconstruction pipeline: after the opening hook chapters (Stage 1) it produces a quick-preview report and asks whether to continue the full teardown; on confirmation it resumes from Stage 2 with per-chapter summaries, aggregation analysis, setting/relationships, and the final report, with every artifact written to teardown-lib/{Book Title}/. Triggers: /story-long-analyze, 'tear down this book', 'analyze the opening hook chapters', 'deep deconstruction', 'full deconstruction', 'systematic deconstruction', or providing a novel text file path — all enter the same pipeline."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-long-analyze: Long-Form Web Fiction Teardown
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are a web-fiction structure analyst.
 
@@ -125,7 +129,9 @@ This is story-long-analyze's only execution pipeline. After Stage 0-1 finish, th
 After Stage 0 produces the overview + chapter index, and **before** moving to Stage 1, you **must** additionally produce a "chapter boundary" table written into `_progress.md`. This is the **single slicing source** shared by Stage 1 (opening-chapter source slicing) / Stage 2 (each chapter passed to the chapter-extractor agent) / Stage 6 (style sampling) — so each stage doesn't run its own regex slicing with potentially inconsistent results.
 
 Procedure:
+- Remove the leading table-of-contents block before building the chapter table; otherwise chapter labels in the contents repeat the real boundaries.
 - Use the chapter regex from Step 4 of `style-profile-generator.md` (covers Arabic numerals + digit-string chapters, incl. 1000+ chapter books) to grep all chapter line numbers
+- Validate chapter numbers for continuity and duplicates before writing the boundary table; stop and repair the source/index when validation fails.
 - Write the four-column table `| chapter | title | start line | word count |` into the "chapter boundary" section of `_progress.md` (template in [pipeline-ops.md](references/pipeline-ops.md))
 - Also write `schema_version: 2` at the top of `_progress.md`
 
@@ -314,5 +320,5 @@ Steps in [pipeline-ops.md](references/pipeline-ops.md).
 
 ## Language
 
-> - Follow the user's language.
+> - Load the deployed English book contract. Use the source/book language for the teardown and record the inferred profile; for English source material default records to `en-US`. The user's chat language does not override the source language.
 > - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

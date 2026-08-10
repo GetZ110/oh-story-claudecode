@@ -32,17 +32,17 @@ SNAPSHOT_TARGET_BYTES = 4096
 SNAPSHOT_MAX_BYTES = 8192
 
 CONTEXT_HEADINGS = (
-    "## 当前位置",
-    "## 长期约束",
-    "## 核心角色状态",
-    "## 活跃伏笔",
-    "## 近三章速记",
-    "## 下一章承诺",
-    "## 连贯性风险",
+    "## Current Position",
+    "## Long-Term Constraints",
+    "## Core Character States",
+    "## Active Foreshadowing",
+    "## Recent Chapters",
+    "## Next-Chapter Commitments",
+    "## Continuity Risks",
 )
-FORESHADOW_STATUSES = ("已埋", "已回收", "已过期", "放弃")
-FORESHADOW_IMPORTANCE = ("高", "中", "低")
-REVEAL_STATUSES = ("未揭示", "部分揭示", "已揭示")
+FORESHADOW_STATUSES = ("planted", "resolved", "expired", "abandoned")
+FORESHADOW_IMPORTANCE = ("high", "medium", "low")
+REVEAL_STATUSES = ("unrevealed", "partially_revealed", "revealed")
 INVALID_FILE_CHARS = re.compile(r"[<>:\"/\\|?*\x00-\x1f]")
 FORESHADOW_ID = re.compile(r"^F\d{3,}$")
 EVENT_ID = re.compile(r"^E\d{3,}$")
@@ -56,13 +56,13 @@ WINDOWS_RESERVED_NAMES = {
 }
 RETIRED_TRACKING_PATHS = (
     "_tracking-meta.json",
-    "阶段摘要.md",
-    "角色状态.md",
-    "时间线.md",
-    "摘要",
-    "时间线/事件库.json",
+    "stage-summary.md",
+    "character-state.md",
+    "timeline.md",
+    "summaries",
+    "timeline/event-library.json",
 )
-RETIRED_ARCHIVE_DIR = "_旧追踪存档"
+RETIRED_ARCHIVE_DIR = "_retired-tracking-archive"
 
 
 class TrackingError(ValueError):
@@ -133,11 +133,7 @@ def byte_size(text: str) -> int:
 
 
 def emit(text: str, *, error: bool = False) -> None:
-    """Write UTF-8 bytes directly.
-
-    Windows 的文本 stdout 是 cp1252（含中文即 UnicodeEncodeError），stderr 默认
-    backslashreplace（中文被转义成反斜杠码位，作者看不懂）。两条路都要绕开。
-    """
+    """Write UTF-8 bytes directly so CLI output is stable across platforms."""
     stream = sys.stderr if error else sys.stdout
     stream.flush()
     stream.buffer.write((text + "\n").encode("utf-8"))
@@ -181,7 +177,7 @@ def write_if_changed(path: Path, payload: str) -> None:
 
 
 def tracking_root(project: Path) -> Path:
-    return project.resolve() / "追踪"
+    return project.resolve() / "tracking"
 
 
 def state_path(project: Path) -> Path:
@@ -190,12 +186,12 @@ def state_path(project: Path) -> Path:
 
 def delta_path(tracking: Path, chapter: int) -> Path:
     width = max(3, len(str(chapter)))
-    return tracking / "逐章记录" / f"第{chapter:0{width}d}章.md"
+    return tracking / "chapter-records" / f"chapter_{chapter:0{width}d}.md"
 
 
 def find_retired_tracking_paths(tracking: Path) -> list[str]:
     found = [relative for relative in RETIRED_TRACKING_PATHS if (tracking / relative).exists()]
-    found.extend(sorted(path.name for path in tracking.glob("基线_截至第*章.md")))
+    found.extend(sorted(path.name for path in tracking.glob("baseline_through_chapter_*.md")))
     return found
 
 
@@ -205,7 +201,7 @@ def require_no_retired_tracking_paths(tracking: Path) -> None:
 
 
 def archive_retired_tracking_paths(tracking: Path) -> list[str]:
-    """Move a pre-transaction 追踪/ aside so init can build the current protocol in place.
+    """Move a pre-transaction tracking/ aside so init can build the current protocol in place.
 
     Nothing is parsed or converted: the old files are kept verbatim for the author to
     consult, and the new state is reconstructed from the init document alone.
@@ -217,7 +213,7 @@ def archive_retired_tracking_paths(tracking: Path) -> list[str]:
     for relative in retired:
         require(
             not (archive / relative).exists(),
-            f"追踪/{RETIRED_ARCHIVE_DIR}/{relative} already exists; move it away before initializing",
+            f"tracking/{RETIRED_ARCHIVE_DIR}/{relative} already exists; move it away before initializing",
         )
     # 先全量校验再搬运；中断后重跑时已搬走的条目不再出现在待搬列表里，可直接续做。
     for relative in retired:
@@ -276,23 +272,23 @@ def normalize_snapshots(value: object, label: str = "character_snapshots") -> di
 
 def render_snapshot(name: str, snapshot: dict[str, Any], through_chapter: int, revision: int) -> str:
     def section(title: str, values: list[str]) -> list[str]:
-        return [f"## {title}", *(f"- {item}" for item in values or ["无"]), ""]
+        return [f"## {title}", *(f"- {item}" for item in values or ["None"]), ""]
 
     lines = [
-        f"# {name}｜当前状态",
+        f"# {name} | Current State",
         "",
-        f"- 状态修订：{revision}",
-        f"- 截至章节：第{through_chapter}章",
-        f"- 身份：{snapshot['identity']}",
-        f"- 位置：{snapshot['location']}",
-        f"- 当前目标：{snapshot['goal']}",
-        f"- 身心状态：{snapshot['state']}",
+        f"- State revision: {revision}",
+        f"- Through chapter: {through_chapter}",
+        f"- Identity: {snapshot['identity']}",
+        f"- Location: {snapshot['location']}",
+        f"- Current goal: {snapshot['goal']}",
+        f"- State: {snapshot['state']}",
         "",
     ]
-    lines.extend(section("能力与资源", snapshot["abilities_resources"]))
-    lines.extend(section("关键关系", snapshot["relationships"]))
-    lines.extend(section("已知信息", snapshot["knowledge"]))
-    lines.extend(section("未结事项", snapshot["open_threads"]))
+    lines.extend(section("Abilities and Resources", snapshot["abilities_resources"]))
+    lines.extend(section("Key Relationships", snapshot["relationships"]))
+    lines.extend(section("Known Information", snapshot["knowledge"]))
+    lines.extend(section("Open Threads", snapshot["open_threads"]))
     payload = "\n".join(lines).rstrip() + "\n"
     require(
         byte_size(payload) <= SNAPSHOT_MAX_BYTES,
@@ -376,19 +372,19 @@ def normalize_foreshadow_state(value: object, last_chapter: int) -> dict[str, di
 
 def render_foreshadow(rows: dict[str, dict[str, Any]], revision: int) -> str:
     lines = [
-        "# 伏笔当前状态",
+        "# Current Foreshadowing State",
         "",
-        f"> 状态修订：{revision}。每个 ID 只保留一行当前状态；历史变化见 `逐章记录/`。",
+        f"> State revision: {revision}. One current row per ID; history is in `chapter-records/`.",
         "",
-        "| ID | 内容 | 埋设章 | 计划回收章 | 状态 | 重要度 | 最近变更章 |",
+        "| ID | Summary | Planted Chapter | Planned Resolution | Status | Importance | Last Updated |",
         "|---|---|---:|---:|---|---|---:|",
     ]
     for identifier in sorted(rows):
         row = rows[identifier]
-        planned = f"第{row['planned_resolution_chapter']}章" if row["planned_resolution_chapter"] else "—"
+        planned = f"Chapter {row['planned_resolution_chapter']}" if row["planned_resolution_chapter"] else "—"
         lines.append(
-            f"| {identifier} | {row['summary']} | 第{row['planted_chapter']}章 | {planned} | "
-            f"{row['status']} | {row['importance']} | 第{row['updated_chapter']}章 |"
+            f"| {identifier} | {row['summary']} | Chapter {row['planted_chapter']} | {planned} | "
+            f"{row['status']} | {row['importance']} | Chapter {row['updated_chapter']} |"
         )
     return "\n".join(lines) + "\n"
 
@@ -416,7 +412,7 @@ def normalize_timeline_change(
     require(reveal_status in REVEAL_STATUSES, f"{label}.reveal_status must be one of {REVEAL_STATUSES}")
     reveal_raw = event.get("reveal_chapter")
     reveal_chapter = None if reveal_raw is None else as_int(reveal_raw, f"{label}.reveal_chapter", minimum=1)
-    if reveal_status == "未揭示":
+    if reveal_status == "unrevealed":
         require(reveal_chapter is None, f"{label} must not put a future reveal chapter in established timeline facts")
     else:
         require(reveal_chapter is not None, f"{label}.reveal_chapter is required once revealed")
@@ -474,31 +470,31 @@ def normalize_timeline_state(value: object, last_chapter: int) -> dict[str, dict
 
 def render_timeline_views(events: dict[str, dict[str, Any]], revision: int) -> tuple[str, str]:
     author_lines = [
-        "# 作者真相时间线",
+        "# Author-Truth Timeline",
         "",
-        f"> 状态修订：{revision}。客观事实与读者认知的权威对照；未来揭示计划仍留在大纲。",
+        f"> State revision: {revision}. Authoritative facts versus reader knowledge.",
         "",
-        "| ID | 首次登记章 | 故事时间 | 客观事实 | 读者当前认知 | 揭示状态 | 实际揭示章 |",
+        "| ID | First Recorded Chapter | Story Time | Objective Fact | Reader Knowledge | Reveal Status | Reveal Chapter |",
         "|---|---:|---|---|---|---|---:|",
     ]
     reader_lines = [
-        "# 读者已知时间线",
+        "# Reader-Knowledge Timeline",
         "",
-        f"> 状态修订：{revision}。只呈现读者截至当前章节已经知道或相信的内容，不泄露作者侧客观真相。",
+        f"> State revision: {revision}. Shows only what the reader knows or believes so far.",
         "",
-        "| ID | 读者当前认知 | 认知截至章 |",
+        "| ID | Reader Knowledge | Known Through Chapter |",
         "|---|---|---:|",
     ]
     for identifier in sorted(events):
         event = events[identifier]
-        reveal = f"第{event['reveal_chapter']}章" if event.get("reveal_chapter") else "—"
-        characters = "、".join(event.get("characters", []))
-        objective = event["objective_fact"] + (f"（涉及：{characters}）" if characters else "")
+        reveal = f"Chapter {event['reveal_chapter']}" if event.get("reveal_chapter") else "—"
+        characters = ", ".join(event.get("characters", []))
+        objective = event["objective_fact"] + (f" (characters: {characters})" if characters else "")
         author_lines.append(
-            f"| {identifier} | 第{event['first_recorded_chapter']}章 | {event['story_time']} | {objective} | "
+            f"| {identifier} | Chapter {event['first_recorded_chapter']} | {event['story_time']} | {objective} | "
             f"{event['reader_knowledge']} | {event['reveal_status']} | {reveal} |"
         )
-        reader_lines.append(f"| {identifier} | {event['reader_knowledge']} | 第{event['updated_chapter']}章 |")
+        reader_lines.append(f"| {identifier} | {event['reader_knowledge']} | Chapter {event['updated_chapter']} |")
     return "\n".join(author_lines) + "\n", "\n".join(reader_lines) + "\n"
 
 
@@ -548,14 +544,14 @@ def validate_context_input(value: object, *, include_initial_fields: bool) -> di
 
 def active_foreshadow_lines(rows: dict[str, dict[str, Any]]) -> list[str]:
     importance = {value: index for index, value in enumerate(FORESHADOW_IMPORTANCE)}
-    candidates = [row for row in rows.values() if row["status"] == "已埋"]
+    candidates = [row for row in rows.values() if row["status"] == "planted"]
     candidates.sort(
         key=lambda row: (importance[row["importance"]], row["planned_resolution_chapter"] or 10**12, row["id"])
     )
     result = []
     for row in candidates[:8]:
-        planned = f"第{row['planned_resolution_chapter']}章" if row["planned_resolution_chapter"] else "回收章未定"
-        result.append(f"{row['id']}｜{row['summary']}｜埋第{row['planted_chapter']}章｜{planned}｜{row['importance']}")
+        planned = f"Chapter {row['planned_resolution_chapter']}" if row["planned_resolution_chapter"] else "Resolution TBD"
+        result.append(f"{row['id']} | {row['summary']} | planted Chapter {row['planted_chapter']} | {planned} | {row['importance']}")
     return result
 
 
@@ -563,39 +559,39 @@ def render_context(state: dict[str, Any]) -> str:
     context = state["context"]
     position = context["position"]
     current_chapter = (
-        "尚未开篇" if state["last_committed_chapter"] == 0 else f"第{state['last_committed_chapter']}章"
+        "Not started" if state["last_committed_chapter"] == 0 else f"Chapter {state['last_committed_chapter']}"
     )
     character_lines = [
-        f"{name}｜{state['characters'][name]['identity']}｜{state['characters'][name]['state']}｜"
-        f"目标：{state['characters'][name]['goal']}"
+        f"{name} | {state['characters'][name]['identity']} | {state['characters'][name]['state']} | "
+        f"Goal: {state['characters'][name]['goal']}"
         for name in context["active_character_names"]
     ]
     sections: list[tuple[str, list[str]]] = [
         (
-            "## 当前位置",
+            "## Current Position",
             [
-                f"当前章：{current_chapter}",
-                f"卷：{position['volume']}（始于第{position['volume_start_chapter']}章）",
-                f"故事时间：{position['story_time']}",
-                f"场景：{position['scene']}",
+                f"Current chapter: {current_chapter}",
+                f"Volume: {position['volume']} (starts at Chapter {position['volume_start_chapter']})",
+                f"Story time: {position['story_time']}",
+                f"Scene: {position['scene']}",
             ],
         ),
-        ("## 长期约束", context["long_term_constraints"]),
-        ("## 核心角色状态", character_lines),
-        ("## 活跃伏笔", active_foreshadow_lines(state["foreshadow"])),
-        ("## 近三章速记", [f"第{item['chapter']}章｜{item['summary']}" for item in context["recent_chapters"]]),
-        ("## 下一章承诺", context["next_chapter_commitments"]),
-        ("## 连贯性风险", context["continuity_risks"]),
+        ("## Long-Term Constraints", context["long_term_constraints"]),
+        ("## Core Character States", character_lines),
+        ("## Active Foreshadowing", active_foreshadow_lines(state["foreshadow"])),
+        ("## Recent Chapters", [f"Chapter {item['chapter']} | {item['summary']}" for item in context["recent_chapters"]]),
+        ("## Next-Chapter Commitments", context["next_chapter_commitments"]),
+        ("## Continuity Risks", context["continuity_risks"]),
     ]
     lines = [
-        f"# 写作连续性上下文 — {state['book_title']}",
+        f"# Writing Continuity Context | {state['book_title']}",
         "",
-        f"> 状态修订：{state['state_revision']}。截至当前章的续写状态卡，只放下一章真正需要的连续性状态。",
+        f"> State revision: {state['state_revision']}. Only continuity state needed for the next chapter.",
         "",
     ]
     for heading, values in sections:
         lines.append(heading)
-        lines.extend(f"- {value}" for value in values or ["无"])
+        lines.extend(f"- {value}" for value in values or ["None"])
         lines.append("")
     payload = "\n".join(lines).rstrip() + "\n"
     headings = tuple(line for line in payload.splitlines() if line.startswith("## "))
@@ -686,48 +682,48 @@ def normalize_delta(
 
 def render_delta(chapter: int, title: str, delta: dict[str, Any], core_names: set[str]) -> str:
     lines = [
-        f"# 第{chapter:03d}章 · {title}",
-        f"- 结果：{delta['result']}",
-        "- 下一章承诺：" + ("；".join(delta["next_chapter_commitments"]) or "无"),
+        f"# Chapter {chapter:03d} | {title}",
+        f"- Result: {delta['result']}",
+        "- Next-chapter commitments: " + ("; ".join(delta["next_chapter_commitments"]) or "None"),
         "",
-        "## 角色变化",
+        "## Character Changes",
     ]
     lines.extend(
-        f"- {item['name']}｜{'核心' if item['name'] in core_names else '临时'}｜{item['change']}"
+        f"- {item['name']} | {'Core' if item['name'] in core_names else 'Temporary'} | {item['change']}"
         for item in delta["character_changes"]
     )
     if not delta["character_changes"]:
-        lines.append("- 无")
-    lines.extend(["", "## 伏笔变化"])
+        lines.append("- None")
+    lines.extend(["", "## Foreshadowing Changes"])
     for item in delta["foreshadow_changes"]:
         if item["action"] == "delete":
-            lines.append(f"- {item['id']}｜删除当前登记")
+            lines.append(f"- {item['id']} | Deleted current entry")
         else:
-            planned = f"第{item['planned_resolution_chapter']}章" if item["planned_resolution_chapter"] else "未定"
-            lines.append(f"- {item['id']}｜{item['status']}｜{item['summary']}｜回收{planned}")
+            planned = f"Chapter {item['planned_resolution_chapter']}" if item["planned_resolution_chapter"] else "TBD"
+            lines.append(f"- {item['id']} | {item['status']} | {item['summary']} | resolution {planned}")
     if not delta["foreshadow_changes"]:
-        lines.append("- 无")
-    lines.extend(["", "## 时间与揭示"])
+        lines.append("- None")
+    lines.extend(["", "## Timeline and Reveals"])
     for item in delta["timeline_events"]:
         if item["action"] == "delete":
-            lines.append(f"- {item['id']}｜删除当前登记")
+            lines.append(f"- {item['id']} | Deleted current entry")
         else:
             lines.append(
-                f"- {item['id']}｜{item['story_time']}｜事实：{item['objective_fact']}｜"
-                f"读者：{item['reader_knowledge']}｜{item['reveal_status']}"
+                f"- {item['id']} | {item['story_time']} | Fact: {item['objective_fact']} | "
+                f"Reader: {item['reader_knowledge']} | {item['reveal_status']}"
             )
     if not delta["timeline_events"]:
-        lines.append("- 无")
-    lines.extend(["", "## 连贯性约束"])
+        lines.append("- None")
+    lines.extend(["", "## Continuity Constraints"])
     lines.extend(f"- {item}" for item in delta["constraints"])
     if not delta["constraints"]:
-        lines.append("- 无")
+        lines.append("- None")
     retired = delta.get("retired_context_items", []) + [
-        f"角色状态：{name}" for name in delta.get("retired_characters", [])
+        f"Character state: {name}" for name in delta.get("retired_characters", [])
     ]
     if retired:
-        # 退役条目在此留档，续写状态卡收缩后仍可回查当初撤下了什么。
-        lines.extend(["", "## 本章退役登记"])
+        # Retired entries remain here so compacted context can still be audited.
+        lines.extend(["", "## Retired Entries This Chapter"])
         lines.extend(f"- {item}" for item in retired)
     payload = "\n".join(lines) + "\n"
     size = byte_size(payload)
@@ -964,14 +960,14 @@ def merge_transaction(state: dict[str, Any], transaction: dict[str, Any]) -> dic
 def render_views(state: dict[str, Any]) -> dict[str, str]:
     revision = state["state_revision"]
     views = {
-        "上下文.md": render_context(state),
-        "伏笔.md": render_foreshadow(state["foreshadow"], revision),
+        "context.md": render_context(state),
+        "foreshadowing.md": render_foreshadow(state["foreshadow"], revision),
     }
     author, reader = render_timeline_views(state["timeline"], revision)
-    views["时间线/作者真相.md"] = author
-    views["时间线/读者已知.md"] = reader
+    views["timeline/author-truth.md"] = author
+    views["timeline/reader-knowledge.md"] = reader
     for name, snapshot in state["characters"].items():
-        views[f"角色状态/{name}.md"] = render_snapshot(
+        views[f"character-state/{name}.md"] = render_snapshot(
             name, snapshot, state["last_committed_chapter"], revision
         )
     return views
@@ -980,13 +976,13 @@ def render_views(state: dict[str, Any]) -> dict[str, str]:
 def write_views(tracking: Path, views: dict[str, str]) -> None:
     # 上下文携带 next revision，先写它；任何后续失败都会让 hook/check 发现
     # 上下文 revision 与最后提交的 _tracking-state.json 不一致。
-    write_if_changed(tracking / "上下文.md", views["上下文.md"])
-    for relative in sorted(path for path in views if path != "上下文.md"):
+    write_if_changed(tracking / "context.md", views["context.md"])
+    for relative in sorted(path for path in views if path != "context.md"):
         write_if_changed(tracking / relative, views[relative])
     expected_character_files = {
-        Path(relative).name for relative in views if relative.startswith("角色状态/")
+        Path(relative).name for relative in views if relative.startswith("character-state/")
     }
-    character_dir = tracking / "角色状态"
+    character_dir = tracking / "character-state"
     character_dir.mkdir(parents=True, exist_ok=True)
     for path in character_dir.glob("*.md"):
         if path.name not in expected_character_files:
@@ -999,11 +995,11 @@ def warn_sizes(views: dict[str, str], delta_payload: str | None = None) -> None:
             f"WARNING: chapter delta is {byte_size(delta_payload)} bytes; target is <= {DELTA_TARGET_BYTES}",
             error=True,
         )
-    context_size = byte_size(views["上下文.md"])
+    context_size = byte_size(views["context.md"])
     if context_size > CONTEXT_TARGET_BYTES:
         emit(f"WARNING: hot context is {context_size} bytes; target is <= {CONTEXT_TARGET_BYTES}", error=True)
     for relative, payload in views.items():
-        if not relative.startswith("角色状态/"):
+        if not relative.startswith("character-state/"):
             continue
         size = byte_size(payload)
         if size > SNAPSHOT_TARGET_BYTES:
@@ -1022,15 +1018,15 @@ def initialize(project: Path, document: object) -> dict[str, Any]:
 
     # 输入全部校验通过后才动用户文件，失败的 init 不会挪走任何东西。
     archived = archive_retired_tracking_paths(tracking)
-    for directory in (tracking / "逐章记录", tracking / "角色状态", tracking / "时间线"):
+    for directory in (tracking / "chapter-records", tracking / "character-state", tracking / "timeline"):
         directory.mkdir(parents=True, exist_ok=True)
     write_views(tracking, views)
     atomic_write_text(state_path(project), state_payload)
     warn_sizes(views)
     if archived:
         emit(
-            f"NOTE: 旧追踪结构已原样移入 追踪/{RETIRED_ARCHIVE_DIR}/：{', '.join(archived)}；"
-            "当前状态以本次 init 输入为准，旧文件不参与解析。",
+            f"NOTE: retired tracking files were moved to tracking/{RETIRED_ARCHIVE_DIR}/: {', '.join(archived)}; "
+            "the current state comes from this init input.",
             error=True,
         )
     return state
@@ -1075,8 +1071,8 @@ def check_project(project: Path) -> dict[str, Any]:
     required_delta_start = state["imported_through_chapter"] + 1
     for chapter in range(required_delta_start, last_chapter + 1):
         require(delta_path(tracking, chapter).exists(), f"chapter delta {chapter} is missing")
-    for path in (tracking / "逐章记录").glob("第*章.md"):
-        match = re.fullmatch(r"第(\d+)章\.md", path.name)
+    for path in (tracking / "chapter-records").glob("chapter_*.md"):
+        match = re.fullmatch(r"chapter_(\d+)\.md", path.name)
         require(match is not None, f"chapter delta has an invalid filename: {path.name}")
         chapter = as_int(int(match.group(1)), f"chapter delta {path.name}", minimum=1)
         require(path == delta_path(tracking, chapter), f"chapter delta {chapter} filename is not canonical")
@@ -1092,9 +1088,9 @@ def check_project(project: Path) -> dict[str, Any]:
             f"derived view differs from _tracking-state.json: {relative}",
         )
     expected_character_files = {
-        Path(relative).name for relative in expected_views if relative.startswith("角色状态/")
+        Path(relative).name for relative in expected_views if relative.startswith("character-state/")
     }
-    actual_character_files = {path.name for path in (tracking / "角色状态").glob("*.md")}
+    actual_character_files = {path.name for path in (tracking / "character-state").glob("*.md")}
     require(actual_character_files == expected_character_files, "character snapshot files differ from tracking state")
     return state
 
@@ -1104,10 +1100,10 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     for command in ("init", "commit"):
         subparser = subparsers.add_parser(command)
-        subparser.add_argument("--project", type=Path, required=True, help="book project root containing 追踪/")
+        subparser.add_argument("--project", type=Path, required=True, help="book project root containing tracking/")
         subparser.add_argument("--input", type=Path, required=True, help="UTF-8 JSON input document")
     check_parser = subparsers.add_parser("check")
-    check_parser.add_argument("--project", type=Path, required=True, help="book project root containing 追踪/")
+    check_parser.add_argument("--project", type=Path, required=True, help="book project root containing tracking/")
     return parser
 
 

@@ -2,6 +2,8 @@
 
 This file is the complete guide for the "major revision / rework" scenario. After SKILL.md routes here, execute the flow below.
 
+All tracking changes in this workflow go through `tracking_commit.py`; never edit derived tracking Markdown directly.
+
 ---
 
 ## Applicability

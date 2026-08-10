@@ -1,10 +1,8 @@
-<!-- Last synced with README.md: 2026-08-06 -->
-
-**English** | [中文](README.md)
-
 # oh-story-claudecode
 
-A web novel writing skill pack with built-in adapters for Claude Code, OpenCode, ZCode, OpenClaw, Codex CLI, and Reasonix. Web AI / agent environments that can read project files can use the generic skills path. Covers the full pipeline for long-form and short-form Chinese web novels: trend scanning, deconstruction, writing, AI tone removal, and cover generation.
+An English web-fiction writing skill pack with built-in adapters for Claude Code, OpenCode, ZCode, OpenClaw, Codex CLI, and Reasonix. Web AI / agent environments that can read project files can use the generic skills path. Covers the full pipeline for long-form and short-form English web novels: trend scanning, deconstruction, writing, AI-tone removal, and cover generation.
+
+> **v0.8.0 is the English edition.** All skills, hooks, agents, references, the dashboard, and the project structure are now English (`teardown-lib/`, `tracking/`, `prose/`, `outline/`, `setting/`, `outline_chapter_N.md`, `Chapter N` chapter files, `<!-- deslop:skip -->` exemption marker). Market scanning targets English platforms (Royal Road, Webnovel, Wattpad, Amazon Kindle, Inkitt, Radish, Galatea) plus general web research. **This release ships `agents_version` 23** — deployed projects must re-run `/story-setup` and start a new session, otherwise neither this release's prose rules nor its hooks take effect.
 
 ## Core Approach
 
@@ -18,11 +16,7 @@ Professional authors follow a three-step method:
 
 Built around four pillars: reverse-engineering hits · plot modularization · layered state management · human-AI collaboration.
 
-> Starting in v0.7.4: all fixes. `story-import` no longer registers the user's own book as a benchmark (which is why the benchmark directory used to look identical to their own settings); story-setup no longer misidentifies Reasonix / generic projects as OpenClaw on redeploy, and multi-end deployments no longer report a missing reference bundle every session; the Stage 6 style statistics no longer fail outright on Windows. The `agents_version` spawn gate becomes a notice rather than a block — a version mismatch still spawns in parallel, and only genuinely missing agent files fall back to solo. **This release ships `agents_version` 23** — deployed projects must rerun `/story-setup` and start a new session.
->
-> Starting in v0.7.3: long-form tracking moves to a single-authority transaction model — `追踪/_tracking-state.json` is the only structured state, and the continuation state card (7 fixed sections, ≤12KB) plus foreshadowing / timeline / character snapshots are all regenerated wholesale by `tracking_commit.py`; each daily-update chapter now reads three files instead of five. The Dashboard file tree loads on demand. **Long-form projects from v0.7.2 or earlier must migrate `追踪/` before they can continue** (use `/story-import`'s old-tracking migration — no need to re-deconstruct the whole book; see [UPGRADING](skills/story-setup/UPGRADING.md)). **This release ships `agents_version` 22** — deployed projects must rerun `/story-setup` and start a new session.
->
-> Starting in v0.7.2: a local workbench `/story dashboard` — zero production dependencies, bound to `127.0.0.1` only, showing `拆文库/` and writing projects as separate file trees with search, Markdown preview, lightweight editing and conflict protection; a fix for stiff prose and summary-style chapter endings caused by copying the outline's shape (an outline specifies *what happens*, not the shape of the prose); and two long-standing session-start false alarms fixed (finished deconstructions repeatedly reported as unfinished, version reminders firing every session). **This release ships `agents_version` 21** — deployed projects must rerun `/story-setup` and start a new session, otherwise neither v0.7.1's nor this release's prose and hook changes take effect.
+> Starting in v0.7.2: a local workbench `/story dashboard` — zero production dependencies, bound to `127.0.0.1` only, showing `teardown-lib/` and writing projects as separate file trees with search, Markdown preview, lightweight editing and conflict protection; a fix for stiff prose and summary-style chapter endings caused by copying the outline's shape (an outline specifies *what happens*, not the shape of the prose); and two long-standing session-start false alarms fixed.
 >
 > For earlier versions, see [CHANGELOG.md](CHANGELOG.md).
 
@@ -88,20 +82,16 @@ flowchart LR
 **Option 1** Tell Claude Code / OpenCode / ZCode / OpenClaw / Codex / Reasonix, or another Web AI / agent platform that can import a GitHub repo or skill:
 
 ```
-Install this skill https://github.com/worldwonderer/oh-story-claudecode
+Install this skill https://github.com/GetZ110/oh-story-claudecode
 ```
-
-To upgrade, repeat the same instruction.
 
 **Option 2** Command line:
 
 ```bash
-npx skills add worldwonderer/oh-story-claudecode -y -g
+npx skills add GetZ110/oh-story-claudecode -y -g
 ```
 
 `-g` installs globally (available in every directory); drop `-g` to install only into the current directory. Re-run the same command to update.
-
-On Windows you may occasionally see an `ENOENT ... mkdir` error while the run still ends with `Done!`. That means a skill was only partially installed. If a whole subdirectory of story-setup's reference bundle is missing, `/story-setup` reports an incomplete reference bundle; other forms of partial install may go unreported. Either way, re-run the same install command to fix it.
 
 <details>
 <summary>Codex / ZCode / OpenCode / OpenClaw / Reasonix / Web AI usage notes</summary>
@@ -112,7 +102,7 @@ After `$story-setup` deploys into a writing project, it creates `.codex/agents/*
 
 **ZCode users:** Add this repository as a marketplace in Plugin Management and install `oh-story`; then invoke the 13 Skills/Commands through `$story`, `$story-setup`, or the `/` panel. With `target_cli=zcode`, `$story-setup` deploys `.zcode/skills/`, `.zcode/commands/`, and `.zcode/hooks/story_zcode_hook.js`, then safely merges `.zcode/config.json` and the root `AGENTS.md`. Hooks require `node` on PATH. ZCode 3.3.4 does not execute project/plugin custom agents and has no `PreCompact` or `SessionEnd`; affected workflows report a solo/direct fallback, while `SessionStart` restores context after compaction.
 
-**OpenCode users:** After global install, opencode auto-discovers skills from `~/.claude/skills/`; trigger story-setup with natural language on first use (e.g., "use story-setup to deploy the web novel environment"), then **exit and re-enter with `opencode -c`** for slash commands to work. Some hook behaviors differ from Claude Code (session-start / session-end / compact, etc.) — see the OpenCode section in [CONTRIBUTING.md](CONTRIBUTING.md).
+**OpenCode users:** After global install, opencode auto-discovers skills from `~/.claude/skills/`; trigger story-setup with natural language on first use (e.g., "use story-setup to deploy the fiction writing environment"), then **exit and re-enter with `opencode -c`** for slash commands to work. Some hook behaviors differ from Claude Code (session-start / session-end / compact, etc.) — see the OpenCode section in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **OpenClaw users:** Current support is skills-only. OpenClaw can discover the 13 story skills from workspace `skills/`, `.agents/skills`, `~/.agents/skills`, `~/.openclaw/skills`, or configured extra skill roots. `SKILL.md` files use OpenClaw-compatible single-line `name` / `description` plus single-line JSON `metadata.openclaw`. When `story-setup` targets OpenClaw, it copies the skills into project `skills/` and writes an OpenClaw `AGENTS.md`; agents/hooks are intentionally deferred, so outline-before-prose guards are soft skill checks rather than runtime enforcement. If new skills do not appear immediately, open a fresh OpenClaw session or wait for the skills watcher to refresh.
 
@@ -122,11 +112,11 @@ After `$story-setup` deploys into a writing project, it creates `.codex/agents/*
 
 </details>
 
-After updating, if a project has already run `/story-setup`, re-run `/story-setup` from the project root to sync hooks / agents / references. Per-version changes are in [CHANGELOG.md](CHANGELOG.md) and [Releases](https://github.com/worldwonderer/oh-story-claudecode/releases).
+After updating, if a project has already run `/story-setup`, re-run `/story-setup` from the project root to sync hooks / agents / references. Per-version changes are in [CHANGELOG.md](CHANGELOG.md) and [Releases](https://github.com/GetZ110/oh-story-claudecode/releases).
 
-**Multi-agent collaboration needs setup + a fresh session:** the 7 specialist agents (story-architect, narrative-writer, consistency-checker, etc.) are written into your project's `.claude/agents/` by `/story-setup`, or into `.codex/agents/*.toml` by `$story-setup`. Claude Code and Codex register custom agents most reliably at session start; ZCode 3.3.4, OpenClaw Phase 1, Reasonix Phase 1, and the generic path default to skills + solo fallback. To check Claude/Codex agents: run `/story-review` in the new session — `Effective Mode: full/lean` means agents registered, `Fallback: ... -> solo` means they are unavailable.
+**Multi-agent collaboration needs setup + a fresh session:** the 7 specialist agents (story-architect, prose-writer, consistency-checker, etc.) are written into your project's `.claude/agents/` by `/story-setup`, or into `.codex/agents/*.toml` by `$story-setup`. Claude Code and Codex register custom agents most reliably at session start; ZCode 3.3.4, OpenClaw Phase 1, Reasonix Phase 1, and the generic path default to skills + solo fallback. To check Claude/Codex agents: run `/story-review` in the new session — `Effective Mode: full/lean` means agents registered, `Fallback: ... -> solo` means they are unavailable.
 
-**Import and continuation order:** run `/story-setup` from the writing-project root first to deploy hooks, agents, and `AGENTS.md`; start or refresh the session, then run `/story-import` for the existing novel and continue with `/story-long-write 日更` or `/story-long-write 写第N章`. You can also run `/story-import` directly; if setup is missing, it offers to run setup first or continue with a serial import.
+**Import and continuation order:** run `/story-setup` from the writing-project root first to deploy hooks, agents, and `AGENTS.md`; start or refresh the session, then run `/story-import` for the existing novel and continue with `/story-long-write daily` or `/story-long-write chapter 21`. You can also run `/story-import` directly; if setup is missing, it offers to run setup first or continue with a serial import.
 
 ## Skills
 
@@ -135,20 +125,20 @@ After updating, if a project has already run `/story-setup`, re-run `/story-setu
 | `story-setup` | `/story-setup` / `$story-setup` | Environment setup — Claude/OpenCode/Codex/ZCode/OpenClaw/Reasonix plus generic (safe merge) |
 | `story` | `/story` / `$story` / `/story dashboard` | Toolbox router plus a local deconstruction/project dashboard |
 | `story-long-write` | `/story-long-write` | Long-form writing — outline building, character design, prose output |
-| `story-long-analyze` | `/story-long-analyze` | Long-form deconstruction — Golden First 3 Chapters, payoff design, pacing analysis |
-| `story-long-scan` | `/story-long-scan` | Long-form trend scan — Qidian/Fanqie/Jinjiang market trends |
+| `story-long-analyze` | `/story-long-analyze` | Long-form deconstruction — opening hook chapters, payoff design, pacing analysis |
+| `story-long-scan` | `/story-long-scan` | Long-form trend scan — Royal Road / Webnovel / Amazon Kindle market trends |
 | `story-short-write` | `/story-short-write` | Short-form writing — emotion design, twist crafting, polish & delivery |
 | `story-short-analyze` | `/story-short-analyze` | Short-form deconstruction — story core, structure, emotional arc, reversal design, writing techniques, resonance analysis |
-| `story-short-scan` | `/story-short-scan` | Short-form trend scan — Zhihu Yanyan/Fanqie short-form trending data |
+| `story-short-scan` | `/story-short-scan` | Short-form trend scan — Wattpad / Inkitt / Radish / Galatea trending data |
 | `story-deslop` | `/story-deslop` | De-AI-ify — detect and remove AI writing traces |
 | `story-import` | `/story-import` | Reverse import — parse existing novels into standard project structure |
-| `story-review` | `/story-review` | Multi-perspective review — 4-agent adversarial review + Fanqie/Qidian/Zhihu scoring rubrics |
+| `story-review` | `/story-review` | Multi-perspective review — 4-agent adversarial review + Royal Road / Webnovel / Kindle scoring rubrics |
 | `story-cover` | `/story-cover` | Cover generation — title & genre analysis + GPT-Image-2 image generation |
 | `browser-cdp` | `/browser-cdp` | Browser control — CDP protocol for scraping with reusable login sessions |
 
-> `story-deslop` uses local prose linting: blocking applies only to deterministic style/punctuation issues, while other findings require read-through judgment; external detectors such as Zhuque are self-check references, not replacements for human review.
+> `story-deslop` uses local prose linting: blocking applies only to deterministic style/punctuation issues, while other findings require read-through judgment; external detectors are self-check references, not replacements for human review.
 
-Natural language also triggers: `帮我开书` ("help me start writing") → `story-long-write`, `这篇太AI了` ("this is too AI-ish") → `story-deslop`, `把我的书导进来` ("import my book") → `story-import`, `打开工作台` ("open the dashboard") → `story dashboard`, `沈栀现在什么状态` ("what's Shen Zhi's current status") → `story-explorer`.
+Natural language also triggers: `help me start a novel` → `story-long-write`, `this prose sounds like AI` → `story-deslop`, `import my book` → `story-import`, `open the dashboard` → `story dashboard`, `what's the current state of book X` → `story-explorer`.
 
 ### Story Dashboard
 
@@ -162,81 +152,74 @@ uploads story content.
 <details>
 <summary>Cover generation example</summary>
 
-![Cover example — Sword Dao Supreme](demo/封面-剑道独尊.png)
+![Cover example — Sword Dao Supreme](demo/cover-sample.png)
 
 </details>
 
 <details>
-<summary>Deconstruction demo — Coiling Dragon</summary>
+<summary>Deconstruction demo — The Last Knight</summary>
 
-Full output from `/story-long-analyze` deep mode on the first 23 chapters of *Coiling Dragon*:
+Full output from `/story-long-analyze` deep mode on the first chapters of *The Last Knight* (an English-language demo teardown):
 
 ```
-demo/拆文库/盘龙/
-├── 概要.md              # Novel overview + chapter index
-├── 拆文报告.md           # 5-dimension scoring + pacing analysis + takeaways
-├── 文风.md              # Benchmark voice: sentence rhythm, punctuation, dialogue subtext, emotion pacing
-├── 章节/
-│   ├── 第1章_深度拆解.md … 第3章_深度拆解.md  # One deep analysis per Golden-3 chapter
-│   └── 第1章_摘要.md … 第23章_摘要.md          # One summary file per chapter
-├── 角色/
-│   ├── 林雷.md           # Protagonist full profile
-│   ├── 霍格.md           # Core supporting
-│   ├── 希尔曼.md         # Core supporting
-│   ├── 希里.md           # Functional character
-│   ├── 德林柯沃特.md      # Core supporting
-│   ├── 沃顿.md           # Functional character
-│   └── 角色关系.md        # Relationship network
-├── 剧情/
-│   ├── 故事线.md          # Framework + 4 plotlines + 2 storylines
-│   ├── 强者过境与魔法启蒙.md etc.  # Five scene-level plot units
-│   ├── 节奏.md            # Pacing + key-info progression + emotional trigger eruption rhythm
-│   └── 情绪模块.md        # Reader needs + emotional engine + reusable writing modules
-└── 设定/
-    ├── 世界观/
-    │   ├── 背景设定.md    # Core rules + special settings
-    │   ├── 力量体系.md    # Battle qi + magic + ranks
-    │   ├── 地理.md        # Andaluxia + Yulan Continent
-    │   └── 金手指.md      # Panlong Ring + Delin Cowort
-    └── 势力/
-        └── 巴鲁克家族.md  # Baluk family (dragon-blood lineage)
+demo/teardown-lib/The-Last-Knight/
+├── overview.md           # Novel overview + chapter index
+├── teardown-report.md    # 5-dimension scoring + pacing analysis + takeaways
+├── style.md              # Benchmark voice: sentence rhythm, punctuation, dialogue subtext, emotion pacing
+├── chapters/
+│   ├── chapter_1_deep-dive.md …   # One deep analysis per opening-hook chapter
+│   └── chapter_1_summary.md …     # One summary file per chapter
+├── characters/
+│   ├── kael.md           # Protagonist full profile
+│   ├── maren.md          # Core supporting
+│   └── relationships.md  # Relationship network
+├── plot/
+│   ├── storylines.md     # Framework + plotlines
+│   ├── scene-units.md    # Scene-level plot units
+│   ├── pacing.md         # Pacing + key-info progression + emotional trigger rhythm
+│   └── emotional-beats.md# Reader needs + emotional engine + reusable writing modules
+└── setting/
+    ├── worldview/
+    │   ├── background.md # Core rules + special settings
+    │   └── geography.md  # The Shattered Coast
+    └── factions/
+        └── the-iron-coven.md
 ```
 
-Long-form deconstruction also produces `文风.md`, plus `剧情/节奏.md` (pacing, key-info progression, emotional trigger eruption rhythm) and `剧情/情绪模块.md` (reader needs, emotional engine, reusable writing modules); daily writing consumes these through `对标/{书名}/剧情/` to keep voice, pacing, and emotion modules close to the benchmark.
+Long-form deconstruction also produces `style.md`, plus `plot/pacing.md` (pacing, key-info progression, emotional trigger rhythm) and `plot/emotional-beats.md` (reader needs, emotional engine, reusable writing modules); daily writing consumes these through `benchmark/{Book Title}/plot/` to keep voice, pacing, and emotion modules close to the benchmark.
 
 </details>
 
 <details>
-<summary>Deconstruction demo — Once I Hid My Love (曾将爱意私藏, short-form)</summary>
+<summary>Deconstruction demo — The Secret Keeper (short-form)</summary>
 
-`/story-short-analyze` deconstructing the short story 《曾将爱意私藏》 (~8,500 chars, win-back / "faked-death" genre):
+`/story-short-analyze` deconstructing a short story (~6,000 words, win-back / "faked-death" genre):
 
 ```
-demo/拆文库/曾将爱意私藏/
-├── 原文/原文.txt        # Source backup
-├── 拆文报告.md          # Story core + 5-dim scores + 6-facet payoff + cognitive reversal + 9-layer resonance
-├── 情节节点.md          # 54 plot points (source quotes + emotion markers −9~+9)
-├── 写作手法.md          # POV / dialogue / info-gap / object-hook — 11 techniques
+demo/teardown-lib/The-Secret-Keeper/
+├── source/source.txt    # Source backup
+├── teardown-report.md   # Story core + 5-dim scores + 6-facet payoff + cognitive reversal + resonance layers
+├── plot-points.md       # Plot points (source quotes + emotion markers)
+├── writing-techniques.md# POV / dialogue / info-gap / object-hook techniques
 └── _meta.json           # structure_counts (Phase 7 gate basis)
 ```
 
-Short-form deconstruction outputs `拆文报告 / 情节节点 / 写作手法`; downstream `/story-short-write` writes a new same-genre story from them.
+Short-form deconstruction outputs `teardown-report / plot-points / writing-techniques`; downstream `/story-short-write` writes a new same-genre story from them.
 
 </details>
 
 <details>
-<summary>Import demo — 让你管账号，你高燃混剪炸全网 (long-form continuation project)</summary>
+<summary>Import demo — The Shattered Throne (long-form continuation project)</summary>
 
-Run `/story-setup` first, then use `/story-import` to reverse-build the author's already-published first 20 chapters (~37k Chinese chars) into a continuation-ready writing project. Continue with `/story-long-write 日更` or `/story-long-write 写第21章`:
+Run `/story-setup` first, then use `/story-import` to reverse-build an already-published first 20 chapters into a continuation-ready writing project. Continue with `/story-long-write daily` or `/story-long-write chapter 21`:
 
 ```
-demo/长篇/让你管账号，你高燃混剪炸全网/
-├── 正文/        Chapters 001–020 (published source text)
-├── 大纲/        大纲.md · 卷纲_第1卷.md · 细纲_第001–020章.md (one file per chapter)
-├── 设定/        角色/ (6 character files) · 世界观/{background · cheat-system}
-│                关系.md · 题材定位.md · 文风.md
-└── 追踪/        _tracking-state.json · 上下文.md · 伏笔.md · 逐章记录/
-                 角色状态/{角色名}.md · 时间线/{作者真相.md · 读者已知.md}
+demo/long-form/The-Shattered-Throne/
+├── prose/         chapter_001–020 (published source text)
+├── outline/       outline.md · volume_outline_1.md · outline_chapter_001–020.md (one file per chapter)
+├── setting/       characters/ (6 character files) · worldview/{background · cheat-system}
+│                  relationships.md · genre-positioning.md · style.md
+└── tracking/      foreshadowing.md · timeline.md · character-state.md · context.md
 ```
 
 Per-chapter extraction (events / characters / settings / foreshadowing / timeline) is reverse-engineered into a continuation bible, so the author seamlessly continues from chapter 21.
@@ -251,7 +234,7 @@ Writing skills internally coordinate 7 specialized agents:
 |:------|:------|:-----|
 | **story-architect** | Opus | Story architecture — genre positioning, outline structure, hook/twist design, emotion arcs |
 | **character-designer** | Sonnet | Character design — profiles, voice, motivation chains, dialogue writing |
-| **narrative-writer** | Sonnet | Narrative writer — prose writing, de-AI-ify, format compliance |
+| **prose-writer** | Sonnet | Prose writer — prose writing, de-AI-ify, format compliance |
 | **consistency-checker** | Haiku | Consistency check — fact conflict scanning, foreshadowing tracking, S1-S4 grading reports |
 | **story-researcher** | Sonnet | Research — CDP search + full-text extraction, multi-source cross-verification, structured reference files |
 | **story-explorer** | Haiku | Story query — read-only character/foreshadowing/setting/progress lookup, quick context loading |
@@ -266,12 +249,12 @@ Agents load writing theory from `references/` on demand (character design, dialo
 | Hook | Trigger | Function |
 |:-----|:---------|:---------|
 | session-start.sh | Session start | Display branch, progress snapshot, deconstruction status |
-| session-end.sh | Session end | Log session to `追踪/session-log.txt` |
+| session-end.sh | Session end | Log session to `tracking/session-log.txt` |
 | detect-story-gaps.sh | Session start | Detect setting gaps, missing outlines, foreshadowing breaks |
 | pre-compact.sh | Before context compaction | Save progress snapshot path and line-count summary |
 | post-compact.sh | After context compaction | Prompt to read progress snapshot for context recovery |
 | validate-story-commit.sh | git commit | Check hardcoded attributes, setting required fields (warning only, non-blocking) |
-| guard-outline-before-prose.sh | Before writing prose (Write/Edit) | Blocks first creation of a chapter/story body when its 细纲/小节大纲 is missing (blocking) — enforces outline-first |
+| guard-outline-before-prose.sh | Before writing prose (Write/Edit) | Blocks first creation of a chapter/story body when its `outline_chapter_N.md` / `section-outline.md` is missing (blocking) — enforces outline-first |
 | check-prose-after-write.sh | After writing prose (Write/Edit) | Lightly scan for truncation, leaked workflow terms, deterministic toxic phrasing, and word-count debt (advisory) |
 
 ## Project File Structure
@@ -284,55 +267,49 @@ The file system separates settings, outlines, prose, and tracking into independe
 
 ```
 {Book Title}/
-├── Settings/
-│   ├── World/              # Background, power systems, etc. — one file per topic
-│   ├── Characters/         # One file per character (Shen_Zhi.md, Lu_Yanzhi.md)
-│   ├── Factions/           # One file per faction/organization (Tianji_Pavilion.md)
-│   ├── Relationships.md    # Character relationship map
-│   └── Genre_Positioning.md # Core trope + benchmark analysis
-├── Outline/
-│   ├── Outline.md          # Full-book volume-level structure
-│   ├── Volume_1.md         # One per volume: payoff pacing + emotion arc + character arc + foreshadowing + twists
-│   ├── Chapter_001.md      # One per chapter: summary + multi-line plot + relationships/order + hooks
+├── setting/
+│   ├── worldview/          # Background, power systems, etc. — one file per topic
+│   ├── characters/         # One file per character (kael.md, maren.md)
+│   ├── factions/           # One file per faction/organization (the-iron-coven.md)
+│   ├── relationships.md    # Character relationship map
+│   └── genre-positioning.md # Core trope + benchmark analysis
+├── outline/
+│   ├── outline.md          # Full-book volume-level structure
+│   ├── volume_outline_1.md # One per volume: payoff pacing + emotion arc + character arc + foreshadowing + twists
+│   ├── outline_chapter_001.md # One per chapter: summary + plot points + relationships/order + hooks
 │   └── ...
-├── Prose/
-│   ├── Chapter_001_Title.md
+├── prose/
+│   ├── chapter_001_Title.md
 │   └── ...
-├── Benchmark/                # Benchmark reference (structured subdirs synced from deconstruction)
+├── benchmark/                # Benchmark reference (structured subdirs synced from deconstruction)
 │   └── {Benchmark Book}/
-│       ├── Source/              # Benchmark book original chapters
-│       ├── Characters/         # Structured character profiles (synced from analyze)
-│       ├── Plotlines/          # Structured plot lines/pacing/emotion modules (synced from analyze)
-│       ├── Settings/           # Structured world settings (synced from analyze)
-│       ├── 文风.md              # Benchmark voice used before daily writing
-│       └── Report.md            # Analyze skill output
-├── Tracking/                # File-first continuity state
-│   ├── _tracking-state.json # Single structured authority (not loaded into prose prompts)
-│   ├── Context.md           # Derived hot context (7 fixed sections, ≤12 KB)
-│   ├── Chapter_Records/     # Compact continuity record / revision overlay (≤3072 bytes)
-│   ├── Character_Status/    # Derived snapshot per core character
-│   ├── Foreshadowing.md     # Derived current foreshadowing view
-│   └── Timeline/            # Derived author-truth and reader-known views
-├── References/              # story-researcher output
-│   └── {topic}.md           # Split by research topic
+│       ├── source/            # Benchmark book original chapters
+│       ├── characters/       # Structured character profiles (synced from analyze)
+│       ├── plot/             # Structured plot lines/pacing/emotion modules (synced from analyze)
+│       ├── setting/          # Structured world settings (synced from analyze)
+│       ├── style.md          # Benchmark voice used before daily writing
+│       └── teardown-report.md # Analyze skill output
+├── tracking/                # Continuity management (layered tracking)
+│   ├── context.md           # Writing context (for compact recovery)
+│   ├── foreshadowing.md     # Foreshadowing planted/resolved status table (cross-volume)
+│   ├── timeline.md          # In-story timeline (full-book)
+│   └── character-state.md   # Character current state snapshots (per-chapter)
+└── references/              # story-researcher output
+    └── {topic}.md           # Split by research topic
 ```
 
 **Short-form file structure:**
 
 ```
-短篇/{Title}/
-├── 正文.md                  # Final draft
-├── 小节大纲.md              # 8-section structure + emotion curve
-└── 拆文库/                  # If a reference novel exists (analyze output)
-    └── {Book}/
-        ├── 拆文报告.md
-        ├── 情节节点.md
-        └── 写作手法.md
+{Title}/
+├── prose.md                # Final draft
+├── section-outline.md      # Section structure + emotion curve
+└── setting.md              # Short-form setting sheet
 ```
 
-**Deconstruction Library:** Deconstruction skills save structured outputs (characters, plotlines, settings, chapters) under `拆文库/{Book Title}/` at project root; long-form plot output includes `节奏.md` and `情绪模块.md`. Writing skills consume these assets through `对标/{书名}/剧情/` and related benchmark subdirectories, or automatically fall back to reading from the deconstruction library.
+**Deconstruction Library:** Deconstruction skills save structured outputs (characters, plotlines, settings, chapters) under `teardown-lib/{Book Title}/` at project root; long-form plot output includes `plot/pacing.md` and `plot/emotional-beats.md`. Writing skills consume these assets through `benchmark/{Book Title}/plot/` and related benchmark subdirectories, or automatically fall back to reading from the deconstruction library.
 
-**`.active-book`:** a text file at project root containing the active book's relative path (for example, `长篇/My Novel`). Hooks and writing skills use it to locate the current project.
+**`.active-book`:** a text file at project root containing the active book's relative path (for example, `novels/My Novel`). Hooks and writing skills use it to locate the current project.
 
 ## Knowledge Base
 
@@ -343,51 +320,50 @@ Each skill includes a `references/` knowledge base loaded on demand to keep cont
 
 | Topic | Contents | Skill |
 |:------|:---------|:------|
-| Outline Layout | Five-step outline method · Story structure levels · Node design · Progression design | long-write |
-| Opening Design | Opening patterns · First 500 words · Golden First 3 Chapters | long-write / short-write |
+| Outline Layout | Outline method · Story structure levels · Node design · Progression design | long-write |
+| Opening Design | Opening patterns · First 500 words · Opening hook chapters | long-write / short-write |
 | Character Design | Character profiles · Character extraction · Relationship mapping · Motivation chains · Ensemble casts | long-write / short-write / short-analyze |
 | Hook Techniques | 13 chapter-end hooks · 7 chapter-start hooks · Paragraph-level hooks · Suspense orchestration | long-write / short-write / short-analyze |
-| Emotion Design | 6 arc templates · Expectation management · Genre track strategies | long-write / short-write |
-| Genre Frameworks | Long-form 8-node · Short-form compressed 3-act · 8 genre opening templates | long-write / short-write / short-analyze |
+| Emotion Design | Emotion-arc templates · Expectation management · Genre track strategies | long-write / short-write |
+| Genre Frameworks | Long-form structure · Short-form compressed 3-act · Genre opening templates | long-write / short-write / short-analyze |
 | Dialogue Techniques | Rhythm · Subtext · Information control · Dialogue pattern database | long-write / short-write |
 | Twist Toolbox | Types · Timing · Misdirection base paths | long-write / short-write |
-| Style Modules | Dialogue · Combat · Mind games · Cinematic writing · Face-slapping · Plain description | long-write |
-| Advanced Techniques | 4-step micro-outline · Climax reverse-engineering · Dual-thread structure · AB interweaving | long-write |
-| De-AI-ify | Prevention · 3-pass de-AI method · Rewrite examples · Banned word list | deslop / long-write / short-write |
+| Style Modules | Dialogue · Combat · Mind games · Cinematic writing · Comeuppance · Plain description | long-write |
+| Advanced Techniques | Micro-outlines · Climax reverse-engineering · Dual-thread structure · Interweaving | long-write |
+| De-AI-ify | Prevention · 3-pass de-AI method · Rewrite examples · Banned phrase list | deslop / long-write / short-write |
 | Quality Checks | General · Long-form specific · Short-form specific · Toxic trope detection | long-write / short-write / short-analyze |
-| Writing Formulas | 21 genre formulas · Three-flip-four-shock (escalating reversal) · Romance four-stage | short-write / short-analyze |
-| Female-oriented Writing | Female reader preferences · Emotional description · Romance patterns · Benchmark analysis | short-write |
-| Deconstruction Methods | Golden First 3 Chapters · Emotion curves · Structure breakdown · Zhihu style analysis | long-analyze / short-analyze |
-| Short-form Methodology | Story core · Plot nodes · Explosive point analysis · Writing techniques · Rhythm analysis · Resonance analysis · Character classification · Platform fit | short-analyze |
+| Writing Formulas | Genre formulas · Escalating reversal · Romance four-stage | short-write / short-analyze |
+| Romance-focused Writing | Romance reader preferences · Emotional description · Romance patterns · Benchmark analysis | short-write |
+| Deconstruction Methods | Opening hook chapters · Emotion curves · Structure breakdown · Platform style analysis | long-analyze / short-analyze |
+| Short-form Methodology | Story core · Plot points · Explosive point analysis · Writing techniques · Rhythm analysis · Resonance analysis · Character classification · Platform fit | short-analyze |
 | Deconstruction Examples | Full case breakdowns · Template output | short-analyze |
-| Reader Profiles | 9-dimension profiles · Target reader analysis | long-scan |
+| Reader Profiles | Reader dimensions · Target reader analysis | long-scan |
 | Market Data | Genre trends · Platform characteristics · Collection formats · Submission guides | long-scan / short-scan |
-| Cover Styles | 10 genre visual styles · Color composition · Prompt templates | story-cover |
+| Cover Styles | Genre visual styles · Color composition · Prompt templates | story-cover |
 | Adversarial Review | Multi-perspective review · Scoring rubrics · Toxic trope detection | story-review |
 
 </details>
 
 ## Supported Platforms
 
-**Long-form** Qidian (起点中文网) · Fanqie Novels (番茄小说) · Jinjiang (晋江文学城) · Qimao (七猫小说) · Ciweimao (刺猬猫)
+**Long-form** Royal Road · Webnovel (webnovel.com) · Wattpad · Amazon Kindle (Top 100 / Kindle Unlimited) · Inkitt
 
-**Short-form** Zhihu Yanyan (知乎盐言故事) · Fanqie Short-form (番茄短篇) · Qimao Short-form (七猫短篇)
+**Short-form** Wattpad · Inkitt · Radish · Galatea · Dreame · GoodNovel · Tapas
 
-Real output samples are in [demo/](demo/): short-form deconstruction 《曾将爱意私藏》 · long-form deconstruction 《盘龙》 · long-form continuation project 《让你管账号，你高燃混剪炸全网》 · cover sample 《剑道独尊》.
+Real output samples are in [demo/](demo/): short-form deconstruction *The Secret Keeper* · long-form deconstruction *The Last Knight* · long-form continuation project *The Shattered Throne* · cover sample *Sword Dao Supreme*.
 
 I built this skill pack to help me through a job-hunting transition :joy:, and I hope it can help others too.
 
 ## Contributing
 
-Contributions are welcome — new skills, knowledge base additions, market data updates. See [CONTRIBUTING.md](CONTRIBUTING.md) (Chinese only).
+Contributions are welcome — new skills, knowledge base additions, market data updates. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Community
 
 - **Telegram**: <https://t.me/ohstoryclaudecode> — chat, troubleshooting, and feature discussion.
-- **GitHub Discussions**: [ask questions, get help, share workflows](https://github.com/worldwonderer/oh-story-claudecode/discussions).
+- **GitHub Discussions**: [ask questions, get help, share workflows](https://github.com/GetZ110/oh-story-claudecode/discussions).
 
 ## Acknowledgments
 
 - [LINUX DO - The New Ideal Community](https://linux.do) — Community support
-- [FanqieRankTracker](https://github.com/wen1701/FanqieRankTracker) — Fanqie Novels font obfuscation decoding reference
 - [Zhuque AIGC Detector CLI](https://github.com/Sophomoresty/zhuque) — External retest reference used during anti-AI-writing experiments

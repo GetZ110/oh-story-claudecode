@@ -4,6 +4,8 @@ The detailed mapping rules for Phase 3-S short-form structure migration: convert
 
 > Long-form migration rules: `structure-mapping-long.md`.
 
+Use `{Imported Work Title}` for the work being migrated and `{External Benchmark Title}` only for an unrelated comparison work. Keep their analysis and benchmark paths separate; the imported work must never be registered as its own benchmark.
+
 ---
 
 ## Key differences from long-form

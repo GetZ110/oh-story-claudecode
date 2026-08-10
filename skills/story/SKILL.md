@@ -1,9 +1,13 @@
 ---
 name: story
 description: "Main entry for the web-fiction toolbox. Routes user needs to the matching skill and can launch the local Dashboard for browsing teardown libraries, writing projects, and editing text. Trigger phrases: /story, $story, /story dashboard, $story dashboard, web fiction toolbox, I want to write a novel, open the workbench, check for updates."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story: Web-fiction toolbox router
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are the routing entry of the web-fiction toolbox. When the user's request is vague, you dispatch it to the concrete skill.
 
@@ -98,10 +102,10 @@ When the user wants to switch books or see what's in progress (one project may h
 Run when the user asks "is there a new version" / "check for updates" / "upgrade". **Notify only; updating is the user's call, never auto-install.**
 
 1. **Current version**: read the `VERSION` file in this skill's directory; missing = unknown.
-2. **Latest version**: prefer `gh release view --json tagName,name,url -R worldwonderer/oh-story-claudecode` for `tagName`; without `gh`, use `curl -fsS --max-time 5 https://api.github.com/repos/worldwonderer/oh-story-claudecode/releases/latest` for `.tag_name` (jq or grep). Unreachable -> tell the user "couldn't fetch the latest version; check [Releases](https://github.com/worldwonderer/oh-story-claudecode/releases) manually", no error.
+2. **Latest version**: prefer `gh release view --json tagName,name,url -R GetZ110/oh-story-claudecode` for `tagName`; without `gh`, use `curl -fsS --max-time 5 https://api.github.com/repos/GetZ110/oh-story-claudecode/releases/latest` for `.tag_name` (jq or grep). Unreachable -> tell the user "couldn't fetch the latest version; check [Releases](https://github.com/GetZ110/oh-story-claudecode/releases) manually", no error.
 3. **Compare**: strip the `v` prefix and compare semantically (major.minor.patch). `gh release` defaults to the latest stable release, excluding pre-releases.
 4. **Inform**:
    - Already latest -> "You are on the latest version vX.Y.Z".
-   - New version -> list current vA -> latest vB + [Releases](https://github.com/worldwonderer/oh-story-claudecode/releases)/[CHANGELOG](https://github.com/worldwonderer/oh-story-claudecode/blob/main/CHANGELOG.md) (attach this release's notes when obtainable), then use AskUserQuestion to ask "Update now?":
-     - Update -> run `npx skills add worldwonderer/oh-story-claudecode -y -g` (`-g` is global; drop it to update only the current directory); when done, remind: deployed projects should re-run `/story-setup` at the project root (Codex: `$story-setup`) to sync hooks/agents/references, and **start a new session** so agents re-register.
+   - New version -> list current vA -> latest vB + [Releases](https://github.com/GetZ110/oh-story-claudecode/releases)/[CHANGELOG](https://github.com/GetZ110/oh-story-claudecode/blob/main/CHANGELOG.md) (attach this release's notes when obtainable), then use AskUserQuestion to ask "Update now?":
+     - Update -> run `npx skills add GetZ110/oh-story-claudecode -y -g` (`-g` is global; drop it to update only the current directory); when done, remind: deployed projects should re-run `/story-setup` at the project root (Codex: `$story-setup`) to sync hooks/agents/references, and **start a new session** so agents re-register.
      - Not now -> leave everything; tell the user they can ask again anytime.

@@ -129,7 +129,7 @@ they must not appear in shipped content.
 
 ## 9. Global style directive (replaces the Chinese one in every SKILL.md tail)
 
-> - Follow the user's language.
+> - Follow the book's language contract; for English projects use `en-US` by default and do not switch output language based on the user's chat language.
 > - English prose follows the house style rules in the skill's `references/` files
 >   (especially `anti-ai-writing.md`); keep sentences conversational, concrete,
 >   and free of AI-flavor patterns.

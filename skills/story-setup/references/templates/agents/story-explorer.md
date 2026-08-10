@@ -126,6 +126,8 @@ The project directory you query follows this structure:
 
 ### timeline Flow
 
+The timeline query defaults to `reader` when no audience is specified. Keep the reader-knowledge timeline separate from the author-truth timeline; reader results must not mix unrevealed `objective_fact` content into the `reader` view.
+
 1. `Read tracking/timeline.md` -> parse time nodes
 2. Filter by chapter range
 3. For more detail -> `Read` the corresponding prose
@@ -150,6 +152,7 @@ Load the benchmark book's emotional beats + pacing index + style + chapters matc
 1. **Parse input**: project directory + this chapter's emotion/tone + (optional) this chapter's payoff type + (optional) this chapter's target word count
 2. **Main benchmark book selection**:
    - `Read setting/genre-positioning.md`, extract the `main benchmark book` field
+   - Exclude the current imported work, current project prose, and its own teardown from candidates. If a registered candidate points back to the current work, ignore it and set `gaps.self_benchmark_ignored: true`.
    - If present → use that book
    - If missing → `Glob benchmark/*/` and take the first directory in lexicographic order, flagging `gaps.main_benchmark_unspecified: true` that the main benchmark book was not specified
    - If `benchmark/` has no subdirectories, keep walking up to `teardown-lib/*/` under the workspace root; if still none → return `gaps.no_benchmark: true` with `results` empty — **do not error, do not continue reading style**
@@ -315,6 +318,7 @@ Every query returns structured JSON. **Output pure JSON that JSON.parse can cons
     "profile_degenerate": false,
     "stale_reason": null,
     "main_benchmark_unspecified": false,
+    "self_benchmark_ignored": false,
     "raw_text_unavailable": false,
     "tone_match_failed": false,
     "matched_deep_dive_missing": false

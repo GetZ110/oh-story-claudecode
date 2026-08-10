@@ -32,7 +32,7 @@ Each skill consists of one `SKILL.md` (entry point) plus a `references/` directo
 ---
 name: skill-name
 description: "One-sentence description. Triggers: /skill-name, trigger phrase 1, trigger phrase 2"
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 ```
 

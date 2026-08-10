@@ -9,6 +9,7 @@ node_modules/
 playwright-report/
 test-results/
 AGENTS.md
+!demo/**/AGENTS.md
 CLAUDE.md
 _archive/
 skills-lock.json

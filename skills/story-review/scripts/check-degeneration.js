@@ -176,7 +176,7 @@ function stripQuoted(text) {
 }
 
 function visibleLength(text) {
-  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?/g);
+  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+|-[A-Za-z0-9]+)*/g);
   return m ? m.length : 0;
 }
 

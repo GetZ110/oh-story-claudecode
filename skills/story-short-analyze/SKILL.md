@@ -2,7 +2,7 @@
 name: story-short-analyze
 version: 3.0.0
 description: "Short-fiction teardown. Deconstructs hit short stories (Wattpad / Inkitt / Radish / Galatea / Dreame / GoodNovel / Tapas episodic romance, enemies-to-lovers, second chance, dark romance, cozy mystery, whodunit, psychological thriller, etc.) for story core, structure, emotional line, reversal design, writing craft, resonance layers. Single full-teardown pipeline: running Stage 2-6 produces the complete teardown report in teardown-lib/{Book Title}/; downstream story-short-write reads the teardown report + plot nodes + craft methods + source + _meta.json to write the next story. Triggers: /story-short-analyze, 'tear down this short story', 'analyze this short piece', 'short-fiction teardown', '8000-word short teardown', 'teardown this one-shot' — all enter the same pipeline."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-short-analyze: Short-Fiction Teardown
 
@@ -250,5 +250,5 @@ All references in `story-short-analyze` are **comparison yardsticks** — compar
 
 ## Language
 
-> - Follow the user's language.
+> - Load the deployed English book contract. Use the source/book language for the teardown and record the inferred profile; for English source material default records to `en-US`. The user's chat language does not override the source language.
 > - English prose follows the house style rules in the skill's `references/` files (especially `anti-ai-writing.md`); keep sentences conversational, concrete, and free of AI-flavor patterns.

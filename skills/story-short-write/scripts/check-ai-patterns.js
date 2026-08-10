@@ -1081,7 +1081,7 @@ function sentenceAround(text, index) {
 // Word count (the English density denominator): letters/digits with internal
 // apostrophes and hyphens count as one word.
 function visibleLength(text) {
-  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?/g);
+  const m = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+|-[A-Za-z0-9]+)*/g);
   return m ? m.length : 0;
 }
 

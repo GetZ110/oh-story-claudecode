@@ -2,9 +2,13 @@
 name: story-short-write
 version: 1.0.0
 description: "Short-form fiction writing. From concept to finished short story with emotional pull. Triggers: /story-short-write, $story-short-write, 'write a short story', 'draft a short fiction piece', 'write a one-shot'."
-metadata: {"openclaw":{"source":"https://github.com/worldwonderer/oh-story-claudecode"}}
+metadata: {"openclaw":{"source":"https://github.com/GetZ110/oh-story-claudecode"}}
 ---
 # story-short-write: Short-Form Fiction Writing
+
+### Agent bundle preflight
+
+The current deployment contract is `agents_version: 23`. A version mismatch does not block spawning: continue checking the deployed files and emit `Notice: agents bundle version mismatch`. If the deployed version is greater than 23, tell the user to update oh-story-claudecode first. only missing or unavailable custom agents trigger solo/direct fallback.
 
 You are the short-form fiction writing executor. From concept to finished draft, produce one complete short story.
 
@@ -21,6 +25,7 @@ You are the short-form fiction writing executor. From concept to finished draft,
 3. **Every sentence must earn its place.** A sentence that doesn't advance the plot, seed the reversal, or raise the emotion gets cut.
 4. **The first 3 sentences decide the story's life; the ending decides its spread.** The opening must contain a hook; the ending must leave residue.
 5. **POV follows the platform and market, not a fixed default.** Wattpad YA romance and Radish contemporary romance are usually first-person for immersion; Inkitt and Galatea vary by subgenre (thrillers and mysteries often run third-person or multi-POV); Tapas and Wattpad anthology pieces often use close third. Decide the POV from the target platform and genre pack, and state the choice in `setting.md` so it stays consistent.
+6. **English localization is explicit**: check names, places, institutions, occupations, education, law, medicine, military terms, dates, money, units, idioms, titles, kinship terms, and dialogue register against the book's market profile. Preserve intentional non-English setting details, but record why they remain.
 
 ---
 
@@ -90,7 +95,7 @@ project-root/
             └── craft-methods.md
 ```
 
-**Benchmark discovery (before the reactive loading below)**: if the project root `teardown-lib/` contains deconstructed short stories, proactively recommend one matching the current genre instead of waiting for the user to ask.
+**Benchmark discovery (before the reactive loading below)**: exclude the current imported work, current project prose, and its own teardown from all benchmark candidates. If the project root `teardown-lib/` contains other deconstructed short stories, proactively recommend one matching the current genre instead of waiting for the user to ask.
 
 1. `ls teardown-lib/` to list books; if empty → skip (write from the genre pack per the Phase 1 emotion → pack table).
 2. Read each `teardown-lib/{Book}/_meta.json` `genre_detected` and compare with this story's genre; mark same-genre / weakly-related.
@@ -141,6 +146,13 @@ Help the user settle the short story's core framework:
 - Title (working): {}
 - Target words: {} words (short form usually 4000-12000 words)
 - Target platform: {}
+- Prose language: en
+- Record language: en
+- English variant: en-US
+- Spelling / dialogue quotation: US English / curly double quotes
+- Market: {US | UK | global English}
+- Content rating / warnings: {general | teen | mature} / {none or list}
+- Serialization: {serial episode | ebook manuscript | one-shot}
 - Emotion goal: {what readers should feel at the end}
 
 ### One-line premise
@@ -202,7 +214,7 @@ After the design tasks, if the project has a character-designer agent deployed (
 - Break paragraphs by dramatic unit/picture: new action, new clue, new dialogue, or a viewpoint shift starts a new paragraph; a complete line of reasoning, an atmosphere, or an emotion chain may run longer.
 - Peak / comeuppance / reversal beats run short; settling / reasoning / resolution beats may run long; payoff beats are written dense, transition beats sparse — never uniform paragraph lengths.
 - Subject rhythm: name the subject at paragraph start or when resetting; prefer pronouns/elision inside one action chain; name it again only at key turns.
-- Punctuation follows tone: question marks for interrogation, a few exclamation marks at bursts; hesitation, unfinished speech, and interruption are done with action beats, short sentences, or line breaks; the body never uses `……` / `——` / `—` / `--` (English equivalents: no ellipsis runs, no em-dash padding — see short-format.md).
+- Punctuation follows tone: question marks for interrogation, a few exclamation marks at bursts; hesitation, unfinished speech, and interruption are done with action beats, short sentences, or line breaks. Functional English ellipses and em dashes are allowed; avoid repeated pause padding and em-dash clusters, and keep punctuation consistent with the book contract (see short-format.md).
 - Concrete word counts (e.g., "those five words") only when verified character-by-character and needed by the story; otherwise write "that one line" / "those words".
 - POV presence per the platform decision: in hurt passages the first-person voice can vent plainly; in counterattack passages it can judge coldly. Only cut neutral, emotion-free author exposition — never cut first-person verdicts or payoffs that carry the protagonist's bias.
 - Emotions may be named outright, but must land on an action or object specific to this scene; only emotion-summary sentences with no concrete follow-through get cut.
@@ -224,7 +236,7 @@ The main session writes the body in batches of 2-3 sections by default; the main
 Genre exceptions: high-information-density directions (fast thrillers, premise-driven comedy) may drop to ≥ 300 words/section (see genre-writing-formulas.md per-formula quick tables), never below 300.
 After each section, count words and lines. A section under the floor may not be skipped — add more sub-events or dialogue until it clears the floor before writing the next section. The finished whole must total ≥ 4000 words.
 **Episode serialization (Radish / Galatea / Inkitt / Wattpad)**: when writing for these platforms, group 3-6 sections into one episode of **1500-3000 words**; each episode ends on a throat-grabbing cut point (a reveal about to drop, a decision half-made) — see submission-craft.md "paywall break". The section floor (≥ 400 words) still applies inside each episode; the episode is the packaging unit, the section is the writing unit.
-**Word counting must be executable cross-platform: prefer Python word count**: `for PYBIN in python3 python py; do "$PYBIN" -c "" 2>/dev/null && break; done; "$PYBIN" -c "from pathlib import Path; print(len(Path('prose.md').read_text(encoding='utf-8').split()))"`. **Don't call `python3` directly** — on Windows `python3` lands on the Microsoft Store stub and silently fails with exit 49; the probe above picks the real interpreter in the order `python3→python→py`. Don't let the model eyeball word counts; `wc -w` is only a macOS/Linux fallback. If the current agent/tool environment has no Bash/Python access, you must state "machine word verification not completed" and use a line-count estimate, never claim the hard word check passed.
+**Word counting must follow the deployed shared English word-count contract**: probe `python3`, `python`, then `py`, and run `from pathlib import Path; import re; print(len(re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z0-9]+|-[A-Za-z0-9]+)*", Path('prose.md').read_text(encoding='utf-8'))))`. **Don't call `python3` directly** — on Windows `python3` can be a Microsoft Store stub. Do not use plain `.split()`, `wc -c`, or model estimation. If the environment has no Python access, state "machine word verification not completed" and never claim the hard word check passed.
 **⚠️ Under-length = section unfinished. Never end a section below the floor. Keep expanding the scene until it clears.**
 
 **Section-count conservation**: the body's section count must equal the section-outline's planned count. Never merge several sections into one. If a section turns out not to need its own slot, go back to the outline stage and adjust there — don't silently cut during writing.
@@ -336,7 +348,7 @@ Ending types:
 
 **Word counting notes**:
 - `wc -c` counts bytes — never use it for word count, and never let the model estimate
-- Word count follows the hard-constraint Python probe command above; `wc -w` is only a macOS/Linux fallback
+- Word count follows the shared English tokenization contract; `wc -w` is only a macOS/Linux fallback when its result matches the contract's edge cases
 - Line count via `wc -l` is safe
 
 **Fail → go back and top up. Do not enter polish.**
@@ -431,5 +443,7 @@ Some topics live across several files. This table gives one **authoritative file
 
 ## Language
 
-- Follow the user's language.
+- Before Phase 2, load the deployed English book contract.
+- Create or update `{StoryTitle}/AGENTS.md` before writing `setting.md`, using the contract's language and market template. Short-form projects use the same `Prose language`, `Record language`, `English variant`, quote, platform, rating, and serialization fields as long-form projects.
+- Resolve settings from the book's `AGENTS.md`, then `setting.md`, then the source prose, then the repository default `en-US`; never switch output language because the user's chat message is in another language.
 - English prose follows the house style rules in `references/` (especially `anti-ai-writing.md`): keep sentences conversational, concrete, and free of AI-flavor patterns.
