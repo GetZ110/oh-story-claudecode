@@ -7,7 +7,7 @@
 首次安装：
 
 ```powershell
-npx skills add GetZ110/oh-story-claudecode -y -g
+Install this skill https://github.com/GetZ110/oh-story-claudecode
 ```
 
 安装完成后重启 Codex。
