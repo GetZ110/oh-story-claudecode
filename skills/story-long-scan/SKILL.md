@@ -119,6 +119,16 @@ Core fields: reads, votes, chapters, genre tags.
 
 **File naming**: `{platform}_{ranking}_{YYYYMMDD}.md`, e.g. `royal-road_rising-stars_20260425.md`, `kindle_top-100-paid_20260425.md`.
 
+#### Verified collection pitfalls (field-tested 2026-08, Windows/sandbox)
+
+Before scripting a collection run, read `browser-cdp/SKILL.md` "Windows / restricted-environment pitfalls" (P1-P5) and the per-platform recipes in `references/scan-output-format.md`. The short version:
+
+1. **WebSearch may be unavailable** (auth/API failure). Fall back in order: browser research (CDP) → plain-HTTP fetch where allowed → user-provided data → built-in knowledge. State the fallback in the report header.
+2. **agent-browser on Windows**: set `$env:AGENT_BROWSER_SOCKET_DIR` to a writable dir (P1); never capture output via variables/pipes/`-Wait` (P2) — use `scripts/ab-run.ps1` (`Invoke-AB`) or the poll pattern; double-parse eval results (P4); keep eval payloads compact (P5).
+3. **Same-origin rule**: platform API fetches (e.g. Wattpad `api/v3`) only work while the active tab is on that platform's domain — open the site first, then eval.
+4. **Save data as real JSON** (`ConvertTo-Json`), never `Set-Content` on objects (writes `@{...}` text and degrades arrays).
+5. When Chrome cannot launch because the environment denies named pipes/`OpenProcess` (mojo FATAL), that is an environment boundary: escalate the setup command once if the platform allows, otherwise fall back and record it.
+
 #### Collection quality check (mandatory after each ranking)
 
 After each ranking collection, immediately run these checks. Fix problems on the spot; do not leave them for analysis. Detailed rules live in [references/scan-output-format.md](references/scan-output-format.md).

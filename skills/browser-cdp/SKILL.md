@@ -126,6 +126,62 @@ agent-browser --cdp 9222 type "<sel>" "<text>"
 
 ---
 
+## Windows / restricted-environment pitfalls (field-tested 2026-08)
+
+These are real failures hit during market scans in a sandboxed Windows environment. Read this section before scripting collection on Windows; each pit has a verified workaround.
+
+### P1. agent-browser cannot write its socket directory
+
+Error: `✗ Socket directory 'C:\Users\<user>\.agent-browser' is not writable: 拒绝访问 (os error 5)`.
+
+Cause: agent-browser keeps its control socket under `~/.agent-browser`; a sandbox or ACL that denies writes to the home dir kills every command.
+
+Fix: point the socket dir at a writable location with the env var **`AGENT_BROWSER_SOCKET_DIR`** (verified; the binary reads this exact name — `USERPROFILE`/`HOME` overrides do NOT work on Windows):
+
+```powershell
+$env:AGENT_BROWSER_SOCKET_DIR = "D:\work\.agent-browser"   # any writable dir
+```
+
+### P2. Capturing agent-browser output hangs on Windows (pipe EOF)
+
+Symptoms: `$x = agent-browser ...`, `agent-browser ... | Out-File`, and `Start-Process -Wait -RedirectStandardOutput` all HANG even though the command itself completes in ~1 s. Direct console output works; `| Select-Object -First N` works only because it closes the pipe early.
+
+Cause: agent-browser (or a descendant) keeps the stdout handle open past process exit, so PowerShell waits for pipe EOF forever. Do not retry different capture shapes — use the verified poll pattern:
+
+```powershell
+$p = Start-Process -FilePath $abExe -ArgumentList @("--cdp","9222","eval","-b",$b64) `
+  -RedirectStandardOutput $outFile -RedirectStandardError $errFile -NoNewWindow -PassThru
+while (-not $p.HasExited -and (Get-Date) -lt $deadline) { Start-Sleep -Milliseconds 400 }
+# read $outFile after exit; Stop-Process -Id $p.Id -Force on timeout
+```
+
+A ready-made, parameterized implementation lives in **`scripts/ab-run.ps1`** (function `Invoke-AB`): dot-source it, then `$result = Invoke-AB -Port 9222 -B64 $b64` returns the eval output as text. In restricted sandboxes, node-based helpers that capture child stdout via pipes (`child_process` with default `stdio: 'pipe'`) fail with EPERM — the PowerShell poll pattern is the fallback there.
+
+### P3. Chrome itself refuses to launch (sandbox/ACL, not a config bug)
+
+Symptoms: setup script reports "Failed to bring up the Chrome CDP environment within 30 seconds" while Chrome processes die instantly; foreground launch shows `FATAL:mojo\public\cpp\platform\platform_channel.cc Check failed (拒绝访问)` and/or crashpad `OpenProcess: 拒绝访问 (0x5)`.
+
+Cause: Chrome's Mojo IPC uses named pipes and crashpad needs `OpenProcess` — restricted environments (sandboxes, job objects, tight ACLs) deny both, so Chrome self-terminates at startup. The profile-copy EPERM warnings in the same run are the same root cause.
+
+Handling:
+- This is an environment boundary, not a profile problem: `--reset` will not help.
+- If the environment supports an escalation mechanism (e.g. a one-shot "full access" retry of the setup command), use it — the setup script then succeeds unchanged.
+- Otherwise fall back to non-browser collection (plain HTTP where allowed, API endpoints, or built-in knowledge) and record the fallback in the report.
+
+### P4. `eval` return values are JSON-encoded strings
+
+`agent-browser eval` returns the result as a JSON string literal (escaped), e.g. `"{\"count\":0}"`. Parse twice (or use `cdp-utils.js` `evalJSON`, which already double-parses):
+
+```powershell
+$j = ($result | ConvertFrom-Json | ConvertFrom-Json)
+```
+
+### P5. Big eval payloads feel like hangs
+
+Fetching 20-50 API records in one eval is fine (the fetch itself is fast); the apparent hang is usually P2. Still, compact the payload before returning it (map to short keys, truncate descriptions, slice tag arrays) and prefer `limit=20-50` with pagination over `limit=100+`.
+
+---
+
 ## OpenCode environment notes
 
 opencode has no background command-line tool; long CDP operations (waiting for page load, bulk scraping) block the whole session and the CLI stops responding.

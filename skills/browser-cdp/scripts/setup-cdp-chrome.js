@@ -627,7 +627,11 @@ function copyFileSafe(src, dest) {
     return true;
   } catch (e) {
     if (e.code !== "ENOENT") {
-      warn(`Copy failed: ${src} -> ${dest} (${e.code || e.message})`);
+      const hint =
+        e.code === "EPERM" || e.code === "EACCES"
+          ? ` (${e.code}: permission/sandbox restriction — the profile copy may fail, and if Chrome later cannot start, see the launch-failure diagnostics below)`
+          : "";
+      warn(`Copy failed: ${src} -> ${dest} (${e.code || e.message})${hint}`);
     }
     return false;
   }
@@ -1035,6 +1039,21 @@ async function main() {
   err("  - Chrome does not support --remote-debugging-port");
   err(`  - port ${CDP_PORT} is already occupied by another process`);
   err("  - the debug profile directory is corrupted (try --reset)");
+  err(
+    "  - PERMISSION/SANDBOX RESTRICTION (common on Windows in sandboxes/CI): Chrome's Mojo IPC uses named pipes and crashpad needs OpenProcess;"
+  );
+  err(
+    "    when either is denied Chrome self-terminates at startup. Check for FATAL:mojo platform_channel or crashpad OpenProcess 'access denied'"
+  );
+  err(
+    "    errors by running Chrome in the foreground, and for EPERM/EACCES on the profile copy. This is an environment boundary, not a profile problem:"
+  );
+  err(
+    "    --reset will not help; run this script with wider permissions, or fall back to non-browser collection (plain HTTP / API endpoints / built-in knowledge)."
+  );
+  err(
+    `  - Profile copy failed with EPERM/EACCES earlier (see warnings above) — the debug profile may be incomplete; if permissions are the issue, the launch will fail as described above.`
+  );
   process.exit(1);
 }
 
